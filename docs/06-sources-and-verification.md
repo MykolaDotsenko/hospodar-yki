@@ -66,6 +66,21 @@
 | «Підручники мають офіційний статус OPH» | **Ні**, OPH не призначає офіційний підручник YKI |
 | «Зразки Jyväskylä — питання з майбутнього тесту» | **Ні**, це лише демонстрація типів |
 
+
+## Доповнення після другого пошуку 21.10.2026
+
+Деталі та статус перевірки всіх нових URL: [07 — нові YKI-матеріали](07-new-yki-resources-2026-10.md).
+
+- HAAGA-01 https://www.haaga-helia.fi/fi/avoin-amk/yki-kurssit-avoin-amk
+- SUOMI-01 https://www.suomikoulut.fi/yki/
+- YLE-03 https://yle.fi/a/20-146213
+- KIELI-01 https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/puhutsa-suomee
+- KIELI-02 https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja/opiskele-tekstitaitoja
+- KIELI-03 https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa
+- LEXIE-01 https://www.lexielearn.com/fi/kurssit/yki-testi
+- **Виправлення:** Yle Kielikoulu закрито у травні 2025: https://yle.fi/aihe/kielikoulu-sprakskolan
+- **Перевірка OPH:** сторінка https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia має підпис PDF «perusteet 2026», який веде на https://www.oph.fi/sites/default/files/documents/yleisten-kielitutkintojen-perusteet-2011.pdf; не позиціонувати як нову редакцію без окремої перевірки.
+
 ## План актуалізації (без фонових дій)
 
 - **Перед 01.01.2027:** перевірити нові правила цифрового тесту після пілота; оновити графіки й інструкції.
