@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "04-kulttuuri",
+  "title_fi": "Kulttuuri",
+  "title_uk": "Культура та дозвілля",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Kulttuuripäivä kirjastossa",
+    "text_fi": "Kaupunginkirjasto järjestää lauantaina kulttuuripäivän. Kello 13 alkaa maksuton valokuvanäyttelyn esittely, ja kello 15 järjestetään kirjoitustyöpaja. Työpajaan osallistuminen maksaa neljä euroa, ja siihen pitää ilmoittautua viimeistään torstaina. Päivän aikana kahvilassa soittaa paikallinen musiikkiryhmä. Kirjaston henkilökunta muistuttaa, että alle 12-vuotiaat voivat osallistua työpajaan aikuisen kanssa. Jos osallistuja ei pääse paikalle, ilmoittautumisen voi perua sähköpostilla.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mihin ohjelmaan pitää ilmoittautua etukäteen?",
+        "options": [
+          "Valokuvanäyttelyn esittelyyn",
+          "Kirjoitustyöpajaan",
+          "Kahvilan musiikkiin"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Вимога реєстрації стосується kirjoitustyöpaja.",
+        "id": "04-kulttuuri-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin ilmoittautuminen päättyy?",
+        "options": [
+          "Torstaina",
+          "Perjantaina",
+          "Lauantaina"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Зазначено «viimeistään torstaina».",
+        "id": "04-kulttuuri-r-q2"
+      }
+    ],
+    "id": "04-kulttuuri-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Suunnitelmia viikonlopuksi",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Lähdetkö lauantaina elokuviin?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Ehkä. Mitä siellä esitetään?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Kotimainen komedia alkaa kuudelta. Liput maksavat kymmenen euroa."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kuudelta en ehdi, koska olen töissä seitsemään."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Sunnuntaina on toinen näytös kello viisi."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Se sopii! Varataanko liput verkosta?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Joo, minä varaan ne tänään."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi lauantain näytös ei sovi?",
+        "options": [
+          "Se on liian kallis",
+          "Toinen henkilö on töissä",
+          "Elokuva on loppuunmyyty"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Työvuoro päättyy seitsemältä, näytös alkaa kuudelta.",
+        "id": "04-kulttuuri-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin he aikovat mennä elokuviin?",
+        "options": [
+          "Sunnuntaina kello 17",
+          "Lauantaina kello 18",
+          "Sunnuntaina kello 19"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Sunnuntain näytös on viideltä.",
+        "id": "04-kulttuuri-l-q2"
+      }
+    ],
+    "id": "04-kulttuuri-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Kutsu ystävä kulttuuritapahtumaan ja sopikaa päivä sekä tapaamispaikka.",
+      "required_points_fi": [
+        "tapahtuma",
+        "ehdotettu aika",
+        "tapaamispaikka"
+      ],
+      "hint_fi": "Tarjoa toinen vaihtoehto, jos ensimmäinen ei sovi.",
+      "training_timing_only": true,
+      "id": "04-kulttuuri-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Miksi kirjastoja ja kulttuuritapahtumia tarvitaan? Perustele mielipiteesi.",
+      "required_points_fi": [
+        "oma kanta",
+        "kaksi perustelua",
+        "yksi esimerkki"
+      ],
+      "hint_fi": "Voit pohtia maksuttomuutta ja yhteisöllisyyttä.",
+      "training_timing_only": true,
+      "id": "04-kulttuuri-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kirjoita ystävälle kutsu viikonlopun tapahtumaan. Kerro ohjelma, hinta ja tapaamisehdotus.",
+      "required_points_fi": [
+        "ohjelma",
+        "hinta",
+        "tapaaminen"
+      ],
+      "hint_fi": "Käytä kysymyslausetta lopussa.",
+      "training_timing_only": true,
+      "id": "04-kulttuuri-writing-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Onko tärkeämpää harrastaa liikuntaa vai kulttuuria? Kerro näkemyksesi ja vertaa vaihtoehtoja.",
+      "required_points_fi": [
+        "vertailu",
+        "oma valinta",
+        "perustelut"
+      ],
+      "hint_fi": "Molemmat voivat olla tärkeitä; kerro silti oma painotuksesi.",
+      "training_timing_only": true,
+      "id": "04-kulttuuri-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Näyttelyyn on vapaa pääsy.",
+      "uk": "Вхід на виставку безкоштовний.",
+      "example_fi": "Näyttelyyn on vapaa pääsy tänään.",
+      "id": "04-kulttuuri-chunk-01"
+    },
+    {
+      "fi": "Ilmoittautuminen päättyy torstaina.",
+      "uk": "Реєстрація завершується в четвер.",
+      "example_fi": "Ilmoittautuminen päättyy torstaina illalla.",
+      "id": "04-kulttuuri-chunk-02"
+    },
+    {
+      "fi": "Olisiko sinulla aikaa lauantaina?",
+      "uk": "Чи мав/ла б ти час у суботу?",
+      "example_fi": "Olisiko sinulla aikaa lauantaina iltapäivällä?",
+      "id": "04-kulttuuri-chunk-03"
+    },
+    {
+      "fi": "Minulle sopii sunnuntai paremmin.",
+      "uk": "Мені більше підходить неділя.",
+      "example_fi": "Minulle sopii sunnuntai paremmin kuin lauantai.",
+      "id": "04-kulttuuri-chunk-04"
+    },
+    {
+      "fi": "Pidän elokuvista, koska...",
+      "uk": "Мені подобаються фільми, тому що...",
+      "example_fi": "Pidän elokuvista, koska ne rentouttavat.",
+      "id": "04-kulttuuri-chunk-05"
+    },
+    {
+      "fi": "Varataan liput etukäteen.",
+      "uk": "Забронюймо квитки заздалегідь.",
+      "example_fi": "Varataan liput etukäteen verkosta.",
+      "id": "04-kulttuuri-chunk-06"
+    }
+  ]
+}

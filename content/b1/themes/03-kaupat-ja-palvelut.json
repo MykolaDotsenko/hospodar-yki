@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "03-kaupat-ja-palvelut",
+  "title_fi": "Kaupat ja palvelut",
+  "title_uk": "Магазини та послуги",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Verkkokaupan palautusohje",
+    "text_fi": "Tämän verkkokaupan asiakkaat voivat palauttaa käyttämättömän tuotteen 30 päivän kuluessa tilauksen vastaanottamisesta. Tuotteen mukana pitää palauttaa kaikki pakkauksessa olleet osat. Ennen palautusta täytetään verkkosivulla lomake, jonka jälkeen sähköpostiin tulee osoitekortti. Jos tuote on viallinen, asiakkaan pitää ottaa ensin yhteyttä asiakaspalveluun ja kertoa ongelmasta. Palvelu vastaa arkisin yleensä kahden työpäivän sisällä. Huomaa, että tässä kuvataan tämän kaupan käytäntöä eikä kaikkien kauppojen sääntöjä.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin käyttämättömän tuotteen voi palauttaa kaupan ohjeen mukaan?",
+        "options": [
+          "Seitsemän päivän aikana",
+          "30 päivän aikana vastaanottamisesta",
+          "Vain ostopäivänä"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Зазначено 30 днів від отримання.",
+        "id": "03-kaupat-ja-palvelut-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä vialliselle tuotteelle pitää ensin tehdä?",
+        "options": [
+          "Olla yhteydessä asiakaspalveluun",
+          "Heittää pakkaus pois",
+          "Tilata heti toinen"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Для дефектного товару спершу треба зв'язатися зі службою підтримки.",
+        "id": "03-kaupat-ja-palvelut-r-q2"
+      }
+    ],
+    "id": "03-kaupat-ja-palvelut-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Paketti on väärä",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Asiakaspalvelu, kuinka voin auttaa?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Hei, sain tänään paketin, mutta siellä oli vääränkokoinen takki."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Olen pahoillani. Mikä koko tilauksessanne oli?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Tilasin koon M, mutta paketissa oli koko L."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Lähetämme oikean koon. Voitte palauttaa väärän takin maksutta palautustarralla."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kiitos! Milloin uusi takki lähtee?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Huomenna. Saatte seurantakoodin sähköpostiin."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä asiakas oli tilannut?",
+        "options": [
+          "Koon L takin",
+          "Koon M takin",
+          "Kengät"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Tilauksessa oli koko M.",
+        "id": "03-kaupat-ja-palvelut-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miten uusi toimitus vahvistetaan?",
+        "options": [
+          "Tekstiviestillä ilman koodia",
+          "Postitse tulevalla kirjeellä",
+          "Sähköpostin seurantakoodilla"
+        ],
+        "correct_index": 2,
+        "explanation_uk": "Asiakaspalvelu lupasi seurantakoodin sähköpostiin.",
+        "id": "03-kaupat-ja-palvelut-l-q2"
+      }
+    ],
+    "id": "03-kaupat-ja-palvelut-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Olet saanut väärän tuotteen. Soita asiakaspalveluun, kerro virhe ja kysy ratkaisua.",
+      "required_points_fi": [
+        "mikä oli väärin",
+        "toivottu ratkaisu",
+        "kysymys toimituksesta"
+      ],
+      "hint_fi": "Kerro mitä tilasit ja mitä sait.",
+      "training_timing_only": true,
+      "id": "03-kaupat-ja-palvelut-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Onko parempi ostaa vaatteita verkosta vai tavallisesta kaupasta? Kerro hyvät ja huonot puolet.",
+      "required_points_fi": [
+        "mielipide",
+        "vähintään yksi etu",
+        "vähintään yksi haitta"
+      ],
+      "hint_fi": "Yhdistä: yhtäältä ... toisaalta ...",
+      "training_timing_only": true,
+      "id": "03-kaupat-ja-palvelut-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita verkkokaupalle reklamaatio väärästä tilauksesta. Kerro tuotteen tiedot, virhe ja toiveesi.",
+      "required_points_fi": [
+        "tuote",
+        "virhe",
+        "pyydetty ratkaisu"
+      ],
+      "hint_fi": "Aloita: Hei, sain tilaukseni tänään, mutta...",
+      "training_timing_only": true,
+      "id": "03-kaupat-ja-palvelut-writing-01"
+    },
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kerro ystävälle, millaisesta palvelusta pidit. Kuvaile kokemus ja syy.",
+      "required_points_fi": [
+        "missä kävit",
+        "mitä tapahtui",
+        "miksi pidit tai et pitänyt"
+      ],
+      "hint_fi": "Käytä mennyttä aikaa.",
+      "training_timing_only": true,
+      "id": "03-kaupat-ja-palvelut-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Tilasin koon M.",
+      "uk": "Я замовив/ла розмір M.",
+      "example_fi": "Tilasin koon M mutta sain L:n.",
+      "id": "03-kaupat-ja-palvelut-chunk-01"
+    },
+    {
+      "fi": "Tuote on viallinen.",
+      "uk": "Товар несправний.",
+      "example_fi": "Tuote on viallinen, eikä se toimi.",
+      "id": "03-kaupat-ja-palvelut-chunk-02"
+    },
+    {
+      "fi": "Haluaisin vaihtaa tuotteen.",
+      "uk": "Я хотів/ла би обміняти товар.",
+      "example_fi": "Haluaisin vaihtaa tuotteen oikeaan kokoon.",
+      "id": "03-kaupat-ja-palvelut-chunk-03"
+    },
+    {
+      "fi": "Voinko saada rahat takaisin?",
+      "uk": "Чи можу я отримати гроші назад?",
+      "example_fi": "Voinko saada rahat takaisin tässä tilanteessa?",
+      "id": "03-kaupat-ja-palvelut-chunk-04"
+    },
+    {
+      "fi": "Otan yhteyttä asiakaspalveluun.",
+      "uk": "Я зв'яжуся з підтримкою.",
+      "example_fi": "Otan yhteyttä asiakaspalveluun tänään.",
+      "id": "03-kaupat-ja-palvelut-chunk-05"
+    },
+    {
+      "fi": "Milloin uusi paketti lähetetään?",
+      "uk": "Коли надішлють нову посилку?",
+      "example_fi": "Milloin uusi paketti lähetetään minulle?",
+      "id": "03-kaupat-ja-palvelut-chunk-06"
+    }
+  ]
+}

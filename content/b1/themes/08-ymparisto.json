@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "08-ymparisto",
+  "title_fi": "Ympäristö",
+  "title_uk": "Довкілля та сортування",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Uusi lajitteluohje",
+    "text_fi": "Taloyhtiön jätehuoneeseen on tullut uusi muovipakkausten keräysastia. Sinne saa laittaa tyhjät muovipakkaukset, esimerkiksi jogurttipurkit ja pesuainepullot. Pakkaukset pitää tarvittaessa huuhtaista, jotta niihin ei jää paljon ruokaa. Muoviset lelut eivät kuulu tähän astiaan, vaan ne lajitellaan erikseen paikallisten ohjeiden mukaan. Lasipakkauksille on oma astia jätehuoneen oikeassa reunassa. Taloyhtiö järjestää ensi torstaina lyhyen lajitteluillan kerhohuoneessa.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä uuteen astiaan saa laittaa?",
+        "options": [
+          "Muovileluja",
+          "Tyhjiä muovipakkauksia",
+          "Lasipulloja"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "У новий контейнер приймають порожні пластикові упаковки.",
+        "id": "08-ymparisto-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Missä lajitteluillan tilaisuus pidetään?",
+        "options": [
+          "Kerhohuoneessa",
+          "Kirjastossa",
+          "Pysäköintialueella"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Зазначено kerhohuoneessa.",
+        "id": "08-ymparisto-r-q2"
+      }
+    ],
+    "id": "08-ymparisto-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Pihan siivoustalkoot",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Hei, tulethan lauantaina pihan siivoustalkoisiin?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Mihin aikaan ne alkavat?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Kello kymmeneltä. Me keräämme roskia ja istutamme muutaman pensaan."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Pitääkö minun tuoda jotain välineitä?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Hanskat kannattaa ottaa mukaan, mutta haravat ja jätesäkit löytyvät taloyhtiöltä."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Selvä! Voin tulla noin yhdeltätoista."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä osallistujien kannattaa tuoda itse?",
+        "options": [
+          "Harava",
+          "Hanskat",
+          "Jätesäkit"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Рукавички варто принести; інструменти й пакети є у житлового товариства.",
+        "id": "08-ymparisto-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin siivoustalkoot alkavat?",
+        "options": [
+          "Kello 10",
+          "Kello 11",
+          "Kello 12"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Початок о 10; B прийде об 11.",
+        "id": "08-ymparisto-l-q2"
+      }
+    ],
+    "id": "08-ymparisto-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Ehdota naapurille yhteisiä pihatalkoita. Kerro mitä tehdään ja kysy, voiko hän osallistua.",
+      "required_points_fi": [
+        "ehdotus",
+        "tehtävät",
+        "osallistumiskysymys"
+      ],
+      "hint_fi": "Tarjoa käytännön apua.",
+      "training_timing_only": true,
+      "id": "08-ymparisto-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Miten jokainen voi vähentää jätettä arjessa? Anna kaksi käytännön esimerkkiä.",
+      "required_points_fi": [
+        "oma näkemys",
+        "kaksi keinoa",
+        "selitys"
+      ],
+      "hint_fi": "Voit puhua ostamisesta ja lajittelusta.",
+      "training_timing_only": true,
+      "id": "08-ymparisto-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita taloyhtiölle ehdotus paremmasta jätteiden lajittelusta. Kerro ongelma ja kaksi ratkaisua.",
+      "required_points_fi": [
+        "ongelma",
+        "ratkaisu 1",
+        "ratkaisu 2"
+      ],
+      "hint_fi": "Jäsennä viesti lyhyiksi kappaleiksi.",
+      "training_timing_only": true,
+      "id": "08-ymparisto-writing-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Kannattaako tavaroita korjata vai ostaa uusia? Kerro oma kanta ja esimerkki.",
+      "required_points_fi": [
+        "kanta",
+        "perustelu",
+        "esimerkki"
+      ],
+      "hint_fi": "Käytä vertailua: halvempi, kestävämpi.",
+      "training_timing_only": true,
+      "id": "08-ymparisto-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Mihin tämä kuuluu?",
+      "uk": "Куди це слід викидати/відносити?",
+      "example_fi": "Mihin tämä muovipakkaus kuuluu?",
+      "id": "08-ymparisto-chunk-01"
+    },
+    {
+      "fi": "Lajittelen jätteet kotona.",
+      "uk": "Я сортую сміття вдома.",
+      "example_fi": "Lajittelen jätteet kotona joka päivä.",
+      "id": "08-ymparisto-chunk-02"
+    },
+    {
+      "fi": "Se kannattaa korjata.",
+      "uk": "Це варто відремонтувати.",
+      "example_fi": "Vanha tuoli kannattaa korjata.",
+      "id": "08-ymparisto-chunk-03"
+    },
+    {
+      "fi": "Voisitko osallistua talkoisiin?",
+      "uk": "Чи міг/могла б ти взяти участь у толоці?",
+      "example_fi": "Voisitko osallistua lauantain talkoisiin?",
+      "id": "08-ymparisto-chunk-04"
+    },
+    {
+      "fi": "Ota hanskat mukaan.",
+      "uk": "Візьми рукавички з собою.",
+      "example_fi": "Ota hanskat mukaan pihatalkoisiin.",
+      "id": "08-ymparisto-chunk-05"
+    },
+    {
+      "fi": "Ympäristön kannalta se on parempi.",
+      "uk": "Для довкілля це краще.",
+      "example_fi": "Ympäristön kannalta korjaaminen on parempi.",
+      "id": "08-ymparisto-chunk-06"
+    }
+  ]
+}

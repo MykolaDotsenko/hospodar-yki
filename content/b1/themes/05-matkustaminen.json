@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "05-matkustaminen",
+  "title_fi": "Matkustaminen",
+  "title_uk": "Подорожі й транспорт",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Junamatkan muutokset",
+    "text_fi": "Matkustajatiedote: Kello 14.20 lähtevä juna Tampereelle on noin 15 minuuttia myöhässä teknisen tarkastuksen vuoksi. Juna lähtee poikkeuksellisesti raiteelta neljä, ei raiteelta kaksi, kuten lipussa lukee. Jos sinulla on jatkoyhteys Tampereelta, tarkista uusi aikataulu asemalla tai sovelluksessa. Liput ovat voimassa alkuperäisen matkasuunnitelman mukaisesti. Aseman neuvonta palvelee matkustajia pääaulassa kello 18 asti. Pahoittelemme viivästystä.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miltä raiteelta juna lähtee?",
+        "options": [
+          "Raiteelta kaksi",
+          "Raiteelta neljä",
+          "Raiteelta kuusi"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Повідомлено нову колію №4.",
+        "id": "05-matkustaminen-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi jatkoyhteys kannattaa tarkistaa?",
+        "options": [
+          "Koska juna myöhästyy",
+          "Koska asemalla ei myydä lippuja",
+          "Koska juna perutaan"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Затримка 15 хв може вплинути на пересадку.",
+        "id": "05-matkustaminen-r-q2"
+      }
+    ],
+    "id": "05-matkustaminen-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Bussipysäkillä",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Anteeksi, meneekö tämä bussi keskustaan?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Menee, mutta keskustaan pääsee nopeammin bussilla numero kuusi."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Milloin kuutonen tulee?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Viiden minuutin päästä. Tämä bussi kiertää sairaalan kautta."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Kiitos tiedosta! Minulla on tapaaminen puolen tunnin kuluttua."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Sitten ottaisin kuutosen. Se pysähtyy torin lähellä."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi toinen bussi on parempi?",
+        "options": [
+          "Se on ilmainen",
+          "Se menee nopeammin keskustaan",
+          "Se lähtee huomenna"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Bussi numero kuusi on nopeampi keskustaan.",
+        "id": "05-matkustaminen-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Minne nopeampi bussi pysähtyy?",
+        "options": [
+          "Torin lähelle",
+          "Sairaalan pihaan",
+          "Rautatieaseman sisään"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "B kertoo: «torin lähellä».",
+        "id": "05-matkustaminen-l-q2"
+      }
+    ],
+    "id": "05-matkustaminen-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Juna on myöhässä ja sinun pitää vaihtaa junaa. Kysy neuvojalta vaihtoehdoista.",
+      "required_points_fi": [
+        "myöhästyminen",
+        "jatkoyhteys",
+        "uusi vaihtoehto"
+      ],
+      "hint_fi": "Kysy esimerkiksi ehtiikö seuraavaan junaan.",
+      "training_timing_only": true,
+      "id": "05-matkustaminen-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Onko julkinen liikenne parempi kuin oma auto? Vertaa kustannuksia ja käytännöllisyyttä.",
+      "required_points_fi": [
+        "oma kanta",
+        "edut",
+        "haitat"
+      ],
+      "hint_fi": "Kerro esimerkki arjestasi ilman oikeita henkilötietoja.",
+      "training_timing_only": true,
+      "id": "05-matkustaminen-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita matkayhtiölle viesti myöhästyneestä matkasta. Kuvaile tapahtuma ja kysy, mitä voit tehdä.",
+      "required_points_fi": [
+        "matkan tiedot",
+        "ongelma",
+        "kysymys vaihtoehdoista"
+      ],
+      "hint_fi": "Älä oleta korvausoikeutta, vaan kysy sitä.",
+      "training_timing_only": true,
+      "id": "05-matkustaminen-writing-01"
+    },
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kirjoita ystävälle matkasuunnitelmasta. Kerro määränpää, kulkuväline, aikataulu ja miksi haluat matkustaa.",
+      "required_points_fi": [
+        "kohde",
+        "liikkuminen",
+        "aika",
+        "perustelu"
+      ],
+      "hint_fi": "Käytä tulevaisuuden ilmaisua: aion...",
+      "training_timing_only": true,
+      "id": "05-matkustaminen-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Juna on myöhässä.",
+      "uk": "Потяг запізнюється.",
+      "example_fi": "Juna on viisitoista minuuttia myöhässä.",
+      "id": "05-matkustaminen-chunk-01"
+    },
+    {
+      "fi": "Miltä raiteelta juna lähtee?",
+      "uk": "З якої колії відправляється потяг?",
+      "example_fi": "Miltä raiteelta Tampereen juna lähtee?",
+      "id": "05-matkustaminen-chunk-02"
+    },
+    {
+      "fi": "Ehdinkö jatkoyhteyteen?",
+      "uk": "Чи встигну на пересадку?",
+      "example_fi": "Ehdinkö vielä jatkoyhteyteen?",
+      "id": "05-matkustaminen-chunk-03"
+    },
+    {
+      "fi": "Mikä bussi menee keskustaan?",
+      "uk": "Який автобус їде в центр?",
+      "example_fi": "Mikä bussi menee suoraan keskustaan?",
+      "id": "05-matkustaminen-chunk-04"
+    },
+    {
+      "fi": "Missä minun pitää vaihtaa?",
+      "uk": "Де мені потрібно пересідати?",
+      "example_fi": "Missä minun pitää vaihtaa junaa?",
+      "id": "05-matkustaminen-chunk-05"
+    },
+    {
+      "fi": "Kiitos neuvosta.",
+      "uk": "Дякую за пораду.",
+      "example_fi": "Kiitos neuvosta, se auttoi paljon.",
+      "id": "05-matkustaminen-chunk-06"
+    }
+  ]
+}

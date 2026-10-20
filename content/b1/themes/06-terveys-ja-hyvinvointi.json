@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "06-terveys-ja-hyvinvointi",
+  "title_fi": "Terveys ja hyvinvointi",
+  "title_uk": "Здоров'я та самопочуття",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Liikuntaryhmä aloittaa",
+    "text_fi": "Kaupungin liikuntakeskus aloittaa uuden kevyen liikunnan ryhmän maanantaina 9. marraskuuta. Ryhmä kokoontuu kahdeksan kertaa, aina maanantaisin kello 18. Tunnit sisältävät kävelyä, venyttelyä ja helppoja harjoituksia. Mukaan voi tulla myös ilman aikaisempaa kokemusta. Osallistumismaksu on 20 euroa koko jaksolta. Ilmoittautuminen tehdään verkossa viimeistään edellisenä perjantaina. Jos sinulla on kysymyksiä oman terveydentilasi ja liikunnan sopivuudesta, kysy tarvittaessa terveydenhuollon ammattilaiselta.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Kuinka usein ryhmä kokoontuu?",
+        "options": [
+          "Joka maanantai",
+          "Joka päivä",
+          "Kaksi kertaa kuussa"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Група збирається щопонеділка.",
+        "id": "06-terveys-ja-hyvinvointi-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Paljonko koko kahdeksan kerran jakso maksaa?",
+        "options": [
+          "8 euroa",
+          "20 euroa",
+          "40 euroa"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Ціна всього циклу 20 євро.",
+        "id": "06-terveys-ja-hyvinvointi-r-q2"
+      }
+    ],
+    "id": "06-terveys-ja-hyvinvointi-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Ajan siirtäminen",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Terveysasema, hyvää huomenta."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Hei, minulla on aika torstaina kello yhdeksän, mutta en pääse silloin tulemaan."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Haluatteko siirtää ajan toiselle päivälle?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kyllä. Kävisikö perjantai iltapäivällä?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Perjantaina on vapaa aika kello neljätoista kolmekymmentä."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Se sopii. Pitääkö minun tehdä vielä jotain?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Ei tarvitse. Lähetämme vahvistuksen tekstiviestillä."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi soittaja ottaa yhteyttä?",
+        "options": [
+          "Hän haluaa siirtää ajan",
+          "Hän kysyy lääkkeen hintaa",
+          "Hän haluaa perua kaikki ajanvaraukset"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Мета дзвінка — перенести запис.",
+        "id": "06-terveys-ja-hyvinvointi-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin uusi aika on?",
+        "options": [
+          "Torstaina 9.00",
+          "Perjantaina 14.30",
+          "Perjantaina 16.30"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Адміністратор запропонував п'ятницю о 14:30.",
+        "id": "06-terveys-ja-hyvinvointi-l-q2"
+      }
+    ],
+    "id": "06-terveys-ja-hyvinvointi-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Soitat ajanvaraukseen, koska et pääse sovitulle ajalle. Pyydä uutta aikaa.",
+      "required_points_fi": [
+        "alkuperäinen aika",
+        "syy lyhyesti",
+        "uusi toivottu aika"
+      ],
+      "hint_fi": "Voisitko sanoa: Haluaisin siirtää aikaani...?",
+      "training_timing_only": true,
+      "id": "06-terveys-ja-hyvinvointi-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Mikä auttaa sinua jaksamaan arjessa? Kerro liikunnasta, levosta ja omista tavoistasi.",
+      "required_points_fi": [
+        "kaksi tapaa",
+        "miksi auttavat",
+        "oma esimerkki"
+      ],
+      "hint_fi": "Tavoitteena on arkikieli, ei lääketieteellinen neuvonta.",
+      "training_timing_only": true,
+      "id": "06-terveys-ja-hyvinvointi-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita vastaanotolle viesti: et pääse varatulle ajalle. Pyydä ajan siirtoa ja kerro, milloin voit tulla.",
+      "required_points_fi": [
+        "nykyinen aika",
+        "siirtopyyntö",
+        "uusi ajankohta"
+      ],
+      "hint_fi": "Pidä viesti kohteliaana ja selkeänä.",
+      "training_timing_only": true,
+      "id": "06-terveys-ja-hyvinvointi-writing-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Pitäisikö työpäivän aikana pitää enemmän taukoja? Perustele mielipiteesi.",
+      "required_points_fi": [
+        "mielipide",
+        "kaksi perustelua",
+        "esimerkki"
+      ],
+      "hint_fi": "Vertaa levon ja keskittymisen merkitystä.",
+      "training_timing_only": true,
+      "id": "06-terveys-ja-hyvinvointi-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Haluaisin siirtää aikaani.",
+      "uk": "Я хотів/ла б перенести свій запис.",
+      "example_fi": "Haluaisin siirtää aikaani ensi viikolle.",
+      "id": "06-terveys-ja-hyvinvointi-chunk-01"
+    },
+    {
+      "fi": "En pääse silloin tulemaan.",
+      "uk": "Я не зможу прийти в той час.",
+      "example_fi": "En pääse torstaina tulemaan.",
+      "id": "06-terveys-ja-hyvinvointi-chunk-02"
+    },
+    {
+      "fi": "Onko perjantaina vapaita aikoja?",
+      "uk": "Чи є вільні записи на п'ятницю?",
+      "example_fi": "Onko perjantaina vapaita aikoja iltapäivällä?",
+      "id": "06-terveys-ja-hyvinvointi-chunk-03"
+    },
+    {
+      "fi": "Minulla on ollut kiireinen viikko.",
+      "uk": "У мене був напружений тиждень.",
+      "example_fi": "Minulla on ollut kiireinen viikko töissä.",
+      "id": "06-terveys-ja-hyvinvointi-chunk-04"
+    },
+    {
+      "fi": "Yritän nukkua riittävästi.",
+      "uk": "Я стараюся достатньо спати.",
+      "example_fi": "Yritän nukkua riittävästi joka yö.",
+      "id": "06-terveys-ja-hyvinvointi-chunk-05"
+    },
+    {
+      "fi": "Käyn kävelyllä lähes joka päivä.",
+      "uk": "Я гуляю майже щодня.",
+      "example_fi": "Käyn kävelyllä lähes joka päivä.",
+      "id": "06-terveys-ja-hyvinvointi-chunk-06"
+    }
+  ]
+}

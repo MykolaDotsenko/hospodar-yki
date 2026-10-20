@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "01-mina-ja-taustani",
+  "title_fi": "Minä ja taustani",
+  "title_uk": "Я і моє життя",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Uusi harrastus",
+    "text_fi": "Nadia muutti Turkuun viime syksynä. Hän asuu pienessä kerrostaloasunnossa keskustan lähellä ja työskentelee kahvilassa. Aluksi hän tunsi vain työkaverinsa eikä uskaltanut puhua suomea muualla. Tammikuussa hän löysi kirjaston kielikahvilan, jossa ihmiset keskustelevat tavallisista asioista. Nadia käy siellä joka tiistai. Hän on saanut kaksi uutta ystävää ja uskaltaa nykyään kysyä neuvoa myös kaupassa. Ensi kuussa hän haluaa aloittaa uimaharrastuksen, mutta etsii vielä sopivaa ryhmää.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin Nadia muutti Turkuun?",
+        "options": [
+          "Viime syksynä",
+          "Viime keväänä",
+          "Tammikuussa"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "У першому реченні вказано «viime syksynä».",
+        "id": "01-mina-ja-taustani-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi kielikahvila on ollut Nadialle hyödyllinen?",
+        "options": [
+          "Hän on löytänyt asunnon",
+          "Hän on saanut ystäviä ja rohkeutta puhua",
+          "Hän on vaihtanut työpaikkaa"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Кафе допомогло знайти друзів та сміливіше говорити фінською.",
+        "id": "01-mina-ja-taustani-r-q2"
+      }
+    ],
+    "id": "01-mina-ja-taustani-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Ensimmäinen päivä kurssilla",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Moi! Oletko sinäkin uudella suomen kurssilla?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Olen. Minä olen Leo. Muutin tänne kesällä työn takia."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Hauska tutustua! Minun nimeni on Sanna. Miten olet opiskellut suomea tähän asti?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Olen opiskellut netissä, mutta haluan puhua enemmän muiden kanssa."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Hyvä! Kurssin jälkeen meillä on pieni keskusteluryhmä kirjastossa torstaisin."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kuulostaa hyvältä. Voinko tulla mukaan jo tällä viikolla?"
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Miksi Leo muutti paikkakunnalle?",
+        "options": [
+          "Opiskelun vuoksi",
+          "Työn vuoksi",
+          "Perheensä vuoksi"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Leo sanoo «työn takia» — työn vuoksi.",
+        "id": "01-mina-ja-taustani-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Missä keskusteluryhmä kokoontuu?",
+        "options": [
+          "Kirjastossa",
+          "Kahvilassa",
+          "Koulun ruokalassa"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Sanna mainitsee kirjaston.",
+        "id": "01-mina-ja-taustani-l-q2"
+      }
+    ],
+    "id": "01-mina-ja-taustani-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "self_introduction",
+      "prompt_fi": "Kerro itsestäsi uudelle kurssikaverille. Missä asut, mitä teet arjessa ja miksi opiskelet suomea?",
+      "required_points_fi": [
+        "esittely",
+        "arki",
+        "syy opiskella suomea"
+      ],
+      "hint_fi": "Käytä sanoja ensin, nykyään ja tulevaisuudessa.",
+      "training_timing_only": true,
+      "id": "01-mina-ja-taustani-speaking-01"
+    },
+    {
+      "kind": "interaction",
+      "prompt_fi": "Uusi tuttava kysyy, mitä teet vapaa-ajalla. Vastaa ja kysy myös hänen harrastuksistaan.",
+      "required_points_fi": [
+        "oma harrastus",
+        "kysymys toiselle",
+        "luonteva jatkokysymys"
+      ],
+      "hint_fi": "Kysy esimerkiksi kuinka usein toinen harrastaa.",
+      "training_timing_only": true,
+      "id": "01-mina-ja-taustani-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kirjoita uudelle kurssikaverille viesti. Esittele itsesi, ehdota yhteistä harjoittelua ja sovi aika.",
+      "required_points_fi": [
+        "oma esittely",
+        "harjoitteluehdotus",
+        "päivä tai kellonaika"
+      ],
+      "hint_fi": "Aloita ystävällisesti ja lopeta selkeään kysymykseen.",
+      "training_timing_only": true,
+      "id": "01-mina-ja-taustani-writing-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Kirjoita mielipiteesi: auttaako harrastus uuden kielen oppimisessa? Anna kaksi perustelua ja esimerkki.",
+      "required_points_fi": [
+        "selkeä mielipide",
+        "kaksi perustelua",
+        "esimerkki"
+      ],
+      "hint_fi": "Yhdistä ajatukset sanoilla koska ja lisäksi.",
+      "training_timing_only": true,
+      "id": "01-mina-ja-taustani-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Muutin tänne viime syksynä.",
+      "uk": "Я переїхав/ла сюди минулої осені.",
+      "example_fi": "Muutin Suomeen viime syksynä.",
+      "id": "01-mina-ja-taustani-chunk-01"
+    },
+    {
+      "fi": "Olen opiskellut suomea jo vuoden.",
+      "uk": "Я вивчаю фінську вже рік.",
+      "example_fi": "Olen opiskellut suomea jo vuoden.",
+      "id": "01-mina-ja-taustani-chunk-02"
+    },
+    {
+      "fi": "Haluaisin tutustua uusiin ihmisiin.",
+      "uk": "Я хотів/ла би познайомитися з новими людьми.",
+      "example_fi": "Haluaisin tutustua uusiin ihmisiin kurssilla.",
+      "id": "01-mina-ja-taustani-chunk-03"
+    },
+    {
+      "fi": "Vapaa-ajallani käyn uimassa.",
+      "uk": "У вільний час я ходжу плавати.",
+      "example_fi": "Vapaa-ajallani käyn uimassa kerran viikossa.",
+      "id": "01-mina-ja-taustani-chunk-04"
+    },
+    {
+      "fi": "Aluksi se oli vaikeaa.",
+      "uk": "Спочатку це було складно.",
+      "example_fi": "Aluksi puhuminen oli vaikeaa.",
+      "id": "01-mina-ja-taustani-chunk-05"
+    },
+    {
+      "fi": "Nykyään uskallan puhua enemmän.",
+      "uk": "Зараз я наважуюся говорити більше.",
+      "example_fi": "Nykyään uskallan puhua suomea kaupassa.",
+      "id": "01-mina-ja-taustani-chunk-06"
+    }
+  ]
+}

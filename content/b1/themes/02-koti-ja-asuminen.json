@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "02-koti-ja-asuminen",
+  "title_fi": "Koti ja asuminen",
+  "title_uk": "Житло та побут",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Tiedote vesikatkosta",
+    "text_fi": "Hyvät asukkaat! Taloyhtiössä tehdään putkien huoltotöitä keskiviikkona 4. marraskuuta kello 9–13. Tänä aikana kylmää ja lämmintä vettä ei tule asuntoihin. Varatkaa juomavettä etukäteen ja välttäkää pesukoneen käyttöä katkon aikana. Jos huoltotyöt päättyvät suunniteltua aikaisemmin, vedenjakelu alkaa heti. Mikäli vettä ei tule kello 14 mennessä, ottakaa yhteyttä huoltoyhtiöön. Yhteystiedot löytyvät porraskäytävän ilmoitustaululta. Pahoittelemme häiriötä.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mihin aikaan vettä ei suunnitelman mukaan tule?",
+        "options": [
+          "Kello 9–13",
+          "Kello 13–17",
+          "Koko päivän"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "У повідомленні: «kello 9–13».",
+        "id": "02-koti-ja-asuminen-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä pitää tehdä, jos vettä ei tule vielä kello 14?",
+        "options": [
+          "Käyttää pesukonetta",
+          "Soittaa huoltoyhtiöön",
+          "Odottaa seuraavaan päivään"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Указано звернутися до huoltoyhtiö.",
+        "id": "02-koti-ja-asuminen-r-q2"
+      }
+    ],
+    "id": "02-koti-ja-asuminen-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Huoltomiehen käynti",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Hyvää päivää, täällä taloyhtiön huolto. Soitan kylpyhuoneen hanasta."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Hei, hyvä että soititte. Hana vuotaa edelleen."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Voisinko tulla katsomaan sitä huomenna kello kymmenen?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kymmeneltä olen töissä. Kävisikö kello neljä iltapäivällä?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Sopii hyvin. Tulen neljältä ja ilmoitan, jos myöhästyn."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kiitos! Olen silloin kotona."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mikä asunnossa on vialla?",
+        "options": [
+          "Lämmitys ei toimi",
+          "Hana vuotaa",
+          "Ikkuna ei mene kiinni"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Asukas sanoo «Hana vuotaa edelleen».",
+        "id": "02-koti-ja-asuminen-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin huoltomies tulee?",
+        "options": [
+          "Kello 10",
+          "Kello 14",
+          "Kello 16"
+        ],
+        "correct_index": 2,
+        "explanation_uk": "Aika muutettiin neljään iltapäivällä.",
+        "id": "02-koti-ja-asuminen-l-q2"
+      }
+    ],
+    "id": "02-koti-ja-asuminen-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Soitat huoltoyhtiöön, koska kylpyhuoneen hana vuotaa. Kerro ongelma ja sovi käyntiaika.",
+      "required_points_fi": [
+        "ongelman kuvaus",
+        "pyyntö korjata",
+        "sopiva aika"
+      ],
+      "hint_fi": "Kokeile kohteliasta rakennetta: Voisitteko tulla...?",
+      "training_timing_only": true,
+      "id": "02-koti-ja-asuminen-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Kerro, haluaisitko asua keskustassa vai rauhallisella alueella. Perustele valintasi.",
+      "required_points_fi": [
+        "valinta",
+        "kaksi syytä",
+        "vertailu"
+      ],
+      "hint_fi": "Käytä sanoja toisaalta ja kuitenkin.",
+      "training_timing_only": true,
+      "id": "02-koti-ja-asuminen-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita huoltoyhtiölle viesti vuotavasta hanasta. Kerro missä, kuinka kauan ja milloin olet kotona.",
+      "required_points_fi": [
+        "ongelman paikka",
+        "tilanteen kesto",
+        "käyntiajat"
+      ],
+      "hint_fi": "Kirjoita selkeä otsikko.",
+      "training_timing_only": true,
+      "id": "02-koti-ja-asuminen-writing-01"
+    },
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kirjoita naapurille ystävällinen viesti melusta. Kerro tilanne ja ehdota ratkaisua.",
+      "required_points_fi": [
+        "tilanne",
+        "miksi häiritsee",
+        "kohtelias ehdotus"
+      ],
+      "hint_fi": "Vältä syyttävää sävyä.",
+      "training_timing_only": true,
+      "id": "02-koti-ja-asuminen-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Hana vuotaa.",
+      "uk": "Кран протікає.",
+      "example_fi": "Kylpyhuoneen hana vuotaa.",
+      "id": "02-koti-ja-asuminen-chunk-01"
+    },
+    {
+      "fi": "Voisitteko tulla katsomaan sitä?",
+      "uk": "Чи могли б ви прийти це оглянути?",
+      "example_fi": "Voisitteko tulla katsomaan hanaa huomenna?",
+      "id": "02-koti-ja-asuminen-chunk-02"
+    },
+    {
+      "fi": "Milloin teille sopisi?",
+      "uk": "Коли вам було б зручно?",
+      "example_fi": "Milloin teille sopisi huoltokäynti?",
+      "id": "02-koti-ja-asuminen-chunk-03"
+    },
+    {
+      "fi": "Olen kotona neljän jälkeen.",
+      "uk": "Я вдома після четвертої.",
+      "example_fi": "Olen kotona neljän jälkeen.",
+      "id": "02-koti-ja-asuminen-chunk-04"
+    },
+    {
+      "fi": "Vettä ei tule.",
+      "uk": "Немає води.",
+      "example_fi": "Meidän asunnossamme ei tule vettä.",
+      "id": "02-koti-ja-asuminen-chunk-05"
+    },
+    {
+      "fi": "Pahoittelen häiriötä.",
+      "uk": "Перепрошую за незручності.",
+      "example_fi": "Pahoittelen häiriötä ja kiitän ymmärryksestä.",
+      "id": "02-koti-ja-asuminen-chunk-06"
+    }
+  ]
+}

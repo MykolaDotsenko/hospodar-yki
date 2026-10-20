@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "07-tyo",
+  "title_fi": "Työ",
+  "title_uk": "Робота та навчання",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Koulutusta työpaikalla",
+    "text_fi": "Työpaikallamme järjestetään asiakaspalvelukoulutus ensi kuussa. Koulutus alkaa maanantaina 2. marraskuuta ja jatkuu kolmena maanantai-iltapäivänä kello 15–17. Osallistuminen on työntekijöille maksutonta, mutta ryhmässä on vain 12 paikkaa. Ilmoittautumiset pyydetään lähettämään henkilöstöosastolle viimeistään perjantaina. Esihenkilöiden kanssa sovitaan erikseen, miten työvuorot järjestetään koulutuksen ajaksi. Koulutuksen jälkeen osallistujat voivat harjoitella uusia taitojaan työpareittain.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Kuinka monena päivänä koulutus järjestetään?",
+        "options": [
+          "Kolmena maanantaina",
+          "Kolmena perjantaina",
+          "Joka arkipäivä"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "У тексті «kolmena maanantai-iltapäivänä».",
+        "id": "07-tyo-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä osallistujan pitää tehdä ennen koulutusta?",
+        "options": [
+          "Ostaa oppikirja",
+          "Ilmoittautua henkilöstöosastolle",
+          "Vaihtaa työpaikkaa"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Потрібно записатися у відділі кадрів.",
+        "id": "07-tyo-r-q2"
+      }
+    ],
+    "id": "07-tyo-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Työvuoron vaihtaminen",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Moi! Voisitko vaihtaa työvuoroa kanssani perjantaina?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Ehkä. Minulla on aamuvuoro kahdeksasta neljään. Millainen vuoro sinulla on?"
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Minulla on iltavuoro kahdesta kymmeneen, mutta minulla olisi meno illalla."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Se voisi onnistua, mutta minun täytyy kysyä ensin esihenkilöltä."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Hyvä, kiitos! Ilmoitatko minulle huomenna?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Joo, laitan viestin heti kun saan vastauksen."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Kumman vuoron A haluaa vaihtaa?",
+        "options": [
+          "Aamuvuoron",
+          "Iltavuoron",
+          "Yövuoron"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "A sanoo olevansa iltavuorossa klo 14–22.",
+        "id": "07-tyo-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä B tekee ennen päätöstä?",
+        "options": [
+          "Kysyy esihenkilöltä",
+          "Varaa lomamatkan",
+          "Lopettaa vuoronsa aikaisemmin"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "B:n pitää kysyä esihenkilöltä.",
+        "id": "07-tyo-l-q2"
+      }
+    ],
+    "id": "07-tyo-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Pyydä kollegaa vaihtamaan työvuoroa ja keskustele mahdollisesta ratkaisusta.",
+      "required_points_fi": [
+        "pyyntö",
+        "syy",
+        "vaihtoehtoinen ratkaisu"
+      ],
+      "hint_fi": "Käytä: Voisitko...? / Se sopisi minulle...",
+      "training_timing_only": true,
+      "id": "07-tyo-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Onko etätyö parempi kuin työpaikalla työskentely? Perustele molempia puolia.",
+      "required_points_fi": [
+        "oma kanta",
+        "etu",
+        "haitta"
+      ],
+      "hint_fi": "Vertaa ajankäyttöä ja yhteistyötä.",
+      "training_timing_only": true,
+      "id": "07-tyo-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita esihenkilölle viesti, jossa pyydät vapaapäivää. Kerro päivä, syy yleisesti ja miten hoidat työsi.",
+      "required_points_fi": [
+        "toivottu päivä",
+        "syy yleisellä tasolla",
+        "työjärjestely"
+      ],
+      "hint_fi": "Pyydä vastausta ystävällisesti.",
+      "training_timing_only": true,
+      "id": "07-tyo-writing-01"
+    },
+    {
+      "kind": "informal_message",
+      "prompt_fi": "Kirjoita työkaverille lyhyt viesti yhteisestä koulutuksesta. Kerro miksi haluat osallistua ja ehdota ilmoittautumista.",
+      "required_points_fi": [
+        "koulutus",
+        "oma syy",
+        "ehdotus"
+      ],
+      "hint_fi": "Älä kopioi tehtävän tekstiä sellaisenaan.",
+      "training_timing_only": true,
+      "id": "07-tyo-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Voisitko vaihtaa vuoroa kanssani?",
+      "uk": "Чи міг/могла б ти помінятися зі мною зміною?",
+      "example_fi": "Voisitko vaihtaa vuoroa kanssani perjantaina?",
+      "id": "07-tyo-chunk-01"
+    },
+    {
+      "fi": "Minun täytyy kysyä esihenkilöltä.",
+      "uk": "Мені потрібно запитати керівника.",
+      "example_fi": "Minun täytyy kysyä esihenkilöltä ensin.",
+      "id": "07-tyo-chunk-02"
+    },
+    {
+      "fi": "Ilmoittaudun koulutukseen.",
+      "uk": "Я зареєструюся на навчання.",
+      "example_fi": "Ilmoittaudun koulutukseen tänään.",
+      "id": "07-tyo-chunk-03"
+    },
+    {
+      "fi": "Sopisiko sinulle toinen päivä?",
+      "uk": "Чи підійшов би тобі інший день?",
+      "example_fi": "Sopisiko sinulle toinen päivä ensi viikolla?",
+      "id": "07-tyo-chunk-04"
+    },
+    {
+      "fi": "Haluaisin pitää vapaapäivän.",
+      "uk": "Я хотів/ла б узяти вихідний.",
+      "example_fi": "Haluaisin pitää vapaapäivän perjantaina.",
+      "id": "07-tyo-chunk-05"
+    },
+    {
+      "fi": "Hoitan tehtäväni etukäteen.",
+      "uk": "Я виконаю свої завдання заздалегідь.",
+      "example_fi": "Hoitan tehtäväni etukäteen torstaina.",
+      "id": "07-tyo-chunk-06"
+    }
+  ]
+}

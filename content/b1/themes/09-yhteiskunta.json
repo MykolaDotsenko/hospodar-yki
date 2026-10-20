@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "id": "09-yhteiskunta",
+  "title_fi": "Yhteiskunta",
+  "title_uk": "Суспільство та міські послуги",
+  "difficulty": "A2.2-B1",
+  "reading": {
+    "title_fi": "Kirjaston uusi palvelu",
+    "text_fi": "Kaupunginkirjasto aloittaa maksuttoman digitukipalvelun marraskuussa. Vapaaehtoiset neuvovat esimerkiksi sähköpostin käytössä ja sähköisten lomakkeiden täyttämisessä. Digitukea saa tiistaisin kello 16–18, eikä aikaa tarvitse varata etukäteen. Palvelussa ei kuitenkaan hoideta asiakkaan pankkiasioita eikä täytetä hakemuksia hänen puolestaan. Mukaan kannattaa ottaa oma laite, jos kysymys koskee sitä. Tarvittaessa kirjastossa on myös tietokoneita asiakkaiden käytössä. Lisätietoja voi kysyä kirjaston palvelupisteestä.",
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Pitääkö digitukeen varata aika?",
+        "options": [
+          "Kyllä, aina",
+          "Ei tarvitse",
+          "Vain verkkosivulla"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Чітко сказано «eikä aikaa tarvitse varata etukäteen».",
+        "id": "09-yhteiskunta-r-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mitä vapaaehtoiset eivät tee?",
+        "options": [
+          "Neuvo sähköpostin käytössä",
+          "Selitä sähköisiä lomakkeita",
+          "Hoida asiakkaan pankkiasioita"
+        ],
+        "correct_index": 2,
+        "explanation_uk": "Банківські операції не виконуються.",
+        "id": "09-yhteiskunta-r-q2"
+      }
+    ],
+    "id": "09-yhteiskunta-reading-01",
+    "kind": "reading_comprehension"
+  },
+  "listening": {
+    "title_fi": "Neuvontapisteessä",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Hei! Mistä saan tietoa kaupungin ilmaisista suomen kursseista?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kurssit löytyvät kaupungin verkkosivuilta, mutta voin näyttää sinulle osoitteen."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Kiitos. Voiko kursseille ilmoittautua täällä?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Ei täällä tiskillä. Ilmoittautuminen tehdään verkossa ensi maanantaista alkaen."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Entä jos tarvitsen apua lomakkeen kanssa?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Kirjastossa on digitukea tiistaisin. He voivat neuvoa sinua."
+      }
+    ],
+    "questions": [
+      {
+        "type": "single_choice",
+        "prompt_fi": "Milloin kursseille voi alkaa ilmoittautua?",
+        "options": [
+          "Ensi maanantaina",
+          "Tänään",
+          "Ensi perjantaina"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Реєстрація починається наступного понеділка.",
+        "id": "09-yhteiskunta-l-q1"
+      },
+      {
+        "type": "single_choice",
+        "prompt_fi": "Mistä saa apua lomakkeen täyttämiseen?",
+        "options": [
+          "Kirjaston digituesta",
+          "Kaupungin liikuntahallista",
+          "Bussinkuljettajalta"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Співробітник скеровує до бібліотечної цифрової підтримки.",
+        "id": "09-yhteiskunta-l-q2"
+      }
+    ],
+    "id": "09-yhteiskunta-listening-01",
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "recommended_voice_locale": "fi-FI",
+    "recommended_tts_or_recording": "human Finnish voice preferred; browser TTS only if Finnish voice quality verified"
+  },
+  "speaking": [
+    {
+      "kind": "interaction",
+      "prompt_fi": "Kysy neuvontapisteestä, miten voit ilmoittautua kurssille ja mistä saat apua.",
+      "required_points_fi": [
+        "tiedustelu",
+        "ilmoittautumistapa",
+        "avun kysyminen"
+      ],
+      "hint_fi": "Kerro lyhyesti oma tilanteesi.",
+      "training_timing_only": true,
+      "id": "09-yhteiskunta-speaking-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Miksi on tärkeää, että kaupungissa on maksuttomia palveluita? Perustele.",
+      "required_points_fi": [
+        "oma kanta",
+        "kaksi perustelua",
+        "esimerkki"
+      ],
+      "hint_fi": "Voit käyttää esimerkkinä kirjastoa.",
+      "training_timing_only": true,
+      "id": "09-yhteiskunta-speaking-02"
+    }
+  ],
+  "writing": [
+    {
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita kaupungin neuvontaan viesti, jossa kysyt kielikursseista. Kerro tasosi, aikataulusi ja kysymyksesi.",
+      "required_points_fi": [
+        "oma kielitaso",
+        "sopiva aikataulu",
+        "tarkka kysymys"
+      ],
+      "hint_fi": "Älä lisää oikeita henkilötietoja harjoitukseen.",
+      "training_timing_only": true,
+      "id": "09-yhteiskunta-writing-01"
+    },
+    {
+      "kind": "opinion",
+      "prompt_fi": "Pitäisikö kaupungin tarjota enemmän maksuttomia harrastuksia? Kerro mielipide ja syyt.",
+      "required_points_fi": [
+        "mielipide",
+        "kaksi perustelua",
+        "esimerkki"
+      ],
+      "hint_fi": "Muista selkeä aloitus ja päätös.",
+      "training_timing_only": true,
+      "id": "09-yhteiskunta-writing-02"
+    }
+  ],
+  "chunks": [
+    {
+      "fi": "Mistä saan lisätietoja?",
+      "uk": "Де можна отримати більше інформації?",
+      "example_fi": "Mistä saan lisätietoja kursseista?",
+      "id": "09-yhteiskunta-chunk-01"
+    },
+    {
+      "fi": "Miten voin ilmoittautua?",
+      "uk": "Як я можу зареєструватися?",
+      "example_fi": "Miten voin ilmoittautua suomen kurssille?",
+      "id": "09-yhteiskunta-chunk-02"
+    },
+    {
+      "fi": "Tarvitsen apua lomakkeen kanssa.",
+      "uk": "Мені потрібна допомога з формою.",
+      "example_fi": "Tarvitsen apua tämän lomakkeen kanssa.",
+      "id": "09-yhteiskunta-chunk-03"
+    },
+    {
+      "fi": "Palvelu on maksuton.",
+      "uk": "Послуга безкоштовна.",
+      "example_fi": "Digitukipalvelu on maksuton.",
+      "id": "09-yhteiskunta-chunk-04"
+    },
+    {
+      "fi": "Milloin ilmoittautuminen alkaa?",
+      "uk": "Коли починається реєстрація?",
+      "example_fi": "Milloin kurssin ilmoittautuminen alkaa?",
+      "id": "09-yhteiskunta-chunk-05"
+    },
+    {
+      "fi": "Mielestäni palvelu on hyödyllinen.",
+      "uk": "На мою думку, послуга корисна.",
+      "example_fi": "Mielestäni kirjasto on hyödyllinen kaikille.",
+      "id": "09-yhteiskunta-chunk-06"
+    }
+  ]
+}
