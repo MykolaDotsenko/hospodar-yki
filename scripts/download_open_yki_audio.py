@@ -24,7 +24,7 @@ USER_AGENT = "HospOdarYKI-audio-curation/1.0 (noncommercial educational corpus; 
 
 
 def fetch_bytes(url: str) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*", "Referer": "https://commons.wikimedia.org/"})
     with urllib.request.urlopen(req, timeout=60) as response:
         length = response.headers.get("Content-Length")
         if length and int(length) > MAX_BYTES:
@@ -36,23 +36,20 @@ def fetch_bytes(url: str) -> bytes:
 
 
 def commons_url(filename: str) -> str:
-    query = urllib.parse.urlencode(
-        {
-            "action": "query", "format": "json", "formatversion": "2",
-            "prop": "imageinfo", "iiprop": "url",
-            "titles": "File:" + filename,
-        }
-    )
-    try:
-        payload = json.loads(fetch_bytes(COMMONS_API + "?" + query))
-        pages = payload.get("query", {}).get("pages", [])
-        url = pages[0]["imageinfo"][0]["url"]
-        if not url.startswith("https://upload.wikimedia.org/"):
-            raise ValueError("Unexpected Commons host: " + url)
-        return url
-    except (KeyError, IndexError, ValueError, urllib.error.URLError) as exc:
-        print(f"Commons metadata API unavailable ({exc}); using file redirect", file=sys.stderr)
-        return "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + urllib.parse.quote(filename)
+    """Resolve known Commons originals directly without hammering its API.
+
+    The Commons upload path uses MD5 of the Unicode NFC-normalized file name
+    with spaces represented by underscores. Each listed title was inspected
+    manually at its source page for licensing.
+    """
+    import hashlib
+    import unicodedata
+
+    name = unicodedata.normalize("NFC", filename.replace(" ", "_"))
+    digest = hashlib.md5(name.encode("utf-8")).hexdigest()
+    return ("https://upload.wikimedia.org/wikipedia/commons/"
+            + digest[:1] + "/" + digest[:2] + "/"
+            + urllib.parse.quote(name))
 
 
 def original_url(entry: dict) -> str:
