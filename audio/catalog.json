@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-21",
+  "purpose": "YKI keskitaso / B1+ Finnish listening and speaking resource inventory",
+  "caution": "Not all are official exam materials: Wikimedia and SKN recordings are open licensed supplemental audio, not 2027 YKI mocks.",
+  "open_licensed_downloads": [
+    {
+      "id": "metro_dialogue",
+      "tier": "core",
+      "topic": "travel_social",
+      "level": "A2-B1",
+      "title_fi": "Tapaaminen metroasemalla",
+      "title_uk": "Зустріч біля метро",
+      "duration_seconds": 51,
+      "relative_path": "audio/open/dialogues/tapaaminen_metroasemalla.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Finnish dialogue - Tapaaminen metroasemalla.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Finnish_dialogue_-_Tapaaminen_metroasemalla.ogg",
+      "license": "PD-self",
+      "author": "Vassilik і співрозмовники (з дозволом авторів запису)",
+      "notes": "Природний діалог, а не офіційний запис YKI; public domain."
+    },
+    {
+      "id": "en_ymmarra",
+      "tier": "support",
+      "topic": "communication",
+      "level": "A1-B1",
+      "title_fi": "En ymmärrä",
+      "title_uk": "Я не розумію",
+      "duration_seconds": 1.83,
+      "relative_path": "audio/open/phrases/en_ymmarra.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-en ymmärrä.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-en_ymm%C3%A4rr%C3%A4.ogg",
+      "license": "PD-self",
+      "author": "Jyri Leskinen",
+      "notes": "Корисна репліка для комунікації, але не цілий YKI listening exercise."
+    },
+    {
+      "id": "anteeksi",
+      "tier": "support",
+      "topic": "politeness",
+      "level": "A1-B1",
+      "title_fi": "Anteeksi",
+      "title_uk": "Вибачте",
+      "duration_seconds": 1.5,
+      "relative_path": "audio/open/phrases/anteeksi.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-anteeksi.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-anteeksi.ogg",
+      "license": "CC-BY-3.0",
+      "author": "Suomipoika",
+      "notes": "Потрібна атрибуція автора; за необхідності до навчальної вправи створити оригінальний текст."
+    },
+    {
+      "id": "opiskelemme",
+      "tier": "support",
+      "topic": "everyday",
+      "level": "A1-B1",
+      "title_fi": "Opiskelemme suomea",
+      "title_uk": "Ми вивчаємо фінську",
+      "duration_seconds": 1.5,
+      "relative_path": "audio/open/phrases/opiskelemme_suomea.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-Opiskelemme suomea.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-Opiskelemme_suomea.ogg",
+      "license": "CC-BY-SA-3.0",
+      "author": "Vassilik",
+      "notes": "Оригінальний запис; якщо переробляти, дотриматися ShareAlike."
+    },
+    {
+      "id": "uusi",
+      "tier": "support",
+      "topic": "shopping",
+      "level": "A1-B1",
+      "title_fi": "Uusi",
+      "title_uk": "Новий",
+      "duration_seconds": 0.91,
+      "relative_path": "audio/open/pronunciation/uusi.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-uusi.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-uusi.ogg",
+      "license": "CC0-1.0",
+      "author": "SchwaWolf",
+      "notes": "Наголос і довгота; окреме слово, не іспитове аудіозавдання."
+    },
+    {
+      "id": "sydan",
+      "tier": "support",
+      "topic": "health",
+      "level": "A1-B1",
+      "title_fi": "Sydän",
+      "title_uk": "Серце",
+      "duration_seconds": 0.85,
+      "relative_path": "audio/open/pronunciation/sydan.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-sydän.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-syd%C3%A4n.ogg",
+      "license": "CC0-1.0",
+      "author": "SchwaWolf",
+      "notes": "Лексика здоров'я; навчання вимови."
+    },
+    {
+      "id": "vesi",
+      "tier": "support",
+      "topic": "shopping_health",
+      "level": "A1-B1",
+      "title_fi": "Vesi",
+      "title_uk": "Вода",
+      "duration_seconds": 0.63,
+      "relative_path": "audio/open/pronunciation/vesi.ogg",
+      "format": "ogg",
+      "provider": "Wikimedia Commons",
+      "download": {
+        "type": "commons",
+        "file_title": "Fi-vesi.ogg"
+      },
+      "source_page": "https://commons.wikimedia.org/wiki/File:Fi-vesi.ogg",
+      "license": "CC0-1.0",
+      "author": "SchwaWolf",
+      "notes": "Окреме слово."
+    },
+    {
+      "id": "rautuu_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Rautu — puheenäyte",
+      "title_uk": "Автентична діалектна фінська — Рау́ту",
+      "relative_path": "audio/open/dialects/skn_rautuu_0072.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN15a_Rautu_0072.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN15a_Rautu_0072.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Нерозбірлива діалектна мова може бути складнішою за B1; бонус, а не іспитова симуляція."
+    },
+    {
+      "id": "ikaalinen_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Ikaalinen — puheenäyte",
+      "title_uk": "Діалектна фінська — Ікаалінен",
+      "relative_path": "audio/open/dialects/skn_ikaalinen_0245.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN20b_Ikaalinen_0245.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN20b_Ikaalinen_0245.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Автентичне діалектне інтерв'ю, не модель YKI."
+    },
+    {
+      "id": "artjarvi_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Artjärvi — puheenäyte",
+      "title_uk": "Діалектна фінська — Артярві",
+      "relative_path": "audio/open/dialects/skn_artjarvi_0081.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN35a_Artjarvi_0081.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN35a_Artjarvi_0081.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Автентична говірка, як додатковий складний матеріал."
+    }
+  ],
+  "official_yki_link_only": [
+    {
+      "id": "listening_01",
+      "module": "puheen_ymmartaminen",
+      "topic": "haastattelu",
+      "question_type": "multiple_choice",
+      "description_uk": "Інтерв'ю, запитання з вибором",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy083.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_02",
+      "module": "puheen_ymmartaminen",
+      "topic": "haastattelu",
+      "question_type": "multiple_choice",
+      "description_uk": "Завдання на інтерв'ю",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/YKI-kt-py-monivalinta.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_03",
+      "module": "puheen_ymmartaminen",
+      "topic": "ympäristö",
+      "question_type": "true_false",
+      "description_uk": "Розповідь про подорожі й екологію",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy069.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_04",
+      "module": "puheen_ymmartaminen",
+      "topic": "hiihtokilpailu",
+      "question_type": "true_false",
+      "description_uk": "Історія про лижні змагання",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/YKI-kt-py-oikeinvaarin.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_05",
+      "module": "puheen_ymmartaminen",
+      "topic": "lyhyet_tilanteet",
+      "question_type": "open_answer",
+      "description_uk": "Коротке повідомлення / пошук фактів",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy012.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_06",
+      "module": "puheen_ymmartaminen",
+      "topic": "mainos",
+      "question_type": "open_answer",
+      "description_uk": "Реклама поїздки",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskitaso_avoimet_kysymykset_2-1.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_07",
+      "module": "puheen_ymmartaminen",
+      "topic": "jätteet",
+      "question_type": "multiple_choice",
+      "description_uk": "Переробка і збирання відходів",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy109.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_08",
+      "module": "puheen_ymmartaminen",
+      "topic": "puhelinetiketti",
+      "question_type": "true_false",
+      "description_uk": "Коментар про спілкування телефоном",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy050.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_09",
+      "module": "puheen_ymmartaminen",
+      "topic": "sähkö",
+      "question_type": "true_false",
+      "description_uk": "Новина про електроенергію",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy_030.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_10",
+      "module": "puheen_ymmartaminen",
+      "topic": "lapsuus_luonto",
+      "question_type": "open_answer",
+      "description_uk": "Спогади про дитинство та природу",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy021.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "listening_11",
+      "module": "puheen_ymmartaminen",
+      "topic": "arvonta",
+      "question_type": "open_answer",
+      "description_uk": "Оголошення розіграшу",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy_018.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "speaking_01",
+      "module": "puhuminen",
+      "description_uk": "Коротка відповідь про погоду",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-1-KT-PU.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    },
+    {
+      "id": "speaking_02",
+      "module": "puhuminen",
+      "description_uk": "Телефонний запит щодо розкладу поїздів",
+      "url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-2-KT-PU.mp3",
+      "task_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "license_status": "No explicit redistribution permission found; LINK_ONLY",
+      "local_copy_allowed": false
+    }
+  ],
+  "paid_link_only": [
+    {
+      "title": "YKIä kohti audio MP3",
+      "url": "https://finnlectura.fi/oppimateriaalit/suomi-toisena-kielena/ykia-kohti/",
+      "license_status": "Commercial/copyright-protected, purchase required, DO NOT redistribute"
+    }
+  ]
+}
