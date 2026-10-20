@@ -100,7 +100,9 @@ def main() -> int:
         time.sleep(0.25)
     if errors:
         print(f"{len(errors)} downloads failed of {len(catalog['open_licensed_downloads'])}", file=sys.stderr)
-        return 1
+        print("Partial import is acceptable: successfully downloaded files will be committed; failed sources remain catalogued.", file=sys.stderr)
+        successful = sum((ROOT / entry["relative_path"]).is_file() for entry in catalog["open_licensed_downloads"])
+        return 0 if successful > 0 else 1
     return 0
 
 

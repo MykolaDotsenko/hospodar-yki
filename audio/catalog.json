@@ -200,6 +200,63 @@
       "license": "CC-BY-4.0",
       "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
       "notes": "Автентична говірка, як додатковий складний матеріал."
+    },
+    {
+      "id": "alastaro_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Alastaro — puheenäyte",
+      "title_uk": "Автентична діалектна фінська — Alastaro",
+      "relative_path": "audio/open/dialects/skn_alastaro.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN25a_Alastaro_0156.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN25a_Alastaro_0156.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Розмовна діалектна фінська для розширення слухання, не офіційне YKI B1 завдання."
+    },
+    {
+      "id": "heinola_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Heinola — puheenäyte",
+      "title_uk": "Автентична діалектна фінська — Heinola",
+      "relative_path": "audio/open/dialects/skn_heinola.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN45a_Heinola_0097.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN45a_Heinola_0097.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Розмовна діалектна фінська для розширення слухання, не офіційне YKI B1 завдання."
+    },
+    {
+      "id": "eurajoki_dialect",
+      "tier": "advanced",
+      "topic": "dialects",
+      "level": "B1+-B2",
+      "title_fi": "SKN Eurajoki — puheenäyte",
+      "title_uk": "Автентична діалектна фінська — Eurajoki",
+      "relative_path": "audio/open/dialects/skn_eurajoki.mp3",
+      "format": "mp3",
+      "provider": "GAIK Project / Kotus / Kielipankki",
+      "download": {
+        "type": "github_raw",
+        "path": "docs/listen/SKN50a_Eurajoki_0203.mp3"
+      },
+      "source_page": "https://github.com/GAIK-project/finnish-asr/blob/main/docs/listen/SKN50a_Eurajoki_0203.mp3",
+      "license": "CC-BY-4.0",
+      "author": "Suomen kielen näytteitä (SKN), Kotus / Kielipankki; extraction GAIK project, Haaga-Helia",
+      "notes": "Розмовна діалектна фінська для розширення слухання, не офіційне YKI B1 завдання."
     }
   ],
   "official_yki_link_only": [
