@@ -65,7 +65,7 @@ def stream_to_file(url: str, output: Path) -> None:
                     fh.write(chunk)
             if size < 50_000:
                 raise ValueError("Too small to be a 360p training video")
-            if output.open("rb").read(4) != b"\\x1a\\x45\\xdf\\xa3":
+            if output.open("rb").read(4) != bytes([0x1A, 0x45, 0xDF, 0xA3]):
                 raise ValueError("Downloaded content is not EBML/WebM")
             return
         except (HTTPError, URLError, OSError, ValueError, TimeoutError) as ex:
