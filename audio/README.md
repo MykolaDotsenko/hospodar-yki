@@ -1,82 +1,58 @@
-# 🎧 Audio library — HospOdar YKI
+# 🎧 Hospodar YKI — реальна аудіотека
 
-**Оновлено:** 2026-10-21 · **Ціль:** YKI suomi keskitaso (B1/B1+).
+**Перевірено у GitHub main:** 21.10.2026  
+**Мета:** слухання і говоріння A2.2 → B1+; матеріали не є офіційними тестами YKI.
 
-Два різні типи матеріалів — принципово не змішувати:
+## Що фактично є у репозиторії
 
-1. **Медіафайли** у `audio/open/`: записи з перевіреною відкритою ліцензією / public domain, додані автоматичним GitHub Actions імпортером.
-2. **Офіційні демо YKI** у [catalog.json](catalog.json) — **тільки посилання**, оскільки відкритої ліцензії на повторне розміщення MP3 не знайдено.
+| Тип | Кількість | Що відкрити |
+|---|---:|---|
+| Оригінальні аудіофайли | **14** | [audio/open/](open/) |
+| Похідні короткі фрагменти | **12** | [audio/segments/](segments/) |
+| **Усього реальних аудіофайлів** | **26** | [available.json](available.json) |
 
-Відкрий [catalog.json](catalog.json) для повної структури, тем, рівнів, тривалості (де відома), авторів, ліцензій та посилань.
+**Цифри перевірено за деревом GitHub.** `catalog.json` містить також ліцензовані *кандидати*, які Wikimedia могла заблокувати HTTP 429. **Не зараховувати ці URL як фізично завантажені записи.**
 
-## ✅ Фактично збережені файли — перевірено 21.10.2026
+### Найкорисніші повні записи
 
-**8 аудіофайлів (~1,03 MB), підтверджених у GitHub після CI-коміту.** Посилання відкривають фізичні файли у `main`:
+- 🇫🇮 [Suomen kieli — johdanto (77 сек)](open/monologues/suomen_kieli_johdanto.ogg) — монолог про фінську мову (B1–B2), записав Vassilik, CC BY-SA 3.0.
+- 🇫🇮 [Suomi — johdanto (129 сек)](open/monologues/suomi_johdanto.ogg) — про Фінляндію (B1–B2), Vassilik, CC BY-SA 3.0.
+- 🔢 [Numerot 1–24 (50 сек)](open/listening/numerot_1_24.ogg) — сприйняття чисел на слух, Suomipoika, CC BY-SA 3.0.
+- 🗣️ [Tapaaminen metroasemalla (51 сек)](open/dialogues/tapaaminen_metroasemalla.ogg) — реальна діалогова взаємодія, PD.
+- 💬 [En tiedä](open/phrases/en_tieda.ogg), [En ymmärrä — інший диктор](open/phrases/en_ymmarra_alt.ogg), [Ei](open/phrases/ei.ogg) — короткі репліки для реакцій.
+- 🎙️ [6 записів SKN](open/dialects/) — автентичні, але здебільшого **складніші за B1**, не основа YKI тренування.
 
-| Запис | Тривалість / призначення |
+### Короткі аудіофрагменти — нове
+
+- [5 фрагментів Suomen kieli](segments/suomen_kieli_johdanto/) та [7 фрагментів Suomi](segments/suomi_johdanto/), підготовлені з використанням пауз у мовленні (переважно 15–20 сек).
+- Для кожної частини є **джерело, автор, ліцензія, часові межі й SHA-256** у [segments/index.json](segments/index.json).
+- Фрагменти — **похідні від двох оригіналів**, не окремі нові записи різних людей. Границі можуть потребувати людського аудіоредагування; транскрипти ще не підтверджені.
+
+### Реальні навчальні сценарії
+
+[learning-plan.json](learning-plan.json) — оригінальні інструкції фінською та рубрики українською для прослуховування, переказу, реакції й відтворення чисел. У подальшому застосунку ці завдання мають звертатися до [available.json](available.json), а не вважати будь-який запис у `catalog.json` доступним.
+
+**Порада:** для YKI B1 тренувати розуміння суті й конкретних деталей, потім відповідати **без тексту** та повторити з іншою схожою ситуацією. Не показувати очікувану відповідь раніше першої самостійної спроби.
+
+## Походження і ліцензії
+
+| Джерело | Умови |
 |---|---|
-| [Tapaaminen metroasemalla.ogg](open/dialogues/tapaaminen_metroasemalla.ogg) | **~51 сек.** Живий діалог: зустріч біля метро, основний A2–B1 |
-| [En ymmärrä.ogg](open/phrases/en_ymmarra.ogg) | ~2 сек. Корисна репліка «Я не розумію» |
-| [skn_rautuu_0072.mp3](open/dialects/skn_rautuu_0072.mp3) | Розмовний діалект Рау́ту (додаткова складна практика) |
-| [skn_ikaalinen_0245.mp3](open/dialects/skn_ikaalinen_0245.mp3) | Діалект Ікаалінен |
-| [skn_artjarvi_0081.mp3](open/dialects/skn_artjarvi_0081.mp3) | Діалект Артярві |
-| [skn_alastaro.mp3](open/dialects/skn_alastaro.mp3) | Діалект Аластаро |
-| [skn_heinola.mp3](open/dialects/skn_heinola.mp3) | Діалект Гейнола |
-| [skn_eurajoki.mp3](open/dialects/skn_eurajoki.mp3) | Діалект Еурайокі |
+| Wikimedia Commons | Детальні file page / author / license — у [catalog.json](catalog.json); CC BY, CC BY-SA, CC0 чи public domain згідно з кожним **окремим** файлом. |
+| SKN, Kotus/Kielipankki, GAIK | CC BY 4.0, авторство та специфіка — [GAIK NOTICE](https://github.com/GAIK-project/finnish-asr/blob/main/NOTICE.md) і [Kielipankki](https://urn.fi/urn:nbn:fi:lb-2020112937). |
+| Нові 12 навчальних уривків | Від Vassilik / Wikimedia Commons; обрізання записів (зміна вказана в маніфесті); **CC BY-SA 3.0**: https://creativecommons.org/licenses/by-sa/3.0/. |
+| Офіційні приклади YKI | 13 підтверджених прямих посилань у [catalog.json](catalog.json); **не копійовані**, бо немає дозволу на перепублікацію. |
+| Yle / комерційні книги | Лише посилання, без незаконного завантаження. |
+| Mozilla Common Voice | Хоча вказано CC0, поточні **умови набору забороняють re-host/re-share**, тому не копіювати. |
 
-**Ще 5 відкрито ліцензованих коротких записів** (Anteeksi, Opiskelemme suomea, uusi, sydän, vesi) **НЕ збережено** — сервер Wikimedia обмежив завантаження HTTP 429. Вони залишаються у [каталозі](catalog.json) як відкладені кандидати. Не зараховувати їх до локальної колекції до окремо перевіреного імпорту.
+## Робочі скрипти
 
-**13 офіційних демозаписів YKI доступні у [catalog.json](catalog.json) як прямі посилання**, не як MP3-файли в репозиторії через неуточнені права на передрук. Для підготовки до YKI 3/B1 саме ці офіційні завдання повинні бути основним орієнтиром.
+- [scripts/download_open_yki_audio.py](../scripts/download_open_yki_audio.py) — імпортує лише ліцензовані джерела; Wikimedia іноді відповідає HTTP 429.
+- [scripts/build_listening_excerpts.py](../scripts/build_listening_excerpts.py) — створює уривки з локальних ліцензованих аудіо через `ffmpeg`/`ffprobe`, **без мережі**, з атрибуцією.
+- [scripts/validate_audio_assets.py](../scripts/validate_audio_assets.py) — перевіряє фізичну наявність, формати, розмір, атрибуцію, батьківські записи та суми кількостей.
 
-## 🆕 Нові записи, пріоритетний імпорт (21.10.2026)
+**Офіційні YKI listening / speaking:**
+https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/  
+https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/
 
-У [catalog.json](catalog.json) додано **15 конкретних, ліцензованих аудіофайлів** Wikimedia Commons (це *кандидати на фізичне завантаження*, а не автоматично підтверджені файли):
-- **2 монологи довжиною 1–2 хв**: `Suomen kieli — johdanto` (77 с), `Suomi — johdanto` (129 с). Обидва CC BY-SA 3.0 (Vassilik). **Середня складність B1–B2**; не порівнювати безпосередньо з YKI 3.
-- **2 вправи з цифрами** (1–24, 1–10) для реакції на час, номери, кількість; з них 1–24 — CC BY-SA 3.0 (Suomipoika).
-- **11 записів коротких фраз/вимови** із відомими авторами й правами: `en tiedä`, `kyllä`, `kiitos`, `hei`, `ei`, `entä`, `hei hei`, дві додаткові версії `en ymmärrä`, `Helsinki`, `hän`.
-
-Існуючі **8 збережених** файлів залишаються недоторканими. Для **нових** файлів статус `available` встановлювати лише після підтвердження через дерево GitHub. **Ми не зберігаємо** Mozilla Common Voice: поточні умови завантаження забороняють re-hosting/resharing попри CC0 metadata, див. https://mozilladatacollective.com/datasets/cmqiodpav00yknq07kfcyu7c0 .
-
-Практичні вправи зі слухання повинні включати `audio_path`, інструкцію фінською, питання, та окреме рішення. Документ [новий аудіоплан](learning-plan.json) забезпечує такі стартові структури, але не підмінює перевірений transcript запису.
-
-## 🧩 Короткі аудіоуроки з повних відкритих записів
-
-Після запуску workflow [build-listening-excerpts.yml](../.github/workflows/build-listening-excerpts.yml) у **[audio/segments/](segments/)** з'являються короткі OGG-уривки з двох монологів `Suomen kieli johdanto` та `Suomi johdanto`. Джерело й автор **Vassilik**, ліцензія **CC BY-SA 3.0**; нарізка — похідна робота за тією самою ліцензією. Машинний маніфест фрагментів: [segments/index.json](segments/index.json) (існує **лише після успішного імпорту**). Це перезаписані короткі фрагменти **двох джерел**, а не нові незалежні диктори. Без перевіреного дослівного транскрипту та ручного аудіоредагування. Неофіційні вправи B1–B2 на коротке слухання, gist і переказ.
-
-## Що саме імпортується
-
-| Категорія | Кількість | Педагогічна цінність | Ліцензія |
-|---|---:|---|---|
-| Діалог «Tapaaminen metroasemalla» | 1 | Повсякденне спілкування й gist/detail | Public Domain |
-| Короткі фрази (En ymmärrä, Anteeksi, Opiskelemme suomea) | 3 | Ввічливість, правильне відтворення | PD / CC BY 3.0 / CC BY-SA 3.0 |
-| Вимова (uusi, sydän, vesi) | 3 | Вимова та словникова опора | CC0 |
-| Автентичні діалекти SKN | 6 | **Розширена практика B1+/B2**, не імітація YKI | CC BY 4.0 |
-| **Офіційні listening MP3** | **11 посилань** | Реальні демозавдання на comprehension | Лише посилання |
-| **Офіційні speaking MP3** | **2 посилання** | Симуляції реплік | Лише посилання |
-
-### Важливо для ліцензій
-
-- **Wikimedia Commons**: для кожного запису атрибуція та сторінка ліцензії знаходяться в [catalog.json](catalog.json). `CC BY` означає надання авторства, `CC BY-SA` передбачає ShareAlike для похідних робіт. Для PD/CC0 атрибуція не обов'язкова, але її збережено для прозорості.
-- **SKN**: `Suomen kielen näytteitä`, Kotimaisten kielten keskus (Kotus), через [Kielipankki](https://urn.fi/urn:nbn:fi:lb-2020112937), **CC BY 4.0**. Аудіо-уривки підготовлені **GAIK project, Haaga-Helia University of Applied Sciences**, [джерело та NOTICE](https://github.com/GAIK-project/finnish-asr/blob/main/NOTICE.md). Записи з реальних діалектних інтерв'ю, переважно історичних, можуть бути складнішими за B1.
-- **Університет Ювяскюля / офіційні демо YKI**: зовнішні MP3 **не копіювати** до репозиторію без окремого дозволу власника прав. Дивись [оригінальні запитання Listening](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/) та [Speaking](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/).
-- **YKIä kohti**: комерційні MP3 у відкритий git не викладати. Примітка: книга може надавати аудіодоступ через Nova/окремі ліцензії; актуальність комплекту перевіряти у видавця.
-
-## Як використовувати для YKI
-
-**Основна практика:** офіційне `puheen ymmärtäminen` → слухати без субтитрів → дати відповіді до оригінальних питань → виписати причину помилки → через кілька днів виконати **інший** запис.
-
-**Діалог/фрази:** один запис → відповісти своїми словами → перевірити зміст → дати **нову** схожу відповідь з використанням конструкції.
-
-**SKN:** необов'язково, лише для розширення розпізнавання швидкої/діалектної мови на B1+, а не критерій YKI 3.
-
-## Технічний імпорт
-
-Репозиторій містить [scripts/download_open_yki_audio.py](../scripts/download_open_yki_audio.py), який:
-- бере лише `open_licensed_downloads`, перевіряє дозволений тип джерела, зберігає оригінальні звукові байти;
-- перевіряє сигнатуру OGG/MP3 і розмір; відхиляє HTML/error сторінки;
-- не завантажує захищені офіційні тестові/комерційні MP3;
-- зберігає файл локально у вказаній папці `audio/open/`.
-
-Запуск вручну: `python3 scripts/download_open_yki_audio.py`. [GitHub workflow](../.github/workflows/import-open-audio.yml) імпортує та комітить файли у гілку `main` за наявності дозволу на запис і успішного завантаження. Якщо GitHub Actions вимкнені або мережевий доступ Wikimedia недоступний (HTTP 429), частина файлів не з'явиться, але успішно завантажені записи з інших джерел можуть бути збережені окремо. Перевіряти фактичну наявність бінарних файлів в дереві GitHub. Не заявляйте про успішний бінарний імпорт до перевірки дерева GitHub.
-
-**Формати:** .ogg Vorbis для вільних записів Wikimedia і .mp3 з корпусу SKN. Це не офіційний інтерактивний тренажер YKI 2027.
+Наша аудіотека — **навчальний ресурс**, а не копія нового цифрового іспиту 2027 року.
