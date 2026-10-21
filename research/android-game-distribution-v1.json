@@ -166,7 +166,17 @@
     "ANDR-15",
     "ANDR-16",
     "ANDR-17",
-    "ANDR-18"
+    "ANDR-18",
+    "WEB-01",
+    "WEB-02",
+    "WEB-03",
+    "WEB-04",
+    "WEB-05",
+    "WEB-06",
+    "WEB-07",
+    "WEB-08",
+    "WEB-09",
+    "WEB-10"
   ],
   "development_gates": [
     {
@@ -192,6 +202,18 @@
       "goal": "airplane mode, WebView/video seeks, QA physical Android and memory test",
       "tooling": "Android instrumentation and release checks",
       "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "web_pwa_parity",
+      "goal": "Responsive Web+PWA four skills, shared Phaser game, media streaming, captions, voice and selected offline packs on Chromium/Firefox/WebKit and real mobile devices",
+      "tooling": "React/Vite + Phaser + Workbox + Dexie",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "cross_platform_domain_parity",
+      "goal": "Run same business logic tests against Web and Android media/storage adapters, same content hashes and first-attempt policies",
+      "tooling": "Vitest + Playwright + Android native instrumentation",
+      "status": "NOT_IMPLEMENTED"
     }
   ],
   "source_urls": [
@@ -202,5 +224,60 @@
     "https://docs.phaser.io/",
     "https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.PathHandler"
   ],
-  "doc": "docs/23-android-offline-game-and-3gb-media-architecture.md"
+  "doc": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+  "platform_strategy": {
+    "model": "One cross-platform app, shared strict TypeScript domain and React UI; Phaser world shared on Android and Web",
+    "web": {
+      "mandatory": true,
+      "kind": "Responsive installable PWA and desktop/mobile browser app",
+      "deploy": "Static frontend via CDN, versioned content manifests, media streamed via HTTPS",
+      "features": [
+        "Four skills",
+        "Learn and Exam",
+        "2D world and NPC quests",
+        "SRS and diagnostics",
+        "Finnish lexicon",
+        "voice input with permission"
+      ],
+      "media": "Stream licensed audio/video and subtitles; optional selective offline downloads controlled by learner; no compulsory 2–3 GB first browser visit",
+      "local_data": "IndexedDB/Dexie for user progress; Cache Storage/OPFS for selected offline media only with quota checks",
+      "permission": "User gesture and microphone permission; unsupported codecs and iOS Safari fallback",
+      "offline": "PWA shell plus user-selected cached lessons. Non-downloaded media unavailable offline",
+      "updates": "Defer service worker activation until exam attempt ends",
+      "test_browsers": [
+        "Chromium desktop",
+        "Android Chrome",
+        "Firefox",
+        "WebKit",
+        "real iOS Safari"
+      ]
+    },
+    "android": {
+      "mandatory": true,
+      "kind": "Capacitor native Android shell with shared Web UI and Phaser canvas",
+      "deploy": "Google Play AAB plus install-time PAD bundles, no mandatory media download after first launch",
+      "media": "Kotlin/native player and asset provider; no 2–3GB duplication into IndexedDB",
+      "local_data": "IndexedDB/Dexie for progress; optional consented local learner audio",
+      "offline": "All release media with redistribution rights bundled and accessible in airplane mode",
+      "updates": "Versioned native asset packs; do not activate new content during an active exam"
+    },
+    "sync": {
+      "optional": true,
+      "source": "Later Supabase Postgres/Auth and API in EU",
+      "requires_consent": true,
+      "conflict_policy": "Append-only idempotent attempt events; no silent last-write-wins on running exam",
+      "identity": "Same task ID, version and content hash on both platforms",
+      "upload_raw_learner_voice_by_default": false,
+      "already_implemented": false
+    },
+    "strict_parity": [
+      "Same four learning skills and two modes",
+      "Shared story/quest logic and Phaser scenes",
+      "Same content keys, lexicon, adaptive SRS and scoring policy",
+      "No duplicated business logic",
+      "Exam provides no hints on either platform",
+      "Distinct offline delivery policy on Web vs Android"
+    ],
+    "web_not_secondary": true
+  }
 }
