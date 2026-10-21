@@ -176,7 +176,7 @@ type Session = {
 - `learn/single_skill` і `exam/single_subtest` **вимагають рівно одну** skill.
 - `exam/full_exam` **вимагає 4** і **не перемішує** порядок модулів наосліп.
 - `exam/practice_subset` вимагає 2–3 skills (або інше явно задокументоване `practice` scope), **не** називається офіційним parcial test.
-- `exam/official_partial_profile` прив'язаний до конкретного `date` + `allowedSkills` з OPH і не дозволяє іншу комбінацію.
+- `exam/official_partial_profile` прив'язаний до конкретного `date` + `allowedSkills` з OPH; `selectedSkills` може містити **одну або обидві дозволені на конкретний частковий день** навички, але жодної іншої (реальні опції реєстрації потрібно ще раз перевірити на дату запису).
 - Всі контентні записи мають `skill`, `task_type`, `difficulty_hint`, `teacher_review_status`, `provenance`, `content_version`, `training_exposure_count`, `assessment_eligibility`.
 - Єдиний `task engine`, **різна policy**: у learn hints/repair/SRS **on**, у exam **off**, feedback **delayed**, only eligible held-out content.
 - Не допускається `answer_key` у клієнтському екзаменаційному завданні до завершення, коли є server exam mode. У поточному static client **повна технічна ізоляція ключів не гарантується**; це прототип, про це повідомляти чесно.
