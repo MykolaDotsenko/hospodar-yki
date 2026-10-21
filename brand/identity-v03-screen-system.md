@@ -108,6 +108,16 @@
 
 Палітра сигналу: background `#FFF1C6`, ink `#083B7A`, underline (доступно без визначення кольору). Нейтральні тексти на `paper/white`. Не заливати кожну картку різними кольорами, не створювати неочевидні кольорові mnemonic categories. Аудіотранскрипти підсвічувати тільки після відповіді за перевіреним VTT. Це частина унікальності продукту — **потрібний сигнал у правильну мить**, а не AI visual noise.
 
+## 5.2. Research-backed UI: увага до сенсу, а не лише до кольору
+
+[17 — нова наукова база (2026)](../docs/17-color-attention-l2-deep-dive.md) · [машинозчитувана політика](../research/color-attention-design-policy-v2.json).
+
+З урахуванням Lee & Huang (2008) **підсвічена граматична форма не може підміняти розуміння значення**. У типовому екрані grammar feedback: спершу окремий нейтральний `meaning-first` блок; нижче вузька одна `learning-cue` з правильним словом; у наступному `transfer` обидві cue відсутні. Якщо відомої `meaning_uk` немає, не створювати фіктивного перекладу. Чотири навички мають власні акценти **лише як UI navigation**, не кольорове кодування кожного відмінка.
+
+**Дані про увагу:** 2026 meta включає `color/bold/subtitle` в один visual клас; color eye-tracking Özçelik et al. (2009) показує користь для знаходження відповідностей text ↔ illustration, не для магічного згадування слова. Тому одна інформативна focus cue краще безсистемної різнокольоровості.
+
+**Критерій приймання:** один primary learning target, контраст >=4.5:1, high-contrast/forced-color alternative, neutral background in exam. При валідації performance не менш важливою за grammar accuracy є `gist comprehension`.
+
 ## 6. Strict anti-AI-sameness gate
 
 **Reject if:**

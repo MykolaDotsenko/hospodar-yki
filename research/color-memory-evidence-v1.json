@@ -5,7 +5,7 @@
   "not_systematic_review": true,
   "source_material_policy": "link_and_own_synthesis_only_no_bulk_paper_reproduction",
   "score_policy": "evidenceFit100 are editorial relevance/confidence ratings (0-100), NOT measured teaching efficacy",
-  "effects_warning": "Standardized g/r/d estimates concern signaling and broad emotional design, NOT color alone or guaranteed Finnish/YKI gains",
+  "effects_warning": "Standardized g/r/d estimates concern signaling and broad emotional design, NOT color alone or guaranteed Finnish/YKI gains New 2026 subgroup combined cue effect CI overlaps zero; visual types pooled, and 2008 L2 enhancement can compete with meaning processing.",
   "sources": [
     {
       "id": "schneider2018",
@@ -201,6 +201,84 @@
       "finding": "Don't encode status by color alone; text 4.5:1, large text/UI 3:1.",
       "scope": "normative accessibility standard",
       "evidenceFit100": 99
+    },
+    {
+      "id": "ma2026",
+      "authors": "Ma, Hu, Peng & Wang",
+      "year": 2026,
+      "title": "Effects of cueing interventions on online learning outcomes: a meta-analytic review of 40 studies",
+      "design": "meta_analysis",
+      "n": 5049,
+      "k": 40,
+      "url": "https://doi.org/10.3389/fpsyg.2026.1717604",
+      "finding": "Overall cueing g=0.320; visual group g=0.261 [0.078,0.444] blends colors, captions, bold, highlights; negative combined cue estimate confidence interval overlaps zero. Subgroup comparison not causal head-to-head.",
+      "quantitative": {
+        "overall_g": 0.32,
+        "visual_g": 0.261,
+        "visual_ci": [
+          0.078,
+          0.444
+        ],
+        "social_g": 0.634,
+        "combined_g": -0.635,
+        "combined_ci": [
+          -1.286,
+          0.016
+        ]
+      },
+      "scope": "online teaching mainly videos, mixed cues; not exact hue or Finnish YKI effect",
+      "evidenceFit100": 94
+    },
+    {
+      "id": "leehuang2008",
+      "authors": "Lee & Huang",
+      "year": 2008,
+      "title": "Visual Input Enhancement and Grammar Learning: A Meta-Analytic Review",
+      "design": "meta_analysis",
+      "k": 16,
+      "url": "https://doi.org/10.1017/S0272263108080479",
+      "finding": "In 16 L2 primary studies (20 samples) visual text enhancement d=+0.22 grammar learning but d=-0.26 meaning processing. Distinguish form noticing from reading comprehension.",
+      "quantitative": {
+        "grammar_learning_d": 0.22,
+        "meaning_processing_d": -0.26,
+        "samples": 20
+      },
+      "scope": "foreign language input enhancement; not Finnish, highlights may include bold/typographic cues",
+      "evidenceFit100": 98
+    },
+    {
+      "id": "ozcelik2009",
+      "authors": "Özçelik, Karakuş, Kurşun & Çağıltay",
+      "year": 2009,
+      "title": "An eye-tracking study of how color coding affects multimedia learning",
+      "design": "controlled_eye_tracking",
+      "n": 52,
+      "url": "https://doi.org/10.1016/j.compedu.2009.03.002",
+      "finding": "With text-image correspondence, color coding reduced search effort and improved retention/transfer for this multimedia task; not universal color-memory rule.",
+      "scope": "paired text and illustration educational material",
+      "evidenceFit100": 91
+    },
+    {
+      "id": "karpicke2011",
+      "authors": "Karpicke & Blunt",
+      "year": 2011,
+      "title": "Retrieval practice produces more learning than elaborative studying with concept mapping",
+      "design": "controlled_retrieval_study",
+      "url": "https://doi.org/10.1126/science.1199327",
+      "finding": "Active retrieval aids meaningful long-term learning vs elaborative re-study, supporting no-cue delayed transfer after visual explanation.",
+      "scope": "retrieval practice educational text; does not compare colors",
+      "evidenceFit100": 98
+    },
+    {
+      "id": "wcagcolor2023",
+      "authors": "W3C WAI",
+      "year": 2023,
+      "title": "WCAG 2.2 Understanding SC 1.4.1 Use of Color",
+      "design": "accessibility_standard",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html",
+      "finding": "Meaning must not depend only on hue: accompany with labels, shapes, text, focus indicators.",
+      "scope": "web and digital educational UI",
+      "evidenceFit100": 99
     }
   ],
   "features": [
@@ -294,6 +372,38 @@
       "teacher_segmentation_required": false,
       "implementation": "future pref controlled theme; no impact on scoring",
       "status": "planned"
+    },
+    {
+      "id": "meaning_first_before_form",
+      "priority": "P0",
+      "why": [
+        "leehuang2008",
+        "ozcelik2009",
+        "dunlosky2013"
+      ],
+      "first_attempt_colored": false,
+      "feedback_colored": true,
+      "transfer_colored": false,
+      "exam_colored": false,
+      "teacher_segmentation_required": false,
+      "implementation": "app/app.mjs: show meaning_uk before visual target cue where editorial gloss exists",
+      "status": "implementing_editorial_draft_three_items"
+    },
+    {
+      "id": "dual_channel_text_picture_matching",
+      "priority": "P1",
+      "why": [
+        "ozcelik2009",
+        "ma2026",
+        "wcagcolor2023"
+      ],
+      "first_attempt_colored": false,
+      "feedback_colored": true,
+      "transfer_colored": false,
+      "exam_colored": false,
+      "teacher_segmentation_required": true,
+      "implementation": "typed source-verified matching object and exact evidence span in feedback only",
+      "status": "research_backlog"
     }
   ],
   "colors": {
@@ -327,5 +437,7 @@
     "status": "not_run",
     "no_learning_claim_until_tested": true
   },
-  "related_doc": "docs/16-color-attention-memory-research-2026-10.md"
+  "related_doc": "docs/16-color-attention-memory-research-2026-10.md",
+  "extended_evidence_review": "docs/17-color-attention-l2-deep-dive.md",
+  "new_key_risk": "L2 text enhancement can improve form noticing but harm meaning processing: Lee & Huang d=+0.22 grammar vs d=-0.26 meaning. Meaning-first required."
 }

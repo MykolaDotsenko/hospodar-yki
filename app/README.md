@@ -36,6 +36,12 @@ Open **http://localhost:8080/app/** in a browser. Do not use `file://` because t
 
 Implemented: **one non-animated `learning-cue`** with high contrast and underline around the *correct answer* in the `feedback` phase of the current grammar mission, **after** independent answer. Initial `answer` and `repair` do not contain solution cue; `transfer` removes it. The separate `exam.html` mock is unaffected. This does not create verified automatic Finnish morphological highlighting, VTT karaoke or a demonstrated long-term memory effect.
 
+## Meaning-first color-cue pilot (21.10.2026)
+
+Complementary [17 L2/color/attention study](../docs/17-color-attention-l2-deep-dive.md) and [machine policy](../research/color-attention-design-policy-v2.json). The existing 28-item cloze bank now carries **three** `meaning_uk` + `semantic_relation_uk` **editorial drafts pending S2 review** for common local cases (illatiivi, elatiivi, inessiivi). Only **after** the first response, the feedback displays neutral **meaning first**, then the single color+underline form cue. Initial, repair, transfer and exam views **do not** display those correct-answer signals. Other tasks fall back to original feedback without inventing translations.
+
+No claims are made about improved memory percentages, complete teacher-reviewed Finnish, or official YKI certification.
+
 ## Working now
 
 1. **Місія:** load `content/b1/grammar/contextual-cloze.json` → first attempt (answer hidden) → guided repair (if wrong) → reveal answer/explanation → own unseen transfer sentence → save. SRS records **first independent** recall, not success after a hint.
