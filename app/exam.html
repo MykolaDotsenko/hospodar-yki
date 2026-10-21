@@ -6,22 +6,35 @@
   <meta name="theme-color" content="#083B7A">
   <meta name="description" content="Hospodar YKI — незалежна цифрова репетиція YKI keskitaso на базі документованих типів завдань.">
   <title>Digitesti · Репетиція YKI — Hospodar YKI</title>
+  <link rel="icon" type="image/svg+xml" href="../brand/logo/hospodar-yki-mark.svg">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./exam.css">
   <script type="module" src="./exam.mjs"></script>
 </head>
-<body>
+<body class="site-exam">
   <a class="skip" href="#exam-main">До завдання</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="./">
-        <span class="brand-mark" aria-hidden="true">H</span>
-        <span><strong>Hospodar YKI</strong><small>Репетиція Digitesti</small></span>
+        <img class="brand-mark" src="../brand/logo/hospodar-yki-mark.svg" alt="" width="46" height="46">
+        <span><strong>Hospodar <em>YKI</em></strong><small>Фінська для життя. Впевненість для YKI.</small></span>
       </a>
       <a href="./" class="back">← До навчання</a>
     </div>
   </header>
   <div class="wrap">
+    <nav class="mode-gateway" aria-label="Оберіть режим Hospodar YKI">
+      <a class="mode-entry mode-entry-learn" href="./">
+        <span class="mode-number">01 / НАВЧАННЯ</span>
+        <strong>Вчитися</strong>
+        <small>Завдання · самовиправлення · повторення</small>
+      </a>
+      <a class="mode-entry mode-entry-exam selected" href="./exam.html" aria-current="page">
+        <span class="mode-number">02 / СИМУЛЯЦІЯ</span>
+        <strong>Пробний YKI</strong>
+        <small>4 навички · 9 завдань · без підказок</small>
+      </a>
+    </nav>
     <div class="sim-intro">
       <span class="pill">YKI suomi · keskitaso</span>
       <span class="pill">Навчальна симуляція · незалежний застосунок</span>
