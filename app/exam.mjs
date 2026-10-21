@@ -122,6 +122,12 @@ function renderFinished(){
 }
 function draw(){
   if(!exam.blueprints)return;
+  // During a timed rehearsal, hide the promotional mode selector:
+  // preserve concentration and avoid implying a browser mock can copy OPH UI.
+  const gateway=document.querySelector(".mode-gateway");
+  if(gateway)gateway.hidden=Boolean(exam.session && !exam.session.finishedAt);
+  const legend=document.querySelector(".skills-legend");
+  if(legend)legend.hidden=Boolean(exam.session && !exam.session.finishedAt);
   root.innerHTML=!exam.session?renderWelcome():exam.session.finishedAt?renderFinished():renderExam();
 }
 function start(id,minutes){

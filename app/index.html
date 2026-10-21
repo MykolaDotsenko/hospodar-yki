@@ -6,21 +6,40 @@
   <meta name="theme-color" content="#083B7A">
   <meta name="description" content="Hospodar YKI — незалежні інтерактивні вправи з фінської до B1.">
   <title>Hospodar YKI · Фінська для життя</title>
+  <link rel="icon" type="image/svg+xml" href="../brand/logo/hospodar-yki-mark.svg">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.mjs"></script>
 </head>
-<body>
+<body class="site-learn">
   <a class="skip" href="#main">Перейти до вправ</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="./" aria-label="Hospodar YKI, на головну">
-        <span class="brand-mark" aria-hidden="true">H</span>
-        <span><strong>Hospodar YKI</strong><small>Фінська для життя</small></span>
+        <img class="brand-mark" src="../brand/logo/hospodar-yki-mark.svg" alt="" width="46" height="46">
+        <span><strong>Hospodar <em>YKI</em></strong><small>Фінська для життя. Впевненість для YKI.</small></span>
       </a>
       <div class="head-note">A2.2 → B1+ <span aria-hidden="true">🇫🇮</span></div>
     </div>
   </header>
   <div class="wrap">
+    <nav class="mode-gateway" aria-label="Оберіть режим Hospodar YKI">
+      <a class="mode-entry mode-entry-learn selected" href="./" aria-current="page">
+        <span class="mode-number">01 / НАВЧАННЯ</span>
+        <strong>Вчитися</strong>
+        <small>Завдання · самовиправлення · повторення</small>
+      </a>
+      <a class="mode-entry mode-entry-exam" href="./exam.html">
+        <span class="mode-number">02 / СИМУЛЯЦІЯ</span>
+        <strong>Пробний YKI</strong>
+        <small>4 навички · 9 завдань · без підказок</small>
+      </a>
+    </nav>
+    <div class="skills-legend" aria-label="Чотири навички YKI">
+      <span class="skill-label skill-reading">Читання</span>
+      <span class="skill-label skill-listening">Аудіювання</span>
+      <span class="skill-label skill-writing">Письмо</span>
+      <span class="skill-label skill-speaking">Говоріння</span>
+    </div>
     <nav class="tabs" aria-label="Розділи навчання" id="navigation">
       <button type="button" class="tab active" data-view="mission">Місія</button>
       <button type="button" class="tab" data-view="diagnostic">4 навички</button>

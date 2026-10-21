@@ -1,0 +1,34 @@
+name: Validate Hospodar brand identity
+on:
+  push:
+    branches: [main, 'design/**']
+    paths:
+      - 'brand/**'
+      - 'app/index.html'
+      - 'app/exam.html'
+      - 'app/styles.css'
+      - 'app/exam.mjs'
+      - 'scripts/validate_brand_identity.py'
+      - '.github/workflows/validate-brand-identity.yml'
+  pull_request:
+    paths:
+      - 'brand/**'
+      - 'app/index.html'
+      - 'app/exam.html'
+      - 'app/styles.css'
+      - 'app/exam.mjs'
+      - 'scripts/validate_brand_identity.py'
+      - '.github/workflows/validate-brand-identity.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify SVG mark, two-mode navigation and accessible color pairs
+        run: python3 scripts/validate_brand_identity.py
