@@ -135,3 +135,15 @@
 **Критерій готовності:** виконані [IV-AC-01…15](18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned), є автоматичні + мобільні/accessibility тести й S2 перевірка завдань. **Наразі це формалізовані вимоги; не стверджувати, що всі 14 патернів реалізовані.**
 
 **План доказової перевірки:** A/B `text-based retrieval+feedback+SRS` проти `same + meaningful multimedia cues`, збалансовані завдання; primary = перша незалежна відповідь на unseen task через 7 днів, secondary = 14 днів, comprehension gist без VTT, коректність і доступність. Жодних причинних висновків без належного експерименту.
+
+## Новий фундамент навчального двигуна — LE-01…13 (21.10.2026)
+
+**Детальне ТЗ / технічна придатність книг:** [19 — science books → engineering](19-learning-books-to-engineering-2026-10.md); [машинозчитувана черга](../research/learning-blueprints-books-v1.json); [AC-47…59](15-two-modes-skill-scopes.md).
+
+Ціль **не** «пройти 100 карток», а повернути користувача до фінської в новій ситуації через 7–14 днів: `retrieval → meaning-first input → independent task → informative feedback → self-repair → unseen transfer → next SRS`.
+
+**P0:** first-attempt immutable ledger, комунікативна задача/genre, capped diagnostic feedback, reviewed content+rights, held-out independent skill evidence.  
+**P1:** responsive SRS, novice fading, contrastive interleaving (після базової практики), language-specific audio+pronunciation і teacher-anchored writing/speaking.  
+**Поведінкова межа:** не робити тести «візуалів/аудіалів»; не підміняти практику підсвічуванням, великою кількістю анімацій, незнайомими слівцями без контексту чи стріками. Ні книги, ні дослідження не гарантують особистий YKI 3.
+
+**Не реалізовано автоматично:** документування цих вимог **не** означає готовий 4-skill adaptive engine.
