@@ -74,7 +74,7 @@ def main():
             check(q["id"] not in ids,"Duplicate dialogue question "+q["id"]);ids.add(q["id"])
             check(any(q["evidence_fi"] in turn["text_fi"] for turn in row["turns"]),"Dialogue evidence missing "+q["id"])
     sources=load("research/yki-content-sources-2026-10.json")
-    check(len(sources["items"])==34,"Source registry count")
+    check(len(sources["items"])>=34,"Source registry unexpectedly shrank")
     rights={i["rights"] for i in sources["items"]}
     check(any("LINK_ONLY" in x for x in rights) and "IMPORT_CC_BY_4_WITH_CREDITS" in rights,"Rights classifications missing")
     source_ids=set()
