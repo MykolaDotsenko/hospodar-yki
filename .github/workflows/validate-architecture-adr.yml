@@ -1,0 +1,36 @@
+name: Validate Hospodar YKI architecture decision
+on:
+  push:
+    branches: [main, 'architecture/**']
+    paths:
+      - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
+      - 'docs/12-mvp-architecture.md'
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'research/architecture-decision-v1.json'
+      - 'scripts/validate_architecture_decision.py'
+      - 'apps/web/**'
+      - 'README.md'
+      - '.github/workflows/validate-architecture-adr.yml'
+  pull_request:
+    paths:
+      - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
+      - 'docs/12-mvp-architecture.md'
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'research/architecture-decision-v1.json'
+      - 'scripts/validate_architecture_decision.py'
+      - 'apps/web/**'
+      - 'README.md'
+      - '.github/workflows/validate-architecture-adr.yml'
+permissions:
+  contents: read
+jobs:
+  adr-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check architecture decision truth and linked acceptance requirements
+        run: python3 scripts/validate_architecture_decision.py
