@@ -14,6 +14,16 @@ Open **http://localhost:8080/app/** in a browser. Do not use `file://` because t
 
 **Tests** (Node >= 20): `node --test app/tests/*.test.mjs`; syntax `node --check app/app.mjs`.
 
+## ⭐ Новий реалістичніший режим Digitesti (21.10.2026)
+
+**[▶️ Запустити окрему репетицію `exam.html`](exam.html)** — або напряму `http://localhost:8080/app/exam.html`.
+
+Використовує **обидва оригінальні 4-навичкові набори**, `9` завдань на один (3 reading, 4 listening, 1 writing, 1 speaking). Зрозумілий послідовний UI, відповіді/чернетки зберігаються локально, необов'язкові **навчальні** таймери 15/30/60 хв, відкладені ключі після завершення, результати окремо за навичками, `ungraded` для open/writing/speaking, локальний голосовий запис зі згодою, експорт JSON.
+
+Це **не** повна достовірна копія цифрового YKI 2027: офіційні exact UI/timers/audio-replay не опубліковані в перевірених джерелах, speaking needs human review, аудіо поточних наборів синтетичне. Повний план і критерії — [docs/14-digital-yki-fidelity-spec.md](../docs/14-digital-yki-fidelity-spec.md); кожна деталь підтвердження — [33 evidence claims](../research/yki-digital-fidelity-evidence-2026-10.json).
+
+Тести включені в `node --test app/tests/*.test.mjs`.
+
 ## Working now
 
 1. **Місія:** load `content/b1/grammar/contextual-cloze.json` → first attempt (answer hidden) → guided repair (if wrong) → reveal answer/explanation → own unseen transfer sentence → save. SRS records **first independent** recall, not success after a hint.
