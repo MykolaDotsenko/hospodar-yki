@@ -199,3 +199,9 @@ Evidence-informed навчання живої фінської: реалісти
 **[22 — повне 3-кратне архітектурне рішення](docs/22-optimal-stack-and-architecture-adr-2026-10.md)** · **[машинозчитуваний ADR](research/architecture-decision-v1.json)** · [ARCH-01…14](docs/15-two-modes-skill-scopes.md).
 
 Рекомендований цільовий стек: **React 19 + TypeScript strict + Vite 8, Dexie/IndexedDB, XState v5 для екзамену та аудіо, PWA/Workbox, pnpm monorepo**. Пізніше за потреби: **Supabase PostgreSQL/Auth/Storage у конкретному регіоні ЄС + захищений AI gateway і durable long-job worker**. **Статус: спроєктовано, НЕ впроваджено**; нинішній working MVP лишається HTML/CSS/JS у `app/`. Переносити поетапно без втрати даних, аудіо, JSON контенту та достовірності екзаменаційного режиму.
+
+## 🎮 Android game with all offline multimedia (ADR-023)
+
+**[23 — повне ТЗ Android гри на 2–3GB, Play Asset Delivery, Phaser та Capacitor](docs/23-android-offline-game-and-3gb-media-architecture.md)** · **[машинозчитуваний контракт](research/android-game-distribution-v1.json)**.
+
+Ціль: **дві платформи (Web PWA + Android гра)** зі спільними TypeScript навчальними/екзаменаційними алгоритмами, `Phaser` 2D story, NPC і місії, `Capacitor + Kotlin` native bridge, `AAB + install-time packs` для **всього ліцензованого релізного медіа** без дозавантажень після встановлення Google Play. Розмір **планується** ~2.6GB (не виміряний). Це **одна дія встановлення у Play**, не один інсталюємий APK на 3GB. Неліцензовані офіційні MP3/YouTube не включати. Поточна реалізація — лише веб-MVP; Android-сцени й AAB **ще не створені**.
