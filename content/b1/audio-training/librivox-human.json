@@ -1,0 +1,629 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-21",
+  "count": 15,
+  "narrators": [
+    "Mari Mattila",
+    "Teemu",
+    "Tuija Aalto"
+  ],
+  "warning": "Read literary historical Finnish, not representative B1 YKI. Not scored without transcripts.",
+  "errors": [],
+  "items": [
+    {
+      "id": "librivox-tuija-rautatie-01",
+      "path": "audio/human/librivox/tuija-rautatie/part-01.ogg",
+      "sha256": "9eca27200aa7914ca8daf9e0dc50c181e25143e84215b063af6d708fbed7e79b",
+      "bytes": 111040,
+      "duration_seconds": 24.52,
+      "start_seconds": 68.79,
+      "end_seconds": 93.31,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Tuija Aalto",
+      "work": "Rautatie",
+      "writer": "Juhani Aho",
+      "writer_died": 1921,
+      "source_page": "https://librivox.org/rautatie-by-juhani-aho/",
+      "archive_file": "https://archive.org/download/rautatie_ta_librivox/rautatie_1_aho.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-tuija-rautatie-02",
+      "path": "audio/human/librivox/tuija-rautatie/part-02.ogg",
+      "sha256": "4d0dc806fb8256e40ee7569a951a338d576aec32974ee84346955a8bba5a6220",
+      "bytes": 102321,
+      "duration_seconds": 22.41,
+      "start_seconds": 134.86,
+      "end_seconds": 157.27,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Tuija Aalto",
+      "work": "Rautatie",
+      "writer": "Juhani Aho",
+      "writer_died": 1921,
+      "source_page": "https://librivox.org/rautatie-by-juhani-aho/",
+      "archive_file": "https://archive.org/download/rautatie_ta_librivox/rautatie_1_aho.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-tuija-rautatie-03",
+      "path": "audio/human/librivox/tuija-rautatie/part-03.ogg",
+      "sha256": "0f311519025be8f8bf29ba1f6f748aa5bbe5fd1e11f8c69290d25b35b868c869",
+      "bytes": 107400,
+      "duration_seconds": 23.6,
+      "start_seconds": 204.15,
+      "end_seconds": 227.75,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Tuija Aalto",
+      "work": "Rautatie",
+      "writer": "Juhani Aho",
+      "writer_died": 1921,
+      "source_page": "https://librivox.org/rautatie-by-juhani-aho/",
+      "archive_file": "https://archive.org/download/rautatie_ta_librivox/rautatie_1_aho.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-tuija-rautatie-04",
+      "path": "audio/human/librivox/tuija-rautatie/part-04.ogg",
+      "sha256": "af8765dbfb2fd14990e88bd3486818d09596817cdfadcd055acc9715f9ee7f0d",
+      "bytes": 118308,
+      "duration_seconds": 26.79,
+      "start_seconds": 273.06,
+      "end_seconds": 299.85,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Tuija Aalto",
+      "work": "Rautatie",
+      "writer": "Juhani Aho",
+      "writer_died": 1921,
+      "source_page": "https://librivox.org/rautatie-by-juhani-aho/",
+      "archive_file": "https://archive.org/download/rautatie_ta_librivox/rautatie_1_aho.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-tuija-rautatie-05",
+      "path": "audio/human/librivox/tuija-rautatie/part-05.ogg",
+      "sha256": "50bc22cb201191abd5204d0e0f18aea4df7e713b403c50dee19a0144abe3d006",
+      "bytes": 118113,
+      "duration_seconds": 25.84,
+      "start_seconds": 345.33,
+      "end_seconds": 371.16,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Tuija Aalto",
+      "work": "Rautatie",
+      "writer": "Juhani Aho",
+      "writer_died": 1921,
+      "source_page": "https://librivox.org/rautatie-by-juhani-aho/",
+      "archive_file": "https://archive.org/download/rautatie_ta_librivox/rautatie_1_aho.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-mari-laulu-01",
+      "path": "audio/human/librivox/mari-laulu/part-01.ogg",
+      "sha256": "9a7543b9348d599386d52e00808c2155d4289751e51ff5e9b81cbea4ee371e67",
+      "bytes": 129874,
+      "duration_seconds": 22.46,
+      "start_seconds": 67.88,
+      "end_seconds": 90.34,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Mari Mattila",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-mari-laulu-02",
+      "path": "audio/human/librivox/mari-laulu/part-02.ogg",
+      "sha256": "b867dc8f7329ca375ac6d4d387d9d18c6348f3e65a3f9c7732f8d1ef06f3a49c",
+      "bytes": 137858,
+      "duration_seconds": 23.71,
+      "start_seconds": 134.92,
+      "end_seconds": 158.64,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Mari Mattila",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-mari-laulu-03",
+      "path": "audio/human/librivox/mari-laulu/part-03.ogg",
+      "sha256": "4b1304efb750611fd34f54d4d9869625869b0584ab130366311f2ffe31d6a405",
+      "bytes": 147909,
+      "duration_seconds": 25.3,
+      "start_seconds": 204.33,
+      "end_seconds": 229.63,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Mari Mattila",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-mari-laulu-04",
+      "path": "audio/human/librivox/mari-laulu/part-04.ogg",
+      "sha256": "40a0c92cebc26284ecd361ccd9e925a7d7edcbc09ae562eb1e635b04b447dcc4",
+      "bytes": 139025,
+      "duration_seconds": 23.88,
+      "start_seconds": 275.31,
+      "end_seconds": 299.19,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Mari Mattila",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-mari-laulu-05",
+      "path": "audio/human/librivox/mari-laulu/part-05.ogg",
+      "sha256": "92910dd2e061891169d9fa8c86e5333b7680cac8b44c31a360321fdc847e2a64",
+      "bytes": 141846,
+      "duration_seconds": 25.06,
+      "start_seconds": 344.45,
+      "end_seconds": 369.51,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Mari Mattila",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-teemu-laulu-01",
+      "path": "audio/human/librivox/teemu-laulu/part-01.ogg",
+      "sha256": "f4fec9d1e06124a50b09f3d3f286e2afd2556064f9f2c6955b16ef29609099ba",
+      "bytes": 131255,
+      "duration_seconds": 23.41,
+      "start_seconds": 69.04,
+      "end_seconds": 92.45,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Teemu",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-teemu-laulu-02",
+      "path": "audio/human/librivox/teemu-laulu/part-02.ogg",
+      "sha256": "2e511a563cd6650daded412e34547d81396b0f3645c89bd8c87439b5f64352e4",
+      "bytes": 130565,
+      "duration_seconds": 22.88,
+      "start_seconds": 135.59,
+      "end_seconds": 158.47,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Teemu",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-teemu-laulu-03",
+      "path": "audio/human/librivox/teemu-laulu/part-03.ogg",
+      "sha256": "73e29a062bc84e4fa435bf565d1170ef873b9a99480a65c56fb90e6dd2f00326",
+      "bytes": 128533,
+      "duration_seconds": 23.13,
+      "start_seconds": 205.49,
+      "end_seconds": 228.62,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Teemu",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-teemu-laulu-04",
+      "path": "audio/human/librivox/teemu-laulu/part-04.ogg",
+      "sha256": "f384057ac88e7691f2fd674dc737e84c8bc21ed20abf67ff292807ee5034d3e4",
+      "bytes": 131575,
+      "duration_seconds": 23.08,
+      "start_seconds": 275.48,
+      "end_seconds": 298.56,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Teemu",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    },
+    {
+      "id": "librivox-teemu-laulu-05",
+      "path": "audio/human/librivox/teemu-laulu/part-05.ogg",
+      "sha256": "87e37b13ac411c25cc68f7b10482b9fa775ada7fe64ddc887135e5815ad6b575",
+      "bytes": 135813,
+      "duration_seconds": 24.9,
+      "start_seconds": 344.71,
+      "end_seconds": 369.62,
+      "boundary_start": "pause_detected",
+      "boundary_end": "pause_detected",
+      "narrator": "Teemu",
+      "work": "Laulu tulipunaisesta kukasta",
+      "writer": "Johannes Linnankoski",
+      "writer_died": 1913,
+      "source_page": "https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/",
+      "archive_file": "https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3",
+      "license": "Public domain (LibriVox recordings and Finnish author rights expired)",
+      "read_speech": true,
+      "real_human": true,
+      "transcript_verified": false,
+      "is_official_yki": false,
+      "level_hint": "B1+-B2+",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "kind": "gist",
+          "prompt_fi": "Mistä katkelmassa puhutaan? Kerro omin sanoin.",
+          "automated_grading": false
+        },
+        {
+          "kind": "details",
+          "prompt_fi": "Kirjoita kaksi selvästi kuulemaasi ilmausta ja kerro, mitä ne tarkoittavat.",
+          "automated_grading": false
+        },
+        {
+          "kind": "transfer",
+          "prompt_fi": "Kerro yksi samanaiheinen asia nykyelämästä.",
+          "automated_grading": false
+        }
+      ]
+    }
+  ]
+}
