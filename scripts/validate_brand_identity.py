@@ -47,6 +47,16 @@ def main():
     ]:
         value=contrast(t["colors"][a],t["colors"][b])
         assert value>=4.5, f"Contrast below AA: {a} on {b} = {value:.2f}"
+    # Four semantic skill colors: colorful is welcome, but contrast and meaning matter.
+    assert set(t["skill_identity"])=={"reading","listening","writing","speaking"}
+    for skill, data in t["skill_identity"].items():
+        assert data["accent"] == t["colors"][skill]
+        assert data["label_uk"] and data["name_fi"]
+        assert contrast(data["accent"],t["colors"]["surface"]) >= 4.5, skill
+    assert t["attention_design"]["allows_colorful"] is True
+    assert t["attention_design"]["not_color_only"] is True
+    assert t["attention_design"]["no_unverified_learning_claims"] is True
+    assert len(t["attention_design"]["avoid_ai_sameness"]) >= 5
     # Gold is signature decoration; it is intentionally not allowed as small-on-white text.
     assert contrast(t["colors"]["accent"],t["colors"]["surface"])<4.5
     for path in (MARK,LOCKUP,MONO):
@@ -62,6 +72,9 @@ def main():
         page=text(html)
         assert page.count("../brand/logo/hospodar-yki-mark.svg")==2, html
         assert page.count('class="mode-entry ')==2, html
+        assert page.count('class="skill-label skill-')==4, html
+        for label in ("Читання","Аудіювання","Письмо","Говоріння"):
+            assert label in page
         assert "Вчитися" in page and "Пробний YKI" in page
         assert 'href="./exam.html"' in page
         assert 'href="./"' in page
@@ -70,6 +83,8 @@ def main():
         assert '<span class="brand-mark"' not in page
     css=text(CSS)
     assert ".mode-entry-exam" in css and ".mode-entry-learn" in css
+    for skill in ("reading","listening","writing","speaking"):
+        assert f"--skill-{skill}" in css and f".skill-{skill}" in css
     assert "--learn-tint" in css and "--exam-tint" in css
     assert "@media (max-width:560px)" in css
     assert "prefers-reduced-motion" in css
