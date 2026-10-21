@@ -15,7 +15,15 @@
     "CC_BY_SA_4_CHECK_EACH_LINKED_ITEM": "Verify sub-asset rights, provide credits, honor share-alike terms for derivatives.",
     "OFFICIAL_PDF_LINK_ONLY": "Official exam criteria for reference; separate permission needed before repository redistribution.",
     "CC_BY_4_WRAPPER_THIRD_PARTY_NEWS_RIGHTS_REVIEW": "The exercise page is CC BY but contains adapted news text; do not redistribute embedded news article until rights checked.",
-    "CC_BY_4_PHOTOS_EXCLUDED": "Text marked CC BY; images excluded due separate all-rights-reserved language."
+    "CC_BY_4_PHOTOS_EXCLUDED": "Text marked CC BY; images excluded due separate all-rights-reserved language.",
+    "IMPORT_CC_BY_4_WITH_CREDIT_AND_SOURCE_NOTICES": "CC BY 4.0: retain FIN-CLARIN and VISK source credits, mark selection and cloze transformations; teacher review before scored use.",
+    "CC_BY_SA_4_REVIEW_ALL_SOURCE_NOTICES": "ShareAlike constraints, extra sources attribution, rights check before app distribution.",
+    "CC_BY_ND_PRIV_PERSONAL_DATA_LINK_RESEARCH_ONLY": "No adaptation/republication of ND audio/transcripts, plus personal data obligations; only research links.",
+    "PUBLIC_DATA_BUT_VERSION_LICENSE_TO_CONFIRM": "Resource group is public, exact per-version license must be checked; no import until confirmed.",
+    "RESTRICTED_VARIANTS_PERSONAL_DATA_NO_IMPORT": "Access varies by subcorpus and personal data restrictions; do not import learner samples.",
+    "LINK_ONLY_UNDERLYING_TEXT_RIGHTS_MIXED": "Annotation and underlying text rights differ; never bulk-import underlying content on annotation license alone.",
+    "CC_BY_NC_ND_LINK_ONLY": "NonCommercial and NoDerivatives apply; no commercial app redistribution or transformations.",
+    "LINK_ONLY_CHECK_EACH_SUBRESOURCE": "Directory license does not authorize copying every linked material."
   },
   "items": [
     {
@@ -653,6 +661,150 @@
       "app_use": "further_discovery",
       "description": "A2/B1/B2 filters by writing/listening/speaking/grammar/genre; each linked item has own license.",
       "verification": "Publisher/OPH page and license label checked 2026-10-21; individual media download and all embedded third-party rights are not uniformly verified."
+    },
+    {
+      "id": "ud_finnish_ftb",
+      "name": "FinnTreeBank / Universal Dependencies Finnish FTB",
+      "url": "https://github.com/UniversalDependencies/UD_Finnish-FTB",
+      "category": "grammatical_treebank",
+      "score": 98,
+      "level": "A2-C2",
+      "rights": "IMPORT_CC_BY_4_WITH_CREDIT_AND_SOURCE_NOTICES",
+      "app_use": "case_inflection_retrieval_and_syntax",
+      "description": "18,723 annotated sentence trees per upstream README, based on VISK grammar examples; 120 structurally selected morphology cloze prompts imported in content/b1/grammar/ftb-frequency-cloze-v1.json. Not CEFR rated.",
+      "verification": "Confirmed upstream LICENSE.txt states CC BY 4.0 alternate license; pinned test corpus + branch commit verified 2026-10-21."
+    },
+    {
+      "id": "ud_finnish_tdt",
+      "name": "Turku Dependency Treebank (Universal Dependencies)",
+      "url": "https://universaldependencies.org/treebanks/fi_tdt/index.html",
+      "category": "morphological_treebank",
+      "score": 94,
+      "level": "A2-C2",
+      "rights": "CC_BY_SA_4_REVIEW_ALL_SOURCE_NOTICES",
+      "app_use": "token_level_grammatical_examples",
+      "description": "Turku treebank: news, blogs, wiki, grammatical examples with morphology/syntax. Extra original publisher credits and CC BY-SA obligations.",
+      "verification": "Verified UD official treebank and upstream LICENSE.txt, 2026-10-21."
+    },
+    {
+      "id": "ud_finnish_ood",
+      "name": "UD Finnish Out-of-Domain (OOD)",
+      "url": "https://github.com/UniversalDependencies/UD_Finnish-OOD",
+      "category": "linguistic_corpus",
+      "score": 80,
+      "level": "B1-C2",
+      "rights": "LINK_ONLY_UNDERLYING_TEXT_RIGHTS_MIXED",
+      "app_use": "register_evaluation_only",
+      "description": "Morphological/syntactic annotations CC BY-SA 4.0, underlying medical/web/social/poetry source texts have varying copyright; do not republish wholesale.",
+      "verification": "Upstream README explicitly distinguishes annotation CC BY-SA from variable text rights, 2026-10-21."
+    },
+    {
+      "id": "tallvocabl2fi",
+      "name": "TallVocabL2Fi — vocabulary knowledge of 15 Finnish learners",
+      "url": "https://www.kielipankki.fi/arkisto/resource-info/l2-learner-corpora/",
+      "category": "learner_vocabulary_research",
+      "score": 94,
+      "level": "B1-C2",
+      "rights": "PUBLIC_DATA_BUT_VERSION_LICENSE_TO_CONFIRM",
+      "app_use": "adaptive_vocabulary_diagnostic_research",
+      "description": "~12k Finnish items, 15 adults, 180k self-ratings + 1500 translations; useful for testing adaptive vocabulary inventory designs, NOT general CEFR word labels or learner-level ground truth.",
+      "verification": "Kielipankki official learner corpora describes dataset, subjects and PUB access, 2026-10-21."
+    },
+    {
+      "id": "arkisyn",
+      "name": "ArkiSyn — 29 hours everyday Finnish conversations",
+      "url": "https://www.utu.fi/en/university/faculty-of-humanities/school-of-languages-and-translation-studies/research/utu-digilang/arkisyn-database-of-finnish-conversational-discourse",
+      "category": "authentic_spoken_corpus",
+      "score": 95,
+      "level": "B1-C2",
+      "rights": "CC_BY_ND_PRIV_PERSONAL_DATA_LINK_RESEARCH_ONLY",
+      "app_use": "puhekieli_register_analysis",
+      "description": "University of Turku reports 29h audio, aligned transcripts, morphosyntactic annotations; CC BY-ND and contains personal data — no copying/adaptation in public app as-is.",
+      "verification": "Official University of Turku resource page lists CC BY-ND + personal data, 2026-10-21."
+    },
+    {
+      "id": "testipiste_corpus",
+      "name": "Testipiste — immigrant Finnish writing assessments",
+      "url": "https://www.kielipankki.fi/arkisto/resource-info/l2-learner-corpora/",
+      "category": "restricted_learner_writing_corpus",
+      "score": 88,
+      "level": "A1-C1",
+      "rights": "RESTRICTED_VARIANTS_PERSONAL_DATA_NO_IMPORT",
+      "app_use": "teacher_level_calibration_research",
+      "description": "3 texts from each of 2397 learner writers, placement levels; version-specific access and privacy restrictions, no automatic app redistribution.",
+      "verification": "Kielipankki official corpus description: mixed PUB/ACA/RES with +PRIV, 2026-10-21."
+    },
+    {
+      "id": "jyu_yki_writing_tasks",
+      "name": "University of Jyväskylä — Finnish keskitaso writing examples",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "category": "official_exam_writing_examples",
+      "score": 100,
+      "level": "YKI3_4",
+      "rights": "OFFICIAL_PDF_LINK_ONLY",
+      "app_use": "writing_genre_task_alignment",
+      "description": "Direct official examples: email, opinion and other written tasks with multiple required content points. Old paper phrasing must not determine digital UI.",
+      "verification": "Reviewed University of Jyväskylä official keskitaso writing sample page 2026-10-21."
+    },
+    {
+      "id": "jyu_yki_speaking_tasks",
+      "name": "University of Jyväskylä — Finnish keskitaso speaking examples",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "category": "official_exam_speaking_examples",
+      "score": 100,
+      "level": "YKI3_4",
+      "rights": "OFFICIAL_PDF_LINK_ONLY",
+      "app_use": "oral_situations_and_monologue_alignment",
+      "description": "Direct official examples: short situations and oral presentation. Historical timing applies to old demonstrator only, not assumed 2027 digital format.",
+      "verification": "Reviewed University of Jyväskylä official keskitaso speaking sample page 2026-10-21."
+    },
+    {
+      "id": "vierko_2024_teacher_clear_speech",
+      "name": "VIERKO 2024 — Selkopuhe and selkokieli guidance for teachers",
+      "url": "https://www.finna.fi/Record/aoe.4227",
+      "category": "teacher_instruction_design",
+      "score": 90,
+      "level": "pedagogy",
+      "rights": "CC_BY_4_VERIFY_EACH_EXTERNAL_VIDEO",
+      "app_use": "clear_speech_scaffolding_for_app",
+      "description": "Open 2024 teacher training slides on easy speech, comprehensible written texts, and explicit task instructions; media links may be separately licensed.",
+      "verification": "Finnish Finna/AOE listing shows CC BY 4.0 for training package; individual external media verify separately, 2026-10-21."
+    },
+    {
+      "id": "aoe_clear_language_2026",
+      "name": "Kielitietoiset vinkit opas (Karelia 2026)",
+      "url": "https://aoe.fi/materiaali/6207",
+      "category": "teacher_accessibility_design",
+      "score": 84,
+      "level": "pedagogy",
+      "rights": "CC_BY_NC_ND_LINK_ONLY",
+      "app_use": "accessible_feedback_guidelines",
+      "description": "Oct 2026 guide to clear speech and learning support, CC BY-NC-ND; use for design references, don't modify or embed as commercial curriculum.",
+      "verification": "AOE publisher page created 07.10.2026 lists CC BY-NC-ND 4.0, 2026-10-21."
+    },
+    {
+      "id": "vierko_2024_index",
+      "name": "VIERKO 2024 S2/YTO open material index",
+      "url": "https://sites.google.com/edu.hel.fi/selkomateriaaleja/yto-materiaalit",
+      "category": "open_material_directory",
+      "score": 91,
+      "level": "A2-B1",
+      "rights": "LINK_ONLY_CHECK_EACH_SUBRESOURCE",
+      "app_use": "new_learner_tasks_discovery",
+      "description": "Updated April 2026 index of S2 support lessons, simplified CEFR descriptors, vocational vocabulary, and new 2026 VIERKO stories; a directory not automatically a licensed corpus.",
+      "verification": "Reviewed Helsinki educational materials index current April 2026, 2026-10-21."
+    },
+    {
+      "id": "finnish_ud_ftb_license",
+      "name": "FinnTreeBank FTB explicit CC BY 4.0 license text",
+      "url": "https://github.com/UniversalDependencies/UD_Finnish-FTB/blob/master/LICENSE.txt",
+      "category": "licensing_reference",
+      "score": 98,
+      "level": "all",
+      "rights": "REFERENCE_ONLY",
+      "app_use": "third_party_credits",
+      "description": "Publisher explicit choice LGPLv3+ OR CC BY 4.0. Source was derived from VISK examples; credit FIN-CLARIN, upstream sources and modifications.",
+      "verification": "Checked full license preamble directly in repository, 2026-10-21."
     }
   ]
 }
