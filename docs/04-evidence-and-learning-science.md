@@ -67,3 +67,17 @@ Active Recall і testing effect — сильна загальна навчаль
 - Не стверджувати, що конкретні g/d перетворюються у % результату YKI.
 - Не заявляти, що час відповіді з історичних демо незмінний у цифровому форматі.
 - Не вважати виконання знайомого тесту доказом трансферу в нову ситуацію.
+
+## Додатковий evidence-to-engineering review — бестселери та практики (21.10.2026)
+
+[Новий короткий road map 13 engine features](19-learning-books-to-engineering-2026-10.md) і [registry з 11 книжками/13 джерелами](../research/learning-blueprints-books-v1.json) пояснює, як реалізувати existing [67 методик](08-learning-methods-evidence-2026-10.md) **без дублювання списків**.
+
+Окремі корисні першоджерела:
+- [Cepeda et al. 2006](https://doi.org/10.1037/0033-2909.132.3.354) — delay/retention horizon взаємозалежні, тому 1/3/7/14/30 не універсальна формула.
+- [Rowland 2014](https://doi.org/10.1037/a0037559) — retrieval важливіший за passive rereading; вільне пригадування відрізняється від recognition.
+- [Pan & Rickard 2018](https://doi.org/10.1037/bul0000151) — transfer `d=0.40` за конкретних порівнянь, не гарантія YKI.
+- [Wisniewski et al 2020](https://doi.org/10.3389/fpsyg.2019.03087) — feedback overall `d=0.48`, велика різнорідність, важлива конкретика помилок.
+- [Pashler et al](https://doi.org/10.1111/j.1539-6053.2009.01038.x) — не будувати learning styles meshing.
+- [WWC Practice Guide](https://ies.ed.gov/ncee/wwc/PracticeGuide/1) — spacing, worked examples, інтеграція графіки/вербальної інструкції.
+
+**Повні платні книжки не читалися:** опрацьовано офіційні видавничі синопсиси/дозволені фрагменти/авторські пояснення й доступні наукові тексти. Оцінки книжок 0–100 є fit для Hospodar, а не bestseller ranking або causal effect.
