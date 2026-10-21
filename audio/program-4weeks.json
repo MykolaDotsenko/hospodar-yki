@@ -123,6 +123,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-01-vesikatko-ja-huoltokaynti",
+        "audio_path": "audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.ogg",
+        "transcript_path": "audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.txt",
+        "subtitles_path": "audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1",
+        "duration_seconds": 142.99,
+        "synthetic": true
       }
     },
     {
@@ -240,6 +252,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-02-kurssi-ja-tyovuorot",
+        "audio_path": "audio/long/b1/b1long-02-kurssi-ja-tyovuorot.ogg",
+        "transcript_path": "audio/long/b1/b1long-02-kurssi-ja-tyovuorot.txt",
+        "subtitles_path": "audio/long/b1/b1long-02-kurssi-ja-tyovuorot.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1",
+        "duration_seconds": 143,
+        "synthetic": true
       }
     },
     {
@@ -350,6 +374,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-03-verkkokaupan-palautus",
+        "audio_path": "audio/long/b1/b1long-03-verkkokaupan-palautus.ogg",
+        "transcript_path": "audio/long/b1/b1long-03-verkkokaupan-palautus.txt",
+        "subtitles_path": "audio/long/b1/b1long-03-verkkokaupan-palautus.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1",
+        "duration_seconds": 143.01,
+        "synthetic": true
       }
     },
     {
@@ -460,6 +496,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-04-muuttunut-bussireitti",
+        "audio_path": "audio/long/b1/b1long-04-muuttunut-bussireitti.ogg",
+        "transcript_path": "audio/long/b1/b1long-04-muuttunut-bussireitti.txt",
+        "subtitles_path": "audio/long/b1/b1long-04-muuttunut-bussireitti.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1",
+        "duration_seconds": 142.99,
+        "synthetic": true
       }
     },
     {
@@ -570,6 +618,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-05-taloyhtion-pihatalkoot",
+        "audio_path": "audio/long/b1/b1long-05-taloyhtion-pihatalkoot.ogg",
+        "transcript_path": "audio/long/b1/b1long-05-taloyhtion-pihatalkoot.txt",
+        "subtitles_path": "audio/long/b1/b1long-05-taloyhtion-pihatalkoot.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1+",
+        "duration_seconds": 143.01,
+        "synthetic": true
       }
     },
     {
@@ -680,6 +740,18 @@
         "extra_minutes": 6,
         "graded": false,
         "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      },
+      "long_listening": {
+        "id": "b1long-06-uimahallin-uusi-ryhma",
+        "audio_path": "audio/long/b1/b1long-06-uimahallin-uusi-ryhma.ogg",
+        "transcript_path": "audio/long/b1/b1long-06-uimahallin-uusi-ryhma.txt",
+        "subtitles_path": "audio/long/b1/b1long-06-uimahallin-uusi-ryhma.vtt",
+        "use": "replace_regular_listening_item_not_increase_daily_minutes",
+        "first_pass": "hide_captions_and_answer_keys",
+        "followup": "after_answer_reveal_TSV_VTT_and_feedback",
+        "level": "B1",
+        "duration_seconds": 143.01,
+        "synthetic": true
       }
     },
     {
@@ -818,5 +890,19 @@
       "Teemu"
     ],
     "scheduled_clips": 15
+  },
+  "long_audio_module": {
+    "day_numbers": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24
+    ],
+    "lesson_manifest": "content/b1/audio-long/lessons.json",
+    "human_optional_literary_recording": "content/b1/audio-long/human-stories.json",
+    "time_limit_note": "20min per day: replace regular listening rather than adding tasks, human story optional extra",
+    "score_note": "Results are internal, not YKI grade claims"
   }
 }
