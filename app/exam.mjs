@@ -28,7 +28,24 @@ function getSaved(){
   try{return localStorage.getItem(EXAM_STORAGE_KEY);}
   catch{exam.storageBlocked=true;return null;}
 }
-function progress(){return `<div class="exam-progress"><div class="rowline"><span class="exam-count">Завдання ${exam.session.index+1} / ${exam.items.length}</span><span class="exam-count">4 навички</span></div><progress max="${exam.items.length}" value="${exam.session.index+1}">${exam.session.index+1}/${exam.items.length}</progress></div>`;}
+
+function progress(){
+  const skills=["reading","listening","writing","speaking"];
+  const names=["Читання","Слухання","Письмо","Говоріння"];
+  const activeSkill=exam.items[exam.session.index]?.skill;
+  const active=skills.indexOf(activeSkill);
+  const route=skills.map((skill,i)=>{
+    const status=i<active?"completed":i===active?"current":"upcoming";
+    return '<li class="threshold-segment '+status+'"' +
+      (status==="current"?' aria-current="step"':'') +
+      ' aria-label="'+names[i]+(i<active?" — попередній модуль":i===active?" — поточний модуль":" — попереду")+'">' +
+      '<span class="threshold-index" aria-hidden="true">'+String(i+1).padStart(2,"0")+'</span>' +
+      '<span class="threshold-label">'+names[i]+'</span></li>';
+  }).join("");
+  return `<div class="exam-progress"><div class="rowline"><span class="exam-count">Завдання ${exam.session.index+1} / ${exam.items.length}</span><span class="exam-count">Тренувальна послідовність</span></div><progress max="${exam.items.length}" value="${exam.session.index+1}">${exam.session.index+1}/${exam.items.length}</progress></div>`+
+    '<ol class="threshold-route threshold-route-exam" aria-label="Навчальна репетиція: чотири модулі">'+route+'</ol>';
+}
+
 function timerLabel(){
   if(!exam.session?.timeLimitMinutes)return '<span class="pill">Без тренувального таймера</span>';
   const secs=remainingSeconds(exam.session,new Date());
