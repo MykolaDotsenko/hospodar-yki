@@ -114,3 +114,24 @@
 | Server accounts, cloud sync, production deployment | not delivered |
 
 **Контентне джерело:** `content/b1/**` і `audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
+
+## 7. INTERACTIVE-VISUAL — науково обґрунтовані інтерактивні вправи та візуальний UX (P0→P2)
+
+**Розгорнута специфікація:** [18 — інтерактивні вправи, візуальні сигнали, докази та acceptance criteria](18-interactive-visual-learning-evidence-2026-10.md). **Реєстр реалізації:** [research/interactive-visual-learning-v1.json](../research/interactive-visual-learning-v1.json). **Сполучення з двома режимами:** [15 — §9](15-two-modes-skill-scopes.md#9-interactive-visual-науково-обґрунтований-інтерактивний-шар).
+
+- **IV-REQ-01 / P0 — generate before reveal:** пріоритет самостійної `typed/open/voice` відповіді. Лише вибір із варіантів, перетягування чи повторне читання не мають монополізувати навчання. Ключ не відображати до відповіді.
+- **IV-REQ-02 / P0 — feedback+repair:** змістовий результат → обмежені навідні підказки → власне виправлення → короткий feedback з однією смисловою підсвіткою; не зараховувати assisted success як незалежне знання.
+- **IV-REQ-03 / P0 — delayed unseen transfer:** для кожної цільової мовної навички передбачити новий контекст, а потім незалежний 7/14-денний retest. Інтервали лише стартовий план, адаптувати за перевіреними результатами.
+- **IV-REQ-04 / P0 — audio listening UX:** `prediction → first uncued audio → gist → details/evidence → optional transcript/VTT after submit → new audio without text`. Усі ліцензії, timestamp, S2 review перевіряються окремо.
+- **IV-REQ-05 / P0 — interactive reading:** справжні оголошення, листи, графіки та завдання на практичне рішення. Після відповіді дозволено показати лише схвалений `evidence_span`; до відповіді — не сигналізувати правильне місце.
+- **IV-REQ-06 / P1 — multimedia for chunks:** змістовна ілюстрація + українська gloss лише в навчальній фазі; наступна самостійна продуктивна дія без фото/перекладу. Не обіцяти довготривалий ефект лише від картинки.
+- **IV-REQ-07 / P1 — meaningful agency:** розгалужені побутові діалоги, information-gap, власні мінісхеми/обґрунтування, draft → feedback → rewrite → new task. Виділяти семантику, а не випадкові кольори.
+- **IV-REQ-08 / P0 — accessibility / distraction:** WCAG 2.2 AA; високий контраст, клавіатура, доступні альтернативи перетягуванню, текст і іконка разом із кольором, calm/reduced-motion, ніяких distractor animation при відповіді.
+- **IV-REQ-09 / P0 — honest mastery:** dashboard на основі `unassisted_first_attempt` та перевірених 4-skill результатів, окремо `hint_used`, `transfer`, `review`. Ніяких псевдонаукових «+X% пам'яті» або оцінювання CEFR за автоматичними кліками.
+- **IV-REQ-10 / P0 — mode isolation:** у `exam` нуль додаткового trainer feedback, підсвічування ключа, мультимедійних підказок, маскота й навчальної гейміфікації до завершення. Для exact fidelity лише офіційно підтверджені параметри.
+- **IV-REQ-11 / P1–P2 — optional gamification:** короткі місії, добровільні неманіпулятивні винагороди; маскот і випадкові звуки — opt-in експеримент, вимкнути одним натисканням. Не використовувати під час навчальної відповіді й симуляції.
+- **IV-REQ-12 / P0 — evidence audit:** дата/тип дослідження, прямий L2 vs transfer із загальної психології, обмеження й data version в документації. Оцінка /100 — лише експертний product-fit, не величина навчального приросту.
+
+**Критерій готовності:** виконані [IV-AC-01…15](18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned), є автоматичні + мобільні/accessibility тести й S2 перевірка завдань. **Наразі це формалізовані вимоги; не стверджувати, що всі 14 патернів реалізовані.**
+
+**План доказової перевірки:** A/B `text-based retrieval+feedback+SRS` проти `same + meaningful multimedia cues`, збалансовані завдання; primary = перша незалежна відповідь на unseen task через 7 днів, secondary = 14 днів, comprehension gist без VTT, коректність і доступність. Жодних причинних висновків без належного експерименту.
