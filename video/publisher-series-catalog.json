@@ -3,7 +3,7 @@
   "checked_at": "2026-10-21",
   "purpose": "Publisher-hosted B1 audiovisual and practice resources for Hospodar YKI; not a YouTube player catalog. Direct watch ID unavailable or publisher player separate.",
   "status": "links_only_not_rehosted",
-  "count": 7,
+  "count": 9,
   "classification": "Curated independent provider video SERIES/PAGES; distinct from video/youtube-catalog.json. Video count cannot be equated to number of verified YouTube IDs.",
   "copyright_policy": "Follow publisher site; no copying videos or captions unless separately licensed. CC licence on series page does not authorize unrelated third-party assets.",
   "sources": [
@@ -219,6 +219,83 @@
       "direct_video_ids_known": false,
       "rights": "Linked official publisher only",
       "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "yle-asiointisuomea-35",
+      "url": "https://yle.fi/a/20-146213",
+      "provider": "Yle Oppiminen / Yle Areena",
+      "title": "Asiointisuomea — 35 episodes of practical Finnish",
+      "level": "A2.1–B2.1 (publisher stated as series range, not each episode B1)",
+      "score": 100,
+      "format": "Publisher-hosted short filmed service interactions; complete Finnish dialogue transcripts and some exercises",
+      "known_episodes": 35,
+      "episode_names": [
+        "At the doctor",
+        "Library",
+        "Bank and insurance",
+        "Phone operator",
+        "Clothing store exchange and return",
+        "Restaurant",
+        "Supermarket",
+        "Gym",
+        "Accident response"
+      ],
+      "topics": [
+        "doctor",
+        "bank",
+        "insurance",
+        "clothing_returns",
+        "lost_phone",
+        "SIM",
+        "library",
+        "restaurant",
+        "pragmatic_politeness"
+      ],
+      "skills": [
+        "listening",
+        "speaking",
+        "reading",
+        "writing"
+      ],
+      "why": "Reliable professionally produced S2 authentic practical scenes at A2.1-B2.1 with full site-based transcripts; direct short episodes can become high-utility B1 functional roleplay after withholding transcript until answer.",
+      "direct_video_ids_known": false,
+      "rights": "Only publisher URLs; Yle license for media reuse not established. Do not download/rehost/copy dialogue transcripts.",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-metropolia-interview-5",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen/opi-suomea-toissa/tervetuloa-tyohaastatteluun",
+      "provider": "Kielibuusti / Metropolia / Eevamaija Iso-Heiniemi",
+      "title": "Tervetuloa työhaastatteluun — five interview video lessons",
+      "level": "Not explicitly CEFR graded; B1 speaking task suitability editorial",
+      "score": 98,
+      "format": "Publisher-hosted five-part video interview coaching series plus introduction",
+      "known_episodes": 6,
+      "episode_names": [
+        "Aloitus: Yleisimmät kysymykset",
+        "Esittely",
+        "Koulutus työkokemus osaaminen",
+        "Kuvailu",
+        "Vahvuudet ja heikkoudet",
+        "Motivaatio"
+      ],
+      "topics": [
+        "job_interview",
+        "work",
+        "education",
+        "skills",
+        "strengths",
+        "motivation"
+      ],
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "why": "Exact productive YKI-relevant interview answer practice: describe education, work experience, strengths, motivation and self-presentation. No direct YouTube IDs proven.",
+      "direct_video_ids_known": false,
+      "rights": "Publisher CC BY-ND 4.0; only original page link, no edited derivatives or republishing without permission.",
+      "source_checked": "verified_publisher_page"
     }
-  ]
+  ],
+  "last_curated_update": "2026-10-21"
 }
