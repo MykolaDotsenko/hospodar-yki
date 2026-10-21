@@ -97,3 +97,13 @@
 - Зміни у вимогах/цінах з датою фіксувати в відповідному файлі, а тут оновлювати код/URL лише за потреби.
 - Жодних вигаданих completion %, YKI scores чи оцінок користувача.
 - Репозиторій **публічний**: не зберігати імен, приватних діалогів, аудіозаписів, особистих відповідей або чутливих даних без окремої перевірки приватності.
+
+## Deep official YKI audit — джерела, які потрібно регулярно переглядати (21.10.2026)
+
+Повна деталізація: [20 — official rules, rubric і SOLKI samples](20-yki-official-complete-audit-2026-10.md) · [21 — digital executable fidelity spec](21-digital-yki-exam-simulator-executable-spec.md) · [machine evidence/40 claims](../research/official-yki-deep-audit-v2.json).
+
+Важлива перевірка посилання: OPH `Ennen YKI-testiä` підписує додаток `Yleisten kielitutkintojen perusteet 2026`, але URL веде на [оригінальний **2011** PDF](https://www.oph.fi/sites/default/files/documents/yleisten-kielitutkintojen-perusteet-2011.pdf); [Finlex 30.11.2011](https://www.finlex.fi/fi/viranomaiset/maarayskokoelmat/opetushallitus/2011/39607). Не трактувати як нову редакцію від 2026 або підтвердження 2027 user interface. Зберігати дату **документа** окремо від дати **верифікації**.
+
+Що стежити після пілоту OPH 07.11.2026: конкретний participant manual/screens, per-module time/sequence, audio replay/seek, speaking cues, writing editor/save, accommodations. Якщо нема інформації — `unverified` залишається `null`, не заміняти історичними демо.
+
+Офіційні OPH rubrics: [speaking](https://www.oph.fi/sites/default/files/documents/Puhumisen_arviointikriteerit.pdf), [writing](https://www.oph.fi/sites/default/files/documents/Kirjoittamisen_arviointikriteerit.pdf). Судження є цілісним, а не механічною сумою балів від ChatGPT.
