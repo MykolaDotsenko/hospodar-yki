@@ -412,7 +412,11 @@
           "status": "original_draft_pending_teacher_review"
         }
       ],
-      "title_is_editorial_summary": false
+      "title_is_editorial_summary": false,
+      "mock_classification": "speaking_task_demo_answers_interleaved",
+      "model_answers_start_seconds": 40,
+      "model_answer_leakage": true,
+      "exam_fidelity": "unverified_third_party_legacy_speaking_only"
     },
     {
       "id": "yt-yki-speaking-more",
@@ -469,7 +473,11 @@
           "status": "original_draft_pending_teacher_review"
         }
       ],
-      "title_is_editorial_summary": true
+      "title_is_editorial_summary": true,
+      "mock_classification": "timed_speaking_subtest_mock",
+      "model_answers_start_seconds": 982,
+      "model_answer_leakage": true,
+      "exam_fidelity": "unverified_third_party_legacy_speaking_only"
     },
     {
       "id": "yt-yki-speaking-situations",
@@ -530,7 +538,11 @@
           "status": "original_draft_pending_teacher_review"
         }
       ],
-      "title_is_editorial_summary": true
+      "title_is_editorial_summary": true,
+      "mock_classification": "speaking_situations_only_mock",
+      "model_answers_start_seconds": 202,
+      "model_answer_leakage": true,
+      "exam_fidelity": "unverified_third_party_legacy_speaking_section_only"
     },
     {
       "id": "yt-yki-writing-listening-2026",
@@ -3338,5 +3350,7 @@
   "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format.",
   "round3_update": "8 added with publisher watch-page URLs; six/seven are publisher described A1-A2 slow scenario stories best used as bridging material, not substitute for B1+ naturally spoken exam prep. One authentic Kielibuusti working-life interview. All remain pending playback and S2 verification.",
   "round4_update": "Quality-gated +6 video URLs (44 total). B1/B2 explicit listening, 2 independent productive YKI-style lessons, native workplace coffee phrases, natural-speed KatChats and two news discussion examples; no generic A1/A2 video dumps. All checked against 38 unique previous IDs, no duplicate.",
-  "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified."
+  "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified.",
+  "yki_mock_index": "video/yki-mock-simulation-sources.json",
+  "mock_classification_warning": "3 preexisting YouTube records tagged. Timed speaking mock is not complete official 4-skill YKI nor faithful digital 2027 UX. Video sample-answer leakage invalidates held-out exam scoring."
 }
