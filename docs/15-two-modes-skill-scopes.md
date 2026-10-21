@@ -421,3 +421,20 @@ type Session = {
 Обов'язкові **IV2-AC-01…IV2-AC-18** у [§6 документа 20](20-multimodal-interactive-learning-2026-10.md#6-нові-критерії-приймання--iv2-ac-0118-planned); release тільки після технічних/ручних тестів, перевірених прав на кожний media asset, S2-редагування сценаріїв, неконфліктного no-hint exam policy. **Наразі planned/unverified**, наявний MVP може мати суміжний код, але новий набір acceptance не засвідчений.
 
 **Наукові guardrails:** 7-/14-day unseen uncued production та audio-only gist — ключова мета; cognitive load, invalid AI correction, accessibility errors і abandonment — обмежувачі. За даними нового огляду **video prompts можуть підвищувати навантаження без приросту навчання**, тому не запускати video overlays без learning-outcome перевірки.
+
+## 10. DIGITAL YKI fidelity v2 — зафіксовані та нез'ясовані правила (P0)
+
+**Новий канонічний аудит:** [20](20-yki-official-complete-audit-2026-10.md) і [21](21-digital-yki-exam-simulator-executable-spec.md). Тести evidence: [40 claims + 15 unknown](../research/official-yki-deep-audit-v2.json), [13 patterns + 12 historical examples](../research/yki-official-patterns-v2.json).
+
+- **YKI-FID-01:** simulacrum має 6 окремих статусів `construct / task type / materials / timings / UI / scoring`; без одного фальшивого відсотка fidelity.
+- **YKI-FID-02:** історичні паперові правила 2011/SOLKI **не** стають строгими правилами digital-2027; кожне `null` блокує `strict_verified=true`.
+- **YKI-FID-03:** повні/окремі 4 skill modules; exam strict mode **без навчальних підказок, перекладу й транскриптів**, результати кожної навички окремо.
+- **YKI-FID-04:** для читання/аудіювання MCQ/T-F/open + source-reviewed keys; для письма/говоріння production rubrics, `needs_human_review` замість фальшивої YKI 3/4.
+- **YKI-FID-05:** `audio/voice` має permission, interruption handling, verified speaker/clip/prompt provenance, no speech-to-text=YKI-grade.
+- **YKI-FID-06:** `original` task bank із відокремленим held-out exam pool, індексом 9 topics і 6 communicative functions, S2 review/license gate.
+- **YKI-FID-07:** учень бачив матеріал → тест **не unseen**; жодного копіювання платних book/PDF/official MP3 без legal permission.
+- **YKI-FID-08:** оригінальний `practice timer` має помітне маркування, не удавати підтверджений OPH.
+- **YKI-FID-09:** профіль `DIGITAL_2027_VERIFIED` disabled до публічного OPH/JYU post-pilot UX evidence + acceptance tests.
+- **YKI-FID-10:** після листопадового 2026 пілоту check OPH announcements and exact demo data; runtime versioned evidence.
+
+**Acceptance IDs:** `EXV-01..EXV-20` із [21 — digital spec](21-digital-yki-exam-simulator-executable-spec.md). **Внесення цього ТЗ не означає готового simulator**, наразі мінірепетиція ≠ full exam.
