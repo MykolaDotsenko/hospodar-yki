@@ -21,7 +21,7 @@
       "rights": "IMPORT_CC_BY_4_WITH_CREDITS",
       "app_use": "ranking_feature",
       "description": "10 000 лем уже імпортовано; 87 870 зафіксованих лем у всьому корпусі, новинна частотність, не B1-оцінка",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "kotus_sanalista",
@@ -33,7 +33,7 @@
       "rights": "IMPORT_CC_BY_4_WITH_CREDITS",
       "app_use": "morphology_lemma_pos",
       "description": "Понад 100 тисяч словникових одиниць із частинами мови та відмінюванням",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "kotus_dictionary",
@@ -45,7 +45,7 @@
       "rights": "LINK_ONLY_TERMS_UNCONFIRMED",
       "app_use": "external_dictionary_lookup",
       "description": "Тлумачення та нормативні фрази; не імпортувати словникові статті без окремих прав",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "finnwordnet",
@@ -57,7 +57,7 @@
       "rights": "IMPORT_DUAL_CC_BY_3_AND_PRINCETON_WITH_CREDITS",
       "app_use": "synonyms_paraphrase",
       "description": "Синонімічні групи, відношення значень; потрібне поєднання обох ліцензій",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "korp",
@@ -69,7 +69,7 @@
       "rights": "API_PER_CORPUS_RIGHTS",
       "app_use": "collocation_discovery",
       "description": "API справжніх фрагментів, права визначає кожний конкретний корпус, не загальний API",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "tatoeba",
@@ -81,7 +81,7 @@
       "rights": "IMPORT_TEXT_CC_BY_2_FR_WITH_AUTHOR_ID_OR_CC0_FILTER",
       "app_use": "sentence_bank",
       "description": "Лише фільтровані/вичитані речення, автор і sentence ID; аудіо індивідуальні права",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "tatoeba_rights",
@@ -93,7 +93,7 @@
       "rights": "REFERENCE_ONLY",
       "app_use": "license_audit",
       "description": "Текст має атрибуцію автора; аудіо ліцензію за записувачем; Tatoeba попереджає про помилки",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "omorfi",
@@ -105,7 +105,7 @@
       "rights": "GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW",
       "app_use": "lemmatizer_morphology",
       "description": "Аналіз і породження форм фінських слів, GPLv3",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "giellalt",
@@ -117,7 +117,7 @@
       "rights": "GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW",
       "app_use": "morphology_and_spellcheck",
       "description": "FST морфологія та словники, GNU GPLv3",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "kielibuusti_materials",
@@ -129,7 +129,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "guided_external_lessons",
       "description": "Навчальні відео, письмо, вимова і розмови",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "kielibuusti_texts",
@@ -141,7 +141,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "reading_writing_scaffolds",
       "description": "Реферування, зв'язність, будова тексту, kirjakieli/puhekieli",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "kielibuusti_puhekieli",
@@ -153,7 +153,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "spoken_register_contrast",
       "description": "Розмовна фінська, короткі відео, пояснення і вправи",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "kielibuusti_turku",
@@ -165,7 +165,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "authentic_local_dialogue",
       "description": "Локальні розмовні ситуації для слухання і трансферу, Турку",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "kielibuusti_search",
@@ -177,7 +177,7 @@
       "rights": "LINK_ONLY",
       "app_use": "content_discovery",
       "description": "Фільтри B1, лексика, вимова, письмо, читання та spoken Finnish",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "uusikielemme",
@@ -189,7 +189,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "teacher_grammar_reference",
       "description": "650+ статей з граматики та лексики, доступні відкриті інтерактивні вправи",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "yle_b1_overview",
@@ -201,7 +201,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "external_calibrated_practice",
       "description": "9 тем × 10 питань = 90 B1 comprehension завдань; не екзамен OPH",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_1",
@@ -213,7 +213,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_2",
@@ -225,7 +225,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_3",
@@ -237,7 +237,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_4",
@@ -249,7 +249,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_5",
@@ -261,7 +261,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_6",
@@ -273,7 +273,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_7",
@@ -285,7 +285,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_8",
@@ -297,7 +297,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_b1_9",
@@ -309,7 +309,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "theme_external_practice",
       "description": "Пряме посилання на конкретний B1 тематичний тренажер Yle",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Verified direct themed Yle page URL 2026-10-21; actual media not copied"
     },
     {
       "id": "yle_older_yki",
@@ -321,7 +321,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "additional_practice",
       "description": "Старші YKI-подібні граматичні, читальні та аудитивні вправи, сторінка-індекс",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "yle_selkouutiset",
@@ -333,7 +333,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "daily_news_reading",
       "description": "Новини простою фінською, часто разом зі слуханням і питаннями",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "yle_asiointi",
@@ -345,7 +345,7 @@
       "rights": "LINK_ONLY_YLE_RIGHTS",
       "app_use": "service_dialogues",
       "description": "Відео ситуацій у сервісах/медицині з діалогами та вправами (перехід зі сторінки Yle)",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "selkosanomat",
@@ -357,7 +357,7 @@
       "rights": "LINK_ONLY_TERMS_UNCONFIRMED",
       "app_use": "daily_reading",
       "description": "Спрощені новини, читання головної думки та фактів",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "kela_easy",
@@ -369,7 +369,7 @@
       "rights": "LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED",
       "app_use": "real_documents_reading",
       "description": "Автентична проста офіційна інформація про житло й допомогу, числа/умови змінюються",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "jyu_demo",
@@ -381,7 +381,7 @@
       "rights": "LINK_ONLY_PROTECTED_EXAM_MATERIAL",
       "app_use": "official_task_orientation",
       "description": "Офіційні демонстраційні типи завдань, не копіювати аудіо/тексти",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "oph_requirements",
@@ -393,7 +393,7 @@
       "rights": "LINK_ONLY",
       "app_use": "exam_alignment",
       "description": "Офіційні критерії іспиту; перевіряти цифрові зміни 2027",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Catalogued URL from educational source listings; individual content and reuse permissions not fully audited"
     },
     {
       "id": "vierko_local",
@@ -405,7 +405,7 @@
       "rights": "LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION",
       "app_use": "writing_reading_reference",
       "description": "Три PDF вже наявні в репозиторії, не дублювати",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     },
     {
       "id": "local_audio",
@@ -417,7 +417,7 @@
       "rights": "LOCAL_MIXED_SEE_ITEM_LICENSE",
       "app_use": "listening_audio",
       "description": "Уже містить записані аудіофайли і метадані; звіряти актуальний стан",
-      "verification": "official page reviewed 2026-10-21"
+      "verification": "Source/description checked against publisher or project docs 2026-10-21; not fully content audited"
     }
   ]
 }
