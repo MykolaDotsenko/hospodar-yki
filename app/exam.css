@@ -1,0 +1,30 @@
+.sim-intro{display:flex;flex-wrap:wrap;gap:7px;padding:15px 0}
+.back{text-decoration:none;font-size:.93rem;font-weight:700}
+.exam-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:12px}
+.exam-title{flex:1}
+.exam-progress{margin:10px 0 20px}
+.exam-progress progress{height:10px;width:100%;accent-color:var(--forest)}
+.exam-count{font-variant-numeric:tabular-nums;font-weight:700;font-size:.9rem;color:var(--muted)}
+.timer{white-space:nowrap;border:1px solid var(--stroke);padding:7px 10px;border-radius:10px;background:#f4f6f1;font-variant-numeric:tabular-nums}
+.timer.expiring{border-color:#a83b38;color:#a83b38;font-weight:800}
+.exam-choices{margin:15px 0}
+.exam-body{margin:20px 0;line-height:1.74}
+.exam-actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:23px}
+.exam-actions .actions{margin:0}
+.exam-textarea{width:100%;min-height:160px;padding:14px;border:1px solid #97a49c;border-radius:9px;resize:vertical}
+.mode-label{display:block;padding:10px 14px;margin:10px 0;border:1px solid var(--stroke);border-radius:11px;cursor:pointer}
+.mode-label:has(input:checked){border-color:var(--forest);background:#eef4ef}
+.mode-label input{margin-right:10px;accent-color:var(--forest)}
+.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:20px 0}
+.module-card{padding:14px;border:1px solid var(--stroke);border-radius:11px;background:#f6f7f3}
+.module-card span{font-size:.87rem;color:var(--muted)}
+.module-card strong{display:block;font-size:1.15rem}
+.exam-result-row{display:flex;gap:10px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--stroke);padding:9px 0}
+.exam-result-row:last-child{border:0}
+.exam-result-row small{color:var(--muted)}
+.exam-result-row .tag{font-size:.8rem;font-weight:700}
+.tag.ok{color:var(--forest)}.tag.no{color:#a83b38}
+.answer-line{margin:3px 0;padding:10px;background:#f8f6f0;border-radius:7px;white-space:pre-wrap}
+.audiowarn{font-size:.85rem;color:var(--muted)}
+.exam-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0 15px}
+@media(max-width:580px){.exam-head{flex-direction:column}.exam-actions .btn{flex:1}.module-grid{grid-template-columns:1fr 1fr}}
