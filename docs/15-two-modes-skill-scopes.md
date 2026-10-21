@@ -479,3 +479,13 @@ type Session = {
 - **ARCH-14/P0:** без big-bang rewrite: регресійні тести, parity, export/rollback, content review gates перед переключенням.
 
 **Acceptance:** `ARC-01..ARC-14` як machine checks у [ADR JSON](../research/architecture-decision-v1.json) і майбутніх Playwright suites. Рекомендовані **95/100** — експертна fit оцінка цільового дизайну, **не** оцінка вже реалізованої архітектури/production readiness.
+
+## 12. Android-game + усі дозволені мультимедіа до першого запуску — ADR-023 / P0
+
+[Документ 23 — Android 2D game & 2–3 GB offline assets](23-android-offline-game-and-3gb-media-architecture.md) · [machine contract](../research/android-game-distribution-v1.json).
+
+**Оновлення ARCH-01…14:** React/Vite/TypeScript + XState + Dexie залишається **shared application/domain**; Phaser малює лише ігровий світ, Android Capacitor+Kotlin відкриває native audio/video й install-time packs. **Для Web** — PWA/stream+offline packs; **для Android** — увесь схвалений/ліцензований контент має бути встановлений **до першого запуску**. Іспит YKI — без анімацій/світових підказок.
+
+**ANDR-01…18 (обов'язкове ТЗ/acceptance):** 01 airplane-mode first launch; 02 усі mandatory media `install-time`; 03 ≤500MB base, ≤1.5GB each pack, ≤4GB base+install-time, ціль 2–3GB measured; 04 не обіцяти буквально один standalone APK; 05 real seek/play 2GB без дублювання в IndexedDB; 06 offline core; 07 rights+SHA256+contentVersion; 08 Kotlin mic/back/resume/ä/ö; 09 privacy-by-default; 10 shared domain; 11 exam без гри й підказок; 12 low-motion, skip, FPS/thermal checks; 13 SRS/7/14d offline; 14 Android storage/packs upgrade recovery; 15 no unauthorized YouTube/SOLKI videos; 16 AAB + Play internal release gate; 17 signed standalone 2–3GB APK POC before any claim; 18 web/native media adapter parity.
+
+**Поточний стан:** `TARGET/NOT IMPLEMENTED`. Архітектурне рішення не означає, що `android/`, asset packs, Phaser-scenes або величезні медіафайли вже зібрані.
