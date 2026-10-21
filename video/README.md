@@ -2,6 +2,12 @@
 
 **Stage:** Licensed sources reviewed 2026-10-21. Binary import uses GitHub Actions; the **only evidence that a video was actually downloaded and committed** is a `.webm` file plus `open/available.json` with `state=verified_binary`, nonzero bytes and SHA-256. A metadata entry alone is **not** a downloaded video.
 
+### YouTube — link-only curated material (NEW 2026-10-21)
+
+**[14 directly verified-by-metadata watch URLs, 35 teacher-description chapter markers](youtube-catalog.json)** · **[Human-readable selection and future player UX spec (YTP-01…14)](YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../scripts/validate_youtube_video_catalog.py)**.
+
+YouTube content is **NOT downloaded or copied** into this repository. Catalog entries store `youtube_video_id`, `watch_url`, creator/title, estimated level, skill, topic, why it helps, original pending-review exercise seeds, and study chapters. Playback/embedding, language quality and subtitles **are not yet verified**. Future player uses only official embed/IFrame API (when allowed), otherwise opens source in YouTube. No third-party audio extraction; creator branding/ads/player controls remain intact. The video lessons are **learn-only**, not unseen exam tasks.
+
 ### The first three candidates
 
 | ID | Speaker/content | Length | Est. level | Source / licence | Value |

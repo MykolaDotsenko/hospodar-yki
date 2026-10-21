@@ -438,3 +438,16 @@ type Session = {
 - **YKI-FID-10:** після листопадового 2026 пілоту check OPH announcements and exact demo data; runtime versioned evidence.
 
 **Acceptance IDs:** `EXV-01..EXV-20` із [21 — digital spec](21-digital-yki-exam-simulator-executable-spec.md). **Внесення цього ТЗ не означає готового simulator**, наразі мінірепетиція ≠ full exam.
+
+## YouTube video library — навчальний каталог + майбутній compliant плеєр (P1)
+
+**Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`video/youtube-catalog.json`](../video/youtube-catalog.json) (**14 різних відео, 35 chapter windows**) і [добірка та product requirements YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**
+
+- **YTP-P0:** schema `provider=youtube`, `youtube_video_id`, `watch_url`, `chapters`, `learning_mode_only`, `teacher_review=pending`; metadata-based source verification **не дорівнює** перевіреному playback.
+- **YTP-P1:** official YouTube IFrame Player API/embedded player with explicit user interaction, metadata and appropriate privacy notice, source link fallback, user-visible title + creator, official playback controls, preserved advertising/branding. Respect current YouTube terms, embed restrictions and client identity/`Referer` policy.
+- **YTP-P1:** use editorial chapter `start_seconds/end_seconds` as optional navigation with original video always accessible. If sample answer appears within video, call it learning demonstration (not uncued test); review hints stay **outside** YouTube player.
+- **YTP-P1:** optional teacher-reviewed after-response comprehension/writing/roleplay questions in app; independent `unseen` tasks must use new licensed materials, never mark YouTube practice clips as official YKI simulator items.
+- **YTP-P0:** do not download/stream/cache/rehost YouTube videos or audio/subtitles without separate applicable rights/approval. No bypass for ads, regional restrictions, embed blocking; no hidden/background player or audio extraction.
+- **YTP-P1:** accessibility (responsive layout, focus, keyboard, captions through player), consent-sensitive third-party integration, fallback to YouTube, `video_unavailable` state. Confirm API and Finnish content restrictions at integration time.
+
+**Acceptance contract**: [YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md#future-youtube-player--acceptance-specification-ytp-0114); work is **requirements and content catalogue only**, the integrated player is **not implemented**. Existing two high-level modes remain LEARN and EXAM.
