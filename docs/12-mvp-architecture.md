@@ -125,3 +125,7 @@ Existing methodology registry (67 approaches) + licensed reviewed content
 ## Web/PWA as first-class app, Android game as packaging/runtime (ADR-023 update)
 
 [Shared 2-platform architecture](23-android-offline-game-and-3gb-media-architecture.md#9-повний-вебзастосунок--та-сама-гра-а-не-скорочена-demo-версія-web-0110). **`apps/web` — канонічна React/Vite програма**: рендериться на desktop/browser/mobile, вмикає Phaser тільки для game scenes, content/scoring logic lives in packages. **`apps/android` — нативна Capacitor оболонка**, збирає/shared uses compatible UI bundle і через Kotlin bridge відтворює packaged audio/video. Web за потреби завантажує лише обрані offline content packs, звичайно streaming over CDN. Стан користувача однаковий за схемою IndexedDB/Dexie; cross-device sync лише opt-in. Різні local media providers, **не два незалежних продукти**.
+
+## ADR-024 — не губити відповіді при збої
+
+[Нове reliability ТЗ](24-reliability-hardened-architecture-web-android.md) задає `LearnerRepository`: IndexedDB/Dexie у Web, Kotlin Room/SQLite у Android; `appendOnce(event) + updateSnapshot` в одній транзакції, `SAVE_FAILED` блокує наступну задачу, raw voice тільки з дозволу, installed media окремо. Не вважати поточний vanilla JS `localStorage` реалізацією цих гарантій.
