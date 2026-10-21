@@ -398,3 +398,26 @@ type Session = {
 **Metrics:** Primary `7-day_unseen_cueless_skill_success` (four separate streams, productive skills human-validated); secondary `14-day transfer`, `error recurrence`, `time-to-goal`, `skill coverage`; guardrails `gist comprehension`, privacy and content validity. Не видавати експертний `priority100` за науково виміряний ефект.
 
 **Статус:** acceptance/specification **додано**, нові планувальник, 7/14-day evaluation і калібрований feedback **ще не реалізовані повністю**. Документація не змінює статус коду.
+
+## 10. MULTIMODAL INTERACTION — новий шар керованої мультимодальності (P0→P2)
+
+**Джерело:** [20 — новий науковий огляд, 14 додаткових робіт і UX-специфікація](20-multimodal-interactive-learning-2026-10.md) · [машинозчитуваний контракт](../research/multimodal-interaction-evidence-v2.json). Цей блок **доповнює**, а не скасовує §9, 4-skill режими чи правила кольору.
+
+### Вимоги MULTI-01…10
+
+- **MULTI-01 / P0:** поточний `learn` має підфази `discover → first_uncued → optional_support → self_repair → transfer_uncued → delayed_unseen`. Це НЕ третій верхньорівневий режим продукту. `exam` лишається незалежним no-hint режимом.
+- **MULTI-02 / P0:** на першій спробі заборонено `answer reveal`, auto-suffix colors, captions with transcript, gloss до учнівського submit, якщо це завдання вимірює independent mastery. Під час ознайомлення з новим словом `discover` дозволяє approved learning scaffolds; `first_uncued` уже ні.
+- **MULTI-03 / P0:** UX не максимізує кількість одночасних мультимедійних cues: 1 primary hint, optional `show another explanation`, учнівський `calm/rich` вибір. **Single gloss vs L1+picture — не вирішено універсально;** джерела суперечать, отже порівнювати на independent retest.
+- **MULTI-04 / P0–P1:** video/audio та питання — на природних смислових межах, не довільні переривання. Subtitle/caption ladder у learn після submit (якщо `timing_verified`, `license_ok`, `teacher_review_ok`), а пізніша перевірка — audio-only new context.
+- **MULTI-05 / P1:** іконічні жести короткі, семантично відповідні конкретним словам, always optional; власні рухи / камера не обов'язкові, жест не є показником фінської. Для абстрактних слів випадкових іконічних жестів не робити.
+- **MULTI-06 / P1:** visual explanation maps лише коли змушують учня **самостійно** пов'язати зміст і згенерувати фінське речення. Є доступний list/keyboard-equivalent; красиво розкладена схема без generation — insufficient.
+- **MULTI-07 / P1:** AI співрозмовник обмежений S2-approved roleplay goals, валідованими мовними еталонами й uncertainty/abstention; ASR або LLM без human anchors не видає `YKI=3/4` і не нараховує `pronunciation score`.
+- **MULTI-08 / P0:** WCAG 2.2 AA + сильніша внутрішня motion policy: reduced motion, mute/pause, non-color cues, focus, screenreader reading order, 200% zoom, 320px layouts, drag replacement, alt text. Motion під час listening/answer/exam вимкнено.
+- **MULTI-09 / P0:** чесний learner evidence: `uncued_first`, `assisted`, `gloss_exposure`, `caption_seen`, `transfer_uncued`, `day7/day14_holdout` окремо. Декоративні кліки не підвищують skill mastery.
+- **MULTI-10 / P0:** у `exam` жодних навчальних накладок, video pop quizzes, karaoke captions, hints, mascots, AI grades; офіційні правила 2027 вводити тільки після підтвердження OPH.
+
+### Quality gate і незалежна валідація
+
+Обов'язкові **IV2-AC-01…IV2-AC-18** у [§6 документа 20](20-multimodal-interactive-learning-2026-10.md#6-нові-критерії-приймання--iv2-ac-0118-planned); release тільки після технічних/ручних тестів, перевірених прав на кожний media asset, S2-редагування сценаріїв, неконфліктного no-hint exam policy. **Наразі planned/unverified**, наявний MVP може мати суміжний код, але новий набір acceptance не засвідчений.
+
+**Наукові guardrails:** 7-/14-day unseen uncued production та audio-only gist — ключова мета; cognitive load, invalid AI correction, accessibility errors і abandonment — обмежувачі. За даними нового огляду **video prompts можуть підвищувати навантаження без приросту навчання**, тому не запускати video overlays без learning-outcome перевірки.
