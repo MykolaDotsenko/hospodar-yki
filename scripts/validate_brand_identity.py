@@ -34,7 +34,7 @@ def contrast(a:str,b:str)->float:
 
 def main():
     t=json.loads(text(TOKENS))
-    assert t["version"]=="0.3.0"
+    assert t["version"]=="0.3.1"
     assert t["concept"]=="Поріг → Маршрут → Дія / Threshold → Route → Action"
     for role in ("primary","accent","paper","forest","ink","surface","learn_tint","exam_tint"):
         assert t["colors"][role].startswith("#")
