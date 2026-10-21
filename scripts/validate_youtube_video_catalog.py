@@ -33,7 +33,14 @@ def main() -> int:
         assert 0 <= item["product_fit_score_100"] <= 100
         assert item["skills"] and item["yki_topics"] and item["why_useful"].strip()
         assert item["teacher_review"] == "pending", "Never mark reviewed without manual review"
-        assert item["source_verification"] == "watch_page_title_description_seen"
+        assert item["source_verification"] in {
+            "watch_page_title_description_seen",
+            "watch_id_creator_and_description_seen_youtube_title_not_returned",
+        }
+        assert item["title_is_editorial_summary"] == (
+            item["source_verification"] ==
+            "watch_id_creator_and_description_seen_youtube_title_not_returned"
+        )
         assert item["playback_verified"] is False
         assert item["embeddable"] is None
         assert item["subtitles_fi_verified"] is False
