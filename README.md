@@ -217,3 +217,7 @@ Evidence-informed навчання живої фінської: реалісти
 ### 🌐 Web/PWA — так само повноцінний продукт
 
 Android із 2–3GB встановленого ліцензованого медіа **доповнює**, а не замінює Web: браузер і installable PWA підтримують ті самі **4 skills, адаптивне навчання, YKI exam mock, Phaser 2D NPC quests, словник, SRS, speaking і progress**. На Web мультимедіа — HTTPS stream і **обрані offline packs**, а **не обов'язкове початкове завантаження 3 GB**. Shared TypeScript content/domain, різні media providers, optional consented Web↔Android progress sync. [Повний контракт WEB-01…10](docs/23-android-offline-game-and-3gb-media-architecture.md#9-повний-вебзастосунок--та-сама-гра-а-не-скорочена-demo-версія-web-0110). **Це запланована архітектура**, поточний web MVP досі vanilla JS.
+
+### 🔐 Reliability-first architecture ADR-024
+
+[Production-ready target design: Room on Android, Dexie on Web, immutable exam attempts, crash recovery, native Play Asset Delivery, strict media rights](docs/24-reliability-hardened-architecture-web-android.md). **Це цільовий ADR, не готовий продукт**. Для критичних відповідей Android рекомендована Room/SQLite із Kotlin bridge; Web використовує IndexedDB/Dexie. Обидва мають один TypeScript event/content contract. Медіа 2–3GB не дублювати у БД, а Google Play може вимагати щонайменше подвійний запас місця для install-time packs.
