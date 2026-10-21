@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "status": "PRODUCT_REQUIREMENTS_ONLY_NOT_IMPLEMENTED",
+  "canonical_spec": "docs/15-two-modes-skill-scopes.md",
+  "target": "YKI suomi keskitaso 2027",
+  "labels": {
+    "mode_prompt_uk": "Оберіть режим",
+    "skills_prompt_uk": "Які навички тренуємо?",
+    "scope_label_uk": "Формат сесії"
+  },
+  "skills": [
+    {
+      "id": "reading",
+      "name_fi": "Tekstin ymmärtäminen",
+      "title_uk": "Читання",
+      "icon": "📖"
+    },
+    {
+      "id": "listening",
+      "name_fi": "Puheen ymmärtäminen",
+      "title_uk": "Аудіювання",
+      "icon": "🎧"
+    },
+    {
+      "id": "writing",
+      "name_fi": "Kirjoittaminen",
+      "title_uk": "Письмо",
+      "icon": "✍️"
+    },
+    {
+      "id": "speaking",
+      "name_fi": "Puhuminen",
+      "title_uk": "Говоріння",
+      "icon": "🗣️"
+    }
+  ],
+  "modes": [
+    {
+      "id": "learn",
+      "title_uk": "Суперефективна підготовка",
+      "label_fi": "Opi ja harjoittele",
+      "icon": "🧠",
+      "feedback": "during_and_after",
+      "hints": true,
+      "self_repair": true,
+      "spaced_repetition": true,
+      "official_yki_grade": false,
+      "default_scope": "adaptive_mix",
+      "scopes": [
+        {
+          "id": "adaptive_mix",
+          "title_uk": "Усі 4 навички вперемішку",
+          "selection": "all",
+          "min_skills": 4,
+          "max_skills": 4,
+          "ordering": "adaptive_balanced_interleaving",
+          "recommended": true
+        },
+        {
+          "id": "structured_all",
+          "title_uk": "Усі 4 навички за програмою",
+          "selection": "all",
+          "min_skills": 4,
+          "max_skills": 4,
+          "ordering": "structured_curriculum",
+          "recommended": false
+        },
+        {
+          "id": "single_skill",
+          "title_uk": "Одна навичка",
+          "selection": "one_of_four",
+          "min_skills": 1,
+          "max_skills": 1,
+          "ordering": "skill_adaptive",
+          "recommended": false
+        },
+        {
+          "id": "custom_mix",
+          "title_uk": "Вибрані навички",
+          "selection": "custom",
+          "min_skills": 2,
+          "max_skills": 3,
+          "ordering": "adaptive_balanced_interleaving",
+          "recommended": false,
+          "priority": "P1"
+        }
+      ],
+      "durations_minutes": [
+        10,
+        20,
+        30
+      ],
+      "privacy": "local_first",
+      "content_bank": "learning",
+      "scoring": "learning_signals_only_no_cefr_claim"
+    },
+    {
+      "id": "exam",
+      "title_uk": "Максимально реалістична симуляція YKI",
+      "label_fi": "Kokeile YKI-testiä",
+      "icon": "🎓",
+      "feedback": "after_submission_only",
+      "hints": false,
+      "self_repair": false,
+      "spaced_repetition": false,
+      "official_yki_grade": false,
+      "default_scope": "full_exam",
+      "scopes": [
+        {
+          "id": "full_exam",
+          "title_uk": "Повний YKI (всі 4)",
+          "selection": "all",
+          "min_skills": 4,
+          "max_skills": 4,
+          "ordering": "official_verified_profile_or_practice_labeled",
+          "recommended": true
+        },
+        {
+          "id": "single_subtest",
+          "title_uk": "Окремий модуль",
+          "selection": "one_of_four",
+          "min_skills": 1,
+          "max_skills": 1,
+          "ordering": "module_specific",
+          "recommended": false
+        },
+        {
+          "id": "practice_subset",
+          "title_uk": "Тренувальна комбінація модулів",
+          "selection": "custom",
+          "min_skills": 2,
+          "max_skills": 3,
+          "ordering": "module_grouped_practice",
+          "recommended": false,
+          "unofficial_practice": true
+        },
+        {
+          "id": "official_partial_profile",
+          "title_uk": "Симуляція офіційного часткового дня",
+          "selection": "nonempty_subset_of_day_allowed_skills",
+          "min_skills": 1,
+          "max_skills": 2,
+          "ordering": "official_verified_profile_or_practice_labeled",
+          "recommended": false,
+          "official_calendar_required": true
+        }
+      ],
+      "privacy": "local_first",
+      "content_bank": "held_out_exam",
+      "scoring": "per_skill_objective_accuracy_and_ungraded_productive",
+      "feedback_after_test": true
+    }
+  ],
+  "session_state": {
+    "version": 1,
+    "required_fields": [
+      "id",
+      "mainMode",
+      "scope",
+      "selectedSkills",
+      "contentVersion",
+      "state"
+    ],
+    "states": [
+      "new",
+      "active",
+      "paused",
+      "finished",
+      "interrupted"
+    ],
+    "persistent_parts": [
+      "learning progress",
+      "exam sessions",
+      "saved selection per mode"
+    ],
+    "transient_parts": [
+      "voice files unless explicit consented secure storage"
+    ]
+  },
+  "real_exam_day_profiles": {
+    "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+    "note_uk": "На osakoepäivä можна обирати одну чи дві з allowedSkills згідно інструкцій OPH; не всі довільні комбінації доступні на конкретну дату. Симулятор не є реєстрацією.",
+    "allowed_selection_rule": "selectedSkills nonempty subset of allowedSkills, only when examType official_partial_day",
+    "days": [
+      {
+        "id": "2027-03-10",
+        "date": "2027-03-10",
+        "allowedSkills": [
+          "reading",
+          "speaking"
+        ],
+        "registration": {
+          "start": "2027-02-08",
+          "end": "2027-02-22"
+        },
+        "examType": "official_partial_day",
+        "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
+      },
+      {
+        "id": "2027-04-10",
+        "date": "2027-04-10",
+        "allowedSkills": [
+          "reading",
+          "listening",
+          "writing",
+          "speaking"
+        ],
+        "registration": {
+          "start": "2027-03-08",
+          "end": "2027-03-25"
+        },
+        "examType": "official_full_day",
+        "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
+      },
+      {
+        "id": "2027-05-12",
+        "date": "2027-05-12",
+        "allowedSkills": [
+          "listening",
+          "writing"
+        ],
+        "registration": {
+          "start": "2027-04-12",
+          "end": "2027-04-26"
+        },
+        "examType": "official_partial_day",
+        "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
+      },
+      {
+        "id": "2027-06-02",
+        "date": "2027-06-02",
+        "allowedSkills": [
+          "reading",
+          "speaking"
+        ],
+        "registration": {
+          "start": "2027-05-03",
+          "end": "2027-05-17"
+        },
+        "examType": "official_partial_day",
+        "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
+      }
+    ]
+  },
+  "fidelity": {
+    "confirmed": "Digital test at centre and similar task constructs; official UI details not all confirmed",
+    "unconfirmed": [
+      "task counts and order",
+      "official timers",
+      "playback allowances",
+      "UI navigation and pause rules",
+      "recording interaction"
+    ],
+    "source_ref": "research/yki-digital-fidelity-evidence-2026-10.json",
+    "claimed_fidelity": "must_not_say_exact_without_verified_source"
+  },
+  "deliverables": {
+    "product_shell": "planned",
+    "mode_selector": "planned",
+    "four_skill_scope_selector": "planned",
+    "learning_mix": "planned",
+    "exam_full_and_single": "planned",
+    "existing_legacy_learning_mvp": "exists",
+    "existing_nine_task_simulator": "exists",
+    "full_fidelity_exam": "not_ready"
+  },
+  "criteria_refs": [
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04–07",
+    "AC-08",
+    "AC-09",
+    "AC-10",
+    "AC-11–14",
+    "AC-15",
+    "AC-16",
+    "AC-17",
+    "AC-18",
+    "AC-19",
+    "AC-20",
+    "AC-21",
+    "AC-22",
+    "AC-23",
+    "AC-24"
+  ]
+}
