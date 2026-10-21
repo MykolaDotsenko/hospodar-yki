@@ -37,6 +37,7 @@ def main() -> int:
             "watch_page_title_description_seen",
             "watch_id_creator_and_description_seen_youtube_title_not_returned",
             "indirect_syndicated_page_not_youtube_page",
+            "indirect_podcast_author_link",
         }
         assert item["title_is_editorial_summary"] == (
             item["source_verification"] ==
