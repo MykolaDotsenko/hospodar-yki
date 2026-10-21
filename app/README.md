@@ -30,6 +30,12 @@ Open **http://localhost:8080/app/** in a browser. Do not use `file://` because t
 
 Тести включені в `node --test app/tests/*.test.mjs`.
 
+## Evidence-based visual feedback cue
+
+**Source-reviewed proposal:** [docs/16-color-attention-memory-research-2026-10.md](../docs/16-color-attention-memory-research-2026-10.md).
+
+Implemented: **one non-animated `learning-cue`** with high contrast and underline around the *correct answer* in the `feedback` phase of the current grammar mission, **after** independent answer. Initial `answer` and `repair` do not contain solution cue; `transfer` removes it. The separate `exam.html` mock is unaffected. This does not create verified automatic Finnish morphological highlighting, VTT karaoke or a demonstrated long-term memory effect.
+
 ## Working now
 
 1. **Місія:** load `content/b1/grammar/contextual-cloze.json` → first attempt (answer hidden) → guided repair (if wrong) → reveal answer/explanation → own unseen transfer sentence → save. SRS records **first independent** recall, not success after a hint.

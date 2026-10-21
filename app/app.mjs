@@ -85,7 +85,8 @@ function renderMission() {
   if(m.phase === "feedback") return panel(overview+progress+instruction+
     `<div class="feedback ${m.firstCorrect ? "" : m.repairCorrect ? "warn" : "error"}">
       <strong>${m.firstCorrect ? "Правильно з першої спроби!" : m.repairCorrect ? "Самовиправлення вдалося." : "Перевір еталон і пояснення."}</strong>
-      <p>Правильна форма: <strong lang="fi">${h(t.answer_fi)}</strong></p>
+      <p>Правильна форма: <strong class="learning-cue" lang="fi">${h(t.answer_fi)}</strong></p>
+      <p class="cue-caption">Форма підсвічена лише після твоєї незалежної відповіді. Спробуй застосувати її в новій ситуації вже без підказки.</p>
       <p>${h(t.explanation_uk)}</p>
       <p class="muted">Для повторення враховується лише перша незалежна спроба, а не підказана.</p>
     </div><div class="actions">${btn("Наступне: новий контекст","transfer","")}</div>`+note);

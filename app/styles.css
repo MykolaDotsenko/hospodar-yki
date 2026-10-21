@@ -135,3 +135,23 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
   .threshold-segment.current{border-width:3px}
   .mode-entry{border-color:CanvasText}
 }
+
+/* Evidence-informed post-response visual signal: dark accessible ink on pale gold.
+   Never reveal answer cues in independent attempt, transfer or exam mode. */
+.learning-cue{
+  display:inline;
+  background:#FFF1C6;
+  color:#083B7A;
+  font-weight:800;
+  text-decoration:underline;
+  text-decoration-thickness:2px;
+  text-underline-offset:3px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+  padding:0 3px;
+  border-radius:3px;
+}
+.cue-caption{font-size:.83rem;color:var(--muted);margin-top:7px}
+@media(forced-colors:active){
+  .learning-cue{background:Canvas;color:CanvasText;text-decoration:underline}
+}

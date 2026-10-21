@@ -1,13 +1,17 @@
 name: Validate Hospodar brand identity
 on:
   push:
-    branches: [main, 'design/**']
+    branches: [main, 'design/**', 'research/**']
     paths:
       - 'brand/**'
       - 'app/index.html'
       - 'app/exam.html'
       - 'app/styles.css'
       - 'app/exam.mjs'
+      - 'app/app.mjs'
+      - 'docs/16-color-attention-memory-research-2026-10.md'
+      - 'research/color-memory-evidence-v1.json'
+      - 'scripts/validate_color_memory_policy.py'
       - 'scripts/validate_brand_identity.py'
       - '.github/workflows/validate-brand-identity.yml'
   pull_request:
@@ -17,6 +21,10 @@ on:
       - 'app/exam.html'
       - 'app/styles.css'
       - 'app/exam.mjs'
+      - 'app/app.mjs'
+      - 'docs/16-color-attention-memory-research-2026-10.md'
+      - 'research/color-memory-evidence-v1.json'
+      - 'scripts/validate_color_memory_policy.py'
       - 'scripts/validate_brand_identity.py'
       - '.github/workflows/validate-brand-identity.yml'
 permissions:
@@ -32,3 +40,5 @@ jobs:
           python-version: '3.12'
       - name: Verify SVG mark, two-mode navigation and accessible color pairs
         run: python3 scripts/validate_brand_identity.py
+      - name: Verify source-grounded color-memory cue policy
+        run: python3 scripts/validate_color_memory_policy.py
