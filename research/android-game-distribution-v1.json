@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0.0",
+  "date": "2026-10-21",
+  "adr": "ADR-023",
+  "based_on": "ADR-022",
+  "status": "TARGET_SPEC_NOT_IMPLEMENTED",
+  "intent": "First class Android 2D learning game, one Play install with all rights-cleared multimedia, 2-3 GB download, runnable offline without content downloads",
+  "distributions": [
+    {
+      "id": "google_play_aab_pad_install_time",
+      "preferred": true,
+      "first_run_offline": true,
+      "one_user_install_action": true,
+      "literally_one_standalone_apk": false,
+      "format": "AAB+Play-generated optimized APKs+install-time asset packs",
+      "verified_limits_mb": {
+        "base_module": 500,
+        "each_asset_pack": 1500,
+        "cumulative_base_and_installtime": 4000
+      },
+      "verified_limit_source": "https://support.google.com/googleplay/android-developer/answer/9859372?hl=en",
+      "android_integration_doc": "https://developer.android.com/guide/playcore/asset-delivery/integrate-java"
+    },
+    {
+      "id": "direct_single_2gb_3gb_apk",
+      "preferred": false,
+      "first_run_offline": "not_yet_validated",
+      "one_user_install_action": "unknown",
+      "literally_one_standalone_apk": "PROTOTYPE_REQUIRED_NOT_GUARANTEED",
+      "status": "FEASIBILITY_RESEARCH_ONLY",
+      "pre_release_test": "signed 2GB and 3GB APK install on real supported Android versions, verify ZIP/APK tooling and storage",
+      "warning": "Legacy Google Play APK submissions have separate 100MB cap, not install-time PAD route"
+    }
+  ],
+  "engine": {
+    "web_ui": "React 19 + Vite 8 + TypeScript strict",
+    "game2d": "Phaser, loaded only in game scenes",
+    "android_shell": "Capacitor 8 native Android + Kotlin custom plugins",
+    "local_events": "IndexedDB Dexie",
+    "exam": "XState fail-closed shared exam workflow",
+    "asset_delivery": "Play Asset Delivery, install-time",
+    "media": "native media data source/Media3 or verified WebViewAssetLoader Range/seek adapter; no raw file:// assumptions",
+    "backend": "optional opt-in cloud only",
+    "shared_domains": [
+      "skill",
+      "goal",
+      "task",
+      "attempt",
+      "review",
+      "story state",
+      "exam mode",
+      "asset media catalogue"
+    ],
+    "game_domain_rule": "NPC conversations generate learning events, game score not a YKI grade"
+  },
+  "packaging_budget_status": "PLANNED_UNMEASURED",
+  "budget_mb": [
+    {
+      "name": "base",
+      "delivery": "base",
+      "proposed_compressed_mb": 140,
+      "contents": [
+        "Capacitor app",
+        "React",
+        "Phaser runtime",
+        "starter pack"
+      ]
+    },
+    {
+      "name": "audio_fi",
+      "delivery": "install-time",
+      "proposed_compressed_mb": 850,
+      "contents": [
+        "licensed dialogues",
+        "long listening",
+        "speaking scripts",
+        "voice actors"
+      ]
+    },
+    {
+      "name": "video_fi",
+      "delivery": "install-time",
+      "proposed_compressed_mb": 1180,
+      "contents": [
+        "rights-cleared lessons",
+        "situational clips"
+      ]
+    },
+    {
+      "name": "game_world",
+      "delivery": "install-time",
+      "proposed_compressed_mb": 320,
+      "contents": [
+        "NPC animations",
+        "backgrounds",
+        "sprites"
+      ]
+    },
+    {
+      "name": "texts_subtitles",
+      "delivery": "base-or-install-time",
+      "proposed_compressed_mb": 110,
+      "contents": [
+        "B1 stories",
+        "Finnish text",
+        "captions",
+        "JSON bank",
+        "release reserve"
+      ]
+    }
+  ],
+  "total_budget_mb": 2600,
+  "desired_download_min_mb": 2000,
+  "desired_download_max_mb": 3000,
+  "measured": false,
+  "max_pack_mb": 1500,
+  "max_installtime_mb": 4000,
+  "rights": "only owned, licensed, approved-to-redistribute resources can be install-time packaged",
+  "youtube_and_official_solki": "LINK_ONLY_AND_ONLINE_UNLESS_EXPLICIT_DISTRIBUTION_LICENSE",
+  "offline_guarantees": {
+    "base_curriculum_without_network": true,
+    "quest_gameplay_without_network": true,
+    "installed_video_audio_without_network": true,
+    "local_learner_progress_without_network": true,
+    "official_YKI2027_clone": false,
+    "generative_AI_feedback_without_network": false,
+    "advanced_speech_scoring_without_network": false,
+    "voice_capture_without_network": true,
+    "media_must_be_available_on_first_launch": true
+  },
+  "android_asset_access": {
+    "PAD_install_time_source": "APK assets AssetManager; fast-follow/on-demand file backed have separate behavior",
+    "webview_local_uri": "NOT_ASSUMED_READY",
+    "large_media_require_native_seek_range_probe": true,
+    "decoded_assets_never_preload_all": true,
+    "no_bundle_content_copy_to_indexeddb": true,
+    "verify_pack_sha256": true,
+    "versioned_content_manifest": true,
+    "android_back_resume_microphone_permission_tests": true
+  },
+  "game_design": {
+    "scope": "2D interactive Finnish town, NPCs, scenario-based minigames and role-play",
+    "story_mode": "optional; accessible text-first alternative",
+    "learning_first": true,
+    "exam_mode_no_gameplay": true,
+    "no_punitive_streak_or_energy_system": true,
+    "skip_scene": true,
+    "reduced_motion": true,
+    "dialogue_speaking": true
+  },
+  "acceptance_ids": [
+    "ANDR-01",
+    "ANDR-02",
+    "ANDR-03",
+    "ANDR-04",
+    "ANDR-05",
+    "ANDR-06",
+    "ANDR-07",
+    "ANDR-08",
+    "ANDR-09",
+    "ANDR-10",
+    "ANDR-11",
+    "ANDR-12",
+    "ANDR-13",
+    "ANDR-14",
+    "ANDR-15",
+    "ANDR-16",
+    "ANDR-17",
+    "ANDR-18"
+  ],
+  "development_gates": [
+    {
+      "id": "slice",
+      "goal": "One Android NPC mission voice+text offline and playable with all four-domain paths",
+      "tooling": "Capacitor+Phaser",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "asset_delivery_proof",
+      "goal": "Google Play internal testing of >1GB synthetic install-time packs with seek and app resume",
+      "tooling": "Gradle PAD and native bridge",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "full_released_media",
+      "goal": "Original/rights-cleared content pack at ~2.6GB target with SHA256 & codec reports",
+      "tooling": "media manifests & CI",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "quality_checks",
+      "goal": "airplane mode, WebView/video seeks, QA physical Android and memory test",
+      "tooling": "Android instrumentation and release checks",
+      "status": "NOT_IMPLEMENTED"
+    }
+  ],
+  "source_urls": [
+    "https://support.google.com/googleplay/android-developer/answer/9859372?hl=en",
+    "https://developer.android.com/guide/playcore/asset-delivery/integrate-java",
+    "https://developer.android.com/games/optimize/game-size",
+    "https://capacitorjs.com/docs",
+    "https://docs.phaser.io/",
+    "https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader.PathHandler"
+  ],
+  "doc": "docs/23-android-offline-game-and-3gb-media-architecture.md"
+}
