@@ -116,7 +116,7 @@ export function addDiagnostic(state, data, now = new Date()) {
       !/^[a-z\d_-]{1,100}$/i.test(taskId || "")) {
     throw new Error("Invalid diagnostic");
   }
-  if ((status === "scored" && typeof correct !== "boolean") ||
+  if ((status === "scored" && (!["reading", "listening"].includes(skill) || typeof correct !== "boolean")) ||
       (status === "ungraded" && correct !== undefined)) {
     throw new Error("Only objective answers can be scored");
   }
