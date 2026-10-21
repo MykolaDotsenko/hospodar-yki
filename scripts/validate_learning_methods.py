@@ -76,6 +76,9 @@ def main():
     require(blueprint["status"] == "implementation_design_not_implemented", "Blueprint cannot claim implementation")
     require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
     require(len(blueprint["experiment_backlog"]) == 4, "Expected 4 explicit experiments")
+    require(len(blueprint.get("new_evidence_workstreams", [])) == 5, "Expected five extensions from fresh effectiveness review")
+    require(blueprint.get("evidence_effectiveness_registry") == "research/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
+
     known_method_ids = {m["id"] for m in methods}
     modules = blueprint["modules"]
     require(len({mod["id"] for mod in modules}) == len(modules), "Duplicate blueprint modules")
@@ -83,6 +86,11 @@ def main():
         require(mod.get("methods") and set(mod["methods"]) <= known_method_ids, "Unknown method in module: " + mod["id"])
         require(mod.get("steps") and mod.get("acceptance") and mod.get("risks"), "Module missing concrete protocol: " + mod["id"])
         require(mod["priority"] in {"P0","P1","P2"}, "Module priority invalid: " + mod["id"])
+    require(len({w["id"] for w in blueprint["new_evidence_workstreams"]}) == 5, "Duplicate evidence workstream")
+    for w in blueprint["new_evidence_workstreams"]:
+        require(set(w["research_method_ids"]) <= known_method_ids, "Unknown methodology for workstream " + w["id"])
+        require(w["done_when"] and w["assets"] and w["flow"], "Workstream acceptance/provenance missing " + w["id"])
+        require(w["status"] in {"researched_not_implemented", "research_option_only"}, "Workstream falsely marked implemented")
     for exp in blueprint["experiment_backlog"]:
         require(exp["source_methods"] and set(exp["source_methods"]) <= known_method_ids, "Unknown experiment methods " + exp["id"])
         require(all(exp.get(k) for k in ("treatment","control","primary_outcome","guardrail")), "Incomplete A/B hypothesis " + exp["id"])
@@ -129,6 +137,7 @@ def main():
         "rated_scores_not_empirical": True,
         "blueprint_modules": len(modules),
         "ab_hypotheses": len(blueprint["experiment_backlog"]),
+        "future_workstreams": len(blueprint["new_evidence_workstreams"]),
         "sources": len(sources),
         "priority_counts": counts,
         "scope": "metadata integrity only; research interpretation and CEFR suitability require expert review",
