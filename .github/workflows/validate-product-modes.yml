@@ -1,0 +1,28 @@
+name: Validate YKI product mode requirements
+on:
+  push:
+    branches: [main, 'docs/**']
+    paths:
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'research/product-session-modes-v1.json'
+      - 'scripts/validate_product_modes.py'
+      - '.github/workflows/validate-product-modes.yml'
+  pull_request:
+    paths:
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'research/product-session-modes-v1.json'
+      - 'scripts/validate_product_modes.py'
+      - '.github/workflows/validate-product-modes.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check two modes, four skills and partial-date constraints
+        run: python3 scripts/validate_product_modes.py
