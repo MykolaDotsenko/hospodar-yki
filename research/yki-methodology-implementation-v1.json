@@ -1,0 +1,487 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "status": "implementation_design_not_implemented",
+  "target": "A2.2 → stable B1+ on YKI keskitaso, official 4-skill outcomes evaluated independently",
+  "evidence_register": "research/learning-methods-v1.json",
+  "source_scope": "No copyrighted lessons/videos copied; methods summarized/paraphrased and attributed in evidence register.",
+  "architecture_principles": [
+    "Task-success-first, teacher-reviewed examples where scored",
+    "Learner speaks/writes BEFORE model answer or transcript reveal",
+    "Separate perception and production and separate four YKI skills",
+    "Consent, delete/export for voice/writing and error history",
+    "All AI corrections uncertainty-aware, not official YKI grade",
+    "Optimize transfer/retention rather than time-on-app or superficial streaks"
+  ],
+  "modules": [
+    {
+      "id": "content-graph",
+      "name_uk": "Knowledge graph лексика → chunk → речення → задача",
+      "priority": "P0",
+      "methods": [
+        "chunk-learning",
+        "focus-on-form-trigger",
+        "yki-constructive-alignment"
+      ],
+      "reads": [
+        "content/b1/lexicon/contextual-chunks-v1.json",
+        "content/b1/grammar/rektio-v1.json",
+        "content/b1/grammar/ftb-frequency-cloze-v1.json",
+        "content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv"
+      ],
+      "input": "content with source/rights and separate teacher review status",
+      "outputs": [
+        "concept_id",
+        "lemma",
+        "sense",
+        "chunk",
+        "scenario_id",
+        "learning_object_id",
+        "rights",
+        "difficulty_hint",
+        "review_status"
+      ],
+      "steps": [
+        "Define typed graph IDs, versioned links and per-asset licenses",
+        "Enforce teacher-approved vs candidate-only visibility",
+        "Link a word to 2 distinct real-world productive contexts"
+      ],
+      "acceptance": [
+        "Every exposed task has provenance and license class",
+        "No FTB sentence marked teacher-approved by default",
+        "Repetition does not auto-mark all imported lemmas unknown"
+      ],
+      "risks": [
+        "news frequency not CEFR",
+        "heterogeneous copyright",
+        "unreviewed examples"
+      ]
+    },
+    {
+      "id": "mission-engine",
+      "name_uk": "YKI real-life task engine з адаптивною зміною обставин",
+      "priority": "P0",
+      "methods": [
+        "task-based",
+        "task-repetition-transfer",
+        "negotiation-repair-dialogues",
+        "yki-constructive-alignment"
+      ],
+      "reads": [
+        "content/b1/themes/",
+        "content/b1/high-yield/opinion-argumentation-v1.json",
+        "content/b1/contextual/dialogues-v1.json"
+      ],
+      "input": "skill+genre+scenario+user needs",
+      "outputs": [
+        "task_objective",
+        "role_constraints",
+        "attempt",
+        "completion_state",
+        "transfer_variant"
+      ],
+      "steps": [
+        "Generate constrained real-life goal with expected communication outcome",
+        "No hints on independent attempt; reveal structured feedback only after user finishes",
+        "Require changing at least one situational constraint for transfer"
+      ],
+      "acceptance": [
+        "Every scenario has task-success criteria independent of grammar",
+        "Three consecutive practice attempts not counted as three unseen tests",
+        "AI turn cannot arbitrarily change role or add invented deadlines"
+      ],
+      "risks": [
+        "hallucinated specifics",
+        "answer memorization",
+        "lack of teacher-rated examples"
+      ]
+    },
+    {
+      "id": "listening-evidence",
+      "name_uk": "Багаторівневий слуховий тренажер gist/details/inference",
+      "priority": "P0",
+      "methods": [
+        "metacognitive-listening",
+        "evidence-guided-listening",
+        "caption-fading"
+      ],
+      "reads": [
+        "audio/library.json",
+        "content/b1/audio-long/lessons.json",
+        "audio/yki-targeted-sources-2026-10.json"
+      ],
+      "input": "licensed audio + aligned transcript + questions + speaker tags",
+      "outputs": [
+        "first_listen_result",
+        "replay_result",
+        "misunderstanding_category",
+        "transcript_evidence_id"
+      ],
+      "steps": [
+        "Keep transcript & slow controls hidden on first scored attempt",
+        "On second attempt allow segment replay, show aligned evidence after response",
+        "Use different voices and new recordings for independent listening outcome"
+      ],
+      "acceptance": [
+        "No script-only dialogue scored as listening",
+        "0 inaccessible copyrighted audio cached without rights",
+        "List first-listen and assisted scores separately"
+      ],
+      "risks": [
+        "ASR transcript mismatch",
+        "single-speaker TTS bias",
+        "YKI familiarity mismatch"
+      ]
+    },
+    {
+      "id": "production-feedback",
+      "name_uk": "Письмо: зміст → самовиправлення → новий текст",
+      "priority": "P0",
+      "methods": [
+        "writing-revision",
+        "feedback-uptake-not-rewriting",
+        "human-anchor-calibration"
+      ],
+      "reads": [
+        "content/b1/high-yield/writing-repair-clinic.json",
+        "content/b1/high-yield/opinion-argumentation-v1.json"
+      ],
+      "input": "written response and teacher-approved rubric",
+      "outputs": [
+        "meaning_errors",
+        "linguistic_errors",
+        "revision_attempt",
+        "unseen_transfer"
+      ],
+      "steps": [
+        "Separately mark relevance, register, comprehensibility, cohesion, grammar",
+        "Give learner 1–3 evidence-based hints instead of a completed rewrite",
+        "Blindly calibrate feedback against teacher anchors and track revisions"
+      ],
+      "acceptance": [
+        "AI never calls own numeric feedback official YKI grade",
+        "No complete rewrite counted as learner achievement",
+        "Each written sample can be manually corrected/deleted"
+      ],
+      "risks": [
+        "surface correctness masks task failure",
+        "automatic scores drift"
+      ]
+    },
+    {
+      "id": "voice-dialogue",
+      "name_uk": "AI voice tutor: task success, repair, uncertainty-aware ASR",
+      "priority": "P0",
+      "methods": [
+        "ai-voice-roleplay",
+        "hybrid-ai-teacher-loop",
+        "uncertainty-aware-asr",
+        "negotiation-repair-dialogues"
+      ],
+      "reads": [
+        "content/b1/contextual/dialogues-v1.json",
+        "content/b1/high-yield/speaking-reaction-bank.json"
+      ],
+      "input": "voice sample + known task constraints",
+      "outputs": [
+        "turn_history",
+        "task_outcome",
+        "self_repair",
+        "optional_transcript",
+        "low_confidence_flags"
+      ],
+      "steps": [
+        "Listening-first or speaking-first mode, Finnish playback and manual transcript adjustment",
+        "Rate communicative accomplishment before grammar control",
+        "Separate AI feedback from teacher-anchored assessment; clear ASR uncertainty"
+      ],
+      "acceptance": [
+        "Accent/noise low-confidence responses abstain from precise phoneme punishment",
+        "Learner can replay audio and override incorrect transcript",
+        "Voice recording retention and deletion user-controlled"
+      ],
+      "risks": [
+        "ASR Finnish duration mistakes",
+        "privacy",
+        "performance latency",
+        "ASR bias"
+      ]
+    },
+    {
+      "id": "quantity-lab",
+      "name_uk": "Finnish duration: perception vs production lab",
+      "priority": "P1",
+      "methods": [
+        "finnish-quantity-dual-track",
+        "phonemic-minimal-pairs",
+        "high-variability-phonetics"
+      ],
+      "reads": [
+        "audio/",
+        "content/b1/lexicon/"
+      ],
+      "input": "teacher-checked minimal pairs from different licensed speakers",
+      "outputs": [
+        "perception_accuracy",
+        "production_human_rating",
+        "misheard_pairs"
+      ],
+      "steps": [
+        "Create contrast sets e.g. tuli/tuuli and kuka/kukka",
+        "Randomize speaker and position; no answer leak",
+        "Record learner productions and compare by calibrated human or transparent acoustic measures"
+      ],
+      "acceptance": [
+        "Perception and production reported as distinct outcomes",
+        "Never infer quantity correctness from ASR text match alone",
+        "No phonetic visualization presented as exact forensic measurement without validation"
+      ],
+      "risks": [
+        "insufficient licensed speakers",
+        "false phonetics scoring",
+        "accent unfairness"
+      ]
+    },
+    {
+      "id": "retention-srs",
+      "name_uk": "Delayed recall на підтверджено проблемних конструкціях",
+      "priority": "P1",
+      "methods": [
+        "spaced-retrieval",
+        "fsrs-scheduler-chunks",
+        "error-bottleneck-deliberate"
+      ],
+      "reads": [
+        "content/b1/lexicon/contextual-chunks-v1.json",
+        "content/b1/lexicon/frequency/"
+      ],
+      "input": "explicit unknown or verified production error",
+      "outputs": [
+        "personal_chunk_state",
+        "next_review",
+        "successful_near_transfer",
+        "successful_far_transfer"
+      ],
+      "steps": [
+        "Build scheduler with cold-start and change log, optionally benchmark FSRS",
+        "Store multiple sense/context uses, do not mistake recognition for productive recall",
+        "Repeat again under novel situational constraint after delay"
+      ],
+      "acceptance": [
+        "No bulk import of 10k lemmas into personal queue",
+        "Measure delayed recall and far transfer, not number of flashcards tapped",
+        "User can reset mastered state and export history"
+      ],
+      "risks": [
+        "FSRS optimized for cards not conversations",
+        "review fatigue"
+      ]
+    },
+    {
+      "id": "assessment-validity",
+      "name_uk": "Four-skill independent assessment, teacher anchors, holdouts",
+      "priority": "P0",
+      "methods": [
+        "unseen-diagnostics",
+        "holdout-item-bank-and-calibration",
+        "human-anchor-calibration",
+        "yki-constructive-alignment"
+      ],
+      "reads": [
+        "docs/01-official-yki-2027.md",
+        "content/b1/diagnostics/baseline-v1.json",
+        "content/b1/feedback-rubrics.json"
+      ],
+      "input": "teacher-checked blind items + skill-level rubric",
+      "outputs": [
+        "per_skill_evidence",
+        "confidence_band",
+        "coverage",
+        "rubric_subscores",
+        "warning_not_official"
+      ],
+      "steps": [
+        "Maintain versioned unseen train/test separation and no model key leakage",
+        "Teacher double-rating before claiming calibrated level",
+        "Publish independent skill-level diagnostics with uncertainty and reasons"
+      ],
+      "acceptance": [
+        "Never combine four modules into one official YKI grade",
+        "Never present 0–100 product score as OPH grade 3 or pass chance",
+        "Thresholds/IRT not deployed without enough labeled learner responses"
+      ],
+      "risks": [
+        "selection bias",
+        "overfitting",
+        "unverified B1 cut scores"
+      ]
+    },
+    {
+      "id": "digital-familiarization",
+      "name_uk": "Цифрові вправи як підготовка до роботи на комп'ютері",
+      "priority": "P1",
+      "methods": [
+        "digital-task-literacy",
+        "cefr-mediation-paraphrase"
+      ],
+      "reads": [
+        "docs/01-official-yki-2027.md"
+      ],
+      "input": "OPH published digital announcements & accessibility settings",
+      "outputs": [
+        "technical_task_completion",
+        "typed_response",
+        "audio_io_check"
+      ],
+      "steps": [
+        "Create neutral timed text response, headphone and mic rehearsal",
+        "Validate each UI-specific behavior against new OPH rules as released",
+        "Provide accessibility safeguards and no surprise sounds"
+      ],
+      "acceptance": [
+        "No false claim of exact digital 2027 YKI UI",
+        "No hardcoded OPH-specific timer unless verified",
+        "Tech familiarity score separate from language proficiency"
+      ],
+      "risks": [
+        "changing official UI",
+        "technical barriers"
+      ]
+    },
+    {
+      "id": "research-experimentation",
+      "name_uk": "A/B evaluation with meaningful outcomes",
+      "priority": "P1",
+      "methods": [
+        "error-bottleneck-deliberate",
+        "feedback-uptake-not-rewriting",
+        "privacy-and-safe-personalization"
+      ],
+      "reads": [
+        "research/learning-methods-v1.json"
+      ],
+      "input": "consented anonymized attempt traces and held-out task bank",
+      "outputs": [
+        "retention_at_7d",
+        "transfer_at_14d",
+        "time_on_task",
+        "error_category_rates",
+        "abandonment_rate"
+      ],
+      "steps": [
+        "Choose one hypothesis and predeclare primary endpoint",
+        "Assign baseline-matched users to tested intervention/comparator",
+        "Avoid interpreting novelty engagement as learning; publish limitations"
+      ],
+      "acceptance": [
+        "Measure independently checked outcomes and confidence intervals",
+        "Do not claim results before enough data",
+        "Telemetry opt-in; no raw personal voice or messages in public repo"
+      ],
+      "risks": [
+        "small-N false discoveries",
+        "survivorship",
+        "compulsive engagement"
+      ]
+    },
+    {
+      "id": "teacher-qc",
+      "name_uk": "Лінгвістична редактура контенту та експертні контрольні зразки",
+      "priority": "P0",
+      "methods": [
+        "human-anchor-calibration",
+        "focus-on-form-trigger",
+        "hybrid-ai-teacher-loop"
+      ],
+      "reads": [
+        "content/b1/",
+        "audio/library.json"
+      ],
+      "input": "draft learning content + copyright notice + teacher-review checklist",
+      "outputs": [
+        "approved_flag",
+        "error_annotations",
+        "exemplar_variants",
+        "copyright_clearance"
+      ],
+      "steps": [
+        "Review word choice, punctuation, Finnish register, correct answers, acceptable alternatives",
+        "Review audio waveform and source transcript and speaker diversity",
+        "Separate corpus-candidate, synthetic and genuine human voice content in UI"
+      ],
+      "acceptance": [
+        "Unreviewed item excluded from strict scoring",
+        "All imported third-party examples retain provenance and transformed-credit notices",
+        "Unknown media rights block redistribution"
+      ],
+      "risks": [
+        "teacher availability",
+        "time to review",
+        "source-license mismatch"
+      ]
+    }
+  ],
+  "experiment_backlog": [
+    {
+      "id": "exp1",
+      "question": "Чи стимулює guided self-repair кращий незалежний B1 writing перенос, ніж показ повного AI rewrite?",
+      "treatment": "1–3 hints + learner correction",
+      "control": "full AI rewrite offered after first draft",
+      "primary_outcome": "blind score on novel writing topic 7–14 days later",
+      "secondary": "time-to-complete and correction uptake",
+      "guardrail": "no official YKI predictions",
+      "source_methods": [
+        "feedback-uptake-not-rewriting",
+        "writing-revision"
+      ]
+    },
+    {
+      "id": "exp2",
+      "question": "Чи покращує слухову самостійність segment evidence replay vs immediate full subtitles?",
+      "treatment": "first listen → answer → targeted replay → evidence",
+      "control": "first listen → immediate full transcript after answer",
+      "primary_outcome": "new unaided first-listen comprehension score 7d later",
+      "secondary": "inference accuracy and usage of hints",
+      "guardrail": "use teacher-reviewed human speech",
+      "source_methods": [
+        "evidence-guided-listening",
+        "caption-fading"
+      ]
+    },
+    {
+      "id": "exp3",
+      "question": "Чи покращують мінімальні пари з різними дикторами фінську quantity perception/production vs single TTS?",
+      "treatment": "multi-human speaker contrasts + distinct production phase",
+      "control": "same-time single synthetic voice practice",
+      "primary_outcome": "unseen quantity identification and blinded human production assessment",
+      "secondary": "response time/perceived confidence",
+      "guardrail": "one outcome cannot replace the other; explicit right-to-delete recordings",
+      "source_methods": [
+        "finnish-quantity-dual-track",
+        "high-variability-phonetics"
+      ]
+    },
+    {
+      "id": "exp4",
+      "question": "Чи зростає успішність задач під час адаптивного фокусу на індивідуальній помилці?",
+      "treatment": "diagnose learner error → 3 targeted tasks → transfer",
+      "control": "theme-matched random tasks",
+      "primary_outcome": "unseen real-life task success after 14d",
+      "secondary": "target grammar recurrence and learner load",
+      "guardrail": "no automated false certainty or unsupervised teacher score",
+      "source_methods": [
+        "error-bottleneck-deliberate",
+        "task-repetition-transfer"
+      ]
+    }
+  ],
+  "definition_of_done": [
+    "All 11 modules remain proposals until shipped with working tests",
+    "No automatic score masquerades as certified YKI 3/4",
+    "Every training object has a license/provenance and review flag",
+    "Unseen benchmark separate from practice data",
+    "Privacy and accessibility smoke tests",
+    "At least one delayed-transfer outcome for every learning intervention",
+    "Human-labeled teacher benchmark used before score calibration"
+  ]
+}
