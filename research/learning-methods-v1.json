@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "date": "2026-10-21",
-  "name": "Hospodar YKI: evidence-informed learning methods, verified expanded catalogue",
+  "name": "Hospodar YKI evidence-informed Finnish methods (67 approaches)",
   "purpose": "Future implementation planning. Not implemented in app.",
   "target": "Adult Ukrainian-speaking A2.2 → B1/B1+ YKI keskitaso",
   "score_definition": "Expert priority 0-100: evidence strength 0-30, Finnish/YKI fit 0-30, A2.2→B1 suitability 0-20, engineering feasibility 0-10, agency and sustainable motivation 0-10. These are expert judgments, not measured effect sizes.",
@@ -586,6 +586,32 @@
       }
     },
     {
+      "id": "balanced-deep-surface-feedback",
+      "name_uk": "Комбінована корекція змісту, структури та граматики",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_MIXED_WRITING_META",
+      "priority": "P0",
+      "sources": [
+        "surface-deep24",
+        "writingcf"
+      ],
+      "reason_uk": "Поєднаний feedback краще охоплює поверхневі і глибинні недоліки письма.",
+      "example_fi": "Kirjoita reklamaatio; onko syy ja pyyntö, ja onko rektio oikein?",
+      "app_feature_uk": "Спочатку task fulfilment, далі точкові граматичні проблеми.",
+      "measurement_uk": "Нове письмо: зрозумілість, повнота, форми окремо.",
+      "limitation_uk": "Метааналіз змішував L1, L2 та FL; не прирівнювати до YKI.",
+      "score_components": {
+        "evidence": 30,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 92
+    },
+    {
       "id": "explicit-context-grammar",
       "name_uk": "Коротке пояснення граматики + практика у контексті",
       "score": 94,
@@ -717,6 +743,32 @@
       }
     },
     {
+      "id": "guided-corpus-discovery",
+      "name_uk": "Data-driven learning: знайти правило в корпусних прикладах",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_DDL_META",
+      "priority": "P0",
+      "sources": [
+        "ddlmeta23",
+        "explicit"
+      ],
+      "reason_uk": "Зіставлення реальних прикладів допомагає індуктивно помічати керування та словозміну.",
+      "example_fi": "Pidän kahvista, pidän musiikista: mikä sija?",
+      "app_feature_uk": "3–5 ліцензованих контекстів, гіпотеза учня, правило, нова ситуація.",
+      "measurement_uk": "Правильний відмінок у незнайомому контексті через 7 днів.",
+      "limitation_uk": "Корпусні тексти мають пройти відбір і S2-редактуру.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 20,
+        "implementation": 8,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 90
+    },
+    {
       "id": "hybrid-ai-teacher-loop",
       "name_uk": "AI рольові розмови + педагогічний контроль + AI literacy",
       "score": 93,
@@ -765,6 +817,83 @@
         "implementation": 9,
         "learner_agency": 10
       }
+    },
+    {
+      "id": "multimedia-dual-code",
+      "name_uk": "Український переклад + тематичне фото + самостійне речення",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_META",
+      "priority": "P0",
+      "sources": [
+        "multimedia25",
+        "retrieval"
+      ],
+      "reason_uk": "L1+picture краще за одне джерело підказок на негайних словникових тестах; delayed результат менш переконливий.",
+      "example_fi": "Näytä kuva pysäkistä: missä pysäkki on?",
+      "app_feature_uk": "Картка: зображення + UA gloss + самостійне використання в новій ситуації.",
+      "measurement_uk": "Затримане продуктивне пригадування без зображення.",
+      "limitation_uk": "Не плутати негайні тести з довгим YKI переносом.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 90
+    },
+    {
+      "id": "peer-writing-with-prompts",
+      "name_uk": "Peer tutoring письма з метакогнітивними питаннями",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_META",
+      "priority": "P0",
+      "sources": [
+        "peerwrite25",
+        "surface-deep24"
+      ],
+      "reason_uk": "Peer tutoring L2 письма має позитивні результати, а метакогнітивні питання підсилювали ефект.",
+      "example_fi": "Tarkista viesti: missä ongelma? mitä pyydät?",
+      "app_feature_uk": "Партнер/викладач перевіряє зміст і форму, автор сам виправляє.",
+      "measurement_uk": "Нове письмо через 7–14 днів оцінене незалежно.",
+      "limitation_uk": "Peer feedback може бути неточним; потрібна модерація.",
+      "score_components": {
+        "evidence": 29,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 7,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 91
+    },
+    {
+      "id": "pre-task-planning",
+      "name_uk": "Короткий план перед говорінням/письмом",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_META",
+      "priority": "P0",
+      "sources": [
+        "planning22"
+      ],
+      "reason_uk": "Планування полегшує організацію висловлювання, але по-різному впливає на точність, швидкість і складність.",
+      "example_fi": "Puhu asumisesta: 2 syytä + 1 esimerkki.",
+      "app_feature_uk": "Короткий план ключових тез перед вільною відповіддю.",
+      "measurement_uk": "Повнота й плавність нового монологу.",
+      "limitation_uk": "Час для планування в тренажері не є офіційним часом YKI.",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 91
     },
     {
       "id": "chunk-learning",
@@ -870,6 +999,31 @@
       "added_at": "2026-10-21"
     },
     {
+      "id": "graduated-task-sequencing",
+      "name_uk": "SSARC: поступове ускладнення реальних завдань",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_META",
+      "priority": "P0",
+      "sources": [
+        "sequencing25"
+      ],
+      "reason_uk": "Рух від простого завдання до складнішого підтримує граматичну точність і складність.",
+      "example_fi": "Pyydä aika → muuta aika → perustele syy → sovi vaihtoehto.",
+      "app_feature_uk": "Завдання з додатковими обмеженнями та контрольованими підказками.",
+      "measurement_uk": "Якість виконання нової складнішої ситуації.",
+      "limitation_uk": "Ускладнення повинно залежати від навичок, не тиснути на учня.",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 20,
+        "implementation": 8,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 89
+    },
+    {
       "id": "high-variability-phonetics",
       "name_uk": "High-Variability Phonetic Training: багато дикторів",
       "score": 92,
@@ -892,6 +1046,32 @@
         "implementation": 9,
         "learner_agency": 9
       }
+    },
+    {
+      "id": "mobile-contextual-micropractice",
+      "name_uk": "Мобільна контекстна практика між щоденними справами",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_VOCAB_META",
+      "priority": "P0",
+      "sources": [
+        "mobilevocab22",
+        "mobilevocab26"
+      ],
+      "reason_uk": "Метааналізи mobile vocabulary демонструють користь, залежну від завдань і тривалості.",
+      "example_fi": "Ennen kauppaa: pyydä kuitti, palauta tuote.",
+      "app_feature_uk": "Короткі опційні мікрозавдання перед реальною ситуацією.",
+      "measurement_uk": "Delayed productive use на хвилину практики.",
+      "limitation_uk": "Мобільність не гарантує transfer; без нав'язливих нагадувань.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 87
     },
     {
       "id": "extensive-reading",
@@ -1064,6 +1244,57 @@
       }
     },
     {
+      "id": "collaborative-writing",
+      "name_uk": "Спільне написання + незалежний новий текст",
+      "score": 89,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_META",
+      "priority": "P1",
+      "sources": [
+        "collabwrite21"
+      ],
+      "reason_uk": "Спільне письмо поліпшує точність і може впливати на пізніші індивідуальні тексти.",
+      "example_fi": "Kirjoittakaa kutsu talkoisiin, sitten uusi viesti yksin.",
+      "app_feature_uk": "Спільний коментар і дискусія щодо змісту, потім solo transfer.",
+      "measurement_uk": "Самостійний текст після групової практики.",
+      "limitation_uk": "Коавторство не можна зараховувати як індивідуальний рівень.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 18,
+        "implementation": 7,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 86
+    },
+    {
+      "id": "corpus-collocation-noticing",
+      "name_uk": "Контекстне помічання колокацій і rektio",
+      "score": 89,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_ENGLISH_CORPUS_REVIEW",
+      "priority": "P1",
+      "sources": [
+        "ddlcolloc23",
+        "ddlmeta23"
+      ],
+      "reason_uk": "Повторення конструкції у різних прикладах краще ізолює її функцію.",
+      "example_fi": "odottaa bussia / osallistua kurssille? перевірити належне керування.",
+      "app_feature_uk": "Сортування прикладів, пояснення контрастів і продуктивний transfer.",
+      "measurement_uk": "Правильність нових chunks поза тренувальним корпусом.",
+      "limitation_uk": "Потрібна якісна рецензія фінських керувань; English evidence.",
+      "score_components": {
+        "evidence": 26,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 88
+    },
+    {
       "id": "holdout-item-bank-and-calibration",
       "name_uk": "Holdout item bank, difficulty tags і поступова психометрична калібровка",
       "score": 89,
@@ -1090,6 +1321,31 @@
       "added_at": "2026-10-21"
     },
     {
+      "id": "learner-concept-map",
+      "name_uk": "Мапи аргументів для говоріння та письма",
+      "score": 89,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_META",
+      "priority": "P1",
+      "sources": [
+        "conceptmap25"
+      ],
+      "reason_uk": "Огляд 68 досліджень показує користь concept maps, переважно в ESL/EFL.",
+      "example_fi": "Asuminen: sijainti→hinta→matka→johtopäätös.",
+      "app_feature_uk": "Розгорнути мапу тез, тоді приховати і висловитися.",
+      "measurement_uk": "Зв'язність та структура нового письма/монологу.",
+      "limitation_uk": "Мапа — тимчасова опора, а не заміна власного мовлення.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 26,
+        "A2_to_B1_fit": 17,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 85
+    },
+    {
       "id": "uncertainty-aware-asr",
       "name_uk": "ASR як допоміжна підказка з оцінкою впевненості, не суддя",
       "score": 89,
@@ -1114,6 +1370,59 @@
         "learner_agency": 9
       },
       "added_at": "2026-10-21"
+    },
+    {
+      "id": "autonomy-support-and-choice",
+      "name_uk": "Автономія учня: вибір теми та мети місії",
+      "score": 88,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_ASSOCIATIONAL",
+      "priority": "P1",
+      "sources": [
+        "motivation25",
+        "srltech25",
+        "kielibuusti_path"
+      ],
+      "reason_uk": "Автономна мотивація пов'язана з успіхом; це не прямий доказ causal learning gain.",
+      "example_fi": "Valitse päiväkoti, työ tai asuminen: tavoite tänään.",
+      "app_feature_uk": "Вибір реального сценарію, особиста мета, коротка рефлексія.",
+      "measurement_uk": "Незалежний прогрес і сталість без streak-маніпуляцій.",
+      "limitation_uk": "Кореляцію мотивації не називати ефектом навчальної кнопки.",
+      "score_components": {
+        "evidence": 24,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 18,
+        "implementation": 9,
+        "learner_agency": 10
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 81
+    },
+    {
+      "id": "information-gap-decisions",
+      "name_uk": "Information-gap: уточнення фактів і ухвалення рішення",
+      "score": 88,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MIXED_L2_META",
+      "priority": "P1",
+      "sources": [
+        "cmcoral15",
+        "tblt"
+      ],
+      "reason_uk": "Комунікація через рішення вимагає справжніх питань; CMC підгрупи мають різні результати.",
+      "example_fi": "Kysy kaksi bussivuoroa ja valitse, kumpi sopii töihin.",
+      "app_feature_uk": "Сценарій із прихованою інформацією, уточненням і наслідком.",
+      "measurement_uk": "Чи прийнято обґрунтоване рішення без перекладу.",
+      "limitation_uk": "Не представляти вигадані маршрути як справжні факти.",
+      "score_components": {
+        "evidence": 26,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 84
     },
     {
       "id": "phonemic-minimal-pairs",
@@ -1291,6 +1600,33 @@
       }
     },
     {
+      "id": "visual-acoustic-speech-feedback",
+      "name_uk": "Візуалізація тривалості фінських звуків",
+      "score": 86,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MIXED_PHONETIC_REVIEW",
+      "priority": "P1",
+      "sources": [
+        "phonetic65",
+        "visualpron18",
+        "finnquantity68"
+      ],
+      "reason_uk": "Докази підтримують фонетичний тренінг, але не доводять точність окремих графіків вимови.",
+      "example_fi": "tuli / tuuli: слухай, повтори, порівняй тривалість.",
+      "app_feature_uk": "Обмежено показувати waveform і optional human-checked markers.",
+      "measurement_uk": "Окремі показники розрізнення на слух і людська оцінка вимови.",
+      "limitation_uk": "Не карати акцент за неточним графіком або ASR.",
+      "score_components": {
+        "evidence": 25,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 7
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 76
+    },
+    {
       "id": "privacy-and-safe-personalization",
       "name_uk": "Privacy-first learner analytics: явна згода, локальна історія",
       "score": 85,
@@ -1389,6 +1725,32 @@
       }
     },
     {
+      "id": "keyword-mnemonic-retrieval",
+      "name_uk": "Keyword mnemonic + retrieval для складних слів",
+      "score": 84,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "EMERGING_ENGLISH_STUDY",
+      "priority": "P1",
+      "sources": [
+        "mnemonic24",
+        "spaced"
+      ],
+      "reason_uk": "В одному EFL експерименті N=110 поєднання мнемоніки та пригадування допомогло засвоєнню пар слів.",
+      "example_fi": "Päiväkoti: придумай асоціацію й склади нове речення.",
+      "app_feature_uk": "Опційна особиста мнемоніка → active recall → використання в контексті.",
+      "measurement_uk": "Пригадування і вживання у новому реченні за 14 днів.",
+      "limitation_uk": "Не призначати мнемоніки кожному слову; вивчалася англійська.",
+      "score_components": {
+        "evidence": 24,
+        "Finnish_YKI_fit": 26,
+        "A2_to_B1_fit": 17,
+        "implementation": 9,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 80
+    },
+    {
       "id": "micro-missions",
       "name_uk": "Короткі регулярні місії 10–20 хв",
       "score": 83,
@@ -1411,6 +1773,32 @@
         "implementation": 10,
         "learner_agency": 8
       }
+    },
+    {
+      "id": "read-while-listen-scaffold",
+      "name_uk": "Читання одночасно зі слуханням як допоміжна опора",
+      "score": 82,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MIXED_GENERAL_META",
+      "priority": "P1",
+      "sources": [
+        "readlisten23",
+        "caption"
+      ],
+      "reason_uk": "Метааналіз показав малий загальний ефект і непевність для самостійного читання.",
+      "example_fi": "Kuuntele ilmoitus, vasta sitten katso tekstin kanssa.",
+      "app_feature_uk": "Показувати синхронний текст тільки після першого слухання.",
+      "measurement_uk": "Нова відповідь без субтитрів; окремо supported score.",
+      "limitation_uk": "Для YKI-like першого прослуховування текст лишається прихованим.",
+      "score_components": {
+        "evidence": 23,
+        "Finnish_YKI_fit": 25,
+        "A2_to_B1_fit": 17,
+        "implementation": 9,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 72
     },
     {
       "id": "shadowing",
@@ -1483,6 +1871,31 @@
         "implementation": 10,
         "learner_agency": 8
       }
+    },
+    {
+      "id": "immersive-vr-roleplay",
+      "name_uk": "VR/AR занурення як необов'язкова експериментальна фіча",
+      "score": 71,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "EMERGING_L2_TECH_REVIEW",
+      "priority": "P2",
+      "sources": [
+        "vrreview26"
+      ],
+      "reason_uk": "Огляди VR показують потенціал залучення, але для фінського YKI ефект не доведено.",
+      "example_fi": "Virtuaalinen apteekki: pyydä aukioloaika.",
+      "app_feature_uk": "Лише експериментальна опція після web/mobile ролей.",
+      "measurement_uk": "Додаткова користь проти 2D сценарію на незнайомих завданнях.",
+      "limitation_uk": "Висока складність, доступність, cybersickness; не P0.",
+      "score_components": {
+        "evidence": 21,
+        "Finnish_YKI_fit": 22,
+        "A2_to_B1_fit": 15,
+        "implementation": 6,
+        "learner_agency": 7
+      },
+      "added_at": "2026-10-21",
+      "effectiveness_preestimate": 61
     },
     {
       "id": "single-tts-only",
@@ -1643,6 +2056,7 @@
     "Avoid source links claiming previous site functionality (e.g., discontinued Yle Kielikoulu).",
     "2026-10-21: Extended 35-method baseline with 16 distinct methods/technology safeguards; also refreshed evidence on 9 legacy methods. No methods were removed or existing scores silently changed.",
     "Finnish quantity studies show perception and production must be evaluated separately; ASR English effect sizes are not Finnish results.",
-    "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain."
+    "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain.",
+    "Oct 2026: 16 new methods added; effectiveness_preestimate is a tentative expert judgment to be transparently scored in a separate effectiveness registry, not study effect size."
   ]
 }
