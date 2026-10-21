@@ -439,6 +439,15 @@ type Session = {
 
 **Acceptance IDs:** `EXV-01..EXV-20` із [21 — digital spec](21-digital-yki-exam-simulator-executable-spec.md). **Внесення цього ТЗ не означає готового simulator**, наразі мінірепетиція ≠ full exam.
 
+## Video-based YKI mock rehearsal — historical video vs verified digital exam (P0/P1)
+
+**Джерела:** [класифікація 3 YKI-імітацій та 5 SOLKI official sample pages](../video/yki-mock-simulation-sources.json) · [8 MOCK-VID acceptance](../video/YKI-MOCK-VIDEO-SOURCES-2026-10.md). Підтверджені YouTube `mock` — **лише speaking-subtest**; ні старі відео, ні SOLKI paper-era демонстрації не підтверджують UX/timer/audio нового цифрового YKI у 2027 році.
+
+- **MOCK-VID / P0:** кожне джерело має тип `timed_speaking_subtest_mock`, `task_demo`, `format_explainer`, `organizer_sample`, `story_about_exam`; змішування із `full_official_2027_mock` заборонено.
+- **MOCK-VID / P0:** обов'язково `answer_leakage_start` там, де зразок відповіді в тому самому відео (`htrQhR-HGM4=16:22`, `EcIuejiFLZo=0:40`, `GDsP04gyZv8=3:22`); завдання позначати `seen` після exposure.
+- **MOCK-VID / P0:** `strict digital 2027 fidelity` лише після official-OPH verification і regression tests, інакше `legacy_example`/ `practice_timing` з явним попередженням.
+- **MOCK-VID / P1:** `YouTube learn` через дозволений плеєр; `exam` — тільки source-rights-cleared original independent content із записом/відповіддю та deferred hints після submit.
+
 ## YouTube video library — навчальний каталог + майбутній compliant плеєр (P1)
 
 **Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`video/youtube-catalog.json`](../video/youtube-catalog.json) (**47 прямих YouTube-посилань, 182 часові сегменти**, включно з [16 із раунду 2](../video/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md) та [8 із раунду 3](../video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md), і [6 більш цільових B1/B2-відео із раунду 4](../video/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md) + [3 B1/B2 і natural-speed ролики із раунду 5](../video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)); **окремо** 9 [серій офіційних видавців](../video/publisher-series-catalog.json) і 8 [окремих епізодів Yle Areena](../video/publisher-episode-catalog.json) **без підтверджених YouTube ID**) і [добірка та product requirements YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**

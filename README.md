@@ -25,6 +25,12 @@
 У навчальному feedback на трьох простих граматичних ситуаціях з'являється **«Спочатку зміст → потім форма»**, із підкресленням/кольором лише після першої незалежної відповіді. На transfer, retest і YKI-симуляції жодних підказок правильних форм. Мета — орієнтувати увагу, але не жертвувати розумінням заради візуального ефекту; змістовні переклади ще мають пройти S2 review.
 
 
+## 🎯 Справжні YKI mock-відео — окрема перевірена класифікація (21.10.2026)
+
+**[3 наявні пробні speaking-відео, 5 офіційних деморозділів SOLKI, ризики прихованих відповідей](video/yki-mock-simulation-sources.json)** · **[Аудит і ТЗ: MOCK-VID-01…08](video/YKI-MOCK-VIDEO-SOURCES-2026-10.md)**.
+
+Відео [YKI Harjoitus speaking mock](https://www.youtube.com/watch?v=htrQhR-HGM4) дає **самостійні завдання 0:00–16:22**, приклади тільки після **16:22**. Офіційні [SOLKI/Jyväskylä зразки говоріння](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/) й [аудіювання](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/) — найкраще джерело старих демонстраційних типів задач. **Це не 100% копія цифрового YKI 2027**, і матеріали не копіюються без прав. Зберігаємо `seen/unseen` та timestamp витікання авторських відповідей.
+
 ## ▶️ YouTube як навчальна бібліотека — 47 відео з прямими посиланнями (21.10.2026)
 
 **[Каталог 47 YouTube-відео зі 182 часовими сегментами](video/youtube-catalog.json)** · **[Новий ретельний відбір: 3 YouTube B1/B2, 8 прямих Yle-епізодів, професійні відеосерії](video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)** · **[Каталог конкретних Yle Areena відео](video/publisher-episode-catalog.json)** · **[6 найкращих нових B1/B2-відео (аудіювання, YKI письмо/говоріння, puhekieli)](video/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)** · **[9 професійних відеосерій видавців](video/publisher-series-catalog.json)** · **[Новий відбір: оренда, лікар, робота, puhekieli, офіційне Yle B1](video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md)** · **[Найцінніші 16 нових — діалоги, говоріння, письмо](video/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)** · **[Добірка, пріоритети 0–100 і ТЗ YouTube-плеєра](video/YOUTUBE-LEARNING-CATALOG.md)** · **[ТЗ YTP-01…14](docs/15-two-modes-skill-scopes.md)**.

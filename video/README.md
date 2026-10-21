@@ -2,6 +2,12 @@
 
 **Stage:** Licensed sources reviewed 2026-10-21. Binary import uses GitHub Actions; the **only evidence that a video was actually downloaded and committed** is a `.webm` file plus `open/available.json` with `state=verified_binary`, nonzero bytes and SHA-256. A metadata entry alone is **not** a downloaded video.
 
+### 🎯 YKI mock videos and official SOLKI intermediate demos (21.10.2026)
+
+**[Mock source JSON: 3 timed/section-wise YouTube clips + 5 official organizer demo pages](yki-mock-simulation-sources.json)** · **[Detailed video mock audit, risks and 8 acceptance requirements](YKI-MOCK-VIDEO-SOURCES-2026-10.md)**.
+
+**Highest-priority actual rehearsal source:** [YKI Harjoitus timed speaking video](https://www.youtube.com/watch?v=htrQhR-HGM4): 0:00–16:22 independent speaking prompts, samples only after 16:22. **Official source for constructing practice types:** [JYU/SOLKI keskitaso puhuminen](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/) (audio examples), [listening](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/). These **legacy demonstration sources are not** complete spring-2027 digital exam simulations or a license to redistribute recordings. The other two timed/situational YKI videos and exact model-answer timestamps are in JSON.
+
 ### YouTube — link-only curated material (NEW 2026-10-21)
 
 **[47 YouTube watch links, 182 source-described chapter markers](youtube-catalog.json)** · **[Round 5: B1/B2 listening, 8 individual Yle videos and 2 trusted new series](YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)** · **[8 Yle episode URLs](publisher-episode-catalog.json)** · **[Round 4: six prioritized B1/B2 / YKI speaking-writing / puhekieli links](YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)** · **[9 official publisher learning video series (publisher URLs, NOT YouTube IDs)](publisher-series-catalog.json)** · **[Round 3: verified outgoing links, B1 Yle, housing, doctor, work](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md)** · **[16 new high-value lessons: authentic dialogues, puhekieli, YKI writing](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)** · **[Human-readable selection and future player UX spec (YTP-01…14)](YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../scripts/validate_youtube_video_catalog.py)**.
