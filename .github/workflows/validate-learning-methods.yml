@@ -1,0 +1,25 @@
+name: Validate learning research registry
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/learning-methods-v1.json'
+      - 'scripts/validate_learning_methods.py'
+      - '.github/workflows/validate-learning-methods.yml'
+  pull_request:
+    paths:
+      - 'research/learning-methods-v1.json'
+      - 'scripts/validate_learning_methods.py'
+      - '.github/workflows/validate-learning-methods.yml'
+permissions:
+  contents: read
+jobs:
+  registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate scoring rubric, references, rankings and metadata
+        run: python3 scripts/validate_learning_methods.py
