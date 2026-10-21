@@ -114,3 +114,16 @@
 | Server accounts, cloud sync, production deployment | not delivered |
 
 **Контентне джерело:** `content/b1/**` і `audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
+
+
+## Новий фундамент навчального двигуна — LE-01…13 (21.10.2026)
+
+**Детальне ТЗ / технічна придатність книг:** [19 — science books → engineering](19-learning-books-to-engineering-2026-10.md); [машинозчитувана черга](../research/learning-blueprints-books-v1.json); [AC-47…59](15-two-modes-skill-scopes.md).
+
+Ціль **не** «пройти 100 карток», а повернути користувача до фінської в новій ситуації через 7–14 днів: `retrieval → meaning-first input → independent task → informative feedback → self-repair → unseen transfer → next SRS`.
+
+**P0:** first-attempt immutable ledger, комунікативна задача/genre, capped diagnostic feedback, reviewed content+rights, held-out independent skill evidence.  
+**P1:** responsive SRS, novice fading, contrastive interleaving (після базової практики), language-specific audio+pronunciation і teacher-anchored writing/speaking.  
+**Поведінкова межа:** не робити тести «візуалів/аудіалів»; не підміняти практику підсвічуванням, великою кількістю анімацій, незнайомими слівцями без контексту чи стріками. Ні книги, ні дослідження не гарантують особистий YKI 3.
+
+**Не реалізовано автоматично:** документування цих вимог **не** означає готовий 4-skill adaptive engine.
