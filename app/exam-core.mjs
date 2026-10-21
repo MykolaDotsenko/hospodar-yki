@@ -81,7 +81,7 @@ export function loadSession(raw,blueprintIds) {
     for(const [id,v] of Object.entries(s.voiceRecorded)){
       if(/^[a-z0-9_-]{1,110}$/i.test(id))voiceRecorded[id]=v===true;
     }
-    return {session:{...s,answers,voiceRecorded},recovered:false};
+    return {session:{...s,answers,voiceRecorded:{}},recovered:false}; // raw audio is ephemeral; restored session must NOT claim to still possess a voice recording
   }catch{
     return {session:null,recovered:true};
   }
