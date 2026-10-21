@@ -1766,8 +1766,788 @@
       "publisher_caption_claim": "not_checked",
       "metadata_evidence_url": null,
       "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-kielibuusti-aleksei-tyo",
+      "provider": "youtube",
+      "youtube_video_id": "UBrNvJekzzk",
+      "watch_url": "https://www.youtube.com/watch?v=UBrNvJekzzk",
+      "creator": "Kielibuusti / Aleksei Anisimov",
+      "title": "Aleksei: Rohkea hyppy suomenkieliseen työympäristöön auttaa kielen oppimisessa",
+      "publication_date": null,
+      "cefr_estimate": "B1+ estimated (adult workplace interview, not CEFR graded)",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "working_in_Finnish",
+        "IT_workplace",
+        "learning_experiences",
+        "confidence",
+        "interview"
+      ],
+      "product_fit_score_100": 94,
+      "why_useful": "Actual interview excerpt about replacing English with Finnish at the workplace; accompanies authentic publisher interview transcript/article. Strong B1+ gist, key details, retelling and transfer.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-aleksei-tyo-draft-1",
+          "prompt_fi": "Miten Aleksei käyttää suomea työpaikallaan?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-aleksei-tyo-draft-2",
+          "prompt_fi": "Mitä itse sanoisit työkavereille, jos haluaisit harjoitella suomea?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://www.kielibuusti.fi/fi/opi-suomea/oppijoiden-tarinat/oppijoiden-haastatteluja/aleksei-rohkea-hyppy-suomenkieliseen-tyoymparistoon-auttaa-kielen-oppimisessa",
+      "publisher_reported_level": "B1+ estimated (adult workplace interview, not CEFR graded)",
+      "media_kind": "authentic_interview_excerpt",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-apartment-hunting",
+      "provider": "youtube",
+      "youtube_video_id": "WH_bhOUZBMk",
+      "watch_url": "https://www.youtube.com/watch?v=WH_bhOUZBMk",
+      "creator": "DailyFinnish",
+      "title": "Apartment Hunting in Finnish – Slow Conversation & Listening Practice",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "housing",
+        "landlord",
+        "rental_viewing",
+        "contract",
+        "deposit",
+        "phone_call"
+      ],
+      "product_fit_score_100": 89,
+      "why_useful": "Publisher-authored long video with 10 identifiable scripted slow conversations, useful for independently choosing 2-3 minute landlord negotiation scenes and composing an email; too easy as sole B1 assessment.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "morning_planning",
+          "start_seconds": 3,
+          "end_seconds": 202
+        },
+        {
+          "kind": "viewing_kallio",
+          "start_seconds": 202,
+          "end_seconds": 379
+        },
+        {
+          "kind": "viewing_sornainen",
+          "start_seconds": 379,
+          "end_seconds": 598
+        },
+        {
+          "kind": "viewing_toolo",
+          "start_seconds": 598,
+          "end_seconds": 755
+        },
+        {
+          "kind": "tram_housing_market",
+          "start_seconds": 755,
+          "end_seconds": 1000
+        },
+        {
+          "kind": "landlord_vallila",
+          "start_seconds": 1000,
+          "end_seconds": 1223
+        },
+        {
+          "kind": "waiting_pasila",
+          "start_seconds": 1223,
+          "end_seconds": 1435
+        },
+        {
+          "kind": "landlord_kapyla",
+          "start_seconds": 1435,
+          "end_seconds": 1613
+        },
+        {
+          "kind": "rental_application",
+          "start_seconds": 1613,
+          "end_seconds": 1821
+        },
+        {
+          "kind": "landlord_phone_call",
+          "start_seconds": 1821,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-apartment-hunting-draft-1",
+          "prompt_fi": "Mitä vuokranantaja kertoo asunnosta?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-apartment-hunting-draft-2",
+          "prompt_fi": "Kysy näytössä vuokrasta, vakuudesta ja sopimuksen kestosta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/apartment-hunting-in-finnish/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-moving-home",
+      "provider": "youtube",
+      "youtube_video_id": "QVKNkT4W3Vo",
+      "watch_url": "https://www.youtube.com/watch?v=QVKNkT4W3Vo",
+      "creator": "DailyFinnish",
+      "title": "Moving Into First Finnish Home – Slow Spoken Finnish Conversation",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "moving_home",
+        "building_manager",
+        "neighbor",
+        "housing_condition",
+        "complaint"
+      ],
+      "product_fit_score_100": 91,
+      "why_useful": "Housing handover and defect inspection are extremely task-relevant and rare in existing YKI collection; use 3 minute scenes as A2 scaffold then independently produce B1 formal written complaint.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "keys_from_building_manager",
+          "start_seconds": 3,
+          "end_seconds": 260
+        },
+        {
+          "kind": "stairwell_neighbor",
+          "start_seconds": 260,
+          "end_seconds": 472
+        },
+        {
+          "kind": "elevator_schedule",
+          "start_seconds": 472,
+          "end_seconds": 679
+        },
+        {
+          "kind": "room_tour",
+          "start_seconds": 679,
+          "end_seconds": 977
+        },
+        {
+          "kind": "condition_inspection",
+          "start_seconds": 977,
+          "end_seconds": 1230
+        },
+        {
+          "kind": "scratch_in_bedroom",
+          "start_seconds": 1230,
+          "end_seconds": 1492
+        },
+        {
+          "kind": "inspection_form",
+          "start_seconds": 1492,
+          "end_seconds": 1755
+        },
+        {
+          "kind": "last_box",
+          "start_seconds": 1755,
+          "end_seconds": 2001
+        },
+        {
+          "kind": "first_night",
+          "start_seconds": 2001,
+          "end_seconds": 2254
+        },
+        {
+          "kind": "unusual_sound",
+          "start_seconds": 2254,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-moving-home-draft-1",
+          "prompt_fi": "Mistä ongelmasta asukas kertoo?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-moving-home-draft-2",
+          "prompt_fi": "Kirjoita isännöitsijälle 80 sanan viesti havaitsemastasi viasta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/moving-into-first-finnish-home/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-job-interview",
+      "provider": "youtube",
+      "youtube_video_id": "JopJ5t8uI9I",
+      "watch_url": "https://www.youtube.com/watch?v=JopJ5t8uI9I",
+      "creator": "DailyFinnish",
+      "title": "My First Job Interview in Finnish – Real Work Life Conversation",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "job_interview",
+        "work_history",
+        "self_introduction",
+        "workplace",
+        "phone_call"
+      ],
+      "product_fit_score_100": 90,
+      "why_useful": "Interview from arrival to handling faster Finnish, skills explanation and callback with timestamped steps. Useful to scaffold realistic B1 independent job interview.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "reception",
+          "start_seconds": 3,
+          "end_seconds": 178
+        },
+        {
+          "kind": "lobby",
+          "start_seconds": 178,
+          "end_seconds": 390
+        },
+        {
+          "kind": "corridor",
+          "start_seconds": 390,
+          "end_seconds": 580
+        },
+        {
+          "kind": "background",
+          "start_seconds": 580,
+          "end_seconds": 804
+        },
+        {
+          "kind": "fast_interview",
+          "start_seconds": 804,
+          "end_seconds": 1025
+        },
+        {
+          "kind": "why_Finland",
+          "start_seconds": 1025,
+          "end_seconds": 1260
+        },
+        {
+          "kind": "portfolio",
+          "start_seconds": 1260,
+          "end_seconds": 1508
+        },
+        {
+          "kind": "end",
+          "start_seconds": 1508,
+          "end_seconds": 1662
+        },
+        {
+          "kind": "friend_phone",
+          "start_seconds": 1662,
+          "end_seconds": 1839
+        },
+        {
+          "kind": "callback",
+          "start_seconds": 1839,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-job-interview-draft-1",
+          "prompt_fi": "Miten hakija kertoo työkokemuksestaan?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-job-interview-draft-2",
+          "prompt_fi": "Vastaa suomeksi: Miksi juuri sinut pitäisi palkata?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/my-first-job-interview-in-finnish/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-hospital-visit",
+      "provider": "youtube",
+      "youtube_video_id": "_-ZZsOQz1to",
+      "watch_url": "https://www.youtube.com/watch?v=_-ZZsOQz1to",
+      "creator": "DailyFinnish",
+      "title": "One Night in a Finnish Hospital – Real Finnish Conversation",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "health",
+        "doctor",
+        "symptoms",
+        "pain",
+        "hospital",
+        "instructions"
+      ],
+      "product_fit_score_100": 91,
+      "why_useful": "Patient-level hospital story across registration, triage, ankle examination, scan and discharge. Train expressing symptoms and independently requesting clarification, not professional diagnostics.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "emergency_reception",
+          "start_seconds": 3,
+          "end_seconds": 215
+        },
+        {
+          "kind": "triage",
+          "start_seconds": 215,
+          "end_seconds": 429
+        },
+        {
+          "kind": "friend_waiting",
+          "start_seconds": 429,
+          "end_seconds": 636
+        },
+        {
+          "kind": "doctor_exam",
+          "start_seconds": 636,
+          "end_seconds": 888
+        },
+        {
+          "kind": "observation",
+          "start_seconds": 888,
+          "end_seconds": 1081
+        },
+        {
+          "kind": "talk_at_4am",
+          "start_seconds": 1081,
+          "end_seconds": 1307
+        },
+        {
+          "kind": "vocabulary",
+          "start_seconds": 1307,
+          "end_seconds": 1544
+        },
+        {
+          "kind": "xray_and_discharge",
+          "start_seconds": 1544,
+          "end_seconds": 1781
+        },
+        {
+          "kind": "exit",
+          "start_seconds": 1781,
+          "end_seconds": 1966
+        },
+        {
+          "kind": "farewell",
+          "start_seconds": 1966,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-hospital-visit-draft-1",
+          "prompt_fi": "Mikä potilasta vaivaa?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-hospital-visit-draft-2",
+          "prompt_fi": "Kerro lääkärille oireistasi ja kysy seuraavasta vaiheesta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/one-night-in-a-finnish-hospital/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-first-office-day",
+      "provider": "youtube",
+      "youtube_video_id": "Ho-i2G1WfEk",
+      "watch_url": "https://www.youtube.com/watch?v=Ho-i2G1WfEk",
+      "creator": "DailyFinnish",
+      "title": "First Day at a Finnish Office – Work Conversation & Listening",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "office",
+        "coffee_break",
+        "team_meeting",
+        "feedback",
+        "professional_email"
+      ],
+      "product_fit_score_100": 89,
+      "why_useful": "Workplace informal norms, meeting, feedback and first Finnish email structured as standalone scenes. B1+ extension: tactful clarification and detailed follow-up message.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "reception",
+          "start_seconds": 3,
+          "end_seconds": 176
+        },
+        {
+          "kind": "coffee_room",
+          "start_seconds": 176,
+          "end_seconds": 417
+        },
+        {
+          "kind": "colleagues",
+          "start_seconds": 417,
+          "end_seconds": 628
+        },
+        {
+          "kind": "team_meeting",
+          "start_seconds": 628,
+          "end_seconds": 831
+        },
+        {
+          "kind": "phone_etiquette",
+          "start_seconds": 831,
+          "end_seconds": 1022
+        },
+        {
+          "kind": "lunch",
+          "start_seconds": 1022,
+          "end_seconds": 1212
+        },
+        {
+          "kind": "first_task",
+          "start_seconds": 1212,
+          "end_seconds": 1416
+        },
+        {
+          "kind": "goodbye",
+          "start_seconds": 1416,
+          "end_seconds": 1579
+        },
+        {
+          "kind": "work_email",
+          "start_seconds": 1579,
+          "end_seconds": 1802
+        },
+        {
+          "kind": "boss_reply",
+          "start_seconds": 1802,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-first-office-day-draft-1",
+          "prompt_fi": "Mitä työtoverit selittävät uudelle työntekijälle?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-first-office-day-draft-2",
+          "prompt_fi": "Kirjoita työtoverille lyhyt pyyntö kokouksen jälkeen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/first-day-at-a-finnish-office/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-nurse-day",
+      "provider": "youtube",
+      "youtube_video_id": "Etp8SN3EaIg",
+      "watch_url": "https://www.youtube.com/watch?v=Etp8SN3EaIg",
+      "creator": "DailyFinnish",
+      "title": "My Day as a Nurse in Hospital – Finnish Listening & Speaking",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "healthcare",
+        "instructions",
+        "explaining_a_problem",
+        "workplace"
+      ],
+      "product_fit_score_100": 84,
+      "why_useful": "Scripted clear health-work conversations useful as supplementary A2 bridge; less broadly relevant to a non-healthcare YKI user than patient appointment clip.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "emergency_room",
+          "start_seconds": 0,
+          "end_seconds": 196
+        },
+        {
+          "kind": "patient",
+          "start_seconds": 196,
+          "end_seconds": 407
+        },
+        {
+          "kind": "relative",
+          "start_seconds": 407,
+          "end_seconds": 649
+        },
+        {
+          "kind": "doctor",
+          "start_seconds": 649,
+          "end_seconds": 912
+        },
+        {
+          "kind": "measurements",
+          "start_seconds": 912,
+          "end_seconds": 1126
+        },
+        {
+          "kind": "pain",
+          "start_seconds": 1126,
+          "end_seconds": 1340
+        },
+        {
+          "kind": "coffee_break",
+          "start_seconds": 1340,
+          "end_seconds": 1539
+        },
+        {
+          "kind": "medicine",
+          "start_seconds": 1539,
+          "end_seconds": 1786
+        },
+        {
+          "kind": "discharge",
+          "start_seconds": 1786,
+          "end_seconds": 2023
+        },
+        {
+          "kind": "shift_end",
+          "start_seconds": 2023,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-nurse-day-draft-1",
+          "prompt_fi": "Mistä sairaanhoitaja puhuu potilaan kanssa?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-nurse-day-draft-2",
+          "prompt_fi": "Pyydä kohteliaasti selittämään hoito-ohje uudelleen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/learn-finnish-for-real-life-2/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
+    },
+    {
+      "id": "yt-dailyfinnish-real-life-day",
+      "provider": "youtube",
+      "youtube_video_id": "y8RshBFnOac",
+      "watch_url": "https://www.youtube.com/watch?v=y8RshBFnOac",
+      "creator": "DailyFinnish",
+      "title": "Survive a Day in Finnish – Everyday Conversations",
+      "publication_date": null,
+      "cefr_estimate": "A1-A2 publisher stated / bridge into B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "phone_call",
+        "ticket_inspection",
+        "shift_swap",
+        "shopping",
+        "transport",
+        "home"
+      ],
+      "product_fit_score_100": 90,
+      "why_useful": "Phone calls, shift changes, shopping and ticket inspection yield several situational transfer tasks despite easy/slow A2 scripted speech.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "phone_call",
+          "start_seconds": 3,
+          "end_seconds": 207
+        },
+        {
+          "kind": "ticket_inspection",
+          "start_seconds": 207,
+          "end_seconds": 386
+        },
+        {
+          "kind": "shift_swap",
+          "start_seconds": 386,
+          "end_seconds": 566
+        },
+        {
+          "kind": "lunchtime",
+          "start_seconds": 566,
+          "end_seconds": 773
+        },
+        {
+          "kind": "shop",
+          "start_seconds": 773,
+          "end_seconds": 968
+        },
+        {
+          "kind": "cashier",
+          "start_seconds": 968,
+          "end_seconds": 1134
+        },
+        {
+          "kind": "phone_outside",
+          "start_seconds": 1134,
+          "end_seconds": 1338
+        },
+        {
+          "kind": "apartment_tour",
+          "start_seconds": 1338,
+          "end_seconds": 1631
+        },
+        {
+          "kind": "cooking",
+          "start_seconds": 1631,
+          "end_seconds": 1834
+        },
+        {
+          "kind": "evening",
+          "start_seconds": 1834,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-dailyfinnish-real-life-day-draft-1",
+          "prompt_fi": "Mitä tapahtuu työvuoron vaihdossa?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-dailyfinnish-real-life-day-draft-2",
+          "prompt_fi": "Pyydä esihenkilöltä työvuoron vaihtoa ja kerro syy.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_page": "https://dailyfinnish.fi/learn-finnish/videos/survive-a-day-in-finnish/",
+      "publisher_reported_level": "A1-A2 publisher stated / bridge into B1",
+      "media_kind": "publisher_described_slow_scenario_dialogues",
+      "source_proof_note": "YouTube video ID is from external publisher page's Watch on YouTube direct URL (followed via web click); actual playback, subtitles and native-speaker cast not independently verified."
     }
   ],
   "last_curated_update": "2026-10-21",
-  "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format."
+  "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format.",
+  "round3_update": "8 added with publisher watch-page URLs; six/seven are publisher described A1-A2 slow scenario stories best used as bridging material, not substitute for B1+ naturally spoken exam prep. One authentic Kielibuusti working-life interview. All remain pending playback and S2 verification."
 }

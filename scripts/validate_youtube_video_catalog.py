@@ -38,6 +38,7 @@ def main() -> int:
             "watch_id_creator_and_description_seen_youtube_title_not_returned",
             "indirect_syndicated_page_not_youtube_page",
             "indirect_podcast_author_link",
+            "publisher_direct_watch_link_verified_by_click",
         }
         assert item["title_is_editorial_summary"] == (
             item["source_verification"] ==
@@ -63,6 +64,26 @@ def main() -> int:
             assert end is None or isinstance(end, int) and end > start
             assert (start, end) not in seen_segs
             seen_segs.add((start, end))
+    series_path = ROOT / "video/publisher-series-catalog.json"
+    if series_path.is_file():
+        collection = json.loads(series_path.read_text(encoding="utf-8"))
+        assert collection["schema_version"] == "1.0.0"
+        assert collection["count"] == len(collection["sources"])
+        assert collection["status"] == "links_only_not_rehosted"
+        publisher_urls, publisher_ids = set(), set()
+        for row in collection["sources"]:
+            assert row["id"] not in publisher_ids
+            publisher_ids.add(row["id"])
+            assert row["url"] not in publisher_urls
+            publisher_urls.add(row["url"])
+            assert row["url"].startswith("https://")
+            assert "youtube.com/watch" not in row["url"], "publisher pages must not claim YouTube video IDs"
+            assert row["direct_video_ids_known"] is False
+            assert row["source_checked"] == "verified_publisher_page"
+            assert row["score"] >= 0 and row["score"] <= 100
+            assert row["skills"] and row["topics"]
+            assert row["known_episodes"] >= 1
+        print(f"OK: {len(publisher_ids)} distinct external publisher video-series URLs, not mixed with YouTube IDs")
     print(f"OK: {len(item_ids)} distinct YouTube watch links, " +
           f"{sum(len(i['chapters']) for i in data['items'])} chapter markers; " +
           "all study items correctly labeled pending external/player review")
