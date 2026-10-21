@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0.0",
+  "curated_at": "2026-10-21",
+  "kind": "publisher-hosted-individual-video-episodes-not-youtube",
+  "rights": "Only source URLs plus original learning prompt ideas. No copying, downloading, embedding without publisher confirmation.",
+  "publisher": "Yle Areena — Asiointisuomea",
+  "parent_page": "https://areena.yle.fi/1-2226175",
+  "series_level": "A2.1–B2.1 as reported by Yle overall; individual CEFR not calibrated and recordings historical (2013/2014)",
+  "availability": "webpage metadata found; live playback not independently verified",
+  "items": [
+    {
+      "id": "yle-asiointisuomea-return-clothes",
+      "provider": "yle_areena",
+      "title": "Jakso 35: Vaatekaupassa — Vaihto ja palautus",
+      "url": "https://areena.yle.fi/1-2051527",
+      "duration_seconds": 60,
+      "expert_product_fit_score_100": 100,
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "topics": [
+        "return_product",
+        "exchange",
+        "receipt",
+        "polite_customer_service"
+      ],
+      "why_useful": "Liina exchanges one wrong-size garment and returns another; great real-world complaint and resolution B1 roleplay.",
+      "original_prompt_fi": "Kerro myyjälle, miksi haluat palauttaa tai vaihtaa tuotteen.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-take-home-insurance",
+      "provider": "yle_areena",
+      "title": "Jakso 29: Pankissa — Kotivakuutuksen ottaminen",
+      "url": "https://areena.yle.fi/1-2052495",
+      "duration_seconds": 300,
+      "expert_product_fit_score_100": 99,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "insurance",
+        "housing",
+        "banking",
+        "asking_for_clarification"
+      ],
+      "why_useful": "Five-minute native S2 service dialogue on home insurance, pair with independent insurance query and comparing conditions.",
+      "original_prompt_fi": "Kysy vakuutusvirkailijalta kotivakuutuksen hinnasta ja omavastuusta.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-bank-card",
+      "provider": "yle_areena",
+      "title": "Jakso 28: Pankissa — Pankkikortin hankkiminen",
+      "url": "https://areena.yle.fi/1-2051516",
+      "duration_seconds": 60,
+      "expert_product_fit_score_100": 96,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "bank_card",
+        "ID",
+        "bank",
+        "service"
+      ],
+      "why_useful": "One-minute useful service speech to request a bank card, identification and follow-up questions.",
+      "original_prompt_fi": "Kerro pankkivirkailijalle, että tarvitset uuden pankkikortin.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-try-discount",
+      "provider": "yle_areena",
+      "title": "Jakso 33: Vaatekaupassa — Sovittaminen ja alennustuotteet",
+      "url": "https://areena.yle.fi/1-2051522",
+      "duration_seconds": 60,
+      "expert_product_fit_score_100": 94,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "clothes",
+        "size",
+        "returns",
+        "discount"
+      ],
+      "why_useful": "Clothes fitting and discount discussion useful for vocabulary, sizes, polite followup; short 1-min scene.",
+      "original_prompt_fi": "Kysy myyjältä, voitko sovittaa vaatetta ja onko se alennuksessa.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-cafe",
+      "provider": "yle_areena",
+      "title": "Jakso 1: Kahvilassa",
+      "url": "https://areena.yle.fi/1-2226264",
+      "duration_seconds": 120,
+      "expert_product_fit_score_100": 91,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "order_food",
+        "cafe",
+        "payment"
+      ],
+      "why_useful": "Short natural service scene about ordering, seating and waiting at a cafe; suitable A2 review, not hard B1 challenge.",
+      "original_prompt_fi": "Tilaa kahvilassa, kysy hintaa ja vastaa myyjän kysymykseen.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-grocery-offers",
+      "provider": "yle_areena",
+      "title": "Jakso 13: Ruokakaupassa — Tarjoustuotteet ja maksaminen",
+      "url": "https://areena.yle.fi/1-2226341",
+      "duration_seconds": 60,
+      "expert_product_fit_score_100": 93,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "discounts",
+        "supermarket",
+        "checkout",
+        "quantity"
+      ],
+      "why_useful": "Shop discounts and checkout; specific price/quantity comprehension and repair.",
+      "original_prompt_fi": "Kysy kassalta tarjoustuotteen hinnasta ja maksa ostoksesi.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-library-search",
+      "provider": "yle_areena",
+      "title": "Jakso 19: Kirjastossa — Aineiston haku",
+      "url": "https://areena.yle.fi/1-2051560",
+      "duration_seconds": 60,
+      "expert_product_fit_score_100": 94,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "library",
+        "reservation",
+        "asking_for_help",
+        "digital_services"
+      ],
+      "why_useful": "Find and reserve a book at library; good clarification/functional use cases, 1 min.",
+      "original_prompt_fi": "Pyydä kirjastonhoitajalta apua kirjan etsimiseen ja varaamiseen.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    },
+    {
+      "id": "yle-asiointisuomea-child-clothes",
+      "provider": "yle_areena",
+      "title": "Jakso 32: Vaatekaupassa — Sopiva koko",
+      "url": "https://areena.yle.fi/1-2051519",
+      "duration_seconds": 59,
+      "expert_product_fit_score_100": 92,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "topics": [
+        "family",
+        "child_clothes",
+        "size",
+        "shopping"
+      ],
+      "why_useful": "Find correct garment size for a child; short everyday service dialogue.",
+      "original_prompt_fi": "Kysy myyjältä lapselle sopivaa vaatteen kokoa.",
+      "license": "Publisher Yle: linking only, no download/reproduction rights assumed",
+      "review": "teacher_review_pending",
+      "playback_verified": false,
+      "embedding_allowed": null,
+      "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
+      "official_YKI_material": false
+    }
+  ]
+}
