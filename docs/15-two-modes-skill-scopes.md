@@ -327,3 +327,34 @@ type Session = {
 **Метрики успіху:** completion of study mission; 7/14-day independent retention; balanced 4-skill coverage; decrease in repeated errors; time-to-first-correct on unseen transfer; completion/resumption of mock; screen-reader/keyboard E2E. Жодна цифра тут не є гарантією складання державного іспиту.
 
 **Висновок:** два режими мають спільний контент і профіль, але різні правила навчального втручання та оцінювання. В обох обов'язкові **all skills** і **кожна skill окремо**; `adaptive mixed all` притаманний передусім навчанню, а `full YKI` — строго керована симуляція, наскільки це дозволяють перевірені специфікації.
+
+## 9. INTERACTIVE-VISUAL: науково обґрунтований інтерактивний шар
+
+**Новий обов'язковий додаток до головного ТЗ:** [18 — Interactive & Visual Evidence](18-interactive-visual-learning-evidence-2026-10.md) · [14 перевірюваних UI-патернів / 14 джерел у JSON](../research/interactive-visual-learning-v1.json). Методики, кольори та навчальні цілі в розділах 3, 5.3 і 5.4 **залишаються чинними**. Розділ 9 перетворює їх на сценарії взаємодії та критерії інкрементальної розробки.
+
+### 9.1 Стан та пріоритет
+
+- **P0 / IV-01…05 і IV-12:** відповідь своїми словами перед ключем; guided self-repair; новий transfer; поетапне прослуховування з gist та відкладеним VTT; читання реалістичних оголошень із доказом після відповіді; чесний прогрес за 4 навичками. Зроблено **частково** у попередньому навчальному MVP, але acceptance для всіх нових сценаріїв **не підтверджено**.
+- **P1 / IV-06…11 та IV-13:** фото + українська gloss із згасанням, інформаційні розгалуження, підготовка/редагування письма, learner-generated concept map, розрізнення фінських довгих/коротких звуків, словник за запитом, короткі місії з вибором.
+- **P2-experiment / IV-14:** необов'язковий маскот/несподівані звуки. Дослідити не `engagement` сам по собі, а delayed recall та втому/помилки; на іспиті і в активному слуханні/відповіді **вимкнено**.
+
+**Візуальна політика:** `meaning first → one useful cue after attempt → fade cue → independent transfer`; не винагороджувати впізнавання кольорового шаблону. Змістово доречні ілюстрації, фінські реалії, фірмова архітектура «Поріг → Маршрут → Дія», WCAG 2.2 AA, calm/reduced-motion. Візуальна інтенсивність не є балом пам'яті.
+
+### 9.2 Ізоляція режимів (додаткова обов'язкова policy)
+
+| Механіка | `learn` | `exam` |
+|---|---|---|
+| Підказки / guided repair | лише після незалежної відповіді та з `hint_used` | **ні** до завершення |
+| Розкриття correct answer, transcript, glossary | після учнівської спроби за правилами задачі | **ні** до завершення, якщо інше не підтверджено офіційним форматом |
+| Навчальне підсвічення evidence / морфеми | тільки after-response / walkthrough | **ні** |
+| Опційний маскот / celebration / image scaffold | не під час відповіді; вимикається | **ні** |
+| Прогрес, самовиправлення, SRS | `first_uncued` окремо від assisted | тільки відкладені результати й окремі навички |
+| Writing / speaking rubric | допоміжна, до калібрування `ungraded` | `ungraded` без валідного оцінювача |
+
+### 9.3 Acceptance і докази готовності
+
+**Нові IV-AC-01…15 є обов'язковими** для релізу інтерактивного модуля; детальні відтворювані сценарії в [§7 нового документа](18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned). Покрити unit/integration/e2e: pre-answer key leaks, feedback gating, `hint_used`, teacher-approved `evidence_span`, accessibility, screen reader/keyboard, reduced motion, exam policy, independent 7/14-day holdout, чесне `ungraded`.
+
+**Success metric:** `day_7_first_attempt_unseen_uncued` (та `day_14`), контроль збереження змісту `listening_gist_without_captions`. `streak`, taps, time in app, immediate MCQ score — діагностичні вторинні сигнали, не доказ B1.
+
+**Виконавчий статус:** вимоги й дослідження збережені, реалізація повного IV-набору і контрольовані випробування **ще не проведені**. Не змінювати ці позначення автоматично на `implemented`.
