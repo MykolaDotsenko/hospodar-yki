@@ -193,3 +193,9 @@ Evidence-informed навчання живої фінської: реалісти
 **[20 — OPH, Finlex, 4 SOLKI skill demos, B1/B2 рубрики, 9 тем і 6 мовних функцій](docs/20-yki-official-complete-audit-2026-10.md)** · **[21 — цифровий simulator state machine, 6 fidelity axes та EXV-01..20](docs/21-digital-yki-exam-simulator-executable-spec.md)** · **[40 доказово пов'язаних claims/15 невідомих](research/official-yki-deep-audit-v2.json)** · **[13 форм завдань + 12 історичних зразків](research/yki-official-patterns-v2.json)**.
 
 У 2027 тест цифровий, але точні OPH UI/timers/audio/record/editing правила станом на жовтень 2026 ще **не публічно підтверджені**. Попередні SOLKI/2011 відповіді на паперових бланках — **legacy**, не digital-2027. Не заявляти «100% точна симуляція», доки evidence ledger + developer tests + teacher calibration це не підтвердять. Повних офіційних задач чи MP3 без прав у Git не копіюємо.
+
+## 🏗️ Optimal stack / Architecture Decision Record (21.10.2026)
+
+**[22 — повне 3-кратне архітектурне рішення](docs/22-optimal-stack-and-architecture-adr-2026-10.md)** · **[машинозчитуваний ADR](research/architecture-decision-v1.json)** · [ARCH-01…14](docs/15-two-modes-skill-scopes.md).
+
+Рекомендований цільовий стек: **React 19 + TypeScript strict + Vite 8, Dexie/IndexedDB, XState v5 для екзамену та аудіо, PWA/Workbox, pnpm monorepo**. Пізніше за потреби: **Supabase PostgreSQL/Auth/Storage у конкретному регіоні ЄС + захищений AI gateway і durable long-job worker**. **Статус: спроєктовано, НЕ впроваджено**; нинішній working MVP лишається HTML/CSS/JS у `app/`. Переносити поетапно без втрати даних, аудіо, JSON контенту та достовірності екзаменаційного режиму.
