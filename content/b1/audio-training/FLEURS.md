@@ -1,0 +1,15 @@
+# 🇫🇮 FLEURS human Finnish listening samples
+
+**Це допоміжне джерело справжніх людських голосів, не офіційне YKI.**
+
+Джерело: [Google FLEURS Finnish fi_fi](https://huggingface.co/datasets/google/fleurs). Дозвіл: **Creative Commons Attribution 4.0**. Атрибуція: Conneau et al. (2022), *FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech*. https://arxiv.org/abs/2205.12446.
+
+Скрипт [import_fleurs_human_audio.py](../../../scripts/import_fleurs_human_audio.py) завантажує вибірку з validation-набору, вичитаний носіями/дикторами текст корпусу, перетворює вихідне аудіо в OGG Vorbis (це похідний технічний формат), зберігає `sha256`, час, цитування й очікуваний текст у [fleurs-fi.json](fleurs-fi.json).
+
+**Увага:** це переважно *читане* мовлення, а не живі побутові діалоги. Можливі довгі академічні речення, не відкалібровані за B1. Їх можна тренувати як диктант і короткий переказ, але НЕ використовувати як тест для твердження «учень склав YKI 3».
+
+**Стан завантаження перевіряти фактично:** ні [fleurs-fi.json](fleurs-fi.json), ні [audio/human/fleurs-fi/](../../../audio/human/fleurs-fi/) не вважати наявними, доки не підтверджено завершений workflow та дерево GitHub.
+
+**Практика:** перше прослуховування без транскрипту → відтворити зміст → повторне прослуховування → короткий диктант → самокорекція й показ вихідного транскрипту.
+
+**Авторські права:** у кожному файлі `license`, `license_url`, `dataset_url`. Не змішувати CC BY 4.0 FLEURS із ліцензіями інших корпусів.
