@@ -1,0 +1,484 @@
+{
+  "schema_version": "2.0.0",
+  "date": "2026-10-21",
+  "review_type": "targeted evidence review, not PRISMA",
+  "name": "Second-round interactive and multimodal UX for Hospodar YKI",
+  "status": "requirements_only_not_implemented",
+  "score_definition": "Expert product priority 0-100, not measured impact or YKI pass rate",
+  "related_docs": [
+    "docs/20-multimodal-interactive-learning-2026-10.md",
+    "docs/18-interactive-visual-learning-evidence-2026-10.md",
+    "docs/15-two-modes-skill-scopes.md"
+  ],
+  "sources": [
+    {
+      "id": "V01",
+      "title": "Mahdi et al. multimedia glosses 2024",
+      "study_type": "meta of meta (7 reviews,136 studies)",
+      "population": "L2",
+      "url": "https://doi.org/10.1016/j.actpsy.2024.104341",
+      "finding": "Gloss helpful especially recognition/beginners; single mode sometimes beats multi",
+      "limitation": "Overlapping experiments and tests mainly recognition"
+    },
+    {
+      "id": "V02",
+      "title": "Kurokawa et al. captioned viewing 2025 issue",
+      "study_type": "meta (49 studies,89 effects)",
+      "population": "L2",
+      "url": "https://doi.org/10.1111/lang.12697",
+      "finding": "Captioned vocabulary g=.56",
+      "limitation": "Listening without captions requires independent testing"
+    },
+    {
+      "id": "V03",
+      "title": "Li et al. embodied vocabulary 2026",
+      "study_type": "meta (52 studies,442 analyzed effects)",
+      "population": "vocabulary",
+      "url": "https://doi.org/10.1007/s10648-026-10194-9",
+      "finding": "Congruent actions matter, g=.65 between and .27 within designs",
+      "limitation": "Publication bias detected; effects likely overestimated"
+    },
+    {
+      "id": "V04",
+      "title": "Gestures enactment versus observation 2023",
+      "study_type": "meta (7 studies,N=309)",
+      "population": "L2",
+      "url": "https://doi.org/10.3390/bs13110920",
+      "finding": "Observing meaningful gestures can be as good as acting",
+      "limitation": "Small literature, mostly concrete words"
+    },
+    {
+      "id": "V05",
+      "title": "Leutner and Biele drawing to learn 2025",
+      "study_type": "meta (14 studies,N=1213)",
+      "population": "general",
+      "url": "https://doi.org/10.1007/s10648-025-10067-7",
+      "finding": "Support for meaningful integration g=.35; general drawing support no benefit",
+      "limitation": "Mostly STEM, language application hypothesis"
+    },
+    {
+      "id": "V06",
+      "title": "Zhang et al. active video learning 2025",
+      "study_type": "meta (46 articles,54 studies)",
+      "population": "general",
+      "url": "https://doi.org/10.1016/j.edurev.2025.100708",
+      "finding": "Retention g=.33 comprehension .28 transfer .43 cognitive load .19",
+      "limitation": "Mostly STEM; not all prompts useful"
+    },
+    {
+      "id": "V07",
+      "title": "Beege and Ploetzner interactive video 2024 online/2025 issue",
+      "study_type": "experiment (N=128; time controlled)",
+      "population": "general",
+      "url": "https://doi.org/10.1007/s11251-024-09693-5",
+      "finding": "Added prompts did not improve learning and raised cognitive load",
+      "limitation": "One STEM context"
+    },
+    {
+      "id": "V08",
+      "title": "Liu et al. mobile language games 2025",
+      "study_type": "meta (38 studies,N=4102)",
+      "population": "L2 and L1",
+      "url": "https://doi.org/10.1080/09588221.2025.2528786",
+      "finding": "Pooled g=.962, particularly vocabulary and pronunciation",
+      "limitation": "30/38 studied English targets; varied outcomes"
+    },
+    {
+      "id": "V09",
+      "title": "Zhou and Zhou mobile vocabulary 2025 online/2026 issue",
+      "study_type": "bayesian meta (65 studies)",
+      "population": "L2",
+      "url": "https://doi.org/10.1017/S0958344025100335",
+      "finding": "Long duration subgroup 10+ weeks reported 1.28 effect",
+      "limitation": "Not an effect estimate for any mobile app"
+    },
+    {
+      "id": "V10",
+      "title": "Almusharraf et al. CAPT 2024",
+      "study_type": "meta (31 studies,42 effects)",
+      "population": "L2",
+      "url": "https://doi.org/10.1111/jcal.12974",
+      "finding": "Computer assisted pronunciation training positive on average",
+      "limitation": "Does not validate Finnish auto-score"
+    },
+    {
+      "id": "V11",
+      "title": "Li et al. GenAI chatbots 2025",
+      "study_type": "meta (41 studies,N=3515)",
+      "population": "L2",
+      "url": "https://doi.org/10.1111/jcal.70060",
+      "finding": "Reported ES=.576 overall",
+      "limitation": "No automatic YKI validity"
+    },
+    {
+      "id": "V12",
+      "title": "Wang et al. chatbot assisted language learning 2024 online/2025 issue",
+      "study_type": "meta (28 studies,70 effects)",
+      "population": "L2",
+      "url": "https://doi.org/10.3102/00346543241255621",
+      "finding": "g=.484; interface design matters",
+      "limitation": "Errors in model feedback remain"
+    },
+    {
+      "id": "V13",
+      "title": "Zhang et al. split attention text and visuals 2024",
+      "study_type": "experiment (N=146)",
+      "population": "general",
+      "url": "https://doi.org/10.1002/acp.4223",
+      "finding": "Text/diagram arrangement and size studied",
+      "limitation": "Not universal CSS breakpoint claim"
+    },
+    {
+      "id": "V14",
+      "title": "W3C WCAG 2.2",
+      "study_type": "normative_standard",
+      "population": "accessibility",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "finding": "Media/motion/keyboard/touch accessibility",
+      "limitation": "Not a language learning experiment"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "IV2-01",
+      "slug": "progressive-context-gloss",
+      "priority": "P0",
+      "expert_product_fit_score": 96,
+      "evidence_refs": [
+        "V01",
+        "V13"
+      ],
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-02",
+      "slug": "caption-ladder-independent-transfer",
+      "priority": "P0",
+      "expert_product_fit_score": 95,
+      "evidence_refs": [
+        "V02",
+        "V06",
+        "V07"
+      ],
+      "skills": [
+        "listening"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-03",
+      "slug": "semantic-gesture-meaning-link",
+      "priority": "P1",
+      "expert_product_fit_score": 85,
+      "evidence_refs": [
+        "V03",
+        "V04"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-04",
+      "slug": "visual-explanation-builder",
+      "priority": "P1-experiment",
+      "expert_product_fit_score": 88,
+      "evidence_refs": [
+        "V05",
+        "V13"
+      ],
+      "skills": [
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-05",
+      "slug": "semantic-boundary-video-questions",
+      "priority": "P1",
+      "expert_product_fit_score": 93,
+      "evidence_refs": [
+        "V06",
+        "V07"
+      ],
+      "skills": [
+        "listening",
+        "reading"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-06",
+      "slug": "meaningful-mission-game-layer",
+      "priority": "P1",
+      "expert_product_fit_score": 88,
+      "evidence_refs": [
+        "V08",
+        "V09"
+      ],
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-07",
+      "slug": "Finnish-quantity-listening-lab",
+      "priority": "P1",
+      "expert_product_fit_score": 92,
+      "evidence_refs": [
+        "V10"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-08",
+      "slug": "AI-conversation-with-abstention",
+      "priority": "P1",
+      "expert_product_fit_score": 93,
+      "evidence_refs": [
+        "V11",
+        "V12"
+      ],
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-09",
+      "slug": "calm-rich-media-control",
+      "priority": "P0",
+      "expert_product_fit_score": 94,
+      "evidence_refs": [
+        "V01",
+        "V07",
+        "V13",
+        "V14"
+      ],
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-10",
+      "slug": "integrated-mobile-text-and-diagram",
+      "priority": "P0",
+      "expert_product_fit_score": 90,
+      "evidence_refs": [
+        "V05",
+        "V13",
+        "V14"
+      ],
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-11",
+      "slug": "unseen-uncued-multimodal-assessment",
+      "priority": "P0",
+      "expert_product_fit_score": 98,
+      "evidence_refs": [
+        "V01",
+        "V02",
+        "V03",
+        "V09"
+      ],
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    },
+    {
+      "id": "IV2-12",
+      "slug": "interactive-asset-quality-gate",
+      "priority": "P0",
+      "expert_product_fit_score": 97,
+      "evidence_refs": [
+        "V05",
+        "V07",
+        "V11",
+        "V12"
+      ],
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "implementation_status": "planned_unverified"
+    }
+  ],
+  "policies": {
+    "learn_phases": [
+      "discover",
+      "first_uncued",
+      "optional_support",
+      "self_repair",
+      "transfer_uncued",
+      "delayed_unseen",
+      "done"
+    ],
+    "first_attempt": "no_answer_or_hint_or_caption",
+    "optional_support": "after_submit_only",
+    "assisted_mastery": "separate_from_independent",
+    "exam_forbidden_during_attempt": [
+      "teacher_hints",
+      "correct_answers",
+      "training_captions",
+      "semantic_gestures",
+      "mascot",
+      "gamification_prompts",
+      "AI_YKI_grade"
+    ],
+    "media_gate": [
+      "license_confirmed",
+      "attribution_present",
+      "teacher_review_passed",
+      "VTT_timing_verified_if_captioned",
+      "accessible_alternative"
+    ],
+    "fallbacks": [
+      "unverified captions hidden",
+      "unlicensed media hidden",
+      "readable licensed transcript only after response",
+      "text only when no verified media"
+    ],
+    "accessibility": [
+      "WCAG_2_2_AA",
+      "keyboard_operable",
+      "reduced_motion",
+      "stop_moving_content",
+      "drag_alternative",
+      "focus_visible",
+      "200_percent_zoom",
+      "calm_mode",
+      "rich_mode"
+    ],
+    "productive_feedback": "ungraded_without_human_or_calibrated_scoring"
+  },
+  "data_contract": {
+    "scene_required": [
+      "task_id",
+      "content_version",
+      "skill",
+      "mode",
+      "task_type",
+      "prompt",
+      "goal",
+      "teacher_review_status",
+      "source_version",
+      "feedback_gate",
+      "assessment_eligibility"
+    ],
+    "scene_optional": [
+      "media",
+      "text_alternative",
+      "learner_actions",
+      "semantic_targets",
+      "transfer_item_id"
+    ],
+    "attempt_record": [
+      "first_attempt_correct",
+      "support_used",
+      "caption_after_submit",
+      "gesture_seen",
+      "media_mode",
+      "response_modality",
+      "time_on_task",
+      "transfer_uncued",
+      "retest_7d",
+      "retest_14d"
+    ],
+    "privacy": "local_first_no_private_voice_telemetry"
+  },
+  "study_design": {
+    "status": "not_run",
+    "primary": [
+      "day7_first_attempt_unseen_uncued",
+      "day14_new_context_transfer"
+    ],
+    "guardrail": [
+      "listening_gist_no_captions",
+      "cognitive_load",
+      "AI_wrong_feedback",
+      "dropoff",
+      "accessibility_completion"
+    ],
+    "experiments": [
+      {
+        "code": "H1",
+        "comparison": "single gloss vs L1+picture",
+        "match": "time and vocabulary",
+        "measure": "day7 production"
+      },
+      {
+        "code": "H2",
+        "comparison": "one semantic video pause vs uninterrupted clip",
+        "match": "total contact time",
+        "measure": "new audio-only clip gist"
+      },
+      {
+        "code": "H3",
+        "comparison": "meaningful gesture vs relevant still",
+        "match": "exposure time",
+        "measure": "day7 action word production"
+      },
+      {
+        "code": "H4",
+        "comparison": "controlled AI conversation vs reviewed fixed feedback",
+        "match": "scenario difficulty",
+        "measure": "blind teacher rated productive task"
+      }
+    ]
+  },
+  "acceptance_criteria": [
+    "IV2-AC-01",
+    "IV2-AC-02",
+    "IV2-AC-03",
+    "IV2-AC-04",
+    "IV2-AC-05",
+    "IV2-AC-06",
+    "IV2-AC-07",
+    "IV2-AC-08",
+    "IV2-AC-09",
+    "IV2-AC-10",
+    "IV2-AC-11",
+    "IV2-AC-12",
+    "IV2-AC-13",
+    "IV2-AC-14",
+    "IV2-AC-15",
+    "IV2-AC-16",
+    "IV2-AC-17",
+    "IV2-AC-18"
+  ],
+  "release_gate": "Nothing marked implemented until tests+QA; never claim measured uplift.",
+  "rights": "External academic sources are only linked; third-party media must have distribution rights"
+}

@@ -147,3 +147,15 @@
 **Поведінкова межа:** не робити тести «візуалів/аудіалів»; не підміняти практику підсвічуванням, великою кількістю анімацій, незнайомими слівцями без контексту чи стріками. Ні книги, ні дослідження не гарантують особистий YKI 3.
 
 **Не реалізовано автоматично:** документування цих вимог **не** означає готовий 4-skill adaptive engine.
+
+## 8. SECOND-WAVE MULTIMODAL EVIDENCE → build requirements
+
+**Research:** [20 — 14 нових статей, реальні фінські сценарії](20-multimodal-interactive-learning-2026-10.md) · [14 evidence sources, 12 patterns, 18 IV2-AC у JSON](../research/multimodal-interaction-evidence-v2.json) · [головне ТЗ §10](15-two-modes-skill-scopes.md#10-multimodal-interaction--новий-шар-керованої-мультимодальності-p0p2).
+
+**P0 (backlog):** додаємо ступінчастий gloss без зайвих медіа, `discover` vs `first_uncued` gating, аудіо/відео caption-after-submit only, `calm/rich` media policy, доступну proximity text+diagram, held-out audio-only та unseen production. Перевіряти 18 IV2-AC, правовий статус усіх media, verified timestamps та S2 review.
+
+**P1:** semantic gesture short loops (optional), video semantic-boundary questions із guardrail cognitive load, Finnish quantity lab без необґрунтованого score, AI рольові діалоги з human-reviewed anchor і `abstain`, learner-generated visual maps замість декоративних діаграм, м'яку гейміфікацію лише за комунікативну дію.
+
+**Evidence caveat:** 2024 second-order gloss meta схиляється до single-mode для recognition/beginners, 2025 L1+picture meta схиляється до combined inputs для immediate vocabulary tests. Це **не** помилка: різні comparisons/tests. Контракт підтримує альтернативні дизайни й оцінку на 7-day uncued transfer. 2025 video meta показав можливі benefits, а time-controlled experiment 2024/2025 знайшов **no performance improvement + higher load** від додаткових prompts; тестувати ефективність, не кількість кліків.
+
+**Статус:** вимоги **погоджені до поетапної розробки, не виконано**; (відсутність) точного official OPH 2027 UI і каліброваного Finnish speech/writing grader позначати явно. Рекламні «+X% запам'ятовування» заборонені без власної пререгістрованої перевірки.
