@@ -213,3 +213,7 @@ Evidence-informed навчання живої фінської: реалісти
 **[23 — повне ТЗ Android гри на 2–3GB, Play Asset Delivery, Phaser та Capacitor](docs/23-android-offline-game-and-3gb-media-architecture.md)** · **[машинозчитуваний контракт](research/android-game-distribution-v1.json)**.
 
 Ціль: **дві платформи (Web PWA + Android гра)** зі спільними TypeScript навчальними/екзаменаційними алгоритмами, `Phaser` 2D story, NPC і місії, `Capacitor + Kotlin` native bridge, `AAB + install-time packs` для **всього ліцензованого релізного медіа** без дозавантажень після встановлення Google Play. Розмір **планується** ~2.6GB (не виміряний). Це **одна дія встановлення у Play**, не один інсталюємий APK на 3GB. Неліцензовані офіційні MP3/YouTube не включати. Поточна реалізація — лише веб-MVP; Android-сцени й AAB **ще не створені**.
+
+### 🌐 Web/PWA — так само повноцінний продукт
+
+Android із 2–3GB встановленого ліцензованого медіа **доповнює**, а не замінює Web: браузер і installable PWA підтримують ті самі **4 skills, адаптивне навчання, YKI exam mock, Phaser 2D NPC quests, словник, SRS, speaking і progress**. На Web мультимедіа — HTTPS stream і **обрані offline packs**, а **не обов'язкове початкове завантаження 3 GB**. Shared TypeScript content/domain, різні media providers, optional consented Web↔Android progress sync. [Повний контракт WEB-01…10](docs/23-android-offline-game-and-3gb-media-architecture.md#9-повний-вебзастосунок--та-сама-гра-а-не-скорочена-demo-версія-web-0110). **Це запланована архітектура**, поточний web MVP досі vanilla JS.
