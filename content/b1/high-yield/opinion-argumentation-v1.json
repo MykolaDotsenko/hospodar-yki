@@ -1,0 +1,683 @@
+{
+  "schema_version": "1.0.0",
+  "date": "2026-10-21",
+  "type": "opinion_argumentation_training",
+  "count": 18,
+  "theme_count": 9,
+  "distribution": "2 prompts per theme",
+  "warnings": [
+    "Original prompts, not past/offical YKI tasks",
+    "3 minutes are suggested training time, NOT published YKI limit",
+    "Do not show scaffolds before initial attempt",
+    "AI cannot certify official YKI speaking/writing levels",
+    "Teacher review required before public release"
+  ],
+  "items": [
+    {
+      "id": "opinion-001",
+      "theme": "identity",
+      "question_fi": "Onko Suomessa helppo tutustua uusiin ihmisiin?",
+      "question_uk": "Наскільки легко знайомитися з людьми у Фінляндії?",
+      "required_points_fi": [
+        "Kerro oma kokemuksesi ja kaksi tapaa saada ystäviä.",
+        "Perustele, miksi kielitaito voi auttaa tutustumisessa."
+      ],
+      "constraint_change_fi": "Miten tilanne muuttuu, jos muuttaa uuteen kaupunkiin?",
+      "task_mode": "social",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-002",
+      "theme": "identity",
+      "question_fi": "Pitäisikö kaikkien opiskella jotakin uutta aikuisena?",
+      "question_uk": "Чи варто дорослим продовжувати навчатися?",
+      "required_points_fi": [
+        "Kerro oma mielipiteesi ja yksi kokemus oppimisesta.",
+        "Perustele kaksi hyötyä tai haittaa."
+      ],
+      "constraint_change_fi": "Mitä sanoisit henkilölle, jolla ei ole paljon vapaa-aikaa?",
+      "task_mode": "argument",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-003",
+      "theme": "housing",
+      "question_fi": "Onko parempi asua kaupungin keskustassa vai lähiössä?",
+      "question_uk": "Де краще жити: у центрі чи передмісті?",
+      "required_points_fi": [
+        "Valitse asuinpaikka ja kuvaa kaksi käytännön syytä.",
+        "Kerro yksi mahdollinen haitta."
+      ],
+      "constraint_change_fi": "Muuttuisiko valintasi, jos perheessä olisi pieni lapsi?",
+      "task_mode": "comparison",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-004",
+      "theme": "housing",
+      "question_fi": "Pitäisikö taloyhtiössä olla yhteisiä tapahtumia?",
+      "question_uk": "Чи корисні спільні заходи мешканців?",
+      "required_points_fi": [
+        "Kerro, miten naapurit voisivat tutustua.",
+        "Perustele, miksi osallistuminen voi olla tärkeää tai hankalaa."
+      ],
+      "constraint_change_fi": "Miten houkuttelisit mukaan uuden naapurin?",
+      "task_mode": "suggestion",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-005",
+      "theme": "services",
+      "question_fi": "Onko verkkokauppa parempi kuin tavallinen kauppa?",
+      "question_uk": "Інтернет-магазини чи звичайні магазини?",
+      "required_points_fi": [
+        "Vertaa valikoimaa ja asiakaspalvelua.",
+        "Anna konkreettinen esimerkki onnistuneesta tai epäonnistuneesta ostoksesta."
+      ],
+      "constraint_change_fi": "Miten mielipiteesi muuttuu, jos tuote täytyy palauttaa?",
+      "task_mode": "comparison",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-006",
+      "theme": "services",
+      "question_fi": "Pitäisikö asiakaspalvelua saada myös kasvokkain?",
+      "question_uk": "Чи потрібне обслуговування наживо?",
+      "required_points_fi": [
+        "Kerro kaksi syytä, miksi kasvokkainen palvelu voi olla hyödyllistä.",
+        "Mainitse myös verkkopalvelun etu."
+      ],
+      "constraint_change_fi": "Miten neuvoisit ihmistä, joka ei osaa käyttää internetiä?",
+      "task_mode": "argument",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-007",
+      "theme": "culture",
+      "question_fi": "Onko tärkeämpää harrastaa yhdessä vai yksin?",
+      "question_uk": "Краще займатися хобі разом чи самостійно?",
+      "required_points_fi": [
+        "Kerro oma harrastuksesi ja mielipiteesi.",
+        "Kerro yksi hyöty ja yksi vaikeus."
+      ],
+      "constraint_change_fi": "Mitä suosittelisit henkilölle, joka opettelee suomea?",
+      "task_mode": "opinion",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-008",
+      "theme": "culture",
+      "question_fi": "Pitäisikö kirjastojen järjestää enemmän kielikahviloita?",
+      "question_uk": "Чи потрібно більше мовних зустрічей у бібліотеках?",
+      "required_points_fi": [
+        "Kuvaile, millaista tukea kielikahvila voisi antaa.",
+        "Perustele ehdotuksesi kahdella syyllä."
+      ],
+      "constraint_change_fi": "Miten järjestäisit ensimmäisen tapaamisen?",
+      "task_mode": "suggestion",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-009",
+      "theme": "travel",
+      "question_fi": "Kannattaako työmatkat kulkea autolla vai joukkoliikenteellä?",
+      "question_uk": "На роботу автомобілем чи громадським транспортом?",
+      "required_points_fi": [
+        "Vertaa matka-aikaa ja kustannuksia.",
+        "Kerro oma esimerkki ja yksi poikkeustilanne."
+      ],
+      "constraint_change_fi": "Mitä suosittelisit henkilölle, jonka työvuoro alkaa hyvin aikaisin?",
+      "task_mode": "comparison",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-010",
+      "theme": "travel",
+      "question_fi": "Onko matkustaminen tärkeää kielten oppimisessa?",
+      "question_uk": "Чи допомагають подорожі вивчати мови?",
+      "required_points_fi": [
+        "Kerro tilanteesta, jossa käytit vierasta kieltä.",
+        "Nimeä kaksi matkustamisen hyötyä tai haittaa."
+      ],
+      "constraint_change_fi": "Miten voisi harjoitella kieltä myös ilman matkustamista?",
+      "task_mode": "argument",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-011",
+      "theme": "health",
+      "question_fi": "Miten kiireinen ihminen voi huolehtia hyvinvoinnistaan?",
+      "question_uk": "Як зайнятій людині дбати про здоров'я?",
+      "required_points_fi": [
+        "Ehdota kahta tavallista arjen tapaa.",
+        "Selitä, miksi niiden toteuttaminen voi olla vaikeaa."
+      ],
+      "constraint_change_fi": "Miten mukauttaisit neuvoasi vuorotyötä tekevälle?",
+      "task_mode": "problem_solution",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-012",
+      "theme": "health",
+      "question_fi": "Pitäisikö työpaikoilla puhua enemmän jaksamisesta?",
+      "question_uk": "Чи варто на роботі більше говорити про добробут?",
+      "required_points_fi": [
+        "Kerro, miksi työssä jaksaminen on tärkeää.",
+        "Anna yksi konkreettinen ehdotus työntekijöille."
+      ],
+      "constraint_change_fi": "Miten ilmaiset mielipiteesi kohteliaasti esihenkilölle?",
+      "task_mode": "suggestion",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-013",
+      "theme": "work",
+      "question_fi": "Onko etätyö vai toimistotyö parempi?",
+      "question_uk": "Віддалена чи офісна робота?",
+      "required_points_fi": [
+        "Vertaa työn rauhaa ja yhteistyötä.",
+        "Kerro oma mielipiteesi ja yksi esimerkki."
+      ],
+      "constraint_change_fi": "Miten järjestäisit työsi, jos työpaikalla olisi meluisaa?",
+      "task_mode": "comparison",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-014",
+      "theme": "work",
+      "question_fi": "Miksi työntekijän kannattaa opetella suomea?",
+      "question_uk": "Для чого працівникові вчити фінську?",
+      "required_points_fi": [
+        "Kuvaile kaksi työelämän tilannetta, joissa suomi auttaa.",
+        "Kerro yksi vaikeus ja miten sen voisi ratkaista."
+      ],
+      "constraint_change_fi": "Miten rohkaisisit työkaveria käyttämään suomea?",
+      "task_mode": "argument",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-015",
+      "theme": "environment",
+      "question_fi": "Pitäisikö kaupoissa myydä vähemmän pakattuja tuotteita?",
+      "question_uk": "Чи потрібно зменшувати упаковку товарів?",
+      "required_points_fi": [
+        "Kerro kaksi ympäristöön tai arkeen liittyvää perustetta.",
+        "Nimeä myös mahdollinen ongelma."
+      ],
+      "constraint_change_fi": "Mitä kauppa voisi tehdä asiakkaiden auttamiseksi?",
+      "task_mode": "problem_solution",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-016",
+      "theme": "environment",
+      "question_fi": "Mikä on helpoin tapa säästää energiaa kotona?",
+      "question_uk": "Як найпростіше заощаджувати енергію вдома?",
+      "required_points_fi": [
+        "Ehdota kahta käytännön tapaa.",
+        "Selitä, miksi toinen niistä sopii omaan kotiisi."
+      ],
+      "constraint_change_fi": "Miten toimisit, jos talvella olisi tavallista kylmempää?",
+      "task_mode": "suggestion",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-017",
+      "theme": "society",
+      "question_fi": "Pitäisikö viranomaisten käyttää selkeämpää suomea?",
+      "question_uk": "Чи потрібна зрозуміліша фінська від державних установ?",
+      "required_points_fi": [
+        "Kerro, missä asiakirjoissa selkeä kieli auttaa.",
+        "Perustele mielipiteesi ja mainitse yksi haaste."
+      ],
+      "constraint_change_fi": "Miten parantaisit yhden viranomaisviestin ymmärrettävyyttä?",
+      "task_mode": "argument",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    },
+    {
+      "id": "opinion-018",
+      "theme": "society",
+      "question_fi": "Voiko kaikki tärkeät asiat hoitaa vain verkossa?",
+      "question_uk": "Чи можна всі важливі справи вирішувати лише онлайн?",
+      "required_points_fi": [
+        "Kerro kaksi verkkopalvelujen hyötyä.",
+        "Selitä myös, kenelle verkkopalvelu voi olla vaikea."
+      ],
+      "constraint_change_fi": "Mitä vaihtoehtoista palvelua ehdottaisit?",
+      "task_mode": "problem_solution",
+      "level_hint": "B1 training (not independently calibrated)",
+      "training_time_minutes": 3,
+      "official_yki_timing": false,
+      "attempt_policy": "independent_first_attempt_then_feedback",
+      "feedback_dimensions": [
+        "clear_position_or_choice",
+        "two_relevant_reasons_or_examples",
+        "coherence_and_connectors",
+        "communicative_success",
+        "relevant_grammar_and_vocabulary"
+      ],
+      "scaffold_hidden_until_attempt": [
+        "Minun mielestäni ...",
+        "Ensinnäkin ...",
+        "Toisaalta ...",
+        "Esimerkiksi ...",
+        "Sen takia ..."
+      ],
+      "production_modes": [
+        "speaking",
+        "writing"
+      ],
+      "unseen_transfer_required": true,
+      "origin": "project_original",
+      "linguistic_review": "pending_S2_teacher"
+    }
+  ]
+}
