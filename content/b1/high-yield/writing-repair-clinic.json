@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0.0",
+  "type": "writing_feedback_and_transfer",
+  "created_at": "2026-10-21",
+  "origin": "original",
+  "is_official_yki": false,
+  "instructions_uk": "Спочатку напиши власну відповідь. Потім знайди проблеми в навмисно слабкій чернетці, порівняй зі зразком і виконай нову задачу без зразка.",
+  "items": [
+    {
+      "id": "b1-clinic-001",
+      "level": "B1",
+      "topic": "housing",
+      "genre": "formal_request",
+      "title_fi": "Kosteusvaurio epäilyttää",
+      "prompt_fi": "Kirjoita isännöitsijälle. Kerro, missä huomasit kosteutta, milloin ongelma alkoi ja mitä toivot seuraavaksi.",
+      "required": [
+        "paikka",
+        "ajankohta",
+        "selkeä pyyntö",
+        "yhteydenottotapa"
+      ],
+      "first_draft_fi": "Hei. Minulla on huono seinä kylpyhuone. Se on jo monta päivä. Tulkaa nopeasti. Kiitos.",
+      "issues": [
+        {
+          "fragment_fi": "huono seinä kylpyhuone",
+          "why_uk": "Незрозуміло, що саме не так і де. Краще описати спостереження: «kylpyhuoneen seinässä on tumma läikkä».",
+          "focus": "clarity"
+        },
+        {
+          "fragment_fi": "monta päivä",
+          "why_uk": "Потрібно «monta päivää» (partitiivi), але важливіше вказати час появи проблеми.",
+          "focus": "grammar"
+        },
+        {
+          "fragment_fi": "Tulkaa nopeasti",
+          "why_uk": "Звучить наказово й без пояснення. Краще ввічливе прохання про перевірку.",
+          "focus": "register"
+        }
+      ],
+      "model_fi": "Hei!\n\nHuomasin kylpyhuoneen seinässä tumman läikän viime viikolla. Läikkä ei ole hävinnyt, ja epäilen, että seinässä voi olla kosteutta. Voisitteko järjestää tarkastuksen mahdollisimman pian? Olen kotona arkisin kello 17 jälkeen. Voitte ottaa minuun yhteyttä sähköpostitse.\n\nYstävällisin terveisin\nAsukas",
+      "transfer_fi": "Kirjoita uusi viesti, jossa kerrot, että keittiön ikkunasta vetää. Pyydä huoltokäyntiä ja ehdota sopivia aikoja.",
+      "feedback_uk": "Оцінюємо зміст і всі три умови завдання перед виправленням граматики.",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    },
+    {
+      "id": "b1-clinic-002",
+      "level": "B1",
+      "topic": "courses",
+      "genre": "formal_enquiry",
+      "title_fi": "Kurssin aikataulu on epäselvä",
+      "prompt_fi": "Kirjoita kurssin järjestäjälle. Kerro, mitä kurssia harkitset, kysy ajasta ja hinnasta sekä siitä, saako tehtäviin palautetta.",
+      "required": [
+        "kurssin nimi tai aihe",
+        "aikataulu",
+        "hinta",
+        "palautekysymys"
+      ],
+      "first_draft_fi": "Moi haluan suomalainen kurssi. Missä ja milloin? Onko halpa? Vastaa pian.",
+      "issues": [
+        {
+          "fragment_fi": "suomalainen kurssi",
+          "why_uk": "Це означає радше «фінський курс» за походженням, а не курс фінської мови. Краще «suomen kielen kurssi».",
+          "focus": "vocabulary"
+        },
+        {
+          "fragment_fi": "Onko halpa?",
+          "why_uk": "Краще конкретно «Paljonko osallistuminen maksaa?»",
+          "focus": "register"
+        },
+        {
+          "fragment_fi": "Vastaa pian",
+          "why_uk": "У формальному запиті краще завершити ввічливо без наказового тону.",
+          "focus": "register"
+        }
+      ],
+      "model_fi": "Hei!\n\nOlen kiinnostunut suomen kielen B1-kurssistanne. Haluaisin tietää, minä päivinä kurssi järjestetään ja paljonko osallistuminen maksaa. Saavatko opiskelijat opettajalta palautetta kirjoitustehtävistä? Työskentelen arkipäivisin, joten iltaopetus sopisi minulle parhaiten.\n\nKiitos jo etukäteen vastauksestanne!\n\nYstävällisin terveisin\nOpiskelija",
+      "transfer_fi": "Kirjoita viesti kirjastolle ja kysy suomen keskusteluryhmän aikataulusta, ilmoittautumisesta ja tasosta.",
+      "feedback_uk": "Хороший запит містить усі три питання, потрібний контекст і нейтрально-ввічливий тон.",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    },
+    {
+      "id": "b1-clinic-003",
+      "level": "B1",
+      "topic": "online_shopping",
+      "genre": "complaint",
+      "title_fi": "Toimituksesta puuttuu osa",
+      "prompt_fi": "Tilasit valaisimen, mutta pakkauksesta puuttuu virtajohto. Kirjoita kauppaan. Kerro tilauksesta, ongelmasta ja toiveestasi.",
+      "required": [
+        "tilattu tuote",
+        "puuttuva osa",
+        "ratkaisupyyntö",
+        "yhteystapa"
+      ],
+      "first_draft_fi": "Hei, sain lamppu. Ei kaapeli. Olen vihainen. Rahat heti!",
+      "issues": [
+        {
+          "fragment_fi": "sain lamppu",
+          "why_uk": "Об'єкт потребує форми «lampun» у такій конструкції.",
+          "focus": "grammar"
+        },
+        {
+          "fragment_fi": "Ei kaapeli",
+          "why_uk": "Потрібне повне речення: «Paketissa ei ollut virtajohtoa».",
+          "focus": "completeness"
+        },
+        {
+          "fragment_fi": "Rahat heti!",
+          "why_uk": "Комунікативно доцільніше спочатку чітко попросити відсутню деталь чи інше рішення.",
+          "focus": "register"
+        }
+      ],
+      "model_fi": "Hei!\n\nTilasin verkkokaupastanne valaisimen viime viikolla. Paketti saapui tänään, mutta siinä ei ollut virtajohtoa. Tarkistin pakkauksen vielä kerran, eikä johtoa löytynyt. Voisitteko lähettää puuttuvan osan tai kertoa, miten asia voidaan ratkaista? Voin toimittaa tilausnumeron tarvittaessa.\n\nKiitos avustanne!\n\nYstävällisin terveisin\nAsiakas",
+      "transfer_fi": "Kirjoita uusi reklamaatio: tilasit kaksi tyynyä, mutta sait vain yhden. Pyydä puuttuva tuote.",
+      "feedback_uk": "Комунікативна точність: що замовлено, що отримано, чого бракує, який наступний крок.",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    },
+    {
+      "id": "b1-clinic-004",
+      "level": "B1",
+      "topic": "work",
+      "genre": "semi_formal_message",
+      "title_fi": "Vaihtoehtoinen työvuoro",
+      "prompt_fi": "Et voi tulla töihin perjantaina aamulla. Kirjoita esihenkilölle, kerro este lyhyesti ja ehdota kahta vaihtoehtoa.",
+      "required": [
+        "alkuperäinen vuoro",
+        "este",
+        "kaksi vaihtoehtoa",
+        "kohtelias pyyntö"
+      ],
+      "first_draft_fi": "En tule perjantai. Anna toinen päivä. Työ on vaikea. Moi.",
+      "issues": [
+        {
+          "fragment_fi": "perjantai",
+          "why_uk": "Час: «perjantaina».",
+          "focus": "grammar"
+        },
+        {
+          "fragment_fi": "Anna toinen päivä",
+          "why_uk": "Не пояснює, яку саме зміну пропонуєш; кращі конкретні альтернативи.",
+          "focus": "task_fulfilment"
+        },
+        {
+          "fragment_fi": "Työ on vaikea",
+          "why_uk": "Не стосується прохання, створює плутанину.",
+          "focus": "relevance"
+        }
+      ],
+      "model_fi": "Hei!\n\nMinulle tuli este perjantaiaamuksi, enkä valitettavasti pääse sovittuun aamuvuoroon. Voisinko tehdä vuoron torstai-iltana tai vaihtaa sen seuraavan maanantain aamuvuoroon? Voin myös sopia vaihdosta työkaverin kanssa, jos se käy teille.\n\nKiitos, kun harkitsette asiaa!\n\nTerveisin\nTyöntekijä",
+      "transfer_fi": "Pyydä siirtämään työpaikan koulutuspäivää, koska sinulla on jo sovittu asiakastapaaminen.",
+      "feedback_uk": "Практика ввічливого прохання, а не копіювання однієї фрази.",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    },
+    {
+      "id": "b1-clinic-005",
+      "level": "B1",
+      "topic": "society",
+      "genre": "opinion",
+      "title_fi": "Pitäisikö kirjaston olla auki sunnuntaisin?",
+      "prompt_fi": "Kirjoita mielipide. Kerro oma kantasi, kaksi perustelua ja yksi mahdollinen ongelma.",
+      "required": [
+        "selkeä kanta",
+        "perustelu 1",
+        "perustelu 2",
+        "vastanäkökulma tai rajoitus"
+      ],
+      "first_draft_fi": "Minä tykkään kirjasto. Sunnuntai hyvä. Kaikki ihmiset tarvii kirjoja. Se on hyvä idea.",
+      "issues": [
+        {
+          "fragment_fi": "tykkään kirjasto",
+          "why_uk": "Tykkään + mistä? «kirjastosta».",
+          "focus": "rektio"
+        },
+        {
+          "fragment_fi": "Sunnuntai hyvä",
+          "why_uk": "Не пояснює, чому неділя важлива.",
+          "focus": "reasoning"
+        },
+        {
+          "fragment_fi": "Se on hyvä idea",
+          "why_uk": "Повтор оцінки без нового аргументу.",
+          "focus": "coherence"
+        }
+      ],
+      "model_fi": "Minun mielestäni kaupunginkirjaston kannattaisi olla auki myös sunnuntaisin. Ensinnäkin monet ihmiset ovat töissä arkipäivisin, joten sunnuntaina heillä olisi enemmän aikaa käydä kirjastossa. Lisäksi kirjasto tarjoaa rauhallisen paikan opiskeluun myös niille, joilla ei ole kotona sopivaa työtilaa. Toisaalta pidemmät aukioloajat voivat lisätä henkilöstökuluja. Siksi sunnuntaiaukioloa voisi ensin kokeilla muutaman kuukauden ajan.",
+      "transfer_fi": "Kirjoita mielipide siitä, pitäisikö kaupungin järjestää enemmän maksuttomia liikuntatunteja.",
+      "feedback_uk": "Думка + дві різні причини + обмеження та рішення дають змістовну аргументацію.",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    },
+    {
+      "id": "b1-clinic-006",
+      "level": "B1",
+      "topic": "transport",
+      "genre": "opinion",
+      "title_fi": "Autolla vai bussilla?",
+      "prompt_fi": "Kirjoita mielipiteesi siitä, milloin joukkoliikenne on parempi vaihtoehto kuin oma auto. Anna kaksi esimerkkiä ja huomioi yksi haitta.",
+      "required": [
+        "selkeä näkökulma",
+        "kaksi esimerkkiä",
+        "yksi haitta",
+        "johtopäätös"
+      ],
+      "first_draft_fi": "Bussi hyvä. Auto paha. Minä menen aina bussi. Mutta joskus myös auto. Se on kaikki.",
+      "issues": [
+        {
+          "fragment_fi": "Auto paha",
+          "why_uk": "Уникай категоричного твердження без контексту й причин.",
+          "focus": "reasoning"
+        },
+        {
+          "fragment_fi": "menen aina bussi",
+          "why_uk": "Засіб пересування: «menen bussilla».",
+          "focus": "grammar"
+        },
+        {
+          "fragment_fi": "Se on kaikki",
+          "why_uk": "Замість порожнього завершення підсумуй, за яких умов обираєш транспорт.",
+          "focus": "coherence"
+        }
+      ],
+      "model_fi": "Mielestäni joukkoliikenne on usein hyvä vaihtoehto kaupungissa. Ensinnäkin bussilla matkustaminen voi olla edullisempaa kuin oman auton käyttäminen, varsinkin jos pysäköinti maksaa paljon. Toiseksi bussimatkalla voi levätä tai lukea. Toisaalta maaseudulla aikataulut eivät aina sovi työvuoroihin, jolloin oma auto voi olla tarpeellinen. Siksi valitsisin bussin kaupungissa, mutta pidemmillä matkoilla auto voi joskus olla käytännöllisempi.",
+      "transfer_fi": "Kirjoita uusi mielipide siitä, kannattaako pyöräillä työmatkat ympäri vuoden.",
+      "feedback_uk": "Важлива структура «твердження → причина → приклад → застереження → висновок».",
+      "model_visibility": "after_attempt",
+      "draft_status": "deliberately_incomplete_with_errors",
+      "model_note_uk": "Зразок є педагогічною ілюстрацією, його ніхто офіційно не оцінював як YKI 3.",
+      "self_check_uk": [
+        "Чи виконані всі вимоги завдання?",
+        "Чи зрозуміло, яка дія очікується від адресата?",
+        "Чи відповідає стиль ситуації?",
+        "Чи є зрозумілі логічні зв'язки?",
+        "Чи можеш написати новий текст без підказок?"
+      ]
+    }
+  ]
+}

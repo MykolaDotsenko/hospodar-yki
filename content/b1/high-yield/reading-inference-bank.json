@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0.0",
+  "type": "b1_reading_inference",
+  "created_at": "2026-10-21",
+  "origin": "original",
+  "is_official_yki": false,
+  "instructions_uk": "Працюй без підказок. Після відповіді перевір доказ у тексті. Для open-question оцінювати за змістом, не за буквальним збігом.",
+  "items": [
+    {
+      "topic": "housing",
+      "title_fi": "Korjaustyö ja kulku porraskäytävässä",
+      "text_fi": "Taloyhtiön hissi korjataan ensi viikon maanantaista keskiviikkoon. Työn aikana hissi ei ole käytössä, joten asukkaiden täytyy käyttää portaita. Huoltoyhtiö pyytää välttämään suurten tavaroiden kuljettamista porraskäytävässä ruuhka-aikoina. Tiistaina kello 12–15 talon pääovi pidetään työmaan takia lukittuna, ja kulku tapahtuu sisäpihan ovesta. Asukkaiden omat avaimet toimivat myös siellä. Jos et pysty käyttämään portaita ja tarvitset apua välttämättömissä asioissa, ota yhteyttä huoltoyhtiöön viimeistään perjantaina. Korjaus voi valmistua keskiviikkoa aikaisemmin, mutta tästä ilmoitetaan erikseen. Päivystäjä vastaa kiireellisiin turvallisuuskysymyksiin ympäri vuorokauden. Muista kuitenkin, että tavalliset huoltopyynnöt käsitellään arkisin.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miten taloon kuljetaan tiistaina kello 13?",
+          "options_fi": [
+            "Pääovesta",
+            "Sisäpihan ovesta",
+            "Autotallin kautta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "kulku tapahtuu sisäpihan ovesta",
+          "explanation_uk": "Точний час потрапляє у вікно, коли головні двері зачинені.",
+          "id": "b1-read-inference-001-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Hissin arvioidaan olevan poissa käytöstä koko seuraavan viikon.",
+          "answer": false,
+          "evidence_fi": "ensi viikon maanantaista keskiviikkoon",
+          "explanation_uk": "Три дні — не весь наступний тиждень.",
+          "id": "b1-read-inference-001-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mihin mennessä apua tarvitsevan asukkaan pitää ottaa yhteyttä huoltoyhtiöön?",
+          "model_answer_fi": "Viimeistään perjantaina.",
+          "evidence_fi": "viimeistään perjantaina",
+          "explanation_uk": "У відкритій відповіді достатньо часу з правильним значенням.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-001-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Korjaus voi valmistua ennen keskiviikkoa.",
+          "answer": true,
+          "evidence_fi": "Korjaus voi valmistua keskiviikkoa aikaisemmin",
+          "explanation_uk": "Може завершитися раніше, але немає гарантії.",
+          "id": "b1-read-inference-001-q4"
+        }
+      ],
+      "id": "b1-read-inference-001",
+      "level": "B1",
+      "genre": "public_notice",
+      "answers_visible_after_submission": true,
+      "authorship": "original_non_official"
+    },
+    {
+      "topic": "work",
+      "title_fi": "Uusi tapa sopia työvuoroista",
+      "text_fi": "Työpaikan työvuorolistat julkaistaan jatkossa kaksi viikkoa aikaisemmin kuin ennen. Muutoksen tarkoitus on helpottaa työntekijöiden vapaa-ajan suunnittelua. Jos työntekijä haluaa vaihtaa vuoroa työkaverin kanssa, hänen pitää pyytää esihenkilön hyväksyntä sähköisessä järjestelmässä. Pelkkä suullinen sopimus ei siis enää riitä. Kiireellisissä perhetilanteissa työntekijä voi edelleen soittaa suoraan esihenkilölle. Jos järjestelmä ei toimi, vuoronvaihtopyyntö tehdään sähköpostitse. Työvuorolista voi muuttua vielä julkaisun jälkeen esimerkiksi sairauspoissaolon vuoksi, ja tällaisista muutoksista ilmoitetaan työntekijöille erikseen. Henkilöstö saa koulutuksen uuden järjestelmän käyttöön ensi tiistaina. Koulutukseen osallistuminen on työaikaa.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi työvuorolistat julkaistaan aikaisemmin?",
+          "options_fi": [
+            "Jotta vapaa-aikaa olisi helpompi suunnitella",
+            "Jotta työpäivät olisivat pidempiä",
+            "Koska työntekijöitä on vähemmän"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "helpottaa työntekijöiden vapaa-ajan suunnittelua",
+          "explanation_uk": "Причина — зручніше планування позаробочого часу.",
+          "id": "b1-read-inference-002-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Työkaverien suullinen sopimus riittää vuoron vaihtamiseen.",
+          "answer": false,
+          "evidence_fi": "Pelkkä suullinen sopimus ei siis enää riitä.",
+          "explanation_uk": "Тепер потрібне погодження в системі.",
+          "id": "b1-read-inference-002-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mitä työntekijän pitäisi tehdä, jos järjestelmä on poissa käytöstä?",
+          "model_answer_fi": "Lähettää vuoronvaihtopyyntö sähköpostitse.",
+          "evidence_fi": "vuoronvaihtopyyntö tehdään sähköpostitse",
+          "explanation_uk": "Питання перевіряє альтернативний канал.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-002-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Kaikista työvuorolistan muutoksista ilmoitetaan työntekijöille erikseen.",
+          "answer": true,
+          "evidence_fi": "tällaisista muutoksista ilmoitetaan työntekijöille erikseen",
+          "explanation_uk": "Далі після публікації зміни повідомлятимуть окремо.",
+          "id": "b1-read-inference-002-q4"
+        }
+      ],
+      "id": "b1-read-inference-002",
+      "level": "B1",
+      "genre": "public_notice",
+      "answers_visible_after_submission": true,
+      "authorship": "original_non_official"
+    },
+    {
+      "topic": "services",
+      "title_fi": "Noutopisteen ilmoitus",
+      "text_fi": "Verkkokaupan paketti on toimitettu lähikaupan noutopisteeseen, vaikka asiakas valitsi tilatessaan pakettiautomaatin. Muutos johtuu siitä, että automaatti oli täynnä toimituspäivänä. Asiakas saa viestin, jossa kerrotaan uusi noutopaikka ja viimeinen noutopäivä. Paketti säilytetään noutopisteessä seitsemän päivää saapumisesta. Jos asiakas ei ehdi hakea sitä ajoissa, hänen tulee ottaa yhteyttä kuljetusyritykseen ennen määräajan päättymistä. Noutopisteen henkilökunta ei voi pidentää säilytysaikaa. Pakettia noutaessa tarvitaan viestissä oleva noutokoodi ja henkilöllisyystodistus. Kuljetusyritys pahoittelee muutosta ja muistuttaa, että noutopisteen aukioloajat voivat poiketa pakettiautomaatin käytettävyydestä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi paketti vietiin lähikauppaan?",
+          "options_fi": [
+            "Automaatti oli täynnä",
+            "Asiakas tilasi kotiinkuljetuksen",
+            "Noutopiste oli suljettu"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "automaatti oli täynnä toimituspäivänä",
+          "explanation_uk": "Заміна місця не була вибором покупця.",
+          "id": "b1-read-inference-003-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Lähikaupan henkilökunta voi pidentää paketin säilytysaikaa.",
+          "answer": false,
+          "evidence_fi": "henkilökunta ei voi pidentää säilytysaikaa",
+          "explanation_uk": "Право продовжити термін не у персоналу магазину.",
+          "id": "b1-read-inference-003-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mitä tarvitset, kun haet paketin?",
+          "model_answer_fi": "Noutokoodin ja henkilöllisyystodistuksen.",
+          "evidence_fi": "noutokoodi ja henkilöllisyystodistus",
+          "explanation_uk": "Два обов'язкових елементи.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-003-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Paketti on noudettavissa seitsemän päivää saapumisesta.",
+          "answer": true,
+          "evidence_fi": "säilytetään ... seitsemän päivää saapumisesta",
+          "explanation_uk": "У тексті прямо вказаний термін з моменту прибуття.",
+          "id": "b1-read-inference-003-q4"
+        }
+      ],
+      "id": "b1-read-inference-003",
+      "level": "B1",
+      "genre": "public_notice",
+      "answers_visible_after_submission": true,
+      "authorship": "original_non_official"
+    },
+    {
+      "topic": "transport",
+      "title_fi": "Poikkeusreitti maratonin aikana",
+      "text_fi": "Kaupungissa järjestetään sunnuntaina juoksutapahtuma, joka vaikuttaa keskustan bussiliikenteeseen. Linjat 6 ja 12 käyttävät poikkeusreittiä kello 9–16. Keskustorin tavalliset pysäkit eivät ole silloin käytössä, mutta matkustajat voivat nousta bussiin torin pohjoispuolella sijaitsevalta väliaikaiselta pysäkiltä. Liput maksavat normaalin hinnan. Tapahtuman järjestäjät suosittelevat saapumaan alueelle julkisilla kulkuneuvoilla, koska pysäköintipaikkoja on rajoitetusti. Bussien aikataulut voivat poiketa tavallisista, joten matkaan kannattaa varata tavallista enemmän aikaa. Jos tapahtuma päättyy aikaisemmin, linjat palaavat normaalille reitille vasta sitten, kun katujen avaaminen on turvallista. Tarkemmat tiedot löytyvät kaupungin liikennesivulta.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mistä bussin voi ottaa sunnuntaina kello 11?",
+          "options_fi": [
+            "Keskustorin tavalliselta pysäkiltä",
+            "Torin pohjoispuolen väliaikaiselta pysäkiltä",
+            "Vain rautatieasemalta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "torin pohjoispuolella sijaitsevalta väliaikaiselta pysäkiltä",
+          "explanation_uk": "Правильне місце — тимчасова зупинка.",
+          "id": "b1-read-inference-004-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Poikkeusreitin vuoksi liput ovat tavallista halvempia.",
+          "answer": false,
+          "evidence_fi": "Liput maksavat normaalin hinnan.",
+          "explanation_uk": "Про зміну ціни не сказано; ціна звичайна.",
+          "id": "b1-read-inference-004-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Miksi matkaan kannattaa varata enemmän aikaa?",
+          "model_answer_fi": "Bussien aikataulut voivat muuttua tai poiketa tavallisista.",
+          "evidence_fi": "Bussien aikataulut voivat poiketa tavallisista",
+          "explanation_uk": "Причина — можлива затримка / змінений розклад.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-004-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Bussit palaavat tavalliselle reitille heti, jos juoksutapahtuma loppuu aikaisin.",
+          "answer": false,
+          "evidence_fi": "vasta sitten, kun katujen avaaminen on turvallista",
+          "explanation_uk": "Потрібна додаткова умова безпеки.",
+          "id": "b1-read-inference-004-q4"
+        }
+      ],
+      "id": "b1-read-inference-004",
+      "level": "B1",
+      "genre": "public_notice",
+      "answers_visible_after_submission": true,
+      "authorship": "original_non_official"
+    },
+    {
+      "topic": "society",
+      "title_fi": "Digituki kirjastossa",
+      "text_fi": "Kirjasto aloittaa uuden digitukipalvelun ihmisille, jotka tarvitsevat apua sähköisten palveluiden käytössä. Ohjaajat näyttävät esimerkiksi, miten sähköpostiin liitetään tiedosto tai miten verkkolomaketta käytetään. He eivät kuitenkaan täytä virallisia hakemuksia asiakkaan puolesta eivätkä käsittele pankkitunnuksia. Palvelu on maksuton, mutta tiistai-iltapäivän tapaamiseen pitää varata aika etukäteen. Torstaisin järjestetään lyhyt avoin neuvonta, johon voi osallistua ilman ajanvarausta. Jos tarvitset tulkkausta, ota yhteyttä kirjastoon jo ennen käyntiä. Kirjastolla ei ole mahdollisuutta järjestää tulkkia jokaiseen tapaamiseen. Kirjaston tiedotteen mukaan palvelua kokeillaan aluksi kolmen kuukauden ajan, ja sen jatkosta päätetään asiakaspalautteen perusteella.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin digitukeen voi tulla ilman ajanvarausta?",
+          "options_fi": [
+            "Tiistai-iltapäivänä",
+            "Torstaisin",
+            "Aina"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Torstaisin järjestetään ... ilman ajanvarausta",
+          "explanation_uk": "Потрібно розрізнити вівторок за записом і четвер без запису.",
+          "id": "b1-read-inference-005-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Ohjaajat voivat täyttää virallisen hakemuksen asiakkaan puolesta.",
+          "answer": false,
+          "evidence_fi": "eivät kuitenkaan täytä virallisia hakemuksia asiakkaan puolesta",
+          "explanation_uk": "Інструктор пояснює, але не оформлює за клієнта.",
+          "id": "b1-read-inference-005-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mistä digitukipalvelun jatkaminen riippuu?",
+          "model_answer_fi": "Asiakaspalautteesta.",
+          "evidence_fi": "sen jatkosta päätetään asiakaspalautteen perusteella",
+          "explanation_uk": "Майбутнє сервісу залежить від відгуків.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-005-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Kirjasto lupaa tulkin jokaiseen tapaamiseen.",
+          "answer": false,
+          "evidence_fi": "ei ole mahdollisuutta järjestää tulkkia jokaiseen tapaamiseen",
+          "explanation_uk": "Потрібно заздалегідь запитати; гарантії немає.",
+          "id": "b1-read-inference-005-q4"
+        }
+      ],
+      "id": "b1-read-inference-005",
+      "level": "B1",
+      "genre": "public_notice",
+      "answers_visible_after_submission": true,
+      "authorship": "original_non_official"
+    }
+  ]
+}
