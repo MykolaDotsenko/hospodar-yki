@@ -3,7 +3,7 @@
   "created_at": "2026-10-21",
   "catalog_type": "youtube_watch_links_only",
   "goal": "A2.2 to B1/B1+ Finnish and 4-skill YKI practical preparation",
-  "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified.",
+  "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified. Round 2 appended 16 new direct video URLs with indexed title/creator descriptions, except one link supported by publisher-referenced podcast or syndicated metadata. No full-video inspection, availability or embed approval claimed; Haaga-Helia short dialogues have publisher CC BY-ND 4.0 and no subtitles.",
   "display_policy": "Scores expert product fit, not measured learning outcomes; levels tentative where not explicitly asserted by creator",
   "copyright": "Do not download, mirror, re-upload or scrape YouTube videos/captions. Use direct URL and later official YouTube embedding/player API subject to platform terms; preserve branding and attribution.",
   "review_workflow": [
@@ -852,6 +852,922 @@
         }
       ],
       "title_is_editorial_summary": false
+    },
+    {
+      "id": "yt-kielibuusti-hotelli-booking",
+      "provider": "youtube",
+      "youtube_video_id": "QdHK7uiDLTI",
+      "watch_url": "https://www.youtube.com/watch?v=QdHK7uiDLTI",
+      "creator": "Kielibuusti Språkboost / Haaga-Helia",
+      "title": "Hotellihuoneen varaaminen – Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "publication_date": "2023-03-13",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "travel",
+        "customer_service",
+        "telephone",
+        "booking",
+        "asking_questions"
+      ],
+      "product_fit_score_100": 99,
+      "why_useful": "Realistic short phone booking interaction with native and L2 speaker, professionally designed for A2-B1 listening, no subtitles: ideal role-reversal transfer",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-hotelli-booking-draft-1",
+          "prompt_fi": "Mitä asiakas haluaa varata?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-hotelli-booking-draft-2",
+          "prompt_fi": "Soita hotellille ja varaa huone kahdeksi yöksi.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": "CC BY-ND 4.0 claimed by original Haaga-Helia/Kielibuusti publisher; no modifications or downloads in this repository",
+      "publisher_caption_claim": "no_publisher_says_none",
+      "metadata_evidence_url": null,
+      "learning_role": "high_priority_roleplay_unsubtitled"
+    },
+    {
+      "id": "yt-kielibuusti-hotelli-checkin2",
+      "provider": "youtube",
+      "youtube_video_id": "3LMbxIcICpM",
+      "watch_url": "https://www.youtube.com/watch?v=3LMbxIcICpM",
+      "creator": "Kielibuusti Språkboost / Haaga-Helia",
+      "title": "Sisäänkirjautuminen 2 – Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "publication_date": "2023-03-13",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "travel",
+        "customer_service",
+        "checkin",
+        "clarification",
+        "hotel_rules"
+      ],
+      "product_fit_score_100": 99,
+      "why_useful": "Arrival with unpaid booking; multi-turn questions and pragmatic explanation, realistic B1 listening and asking follow-ups",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-hotelli-checkin2-draft-1",
+          "prompt_fi": "Mitä vieras kysyy vastaanotossa?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-hotelli-checkin2-draft-2",
+          "prompt_fi": "Tarkenna hotellin sääntöjä kahdella kysymyksellä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": "CC BY-ND 4.0 claimed by original Haaga-Helia/Kielibuusti publisher; no modifications or downloads in this repository",
+      "publisher_caption_claim": "no_publisher_says_none",
+      "metadata_evidence_url": null,
+      "learning_role": "high_priority_roleplay_unsubtitled"
+    },
+    {
+      "id": "yt-kielibuusti-hotelli-laundry",
+      "provider": "youtube",
+      "youtube_video_id": "rs_OtP0xVec",
+      "watch_url": "https://www.youtube.com/watch?v=rs_OtP0xVec",
+      "creator": "Kielibuusti Språkboost / Haaga-Helia",
+      "title": "Pyykinpesu – Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "publication_date": "2023-03-13",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "travel",
+        "customer_service",
+        "laundry",
+        "polite_request"
+      ],
+      "product_fit_score_100": 96,
+      "why_useful": "Concise authentic roleplay: politely request access to laundry; useful YKI situation transfer",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-hotelli-laundry-draft-1",
+          "prompt_fi": "Mitä asiakas haluaa tehdä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-hotelli-laundry-draft-2",
+          "prompt_fi": "Pyydä kohteliaasti tietoa pyykinpesumahdollisuudesta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": "CC BY-ND 4.0 claimed by original Haaga-Helia/Kielibuusti publisher; no modifications or downloads in this repository",
+      "publisher_caption_claim": "no_publisher_says_none",
+      "metadata_evidence_url": null,
+      "learning_role": "high_priority_roleplay_unsubtitled"
+    },
+    {
+      "id": "yt-kielibuusti-hotelli-parking",
+      "provider": "youtube",
+      "youtube_video_id": "YZHd79GSJWA",
+      "watch_url": "https://www.youtube.com/watch?v=YZHd79GSJWA",
+      "creator": "Kielibuusti Språkboost / Haaga-Helia",
+      "title": "Parkkipaikka – Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "publication_date": "2023-03-13",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "travel",
+        "transport",
+        "parking",
+        "asking_questions"
+      ],
+      "product_fit_score_100": 96,
+      "why_useful": "Short informational inquiry about parking, strong everyday location/fees/availability practice",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-hotelli-parking-draft-1",
+          "prompt_fi": "Mitä asiakas tiedustelee?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-hotelli-parking-draft-2",
+          "prompt_fi": "Kysy mistä parkkipaikan voi löytää ja mitä se maksaa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": "CC BY-ND 4.0 claimed by original Haaga-Helia/Kielibuusti publisher; no modifications or downloads in this repository",
+      "publisher_caption_claim": "no_publisher_says_none",
+      "metadata_evidence_url": null,
+      "learning_role": "high_priority_roleplay_unsubtitled"
+    },
+    {
+      "id": "yt-kielibuusti-hotelli-checkin1",
+      "provider": "youtube",
+      "youtube_video_id": "UMEtGHe6EFc",
+      "watch_url": "https://www.youtube.com/watch?v=UMEtGHe6EFc",
+      "creator": "Kielibuusti Språkboost / Haaga-Helia",
+      "title": "Sisäänkirjautuminen 1 – Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "publication_date": "2023-03-13",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "travel",
+        "checkin",
+        "gym",
+        "instructions"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Previously paid check-in, directions and gym question; simple but genuinely staged interpersonal exchanges",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kielibuusti-hotelli-checkin1-draft-1",
+          "prompt_fi": "Mistä palvelusta asiakas kysyy?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kielibuusti-hotelli-checkin1-draft-2",
+          "prompt_fi": "Pyydä ohjeita hotellin palveluiden käyttämiseen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": "CC BY-ND 4.0 claimed by original Haaga-Helia/Kielibuusti publisher; no modifications or downloads in this repository",
+      "publisher_caption_claim": "no_publisher_says_none",
+      "metadata_evidence_url": null,
+      "learning_role": "high_priority_roleplay_unsubtitled"
+    },
+    {
+      "id": "yt-finnish-flow-mornings",
+      "provider": "youtube",
+      "youtube_video_id": "cBEekpHQZX4",
+      "watch_url": "https://www.youtube.com/watch?v=cBEekpHQZX4",
+      "creator": "Finnish Flow",
+      "title": "FINNISH PODCAST: Morning routines – Aamutoimet (with subtitles)",
+      "publication_date": "2024-11-10",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "everyday",
+        "two_speakers",
+        "routines",
+        "time",
+        "puhekieli"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Two-person Finnish conversation, 4:54 with claimed Finnish subtitles, excellent gist/detail listening and follow-up speaking",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-finnish-flow-mornings-draft-1",
+          "prompt_fi": "Mistä Minna ja Aada puhuvat?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-finnish-flow-mornings-draft-2",
+          "prompt_fi": "Kerro omista aamurutiineistasi ja vertaa niitä keskusteluun.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "yes_creator_says_FI",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-finnishpod101-20-dialogues",
+      "provider": "youtube",
+      "youtube_video_id": "zYh0nZkJq4c",
+      "watch_url": "https://www.youtube.com/watch?v=zYh0nZkJq4c",
+      "creator": "Learn Finnish with FinnishPod101.com",
+      "title": "20 Daily Finnish Conversations – Finnish Practice for Intermediate learners",
+      "publication_date": "2018-08-14",
+      "cefr_estimate": "B1-B2-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "real_life",
+        "multi_dialogue",
+        "customer_service",
+        "interactive_listening"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "20 brief intermediate native-speaker dialogues enable numerous independently assessed comprehension scenes; full clip may be long/contain English",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-finnishpod101-20-dialogues-draft-1",
+          "prompt_fi": "Kuuntele yksi keskustelu: mikä on puhujien tavoite?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-finnishpod101-20-dialogues-draft-2",
+          "prompt_fi": "Vastaa itse yhteen keskustelun kysymykseen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-finnishpod101-intermediate",
+      "provider": "youtube",
+      "youtube_video_id": "eAAHIByIAyA",
+      "watch_url": "https://www.youtube.com/watch?v=eAAHIByIAyA",
+      "creator": "Learn Finnish with FinnishPod101.com",
+      "title": "Intermediate Listening Practice for Finnish Learners",
+      "publication_date": "2026-06-09",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "listening"
+      ],
+      "yki_topics": [
+        "listening_strategy",
+        "general_intermediate",
+        "vocabulary"
+      ],
+      "product_fit_score_100": 88,
+      "why_useful": "Intermediate-labelled listening input from an established course provider; language mix and actual difficulty need teacher verification",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-finnishpod101-intermediate-draft-1",
+          "prompt_fi": "Kerro, mikä on äänitteen pääasia.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-finnishpod101-intermediate-draft-2",
+          "prompt_fi": "Mistä kohdasta sait vastauksen?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-finnished-puhekieli-difference",
+      "provider": "youtube",
+      "youtube_video_id": "u8pgN5NLSjY",
+      "watch_url": "https://www.youtube.com/watch?v=u8pgN5NLSjY",
+      "creator": "Finnished",
+      "title": "Differences between spoken and written Finnish | Learn Finnish the easy way!",
+      "publication_date": "2026-02-27",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "puhekieli",
+        "kirjakieli",
+        "phonetic_reductions"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Native Finnish spoken-language input with direct structural focus and manageable 5-minute segment; subtitles typical of creator, needs per-video check",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-finnished-puhekieli-difference-draft-1",
+          "prompt_fi": "Kerro kolme eroa puhekielen ja kirjakielen välillä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-finnished-puhekieli-difference-draft-2",
+          "prompt_fi": "Muuta yksi kuulemasi ilmaus kirjakielelle.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "channel_generally_has_FI_EN_not_per_video_verified",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-katchats-cottage",
+      "provider": "youtube",
+      "youtube_video_id": "7yP6xzAiYbA",
+      "watch_url": "https://www.youtube.com/watch?v=7yP6xzAiYbA",
+      "creator": "KatChats Finnish",
+      "title": "Finnish Cabin Birthday Weekend | Slow Finnish Listening Practice",
+      "publication_date": "2026-07-24",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "nature",
+        "culture",
+        "hobbies",
+        "birthday",
+        "travel"
+      ],
+      "product_fit_score_100": 92,
+      "why_useful": "Real-life Finnish slow narration of cottage weekend, creator offers Finnish or bilingual subtitles; longer but ideal slice into 2–3min sections",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-katchats-cottage-draft-1",
+          "prompt_fi": "Mitä videolla tapahtuu mökillä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-katchats-cottage-draft-2",
+          "prompt_fi": "Miten viettäisit viikonlopun mökillä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "yes_creator_says_FI_dual",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-yki-harjoitus-email",
+      "provider": "youtube",
+      "youtube_video_id": "LGyM6srK9mo",
+      "watch_url": "https://www.youtube.com/watch?v=LGyM6srK9mo",
+      "creator": "YKI Harjoitus",
+      "title": "YKI Harjoitus Kirjoittaminen Sähköposti 1",
+      "publication_date": "2022-10-13",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "writing"
+      ],
+      "yki_topics": [
+        "YKI_like",
+        "email",
+        "politeness",
+        "conditional",
+        "writing"
+      ],
+      "product_fit_score_100": 99,
+      "why_useful": "Explicit YKI-like email subject first at 00:06, sample answer 00:25; supports first uncued own email before model",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "email_prompt",
+          "start_seconds": 6,
+          "end_seconds": 25
+        },
+        {
+          "kind": "sample_answer_answer_leakage",
+          "start_seconds": 25,
+          "end_seconds": 55
+        },
+        {
+          "kind": "vocabulary",
+          "start_seconds": 55,
+          "end_seconds": 70
+        },
+        {
+          "kind": "conditional_grammar",
+          "start_seconds": 70,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-harjoitus-email-draft-1",
+          "prompt_fi": "Kirjoita oma sähköpostisi ennen kuin näet mallivastauksen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-harjoitus-email-draft-2",
+          "prompt_fi": "Tee uusi sähköposti samasta tavoitteesta kohteliaammin.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-finnishtogo-yki-strategy",
+      "provider": "youtube",
+      "youtube_video_id": "PmcdzJDGcMM",
+      "watch_url": "https://www.youtube.com/watch?v=PmcdzJDGcMM",
+      "creator": "Finnishtogo with Virpi",
+      "title": "How to prepare for the YKI test (step-by-step guide)",
+      "publication_date": "2026-03-06",
+      "cefr_estimate": "B1-B2-estimate",
+      "skills": [
+        "listening",
+        "speaking",
+        "reading",
+        "writing"
+      ],
+      "yki_topics": [
+        "YKI_strategy",
+        "four_skills",
+        "exam_prep"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Experienced language creator structures all four YKI sections and a preparation plan, but parts are advertising and official 2027 rules may differ",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "exam_overview",
+          "start_seconds": 111,
+          "end_seconds": 255
+        },
+        {
+          "kind": "listening",
+          "start_seconds": 255,
+          "end_seconds": 306
+        },
+        {
+          "kind": "reading",
+          "start_seconds": 306,
+          "end_seconds": 348
+        },
+        {
+          "kind": "writing",
+          "start_seconds": 348,
+          "end_seconds": 387
+        },
+        {
+          "kind": "speaking",
+          "start_seconds": 387,
+          "end_seconds": 422
+        },
+        {
+          "kind": "prep",
+          "start_seconds": 422,
+          "end_seconds": 567
+        },
+        {
+          "kind": "practical_tips",
+          "start_seconds": 567,
+          "end_seconds": 787
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-finnishtogo-yki-strategy-draft-1",
+          "prompt_fi": "Mistä YKI-osasta puhuja puhuu ensimmäisenä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-finnishtogo-yki-strategy-draft-2",
+          "prompt_fi": "Laadi yksi konkreettinen harjoittelutavoite jokaiselle taidolle.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-random-finnish-mari-learning",
+      "provider": "youtube",
+      "youtube_video_id": "68FH8hq3TDQ",
+      "watch_url": "https://www.youtube.com/watch?v=68FH8hq3TDQ",
+      "creator": "Random Finnish Lesson (with S2 teacher Mari Nikonen)",
+      "title": "Mari Nikonen kertoo puhumisen ja kuuntelemisen oppimisesta",
+      "publication_date": "2025-01-16",
+      "cefr_estimate": "B1-B2-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "teacher_interview",
+        "learning_methods",
+        "natural_dialogue",
+        "YKI_speaking"
+      ],
+      "product_fit_score_100": 93,
+      "why_useful": "26-minute authentic two-speaker conversation with S2 teacher about speaking and listening, good longer Puhekieli listening but not itself a YKI practice test",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-random-finnish-mari-learning-draft-1",
+          "prompt_fi": "Mikä on Marin tärkein neuvo puhumisen harjoitteluun?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-random-finnish-mari-learning-draft-2",
+          "prompt_fi": "Kerro oma suomen opiskelun haasteesi kahdella syyllä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": "https://www.podplay.com/podcasts/random-finnish-lesson-99717/episodes/mari-nikonen-kertoo-puhumisen-ja-kuuntelemisen-oppimisesta-477607913",
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-katchats-ko-ks",
+      "provider": "youtube",
+      "youtube_video_id": "qVzLXeV2Wy4",
+      "watch_url": "https://www.youtube.com/watch?v=qVzLXeV2Wy4",
+      "creator": "KatChats Finnish",
+      "title": "Making Questions in Spoken Finnish | -KO and -KS Endings Explained",
+      "publication_date": "2026-05-14",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "puhekieli",
+        "questions",
+        "ko_kö",
+        "ks",
+        "morphology"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Practical puhekieli question forms and six publisher-supplied answer examples, directly relevant to natural YKI dialogues",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "ko_ko_summary",
+          "start_seconds": 143,
+          "end_seconds": 219
+        },
+        {
+          "kind": "minä",
+          "start_seconds": 219,
+          "end_seconds": 474
+        },
+        {
+          "kind": "sinä",
+          "start_seconds": 474,
+          "end_seconds": 584
+        },
+        {
+          "kind": "hän",
+          "start_seconds": 584,
+          "end_seconds": 696
+        },
+        {
+          "kind": "me",
+          "start_seconds": 696,
+          "end_seconds": 830
+        },
+        {
+          "kind": "te",
+          "start_seconds": 830,
+          "end_seconds": 914
+        },
+        {
+          "kind": "he",
+          "start_seconds": 914,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-katchats-ko-ks-draft-1",
+          "prompt_fi": "Muuta 'Haluatko matkustaa?' puhekielelle.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-katchats-ko-ks-draft-2",
+          "prompt_fi": "Esitä kolme eri kysymystä puhekielellä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-katchats-turku",
+      "provider": "youtube",
+      "youtube_video_id": "7kMooGRTyqw",
+      "watch_url": "https://www.youtube.com/watch?v=7kMooGRTyqw",
+      "creator": "KatChats Finnish",
+      "title": "Päivä Turussa | Learn Finnish in Turku (English and Finnish subtitles)",
+      "publication_date": "2026-04-22",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "culture",
+        "city",
+        "travel",
+        "narration",
+        "puhekieli"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Short (4:31) natural Finnish spoken travel story about Turku landmarks; publisher advertises dual subtitles",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-katchats-turku-draft-1",
+          "prompt_fi": "Missä Turun paikoissa puhuja vieraili?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-katchats-turku-draft-2",
+          "prompt_fi": "Kerro ystävälle oma suunnitelmasi päiväksi Turussa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "yes_creator_says_FI_EN",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
+    },
+    {
+      "id": "yt-noora-spoken-questions",
+      "provider": "youtube",
+      "youtube_video_id": "CWi4mrf20ng",
+      "watch_url": "https://www.youtube.com/watch?v=CWi4mrf20ng",
+      "creator": "Noora Trains Finnish",
+      "title": "Learn spoken Finnish: Questions (with lot of examples!)",
+      "publication_date": null,
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "questions",
+        "spoken_finnish",
+        "dialect_variation",
+        "fluency"
+      ],
+      "product_fit_score_100": 94,
+      "why_useful": "Spoken Finnish question patterns across regions, learner-friendly models; found by syndicated page, exact creator video metadata needs re-check",
+      "source_verification": "indirect_syndicated_page_not_youtube_page",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-noora-spoken-questions-draft-1",
+          "prompt_fi": "Miten esittäisit saman kysymyksen puhekielellä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-noora-spoken-questions-draft-2",
+          "prompt_fi": "Vertaa kysymyksen kahta kuulemaasi muotoa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "known_rights_note": null,
+      "publisher_caption_claim": "not_checked",
+      "metadata_evidence_url": null,
+      "learning_role": "supplemental_authentic_or_task_stimulus"
     }
-  ]
+  ],
+  "last_curated_update": "2026-10-21",
+  "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format."
 }
