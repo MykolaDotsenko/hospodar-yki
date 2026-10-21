@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">Hospodar YKI — monochrome threshold H</title>
+<desc id="desc">One-colour H monogram with an open diagonal step</desc>
+<path fill="#000" d="M28 4H100C113.25 4 124 14.75 124 28V94L94 124H28C14.75 124 4 113.25 4 100V28C4 14.75 14.75 4 28 4Z"/>
+<path d="M36 32V94M91 32V92M36 64H91M91 94L105 80" fill="none" stroke="#fff" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
