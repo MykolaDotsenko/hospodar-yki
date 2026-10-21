@@ -1,0 +1,70 @@
+name: Import permitted Finnish speech videos (actual WebM binaries)
+
+on:
+  push:
+    branches:
+      - main
+      - content/open-finnish-video-pack-2026-10-21
+    paths:
+      - video/catalog.json
+      - video/exercises.json
+      - scripts/import_open_finnish_videos.py
+      - .github/workflows/import-open-finnish-videos.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout current source branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Setup Python runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffprobe
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Compile importer / validate catalog
+        run: |
+          python3 -m py_compile scripts/import_open_finnish_videos.py
+          python3 -m json.tool video/catalog.json > /dev/null
+          python3 -m json.tool video/exercises.json > /dev/null
+      - name: Fetch real, allowlisted, licensed Commons WebM transcodes
+        run: python3 scripts/import_open_finnish_videos.py
+      - name: Check SHA-256 manifest & commit ONLY actual media to current branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib,pathlib
+          root=pathlib.Path(".")
+          manifest=json.loads((root/"video/open/available.json").read_text())
+          ready=0
+          for asset in manifest["assets"]:
+              if asset["state"]!="verified_binary":
+                  continue
+              f=root/asset["path"]
+              assert f.is_file() and f.stat().st_size==asset["bytes"]
+              assert hashlib.sha256(f.read_bytes()).hexdigest()==asset["sha256"]
+              ready+=1
+          assert ready>=1, "No valid local video assets"
+          print("Verified actual media binaries:",ready)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f -- video/open/
+          if git diff --cached --quiet; then
+            echo "All approved videos already present"
+          else
+            git commit -m "video: save SHA256-verified openly licensed Finnish WebM assets [skip ci]"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
