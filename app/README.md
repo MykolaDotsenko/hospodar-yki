@@ -14,6 +14,12 @@ Open **http://localhost:8080/app/** in a browser. Do not use `file://` because t
 
 **Tests** (Node >= 20): `node --test app/tests/*.test.mjs`; syntax `node --check app/app.mjs`.
 
+## Фірмова впізнаваність і кольорова семантика v0.2
+
+Однаковий SVG [H-поріг](../brand/logo/hospodar-yki-mark.svg) у двох вебрежимах, спільний слоган і gateway-картки **01 Навчання / 02 Симуляція**. Під час активної симуляції gateway приховано, щоб не відволікати.
+
+[Дизайн-ТЗ](../docs/15-two-modes-skill-scopes.md) дозволяє **насичені, живі кольори заради зрозумілої ієрархії й уваги**, але не декоративне перевантаження: читання — teal, слухання — plum, письмо — terracotta, говоріння — green; текстові мітки обов'язкові й кольори проходять WCAG AA. [Anti-AI-sameness правила](../brand/recognition-strategy-v02.md) забороняють типові шаблонні градієнти, скляні картки й довільні маскоти. Спеціальний `calm mode` та повноцінні модульні селектори ще заплановано.
+
 ## ⭐ Новий реалістичніший режим Digitesti (21.10.2026)
 
 **[▶️ Запустити окрему репетицію `exam.html`](exam.html)** — або напряму `http://localhost:8080/app/exam.html`.
