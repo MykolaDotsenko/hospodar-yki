@@ -104,6 +104,31 @@ def main() -> int:
             assert row["review"] == "teacher_review_pending"
             assert row["original_prompt_fi"] and row["topics"] and row["skills"]
         print(f"OK: {len(used_ids)} distinct Yle Areena episode URLs, separate from YouTube")
+    mock_path = ROOT / "video/yki-mock-simulation-sources.json"
+    if mock_path.is_file():
+        mock = json.loads(mock_path.read_text(encoding="utf-8"))
+        assert mock["schema_version"] == "1.0.0"
+        assert mock["official_2027_policy"]["official_examples_not_real_past_exam_items"] is True
+        classified = {i["youtube_video_id"]: i for i in data["items"]}
+        linked = set()
+        for v in mock["mock_youtube_videos"]:
+            video_id = v["youtube_video_id"]
+            assert video_id not in linked
+            linked.add(video_id)
+            assert video_id in classified, "YKI mock references missing catalog video"
+            assert v["url"] == f"https://www.youtube.com/watch?v={video_id}"
+            assert v["is_full_four_skill_mock"] is False
+            assert v["is_verified_digital_2027_mock"] is False
+            assert v["teacher_review"] == "pending"
+            assert classified[video_id]["model_answers_start_seconds"] == v["model_answers_start_seconds"]
+            assert classified[video_id]["mock_classification"]
+            assert 0 <= v["fit_100"] <= 100
+        assert len(mock["official_organizer_samples"]) == 5
+        assert all(s["creator"] == "University of Jyväskylä / SOLKI" for s in mock["official_organizer_samples"])
+        assert all(s["url"].startswith("https://ykitesti.solki.jyu.fi/") for s in mock["official_organizer_samples"])
+        assert len(set(s["url"] for s in mock["official_organizer_samples"])) == 5
+        assert mock["implementation_rules"]
+        print(f"OK: {len(linked)} classified timed/section YKI video mocks; 5 distinct SOLKI official sample page URLs; no full-digital-2027 claims")
     print(f"OK: {len(item_ids)} distinct YouTube watch links, " +
           f"{sum(len(i['chapters']) for i in data['items'])} chapter markers; " +
           "all study items correctly labeled pending external/player review")
