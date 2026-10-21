@@ -4,15 +4,19 @@ on:
     paths:
       - video/youtube-catalog.json
       - video/publisher-series-catalog.json
+      - video/publisher-episode-catalog.json
+      - video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
       - video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
       - video/YOUTUBE-LEARNING-CATALOG.md
       - scripts/validate_youtube_video_catalog.py
       - .github/workflows/validate-youtube-video-catalog.yml
   push:
-    branches: [main, content/verified-yki-video-pack-round3-2026-10-21]
+    branches: [main, content/yki-video-high-value-round5-2026-10-21]
     paths:
       - video/youtube-catalog.json
       - video/publisher-series-catalog.json
+      - video/publisher-episode-catalog.json
+      - video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
       - video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
       - video/YOUTUBE-LEARNING-CATALOG.md
       - scripts/validate_youtube_video_catalog.py
@@ -30,6 +34,7 @@ jobs:
         run: |
           python3 -m json.tool video/youtube-catalog.json > /dev/null
           python3 -m json.tool video/publisher-series-catalog.json > /dev/null
+          python3 -m json.tool video/publisher-episode-catalog.json > /dev/null
           python3 scripts/validate_youtube_video_catalog.py
       - name: Sanity check future-player requirements and rights statements
         run: |
