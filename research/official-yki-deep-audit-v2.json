@@ -1,0 +1,925 @@
+{
+  "schema_version": "2.0.0",
+  "checked_at": "2026-10-21",
+  "authority_policy": "OPH current > legal 2011 foundation for content > OPH rubrics > SOLKI samples for historic task formats > training providers; no extrapolation to digital UI",
+  "target": "Finnish intermediate YKI 2027 digital test",
+  "links": {
+    "detail": "docs/20-yki-official-complete-audit-2026-10.md",
+    "simulator": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+    "task_patterns": "research/yki-official-patterns-v2.json"
+  },
+  "rights_policy": "source URLs and own summaries only; no unauthorized reproduction of official texts, MP3, PDFs, screencasts or paid mock tests",
+  "source_document_year_warning": {
+    "oph_link_label": "Yleisten kielitutkintojen perusteet 2026",
+    "actual_pdf_year": 2011,
+    "finlex_order": "DNO 24/011/2011",
+    "first_effective_date": "2011-12-01",
+    "digital_format_specs_in_pdf": "not_current"
+  },
+  "sources": [
+    {
+      "id": "oph_overview",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kieli-ja-kaantajatutkinnot/yleiset-kielitutkinnot-yki",
+      "authority": "OPH",
+      "evidence_class": "official_current",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "oph_schedule",
+      "url": "https://www.oph.fi/en/education-and-qualifications/selecting-right-yki-test-test-days",
+      "authority": "OPH",
+      "evidence_class": "official_current",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "oph_pilot",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "authority": "OPH",
+      "evidence_class": "official_current",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "oph_before",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "authority": "OPH",
+      "evidence_class": "official_current_mixed_legacy",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "oph_after",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "authority": "OPH",
+      "evidence_class": "official_current",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "oph_basis",
+      "url": "https://www.oph.fi/sites/default/files/documents/yleisten-kielitutkintojen-perusteet-2011.pdf",
+      "authority": "OPH",
+      "evidence_class": "legal_foundation_2011",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false,
+      "notes": "OPH page labels appendix 2026; linked file and Finlex are 2011 text."
+    },
+    {
+      "id": "finlex_basis",
+      "url": "https://www.finlex.fi/fi/viranomaiset/maarayskokoelmat/opetushallitus/2011/39607",
+      "authority": "Finlex",
+      "evidence_class": "legal_2011_registry",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "speaking_rubric",
+      "url": "https://www.oph.fi/sites/default/files/documents/Puhumisen_arviointikriteerit.pdf",
+      "authority": "Yle",
+      "evidence_class": "official_rubric",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "writing_rubric",
+      "url": "https://www.oph.fi/sites/default/files/documents/Kirjoittamisen_arviointikriteerit.pdf",
+      "authority": "Yle",
+      "evidence_class": "official_rubric",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_index",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_reading",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_listening",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_writing",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_writing2",
+      "url": "https://ykitesti2.solki.jyu.fi/ykitesti2/web/en/node/21",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_speaking",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_official_demo",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_general",
+      "url": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "university_description",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    },
+    {
+      "id": "jyu_old_how",
+      "url": "https://ykitesti2.solki.jyu.fi/ykitesti2/web/fi/info/ohjeet",
+      "authority": "JYU/SOLKI",
+      "evidence_class": "historical_paper_instruction",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false,
+      "notes": "Paper room and pen instructions, not validated digital 2027"
+    },
+    {
+      "id": "yle_yki",
+      "url": "https://yle.fi/a/20-146803",
+      "authority": "Yle",
+      "evidence_class": "third_party_training",
+      "verified_at": "2026-10-21",
+      "content_storage": "LINK_AND_ORIGINAL_PARAPHRASE_ONLY",
+      "license_to_rehost_exam_content": false
+    }
+  ],
+  "claims": [
+    {
+      "id": "FY-001",
+      "key": "four_distinct_subtests",
+      "status": "official_current",
+      "source_ids": [
+        "oph_overview",
+        "oph_schedule"
+      ],
+      "description": "Four independently rated modules",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-002",
+      "key": "grade3_b1_grade4_b2",
+      "status": "official_current",
+      "source_ids": [
+        "oph_schedule"
+      ],
+      "description": "Keskitaso 3/B1 and 4/B2",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-003",
+      "key": "all_finnish_spring2027_digital",
+      "status": "official_current",
+      "source_ids": [
+        "oph_schedule"
+      ],
+      "description": "All Finnish spring 2027 tests digital",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-004",
+      "key": "computer_at_test_center",
+      "status": "official_current",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Digital tests on center computer, no own computer",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-005",
+      "key": "digital_tasks_similar_to_paper",
+      "status": "official_current",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Digital task content is similar to previous paper tasks, UI not described",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-006",
+      "key": "finnish_only_test_prompts",
+      "status": "official_current",
+      "source_ids": [
+        "oph_schedule"
+      ],
+      "description": "Instructions and task prompts of Finnish test are in Finnish",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-007",
+      "key": "thematic_nine",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis",
+        "finlex_basis"
+      ],
+      "description": "9 broad topic areas, proficiency varied",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-008",
+      "key": "speech_functions_six",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "6 main communicative function families",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-009",
+      "key": "listening_genres",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "Interview dialogue voicemail announcement news advertising",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-010",
+      "key": "reading_genres",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "Message letter announcement ad news narrative",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-011",
+      "key": "speaking_genres",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "Simulation, reaction, opinion and narration",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-012",
+      "key": "writing_three_different_genres",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "Three different guided texts; digital screen count pending",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-013",
+      "key": "receptive_scores_to_levels",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis"
+      ],
+      "description": "Receptive task points converted to levels; exact cutoffs unpublished",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-014",
+      "key": "production_criterion_human",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis",
+        "oph_after"
+      ],
+      "description": "Trained raters judge production against criteria",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-015",
+      "key": "speaking_rubric",
+      "status": "official_rubric",
+      "source_ids": [
+        "speaking_rubric"
+      ],
+      "description": "Fluency flexibility cohesion lexis phonology accuracy",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-016",
+      "key": "writing_rubric",
+      "status": "official_rubric",
+      "source_ids": [
+        "writing_rubric"
+      ],
+      "description": "Flexibility cohesion lexis syntax information delivery genres",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-017",
+      "key": "speaking_legacy_example_60_90",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "description": "Specific narrative example 60s preparation, 90s answer",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-018",
+      "key": "speaking_legacy_short_20_30",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "description": "Short situations in example have 20s prep and 20/30s speaking",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-019",
+      "key": "speaking_legacy_opinion_120",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "description": "Specific opinion example 120s spoken response",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-020",
+      "key": "legacy_listening_twice",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_listening"
+      ],
+      "description": "Historical demo says double hearing for intermediate; not digital 2027",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-021",
+      "key": "legacy_listening_10min_transfer",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_listening"
+      ],
+      "description": "10min optical answer sheet transfer paper only; not digital 2027",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-022",
+      "key": "legacy_mcq_one_of_three",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_reading",
+        "jyu_listening"
+      ],
+      "description": "Three-choice examples and true false and open tasks",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-023",
+      "key": "legacy_writing_email_opinion",
+      "status": "historical_sample",
+      "source_ids": [
+        "jyu_writing",
+        "jyu_writing2"
+      ],
+      "description": "Formal email and opinion prompts in historical university examples",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LEGACY_PROFILE_ONLY"
+    },
+    {
+      "id": "FY-024",
+      "key": "current_day_original_id",
+      "status": "official_current",
+      "source_ids": [
+        "oph_before"
+      ],
+      "description": "Original valid ID required, driver license not accepted",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-025",
+      "key": "late_arrival_blocked",
+      "status": "official_current",
+      "source_ids": [
+        "oph_before"
+      ],
+      "description": "Late participant cannot join started exam",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-026",
+      "key": "no_device_even_breaks",
+      "status": "official_current",
+      "source_ids": [
+        "oph_before"
+      ],
+      "description": "No personal electronics during exam day and breaks",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-027",
+      "key": "five_hour_generic_duration",
+      "status": "official_current_mixed_legacy",
+      "source_ids": [
+        "oph_before"
+      ],
+      "description": "General 5h day includes breaks/paper references; confirm digital exact",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "LABEL_WITH_CAUTION"
+    },
+    {
+      "id": "FY-028",
+      "key": "digital_ui_navigation",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "No verified 2027 UI/back navigation",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-029",
+      "key": "digital_module_timers",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot",
+        "oph_before"
+      ],
+      "description": "No verified per-module 2027 timer",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-030",
+      "key": "digital_audio_replay",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Number of digital listening replays and seeking unverified",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-031",
+      "key": "digital_speaking_recording",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Voice input and recording flow unverified",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-032",
+      "key": "digital_writing_editor",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Word limits, spellcheck, autosave, back navigation unverified",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-033",
+      "key": "digitesti_item_count",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_pilot"
+      ],
+      "description": "Exact new 2027 item count and order unverified",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-034",
+      "key": "universal_cutoffs",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_after",
+        "oph_basis"
+      ],
+      "description": "No public deterministic YKI grade from MCQ percent",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-035",
+      "key": "actual_live_questions",
+      "status": "unverified_2027",
+      "source_ids": [
+        "oph_before",
+        "jyu_index"
+      ],
+      "description": "Official practice examples are not secret live examination tasks",
+      "assertible_in_2027_digital": false,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "BLOCK_STRICT_OFFICIAL_CLAIM"
+    },
+    {
+      "id": "FY-036",
+      "key": "results_two_months",
+      "status": "official_current",
+      "source_ids": [
+        "oph_after"
+      ],
+      "description": "Results generally around 2 months",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-037",
+      "key": "legal_basis_document_year_2011",
+      "status": "legal_foundation_2011",
+      "source_ids": [
+        "oph_basis",
+        "finlex_basis",
+        "oph_before"
+      ],
+      "description": "PDF is 2011 even if 2026 label in OPH page",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-038",
+      "key": "exam_start_from_local_center",
+      "status": "official_current",
+      "source_ids": [
+        "oph_before"
+      ],
+      "description": "Center sends actual starting time and site instructions",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-039",
+      "key": "spring_2027_april_full",
+      "status": "official_current",
+      "source_ids": [
+        "oph_schedule"
+      ],
+      "description": "Apr 10 2027 full intermediate all four, registration Mar 8-25",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    },
+    {
+      "id": "FY-040",
+      "key": "spring_2027_partial",
+      "status": "official_current",
+      "source_ids": [
+        "oph_schedule"
+      ],
+      "description": "May12 listening+writing and Jun2 speaking+reading; check before booking",
+      "assertible_in_2027_digital": true,
+      "verified_at": "2026-10-21",
+      "fidelity_policy": "REPLICATE_CONFIRMED_FACT"
+    }
+  ],
+  "unknowns": [
+    {
+      "id": "module_order",
+      "meaning": "The actual order of four modules",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "module_durations_seconds",
+      "meaning": "2027 exact subtest durations",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "question_counts",
+      "meaning": "number/order of digital test items",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "back_navigation",
+      "meaning": "allowed back/forward movement",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "listening_replays",
+      "meaning": "2027 recording repeat rules",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "audio_seek",
+      "meaning": "play/pause seeking in 2027 exam",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "automatic_audio_start",
+      "meaning": "autoplay rules",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "speaking_input",
+      "meaning": "recording user flow",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "speaking_beeps",
+      "meaning": "beep cue sequence",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "writing_spellcheck",
+      "meaning": "spell check & copy/paste rules",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "writing_word_limit",
+      "meaning": "official word minimum/maximum",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "writing_autosave",
+      "meaning": "autosave and edit behavior",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "breaks_and_locking",
+      "meaning": "digital-specific mandatory break sequence",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "assessment_cutoffs",
+      "meaning": "official quantitative response cut points",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    },
+    {
+      "id": "accommodations_ui",
+      "meaning": "accessibility accommodation UX",
+      "value": null,
+      "status": "UNVERIFIED_2027",
+      "requires": "OPH or JYU post-pilot document and reproduction fixture"
+    }
+  ],
+  "calendar": [
+    {
+      "date": "2027-01-16",
+      "registration_open": "2027-01-04",
+      "registration_close": "2027-01-07",
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-02-13",
+      "registration_open": "2027-01-18",
+      "registration_close": "2027-01-28",
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-03-10",
+      "registration_open": "2027-02-08",
+      "registration_close": "2027-02-22",
+      "skills": [
+        "reading",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-04-10",
+      "registration_open": "2027-03-08",
+      "registration_close": "2027-03-25",
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-05-12",
+      "registration_open": "2027-04-12",
+      "registration_close": "2027-04-26",
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-06-02",
+      "registration_open": "2027-05-03",
+      "registration_close": "2027-05-17",
+      "skills": [
+        "reading",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-21"
+    }
+  ],
+  "confirmed": {
+    "language": "fi",
+    "level": "keskitaso",
+    "subtests": [
+      "reading",
+      "listening",
+      "writing",
+      "speaking"
+    ],
+    "grade3_cefr": "B1",
+    "grade4_cefr": "B2",
+    "finnish_only_instruction": true,
+    "digital_2027": true,
+    "digital_at_test_center": true,
+    "paper_like_task_constructs": true
+  },
+  "strict_digital_fidelity": {
+    "enabled": false,
+    "missing_fields": [
+      "module_order",
+      "module_durations_seconds",
+      "question_counts",
+      "back_navigation",
+      "listening_replays",
+      "audio_seek",
+      "automatic_audio_start",
+      "speaking_input",
+      "speaking_beeps",
+      "writing_spellcheck",
+      "writing_word_limit",
+      "writing_autosave",
+      "breaks_and_locking",
+      "assessment_cutoffs",
+      "accommodations_ui"
+    ],
+    "unlock_policy": "ALL critical fields independently sourced and tested, do not confuse with provider-authorized exam accreditation"
+  },
+  "result_policy": {
+    "autograded": [
+      "mcq",
+      "true_false",
+      "reviewed_short_open"
+    ],
+    "not_autograded": [
+      "speaking",
+      "writing"
+    ],
+    "human_calibration_required": true,
+    "official_conversion_cutoffs_known": false,
+    "possible_nongrade_categories": [
+      "alle 3",
+      "ei voida arvioida"
+    ],
+    "single_overall_official_score": false
+  },
+  "user_data_policy": {
+    "repository_public": true,
+    "store_candidate_answers_in_repo": false,
+    "no_external_voice_upload_without_consent": true
+  },
+  "repeat_legacy_not_equal_digital": true
+}
