@@ -1,0 +1,407 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "purpose": "Fresh B1 training texts, not independent calibrated exam assessment",
+  "level": "B1_hint_not_certified",
+  "count_texts": 9,
+  "count_questions": 27,
+  "qa_notes": "Mechanical evidence substring check passed; semantic accuracy and language naturalness require teacher review",
+  "items": [
+    {
+      "id": "ctx-reading-01-identity",
+      "title_fi": "Kirjaston kielikahvila",
+      "genre": "event",
+      "level_hint": "B1",
+      "text_fi": "Kirjastossa alkaa ensi kuussa uusi kielikahvila suomea opiskeleville aikuisille. Ryhmä kokoontuu keskiviikkoisin kello 17–18.30. Mukaan voi tulla ilman ilmoittautumista, eikä osallistuminen maksa mitään. Ensimmäisellä kerralla keskustellaan harrastuksista ja uusista ystävistä. Ohjaaja auttaa, jos sopiva sana ei tule mieleen, mutta tarkoitus on puhua mahdollisimman paljon itse. Jos osallistujia tulee yli kaksikymmentä, heidät jaetaan kahteen ryhmään. Kirjaston työntekijät toivovat, että kaikki saapuvat ajoissa, sillä tapaamisen alussa tehdään lyhyt tutustumisharjoitus. Kielikahvila ei ole tavallinen kielioppikurssi, vaan paikka harjoitella keskustelua turvallisessa ilmapiirissä.",
+      "questions": [
+        {
+          "id": "ctx-reading-01-identity-q1",
+          "type": "single_choice",
+          "prompt_fi": "Pitääkö osallistumisesta maksaa?",
+          "options_fi": [
+            "Kyllä, joka kerta",
+            "Ei tarvitse",
+            "Vain ensimmäisellä kerralla"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "eikä osallistuminen maksa mitään",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-01-identity-q2",
+          "type": "true_false",
+          "statement_fi": "Tapaamisissa keskitytään pääasiassa kielioppisääntöihin.",
+          "answer": false,
+          "evidence_fi": "Kielikahvila ei ole tavallinen kielioppikurssi",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-01-identity-q3",
+          "type": "open",
+          "prompt_fi": "Mitä tehdään tapaamisen alussa?",
+          "model_answer_fi": "Lyhyt tutustumisharjoitus.",
+          "evidence_fi": "tapaamisen alussa tehdään lyhyt tutustumisharjoitus",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Kerrot ystävälle kielikahvilasta ja ehdotat yhteistä käyntiä.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-02-housing",
+      "title_fi": "Taloyhtiön vesikatko",
+      "genre": "notice",
+      "level_hint": "B1",
+      "text_fi": "Taloyhtiössä tehdään putkien huoltotöitä tiistaina. Vesi katkaistaan kaikista asunnoista kello 9 ja palautetaan viimeistään kello 15. Katko koskee sekä lämmintä että kylmää vettä. Asukkaita pyydetään varaamaan etukäteen juomavettä ja välttämään pesukoneen käyttöä töiden aikana. Huolto tehdään kellarissa, joten työntekijöiden ei tarvitse tulla asuntoihin. Jos työ viivästyy, huoltoyhtiö lähettää tekstiviestin niille asukkaille, jotka ovat ilmoittaneet puhelinnumeronsa. Mahdolliset muutokset näkyvät myös talon ilmoitustaululla. Jos asukas huomaa töiden jälkeen vesivuodon, hänen pitää ilmoittaa siitä huoltoyhtiölle mahdollisimman pian.",
+      "questions": [
+        {
+          "id": "ctx-reading-02-housing-q1",
+          "type": "single_choice",
+          "prompt_fi": "Missä huoltotyöt tehdään?",
+          "options_fi": [
+            "Kellarissa",
+            "Jokaisen asunnon keittiössä",
+            "Pihalla"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "Huolto tehdään kellarissa",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-02-housing-q2",
+          "type": "true_false",
+          "statement_fi": "Vesi katkaistaan vain kylmävesiputkista.",
+          "answer": false,
+          "evidence_fi": "Katko koskee sekä lämmintä että kylmää vettä",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-02-housing-q3",
+          "type": "open",
+          "prompt_fi": "Mitä pitää tehdä, jos asukas huomaa vuodon?",
+          "model_answer_fi": "Ilmoittaa huoltoyhtiölle mahdollisimman pian.",
+          "evidence_fi": "hänen pitää ilmoittaa siitä huoltoyhtiölle mahdollisimman pian",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Soitat huoltoyhtiöön ja kysyt, mistä saat ajantasaiset tiedot viivästyksestä.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-03-services",
+      "title_fi": "Vastaus rikkoutuneesta tuotteesta",
+      "genre": "email",
+      "level_hint": "B1",
+      "text_fi": "Hei! Kiitos viestistäsi ja kuvista, jotka lähetit meille. Olemme pahoillamme, ettei tilaamasi kahvinkeitin toiminut normaalisti. Tuotteen takuu on edelleen voimassa. Voit palauttaa laitteen maksutta käyttämällä palautuskoodia, joka on tämän viestin liitteenä. Kun olemme saaneet tuotteen takaisin, voit valita uuden laitteen tai rahojen palautuksen. Uuden laitteen toimitus kestää tavallisesti noin viikon, mutta varastotilanne voi pidentää toimitusaikaa. Säilytä palautuskuitti, kunnes asia on käsitelty loppuun. Vastaa tähän viestiin ja kerro, kumman vaihtoehdon valitset. Jos jokin asia on epäselvä, voit ottaa yhteyttä asiakaspalveluun. Ystävällisin terveisin, Asiakaspalvelu.",
+      "questions": [
+        {
+          "id": "ctx-reading-03-services-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mitä asiakkaan pitää valita?",
+          "options_fi": [
+            "Uusi laite tai rahat takaisin",
+            "Vain uusi laite",
+            "Maksullinen korjaus"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "voit valita uuden laitteen tai rahojen palautuksen",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-03-services-q2",
+          "type": "true_false",
+          "statement_fi": "Uusi laite toimitetaan varmasti viikon sisällä.",
+          "answer": false,
+          "evidence_fi": "varastotilanne voi pidentää toimitusaikaa",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-03-services-q3",
+          "type": "open",
+          "prompt_fi": "Mihin asti kuitti kannattaa säilyttää?",
+          "model_answer_fi": "Kunnes asia on käsitelty loppuun.",
+          "evidence_fi": "Säilytä palautuskuitti, kunnes asia on käsitelty loppuun",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Kirjoitat asiakaspalveluun ja pyydät rahojen palautusta, koska tarvitset laitteen pian.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-04-culture",
+      "title_fi": "Liikuntaryhmän kokeilukerta",
+      "genre": "ad",
+      "level_hint": "B1",
+      "text_fi": "Kaupungin liikuntaryhmä järjestää lauantaina ilmaisen kokeilukerran aikuisille. Tapaaminen alkaa kello 11 ja kestää puolitoista tuntia. Mukaan voi tulla, vaikka ei olisi harrastanut liikuntaa pitkään aikaan. Osallistujat tarvitsevat vain sisäliikuntakengät ja vesipullon. Ohjaaja kertoo aluksi, miten harjoitukset tehdään turvallisesti. Sen jälkeen voi valita rauhallisen venyttelyn tai vauhdikkaamman harjoituksen. Kokeilukerralle ei tarvitse ilmoittautua. Syksyllä alkava jatkoryhmä on kuitenkin maksullinen, ja siihen pitää ilmoittautua etukäteen verkkopalvelussa. Jos osallistuja ei tiedä, mikä ryhmä hänelle sopii, ohjaajalta voi kysyä neuvoa ennen harjoitusta.",
+      "questions": [
+        {
+          "id": "ctx-reading-04-culture-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mikä vaihtoehto on maksullinen?",
+          "options_fi": [
+            "Kokeilukerta",
+            "Jatkoryhmä",
+            "Ohjaajan neuvo"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "jatkoryhmä on kuitenkin maksullinen",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-04-culture-q2",
+          "type": "true_false",
+          "statement_fi": "Kokeilukerralle pitää ilmoittautua verkossa.",
+          "answer": false,
+          "evidence_fi": "Kokeilukerralle ei tarvitse ilmoittautua",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-04-culture-q3",
+          "type": "open",
+          "prompt_fi": "Mitä mukaan pitää ottaa?",
+          "model_answer_fi": "Sisäliikuntakengät ja vesipullo.",
+          "evidence_fi": "Osallistujat tarvitsevat vain sisäliikuntakengät ja vesipullon",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Kysyt ohjaajalta, kumpi ryhmä sopisi aloittelijalle.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-05-travel",
+      "title_fi": "Lauantain poikkeusreitti",
+      "genre": "transport",
+      "level_hint": "B1",
+      "text_fi": "Keskustassa järjestetään lauantaina suuri tapahtuma. Sen vuoksi bussilinja 12 kulkee poikkeusreittiä kello 10–18. Bussi ei pysähdy tänä aikana Kauppatorilla, vaan lähin käytössä oleva pysäkki sijaitsee kirjaston edessä. Aikataulu on muuten voimassa, mutta ruuhkat voivat pidentää matka-aikaa. Matkustajien kannattaa tarkistaa reittiopas ennen lähtöä ja varata ylimääräistä aikaa. Sunnuntaina linja kulkee jälleen normaalisti, ellei jokin yllättävä tilanne aiheuta muutoksia. Bussinkuljettajalta voi kysyä, missä kannattaa jäädä pois kyydistä. Erityisesti lääkäriaikaa tai junayhteyttä varten matkustavien kannattaa huomioida mahdollinen myöhästyminen.",
+      "questions": [
+        {
+          "id": "ctx-reading-05-travel-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mikä pysäkki korvaa Kauppatorin?",
+          "options_fi": [
+            "Aseman pysäkki",
+            "Kirjaston edessä oleva pysäkki",
+            "Terveyskeskuksen pysäkki"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "lähin käytössä oleva pysäkki sijaitsee kirjaston edessä",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-05-travel-q2",
+          "type": "true_false",
+          "statement_fi": "Poikkeusreitti jatkuu varmasti sunnuntaina.",
+          "answer": false,
+          "evidence_fi": "Sunnuntaina linja kulkee jälleen normaalisti",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-05-travel-q3",
+          "type": "open",
+          "prompt_fi": "Miksi matkaan kannattaa varata lisäaikaa?",
+          "model_answer_fi": "Ruuhkat voivat pidentää matka-aikaa.",
+          "evidence_fi": "ruuhkat voivat pidentää matka-aikaa",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Selität ystävälle pysäkkimuutoksen ja ehdotat vaihtoehtoista tapaamispaikkaa.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-06-health",
+      "title_fi": "Ajanvarauksen uusi käytäntö",
+      "genre": "instructions",
+      "level_hint": "B1",
+      "text_fi": "Terveysaseman ajanvaraus muuttuu ensi kuun alussa. Kiireettömissä asioissa voit lähettää viestin verkkopalvelussa tai soittaa arkisin kello 8–15. Viesteihin vastataan yleensä kahden arkipäivän kuluessa, mutta ruuhka voi pidentää odotusaikaa. Jos sinulla on jo varattu vastaanottoaika, sitä ei tarvitse varata uudestaan. Aiemmat varaukset pysyvät voimassa. Jos et pääse vastaanotolle, peru aika mahdollisimman ajoissa, jotta se voidaan antaa toiselle asiakkaalle. Verkkoviestipalvelu ei sovellu hätätilanteisiin. Uuden käytännön tarkoitus on vähentää puhelinjonoja ja helpottaa kiireettömien asioiden hoitamista. Lisätietoja saa ajanvarauksen puhelinnumerosta.",
+      "questions": [
+        {
+          "id": "ctx-reading-06-health-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mitä aiemmin varatulle ajalle tapahtuu?",
+          "options_fi": [
+            "Se peruuntuu automaattisesti",
+            "Se pysyy voimassa",
+            "Siitä täytyy maksaa uudelleen"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Aiemmat varaukset pysyvät voimassa",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-06-health-q2",
+          "type": "true_false",
+          "statement_fi": "Vastauksen saa aina tasan kahdessa päivässä.",
+          "answer": false,
+          "evidence_fi": "ruuhka voi pidentää odotusaikaa",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-06-health-q3",
+          "type": "open",
+          "prompt_fi": "Miksi aika pitäisi perua ajoissa?",
+          "model_answer_fi": "Jotta aika voidaan antaa toiselle asiakkaalle.",
+          "evidence_fi": "jotta se voidaan antaa toiselle asiakkaalle",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Pyydät ajan siirtoa, koska et pääse vastaanotolle työvuoron vuoksi.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-07-work",
+      "title_fi": "Koulutus työpaikalla",
+      "genre": "email",
+      "level_hint": "B1",
+      "text_fi": "Hei kaikki! Työpaikallamme järjestetään ensi kuussa asiakaspalvelukoulutus kahtena perjantaina kello 13–16. Koulutus sopii myös uusille työntekijöille, ja osallistuminen kuuluu työaikaan. Koulutuksessa harjoitellaan vaikeisiin asiakastilanteisiin vastaamista sekä palautteen antamista. Aluksi katsotaan esimerkkejä, ja lopuksi jokainen osallistuja harjoittelee keskustelua pienessä ryhmässä. Ilmoittautuminen pitää tehdä ensi maanantaihin mennessä, sillä ryhmässä on vain viisitoista paikkaa. Esihenkilöt sopivat työvuorojen järjestämisestä osallistujien kanssa. Jos et pääse toisena koulutuspäivänä paikalle, ota yhteyttä koulutuspäällikköön. Hän selvittää, voisiko osan harjoituksista suorittaa myöhemmin. Terveisin, Koulutuspäällikkö.",
+      "questions": [
+        {
+          "id": "ctx-reading-07-work-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mitä tehdään koulutuksen lopussa?",
+          "options_fi": [
+            "Harjoitellaan keskustelua pienryhmässä",
+            "Kirjoitetaan pitkä koe",
+            "Vaihdetaan työpaikkaa"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "lopuksi jokainen osallistuja harjoittelee keskustelua pienessä ryhmässä",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-07-work-q2",
+          "type": "true_false",
+          "statement_fi": "Kaikki harjoitukset voidaan varmasti suorittaa myöhemmin.",
+          "answer": false,
+          "evidence_fi": "Hän selvittää, voisiko osan harjoituksista suorittaa myöhemmin",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-07-work-q3",
+          "type": "open",
+          "prompt_fi": "Mikä on ilmoittautumisen viimeinen ajankohta?",
+          "model_answer_fi": "Ensi maanantai.",
+          "evidence_fi": "Ilmoittautuminen pitää tehdä ensi maanantaihin mennessä",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Pyydät esihenkilöltä työvuoron muutosta, jotta voit osallistua koulutukseen.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-08-environment",
+      "title_fi": "Lajitteluohje muuttuu",
+      "genre": "notice",
+      "level_hint": "B1",
+      "text_fi": "Taloyhtiömme jätekatokseen lisätään ensi viikolla uusi keräysastia muovipakkauksille. Samalla kartongin keräysastia siirretään lähemmäs ovea. Muovipakkausten pitää olla tyhjiä, mutta niiden ei tarvitse olla täysin puhtaita. Paristoja ja pieniä sähkölaitteita ei saa laittaa sekajätteeseen. Ne viedään erillisiin keräyspisteisiin. Huoltoyhtiö järjestää asukkaille lyhyen neuvontatilaisuuden sisäpihalla maanantaina kello 18. Tilaisuudessa voi kysyä lajittelusta ja saada kirjalliset ohjeet mukaan. Jos et pääse paikalle, samat ohjeet löytyvät myös taloyhtiön verkkosivulta. Tarkoitus on helpottaa kierrätystä ja vähentää sekajätteen määrää. Kiitos yhteistyöstä!",
+      "questions": [
+        {
+          "id": "ctx-reading-08-environment-q1",
+          "type": "single_choice",
+          "prompt_fi": "Mikä uusi astia jätekatokseen tulee?",
+          "options_fi": [
+            "Muovipakkausten keräysastia",
+            "Paristokeräysastia",
+            "Lasipullojen keräysastia"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "uusi keräysastia muovipakkauksille",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-08-environment-q2",
+          "type": "true_false",
+          "statement_fi": "Muovipakkaukset pitää pestä täysin puhtaiksi.",
+          "answer": false,
+          "evidence_fi": "niiden ei tarvitse olla täysin puhtaita",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-08-environment-q3",
+          "type": "open",
+          "prompt_fi": "Mistä ohjeet saa ilman neuvontatilaisuutta?",
+          "model_answer_fi": "Taloyhtiön verkkosivulta.",
+          "evidence_fi": "samat ohjeet löytyvät myös taloyhtiön verkkosivulta",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Selität naapurille, mihin paristot pitää viedä ja miten saa lisätietoja.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    },
+    {
+      "id": "ctx-reading-09-society",
+      "title_fi": "Kansalaisopiston verkkopalvelu",
+      "genre": "service_instructions",
+      "level_hint": "B1",
+      "text_fi": "Kansalaisopiston uudessa verkkopalvelussa voi ilmoittautua kursseille ja tarkistaa omia tietojaan. Palvelun käyttöä varten tarvitaan sähköpostiosoite. Kurssipaikka ei kuitenkaan varmistu heti lomakkeen lähettämisen jälkeen. Saat erillisen vahvistusviestin, kun ilmoittautuminen on käsitelty. Suosituimmat kurssit voivat täyttyä nopeasti. Jos vahvistusta ei tule viikon kuluessa, ota yhteyttä opiston neuvontaan puhelimitse tai sähköpostitse. Kurssin hinta näkyy verkkopalvelussa, mutta mahdollisista alennuksista saa lisätietoa neuvonnasta. Kurssimaksua ei pidä maksaa ennen kuin saat maksua koskevat ohjeet. Jos et voi käyttää verkkopalvelua, voit ilmoittautua myös puhelimitse. Näin kaikilla on mahdollisuus osallistua.",
+      "questions": [
+        {
+          "id": "ctx-reading-09-society-q1",
+          "type": "single_choice",
+          "prompt_fi": "Milloin kurssipaikka on vahvistettu?",
+          "options_fi": [
+            "Kun lomake on avattu",
+            "Kun vahvistusviesti on saapunut",
+            "Kun näet kurssin hinnan"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Saat erillisen vahvistusviestin, kun ilmoittautuminen on käsitelty",
+          "scoring": "exact_choice"
+        },
+        {
+          "id": "ctx-reading-09-society-q2",
+          "type": "true_false",
+          "statement_fi": "Ilmoittautua voi vain verkossa.",
+          "answer": false,
+          "evidence_fi": "voit ilmoittautua myös puhelimitse",
+          "scoring": "exact_boolean"
+        },
+        {
+          "id": "ctx-reading-09-society-q3",
+          "type": "open",
+          "prompt_fi": "Mitä tehdä, jos vahvistusta ei tule viikossa?",
+          "model_answer_fi": "Ottaa yhteyttä opiston neuvontaan.",
+          "evidence_fi": "Jos vahvistusta ei tule viikon kuluessa, ota yhteyttä opiston neuvontaan",
+          "scoring": "semantic"
+        }
+      ],
+      "speaking_transfer_fi": "Kirjoitat opistolle ja kysyt, onko ilmoittautumisesi käsitelty.",
+      "writing_transfer_fi": "Kirjoita oma viesti tästä aiheesta ja perustele pyyntösi.",
+      "provenance": "project_original",
+      "license_note": "Original educational text, no third party copying",
+      "quality_status": "pending_S2_teacher_review",
+      "is_official_exam": false
+    }
+  ]
+}
