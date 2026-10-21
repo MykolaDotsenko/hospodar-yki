@@ -130,3 +130,9 @@ JYU та SOLKI описують **три різнотипні письмові �
 5. До оцінки `B1 achieved` потрібні невідомі (unseen) завдання з усіх 4 навичок, калібровані людиною вимоги, відповідність YKI дескрипторам; збережений `score/100` — лише внутрішній прогрес.
 
 **Підсумок:** знаємо **що** тестують, приклади реальних типів і умови дня; **не знаємо достовірно** точну цифрову взаємодію 2027, тому застосунок не має її вигадувати.
+
+## Доповнення: granular SOLKI зразки / normative provenance (21.10.2026)
+
+Точні task patterns і **example-scoped** часові вікна зібрані окремо: [20 — офіційний аудит](20-yki-official-complete-audit-2026-10.md), [12 зразків у структурованому каталозі](../research/yki-official-patterns-v2.json). Класи: `OFFICIAL_CURRENT`, `LEGAL_FOUNDATION_2011`, `HISTORICAL_OFFICIAL_SAMPLE`, `OFFICIAL_RUBRIC`, `UNVERIFIED_DIGITAL_2027`. **Текст зразка ≠ реальна екзаменаційна задача.** `perusteet` PDF є 2011, навіть коли OPH page filename label 2026. У цифровому тесті 2027 **кількість завдань, таймери, навігація, replay, recording, editor досі не підтверджені**, деталі у [21 — runtime spec](21-digital-yki-exam-simulator-executable-spec.md).
+
+Пряма архівна навігація: [читання](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/), [аудіювання](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/), [письмо](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/), [говоріння](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/). Лише short excerpts/URL; офіційні MP3 не rehost без дозволу.
