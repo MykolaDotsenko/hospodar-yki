@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "date": "2026-10-21",
-  "name": "Hospodar YKI evidence-informed methods",
+  "name": "Hospodar YKI: evidence-informed learning methods, verified expanded catalogue",
   "purpose": "Future implementation planning. Not implemented in app.",
   "target": "Adult Ukrainian-speaking A2.2 → B1/B1+ YKI keskitaso",
   "score_definition": "Expert priority 0-100: evidence strength 0-30, Finnish/YKI fit 0-30, A2.2→B1 suitability 0-20, engineering feasibility 0-10, agency and sustainable motivation 0-10. These are expert judgments, not measured effect sizes.",
@@ -151,6 +151,106 @@
       "title": "Åbo Akademi: Finnish L2 stem-change research",
       "url": "https://research.abo.fi/sv/activities/processing-of-inflectional-stem-changes-of-finnish-words-in-nativ-2/",
       "type": "Finnish-research"
+    },
+    "tmtbltmeta25": {
+      "title": "Bryfonski, Ziegler & Montee (2025), technology-mediated TBLT meta-analysis, 17 studies; adjusted g=0.265",
+      "url": "https://doi.org/10.3138/calico-2024-0029",
+      "type": "L2-meta-english-and-other-languages"
+    },
+    "genaitblt25": {
+      "title": "Li, Shadiev & Chiu (2025/2026), GenAI+TBLT, 25 empirical studies, 2431 participants",
+      "url": "https://doi.org/10.1007/s11528-025-01140-7",
+      "type": "L2-meta-mostly-english"
+    },
+    "genai51_2026": {
+      "title": "Saarela et al. (2026), GenAI language learning, 51 studies, 175 effect sizes",
+      "url": "https://doi.org/10.1007/s10791-026-10015-1",
+      "type": "L2-meta-mixed"
+    },
+    "genaiwrite79": {
+      "title": "The influence of GenAI on second language writing instruction (2026), 79 empirical articles",
+      "url": "https://doi.org/10.1016/j.system.2026.104081",
+      "type": "L2-systematic-review"
+    },
+    "genaireview144": {
+      "title": "Li et al. (2025), generative AI language teaching systematic review, 144 papers, English skew 86.1%",
+      "url": "https://doi.org/10.1016/j.caeai.2025.100445",
+      "type": "L2-systematic-review"
+    },
+    "aiwritereview22": {
+      "title": "Karagoz (2025), AI writing feedback review, 22 studies, human content judgment needed",
+      "url": "https://eric.ed.gov/?id=EJ1472557",
+      "type": "L2-review-English"
+    },
+    "asrmeta": {
+      "title": "ASR pronunciation meta-analysis (2023), 15 studies, Hedges g=0.69, ESL/EFL only",
+      "url": "https://www.cambridge.org/core/journals/recall/article/effectiveness-of-automatic-speech-recognition-in-eslefl-pronunciation-a-metaanalysis/A915444CF252B61D14961D2FE733822D",
+      "type": "English-pronunciation-meta"
+    },
+    "asrsystematic24": {
+      "title": "ASR EFL pronunciation systematic review (2025), 24 primary studies, caution on error",
+      "url": "https://doi.org/10.1080/2331186X.2025.2466288",
+      "type": "English-pronunciation-review"
+    },
+    "listenmeta45": {
+      "title": "Dalman & Plonsky (2025), L2 listening strategy instruction, 45 studies, d=0.69",
+      "url": "https://doi.org/10.1177/13621688211072981",
+      "type": "L2-meta"
+    },
+    "finnquantity68": {
+      "title": "Saloranta & Heikkola (2022), Finnish L2 vowel quantity, 68 learners, recognition gains not production",
+      "url": "https://doi.org/10.1075/jslp.20040.sal",
+      "type": "Finnish-L2-intervention"
+    },
+    "finnquantity18": {
+      "title": "Saloranta et al. (2022), listen-and-repeat non-native consonant duration, N=18, discrimination gains, no measured production gain",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35312934/",
+      "type": "quantity-perception-intervention"
+    },
+    "cefrm2020": {
+      "title": "Council of Europe, CEFR mediation and action-oriented social-agent descriptors",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/mediation",
+      "type": "framework"
+    },
+    "cefronline": {
+      "title": "Council of Europe, CEFR online interaction descriptors",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/online-interaction-in-the-classroom",
+      "type": "framework"
+    },
+    "cefrscale": {
+      "title": "Council of Europe CEFR descriptive can-do framework",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors",
+      "type": "framework"
+    },
+    "ophgrade": {
+      "title": "OPH official YKI assessment by four independently graded modules and teacher-trained criteria",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "type": "official-exam"
+    },
+    "ophdigital": {
+      "title": "OPH (2026-09-18), digital YKI pilot, test-center computer, comparable task genres",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "type": "official-digital-transition"
+    },
+    "ophcalendar": {
+      "title": "OPH 2027 digital Finnish YKI, full keskitaso 10 April 2027",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+      "type": "official-exam"
+    },
+    "formfocused36": {
+      "title": "Schenck (2024), FFI input/output meta-analysis, Korean+Persian EFL studies",
+      "url": "https://doi.org/10.5281/zenodo.14790529",
+      "type": "English-grammar-meta"
+    },
+    "focusform24": {
+      "title": "Chen & Lambert (2024), focus on form and relative clause transfer, task-specific study",
+      "url": "https://doi.org/10.1075/task.00028.che",
+      "type": "L2-grammar-study"
+    },
+    "fsrsbench": {
+      "title": "FSRS benchmark; memory prediction on flashcards, engineering benchmark not YKI learning trial",
+      "url": "https://github.com/ankitects/fsrs-benchmark",
+      "type": "software-research-benchmark"
     }
   },
   "methods": [
@@ -163,7 +263,8 @@
       "priority": "P0",
       "sources": [
         "spaced",
-        "retrieval"
+        "retrieval",
+        "fsrsbench"
       ],
       "reason_uk": "Повторне самостійне відтворення з паузами краще за перечитування, особливо на відкладених тестах.",
       "example_fi": "Haluaisin siirtää tapaamista — відтворити без зразка після 3 і 10 днів.",
@@ -179,6 +280,58 @@
       }
     },
     {
+      "id": "yki-constructive-alignment",
+      "name_uk": "YKI construct alignment: здібності → жанри → незалежне оцінювання",
+      "score": 98,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "FRAMEWORK_OFFICIAL_NOT_CAUSAL",
+      "priority": "P0",
+      "sources": [
+        "ophgrade",
+        "ophcalendar",
+        "cefrscale"
+      ],
+      "reason_uk": "Навчальна ціль — не «знати тему», а виконати конкретну дію мовою, яку можна перевірити на новому завданні.",
+      "example_fi": "Kirjoita viesti taloyhtiölle: ongelma, vaikutus, pyyntö, yhteystiedot.",
+      "app_feature_uk": "Матриця з чотирма модулями YKI, 9 темами та can-do дескрипторами, мапінгом контенту і перевіркою coverage.",
+      "measurement_uk": "Відсоток незалежно виконаних can-do функцій по кожному модулю та жанру на unseen tasks.",
+      "limitation_uk": "Відповідність стандартам — не експериментальний ефект і не офіційний бал YKI.",
+      "score_components": {
+        "evidence": 29,
+        "Finnish_YKI_fit": 30,
+        "A2_to_B1_fit": 20,
+        "implementation": 10,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
+    },
+    {
+      "id": "human-anchor-calibration",
+      "name_uk": "Якірні людські оцінки й перевірка узгодженості AI-feedback",
+      "score": 97,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_ASSESSMENT_VALIDITY_NOT_INTERVENTION",
+      "priority": "P0",
+      "sources": [
+        "ophgrade",
+        "genaitblt25",
+        "genaiwrite79"
+      ],
+      "reason_uk": "Для відкритих відповідей автоматичні оцінки не можна прирівнювати до офіційного YKI; еталонні роботи оцінює S2-викладач.",
+      "example_fi": "Puhu 90 sekuntia työmatkastasi; arvioi ymmärrettävyys ja tehtävän toteutuminen.",
+      "app_feature_uk": "Blind teacher anchor set: double-marking, rubrics, human adjudication, confidence, abstain option і журнал розбіжностей.",
+      "measurement_uk": "MAE/узгодженість AI-human по комунікативних рубриках, частка abstain, fairness аудити за акцентами.",
+      "limitation_uk": "Без репрезентативних людських оцінок немає валідної прогнозної CEFR/YKI шкали.",
+      "score_components": {
+        "evidence": 29,
+        "Finnish_YKI_fit": 30,
+        "A2_to_B1_fit": 20,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "task-based",
       "name_uk": "Task-Based Language Teaching: вирішення життєвого завдання",
       "score": 97,
@@ -188,7 +341,9 @@
       "sources": [
         "cefr",
         "tblt",
-        "kieliaudio"
+        "kieliaudio",
+        "tmtbltmeta25",
+        "genaitblt25"
       ],
       "reason_uk": "Одиницею навчання є досягнута мета спілкування, не лише знання правила.",
       "example_fi": "Soita huoltoyhtiöön: selitä ongelma, sovi aika, varmista jatko.",
@@ -202,6 +357,33 @@
         "implementation": 10,
         "learner_agency": 10
       }
+    },
+    {
+      "id": "error-bottleneck-deliberate",
+      "name_uk": "Deliberate practice: усунення індивідуальних вузьких місць",
+      "score": 96,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_INTEGRATIVE_TRANSFER",
+      "priority": "P0",
+      "sources": [
+        "retrieval",
+        "oralcf",
+        "writingcf",
+        "listenmeta45"
+      ],
+      "reason_uk": "Вправи на слабку навичку після діагностики мають вищий практичний пріоритет, ніж випадкова генерація уроків.",
+      "example_fi": "Minä odotan bussia / tulen bussilla: тренувати підтверджену помилку partitiivi vs adessiivi.",
+      "app_feature_uk": "Error taxonomy → 3-5 targeted prompts → independent near/far transfer → delayed re-test.",
+      "measurement_uk": "Зниження повторної помилки в незнайомих завданнях через 7/14 днів, без підказок.",
+      "limitation_uk": "Не маркувати весь словник як невідомий; пріоритезація — продуктна гіпотеза, потребує A/B валідації.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 20,
+        "implementation": 10,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
     },
     {
       "id": "prompted-self-repair",
@@ -253,6 +435,32 @@
       }
     },
     {
+      "id": "feedback-uptake-not-rewriting",
+      "name_uk": "Feedback literacy: самовиправлення, uptake, перевірка переносу",
+      "score": 95,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_WRITING_REVIEW_WITH_L2_TRANSFER",
+      "priority": "P0",
+      "sources": [
+        "genaiwrite79",
+        "aiwritereview22",
+        "writingcf"
+      ],
+      "reason_uk": "AI має виділяти головні комунікативні помилки й дозволяти учню їх самостійно виправити; не виконувати всю роботу.",
+      "example_fi": "Minä haluan palauttaa tämä tuote → löydä virhe itse: tämän tuotteen.",
+      "app_feature_uk": "Розділити error evidence, підказку, self-repair, порівняння, нову тему і delayed uptake.",
+      "measurement_uk": "Доля самовиправлених проблем та правильних нових відповідей без копіювання AI-тексту.",
+      "limitation_uk": "Миттєво красивіший текст не гарантує засвоєння; зміст і прагматика вимагають людського QA.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 10
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "task-repetition-transfer",
       "name_uk": "Task Repetition із перенесенням у нову ситуацію",
       "score": 95,
@@ -286,7 +494,9 @@
       "priority": "P0",
       "sources": [
         "explicit",
-        "finnmorph"
+        "finnmorph",
+        "formfocused36",
+        "focusform24"
       ],
       "reason_uk": "Явна граматика корисна, якщо одразу потрібна для конкретного смислового вибору.",
       "example_fi": "Menen kauppaan / olen kaupassa / tulen kaupasta.",
@@ -310,7 +520,8 @@
       "priority": "P0",
       "sources": [
         "metacog",
-        "kieliaudio"
+        "kieliaudio",
+        "listenmeta45"
       ],
       "reason_uk": "Вчить усвідомлено перевіряти розуміння, а не просто перезапускати трек.",
       "example_fi": "Mikä viestin aihe on? Mikä muuttui? Miksi?",
@@ -326,6 +537,32 @@
       }
     },
     {
+      "id": "negotiation-repair-dialogues",
+      "name_uk": "Negotiation of meaning: уточнення й відновлення спілкування",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_INTERACTION_AND_CEFR",
+      "priority": "P0",
+      "sources": [
+        "cefrm2020",
+        "cefronline",
+        "tmtbltmeta25"
+      ],
+      "reason_uk": "Мовні збої природно виникають у живій розмові; навчати перепитувати, уточнювати, перефразовувати та перевіряти розуміння.",
+      "example_fi": "Anteeksi, en saanut selvää. Tarkoititteko perjantaita vai maanantaita?",
+      "app_feature_uk": "Сценарій змінює умову; партнер не зрозумів → clarification prompt → candidate answer → confirm.",
+      "measurement_uk": "Відсоток успішних repair episodes та фінального task completion, а не швидкість відповіді.",
+      "limitation_uk": "Діалог AI не гарантує соціальну правдоподібність; потрібно обмежувати ролі й сценарії.",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 20,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "unseen-diagnostics",
       "name_uk": "Незалежна діагностика 4 навичок і переносу",
       "score": 94,
@@ -335,7 +572,9 @@
       "sources": [
         "cefr",
         "selfassess",
-        "yki"
+        "yki",
+        "ophgrade",
+        "cefrscale"
       ],
       "reason_uk": "Розмежовує тренувальний прогрес і реальну здатність виконувати нові задачі.",
       "example_fi": "Невідоме аудіо, новий лист і голосова ситуація без підказок.",
@@ -360,7 +599,9 @@
       "sources": [
         "writingcf",
         "writingrepeat",
-        "kieliwriting"
+        "kieliwriting",
+        "genaiwrite79",
+        "aiwritereview22"
       ],
       "reason_uk": "Комбінований фідбек за змістом і мовною формою допомагає письмовій компетентності.",
       "example_fi": "Напиши valitus, перевір вимоги, перепиши, потім інший лист.",
@@ -374,6 +615,32 @@
         "implementation": 9,
         "learner_agency": 9
       }
+    },
+    {
+      "id": "hybrid-ai-teacher-loop",
+      "name_uk": "AI рольові розмови + педагогічний контроль + AI literacy",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_GENAI_L2_INDIRECT",
+      "priority": "P0",
+      "sources": [
+        "genaitblt25",
+        "genai51_2026",
+        "genaireview144"
+      ],
+      "reason_uk": "AI масштабує кількість спроб; викладач валідовує складні зворотні зв'язки, моделі та пограничні випадки.",
+      "example_fi": "Soita terveyskeskukseen, kerro este ja pyydä uusi aika.",
+      "app_feature_uk": "Grounded scenario engine; structured rubric; teacher-approved key phrases; inspect low-confidence corrections.",
+      "measurement_uk": "Результат на незалежних сценаріях і rate of teacher disagreement; практика vs контрольний набір.",
+      "limitation_uk": "Більшість AI досліджень англійською; не прирівнювати чатбот до сертифікованого YKI-екзаменатора.",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 19,
+        "implementation": 10,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
     },
     {
       "id": "kirja-puhe",
@@ -423,6 +690,84 @@
         "implementation": 8,
         "learner_agency": 9
       }
+    },
+    {
+      "id": "evidence-guided-listening",
+      "name_uk": "Listening evidence audit: gist → деталі → чому помилився",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_STRATEGY_INDIRECT_FINNISH",
+      "priority": "P0",
+      "sources": [
+        "listenmeta45",
+        "metacog",
+        "cefrm2020"
+      ],
+      "reason_uk": "Потрібно розрізняти незнайоме слово, втрачений часовий зв'язок і неправильно почуту відповідь.",
+      "example_fi": "Kuuntele tiedote; päätä muuttuiko aika vai paikka; osoita vastaava kohta.",
+      "app_feature_uk": "First listen with hidden transcript; answer; targeted replay; reveal aligned transcript and evidence spans after attempt.",
+      "measurement_uk": "Unseen first-listen comprehension by gist/details/inference, помилки за типом.",
+      "limitation_uk": "Метааналіз різних L2 не встановлює конкретний ефект на фінський YKI; не вважати використання транскрипту самостійною діагностикою.",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21"
+    },
+    {
+      "id": "finnish-quantity-dual-track",
+      "name_uk": "Фінська фонологічна тривалість: окремо сприйняття і вимова",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "DIRECT_FINNISH_L2_EXPERIMENT",
+      "priority": "P0",
+      "sources": [
+        "finnquantity68",
+        "finnquantity18",
+        "asrmeta"
+      ],
+      "reason_uk": "Фінські короткі/довгі голосні та приголосні змінюють значення; дослідження N=68 зафіксувало gains у слуховому розпізнаванні, але не вимові.",
+      "example_fi": "tuli / tuuli; kuka / kukka — впізнай, потім скажи з різними людськими голосами.",
+      "app_feature_uk": "Human minimal pairs + multi-talker forced choice + recording + human/phonetic calibrated feedback.",
+      "measurement_uk": "Perception accuracy і production human-rated intelligibility — дві різні криві прогресу.",
+      "limitation_uk": "ASR transcript сам по собі не оцінює тривалість; дослід N=18 по приголосних не показав виробничого ефекту.",
+      "score_components": {
+        "evidence": 29,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 7
+      },
+      "added_at": "2026-10-21"
+    },
+    {
+      "id": "focus-on-form-trigger",
+      "name_uk": "Focus on Form під час комунікативного завдання",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_GRAMMAR_INDIRECT",
+      "priority": "P0",
+      "sources": [
+        "focusform24",
+        "formfocused36",
+        "explicit"
+      ],
+      "reason_uk": "Пояснювати потрібний відмінок або rektio після помилки в реальному завданні, а не ставити правила перед кожною розмовою.",
+      "example_fi": "Soitan opettajalle; kysyn opettajalta — керування різними дієсловами.",
+      "app_feature_uk": "Task → error trigger → concise rule+contrast → immediate second attempt → new context.",
+      "measurement_uk": "Correct form in next spontaneous task and retention after delay.",
+      "limitation_uk": "Не весь мовний контент слід перетворювати на grammar drills; мовний зміст первинний.",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21"
     },
     {
       "id": "high-variability-phonetics",
@@ -544,6 +889,57 @@
       }
     },
     {
+      "id": "cefr-mediation-paraphrase",
+      "name_uk": "CEFR mediation: пояснити текст/умову іншій людині просто",
+      "score": 90,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "FRAMEWORK_TRANSFER_HYPOTHESIS",
+      "priority": "P0",
+      "sources": [
+        "cefrm2020",
+        "cefrscale"
+      ],
+      "reason_uk": "YKI орієнтований на практичне розуміння й пояснення; компресія сенсу тренує speaking/writing, але не є окремим офіційним модулем.",
+      "example_fi": "Selitä ystävällesi, mitä taloyhtiön vesikatko tarkoittaa käytännössä.",
+      "app_feature_uk": "Read/listen short authentic-like notice → 30s plain Finnish summary for friend; constrained fact checking.",
+      "measurement_uk": "Покриття ключових фактів без вигадок, доступність пояснення, запитання адресата.",
+      "limitation_uk": "CEFR mediation не є доказом причинного ефекту на YKI; контролювати помилкові пояснення.",
+      "score_components": {
+        "evidence": 26,
+        "Finnish_YKI_fit": 28,
+        "A2_to_B1_fit": 18,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
+    },
+    {
+      "id": "digital-task-literacy",
+      "name_uk": "Digital test literacy: клавіатура, таймер, навушники, навігація",
+      "score": 90,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "OFFICIAL_DIGITAL_NEEDS_VALIDATION",
+      "priority": "P0",
+      "sources": [
+        "ophdigital",
+        "ophcalendar",
+        "ophgrade"
+      ],
+      "reason_uk": "2027 YKI проходить за комп'ютером; інтерфейс не повинен додавати сторонній бар'єр навіть за хорошої фінської.",
+      "example_fi": "Täytä vastaus kenttään; lue ohje ja lähetä kirjoitus ajan puitteissa.",
+      "app_feature_uk": "Neutral computer-based rehearsal without inventing exact OPH 2027 widgets; timed free text and audio practice.",
+      "measurement_uk": "Частка завершених завдань без технічних помилок та втрат часу, розділено з мовною оцінкою.",
+      "limitation_uk": "Не копіювати непідтверджений дизайн, клавіші, правила повторного програвання або ліміти цифрового YKI.",
+      "score_components": {
+        "evidence": 25,
+        "Finnish_YKI_fit": 30,
+        "A2_to_B1_fit": 20,
+        "implementation": 9,
+        "learner_agency": 6
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "productive-paraphrasing",
       "name_uk": "Продуктивне перефразування забутого слова",
       "score": 90,
@@ -568,6 +964,58 @@
       }
     },
     {
+      "id": "holdout-item-bank-and-calibration",
+      "name_uk": "Holdout item bank, difficulty tags і поступова психометрична калібровка",
+      "score": 89,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "ASSESSMENT_ENGINEERING_NOT_CLINICAL_TRIAL",
+      "priority": "P1",
+      "sources": [
+        "ophgrade",
+        "cefrscale",
+        "genaireview144"
+      ],
+      "reason_uk": "Робити чесне вимірювання: тренувальні завдання не входять до контрольного набору, складність фіксується за даними, а не фантазією AI.",
+      "example_fi": "Нова тема: техпідтримка або повернення грошей, не повтор тексту з уроку.",
+      "app_feature_uk": "Versioned train/test pools, teacher anchors, content hashing, exposure controls, sample-size and fairness gates.",
+      "measurement_uk": "Per-skill held-out trend, test–retest reliability, item drift і score standard error якщо калібровано.",
+      "limitation_uk": "Не оголошувати IRT чи точність B1 без достатнього корпусу людських відповідей та валідованих item parameters.",
+      "score_components": {
+        "evidence": 25,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 18,
+        "implementation": 7,
+        "learner_agency": 10
+      },
+      "added_at": "2026-10-21"
+    },
+    {
+      "id": "uncertainty-aware-asr",
+      "name_uk": "ASR як допоміжна підказка з оцінкою впевненості, не суддя",
+      "score": 89,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "ENGLISH_ASR_META_FINNISH_LIMIT",
+      "priority": "P1",
+      "sources": [
+        "asrmeta",
+        "asrsystematic24",
+        "finnquantity68"
+      ],
+      "reason_uk": "AI transcript може помилятися через акцент, шум, довгі звуки; автоматично карати фінську вимову лише по WER небезпечно.",
+      "example_fi": "Kysy: 'Saisinko uuden ajan?' → розпізнай зміст, попроси повторити лише за потреби.",
+      "app_feature_uk": "ASR result + uncertainty flags + user playback + manual correction + confirm correct pronunciation where measurable.",
+      "measurement_uk": "Human agreement on pronunciation and ASR false corrections by accent, noise and mic condition.",
+      "limitation_uk": "ESL ASR g=0.69 стосується англійської; для фінської немає підтвердженої калібрації.",
+      "score_components": {
+        "evidence": 26,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "phonemic-minimal-pairs",
       "name_uk": "Мінімальні фінські пари і тривалість звуків",
       "score": 88,
@@ -576,7 +1024,9 @@
       "priority": "P1",
       "sources": [
         "hvpt",
-        "hvptprod"
+        "hvptprod",
+        "finnquantity68",
+        "finnquantity18"
       ],
       "reason_uk": "Довжина звуку часто змінює смисл, тому важливі discrimination trials.",
       "example_fi": "tuli / tuuli, kukka / kuka.",
@@ -601,7 +1051,9 @@
       "sources": [
         "genai",
         "tblt",
-        "kieliaudio"
+        "kieliaudio",
+        "genaitblt25",
+        "genai51_2026"
       ],
       "reason_uk": "Забезпечує часту практику відповіді, але AI не завжди володіє бездоганною фінською.",
       "example_fi": "Soita hammaslääkäriin ja kysy iltapäiväaikaa.",
@@ -615,6 +1067,31 @@
         "implementation": 8,
         "learner_agency": 8
       }
+    },
+    {
+      "id": "fsrs-scheduler-chunks",
+      "name_uk": "FSRS-подібний data-driven scheduler для підтверджених chunks",
+      "score": 87,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "ENGINEERING_BENCHMARK_NO_FINNISH_INTERVENTION",
+      "priority": "P1",
+      "sources": [
+        "spaced",
+        "fsrsbench"
+      ],
+      "reason_uk": "Система повторень потребує оцінки пам'яті; FSRS — кандидат технології, але не свідчення росту YKI.",
+      "example_fi": "siirtää aikaa → самостійно відтворити через адаптивний інтервал у новій ситуації.",
+      "app_feature_uk": "Opt-in local SRS, delayed recall, cold-start defaults, explicit unknown detection, retention targets.",
+      "measurement_uk": "Calibration of predicted recall vs actual delayed recall + real-life novel use, not only flashcard clicks.",
+      "limitation_uk": "FSRS benchmark переважно на Anki: дані вибіркові та outcome інший; не обіцяти найкращого YKI результату.",
+      "score_components": {
+        "evidence": 25,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 19,
+        "implementation": 8,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21"
     },
     {
       "id": "glosses",
@@ -672,7 +1149,9 @@
       "priority": "P1",
       "sources": [
         "yki",
-        "cefr"
+        "cefr",
+        "ophgrade",
+        "ophdigital"
       ],
       "reason_uk": "Навчає виконувати чотири типи завдань у непідказаному режимі.",
       "example_fi": "Kirjoita mielipide, puhu ongelmasta ja kuuntele uusi viesti.",
@@ -710,6 +1189,32 @@
         "implementation": 10,
         "learner_agency": 9
       }
+    },
+    {
+      "id": "privacy-and-safe-personalization",
+      "name_uk": "Privacy-first learner analytics: явна згода, локальна історія",
+      "score": 85,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "PRODUCT_SAFETY_ENGINEERING",
+      "priority": "P1",
+      "sources": [
+        "genaireview144",
+        "cefronline",
+        "ophgrade"
+      ],
+      "reason_uk": "Голос, тексти і помилки — особисті дані, що потрібні для адаптації, але не мають опинятися в публічному GitHub.",
+      "example_fi": "Запис особистої рольової розмови доступний для видалення й повтору без передачі в репозиторій.",
+      "app_feature_uk": "Data minimization; consent for recording; encryption; delete/export; TTL; anonymous event metrics; model QA sandbox.",
+      "measurement_uk": "Deletion coverage, no PII in public exports, diagnostics stable without personal recordings.",
+      "limitation_uk": "Це інженерна/етична вимога, не експериментально підтверджений метод вивчення мови.",
+      "score_components": {
+        "evidence": 25,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 18,
+        "implementation": 7,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-21"
     },
     {
       "id": "visual-scaffolds",
@@ -952,6 +1457,31 @@
       }
     },
     {
+      "id": "ai-passive-rewrite-only",
+      "name_uk": "Пасивне AI-переписування відповідей без власної другої спроби",
+      "score": 46,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "RISK_FOR_UPTAKE",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "genaiwrite79",
+        "aiwritereview22"
+      ],
+      "reason_uk": "Гарний переписаний текст може створити ілюзію прогресу без власного активного використання.",
+      "example_fi": "Написати самостійно, отримати підказку, виправити й відповісти на нове питання — на противагу copy-paste.",
+      "app_feature_uk": "Ніколи не показувати готовий ідеальний еталон до першої спроби; не винагороджувати copy/paste.",
+      "measurement_uk": "No-confidence gain on unseen writing/speaking and number of unassisted self repairs.",
+      "limitation_uk": "Користувач може вивчити модель після власної спроби, але пасивний режим не повинен бути основним.",
+      "score_components": {
+        "evidence": 11,
+        "Finnish_YKI_fit": 10,
+        "A2_to_B1_fit": 10,
+        "implementation": 8,
+        "learner_agency": 7
+      },
+      "added_at": "2026-10-21"
+    },
+    {
       "id": "instant-answer",
       "name_uk": "Показ готової правильної відповіді до власної спроби",
       "score": 28,
@@ -1010,6 +1540,9 @@
     "Each score is the sum of five expert-assigned rubric components; points are not empirical effect sizes.",
     "Literature is reviewed to abstract/available public text level; full texts are not necessarily available.",
     "Evidence confidence describes source relevance, not independent teacher validation or measured Finnish/YKI gain.",
-    "Avoid source links claiming previous site functionality (e.g., discontinued Yle Kielikoulu)."
+    "Avoid source links claiming previous site functionality (e.g., discontinued Yle Kielikoulu).",
+    "2026-10-21: Extended 35-method baseline with 16 distinct methods/technology safeguards; also refreshed evidence on 9 legacy methods. No methods were removed or existing scores silently changed.",
+    "Finnish quantity studies show perception and production must be evaluated separately; ASR English effect sizes are not Finnish results.",
+    "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain."
   ]
 }
