@@ -1,5 +1,8 @@
 # ADR-022 — Hospodar YKI: оптимальний стек та модульна local-first архітектура
 
+> **PRODUCT AMENDMENT — ADR-023 (21.10.2026):** Додаток має бути також **2D Android-грою з повністю встановленими офлайн-мультимедіа ~2–3 ГБ**. Канонічна додаткова специфікація: [23 — Android offline game/Google Play Asset Delivery](23-android-offline-game-and-3gb-media-architecture.md). Вибір нижче **доповнено** Phaser для ігрових сцен, Capacitor 8 + Kotlin для Android і `install-time` Play Asset Delivery для ліцензованого медіа. Дві оболонки **Web/PWA та Android**, один TypeScript домен. Попереднє оцінювання **95/100 зроблене до вимоги Android-гри** і не є виміряною оцінкою APK/PAD/game performance. Самостійний один `.apk` 3GB не обіцяємо. До підтвердження на реальному Android/Google Play це лише архітектура.
+
+
 > **Дата:** 21.10.2026 · **Статус:** ACCEPTED AS TARGET ARCHITECTURE — дизайн-рішення, **не реалізація міграції**.  
 > **Ціль:** повноцінне B1/B1+ навчання фінської, 4 навички, натуральне аудіо/розмови, вимірюваний SRS, AI feedback, **навчальний режим та максимально достовірна репетиція цифрового YKI 2027**, мобільна UX і low-cost deployment.  
 > **Основа:** [11 — MVP ТЗ](11-mvp-product-requirements.md), [15 — 2×4 режимів](15-two-modes-skill-scopes.md), [19 — наука навчання](19-learning-books-to-engineering-2026-10.md), [20 — офіційний YKI](20-yki-official-complete-audit-2026-10.md), [21 — fidelity/державний іспит](21-digital-yki-exam-simulator-executable-spec.md).  
