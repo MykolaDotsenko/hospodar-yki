@@ -1,5 +1,26 @@
 # Hospodar YKI — MVP architecture and implementation checklist
 
+## Product architecture extension: shared skills, distinct mode policies
+
+The **canonical product-mode & module-choice requirements** are [docs/15-two-modes-skill-scopes.md](15-two-modes-skill-scopes.md) and the matching machine-readable [session scopes](../research/product-session-modes-v1.json). This is a **target architecture**, not a claim that the full selector is in the current app.
+
+```text
+ModePicker (LEARN | EXAM)
+   └── SkillScopePicker (ALL or individual READING/LISTENING/WRITING/SPEAKING)
+       ├── LEARN: adaptive_mix | structured_all | single_skill | custom_mix
+       │    └── LearningPlanner → question → feedback/self-repair/transfer → SRS
+       └── EXAM: full_exam | single_subtest | practice_subset | official_partial_profile
+            └── ExamBlueprintAssembler → timed/untimed rehearsal → delayed per-skill result
+```
+
+**One content registry; two policies.** Shared canonical skill IDs: `reading`, `listening`, `writing`, `speaking`. All item records need provenance, item version, exposure flag and `assessment_eligibility`. Independent `held_out_exam` items must not be exposed to students by training mode before unseen assessment. No training-only shortcuts inside exam policy.
+
+**Selector invariants:** `adaptive_mix` and `structured_all` have four skills; `single_skill` and `single_subtest` have one; `full_exam` has four; custom practice subsets have two or three. `official_partial_profile` allows one or two skills drawn strictly from `allowedSkills` for a verified OPH date (not an arbitrary calendar booking). Order/timing/replay are official only if separately evidenced.
+
+**Persistent data:** `selectionByMode` + separate `learningAttempts`, `srsCards`, `practiceExamAttempts`, `skillEvidence`, with schema migration/version and export/delete. Do not combine objective mock accuracy with subjective writing/speaking into one purported YKI grade.
+
+**Implementation status:** existing `app/index.html` contains a mission, and `app/exam.html` contains 9-item 4-skill rehearsals. A fully implemented home mode picker and single-module route, a four-skill adaptive planner, true full-length digital exam and official-profile feature are **still planned**. See [acceptance scenarios](15-two-modes-skill-scopes.md#7-критерії-приймання-матриця-тестування-не-декларація-виконання).
+
 ## Decision record (2026-10-21)
 
 **Stage 1 architecture: zero-build browser ES modules** (`app/index.html`, `app/core.mjs`, `app/app.mjs`, `app/styles.css`). The existing repository is content-first, not a frontend project. No backend, Node package downloads or paid speech API is needed for a truthful runnable vertical slice.
