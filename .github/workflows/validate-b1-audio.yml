@@ -1,0 +1,26 @@
+name: Validate B1 Finnish listening audio and answer keys
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'audio/tts/**'
+      - 'content/b1/audio-training/index.json'
+      - 'scripts/validate_b1_audio_pack.py'
+      - '.github/workflows/validate-b1-audio.yml'
+  pull_request:
+    paths:
+      - 'audio/tts/**'
+      - 'content/b1/audio-training/index.json'
+      - 'scripts/validate_b1_audio_pack.py'
+permissions:
+  contents: read
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check 37 real OGGs, SHA, 23 transcripts and 56 answers
+        run: python3 scripts/validate_b1_audio_pack.py
