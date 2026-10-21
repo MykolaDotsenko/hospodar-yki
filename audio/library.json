@@ -8,12 +8,13 @@
     "open_original": 14,
     "open_derived": 12,
     "synthetic_original_training": 37,
-    "total_files": 84,
+    "total_files": 85,
     "synthetic_lesson_count": 23,
     "question_count": 56,
     "human_fleurs_corpus_imported": 0,
     "human_librivox_excerpts": 15,
-    "tts_b1_long": 6
+    "tts_b1_long": 6,
+    "human_public_domain_story": 1
   },
   "not_official_exam": true,
   "rights_note": "Check source attribution per original in audio/available.json; synthetic originals use project-created text plus Piper Harri voice. Do not conflate this catalog with official YKI audio.",
@@ -1378,6 +1379,23 @@
       "subtitles_ref": "audio/long/b1/b1long-06-uimahallin-uusi-ryhma.vtt",
       "lesson_ref": "content/b1/audio-long/lessons.json",
       "qa": "machine_checked_native_teacher_review_pending"
+    },
+    {
+      "id": "human-prinsessa-complete",
+      "kind": "human_public_domain_story",
+      "path": "audio/human/short-stories/todellinen-prinsessa-cygnaeus.mp3",
+      "synthetic": false,
+      "actual_human": true,
+      "license": "Public domain Finland (original author and translator 70 years after death; LibriVox PD recording)",
+      "author": "Cygnaeus / LibriVox",
+      "source_page": "https://librivox.org/satuja-ja-tarinoita-i-by-hans-christian-andersen/",
+      "duration_seconds": 158.59,
+      "level": "B1+–B2 literary, NOT calibrated",
+      "topic": "fiction",
+      "transcript_ref": "audio/human/short-stories/todellinen-prinsessa-original-text-fi.txt",
+      "subtitles_ref": null,
+      "lesson_ref": "content/b1/audio-long/human-stories.json",
+      "qa": "original_story_transcript_not_aligned_teacher_review_pending"
     }
   ],
   "lesson_manifest": "content/b1/audio-training/index.json",
@@ -1385,5 +1403,6 @@
   "segment_manifest": "audio/segments/index.json",
   "fleurs_import_status": "blocked_by_external_dataset_API_HTTP_500_501_on_2026_10_21",
   "librivox_manifest": "content/b1/audio-training/librivox-human.json",
-  "b1_long_manifest": "content/b1/audio-long/lessons.json"
+  "b1_long_manifest": "content/b1/audio-long/lessons.json",
+  "human_story_manifest": "content/b1/audio-long/human-stories.json"
 }
