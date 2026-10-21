@@ -3,7 +3,7 @@
   "level": "A2.2-B1",
   "origin": "project_original_generated",
   "is_official_exam_content": false,
-  "notes_uk": "Контекстні вправи на форми в реченнях. На реальному YKI окремої таблиці обов'язкових граматичних тем немає.",
+  "notes_uk": "Контекстні вправи на форми в реченнях. На реальному YKI окремої таблиці обов'язкових граматичних тем немає. Пілот значення перед формою: три прості meaning_uk/semantic_relation_uk, позначені як редакційні чернетки (pending S2). Не використовувати як калібровані офіційні завдання YKI.",
   "count": 28,
   "exercises": [
     {
@@ -15,7 +15,10 @@
       "transfer_task_fi": "Kerro, minne menet huomenna.",
       "id": "b1-g-001",
       "type": "contextual_cloze",
-      "level": "A2.2-B1"
+      "level": "A2.2-B1",
+      "meaning_uk": "Завтра я піду до бібліотеки.",
+      "semantic_relation_uk": "рух до місця: куди?",
+      "meaning_review_status": "editorial_draft_pending_S2_review"
     },
     {
       "prompt_fi": "Tulin juuri ___ (kauppa).",
@@ -26,7 +29,10 @@
       "transfer_task_fi": "Kerro, mistä tulet.",
       "id": "b1-g-002",
       "type": "contextual_cloze",
-      "level": "A2.2-B1"
+      "level": "A2.2-B1",
+      "meaning_uk": "Я щойно прийшов із магазину.",
+      "semantic_relation_uk": "рух із місця: звідки?",
+      "meaning_review_status": "editorial_draft_pending_S2_review"
     },
     {
       "prompt_fi": "Olen nyt ___ (koulu).",
@@ -37,7 +43,10 @@
       "transfer_task_fi": "Kerro, missä olet tänään.",
       "id": "b1-g-003",
       "type": "contextual_cloze",
-      "level": "A2.2-B1"
+      "level": "A2.2-B1",
+      "meaning_uk": "Я зараз у школі.",
+      "semantic_relation_uk": "перебування в місці: де?",
+      "meaning_review_status": "editorial_draft_pending_S2_review"
     },
     {
       "prompt_fi": "Soitan huomenna ___ (lääkäri).",
