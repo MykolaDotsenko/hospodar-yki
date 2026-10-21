@@ -166,3 +166,9 @@ Evidence-informed навчання живої фінської: реалісти
 **[11 книжок, 13 наукових/практичних джерел → 13 конкретних рішень для застосунку](docs/19-learning-books-to-engineering-2026-10.md)** · **[JSON реєстр із трасованістю до наявних 67 методик](research/learning-blueprints-books-v1.json)** · **[ТЗ LE-01…13 і AC-47…59](docs/15-two-modes-skill-scopes.md)**.
 
 Нове рішення — не дублювати поради, а реалізувати **session engine**, який веде учня від незалежного retrieval через **meaning-first feedback** і guided self-repair до **нової ситуації без підказок і delayed review**. SRS 1/3/7/14/30 — прозорий тимчасовий baseline, не «оптимальна нейроформула». Книжки перевірені за відкритими дозволеними описами/авторськими уривками, повні захищені тексти не копіювалися. Новий full adaptive scheduler — **план**, не готова функція.
+
+## 🔬 Повний офіційний аудит YKI → точна імітація (2026-10-21)
+
+**[20 — OPH, Finlex, 4 SOLKI skill demos, B1/B2 рубрики, 9 тем і 6 мовних функцій](docs/20-yki-official-complete-audit-2026-10.md)** · **[21 — цифровий simulator state machine, 6 fidelity axes та EXV-01..20](docs/21-digital-yki-exam-simulator-executable-spec.md)** · **[40 доказово пов'язаних claims/15 невідомих](research/official-yki-deep-audit-v2.json)** · **[13 форм завдань + 12 історичних зразків](research/yki-official-patterns-v2.json)**.
+
+У 2027 тест цифровий, але точні OPH UI/timers/audio/record/editing правила станом на жовтень 2026 ще **не публічно підтверджені**. Попередні SOLKI/2011 відповіді на паперових бланках — **legacy**, не digital-2027. Не заявляти «100% точна симуляція», доки evidence ledger + developer tests + teacher calibration це не підтвердять. Повних офіційних задач чи MP3 без прав у Git не копіюємо.
