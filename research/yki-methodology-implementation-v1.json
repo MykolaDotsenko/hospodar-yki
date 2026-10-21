@@ -11,7 +11,8 @@
     "Separate perception and production and separate four YKI skills",
     "Consent, delete/export for voice/writing and error history",
     "All AI corrections uncertainty-aware, not official YKI grade",
-    "Optimize transfer/retention rather than time-on-app or superficial streaks"
+    "Optimize transfer/retention rather than time-on-app or superficial streaks",
+    "2026-10-21: New methods must prove delayed unseen gains, not momentary vocabulary recognition or motivational correlations."
   ],
   "modules": [
     {
@@ -483,5 +484,104 @@
     "Privacy and accessibility smoke tests",
     "At least one delayed-transfer outcome for every learning intervention",
     "Human-labeled teacher benchmark used before score calibration"
-  ]
+  ],
+  "new_evidence_workstreams": [
+    {
+      "id": "guided-corpus-rektio",
+      "priority": "P0",
+      "research_method_ids": [
+        "guided-corpus-discovery",
+        "corpus-collocation-noticing",
+        "finnish-morph-contrast"
+      ],
+      "assets": [
+        "content/b1/grammar/ftb-frequency-cloze-v1.json",
+        "content/b1/grammar/rektio-v1.json"
+      ],
+      "flow": "3–5 teacher-reviewed Finnish corpus examples → learner hypothesis → small contrast → unseen new sentence",
+      "done_when": [
+        "All included examples carry CC BY credits and teacher acceptance",
+        "Alternative grammatical forms accepted/flagged instead of automatically wrong",
+        "Retest on unseen rektio after 7 days"
+      ],
+      "status": "researched_not_implemented"
+    },
+    {
+      "id": "dual-code-context-vocab",
+      "priority": "P1",
+      "research_method_ids": [
+        "multimedia-dual-code",
+        "spaced-retrieval",
+        "mobile-contextual-micropractice"
+      ],
+      "assets": [
+        "content/b1/lexicon/contextual-chunks-v1.json"
+      ],
+      "flow": "Finnish chunk + accurate Ukrainian gloss + relevant image → active sentence → image-hidden delayed use",
+      "done_when": [
+        "Licensed images or owned illustrations only",
+        "No effect claimed from card clicks",
+        "Active delayed recall measured separately from passive recognition"
+      ],
+      "status": "researched_not_implemented"
+    },
+    {
+      "id": "peer-writing-optional",
+      "priority": "P1",
+      "research_method_ids": [
+        "peer-writing-with-prompts",
+        "collaborative-writing",
+        "balanced-deep-surface-feedback"
+      ],
+      "assets": [
+        "content/b1/high-yield/writing-repair-clinic.json"
+      ],
+      "flow": "Draft → opt-in peer/teacher comments using semantic rubric → self repair → unseen solo writing",
+      "done_when": [
+        "Consent and privacy controls for shared drafts",
+        "No peer corrections automatically considered authoritative",
+        "Final mastery checked on independent writing"
+      ],
+      "status": "researched_not_implemented"
+    },
+    {
+      "id": "planning-and-sequence",
+      "priority": "P0",
+      "research_method_ids": [
+        "pre-task-planning",
+        "graduated-task-sequencing",
+        "learner-concept-map"
+      ],
+      "assets": [
+        "content/b1/high-yield/opinion-argumentation-v1.json"
+      ],
+      "flow": "Sketch reasons → say/write answer → one added problem → turn off scaffolds → independent response",
+      "done_when": [
+        "Training planning time is not mislabeled as official exam prep time limit",
+        "No rehearsal prompt reused as unseen assessment",
+        "Coherence and task success tracked separately from grammar"
+      ],
+      "status": "researched_not_implemented"
+    },
+    {
+      "id": "quantity-visualization-experiment",
+      "priority": "P2",
+      "research_method_ids": [
+        "visual-acoustic-speech-feedback",
+        "finnish-quantity-dual-track"
+      ],
+      "assets": [
+        "audio/library.json"
+      ],
+      "flow": "Different licensed human speakers → quantity identification → optional audio-waveform visual comparison → human calibrated production",
+      "done_when": [
+        "Do not use transcript WER as accent correctness",
+        "Human expert calibration and speaker consent",
+        "Separate perception and production score curves"
+      ],
+      "status": "research_option_only"
+    }
+  ],
+  "updated_at": "2026-10-21",
+  "evidence_effectiveness_registry": "research/learning-effectiveness-ratings-v1.json"
 }
