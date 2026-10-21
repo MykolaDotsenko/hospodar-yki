@@ -358,3 +358,43 @@ type Session = {
 **Success metric:** `day_7_first_attempt_unseen_uncued` (та `day_14`), контроль збереження змісту `listening_gist_without_captions`. `streak`, taps, time in app, immediate MCQ score — діагностичні вторинні сигнали, не доказ B1.
 
 **Виконавчий статус:** вимоги й дослідження збережені, реалізація повного IV-набору і контрольовані випробування **ще не проведені**. Не змінювати ці позначення автоматично на `implemented`.
+
+## 9. BOOKS-TO-ENGINE: доказові принципи → конкретні правила навчання (P0/P1)
+
+**Канонічне поглиблене дослідження:** [19 — 11 книжок + 13 наукових джерел](19-learning-books-to-engineering-2026-10.md). **Машинозчитувана трасованість:** [learning-blueprints-books-v1.json](../research/learning-blueprints-books-v1.json). **Не дублювати наявні** [67 методик](08-learning-methods-evidence-2026-10.md); кожна нова вимога посилається на існуючий `method_id` і окремий DOI або офіційний авторський опис. **Книга не є причинним експериментом із результатом YKI.**
+
+| ID | Вимога | Priority | Acceptance |
+|---|---|---|---|
+| **LE-01** | Спочатку власна відповідь, потім ключ, окремий журнал першої спроби | P0 | Усі навчальні `hint_level` / самовиправлення відокремлені від `first_attempt_correct` |
+| **LE-02** | Адаптивний SRS за recall + target horizon | P0/P1 | Дні 1/3/7/14/30 — лише baseline; retention вимірюється, не заявляється оптимальною формулою |
+| **LE-03** | Scaffolding новачку з поступовим прибиранням | P1 | `example→guided→independent`, а не нескінченні легкі вправи або непосильні тести |
+| **LE-04** | Contrastive interleaving близьких граматичних форм | P1 | Нову конструкцію спершу зрозуміти, потім чергувати схожі форми (illatiivi/elatiivi/inessiivi) |
+| **LE-05** | Task-based реальні фінські сценарії | P0 | Є `task_goal`, `audience`, `register`, `communicative_outcome` |
+| **LE-06** | Змістовий коригувальний фідбек → guided repair | P0 | `goal_success` перед `surface_errors`, обмежена кількість high-priority помилок, нова спроба |
+| **LE-07** | Голос/фонетика без фальшивої оцінки | P1 | Фінська quantity contrast + людські голоси, STT не прирівнюється до оцінки вимови |
+| **LE-08** | Аудіювання gist-first, captions після відповіді | P1 | Перший audio pass без transcript; перевірений VTT тільки під час feedback |
+| **LE-09** | Письмо: структура/зміст окремо від граматики, потім rewrite | P1 | Містить `content_coverage`, `coherence`, `linguistic_form`, unseen changed-audience task |
+| **LE-10** | Незнайома перевірка transfer через 7/14 днів і exposure log | P0 | 4 skill result streams, ніякого повтореного іспитового завдання як unseen |
+| **LE-11** | Калібрування впевненості учня без шеймінгу | P1 | Опційне `confidence` + фактична незалежна відповідь, без конвертації в CEFR |
+| **LE-12** | Проста регулярна дія / короткі місії без примусових streaks | P1 | `10/20/30 хв`, `Продовжити`, reminders opt-in, навчальна мета зрозуміла |
+| **LE-13** | Контентний граф із ліцензіями й S2-review статусом | P0 | У кожного scored item — provenance, review, version, isolated exam bank |
+
+### Обов'язкові додаткові приймальні тести
+
+- **AC-47:** перший recall не перезаписується після feedback або самовиправлення.
+- **AC-48:** scheduler не називає MVP фіксований розклад `1/3/7/14/30` єдиним науково оптимальним; здатний підмінити його адаптивним policy.
+- **AC-49:** novice/advanced користувачам доступні різні ступені допомоги без зміни цілей; help зникає у transfer.
+- **AC-50:** contrastive mix порівнює схожі фінські конструкції після початкового засвоєння; seedable/reproducible для тестів.
+- **AC-51:** оцінюється комунікативний результат реальної ситуації, не лише відсутність морфологічної помилки.
+- **AC-52:** corrective feedback не приховує змістових помилок та не показує вигадані «100/100 B1».
+- **AC-53:** speaking feedback не визначає CEFR тільки за STT/ASR; без permission voice recording не вмикається.
+- **AC-54:** listening transcript не видимий до відповіді, лише по speaker-verified audio/timecodes.
+- **AC-55:** writing feedback розділяє purpose/coherence/form та перевіряє незалежний rewrite.
+- **AC-56:** independent 7/14-day items нові та не демонструвалися користувачу в learn/exam.
+- **AC-57:** optional self-confidence не використовується як оцінка YKI і не породжує каральної UI.
+- **AC-58:** навігація дає швидкий старт 10/20/30 хв; відсутність streak не блокує або не стирає прогрес.
+- **AC-59:** rights/S2-review/versioning блокують оцінні твердження про неперевірений Finnish контент.
+
+**Metrics:** Primary `7-day_unseen_cueless_skill_success` (four separate streams, productive skills human-validated); secondary `14-day transfer`, `error recurrence`, `time-to-goal`, `skill coverage`; guardrails `gist comprehension`, privacy and content validity. Не видавати експертний `priority100` за науково виміряний ефект.
+
+**Статус:** acceptance/specification **додано**, нові планувальник, 7/14-day evaluation і калібрований feedback **ще не реалізовані повністю**. Документація не змінює статус коду.

@@ -84,3 +84,26 @@ Tests: `node --test app/tests/*.test.mjs` (Node 20+).
 **Do not** double-click `app/index.html` via file:// — browser fetch security blocks JSON requests.
 
 **Status:** this architecture document is for MVP scope, not evidence of a deployed service.
+
+## Learning-science implementation bridge (21.10.2026)
+
+**[Books → evidence → 13 engineering features](19-learning-books-to-engineering-2026-10.md)** · **[machine registry](../research/learning-blueprints-books-v1.json)** · canonical acceptance LE-01…13 in [product spec](15-two-modes-skill-scopes.md).
+
+**Target packages (architecture design only):**
+
+```text
+Existing methodology registry (67 approaches) + licensed reviewed content
+ → SessionPlanner{mode, selectedSkills, targetDate, timeBudget}
+ → RetrievalScheduler{due, firstAttempt, confidence?, horizon, exposureHistory}
+ → TaskPolicy{noviceGuidance, retrievalFirst, mixedContrast, heldOut}
+ → CommunicativeAttempt{goal, recipient, register, userAnswer}
+ → FeedbackPolicy{goalBeforeForm, importantErrors<=3, teacherAbstain}
+ → Repair/Transfer{noCue, freshContext, modeIsLearn}
+ → EvidenceLedger{4skill, 7d/14dUnseen, contentVersion, reviewStatus}
+```
+
+**Invariant:** exam mode uses no teaching feedback prior to finish, held-out independently versioned tasks, no CEFR/YKI score from objective-only accuracy; productive assessment requires human anchors and uncertainty.  
+**Persistence:** original first attempt write-once, follow-up self-repair new event, `hintLevel` separate from correctness, item exposure IDs, `lastReviewed`, `due`; right to export/delete; no stored raw voice absent consent.  
+**Scheduler:** current `INTERVAL_DAYS=[1,3,7,14,30]` remains **heuristic transparent MVP fallback**; no evidence it is globally optimal. Equal/expanding intervals were not reliably separated in L2 meta; evaluate data-driven alternatives against unseen retention.  
+**Testing:** deterministic session planner; no starvation for 4 skills; novice content cannot be impossible by policy; zero answer leakage; 7/14-day held-out first attempts must not contain previously taught test item.  
+**No false rollout:** work listed is **planned**, the current vertical mission and mini mock have only partial supporting primitives.
