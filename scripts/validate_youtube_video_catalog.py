@@ -84,6 +84,26 @@ def main() -> int:
             assert row["skills"] and row["topics"]
             assert row["known_episodes"] >= 1
         print(f"OK: {len(publisher_ids)} distinct external publisher video-series URLs, not mixed with YouTube IDs")
+    episode_path = ROOT / "video/publisher-episode-catalog.json"
+    if episode_path.is_file():
+        index = json.loads(episode_path.read_text(encoding="utf-8"))
+        assert index["schema_version"] == "1.0.0"
+        assert index["kind"] == "publisher-hosted-individual-video-episodes-not-youtube"
+        used_urls, used_ids = set(), set()
+        for row in index["items"]:
+            assert row["id"] not in used_ids
+            used_ids.add(row["id"])
+            assert row["url"] not in used_urls
+            used_urls.add(row["url"])
+            assert re.fullmatch(r"https://areena[.]yle[.]fi/1-[0-9]+", row["url"])
+            assert row["provider"] == "yle_areena"
+            assert row["duration_seconds"] > 0
+            assert 0 <= row["expert_product_fit_score_100"] <= 100
+            assert row["embedding_allowed"] is None
+            assert row["playback_verified"] is False
+            assert row["review"] == "teacher_review_pending"
+            assert row["original_prompt_fi"] and row["topics"] and row["skills"]
+        print(f"OK: {len(used_ids)} distinct Yle Areena episode URLs, separate from YouTube")
     print(f"OK: {len(item_ids)} distinct YouTube watch links, " +
           f"{sum(len(i['chapters']) for i in data['items'])} chapter markers; " +
           "all study items correctly labeled pending external/player review")
