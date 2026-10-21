@@ -1,0 +1,25 @@
+name: Validate unified YKI listening library and study plan
+on:
+  push:
+    branches: [main]
+    paths:
+      - audio/library.json
+      - audio/program-4weeks.json
+      - scripts/validate_listening_library.py
+      - .github/workflows/validate-listening-library.yml
+  pull_request:
+    paths:
+      - audio/library.json
+      - audio/program-4weeks.json
+      - scripts/validate_listening_library.py
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/validate_listening_library.py
