@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "purpose": "Videos that simulate YKI task-taking and official test-organizer example pages. Distinguish pedagogical mock from a complete official examination and spring-2027 digital interface.",
+  "status": "links_and_classification_only_teacher_review_pending",
+  "copyright": "Do not download/redistribute YouTube, JYU, Yle materials without rights. Source video/player rights and source-based task keys are unverified.",
+  "scoring_disclaimer": "The 0–100 scores are editorial match to YKI mock utility, NOT estimated score outcomes or fidelity percentages.",
+  "official_2027_policy": {
+    "source": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+    "claim": "OPH states all spring-2027 Finnish YKI tests are digital.",
+    "unverified": "These old official example pages and pre-2027 YouTube videos do not independently verify the final 2027 digital player UI, timing, audio controls or grading. Keep simulator DIGITAL_2027_VERIFIED disabled until evidence is published.",
+    "reference_explanation": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+    "official_examples_not_real_past_exam_items": true
+  },
+  "mock_youtube_videos": [
+    {
+      "id": "yki-harjoitus-timed-speaking-2022",
+      "youtube_video_id": "htrQhR-HGM4",
+      "url": "https://www.youtube.com/watch?v=htrQhR-HGM4",
+      "creator": "YKI Harjoitus",
+      "name": "YKI speaking practice with timed pauses and answer examples",
+      "source_quality": "publisher description with exact timecoded practice and answers",
+      "type": "third_party_timed_part_mock",
+      "covers": [
+        "speaking:kertominen",
+        "speaking:keskustelu",
+        "speaking:tilanteita",
+        "speaking:mielipide"
+      ],
+      "practice_start_seconds": 0,
+      "model_answers_start_seconds": 982,
+      "fit_100": 98,
+      "existing_catalog_id": "yt-yki-speaking-more",
+      "is_full_four_skill_mock": false,
+      "is_verified_digital_2027_mock": false,
+      "teacher_review": "pending",
+      "notes": "Best video-only speaking mock in existing 47-item collection: practice first, samples after 16:22. Creator sets answer times, but they must not be called official 2027 exam timings."
+    },
+    {
+      "id": "yki-harjoitus-speaking-example-2022",
+      "youtube_video_id": "EcIuejiFLZo",
+      "url": "https://www.youtube.com/watch?v=EcIuejiFLZo",
+      "creator": "YKI Harjoitus",
+      "name": "YKI Harjoitus – Puhuminen 1",
+      "source_quality": "publisher full video chapter list",
+      "type": "third_party_section_example_with_immediate_answer_leakage",
+      "covers": [
+        "speaking:kertominen",
+        "speaking:keskustelu",
+        "speaking:tilanteita",
+        "speaking:mielipide"
+      ],
+      "practice_start_seconds": 5,
+      "model_answers_start_seconds": 40,
+      "fit_100": 90,
+      "existing_catalog_id": "yt-yki-speaking-1",
+      "is_full_four_skill_mock": false,
+      "is_verified_digital_2027_mock": false,
+      "teacher_review": "pending",
+      "notes": "At 0:40 already the first example answer. A learner who has watched it cannot use it as an unseen timed assessment."
+    },
+    {
+      "id": "yki-harjoitus-tilanteita-2023",
+      "youtube_video_id": "GDsP04gyZv8",
+      "url": "https://www.youtube.com/watch?v=GDsP04gyZv8",
+      "creator": "YKI Harjoitus",
+      "name": "YKI speaking practice: tilanteita + model answers + phrases",
+      "source_quality": "publisher video chapter list",
+      "type": "third_party_section_mock_only",
+      "covers": [
+        "speaking:tilanteita"
+      ],
+      "practice_start_seconds": 7,
+      "model_answers_start_seconds": 202,
+      "fit_100": 91,
+      "existing_catalog_id": "yt-yki-speaking-situations",
+      "is_full_four_skill_mock": false,
+      "is_verified_digital_2027_mock": false,
+      "teacher_review": "pending",
+      "notes": "Independent response part 00:07–03:22, model answers after 03:22, extra useful phrases after 05:36."
+    }
+  ],
+  "official_organizer_samples": [
+    {
+      "id": "solki-yki-overview",
+      "url": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/",
+      "creator": "University of Jyväskylä / SOLKI",
+      "type": "organizer_sample_index_4_skills",
+      "fit_100": 100,
+      "skills": [
+        "reading",
+        "writing",
+        "listening",
+        "speaking"
+      ],
+      "verified": "public organizer index available",
+      "notes": "Four different intermediate-level example sections; official source sample but not actual past examination questions."
+    },
+    {
+      "id": "solki-intermediate-speaking",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "creator": "University of Jyväskylä / SOLKI",
+      "type": "organizer_audio_demonstration",
+      "fit_100": 100,
+      "skills": [
+        "speaking"
+      ],
+      "verified": "publisher page with 8 or more separate MP3 demonstrations and written prompts/time labels",
+      "notes": "Classic four speaking task families: narration, simulated conversations, situations, opinion. Examples include a call about renting a party room, pharmacy, complaint about renovation. Historical legacy timing only, never automatically strict digital-2027 rules."
+    },
+    {
+      "id": "solki-intermediate-listening",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "creator": "University of Jyväskylä / SOLKI",
+      "type": "organizer_audio_demonstration",
+      "fit_100": 100,
+      "skills": [
+        "listening"
+      ],
+      "verified": "publisher page with exercises and publicly playable original MP3 links",
+      "notes": "Multiple choice, true/false and open-ended B1/B2-style listening exercises with answers written on original publisher page. Old answer-sheet instructions paper legacy."
+    },
+    {
+      "id": "solki-intermediate-reading",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "creator": "University of Jyväskylä / SOLKI",
+      "type": "organizer_text_demonstration",
+      "fit_100": 100,
+      "skills": [
+        "reading"
+      ],
+      "verified": "Linked from official intermediate index; target page intermittently returns 502 in web fetch",
+      "notes": "Verify individual reading items and 2027 presentation separately."
+    },
+    {
+      "id": "solki-intermediate-writing",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "creator": "University of Jyväskylä / SOLKI",
+      "type": "organizer_text_demonstration",
+      "fit_100": 100,
+      "skills": [
+        "writing"
+      ],
+      "verified": "Linked from official intermediate index; target page intermittently times out on web fetch",
+      "notes": "Verify individual writing items and 2027 presentation separately."
+    }
+  ],
+  "other_video_references": [
+    {
+      "id": "gimara-speaking-explainer-2020",
+      "youtube_video_id": "asoKfPYu6pY",
+      "url": "https://www.youtube.com/watch?v=asoKfPYu6pY",
+      "name": "Puhumisen osakoe – Speaking subtest (YKI Intermediate)",
+      "creator": "Gimara Oy / Arffman Finland",
+      "type": "historical_exam_format_explainer_not_mock",
+      "fit_100": 86,
+      "source_quality": "Filmot indexed direct YouTube video ID with Gimara publisher transcript",
+      "notes": "Explanatory clip describes four speaking types and 2020 language studio arrangements; cannot verify 2027 digital UI."
+    },
+    {
+      "id": "gimara-yki-playlist",
+      "url": "https://www.youtube.com/playlist?list=PLUCgSYHrzBhk8Lrz1_a1i4md2YXyeG7Kb",
+      "name": "YKI Test practice – playlist",
+      "creator": "YouTube source index",
+      "type": "mixed_practice_playlist_not_single_full_mock",
+      "fit_100": 85,
+      "source_quality": "public playlist index, individual clips and rights not audited",
+      "notes": "Use for finding further mock videos but do not claim every clip is a timed real-exam simulation."
+    }
+  ],
+  "not_full_b1_mocks": [
+    {
+      "id": "dailyfinnish-yki-beginner",
+      "url": "https://www.youtube.com/watch?v=qb-NFR74m8Q",
+      "creator": "Daily Finnish",
+      "type": "A1-A2_story_about_YKI_with_mock_in_narrative",
+      "publisher_claimed_level": "A1-A2",
+      "reason": "11 fictional slow dialogues following a person preparing for YKI. Segment about a mock starts 38:32, but recording is NOT an independently administered, timed four-skill B1 exam."
+    },
+    {
+      "id": "dailyfinnish-yki-basics",
+      "url": "https://www.youtube.com/watch?v=hiucp_IWbaM",
+      "creator": "Daily Finnish",
+      "type": "A1-A2_story_about_test",
+      "publisher_claimed_level": "A1-A2",
+      "reason": "Six connected easy Finnish conversation scenes about YKI, preparation and feedback; do not classify as B1 exam simulation."
+    }
+  ],
+  "implementation_rules": [
+    "Distinguish source_type=organizer_demo, timed_section_mock, tutorial_with_examples, exam_overview, background_video_about_exam.",
+    "Teacher-vetted source provenance and real player QA are required before content becomes learner-usable in product. Store all sources as external links only.",
+    "Refuse to label any pre-2027 video a verified digital 2027 simulation. Only official newly documented behavior enters strict exam fidelity.",
+    "Practice video sample answers are exposed through the player and can be sought: record used_sources and prohibit their use in held-out exam mode.",
+    "For real exam-like learning: answer independently first, record speaking response outside the embed if consented, then compare with examples; never fake OPH grading.",
+    "Some official SOLKI examples link MP3: link to sources, do not copy originals without permission.",
+    "Do not borrow third-party copyrighted mock test questions or model answers into first-party original question bank."
+  ]
+}
