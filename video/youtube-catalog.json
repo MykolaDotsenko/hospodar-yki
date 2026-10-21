@@ -3,7 +3,7 @@
   "created_at": "2026-10-21",
   "catalog_type": "youtube_watch_links_only",
   "goal": "A2.2 to B1/B1+ Finnish and 4-skill YKI practical preparation",
-  "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified. Round 2 appended 16 new direct video URLs with indexed title/creator descriptions, except one link supported by publisher-referenced podcast or syndicated metadata. No full-video inspection, availability or embed approval claimed; Haaga-Helia short dialogues have publisher CC BY-ND 4.0 and no subtitles.",
+  "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified. Round 2 appended 16 new direct video URLs with indexed title/creator descriptions, except one link supported by publisher-referenced podcast or syndicated metadata. No full-video inspection, availability or embed approval claimed; Haaga-Helia short dialogues have publisher CC BY-ND 4.0 and no subtitles. The Mari interview YouTube ID is linked from the publisher's podcast episode; original YouTube page title and embed not verified.",
   "display_policy": "Scores expert product fit, not measured learning outcomes; levels tentative where not explicitly asserted by creator",
   "copyright": "Do not download, mirror, re-upload or scrape YouTube videos/captions. Use direct URL and later official YouTube embedding/player API subject to platform terms; preserve branding and attribution.",
   "review_workflow": [
@@ -1545,7 +1545,7 @@
       ],
       "product_fit_score_100": 93,
       "why_useful": "26-minute authentic two-speaker conversation with S2 teacher about speaking and listening, good longer Puhekieli listening but not itself a YKI practice test",
-      "source_verification": "watch_page_title_description_seen",
+      "source_verification": "indirect_podcast_author_link",
       "playback_verified": false,
       "embeddable": null,
       "subtitles_fi_verified": false,
