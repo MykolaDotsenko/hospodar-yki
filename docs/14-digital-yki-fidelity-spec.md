@@ -3,6 +3,19 @@
 **Дата вивчення першоджерел:** 21.10.2026. **Стан:** reference-driven training simulator, **not official 2027 digital UI**.  
 **Пов'язано:** [13 — приклади](13-yki-exam-format-and-real-examples-2027.md) · [33 доказові твердження (JSON)](../research/yki-digital-fidelity-evidence-2026-10.json) · [дві міні-сесії](../content/b1/exam-patterns/mini-rehearsals-v1.json) · [вебтренажер](../app/exam.html).
 
+## Обов'язкові сценарії симуляції: Full YKI і кожен модуль окремо
+
+**Нова продуктова вимога (P0):** [два режими та повна матриця навичок](15-two-modes-skill-scopes.md), JSON-контракт: [product-session-modes-v1.json](../research/product-session-modes-v1.json).
+
+- **EXAM-FULL:** повна самостійна симуляція всіх 4 модулів у підтвердженій OPH структурі, з незалежними результатами та відкладеним feedback. **У поточному застосунку є лише коротка 9-item репетиція**, не повний іспит.
+- **EXAM-READING / EXAM-LISTENING / EXAM-WRITING / EXAM-SPEAKING:** **кожна частина запускається й завершується окремо**, із завданнями лише відповідної навички, власною історією та результатом. Для speaking/writing без каліброваної людської перевірки `ungraded`.
+- **EXAM-COMBO:** довільні тренувальні комбінації явно називати `practice subset`; симуляції підтверджених `osakoepäivät` обмежити модулями, дозволеними OPH **на конкретну дату**; не обіцяти місця/реєстрацію.
+- **NO RANDOM EXAM ORDER:** режим `adaptive mixed all` існує в **Навчанні**, а не як вигаданий порядок офіційного іспиту.
+- **TIMER/AUDIO/UI fidelity:** позначки `officially_verified` та first-party source per parameter; режим `practice` до підтвердження цифрових правил.
+- **ASSESSMENT:** 4 незалежні стовпчики результатів для повного іспиту; для окремої спроби — рівно 1 стовпчик, без недостовірного «загального балу».
+
+Це **цільовий функціонал і критерії реалізації**, а не твердження, що всі перелічені варіанти вже реалізовані.
+
 ## A. Рівні достовірності
 
 1. **Чинні офіційні факти:** 4 незалежні модулі, цифровий тест у testipaikka (не вдома), всі фінські навесні 2027 digital; кваліфіковане критерійне оцінювання без єдиного підсумкового бала. Джерела: [OPH календар](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat), [OPH digitesti pilot 18.09.2026](https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026), [OPH оцінювання](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen).
