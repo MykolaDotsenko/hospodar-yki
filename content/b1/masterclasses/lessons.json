@@ -1,0 +1,1202 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "product": "Hospodar YKI",
+  "unit": "masterclasses",
+  "count": 12,
+  "total_activities": 60,
+  "objective_questions": 24,
+  "total_training_minutes": 300,
+  "origin": "original project authored",
+  "not_exam_questions": true,
+  "teacher_qa": "pending",
+  "notes_uk": [
+    "Зразок і ключі приховувати до самостійної спроби.",
+    "Для записів TTS застосовувати питання саме їхніх первинних аудіоманіфестів, бо текст демонстрації може відрізнятися.",
+    "Тривалість і орієнтири відповіді — педагогічні, не офіційний таймінг тесту.",
+    "Оцінювати незалежний перенос на нову ситуацію, а не завчені моделі."
+  ],
+  "lessons": [
+    {
+      "id": "yki-masterclass-01-reading-deadline",
+      "skill": "reading",
+      "title_fi": "Määräajat ja poikkeukset",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-reading",
+        "Yle-2024",
+        "Suomikoulut"
+      ],
+      "goal_uk": "Розпізнати три різні часові обмеження",
+      "teaching_input_fi": "Kielikahvilaan voi ilmoittautua maanantaihin asti. Tapaaminen järjestetään keskiviikkona. Jos haluat perua osallistumisesi, lähetä viesti viimeistään tiistaina. Ilmoittautuminen voi sulkeutua jo aiemmin, mikäli ryhmä täyttyy.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Milloin tapahtuma on?",
+          "options_fi": [
+            "Keskiviikkona",
+            "Maanantaina",
+            "Tiistaina"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "järjestetään keskiviikkona",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Voiko ilmoittautuminen sulkeutua aikaisemmin?",
+          "options_fi": [
+            "Ei koskaan",
+            "Kyllä, jos ryhmä täyttyy",
+            "Vain peruutuksen vuoksi"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "mikäli ryhmä täyttyy",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Tapaaminen on maanantaina ja sen voi perua keskiviikkona.",
+          "corrected_fi": "Ilmoittautuminen päättyy maanantaina, tapaaminen on keskiviikkona ja peruutus pitää tehdä tiistaihin mennessä.",
+          "explanation_uk": "Не плутати крайній термін реєстрації, день події та скасування.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Selitä ystävälle kolme eri aikaa ja yksi poikkeus.",
+          "model_fi": "Ilmoittautuminen päättyy maanantaina, mutta voi sulkeutua aiemmin. Tapaaminen on keskiviikkona. Peru viimeistään tiistaina.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi työpaja: ilmoittautuminen perjantaihin, tapahtuma sunnuntaina, peruutus torstaina. Selitä ero.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-02-reading-conditions",
+      "skill": "reading",
+      "title_fi": "Ehdot, oikeudet ja mahdollisuudet",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-reading",
+        "Yle-older"
+      ],
+      "goal_uk": "Відокремити обов'язкове від можливого",
+      "teaching_input_fi": "Voit lainata työkalun kirjastosta verkossa tehtävällä varauksella. Varaus vahvistuu vasta, kun saat sähköpostin. Jos viestiä ei tule kahden työpäivän kuluessa, ota yhteyttä kirjastoon. Myöhästyneestä palautuksesta voidaan periä maksu, mutta ei automaattisesti.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Milloin varaus vahvistuu?",
+          "options_fi": [
+            "Kun verkkosivu avataan",
+            "Kun työkalu palautetaan",
+            "Kun vahvistussähköposti saapuu"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "Varaus vahvistuu vasta, kun saat sähköpostin",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Tuleeko myöhästymismaksu aina?",
+          "options_fi": [
+            "Ei, vain mahdollisesti",
+            "Kyllä, aina",
+            "Ei, koskaan ei"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "mutta ei automaattisesti",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Varaus on heti valmis, ja jokaisesta myöhästymisestä tulee sakko.",
+          "corrected_fi": "Varaus vahvistuu sähköpostilla. Myöhästymisestä voidaan periä maksu, mutta se ei ole automaattinen.",
+          "explanation_uk": "Vasta і voidaan — різні логічні оператори.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Selitä uudelle asiakkaalle, mitä hänen pitää odottaa ja milloin kysyä apua.",
+          "model_fi": "Varaus vahvistuu vasta, kun saat sähköpostin. Jos viestiä ei tule kahdessa työpäivässä, ota yhteyttä kirjastoon.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi ehto: huoltokäynti tehdään vain, jos asukas vahvistaa ajan. Muotoile ohje.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-03-listening-gist",
+      "skill": "listening",
+      "title_fi": "Ensikuuntelun pääasia",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-listening",
+        "Yle-2024",
+        "Haaga-Helia"
+      ],
+      "goal_uk": "Зрозуміти суть запису без текстової опори",
+      "teaching_input_fi": "Taloyhtiössä tehdään huoltotöitä keskiviikkona kello yhdeksästä yhteen. Vettä ei silloin tule asuntoihin. Asukkaiden kannattaa varata vettä etukäteen. Jos vettä ei tule vielä kahdelta, on otettava yhteyttä huoltoyhtiöön.",
+      "audio_lesson_id": "02-koti-ja-asuminen-notice",
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä ilmoitus koskee?",
+          "options_fi": [
+            "Uutta uimahallia",
+            "Vesikatkoa",
+            "Taloyhtiön kokousta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Vettä ei silloin tule asuntoihin",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä pitää tehdä, jos vettä ei tule vielä kahdelta?",
+          "options_fi": [
+            "Käyttää pesukonetta",
+            "Sulkea postilaatikko",
+            "Ottaa yhteyttä huoltoyhtiöön"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "on otettava yhteyttä huoltoyhtiöön",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Ymmärsin vain kellonajan, joten en voi kertoa aiheesta mitään.",
+          "corrected_fi": "Ymmärsin, että talossa on vesikatko. Kuuntelen uudelleen tarkistaakseni kellonajat.",
+          "explanation_uk": "Перша спроба — gist, друга — деталі. Демотекст НЕ є точною транскрипцією прикріпленого TTS.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kuuntele liitetty alkuperäinen äänite ilman tekstiä ja kerro pääasia. Käytä äänitteen omia kysymyksiä äänen ymmärtämisen mittaamiseen.",
+          "model_fi": "Talossa on tilapäinen vesikatko huoltotöiden vuoksi, ja asukkaiden pitää varautua.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Kuuntele tuntematon kirjaston aukioloaikamuutos ja kerro yksi tärkeä toimintaohje.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-04-listening-purpose",
+      "skill": "listening",
+      "title_fi": "Puhelun tarkoitus",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-listening",
+        "Yle-2024"
+      ],
+      "goal_uk": "Визначити проблему, запропоноване рішення і відкриту потребу",
+      "teaching_input_fi": "Asiakas: Hei, sain tänään takin, mutta tilasin koon M ja paketissa oli koko L. Myyjä: Olen pahoillani. Lähetämme oikean koon huomenna. Asiakas: Kiitos. Miten palautan väärän takin? Myyjä: Saat maksuttoman palautustarran sähköpostiin.",
+      "audio_lesson_id": "03-kaupat-ja-palvelut-dialogue",
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä asiakkaan ongelma on?",
+          "options_fi": [
+            "Väärä koko",
+            "Myöhäinen bussi",
+            "Laskun puuttuminen"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "tilasin koon M ja paketissa oli koko L",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä asiakas kysyy lopuksi?",
+          "options_fi": [
+            "Tuotteen väriä",
+            "Palautusohjetta",
+            "Myymälän sijaintia"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Miten palautan väärän takin?",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Asiakas haluaa tehdä aivan uuden tilauksen, koska hän pitää punaisesta väristä.",
+          "corrected_fi": "Asiakas on jo tilannut tuotteen, mutta koko on väärä. Hän haluaa vaihtaa sen ja saada palautusohjeen.",
+          "explanation_uk": "Слухаємо комунікативну мету, а не тематичні ключові слова. Демотекст відрізняється від синтезованого джерела.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kerro kuulemasi alkuperäisen äänitteen ongelma ja ratkaisu. Älä käytä tämän demon MCQ-kysymyksiä äänitepisteisiin.",
+          "model_fi": "Asiakas sai vääränkokoisen takin, ja asiakaspalvelu ehdotti vaihtoa.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi puhelu: tilauksesta puuttuu virtajohto. Kysy, miten ongelma ratkaistaan.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-05-speaking-negotiation",
+      "skill": "speaking",
+      "title_fi": "Muuttuva suunnitelma",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-speaking",
+        "Video-YKI-full"
+      ],
+      "goal_uk": "Ввічлива відмова з альтернативами",
+      "teaching_input_fi": "Opettaja lähettää viestin: Huomisen tapaaminen siirtyy torstaille kello viiteen. Käykö se sinulle? Olet torstaina töissä kuuteen asti, mutta pääsisit paikalle seitsemältä. Sinulle sopii myös perjantai-iltapäivä.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä pitää sopia?",
+          "options_fi": [
+            "Uusi oppikirja",
+            "Uusi työpaikka",
+            "Uusi sopiva aika"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "Käykö se sinulle?",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä vaihtoehto torstaille käy?",
+          "options_fi": [
+            "Kello seitsemän",
+            "Kello neljä",
+            "Kello viisi"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "pääsisit paikalle seitsemältä",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Ei käy. Minä työ. Heippa.",
+          "corrected_fi": "Kiitos viestistä! Olen töissä kuuteen asti. Voisimmeko tavata seitsemältä tai perjantai-iltapäivällä?",
+          "explanation_uk": "Відмовляйся ввічливо та одразу пропонуй новий варіант.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Vastaa opettajalle ääneen: kiitä, kerro este, ehdota kaksi vaihtoehtoa ja kysy vahvistusta.",
+          "model_fi": "Kiitos tiedosta! Torstai viideltä ei valitettavasti sovi, mutta seitsemältä ehtisin. Vai sopisiko perjantai-iltapäivä?",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Huoltoyhtiö tarjoaa aamukäyntiä, mutta pääset kotiin illalla. Sovi aika omilla sanoillasi.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-06-speaking-narrative",
+      "skill": "speaking",
+      "title_fi": "Lyhyt kertominen alusta loppuun",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-speaking",
+        "Video-YKI-full"
+      ],
+      "goal_uk": "Пов'язана історія: план, перешкода, рішення, результат",
+      "teaching_input_fi": "Puhumistehtävä: Kerro päivästä, jolloin jouduit muuttamaan suunnitelmaasi. Mitä aioit tehdä? Mikä muuttui? Miten ratkaisit tilanteen? Kerro lopuksi, mitä opit. Yritä puhua yhtenäisesti.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä tekee tarinasta kokonaisen?",
+          "options_fi": [
+            "Vain yksi nimi",
+            "Alku, ongelma, ratkaisu ja lopputulos",
+            "Luettelo irtonaisia numeroita"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Kerro lopuksi, mitä opit",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mihin kohtaan ratkaisu kuuluu?",
+          "options_fi": [
+            "Ennen alkua",
+            "Vasta tehtävän ulkopuolelle",
+            "Ongelman jälkeen"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "Miten ratkaisit tilanteen?",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Eilen bussi. Työ. Ongelma. Hyvä päivä.",
+          "corrected_fi": "Eilen bussi oli myöhässä, joten soitin työpaikalle. Lopulta ehdin ajoissa, koska vaihdoin toiseen bussiin.",
+          "explanation_uk": "Зв'язки joten, lopulta допомагають більше, ніж складні рідкісні форми.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kerro kokonainen oma tarinasi harjoitusaikana noin 60–90 sekuntia. Tämä aika ei ole virallinen yleispätevä koeraja.",
+          "model_fi": "Aioin mennä uimahalliin, mutta se oli suljettu. Kävelin sen sijaan puistossa ja opin tarkistamaan aukioloajat.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Kerro eri tarina matkasta, joka ei mennyt suunnitelmien mukaan.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-07-speaking-opinion",
+      "skill": "speaking",
+      "title_fi": "Mielipide ilman tyhjää toistoa",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-speaking",
+        "Video-YKI-opinion"
+      ],
+      "goal_uk": "Два незалежні аргументи та одне обмеження",
+      "teaching_input_fi": "Kysymys: Pitäisikö kirjastojen olla auki myös sunnuntaisin? Kerro kantasi, anna kaksi erilaista syytä ja huomioi yksi mahdollinen haitta. Voit ehdottaa ratkaisua ongelmaan.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä tehtävä pyytää mielipiteen lisäksi?",
+          "options_fi": [
+            "Kaksi syytä ja yksi haitta",
+            "Vain kaksi nimeä",
+            "Kolme irrallista päivämäärää"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "anna kaksi erilaista syytä",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä on sopiva vastanäkökulma?",
+          "options_fi": [
+            "Kaikki ovat aina samaa mieltä",
+            "Sunnuntaiaukiolo voi lisätä henkilöstökuluja",
+            "Kirjasto on rakennus"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "huomioi yksi mahdollinen haitta",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Se on hyvä, koska hyvä. Hyvä asia on tosi hyvä.",
+          "corrected_fi": "Minusta sunnuntaiaukiolo on hyödyllistä, koska työssäkäyvät ehtivät kirjastoon. Lisäksi se tarjoaa rauhallisen opiskelupaikan. Toisaalta kulut kasvavat.",
+          "explanation_uk": "Повторення прикметника не є аргументом.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Esitä mielipiteesi ääneen, anna kaksi perustelua ja vastaa yhteen vastaväitteeseen.",
+          "model_fi": "Minusta kirjaston pitäisi olla auki sunnuntaisin. Se auttaisi työssäkäyviä ja opiskelijoita. Toisaalta henkilöstökulut voivat nousta.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi aihe: pitäisikö bussien kulkea useammin viikonloppuna? Anna kaksi syytä ja haitta.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-08-writing-formal",
+      "skill": "writing",
+      "title_fi": "Kohtelias korjauspyyntö",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-writing",
+        "Haaga-writing"
+      ],
+      "goal_uk": "Повний формальний запит із конкретною дією",
+      "teaching_input_fi": "Tilanne: Taloyhtiön ulko-ovi jää välillä auki. Ongelma alkoi viime viikonloppuna, ja olet huolissasi turvallisuudesta. Kirjoita huoltoyhtiölle, mitä olet huomannut, milloin ongelma alkoi ja mitä toivot. Kerro myös, miten sinuun saa yhteyden.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Miksi viesti lähetetään?",
+          "options_fi": [
+            "Juhlien varaamiseksi",
+            "Uuden auton ostamiseksi",
+            "Korjauksen pyytämiseksi"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "Kirjoita huoltoyhtiölle",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä tieto pitää mainita?",
+          "options_fi": [
+            "Ongelman alkamisajankohta",
+            "Lempiruoka",
+            "Lomamatkan hinta"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "Ongelma alkoi viime viikonloppuna",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Ovi rikki. Korjaa heti. Moi.",
+          "corrected_fi": "Hei! Ulko-ovi on jäänyt auki viime viikonlopusta lähtien. Tämä voi heikentää turvallisuutta. Voisitteko tarkistaa oven pian? Olen tavoitettavissa sähköpostitse. Ystävällisin terveisin, Asukas.",
+          "explanation_uk": "Повний зміст, причина та ввічливість мають пріоритет над довжиною.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kirjoita alkuperäinen huoltopyyntö omilla sanoilla, sisällytä neljä pakollista kohtaa. Sanaohje on vain harjoittelua varten.",
+          "model_fi": "Hei! Talon ulko-ovi ei ole sulkeutunut kunnolla viikonlopun jälkeen. Voisitteko järjestää korjauksen ja kertoa aikataulusta? Vastaan sähköpostitse. Kiitos!",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi tilanne: kylpyhuoneen tuuletin ei toimi. Kirjoita eri viesti ilman mallia.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-09-writing-informal",
+      "skill": "writing",
+      "title_fi": "Viestin uusi aika ystävälle",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-writing",
+        "Haaga-writing",
+        "Kielibuusti-writing"
+      ],
+      "goal_uk": "Дружній тон, пояснення та два нові варіанти",
+      "teaching_input_fi": "Olet sopinut ystäväsi kanssa tapaamisen lauantaina kello kaksitoista. Nyt sinun täytyy auttaa sukulaista muutossa, etkä pääse paikalle. Kirjoita lyhyt viesti, pahoittele tilannetta ja ehdota kahta uutta tapaamisaikaa.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä ystävälle pitää ehdottaa?",
+          "options_fi": [
+            "Työhakemusta",
+            "Kahta uutta aikaa",
+            "Vain anteeksipyyntöä ilman muuta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "ehdota kahta uutta tapaamisaikaa",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Miksi tapaaminen ei onnistu?",
+          "options_fi": [
+            "Junat ovat lakossa",
+            "Olet muuttamassa ulkomaille",
+            "Autat sukulaista muutossa"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "auttaa sukulaista muutossa",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Arvoisa vastaanottaja, en ole aika. Vastatkaa välittömästi.",
+          "corrected_fi": "Moi! Anteeksi, mutta en ehdi lauantaina, koska autan sukulaista muutossa. Kävisikö sunnuntai iltapäivällä tai tiistai kuuden jälkeen?",
+          "explanation_uk": "Відповідний дружній регістр і конкретне узгодження.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kirjoita ystävälle selkeä viesti. Pahoittele ja kysy, kumpi uusista ajoista sopii.",
+          "model_fi": "Moi! En valitettavasti ehdi tavata lauantaina, koska autan muutossa. Nähdäänkö sunnuntaina kolmelta tai maanantaina illalla?",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi tilanne: et pääse elokuviin tänään, koska työvuorosi vaihtui. Ehdota kahta vaihtoehtoa.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-10-puhekieli-register",
+      "skill": "integrated",
+      "title_fi": "Puhekieli ja tilanteeseen sopiva tyyli",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "Kielibuusti-Turku",
+        "Yle-2024"
+      ],
+      "goal_uk": "Розуміти розмовні скорочення і не переносити їх механічно у formal writing",
+      "teaching_input_fi": "Ystävä kirjoittaa: Mä en kerkee tänään kuuteen. Voitaisko nähä vasta seiskan jälkeen? Mul on vielä töitä. Vastaa viestiin ystävällisesti ja sovi konkreettinen aika. Älä kirjoita virallista kirjettä.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä mä en kerkee tarkoittaa?",
+          "options_fi": [
+            "Minä en ehdi",
+            "Minä en keksi",
+            "Minä en kirjoita"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "Mä en kerkee",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mihin aikaan ystävä ehdottaa tapaamista?",
+          "options_fi": [
+            "Ennen kuutta",
+            "Seitsemän jälkeen",
+            "Keskipäivällä"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "vasta seiskan jälkeen",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Arvoisa herra, en kerkee seiska. Kiitos yhteistyöstä.",
+          "corrected_fi": "Moi! Ei hätää, seitsemän jälkeen käy hyvin. Nähdäänkö puoli kahdeksalta kirjaston edessä?",
+          "explanation_uk": "Puhekieli — розпізнавати на слух, у формальному жанрі використовувати літературні форми.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Selitä ystävän viesti yleiskielellä ja vastaa luontevasti itse.",
+          "model_fi": "Ystävä ei ehdi kuudeksi, koska on vielä töissä. Hän ehdottaa tapaamista vasta seitsemän jälkeen.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi lause: En mä tänään jaksa lähtee, mut huomenna ois aikaa. Selitä ja vastaa.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-11-digital-typing",
+      "skill": "writing",
+      "title_fi": "Digitesti: selkeä palaute näppäimistöllä",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "OPH-digitesti-2026",
+        "JYU-writing"
+      ],
+      "goal_uk": "Ввести структурований текст без підказок в інтерфейсі комп'ютера",
+      "teaching_input_fi": "Kirjoita kirjastolle palaute. Uusi maksuton kieliryhmä on hyödyllinen, mutta luokkaa on vaikea löytää, koska opasteet puuttuvat. Kerro yksi myönteinen asia, kuvaa ongelma ja ehdota ratkaisu. Kirjoita itse ilman automaattista tekstiehdotusta.",
+      "audio_lesson_id": null,
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Mitä tehtävässä pitää tehdä?",
+          "options_fi": [
+            "Tilata kirja",
+            "Ilmoittautua kokeeseen",
+            "Antaa palaute ja ehdottaa parannusta"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "ehdota ratkaisu",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mikä olisi käytännöllinen parannus?",
+          "options_fi": [
+            "Selkeä opaste sisäänkäynnille",
+            "Kieliryhmän lopettaminen",
+            "Sivujen poistaminen"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "koska opasteet puuttuvat",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Kaikki hyvä ja huono. Tehkää jotain.",
+          "corrected_fi": "Pidän maksuttomasta kieliryhmästä, mutta luokkaa on vaikea löytää. Voisitteko lisätä selkeän kyltin sisäänkäynnille?",
+          "explanation_uk": "Доступний текст, чітка проблема, дія, перевірка ä/ö та структури.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "Kirjoita palautteesi tietokoneella tai puhelimen näppäimistöllä. Tarkista oikeinkirjoitus itse. Tämä on simulaatio, ei vahvistettu oikean digitestin UI.",
+          "model_fi": "Hei! Kieliryhmä on hyödyllinen, koska saan harjoitella suomea. Luokan löytäminen on kuitenkin vaikeaa. Voisitteko lisätä selkeät opasteet?",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi tilanne: opiskelutila kirjastossa on meluisa. Kirjoita palaute ja kaksi ratkaisua.",
+          "automatic_yki_grade": false
+        }
+      ]
+    },
+    {
+      "id": "yki-masterclass-12-integrated-mission",
+      "skill": "integrated",
+      "title_fi": "Ymmärrä, kysy ja kirjoita",
+      "level_target": "A2.2-B1+",
+      "not_official_yki": true,
+      "teacher_review": "pending",
+      "duration_min": 25,
+      "source_ids": [
+        "JYU-listening",
+        "JYU-speaking",
+        "JYU-writing",
+        "OPH-digitesti-2026"
+      ],
+      "goal_uk": "Перейти від прочитаного/почутого до відповіді й повідомлення",
+      "teaching_input_fi": "Kaupungin neuvonnassa työntekijä kertoo, että suomen kurssille ilmoittaudutaan verkossa maanantaista alkaen. Neuvontapisteessä ilmoittautumista ei voi tehdä, mutta kirjaston digituki auttaa lomakkeen kanssa tiistaisin. Kerro ystävälle tärkeimmät ohjeet.",
+      "audio_lesson_id": "09-yhteiskunta-dialogue",
+      "audio_instructions": "The teaching input is not a verbatim audio transcript; use original linked audio's own questions for listening scoring.",
+      "stages": [
+        {
+          "kind": "unassisted_first_attempt",
+          "minutes": 3
+        },
+        {
+          "kind": "teacher_demonstration",
+          "minutes": 5
+        },
+        {
+          "kind": "comprehension",
+          "minutes": 6
+        },
+        {
+          "kind": "self_correction",
+          "minutes": 5
+        },
+        {
+          "kind": "own_response",
+          "minutes": 4
+        },
+        {
+          "kind": "transfer",
+          "minutes": 2
+        }
+      ],
+      "activities": [
+        {
+          "id": "check-1",
+          "kind": "multiple_choice",
+          "question_fi": "Missä ilmoittaudutaan?",
+          "options_fi": [
+            "Neuvontapisteessä",
+            "Verkossa",
+            "Kirjaston kahvilassa"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "ilmoittaudutaan verkossa",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "check-2",
+          "kind": "multiple_choice",
+          "question_fi": "Mistä saa apua lomakkeen kanssa?",
+          "options_fi": [
+            "Ravintolasta",
+            "Bussikuskilta",
+            "Kirjaston digituesta"
+          ],
+          "correct_index": 2,
+          "evidence_fi": "kirjaston digituki auttaa",
+          "reveal_after_attempt": true
+        },
+        {
+          "id": "repair",
+          "kind": "self_correction",
+          "bad_example_fi": "Minä ilmoittautua tässä huomenna ja saan heti kurssi.",
+          "corrected_fi": "Ilmoittautuminen alkaa maanantaina verkossa. Jos lomakkeen täyttö on vaikeaa, kirjastossa saa apua tiistaisin.",
+          "explanation_uk": "Факт → уточнення → усне пояснення → короткий email; аудіо пов'язане з темою, але демотекст не точна транскрипція.",
+          "correct_answer_hidden_until_attempt": true
+        },
+        {
+          "id": "response",
+          "kind": "productive",
+          "prompt_fi": "1) Kuuntele oikea äänite. 2) Kysy virkailijalta yksi lisäkysymys. 3) Kirjoita ystävälle, miten ilmoittaudutaan.",
+          "model_fi": "Ilmoittautuminen alkaa maanantaina verkossa. Tarvittaessa kirjaston digituki voi neuvoa lomakkeen kanssa.",
+          "model_hidden_until_attempt": true,
+          "feedback_dimensions": [
+            "task_goal",
+            "meaning_clarity",
+            "politeness_register",
+            "grammar_and_vocabulary"
+          ]
+        },
+        {
+          "id": "transfer",
+          "kind": "new_unseen_task",
+          "prompt_fi": "Uusi tilanne: varaa liikuntaryhmään paikka verkossa ja kerro ystävälle, mistä saa apua.",
+          "automatic_yki_grade": false
+        }
+      ]
+    }
+  ]
+}
