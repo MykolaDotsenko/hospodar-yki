@@ -1,0 +1,843 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "catalog_type": "youtube_watch_links_only",
+  "goal": "A2.2 to B1/B1+ Finnish and 4-skill YKI practical preparation",
+  "source_audit": "Direct public youtube watch URLs with creator/title/topic corroborated by search metadata; video playback/embed permission, subtitle availability and full content NOT independently verified; ask teacher S2 QA before graded tasks",
+  "display_policy": "Scores expert product fit, not measured learning outcomes; levels tentative where not explicitly asserted by creator",
+  "copyright": "Do not download, mirror, re-upload or scrape YouTube videos/captions. Use direct URL and later official YouTube embedding/player API subject to platform terms; preserve branding and attribution.",
+  "review_workflow": [
+    "source_metadata_found",
+    "embed_and_availability_check_pending",
+    "caption_rights_and_quality_pending",
+    "teacher_review_pending",
+    "app_content_ready_only_after_review"
+  ],
+  "score_calculation": "Expert priority /100 from YKI theme 35, useful learning action 25, language fit 20, pedagogical taskability 10, provenance confidence 10; subjective",
+  "items": [
+    {
+      "id": "yt-kuuntelu-behm-b1",
+      "provider": "youtube",
+      "youtube_video_id": "yBMzBiCBFA8",
+      "watch_url": "https://www.youtube.com/watch?v=yBMzBiCBFA8",
+      "creator": "Suomen kurssi",
+      "title": "Kuuntelu (B1): Behm",
+      "publication_date": "2025-06-03",
+      "cefr_estimate": "B1",
+      "skills": [
+        "listening"
+      ],
+      "yki_topics": [
+        "culture",
+        "people",
+        "gist_and_details"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "B1 listening comprehension with seven questions; teacher-designed independent answer opportunities",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kuuntelu-behm-b1-draft-1",
+          "prompt_fi": "Mistä henkilöstä videossa puhutaan?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kuuntelu-behm-b1-draft-2",
+          "prompt_fi": "Kerro omin sanoin videon pääasia.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-veera-interview",
+      "provider": "youtube",
+      "youtube_video_id": "Im5e3pvc-Fk",
+      "watch_url": "https://www.youtube.com/watch?v=Im5e3pvc-Fk",
+      "creator": "Suomen kurssi",
+      "title": "Veera kävi työpaikkahaastattelussa (A2/B1)",
+      "publication_date": "2024-03-08",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "work",
+        "job_interview",
+        "spoken_vs_standard",
+        "past_tenses",
+        "object"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Work interview story explicitly contrasts puhekieli and kirjakieli, plus tenses/object, closely aligned to practical YKI",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-veera-interview-draft-1",
+          "prompt_fi": "Miksi Veera meni haastatteluun?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-veera-interview-draft-2",
+          "prompt_fi": "Kerro omasta työhaastattelustasi tai harjoittele lyhyt haastattelu.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-kata-job-interview",
+      "provider": "youtube",
+      "youtube_video_id": "4C0z0wy_yRg",
+      "watch_url": "https://www.youtube.com/watch?v=4C0z0wy_yRg",
+      "creator": "Opi suomea Katan kanssa",
+      "title": "Työhaastattelu (B1) | Opi suomea Katan kanssa",
+      "publication_date": "2020-09-01",
+      "cefr_estimate": "B1",
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "yki_topics": [
+        "work",
+        "self_introduction",
+        "job_interview"
+      ],
+      "product_fit_score_100": 94,
+      "why_useful": "B1-level interview preparation, directly reusable in meaningful self-presentation tasks",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-kata-job-interview-draft-1",
+          "prompt_fi": "Miten esittelet työkokemuksesi?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-kata-job-interview-draft-2",
+          "prompt_fi": "Miksi haluat tämän työpaikan?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-lauran-day-1",
+      "provider": "youtube",
+      "youtube_video_id": "n0KT2aXbfF4",
+      "watch_url": "https://www.youtube.com/watch?v=n0KT2aXbfF4",
+      "creator": "Suomen kurssi",
+      "title": "Kuuntele suomea! Lauran päivä Osa 1 (A2/B1)",
+      "publication_date": "2026-01-11",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "reading",
+        "speaking"
+      ],
+      "yki_topics": [
+        "daily_routine",
+        "work",
+        "spoken_vs_standard"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Slow narration followed by puhekieli retelling and comprehension questions; ideal contrastive listening and fading scaffold",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "slower_narration",
+          "start_seconds": 71,
+          "end_seconds": 275
+        },
+        {
+          "kind": "puhekieli_faster",
+          "start_seconds": 275,
+          "end_seconds": 444
+        },
+        {
+          "kind": "comprehension_tasks",
+          "start_seconds": 444,
+          "end_seconds": 615
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-lauran-day-1-draft-1",
+          "prompt_fi": "Mitä Laura tekee aamulla?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-lauran-day-1-draft-2",
+          "prompt_fi": "Miten sama asia sanotaan puhekielellä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-lauran-day-2",
+      "provider": "youtube",
+      "youtube_video_id": "bT3h2epCG64",
+      "watch_url": "https://www.youtube.com/watch?v=bT3h2epCG64",
+      "creator": "Suomen kurssi",
+      "title": "Kuuntele suomea! Lauran päivä Osa 2 (A2/B1)",
+      "publication_date": "2026-02-10",
+      "cefr_estimate": "A2-B1",
+      "skills": [
+        "listening",
+        "reading",
+        "speaking"
+      ],
+      "yki_topics": [
+        "workday",
+        "spoken_vs_standard",
+        "gist_details"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Two versions slower and faster plus explicit comprehension and speaking prompts",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "slow_work_narration",
+          "start_seconds": 40,
+          "end_seconds": 319
+        },
+        {
+          "kind": "fast_puhekieli",
+          "start_seconds": 319,
+          "end_seconds": 490
+        },
+        {
+          "kind": "comprehension_questions",
+          "start_seconds": 490,
+          "end_seconds": 620
+        },
+        {
+          "kind": "speaking_prompts",
+          "start_seconds": 820,
+          "end_seconds": 850
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-lauran-day-2-draft-1",
+          "prompt_fi": "Mitä Laura tekee töissä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-lauran-day-2-draft-2",
+          "prompt_fi": "Miten kertoisit saman asian puhekielellä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-janet-flu",
+      "provider": "youtube",
+      "youtube_video_id": "Uz8sAh03k1U",
+      "watch_url": "https://www.youtube.com/watch?v=Uz8sAh03k1U",
+      "creator": "Suomen kurssi",
+      "title": "Janetilla oli flunssa (A2)",
+      "publication_date": "2024-02-16",
+      "cefr_estimate": "A2",
+      "skills": [
+        "listening"
+      ],
+      "yki_topics": [
+        "health",
+        "past_tense",
+        "partitive",
+        "spoken_vs_standard"
+      ],
+      "product_fit_score_100": 89,
+      "why_useful": "Accessible bridge to B1; everyday health topic with puhekieli, tenses and partitive",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-janet-flu-draft-1",
+          "prompt_fi": "Miksi Janet ei voinut hyvin?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-janet-flu-draft-2",
+          "prompt_fi": "Mitä tekisit, jos olisit kipeä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-yki-speaking-1",
+      "provider": "youtube",
+      "youtube_video_id": "EcIuejiFLZo",
+      "watch_url": "https://www.youtube.com/watch?v=EcIuejiFLZo",
+      "creator": "YKI Harjoitus",
+      "title": "YKI Harjoitus - Puhuminen 1",
+      "publication_date": "2022-09-16",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "speaking"
+      ],
+      "yki_topics": [
+        "YKI_practice",
+        "narration",
+        "discussion",
+        "situations",
+        "opinion"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Explicit speaking practice sections with answer examples; must separate independent attempt from answer reveal",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "narration_prompt",
+          "start_seconds": 5,
+          "end_seconds": 40
+        },
+        {
+          "kind": "sample_answer",
+          "start_seconds": 40,
+          "end_seconds": 120
+        },
+        {
+          "kind": "discussion_a",
+          "start_seconds": 120,
+          "end_seconds": 261
+        },
+        {
+          "kind": "discussion_b",
+          "start_seconds": 261,
+          "end_seconds": 331
+        },
+        {
+          "kind": "situations",
+          "start_seconds": 331,
+          "end_seconds": 484
+        },
+        {
+          "kind": "opinion_prompt",
+          "start_seconds": 484,
+          "end_seconds": 520
+        },
+        {
+          "kind": "opinion_example_answer",
+          "start_seconds": 520,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-speaking-1-draft-1",
+          "prompt_fi": "Vastaa kertomistehtävään ilman mallivastausta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-speaking-1-draft-2",
+          "prompt_fi": "Perustele mielipiteesi kahdella syyllä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-yki-speaking-more",
+      "provider": "youtube",
+      "youtube_video_id": "htrQhR-HGM4",
+      "watch_url": "https://www.youtube.com/watch?v=htrQhR-HGM4",
+      "creator": "YKI Harjoitus",
+      "title": "YKI speaking practice: kertominen, keskustelu, tilanteita, mielipide",
+      "publication_date": "2022-11-13",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "speaking"
+      ],
+      "yki_topics": [
+        "YKI_practice",
+        "timed_response",
+        "discussion",
+        "opinion"
+      ],
+      "product_fit_score_100": 99,
+      "why_useful": "Practice-first timed speaking prompts with answer examples deliberately delayed; not an official task or verified 2027 timer",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "practice_prompts",
+          "start_seconds": 0,
+          "end_seconds": 982
+        },
+        {
+          "kind": "model_answers",
+          "start_seconds": 982,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-speaking-more-draft-1",
+          "prompt_fi": "Harjoittele vastausta ja äänitä oma puheesi ennen mallivastausta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-speaking-more-draft-2",
+          "prompt_fi": "Mihin tilanteeseen tarvitset tarkennuskysymyksen?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-yki-speaking-situations",
+      "provider": "youtube",
+      "youtube_video_id": "GDsP04gyZv8",
+      "watch_url": "https://www.youtube.com/watch?v=GDsP04gyZv8",
+      "creator": "YKI Harjoitus",
+      "title": "YKI speaking practice: tilanteita ja fraaseja",
+      "publication_date": "2023-04-30",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "speaking"
+      ],
+      "yki_topics": [
+        "YKI_practice",
+        "roleplay",
+        "functional_chunks"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Situational prompts first, then example answers, then functional chunks",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "situation_prompts",
+          "start_seconds": 7,
+          "end_seconds": 202
+        },
+        {
+          "kind": "sample_answers",
+          "start_seconds": 202,
+          "end_seconds": 336
+        },
+        {
+          "kind": "phrases",
+          "start_seconds": 336,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-speaking-situations-draft-1",
+          "prompt_fi": "Ratkaise tilanne suomeksi ennen esimerkkivastausta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-speaking-situations-draft-2",
+          "prompt_fi": "Valitse yksi hyödyllinen fraasi ja käytä sitä uudessa tilanteessa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-yki-writing-listening-2026",
+      "provider": "youtube",
+      "youtube_video_id": "hwSNQlXsmoM",
+      "watch_url": "https://www.youtube.com/watch?v=hwSNQlXsmoM",
+      "creator": "Fince Öğren",
+      "title": "YKI Test Prep: Practice Finnish Writing and Listening 1",
+      "publication_date": "2026-02-12",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "writing",
+        "listening"
+      ],
+      "yki_topics": [
+        "informal_message",
+        "housing",
+        "opinion",
+        "transport"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Three original YKI-like writing prompts: informal message, property-management email, opinion text on public transport",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "informal_message",
+          "start_seconds": 122,
+          "end_seconds": 163
+        },
+        {
+          "kind": "housing_email",
+          "start_seconds": 163,
+          "end_seconds": 219
+        },
+        {
+          "kind": "public_transport_opinion",
+          "start_seconds": 219,
+          "end_seconds": 301
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-writing-listening-2026-draft-1",
+          "prompt_fi": "Kirjoita viesti ystävälle, jos myöhästyt.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-writing-listening-2026-draft-2",
+          "prompt_fi": "Kirjoita mielipide julkisesta liikenteestä ja perustele kantasi.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-yki-writing-opinion",
+      "provider": "youtube",
+      "youtube_video_id": "qxcYzmKWaow",
+      "watch_url": "https://www.youtube.com/watch?v=qxcYzmKWaow",
+      "creator": "YKI Harjoitus",
+      "title": "YKI Harjoitus: Kirjoittaminen — Mielipide 1 (Keskitaso)",
+      "publication_date": "2022-09-18",
+      "cefr_estimate": "B1-estimate",
+      "skills": [
+        "writing"
+      ],
+      "yki_topics": [
+        "YKI_practice",
+        "opinion",
+        "housing",
+        "argumentation"
+      ],
+      "product_fit_score_100": 96,
+      "why_useful": "Opinion prompt shown before sample answer, follow-up vocabulary and grammar",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "writing_question",
+          "start_seconds": 6,
+          "end_seconds": 40
+        },
+        {
+          "kind": "sample_answer",
+          "start_seconds": 40,
+          "end_seconds": 120
+        },
+        {
+          "kind": "vocabulary_and_grammar",
+          "start_seconds": 120,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-yki-writing-opinion-draft-1",
+          "prompt_fi": "Kirjoita ensin oma mielipide aiheesta 'Kotini on linnani'.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-yki-writing-opinion-draft-2",
+          "prompt_fi": "Anna kaksi perustelua ja yksi esimerkki.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-illatiivi",
+      "provider": "youtube",
+      "youtube_video_id": "GJvVwN2Er4k",
+      "watch_url": "https://www.youtube.com/watch?v=GJvVwN2Er4k",
+      "creator": "Suomen kurssi",
+      "title": "Mihin? Keneen? Illatiivi",
+      "publication_date": "2023-09-24",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "grammar",
+        "writing",
+        "speaking"
+      ],
+      "yki_topics": [
+        "illative",
+        "cases",
+        "rektio",
+        "movement"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Morphology, semantics of destination, and rektio uses with timestamped examples; addresses Finnish case confusion",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "formation",
+          "start_seconds": 19,
+          "end_seconds": 235
+        },
+        {
+          "kind": "semantic_uses",
+          "start_seconds": 235,
+          "end_seconds": 444
+        },
+        {
+          "kind": "verb_rektio",
+          "start_seconds": 444,
+          "end_seconds": 577
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-illatiivi-draft-1",
+          "prompt_fi": "Täydennä: Menen ___ (kirjasto).",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-illatiivi-draft-2",
+          "prompt_fi": "Selitä ero: kirjastossa / kirjastoon / kirjastosta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-partitiivi-short",
+      "provider": "youtube",
+      "youtube_video_id": "Lm0Z50CEyag",
+      "watch_url": "https://www.youtube.com/watch?v=Lm0Z50CEyag",
+      "creator": "Suomen kurssi",
+      "title": "Partitiivi",
+      "publication_date": "2022-10-29",
+      "cefr_estimate": "A2-estimate",
+      "skills": [
+        "grammar",
+        "writing"
+      ],
+      "yki_topics": [
+        "partitive",
+        "negative_sentences",
+        "quantity",
+        "object"
+      ],
+      "product_fit_score_100": 93,
+      "why_useful": "Concise partitive uses and formation, exercise begins at 9:58",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "meaning_and_usage",
+          "start_seconds": 0,
+          "end_seconds": 258
+        },
+        {
+          "kind": "formation",
+          "start_seconds": 258,
+          "end_seconds": 598
+        },
+        {
+          "kind": "learner_exercise",
+          "start_seconds": 598,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-partitiivi-short-draft-1",
+          "prompt_fi": "Miksi sanotaan 'en juo kahvia'?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-partitiivi-short-draft-2",
+          "prompt_fi": "Kirjoita kolme lausetta, joissa tarvitset partitiivin.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    },
+    {
+      "id": "yt-partitiivi-deep",
+      "provider": "youtube",
+      "youtube_video_id": "THCCFK8OX7c",
+      "watch_url": "https://www.youtube.com/watch?v=THCCFK8OX7c",
+      "creator": "Suomen kurssi",
+      "title": "Näin käytät partitiivia: yksikkö ja monikko",
+      "publication_date": "2024-05-24",
+      "cefr_estimate": "A2-B1-estimate",
+      "skills": [
+        "grammar",
+        "writing",
+        "reading"
+      ],
+      "yki_topics": [
+        "partitive",
+        "plural_partitive",
+        "object",
+        "sentence_types"
+      ],
+      "product_fit_score_100": 93,
+      "why_useful": "Extended reference for recognizing when to use singular/plural partitive across constructions",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "partitive_rules",
+          "start_seconds": 0,
+          "end_seconds": 267
+        },
+        {
+          "kind": "negation",
+          "start_seconds": 414,
+          "end_seconds": 654
+        },
+        {
+          "kind": "object_sentence",
+          "start_seconds": 1198,
+          "end_seconds": 1360
+        },
+        {
+          "kind": "plural_partitive_numbers",
+          "start_seconds": 1872,
+          "end_seconds": 1917
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-partitiivi-deep-draft-1",
+          "prompt_fi": "Kirjoita kaksi kieltolausetta partitiivissa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-partitiivi-deep-draft-2",
+          "prompt_fi": "Vertaa yksikön ja monikon partitiivia uudessa arkisessa tilanteessa.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ]
+    }
+  ]
+}
