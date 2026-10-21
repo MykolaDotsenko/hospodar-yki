@@ -458,3 +458,24 @@ type Session = {
 **Нова вимога YTP-SOURCE-CALIBRATION:** джерела з підтвердженим рівнем **A1–A2** не допускати як B1 exam-like evidence. Вони підтримують `discover/practice`, але `prove` потребує B1-сумісної нової ситуації та калібрування S2. Для Yle B1 / Kielibuusti publisher-hosted video series не вигадувати прямі YouTube IDs і не копіювати вміст. Контракт та 10 тестів: [video round 3](../video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md#4-video-acceptance-and-next-implementer-tickets).
 
 **Acceptance contract**: [YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md#future-youtube-player--acceptance-specification-ytp-0114); work is **requirements and content catalogue only**, the integrated player is **not implemented**. Existing two high-level modes remain LEARN and EXAM.
+
+## 11. Архітектурні вимоги ARCH-01…14 (ADR-022)
+
+Канонічне рішення [22 — TypeScript local-first PWA architecture](22-optimal-stack-and-architecture-adr-2026-10.md) та [machine-readable ADR](../research/architecture-decision-v1.json). Це **target**: чинний `app/` і `exam.html` поки vanilla JS MVP.
+
+- **ARCH-01/P0:** React+Vite+strict TypeScript модульний моноліт, типізований `Task` та schema-validated `ContentPack`; pure domain code без import React/Supabase.
+- **ARCH-02/P0:** головні Learn і Exam використовують **спільні джерела контенту**, але ізольовані `feedback/hints/timers/scoring` policies.
+- **ARCH-03/P0:** XState state machine для exam/speaking/record, дозволені події fail-closed, `submitted` immutable.
+- **ARCH-04/P0:** IndexedDB + Dexie для attempt events, SRS, snapshots і outbox; міграція існуючого localStorage після JSON export.
+- **ARCH-05/P0:** PWA small installable offline content packs, версійне кешування, жодного auto-update service-worker під час активного іспиту.
+- **ARCH-06/P0:** `EXAM_2027_OFFICIAL_EXACT` заблоковано допоки офіційні цифрові поля невідомі; old paper/SOLKI timers scope only historical.
+- **ARCH-07/P0:** в окремих `reading/listening` — objective key count; `writing/speaking` — reviewed rubric/pending review, не вигаданий YKI3.
+- **ARCH-08/P0:** аудіо поза source repo large artifacts із checksums, versioning, права та відповідність transcript/VTT.
+- **ARCH-09/P0:** media recorder тільки з дозволом, запис local default, жодного зберігання user voice у звичайному `localStorage`.
+- **ARCH-10/P1:** optional Supabase/Auth/Postgres Cloud Sync із exact EU region, RLS, DPA/privacy map; гості мають повний local-only flow.
+- **ARCH-11/P1:** AI keys тільки server-side, provider-independent adapter; long STT/TTS через durable queue/worker, uncertainty-aware feedback.
+- **ARCH-12/P0:** окремо змістовий прогрес кожної з 4 навичок, у `learn` retrieval→repair→transfer→SRS, в `exam` тільки post-submit review.
+- **ARCH-13/P0:** QA (Vitest + Playwright Chromium/Firefox/WebKit + physical mobile mic), no answer leak, restore, DST/clock drift, offline & migration.
+- **ARCH-14/P0:** без big-bang rewrite: регресійні тести, parity, export/rollback, content review gates перед переключенням.
+
+**Acceptance:** `ARC-01..ARC-14` як machine checks у [ADR JSON](../research/architecture-decision-v1.json) і майбутніх Playwright suites. Рекомендовані **95/100** — експертна fit оцінка цільового дизайну, **не** оцінка вже реалізованої архітектури/production readiness.
