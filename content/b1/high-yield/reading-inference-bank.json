@@ -145,7 +145,7 @@
           "type": "true_false",
           "statement_fi": "Paketti on noudettavissa seitsemän päivää saapumisesta.",
           "answer": true,
-          "evidence_fi": "säilytetään ... seitsemän päivää saapumisesta",
+          "evidence_fi": "Paketti säilytetään noutopisteessä seitsemän päivää saapumisesta.",
           "explanation_uk": "У тексті прямо вказаний термін з моменту прибуття.",
           "id": "b1-read-inference-003-q4"
         }
@@ -220,7 +220,7 @@
             "Aina"
           ],
           "correct_index": 1,
-          "evidence_fi": "Torstaisin järjestetään ... ilman ajanvarausta",
+          "evidence_fi": "Torstaisin järjestetään lyhyt avoin neuvonta, johon voi osallistua ilman ajanvarausta.",
           "explanation_uk": "Потрібно розрізнити вівторок за записом і четвер без запису.",
           "id": "b1-read-inference-005-q1"
         },

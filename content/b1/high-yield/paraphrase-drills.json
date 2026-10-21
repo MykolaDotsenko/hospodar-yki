@@ -13,10 +13,10 @@
       "source_fi": "Aukioloajat muuttuvat ensi maanantaista alkaen.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Liike on kokonaan kiinni ensi viikolla.",
-        "Liike palvelee asiakkaita eri aikoihin ensi viikosta lähtien."
+        "Liike palvelee asiakkaita eri aikoihin ensi viikosta lähtien.",
+        "Liike on kokonaan kiinni ensi viikolla."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Muuttaa aukioloaikoja ei tarkoita sulkea liikettä.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -43,10 +43,10 @@
       "source_fi": "Hakemus pitää lähettää viimeistään perjantaina.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Hakemus käsitellään varmasti perjantaina.",
-        "Perjantai on viimeinen päivä, jolloin hakemuksen voi lähettää."
+        "Perjantai on viimeinen päivä, jolloin hakemuksen voi lähettää.",
+        "Hakemus käsitellään varmasti perjantaina."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Viimeistään kertoo takarajan, ei käsittelypäivää.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -73,10 +73,10 @@
       "source_fi": "Bussi lähtee poikkeuksellisesti pysäkiltä viisi.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Bussi kulkee aina pysäkin viisi kautta.",
-        "Tällä kertaa bussi lähtee pysäkiltä numero viisi."
+        "Tällä kertaa bussi lähtee pysäkiltä numero viisi.",
+        "Bussi kulkee aina pysäkin viisi kautta."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Poikkeuksellisesti = ei tavalliseen tapaan.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -103,10 +103,10 @@
       "source_fi": "Tapaamista on siirretty puoli tuntia myöhemmäksi.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Tapaaminen päättyy puoli tuntia aikaisemmin.",
-        "Tapaaminen alkaa kolmekymmentä minuuttia suunniteltua myöhemmin."
+        "Tapaaminen alkaa kolmekymmentä minuuttia suunniteltua myöhemmin.",
+        "Tapaaminen päättyy puoli tuntia aikaisemmin."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Siirretty myöhemmäksi tarkoittaa uuden aloituksen olevan myöhemmin.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -133,10 +133,10 @@
       "source_fi": "Laitteessa ilmeni vika heti ensimmäisellä käyttökerralla.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Laite alkoi toimia paremmin ensimmäisen kerran jälkeen.",
-        "Laite ei toiminut kunnolla, kun sitä käytettiin ensimmäistä kertaa."
+        "Laite ei toiminut kunnolla, kun sitä käytettiin ensimmäistä kertaa.",
+        "Laite alkoi toimia paremmin ensimmäisen kerran jälkeen."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Ilmeni vika = havaittiin ongelma.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -163,10 +163,10 @@
       "source_fi": "Taloyhtiö pyytää asukkaita välttämään veden käyttöä huollon aikana.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Asukkaita pyydetään käyttämään tavallista enemmän vettä.",
-        "Asukkaita kehotetaan käyttämään mahdollisimman vähän vettä, kun huoltotöitä tehdään."
+        "Asukkaita kehotetaan käyttämään mahdollisimman vähän vettä, kun huoltotöitä tehdään.",
+        "Asukkaita pyydetään käyttämään tavallista enemmän vettä."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Välttää = pyrkiä olemaan tekemättä; ei välttämättä täydellinen kielto.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -193,10 +193,10 @@
       "source_fi": "Uimahalli suljetaan remontin ajaksi.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Uimahalli on avoinna koko remontin ajan.",
-        "Uimahalli ei ole käytössä niin kauan kuin sitä korjataan."
+        "Uimahalli ei ole käytössä niin kauan kuin sitä korjataan.",
+        "Uimahalli on avoinna koko remontin ajan."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Remontin ajaksi ilmaisee ajallista sulkemista.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -223,10 +223,10 @@
       "source_fi": "Tilaus toimitetaan arviolta viiden arkipäivän kuluessa.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Paketti saapuu varmasti tasan viidentenä kalenteripäivänä.",
-        "Paketin odotetaan saapuvan noin viidessä työpäivässä."
+        "Paketin odotetaan saapuvan noin viidessä työpäivässä.",
+        "Paketti saapuu varmasti tasan viidentenä kalenteripäivänä."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Arviolta on arvio, arkipäivä ei ole sama kuin kalenteripäivä.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -253,10 +253,10 @@
       "source_fi": "Osallistumismaksu palautetaan, jos tilaisuus perutaan järjestäjän toimesta.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Saat maksun takaisin aina, jos päätät itse olla tulematta.",
-        "Saat maksun takaisin, mikäli järjestäjä peruu tapahtuman."
+        "Saat maksun takaisin, mikäli järjestäjä peruu tapahtuman.",
+        "Saat maksun takaisin aina, jos päätät itse olla tulematta."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Järjestäjän toimesta tarkoittaa järjestäjän tekemää peruutusta.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -283,10 +283,10 @@
       "source_fi": "Kirjastossa voi käyttää tietokonetta korkeintaan tunnin kerrallaan.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Tietokonetta pitää käyttää vähintään tunnin.",
-        "Tietokonetta saa käyttää yhdellä kertaa enintään 60 minuuttia."
+        "Tietokonetta saa käyttää yhdellä kertaa enintään 60 minuuttia.",
+        "Tietokonetta pitää käyttää vähintään tunnin."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Korkeintaan = enintään, ei vähintään.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -313,10 +313,10 @@
       "source_fi": "Kurssi on tarkoitettu aikuisille, joilla on jo perustiedot suomesta.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Kurssi sopii vain täysin aloittelijoille.",
-        "Kurssin osallistujien pitää olla aikuisia ja osata suomea jonkin verran."
+        "Kurssin osallistujien pitää olla aikuisia ja osata suomea jonkin verran.",
+        "Kurssi sopii vain täysin aloittelijoille."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Perustiedot = vähän osaamista ennestään.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."
@@ -343,10 +343,10 @@
       "source_fi": "Mikäli oireet jatkuvat, varatkaa uusi aika.",
       "task_fi": "Valitse vaihtoehto, joka tarkoittaa samaa kuin alkuperäinen virke.",
       "choices_fi": [
-        "Varatkaa uusi aika vain, jos oireet loppuvat.",
-        "Jos oireet eivät mene ohi, varatkaa uusi vastaanottoaika."
+        "Jos oireet eivät mene ohi, varatkaa uusi vastaanottoaika.",
+        "Varatkaa uusi aika vain, jos oireet loppuvat."
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "explanation_uk": "Jatkuvat = eivät lopu.",
       "recall_prompt_uk": "Перекажи оригінальне речення фінською іншими словами, не дивлячись на варіанти.",
       "transfer_prompt_fi": "Keksi oma arkinen lause, jossa sama merkitysero on tärkeä."

@@ -1,0 +1,62 @@
+{
+  "as_of": "2026-10-21",
+  "role": "provenance_and_competitor_audit_only_original_exercises_in_content",
+  "entries": [
+    {
+      "id": 1,
+      "title": "VIERKO 2 (2026) S2 A2.2",
+      "url": "https://www.finna.fi/L1Record/aoe.5839?lng=en-gb",
+      "rights": "CC BY-SA 4.0, 2026, 3 units, full licensed open teaching material",
+      "benefit": "A2.2-B1 scaffold, not official YKI"
+    },
+    {
+      "id": 2,
+      "title": "VIERKO (2024) S2",
+      "url": "https://www.finna.fi/Record/aoe.4276",
+      "rights": "CC BY-SA 4.0, direct PDFs: interaction, text genres, writing",
+      "benefit": "Useful full source PDF content; cite original authors"
+    },
+    {
+      "id": 3,
+      "title": "Yle B1 YKI (2024)",
+      "url": "https://yle.fi/a/74-20082612",
+      "rights": "copyrighted; do not redistribute",
+      "benefit": "90 reading/listening questions across 9 topics, external practice"
+    },
+    {
+      "id": 4,
+      "title": "Suomi-koulujen tuki",
+      "url": "https://www.suomikoulut.fi/yki/",
+      "rights": "third-party; permission to redistribute not established",
+      "benefit": "70 linked exercises, including 28 listening"
+    },
+    {
+      "id": 5,
+      "title": "Kielibuusti A2-B2 podcasts",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/helppoja-podcasteja",
+      "rights": "podcast-specific rights; link only",
+      "benefit": "Extended listening habit, graded context"
+    },
+    {
+      "id": 6,
+      "title": "YKI Mock platform",
+      "url": "https://ykimock.fi/",
+      "rights": "third-party platform, terms required",
+      "benefit": "For competitor UX comparison only; claims not independently evaluated"
+    },
+    {
+      "id": 7,
+      "title": "YKI Test Prep platform",
+      "url": "https://ykitestprep.com/",
+      "rights": "third-party platform, terms required",
+      "benefit": "Large claimed bank for comparative evaluation, not official"
+    },
+    {
+      "id": 8,
+      "title": "YKI Prep",
+      "url": "https://www.ykiprep.com/",
+      "rights": "third-party platform, terms required",
+      "benefit": "Commercial AI B1 practice, quality needs review"
+    }
+  ]
+}
