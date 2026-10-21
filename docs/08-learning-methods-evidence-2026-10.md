@@ -1,14 +1,16 @@
 # 08 — Світові методики ефективного вивчення фінської: Hospodar YKI
 
-> Стан на **21.10.2026**. Evidence-informed research shortlist, НЕ реліз застосунку. Оновлено з 35 до **51** методики й від 29 до **49** джерел. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/learning-methods-v1.json`](../research/learning-methods-v1.json).
+> Стан на **21.10.2026**. Evidence-informed research shortlist, НЕ реліз застосунку. Оновлено з 35 до **67** методик і до **69** джерел. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/learning-methods-v1.json`](../research/learning-methods-v1.json).
 
 ## Методологія рейтингу
 
-**Оцінка 0–100 — наша експертна придатність для Hospodar YKI, не науковий effect size, не % успішності YKI.** Враховуємо докази (до 30), придатність для фінської/YKI (до 30), A2.2→B1 (до 20), простоту розробки (до 10), автономію та мотивацію (до 10). Суб'єктивні оцінки можуть коригуватися після тестування з учнями. Рейтинг НЕ сума effect sizes.
+**Product-fit оцінка 0–100 — наша експертна придатність для Hospodar YKI, не науковий effect size, не % успішності YKI.** Враховуємо докази (до 30), придатність для фінської/YKI (до 30), A2.2→B1 (до 20), простоту розробки (до 10), автономію та мотивацію (до 10). Суб'єктивні оцінки можуть коригуватися після тестування з учнями. Рейтинг НЕ сума effect sizes.
 
 **Рівні доказів:** L2 meta-analysis > міжмовна педагогічна екстраполяція > локальні освітні рекомендації > гіпотези. OPH і CEFR задають компетенції, не підтверджують ефективність втручання. Переваги англійською не гарантують аналогічних для фінської, і жодне дослідження тут не оцінює шанс скласти саме YKI.
 
-## Повний рейтинг: 51 методика
+**Окрема навчальна ефективність 0–100 для всіх 67:** [дослідження](12-finnish-yki-learning-effectiveness-2026-10.md) і [JSON рейтингу](../research/learning-effectiveness-ratings-v1.json). Це не measured percent, Hedges g чи офіційний grade.
+
+## Повний рейтинг (Product-fit, 67 методик)
 
 | № | Методика | /100 | Довіра до доказу | Черга |
 |---:|---|---:|---|---|
@@ -21,48 +23,64 @@
 | 7 | Зрозуміле поступово складніше аудіо й читання | **95** | MODERATE INDIRECT | P0 |
 | 8 | Feedback literacy: самовиправлення, uptake, перевірка переносу | **95** | HIGH WRITING REVIEW WITH L2 TRANSFER | P0 |
 | 9 | Task Repetition із перенесенням у нову ситуацію | **95** | HIGH L2 | P0 |
-| 10 | Коротке пояснення граматики + практика у контексті | **94** | HIGH L2 | P0 |
-| 11 | Metacognitive Listening: передбачення, gist, details, рефлексія | **94** | MODERATE TRANSFER ENGLISH | P0 |
-| 12 | Negotiation of meaning: уточнення й відновлення спілкування | **94** | MODERATE INTERACTION AND CEFR | P0 |
-| 13 | Незалежна діагностика 4 навичок і переносу | **94** | HIGH FRAMEWORK INDIRECT | P0 |
-| 14 | Writing → feedback → rewrite → нове письмо | **94** | HIGH L2 WRITING | P0 |
-| 15 | AI рольові розмови + педагогічний контроль + AI literacy | **93** | MODERATE GENAI L2 INDIRECT | P0 |
-| 16 | Kirjakieli ↔ puhekieli, впізнавання регістрів | **93** | FINNISH SPECIFIC APPLIED | P0 |
-| 17 | Функціональні мовні chunks і колокації | **92** | MODERATE APPLIED | P0 |
-| 18 | Listening evidence audit: gist → деталі → чому помилився | **92** | HIGH L2 STRATEGY INDIRECT FINNISH | P0 |
-| 19 | Фінська фонологічна тривалість: окремо сприйняття і вимова | **92** | DIRECT FINNISH L2 EXPERIMENT | P0 |
-| 20 | Focus on Form під час комунікативного завдання | **92** | MODERATE L2 GRAMMAR INDIRECT | P0 |
-| 21 | High-Variability Phonetic Training: багато дикторів | **92** | HIGH L2 PERCEPTION | P0 |
-| 22 | Extensive Reading на посильному рівні | **91** | HIGH L2 READING | P0 |
-| 23 | Контрастивна фінська морфологія: KPT, rektio, sijamuodot | **91** | HIGH INSTRUCTION FINNISH TRANSFER | P0 |
-| 24 | Мікромісії в реальному фінському середовищі | **91** | MODERATE APPLIED | P0 |
-| 25 | Субтитри і транскрипти з поступовим приховуванням | **90** | HIGH L2 LEXIS | P0 |
-| 26 | CEFR mediation: пояснити текст/умову іншій людині просто | **90** | FRAMEWORK TRANSFER HYPOTHESIS | P0 |
-| 27 | Digital test literacy: клавіатура, таймер, навушники, навігація | **90** | OFFICIAL DIGITAL NEEDS VALIDATION | P0 |
-| 28 | Продуктивне перефразування забутого слова | **90** | MODERATE TRANSFER | P0 |
-| 29 | Holdout item bank, difficulty tags і поступова психометрична калібровка | **89** | ASSESSMENT ENGINEERING NOT CLINICAL TRIAL | P1 |
-| 30 | ASR як допоміжна підказка з оцінкою впевненості, не суддя | **89** | ENGLISH ASR META FINNISH LIMIT | P1 |
-| 31 | Мінімальні фінські пари і тривалість звуків | **88** | HIGH PHONETIC TRANSFER | P1 |
-| 32 | AI voice roleplay із живими реакціями | **87** | EMERGING L2 | P1 |
-| 33 | FSRS-подібний data-driven scheduler для підтверджених chunks | **87** | ENGINEERING BENCHMARK NO FINNISH INTERVENTION | P1 |
-| 34 | Контекстні підказки/переклад тільки за запитом | **87** | HIGH L2 RECOGNITION | P1 |
-| 35 | Interleaving: перемішування близьких форм | **87** | MODERATE INDIRECT | P1 |
-| 36 | Unseen YKI-like simulation, без підказок | **87** | HIGH ALIGNMENT NOT EFFECT ESTIMATE | P1 |
-| 37 | Самооцінювання й метацілі по чотирьох навичках | **86** | FRAMEWORK APPLIED | P1 |
-| 38 | Privacy-first learner analytics: явна згода, локальна історія | **85** | PRODUCT SAFETY ENGINEERING | P1 |
-| 39 | Візуальні опори з реальними квитками, листами, схемами | **85** | HIGH LEXICAL RECOGNITION | P1 |
-| 40 | Dictogloss: відтворення смислу після слухання | **84** | MODERATE APPLIED | P1 |
-| 41 | 4/3/2 fluency з помірним темповим обмеженням | **84** | EMERGING L2 | P1 |
-| 42 | Короткі регулярні місії 10–20 хв | **83** | MODERATE BEHAVIORAL | P1 |
-| 43 | Shadowing із якісним живим аудіо | **82** | LIMITED HETEROGENEOUS | P1 |
-| 44 | Опційна змістовна гейміфікація | **75** | SMALL MOTIVATION EFFECT | P2 |
-| 45 | Українсько-фінський contrastive teaching | **72** | PEDAGOGIC HYPOTHESIS | P2 |
-| 46 | Лише один синтетичний диктор для аудіювання | **59** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
-| 47 | Виключно пасивне аудіо у фоні | **57** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
-| 48 | Лише списки слів без контекстного мовлення | **50** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
-| 49 | Пасивне AI-переписування відповідей без власної другої спроби | **46** | RISK FOR UPTAKE | AVOID_OR_SUPPLEMENT_ONLY |
-| 50 | Показ готової правильної відповіді до власної спроби | **28** | COUNTERPRODUCTIVE RISK | AVOID_OR_SUPPLEMENT_ONLY |
-| 51 | Раптові гучні вигуки персонажа для налякування | **22** | NO SUPPORT AND ACCESSIBILITY RISK | AVOID_OR_SUPPLEMENT_ONLY |
+| 10 | Комбінована корекція змісту, структури та граматики | **94** | HIGH MIXED WRITING META | P0 |
+| 11 | Коротке пояснення граматики + практика у контексті | **94** | HIGH L2 | P0 |
+| 12 | Metacognitive Listening: передбачення, gist, details, рефлексія | **94** | MODERATE TRANSFER ENGLISH | P0 |
+| 13 | Negotiation of meaning: уточнення й відновлення спілкування | **94** | MODERATE INTERACTION AND CEFR | P0 |
+| 14 | Незалежна діагностика 4 навичок і переносу | **94** | HIGH FRAMEWORK INDIRECT | P0 |
+| 15 | Writing → feedback → rewrite → нове письмо | **94** | HIGH L2 WRITING | P0 |
+| 16 | Data-driven learning: знайти правило в корпусних прикладах | **93** | MODERATE L2 DDL META | P0 |
+| 17 | AI рольові розмови + педагогічний контроль + AI literacy | **93** | MODERATE GENAI L2 INDIRECT | P0 |
+| 18 | Kirjakieli ↔ puhekieli, впізнавання регістрів | **93** | FINNISH SPECIFIC APPLIED | P0 |
+| 19 | Український переклад + тематичне фото + самостійне речення | **93** | HIGH L2 META | P0 |
+| 20 | Peer tutoring письма з метакогнітивними питаннями | **93** | HIGH L2 META | P0 |
+| 21 | Короткий план перед говорінням/письмом | **93** | MODERATE L2 META | P0 |
+| 22 | Функціональні мовні chunks і колокації | **92** | MODERATE APPLIED | P0 |
+| 23 | Listening evidence audit: gist → деталі → чому помилився | **92** | HIGH L2 STRATEGY INDIRECT FINNISH | P0 |
+| 24 | Фінська фонологічна тривалість: окремо сприйняття і вимова | **92** | DIRECT FINNISH L2 EXPERIMENT | P0 |
+| 25 | Focus on Form під час комунікативного завдання | **92** | MODERATE L2 GRAMMAR INDIRECT | P0 |
+| 26 | SSARC: поступове ускладнення реальних завдань | **92** | MODERATE L2 META | P0 |
+| 27 | High-Variability Phonetic Training: багато дикторів | **92** | HIGH L2 PERCEPTION | P0 |
+| 28 | Мобільна контекстна практика між щоденними справами | **92** | HIGH L2 VOCAB META | P0 |
+| 29 | Extensive Reading на посильному рівні | **91** | HIGH L2 READING | P0 |
+| 30 | Контрастивна фінська морфологія: KPT, rektio, sijamuodot | **91** | HIGH INSTRUCTION FINNISH TRANSFER | P0 |
+| 31 | Мікромісії в реальному фінському середовищі | **91** | MODERATE APPLIED | P0 |
+| 32 | Субтитри і транскрипти з поступовим приховуванням | **90** | HIGH L2 LEXIS | P0 |
+| 33 | CEFR mediation: пояснити текст/умову іншій людині просто | **90** | FRAMEWORK TRANSFER HYPOTHESIS | P0 |
+| 34 | Digital test literacy: клавіатура, таймер, навушники, навігація | **90** | OFFICIAL DIGITAL NEEDS VALIDATION | P0 |
+| 35 | Продуктивне перефразування забутого слова | **90** | MODERATE TRANSFER | P0 |
+| 36 | Спільне написання + незалежний новий текст | **89** | MODERATE L2 META | P1 |
+| 37 | Контекстне помічання колокацій і rektio | **89** | MODERATE ENGLISH CORPUS REVIEW | P1 |
+| 38 | Holdout item bank, difficulty tags і поступова психометрична калібровка | **89** | ASSESSMENT ENGINEERING NOT CLINICAL TRIAL | P1 |
+| 39 | Мапи аргументів для говоріння та письма | **89** | MODERATE L2 META | P1 |
+| 40 | ASR як допоміжна підказка з оцінкою впевненості, не суддя | **89** | ENGLISH ASR META FINNISH LIMIT | P1 |
+| 41 | Автономія учня: вибір теми та мети місії | **88** | MODERATE ASSOCIATIONAL | P1 |
+| 42 | Information-gap: уточнення фактів і ухвалення рішення | **88** | MIXED L2 META | P1 |
+| 43 | Мінімальні фінські пари і тривалість звуків | **88** | HIGH PHONETIC TRANSFER | P1 |
+| 44 | AI voice roleplay із живими реакціями | **87** | EMERGING L2 | P1 |
+| 45 | FSRS-подібний data-driven scheduler для підтверджених chunks | **87** | ENGINEERING BENCHMARK NO FINNISH INTERVENTION | P1 |
+| 46 | Контекстні підказки/переклад тільки за запитом | **87** | HIGH L2 RECOGNITION | P1 |
+| 47 | Interleaving: перемішування близьких форм | **87** | MODERATE INDIRECT | P1 |
+| 48 | Unseen YKI-like simulation, без підказок | **87** | HIGH ALIGNMENT NOT EFFECT ESTIMATE | P1 |
+| 49 | Самооцінювання й метацілі по чотирьох навичках | **86** | FRAMEWORK APPLIED | P1 |
+| 50 | Візуалізація тривалості фінських звуків | **86** | MIXED PHONETIC REVIEW | P1 |
+| 51 | Privacy-first learner analytics: явна згода, локальна історія | **85** | PRODUCT SAFETY ENGINEERING | P1 |
+| 52 | Візуальні опори з реальними квитками, листами, схемами | **85** | HIGH LEXICAL RECOGNITION | P1 |
+| 53 | Dictogloss: відтворення смислу після слухання | **84** | MODERATE APPLIED | P1 |
+| 54 | 4/3/2 fluency з помірним темповим обмеженням | **84** | EMERGING L2 | P1 |
+| 55 | Keyword mnemonic + retrieval для складних слів | **84** | EMERGING ENGLISH STUDY | P1 |
+| 56 | Короткі регулярні місії 10–20 хв | **83** | MODERATE BEHAVIORAL | P1 |
+| 57 | Читання одночасно зі слуханням як допоміжна опора | **82** | MIXED GENERAL META | P1 |
+| 58 | Shadowing із якісним живим аудіо | **82** | LIMITED HETEROGENEOUS | P1 |
+| 59 | Опційна змістовна гейміфікація | **75** | SMALL MOTIVATION EFFECT | P2 |
+| 60 | Українсько-фінський contrastive teaching | **72** | PEDAGOGIC HYPOTHESIS | P2 |
+| 61 | VR/AR занурення як необов'язкова експериментальна фіча | **71** | EMERGING L2 TECH REVIEW | P2 |
+| 62 | Лише один синтетичний диктор для аудіювання | **59** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
+| 63 | Виключно пасивне аудіо у фоні | **57** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
+| 64 | Лише списки слів без контекстного мовлення | **50** | WEAK STANDALONE | AVOID_OR_SUPPLEMENT_ONLY |
+| 65 | Пасивне AI-переписування відповідей без власної другої спроби | **46** | RISK FOR UPTAKE | AVOID_OR_SUPPLEMENT_ONLY |
+| 66 | Показ готової правильної відповіді до власної спроби | **28** | COUNTERPRODUCTIVE RISK | AVOID_OR_SUPPLEMENT_ONLY |
+| 67 | Раптові гучні вигуки персонажа для налякування | **22** | NO SUPPORT AND ACCESSIBILITY RISK | AVOID_OR_SUPPLEMENT_ONLY |
 
 ## Картки методик — докази, сценарій, метрика й обмеження
 
@@ -192,6 +210,20 @@
 
 **Межі доказу / ризик:** Не вважати завчений монолог доказом B1.
 
+### 94/100 — Комбінована корекція змісту, структури та граматики (`balanced-deep-surface-feedback`)
+
+**Джерела:** [surface-deep24](https://doi.org/10.1016/j.learninstruc.2024.101961), [writingcf](https://doi.org/10.1016/j.learninstruc.2024.101961). **Доказовість:** `HIGH_MIXED_WRITING_META`. **Черга:** P0.
+
+**Суть:** Поєднаний feedback краще охоплює поверхневі і глибинні недоліки письма.
+
+**Фінська вправа:** Kirjoita reklamaatio; onko syy ja pyyntö, ja onko rektio oikein?
+
+**Ідея для застосунку:** Спочатку task fulfilment, далі точкові граматичні проблеми.
+
+**Вимірюваний результат:** Нове письмо: зрозумілість, повнота, форми окремо.
+
+**Межі доказу / ризик:** Метааналіз змішував L1, L2 та FL; не прирівнювати до YKI.
+
 ### 94/100 — Коротке пояснення граматики + практика у контексті (`explicit-context-grammar`)
 
 **Джерела:** [explicit](https://doi.org/10.1111/flan.12726), [finnmorph](https://research.abo.fi/sv/activities/processing-of-inflectional-stem-changes-of-finnish-words-in-nativ-2/), [formfocused36](https://doi.org/10.5281/zenodo.14790529), [focusform24](https://doi.org/10.1075/task.00028.che). **Доказовість:** `HIGH_L2`. **Черга:** P0.
@@ -262,6 +294,20 @@
 
 **Межі доказу / ризик:** Не видавати AI-score за YKI grade 3.
 
+### 93/100 — Data-driven learning: знайти правило в корпусних прикладах (`guided-corpus-discovery`)
+
+**Джерела:** [ddlmeta23](https://doi.org/10.1016/j.acorp.2023.100076), [explicit](https://doi.org/10.1111/flan.12726). **Доказовість:** `MODERATE_L2_DDL_META`. **Черга:** P0.
+
+**Суть:** Зіставлення реальних прикладів допомагає індуктивно помічати керування та словозміну.
+
+**Фінська вправа:** Pidän kahvista, pidän musiikista: mikä sija?
+
+**Ідея для застосунку:** 3–5 ліцензованих контекстів, гіпотеза учня, правило, нова ситуація.
+
+**Вимірюваний результат:** Правильний відмінок у незнайомому контексті через 7 днів.
+
+**Межі доказу / ризик:** Корпусні тексти мають пройти відбір і S2-редактуру.
+
 ### 93/100 — AI рольові розмови + педагогічний контроль + AI literacy (`hybrid-ai-teacher-loop`)
 
 **Джерела:** [genaitblt25](https://doi.org/10.1007/s11528-025-01140-7), [genai51_2026](https://doi.org/10.1007/s10791-026-10015-1), [genaireview144](https://doi.org/10.1016/j.caeai.2025.100445). **Доказовість:** `MODERATE_GENAI_L2_INDIRECT`. **Черга:** P0.
@@ -289,6 +335,48 @@
 **Вимірюваний результат:** Розуміння живого мовлення й доречність регістру.
 
 **Межі доказу / ризик:** Не узагальнювати один діалект як єдину норму.
+
+### 93/100 — Український переклад + тематичне фото + самостійне речення (`multimedia-dual-code`)
+
+**Джерела:** [multimedia25](https://doi.org/10.1016/j.edurev.2025.100681), [retrieval](https://doi.org/10.1177/1529100612453266). **Доказовість:** `HIGH_L2_META`. **Черга:** P0.
+
+**Суть:** L1+picture краще за одне джерело підказок на негайних словникових тестах; delayed результат менш переконливий.
+
+**Фінська вправа:** Näytä kuva pysäkistä: missä pysäkki on?
+
+**Ідея для застосунку:** Картка: зображення + UA gloss + самостійне використання в новій ситуації.
+
+**Вимірюваний результат:** Затримане продуктивне пригадування без зображення.
+
+**Межі доказу / ризик:** Не плутати негайні тести з довгим YKI переносом.
+
+### 93/100 — Peer tutoring письма з метакогнітивними питаннями (`peer-writing-with-prompts`)
+
+**Джерела:** [peerwrite25](https://doi.org/10.1016/j.ijedro.2024.100422), [surface-deep24](https://doi.org/10.1016/j.learninstruc.2024.101961). **Доказовість:** `HIGH_L2_META`. **Черга:** P0.
+
+**Суть:** Peer tutoring L2 письма має позитивні результати, а метакогнітивні питання підсилювали ефект.
+
+**Фінська вправа:** Tarkista viesti: missä ongelma? mitä pyydät?
+
+**Ідея для застосунку:** Партнер/викладач перевіряє зміст і форму, автор сам виправляє.
+
+**Вимірюваний результат:** Нове письмо через 7–14 днів оцінене незалежно.
+
+**Межі доказу / ризик:** Peer feedback може бути неточним; потрібна модерація.
+
+### 93/100 — Короткий план перед говорінням/письмом (`pre-task-planning`)
+
+**Джерела:** [planning22](https://academic.oup.com/applij/article-abstract/43/6/1143/6682841). **Доказовість:** `MODERATE_L2_META`. **Черга:** P0.
+
+**Суть:** Планування полегшує організацію висловлювання, але по-різному впливає на точність, швидкість і складність.
+
+**Фінська вправа:** Puhu asumisesta: 2 syytä + 1 esimerkki.
+
+**Ідея для застосунку:** Короткий план ключових тез перед вільною відповіддю.
+
+**Вимірюваний результат:** Повнота й плавність нового монологу.
+
+**Межі доказу / ризик:** Час для планування в тренажері не є офіційним часом YKI.
 
 ### 92/100 — Функціональні мовні chunks і колокації (`chunk-learning`)
 
@@ -346,6 +434,20 @@
 
 **Межі доказу / ризик:** Не весь мовний контент слід перетворювати на grammar drills; мовний зміст первинний.
 
+### 92/100 — SSARC: поступове ускладнення реальних завдань (`graduated-task-sequencing`)
+
+**Джерела:** [sequencing25](https://doi.org/10.1111/ijal.12670). **Доказовість:** `MODERATE_L2_META`. **Черга:** P0.
+
+**Суть:** Рух від простого завдання до складнішого підтримує граматичну точність і складність.
+
+**Фінська вправа:** Pyydä aika → muuta aika → perustele syy → sovi vaihtoehto.
+
+**Ідея для застосунку:** Завдання з додатковими обмеженнями та контрольованими підказками.
+
+**Вимірюваний результат:** Якість виконання нової складнішої ситуації.
+
+**Межі доказу / ризик:** Ускладнення повинно залежати від навичок, не тиснути на учня.
+
 ### 92/100 — High-Variability Phonetic Training: багато дикторів (`high-variability-phonetics`)
 
 **Джерела:** [hvpt](https://doi.org/10.1017/S0272263125100879), [hvptprod](https://doi.org/10.1017/S0142716424000195). **Доказовість:** `HIGH_L2_PERCEPTION`. **Черга:** P0.
@@ -359,6 +461,20 @@
 **Вимірюваний результат:** Точність на нових дикторах та невивчених словах.
 
 **Межі доказу / ризик:** Перцептивний прогрес ≠ гарантована правильна вимова.
+
+### 92/100 — Мобільна контекстна практика між щоденними справами (`mobile-contextual-micropractice`)
+
+**Джерела:** [mobilevocab22](https://doi.org/10.1017/S0958344021000239), [mobilevocab26](https://www.cambridge.org/core/journals/recall/article/metaanalysis-on-mobileassisted-vocabulary-learning-do-mobile-applications-help/79C8F00E48D521ED3BCFE0625B5549F3). **Доказовість:** `HIGH_L2_VOCAB_META`. **Черга:** P0.
+
+**Суть:** Метааналізи mobile vocabulary демонструють користь, залежну від завдань і тривалості.
+
+**Фінська вправа:** Ennen kauppaa: pyydä kuitti, palauta tuote.
+
+**Ідея для застосунку:** Короткі опційні мікрозавдання перед реальною ситуацією.
+
+**Вимірюваний результат:** Delayed productive use на хвилину практики.
+
+**Межі доказу / ризик:** Мобільність не гарантує transfer; без нав'язливих нагадувань.
 
 ### 91/100 — Extensive Reading на посильному рівні (`extensive-reading`)
 
@@ -458,6 +574,34 @@
 
 **Межі доказу / ризик:** Не карати за допустимі змістові синоніми.
 
+### 89/100 — Спільне написання + незалежний новий текст (`collaborative-writing`)
+
+**Джерела:** [collabwrite21](https://www.sciencedirect.com/science/article/pii/S1060374320300874). **Доказовість:** `MODERATE_L2_META`. **Черга:** P1.
+
+**Суть:** Спільне письмо поліпшує точність і може впливати на пізніші індивідуальні тексти.
+
+**Фінська вправа:** Kirjoittakaa kutsu talkoisiin, sitten uusi viesti yksin.
+
+**Ідея для застосунку:** Спільний коментар і дискусія щодо змісту, потім solo transfer.
+
+**Вимірюваний результат:** Самостійний текст після групової практики.
+
+**Межі доказу / ризик:** Коавторство не можна зараховувати як індивідуальний рівень.
+
+### 89/100 — Контекстне помічання колокацій і rektio (`corpus-collocation-noticing`)
+
+**Джерела:** [ddlcolloc23](https://www.mdpi.com/2071-1050/15/17/13242), [ddlmeta23](https://doi.org/10.1016/j.acorp.2023.100076). **Доказовість:** `MODERATE_ENGLISH_CORPUS_REVIEW`. **Черга:** P1.
+
+**Суть:** Повторення конструкції у різних прикладах краще ізолює її функцію.
+
+**Фінська вправа:** odottaa bussia / osallistua kurssille? перевірити належне керування.
+
+**Ідея для застосунку:** Сортування прикладів, пояснення контрастів і продуктивний transfer.
+
+**Вимірюваний результат:** Правильність нових chunks поза тренувальним корпусом.
+
+**Межі доказу / ризик:** Потрібна якісна рецензія фінських керувань; English evidence.
+
 ### 89/100 — Holdout item bank, difficulty tags і поступова психометрична калібровка (`holdout-item-bank-and-calibration`)
 
 **Джерела:** [ophgrade](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen), [cefrscale](https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors), [genaireview144](https://doi.org/10.1016/j.caeai.2025.100445). **Доказовість:** `ASSESSMENT_ENGINEERING_NOT_CLINICAL_TRIAL`. **Черга:** P1.
@@ -472,6 +616,20 @@
 
 **Межі доказу / ризик:** Не оголошувати IRT чи точність B1 без достатнього корпусу людських відповідей та валідованих item parameters.
 
+### 89/100 — Мапи аргументів для говоріння та письма (`learner-concept-map`)
+
+**Джерела:** [conceptmap25](https://doi.org/10.1186/s40862-025-00331-2). **Доказовість:** `MODERATE_L2_META`. **Черга:** P1.
+
+**Суть:** Огляд 68 досліджень показує користь concept maps, переважно в ESL/EFL.
+
+**Фінська вправа:** Asuminen: sijainti→hinta→matka→johtopäätös.
+
+**Ідея для застосунку:** Розгорнути мапу тез, тоді приховати і висловитися.
+
+**Вимірюваний результат:** Зв'язність та структура нового письма/монологу.
+
+**Межі доказу / ризик:** Мапа — тимчасова опора, а не заміна власного мовлення.
+
 ### 89/100 — ASR як допоміжна підказка з оцінкою впевненості, не суддя (`uncertainty-aware-asr`)
 
 **Джерела:** [asrmeta](https://www.cambridge.org/core/journals/recall/article/effectiveness-of-automatic-speech-recognition-in-eslefl-pronunciation-a-metaanalysis/A915444CF252B61D14961D2FE733822D), [asrsystematic24](https://doi.org/10.1080/2331186X.2025.2466288), [finnquantity68](https://doi.org/10.1075/jslp.20040.sal). **Доказовість:** `ENGLISH_ASR_META_FINNISH_LIMIT`. **Черга:** P1.
@@ -485,6 +643,34 @@
 **Вимірюваний результат:** Human agreement on pronunciation and ASR false corrections by accent, noise and mic condition.
 
 **Межі доказу / ризик:** ESL ASR g=0.69 стосується англійської; для фінської немає підтвердженої калібрації.
+
+### 88/100 — Автономія учня: вибір теми та мети місії (`autonomy-support-and-choice`)
+
+**Джерела:** [motivation25](https://doi.org/10.1007/s10648-025-10038-y), [srltech25](https://doi.org/10.1016/j.system.2025.103675), [kielibuusti_path](https://www.kielibuusti.fi/en/career-and-study-advisors-and-heis/support-functions-in-higher-education/s2-language-learning-path-for-international-students). **Доказовість:** `MODERATE_ASSOCIATIONAL`. **Черга:** P1.
+
+**Суть:** Автономна мотивація пов'язана з успіхом; це не прямий доказ causal learning gain.
+
+**Фінська вправа:** Valitse päiväkoti, työ tai asuminen: tavoite tänään.
+
+**Ідея для застосунку:** Вибір реального сценарію, особиста мета, коротка рефлексія.
+
+**Вимірюваний результат:** Незалежний прогрес і сталість без streak-маніпуляцій.
+
+**Межі доказу / ризик:** Кореляцію мотивації не називати ефектом навчальної кнопки.
+
+### 88/100 — Information-gap: уточнення фактів і ухвалення рішення (`information-gap-decisions`)
+
+**Джерела:** [cmcoral15](https://www.cambridge.org/core/journals/recall/article/computermediated-communication-cmc-in-l2-oral-proficiency-development-a-metaanalysis/638CE918F42429104E2E582D5AD771B0), [tblt](https://doi.org/10.1080/2331186X.2025.2560051). **Доказовість:** `MIXED_L2_META`. **Черга:** P1.
+
+**Суть:** Комунікація через рішення вимагає справжніх питань; CMC підгрупи мають різні результати.
+
+**Фінська вправа:** Kysy kaksi bussivuoroa ja valitse, kumpi sopii töihin.
+
+**Ідея для застосунку:** Сценарій із прихованою інформацією, уточненням і наслідком.
+
+**Вимірюваний результат:** Чи прийнято обґрунтоване рішення без перекладу.
+
+**Межі доказу / ризик:** Не представляти вигадані маршрути як справжні факти.
 
 ### 88/100 — Мінімальні фінські пари і тривалість звуків (`phonemic-minimal-pairs`)
 
@@ -584,6 +770,20 @@
 
 **Межі доказу / ризик:** Суб'єктивна самооцінка не є підтвердженням B1.
 
+### 86/100 — Візуалізація тривалості фінських звуків (`visual-acoustic-speech-feedback`)
+
+**Джерела:** [phonetic65](https://doi.org/10.1044/2024_JSLHR-24-00432), [visualpron18](https://benjamins.com/catalog/jslp.00006.bli), [finnquantity68](https://doi.org/10.1075/jslp.20040.sal). **Доказовість:** `MIXED_PHONETIC_REVIEW`. **Черга:** P1.
+
+**Суть:** Докази підтримують фонетичний тренінг, але не доводять точність окремих графіків вимови.
+
+**Фінська вправа:** tuli / tuuli: слухай, повтори, порівняй тривалість.
+
+**Ідея для застосунку:** Обмежено показувати waveform і optional human-checked markers.
+
+**Вимірюваний результат:** Окремі показники розрізнення на слух і людська оцінка вимови.
+
+**Межі доказу / ризик:** Не карати акцент за неточним графіком або ASR.
+
 ### 85/100 — Privacy-first learner analytics: явна згода, локальна історія (`privacy-and-safe-personalization`)
 
 **Джерела:** [genaireview144](https://doi.org/10.1016/j.caeai.2025.100445), [cefronline](https://www.coe.int/en/web/common-european-framework-reference-languages/online-interaction-in-the-classroom), [ophgrade](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen). **Доказовість:** `PRODUCT_SAFETY_ENGINEERING`. **Черга:** P1.
@@ -640,6 +840,20 @@
 
 **Межі доказу / ризик:** Не видавати час за офіційну вимогу YKI.
 
+### 84/100 — Keyword mnemonic + retrieval для складних слів (`keyword-mnemonic-retrieval`)
+
+**Джерела:** [mnemonic24](https://pmc.ncbi.nlm.nih.gov/articles/PMC10839596/), [spaced](https://doi.org/10.1111/lang.12479). **Доказовість:** `EMERGING_ENGLISH_STUDY`. **Черга:** P1.
+
+**Суть:** В одному EFL експерименті N=110 поєднання мнемоніки та пригадування допомогло засвоєнню пар слів.
+
+**Фінська вправа:** Päiväkoti: придумай асоціацію й склади нове речення.
+
+**Ідея для застосунку:** Опційна особиста мнемоніка → active recall → використання в контексті.
+
+**Вимірюваний результат:** Пригадування і вживання у новому реченні за 14 днів.
+
+**Межі доказу / ризик:** Не призначати мнемоніки кожному слову; вивчалася англійська.
+
 ### 83/100 — Короткі регулярні місії 10–20 хв (`micro-missions`)
 
 **Джерела:** [spaced](https://doi.org/10.1111/lang.12479), [kielitips](https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen). **Доказовість:** `MODERATE_BEHAVIORAL`. **Черга:** P1.
@@ -653,6 +867,20 @@
 **Вимірюваний результат:** Retention та регулярність незалежних завдань.
 
 **Межі доказу / ризик:** 20 хв не є науково доведеним оптимумом.
+
+### 82/100 — Читання одночасно зі слуханням як допоміжна опора (`read-while-listen-scaffold`)
+
+**Джерела:** [readlisten23](https://commons.und.edu/ehb-fac/75/), [caption](https://doi.org/10.1111/lang.12697). **Доказовість:** `MIXED_GENERAL_META`. **Черга:** P1.
+
+**Суть:** Метааналіз показав малий загальний ефект і непевність для самостійного читання.
+
+**Фінська вправа:** Kuuntele ilmoitus, vasta sitten katso tekstin kanssa.
+
+**Ідея для застосунку:** Показувати синхронний текст тільки після першого слухання.
+
+**Вимірюваний результат:** Нова відповідь без субтитрів; окремо supported score.
+
+**Межі доказу / ризик:** Для YKI-like першого прослуховування текст лишається прихованим.
 
 ### 82/100 — Shadowing із якісним живим аудіо (`shadowing`)
 
@@ -695,6 +923,20 @@
 **Вимірюваний результат:** Зменшення повторних міжмовних помилок.
 
 **Межі доказу / ризик:** Немає прямого доведеного ефекту на YKI.
+
+### 71/100 — VR/AR занурення як необов'язкова експериментальна фіча (`immersive-vr-roleplay`)
+
+**Джерела:** [vrreview26](https://doi.org/10.1080/29984475.2025.2603960). **Доказовість:** `EMERGING_L2_TECH_REVIEW`. **Черга:** P2.
+
+**Суть:** Огляди VR показують потенціал залучення, але для фінського YKI ефект не доведено.
+
+**Фінська вправа:** Virtuaalinen apteekki: pyydä aukioloaika.
+
+**Ідея для застосунку:** Лише експериментальна опція після web/mobile ролей.
+
+**Вимірюваний результат:** Додаткова користь проти 2D сценарію на незнайомих завданнях.
+
+**Межі доказу / ризик:** Висока складність, доступність, cybersickness; не P0.
 
 ### 59/100 — Лише один синтетичний диктор для аудіювання (`single-tts-only`)
 
@@ -820,7 +1062,7 @@
 
 ## Перевірені першоджерела та статус
 
-Понад **49 джерел** — різного типу: метааналізи, огляди, одноцентрові дослідження, офіційні OPH/CEFR вимоги, педагогічні/технічні бенчмарки. Це не 49 незалежних RCT фінської.
+**69 окремих посилань** включають метааналізи, огляди, окремі дослідження та офіційні OPH/CEFR документи; це не 69 незалежних Finnish-YKI RCT.
 
 - **spaced** — [Kim & Webb (2022), spacing in L2, 48 experiments](https://doi.org/10.1111/lang.12479) — `L2-meta`.
 - **retrieval** — [Dunlosky et al. (2013), effective learning methods](https://doi.org/10.1177/1529100612453266) — `general-review`.
@@ -871,5 +1113,25 @@
 - **formfocused36** — [Schenck (2024), FFI input/output meta-analysis, Korean+Persian EFL studies](https://doi.org/10.5281/zenodo.14790529) — `English-grammar-meta`.
 - **focusform24** — [Chen & Lambert (2024), focus on form and relative clause transfer, task-specific study](https://doi.org/10.1075/task.00028.che) — `L2-grammar-study`.
 - **fsrsbench** — [FSRS benchmark; memory prediction on flashcards, engineering benchmark not YKI learning trial](https://github.com/ankitects/fsrs-benchmark) — `software-research-benchmark`.
+- **multimedia25** — [Zhang, Sala & Gobet (2025), L1+picture L2 vocabulary meta, 2056 participants, immediate g=0.33–0.35](https://doi.org/10.1016/j.edurev.2025.100681) — `L2-vocabulary-meta`.
+- **peerwrite25** — [Li et al. (2025), peer tutoring L2 writing, 26 experiments, g=0.84](https://doi.org/10.1016/j.ijedro.2024.100422) — `L2-writing-meta`.
+- **collabwrite21** — [Elabdali (2021), collaborative writing meta, 33 studies](https://www.sciencedirect.com/science/article/pii/S1060374320300874) — `L2-writing-meta`.
+- **planning22** — [Task Planning and Oral L2 Production (2022), meta-analysis](https://academic.oup.com/applij/article-abstract/43/6/1143/6682841) — `L2-speaking-meta`.
+- **sequencing25** — [Abdi Tabari et al. (2025), simple-complex task sequence meta-analysis](https://doi.org/10.1111/ijal.12670) — `L2-task-meta`.
+- **conceptmap25** — [Han (2025), L2 concept maps meta-analysis, 68 studies](https://doi.org/10.1186/s40862-025-00331-2) — `L2-meta`.
+- **mnemonic24** — [Keyword mnemonic plus retrieval for L2, 110 EFL university learners (2024)](https://pmc.ncbi.nlm.nih.gov/articles/PMC10839596/) — `English-L2-experiment`.
+- **mobilevocab22** — [Yu & Trainin (2022), technology-assisted L2 vocabulary, 34 studies, d=0.64](https://doi.org/10.1017/S0958344021000239) — `L2-technology-meta`.
+- **mobilevocab26** — [Bayesian mobile-assisted vocabulary meta-analysis, 65 studies; long-term treatment subgroup](https://www.cambridge.org/core/journals/recall/article/metaanalysis-on-mobileassisted-vocabulary-learning-do-mobile-applications-help/79C8F00E48D521ED3BCFE0625B5549F3) — `L2-mobile-meta`.
+- **readlisten23** — [Clinton-Lisell (2023), reading while listening meta, g=0.18 overall; null self-paced](https://commons.und.edu/ehb-fac/75/) — `reading-meta-not-L2-specific`.
+- **surface-deep24** — [Scherer et al. (2024), 200 surface/deep/combined writing feedback contrasts](https://doi.org/10.1016/j.learninstruc.2024.101961) — `mixed-L1-L2-FL-writing-meta`.
+- **cmcoral15** — [Computer-mediated L2 oral interaction meta-analysis, 25 studies](https://www.cambridge.org/core/journals/recall/article/computermediated-communication-cmc-in-l2-oral-proficiency-development-a-metaanalysis/638CE918F42429104E2E582D5AD771B0) — `L2-speaking-meta`.
+- **phonetic65** — [Yao et al. (2025), 65 phonetic training studies, N=2793, d=0.762](https://doi.org/10.1044/2024_JSLHR-24-00432) — `L2-phonetics-meta`.
+- **visualpron18** — [L2 visual articulation feedback review (2018)](https://benjamins.com/catalog/jslp.00006.bli) — `technology-method-review`.
+- **vrreview26** — [VR in second-language education 2026 systematic review, 55 empirical studies](https://doi.org/10.1080/29984475.2025.2603960) — `L2-technology-review`.
+- **ddlmeta23** — [Effective corpus use and data-driven language learning meta-analysis (2023)](https://doi.org/10.1016/j.acorp.2023.100076) — `L2-DDL-meta`.
+- **ddlcolloc23** — [Corpus-based collocation acquisition review (2023), 32 EFL studies](https://www.mdpi.com/2071-1050/15/17/13242) — `English-L2-corpus-review`.
+- **motivation25** — [Self-determination and L2 achievement meta-analysis (2025), largely correlational](https://doi.org/10.1007/s10648-025-10038-y) — `L2-correlational-meta`.
+- **srltech25** — [Pan, Lai & Guo (2025), technology-enhanced L2 self-regulation review, 57 studies](https://doi.org/10.1016/j.system.2025.103675) — `L2-self-regulation-review`.
+- **kielibuusti_path** — [Kielibuusti Finnish S2 pathway, learner plans and level progression](https://www.kielibuusti.fi/en/career-and-study-advisors-and-heis/support-functions-in-higher-education/s2-language-learning-path-for-international-students) — `Finnish-S2-framework`.
 
-**Оновлення 21.10.2026:** [розгорнутий методологічний огляд і порівняння технологій](11-advanced-yki-learning-methods-2026-10.md), [план 11 модулів і 4 тестованих гіпотез](../research/yki-methodology-implementation-v1.json). Жодна з 51 оцінки /100 не є емпіричним шансом скласти YKI.
+**Нова оцінка навчальної ефективності:** [джерела, 67 рейтингів та їх обмеження](12-finnish-yki-learning-effectiveness-2026-10.md). Product-fit та learning-effectiveness мають різні значення й методологію.
