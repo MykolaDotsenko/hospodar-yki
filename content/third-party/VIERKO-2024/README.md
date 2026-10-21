@@ -11,7 +11,7 @@
 | Частина 2: **Käytät ja arvioit tekstejä** (38 с., розуміння жанру/наміру, перевірка інформації, резюме) | [02-tekstit-ja-lahteet.pdf](02-tekstit-ja-lahteet.pdf) | https://aoe.fi/api/v1/download/file/s2osa2tekstitjalahteetselkokielivierko-1731920723127.pdf |
 | Частина 3: **Teet tekstejä** (41 с., організація повідомлень, стиль і структура письма) | [03-tee-teksteja.pdf](03-tee-teksteja.pdf) | https://aoe.fi/api/v1/download/file/s2osamiskokonaisuus3vierko-1731400923414.pdf |
 
-**Критично:** посилання на локальний PDF існує лише після успішного GitHub Actions імпорту. Поки це не перевірено за деревом git, вважати доступним тільки URL джерела. Автоімпорт в [scripts/import_vierko_oer.py](../../../scripts/import_vierko_oer.py) зберігає незмінені байти PDF, не прибирає авторство. Адаптовані витяги з цих PDF мають дотримуватися CC BY-SA 4.0; нові **незалежно створені** high-yield вправи в сусідній папці не є витягами з цих PDF.
+**Перевірено 2026-10-21:** усі три PDF **фізично збережені у GitHub main** після успішного workflow import. Їх можна відкрити безпосередньо за локальними посиланнями вище. Автоімпорт в [scripts/import_vierko_oer.py](../../../scripts/import_vierko_oer.py) зберігає незмінені байти PDF, не прибирає авторство. Адаптовані витяги з цих PDF мають дотримуватися CC BY-SA 4.0; нові **незалежно створені** high-yield вправи в сусідній папці не є витягами з цих PDF.
 
 **Чому саме ці три:** вони дають не лише словник, а й усне спілкування, причини, email, жанри, вправи на формулювання власних повідомлень.
 
