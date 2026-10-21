@@ -29,6 +29,10 @@
 
 **Нове наукове підґрунтя:** [docs/16-color-attention-memory-research-2026-10.md](16-color-attention-memory-research-2026-10.md) і [15 джерел у реєстрі](../research/color-memory-evidence-v1.json). Підкреслення ключа допускається **лише після першої незалежної відповіді** у навчальному feedback. У фазах `answer`, `repair`, `transfer`, unseen SRS і digital `exam` ніяких підказок правильної форми. На сильні механізми color-coded signaling можна спиратися, але ефекти досліджень мультимедійної сигналізації **не можна приписувати кольору самому по собі**. Див. [COLOR-01…10, AC-33…38](15-two-modes-skill-scopes.md).
 
+### COLOR-ATTENTION-L2 — пріоритет розуміння над граматичним підсвічуванням
+
+[Дослідження №17](17-color-attention-l2-deep-dive.md) і [policy v2](../research/color-attention-design-policy-v2.json). Нове P0: **допомагати помітити мовну форму, не втрачаючи змісту висловлювання**. У feedback за наявності ручного `meaning_uk` показувати сенс перед кольоровим граматичним cue. `repair`, `answer`, `transfer`, `exam` — без граматичного ключа до відповіді. Перевіряти comprehension як окрему метрику: метааналіз L2 повідомив `d=+0.22` grammar і `d=−0.26` meaning при visual input enhancement. Без заяв про percent boost від барв. [COLOR-11…20, AC-39…46](15-two-modes-skill-scopes.md).
+
 ## 1. Вертикальний MVP — P0
 
 Користувач проходить цілісний сценарій **завдання → самостійна відповідь → перевірка → самовиправлення → перенос у новий контекст → повторення → збережений прогрес**.
