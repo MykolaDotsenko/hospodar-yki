@@ -30,10 +30,10 @@ def require(test, message):
 def main():
     data = json.loads(CATALOG.read_text(encoding="utf-8"))
     sources, methods = data["source_register"], data["methods"]
-    require(data["schema_version"] == "1.0.0", "Unexpected schema")
+    require(data["schema_version"] == "1.1.0", "Unexpected schema")
     require(data["score_component_limits"] == LIMITS, "Rubric changed without updating validator")
-    require(len(methods) == 35, "Expected 35 reviewed methods")
-    require(len(sources) == 29, "Expected 29 references")
+    require(len(methods) == 51, "Expected 51 reviewed methods")
+    require(len(sources) == 49, "Expected 49 references")
     require(len({m["id"] for m in methods}) == len(methods), "Duplicate method IDs")
 
     for ref_id, entry in sources.items():
@@ -41,6 +41,7 @@ def main():
         parsed = urlparse(entry.get("url", ""))
         require(parsed.scheme == "https" and parsed.netloc, "Non-HTTPS source: " + ref_id)
 
+    require(all(m.get("added_at") == "2026-10-21" for m in methods if m["id"] in { "yki-constructive-alignment", "human-anchor-calibration", "finnish-quantity-dual-track", "uncertainty-aware-asr" }), "Missing metadata for new research")
     previous = 101
     counts = {p: 0 for p in PRIORITIES}
     for m in methods:
