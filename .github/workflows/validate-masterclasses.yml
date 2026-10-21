@@ -1,0 +1,25 @@
+name: Validate YKI masterclasses
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/b1/masterclasses/**'
+      - 'docs/10-yki-resources-machine-index.json'
+      - 'scripts/validate_masterclasses.mjs'
+      - '.github/workflows/validate-masterclasses.yml'
+  pull_request:
+    paths:
+      - 'content/b1/masterclasses/**'
+      - 'docs/10-yki-resources-machine-index.json'
+      - 'scripts/validate_masterclasses.mjs'
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/validate_masterclasses.mjs

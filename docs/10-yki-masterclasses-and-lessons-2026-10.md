@@ -30,7 +30,7 @@ https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026
 | [Kielibuusti Turku conversations](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa) | 95/100 | Автентичне puhekieli у кафе та бесіди про вихідні | video_link_only |
 | [Kielibuusti tips for writing](https://www.kielibuusti.fi/en/learn-finnish/language-learning-tips/language-tips/tips-for-writing) | 92/100 | Регулярні повідомлення, перекази, нові слова в тексті | open_advice_paraphrase |
 | [Kielibuusti review of Finnish it!](https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/finnish-it) | 89/100 | Переваги AI-практики, але ризик помилок та одноманітного книжного TTS | review_only |
-| [Moikka+ YKI Webinar 7.10.2026](https://www.moikkaplus.fi/yki-webinar) | 91/100 | Формат, 4 навички, типові помилки, fluency; replay не підтверджено | video_replay_unverified |
+| [Moikka+ YKI Webinar — дата непідтверджена](https://www.moikkaplus.fi/yki-webinar) | 91/100 | Формат, 4 навички, типові помилки, fluency; replay не підтверджено | video_replay_unverified |
 | [YKI-testi.fi practice platform](https://www.yki-testi.fi/fi) | 85/100 | Розмовні ситуації, таймер, додатковий фоновий шум; 95% match claim not verified | commercial_no_copy |
 
 ## Практики, які переносимо в оригінальний тренажер
@@ -50,7 +50,7 @@ https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026
 
 ## Відмітки достовірності
 
-- Вебінар Moikka+ відбувся 7 жовтня 2026; replay не перевірено.
+- Вебсторінка Moikka+ показує різні дати події у доступних індексованих версіях (серпень / жовтень 2026). Поточну дату вебінару та наявність відкритого запису незалежно не підтверджено.
 - Платформу YKI-testi.fi не вважати офіційною; заяву про 95%-ву схожість не верифіковано.
 - Ціни Haaga-Helia 15 €/op — зріз осені 2026, дати нових наборів перевіряти повторно.
 - Aalto 2027 очно; не рекомендувати як автоматично доступний дистанційний продукт.
