@@ -1,7 +1,7 @@
 # YouTube learning videos — curated external catalog
 
 **Added 2026-10-21; target:** adult Ukrainian-speaking learners progressing A2.2 → B1/B1+, YKI keskitaso.  
-**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **14 real direct YouTube watch URLs**, detailed learning topics, estimated CEFR, **35 source-description-based chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
+**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **30 unique direct YouTube watch URLs** (14 first-round + 16 new; [ranked round-2 pack](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)), detailed learning topics, estimated CEFR, **53 descriptive chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
 
 ## Selection principles
 
@@ -10,6 +10,9 @@
 - **Source quality:** direct video URL was found with a matching title, creator, description, and sometimes publisher's chapter timestamps. This is **metadata verification**, not proof that each video was watched end-to-end, is currently embeddable, has accurate subtitles, or is teacher-reviewed.
 - **Score /100:** editorial product-fit estimate based on learning usefulness, not scientific effectiveness or measured YKI scores.
 - **Exam honesty:** videos titled YKI are **third-party practice**, not OPH/JYU official digital exams. They are appropriate **only for LEARN**; model answers may be visible in the YouTube video and its chapters, so none belongs in the unseen exam bank.
+
+
+**Important:** The table below is the **original first 14**, not a full listing of 30. For all 16 newest verified-source links, publisher/rights context and personalized task prompts, open [the second-round ranking](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). 
 
 ## High-value curated links (all direct `watch?v=` URLs)
 
