@@ -35,9 +35,9 @@ Evidence-informed навчання живої фінської: реалісти
 
 ## 🧪 Світові методики для майбутнього застосунку (21.10.2026)
 
-**[Науковий аудит 35 методик — оцінки 0–100](docs/08-learning-methods-evidence-2026-10.md)** · **[Машинозчитуваний каталог для розробки](research/learning-methods-v1.json)** · [Автоматична перевірка рейтингу](scripts/validate_learning_methods.py).
+**[Науковий аудит 51 методики — оцінки 0–100](docs/08-learning-methods-evidence-2026-10.md)** · **[Нові методи, AI, фонетика та цифровий YKI](docs/11-advanced-yki-learning-methods-2026-10.md)** · **[49 першоджерел / машинозчитуваний каталог](research/learning-methods-v1.json)** · **[11 навчальних модулів і 4 дослідницькі гіпотези](research/yki-methodology-implementation-v1.json)** · [Автоматична перевірка](scripts/validate_learning_methods.py).
 
-Першочергові методи: spaced retrieval, task-based communication, feedback із самовиправленням, comprehensible input, task repetition і transfer. Оцінки — **експертний пріоритет продукту**, не лабораторні effect sizes і не шанс скласти YKI. Методи збережені для майбутньої розробки: **цей коміт не додає інтерфейс**.
+Першочергові методи: spaced retrieval, task-based communication, feedback із самовиправленням, comprehensible input, task repetition і transfer. Оцінки — **експертний пріоритет продукту**, не лабораторні effect sizes і не шанс скласти YKI. Методи та реалізаційні критерії збережені для майбутньої розробки: **цей коміт не додає інтерфейс**. Нові висновки: AI-тренування не дорівнює офіційному оцінюванню; фінську довжину звуків перевіряти окремо на слух і у вимові; активне самовиправлення та оцінку на незнайомих завданнях вважати обов'язковими вимогами.
 
 **[🎨 Бренд](brand/README.md)** · [💬 Позиціонування й місія](brand/brand-platform.md) · [🎛️ Візуальна система](brand/visual-system.md) · [📣 Маркетинг](brand/marketing.md) · [📚 Навчальний контент](content/README.md)
 
