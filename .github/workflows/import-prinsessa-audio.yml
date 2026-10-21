@@ -14,8 +14,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Verify tools
-        run: command -v ffprobe
+      - name: Install and verify ffmpeg tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          command -v ffprobe
       - name: Download complete public-domain Finnish narration and matching published Finnish text
         run: python3 scripts/import_prinsessa_audio.py
       - name: Commit full narration and original printed transcript
