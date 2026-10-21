@@ -155,3 +155,12 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 @media(forced-colors:active){
   .learning-cue{background:Canvas;color:CanvasText;text-decoration:underline}
 }
+
+
+/* Research-backed content hierarchy: meaning before visually amplified grammar.
+   The neutral meaning panel reduces color competition and protects comprehension. */
+.meaning-first{margin:13px 0 11px;padding:10px 13px;background:#fff;border:1px solid var(--stroke);border-left:4px solid var(--forest);border-radius:7px}
+.meaning-first p{margin:4px 0}
+.meaning-label{font-size:.75rem;font-weight:800;letter-spacing:.035em;color:var(--navy);text-transform:uppercase;margin:10px 0 4px}
+.meaning-text{font-size:1.03rem;line-height:1.5;color:var(--ink)}
+@media(forced-colors:active){.meaning-first{background:Canvas;color:CanvasText;border-color:CanvasText}}
