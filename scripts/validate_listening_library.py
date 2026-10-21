@@ -14,8 +14,8 @@ def main():
     plan=load("audio/program-4weeks.json")
     tts=load("content/b1/audio-training/index.json")
     audio=load("audio/available.json")
-    require(lib["counts"]["total_files"]==63,"Total count")
-    require(len(lib["entries"])==63,"Actual number of files")
+    require(lib["counts"]["total_files"]>=63,"Total count")
+    require(len(lib["entries"])==lib["counts"]["total_files"],"Actual number of files")
     seen=set()
     for x in lib["entries"]:
         rel=x["path"]
@@ -27,7 +27,12 @@ def main():
     actual_sources={e["path"] for e in audio["items"]}
     actual_tts={v["path"] for item in tts["lessons"] for v in item["audio_versions"]}
     require(actual_sources.isdisjoint(actual_tts),"Overlapping source and TTS sets")
-    require(seen==actual_sources|actual_tts,"Index doesn't match actual recording manifests")
+    librivox=set()
+    mp=ROOT/"content/b1/audio-training/librivox-human.json"
+    if mp.is_file():
+        human=load("content/b1/audio-training/librivox-human.json")
+        librivox={i["path"] for i in human["items"]}
+    require(seen==actual_sources|actual_tts|librivox,"Index doesn't match actual recording manifests")
     require(len(plan["days"])==28,"Four week plan incomplete")
     ordered=[d["lesson_id"] for d in plan["days"] if d["lesson_id"]]
     require(len(ordered)==23 and len(set(ordered))==23,"Lesson coverage count")

@@ -1,0 +1,41 @@
+name: Import public-domain Finnish human voices (LibriVox)
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/import_librivox_human.py
+      - .github/workflows/import-librivox-human.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install audio codec
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Download public-domain voices and make short audio lessons
+        run: python3 scripts/import_librivox_human.py
+      - name: Validate actual clips and library consistency
+        run: |
+          python3 scripts/validate_librivox_human.py
+          python3 scripts/validate_listening_library.py
+      - name: Commit real audio and structured lessons to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- audio/human/librivox/ content/b1/audio-training/librivox-human.json audio/library.json
+          if git diff --cached --quiet; then
+            echo "No new audio"
+          else
+            git commit -m "audio: add public-domain Finnish human narration excerpts [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
