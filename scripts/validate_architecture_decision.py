@@ -46,7 +46,6 @@ def main():
     assert len(d["sources"])>=10 and all(urlparse(u).scheme=="https" for u in d["sources"])
     assert len(d["architectural_packages"])>=6
     assert d["choice"]["package_boundary"].startswith("UI may import domain;")
-    assert any("no exam" in x["reason"] for x in d["privacy_and_exam_invariants"] if x["id"]=="exam_per_skill_no_combined_official_grade") is False or True
     docs={
       "docs/22-optimal-stack-and-architecture-adr-2026-10.md":["Audit A", "Audit B", "Audit C", "95", "Dexie", "XState", "Next.js", "Cloudflare", "2011"],
       "docs/12-mvp-architecture.md":["ADR-022 (21.10.2026)", "app/"],
@@ -58,7 +57,8 @@ def main():
         for phrase in need:
             assert phrase in content, (path,phrase)
     assert (ROOT/"app/app.mjs").is_file() and (ROOT/"app/exam-core.mjs").is_file()
-    assert not (ROOT/"apps/web/package.json").is_file(), "ADR baseline must be updated when web migration ships"
+    if (ROOT/"apps/web/package.json").is_file():
+        raise AssertionError("New web scaffold detected: revise architecture-baseline implementation status before merging")
     print("PASS: ADR-022 3 audits, 5 scored candidates, 14 future gates; current vanilla MVP accurately described")
 
 if __name__=="__main__":
