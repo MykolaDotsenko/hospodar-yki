@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "description": "Curated Finnish speech video for independent Hospodar YKI learning. The links and verified license pages are source-of-truth; binary availability must be confirmed in video/open/available.json",
+  "status": "download_automated_pending_verified_output",
+  "license_policy": "Copying/redistributing only these 3 checked Wikimedia Commons Creative Commons items. Keep attribution and share-alike obligations for transformed/edited works; not official YKI content.",
+  "items": [
+    {
+      "id": "jenni-puhekieli",
+      "title": "Jenni: Suomalaisuus ja kulttuurierot",
+      "file_title": "WIKITONGUES- Jenni speaking Finnish.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Jenni_speaking_Finnish.webm",
+      "original_upload_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/WIKITONGUES-_Jenni_speaking_Finnish.webm",
+      "author": "Wikitongues",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "duration_seconds_reported": 191,
+      "target_level_estimate": "B1+",
+      "skill": "listening",
+      "themes": [
+        "culture",
+        "life_abroad",
+        "spoken_finnish",
+        "differences_in_communication"
+      ],
+      "spoken_language": "fi",
+      "modality": "native_unscripted_monologue",
+      "source_transcript": "full unverified transcription present on Commons description page",
+      "teacher_review": "pending",
+      "pedagogic_score_estimate": 93,
+      "output_path": "video/open/jenni-puhekieli.webm",
+      "source_notes": "Natural colloquial Finnish with fillers; 3:11 slightly exceeds original 3-minute target; useful for contrast puhekieli/kirjakieli",
+      "license_checked": true
+    },
+    {
+      "id": "kinola-helsinki",
+      "title": "Kinola: Helsingin elokuvateatterin historia",
+      "file_title": "Elokuvateatteri Kinola.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Elokuvateatteri_Kinola.webm",
+      "original_upload_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Elokuvateatteri_Kinola.webm",
+      "author": "Aprom; historical photo credited to Museovirasto/Pietinen in source",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "duration_seconds_reported": 95,
+      "target_level_estimate": "B1+",
+      "skill": "listening",
+      "themes": [
+        "helsinki",
+        "history",
+        "culture",
+        "city_places"
+      ],
+      "spoken_language": "fi",
+      "modality": "authentic_narrated_history",
+      "source_transcript": "not independently verified",
+      "teacher_review": "pending",
+      "pedagogic_score_estimate": 82,
+      "output_path": "video/open/kinola-helsinki.webm",
+      "source_notes": "Narration about a Helsinki cinema; requires cautious evaluation of period-specific vocabulary",
+      "license_checked": true
+    },
+    {
+      "id": "claes-esittely",
+      "title": "Claes Andersson: Esittely ja työ",
+      "file_title": "Claes Andersson fi.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Claes_Andersson_fi.webm",
+      "original_upload_url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Claes_Andersson_fi.webm",
+      "author": "Holger Motzkau",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "duration_seconds_reported": 77,
+      "target_level_estimate": "B1",
+      "skill": "listening",
+      "themes": [
+        "self_introduction",
+        "work",
+        "experience",
+        "culture"
+      ],
+      "spoken_language": "fi",
+      "modality": "native_speaking_to_camera",
+      "source_transcript": "source describes subtitles; exact subtitle accessibility/timecodes unverified",
+      "teacher_review": "pending",
+      "pedagogic_score_estimate": 84,
+      "output_path": "video/open/claes-esittely.webm",
+      "source_notes": "Book-fair introduction, possible embedded subtitles; train audio-only gist in separate blind exercise if captions are visible",
+      "license_checked": true
+    }
+  ]
+}
