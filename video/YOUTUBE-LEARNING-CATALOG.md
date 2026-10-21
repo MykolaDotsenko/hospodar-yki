@@ -30,6 +30,8 @@
 | 🇫🇮 | [Partitiivi — shorter lesson](https://www.youtube.com/watch?v=Lm0Z50CEyag) | Core use, morphology, exercise after `09:58` | 93 |
 | 🇫🇮 | [Näin käytät partitiivia: yksikkö ja monikko](https://www.youtube.com/watch?v=THCCFK8OX7c) | More detailed, reference when a recurring error persists | 93 |
 
+**Metadata caveat:** The two YKI Harjoitus links `htrQhR-HGM4` and `GDsP04gyZv8` appeared with creator and chapter descriptions but *without a returned YouTube page title* in search results; the titles above are **editorial summaries**, explicitly flagged in JSON, not asserted verbatim publisher titles.
+
 All scores are **expert product priorities**, not measured gains. All 14 require `teacher_review=pending`; exact duration/captions/embeddability are **unknown**, not silently assumed.
 
 ## Additional channel discovery — not a substitute for direct verified video links
