@@ -61,7 +61,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-tuija-rautatie-01",
+        "voice": "Tuija Aalto",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 3,
@@ -109,7 +116,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-tuija-rautatie-02",
+        "voice": "Tuija Aalto",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 5,
@@ -157,7 +171,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-tuija-rautatie-03",
+        "voice": "Tuija Aalto",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 7,
@@ -181,7 +202,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia."
+      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-teemu-laulu-05",
+        "voice": "Teemu",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 8,
@@ -205,7 +233,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-tuija-rautatie-04",
+        "voice": "Tuija Aalto",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 9,
@@ -253,7 +288,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-tuija-rautatie-05",
+        "voice": "Tuija Aalto",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 11,
@@ -301,7 +343,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-mari-laulu-01",
+        "voice": "Mari Mattila",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 13,
@@ -349,7 +398,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia."
+      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-mari-laulu-02",
+        "voice": "Mari Mattila",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 15,
@@ -397,7 +453,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-mari-laulu-03",
+        "voice": "Mari Mattila",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 17,
@@ -445,7 +508,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-mari-laulu-04",
+        "voice": "Mari Mattila",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 19,
@@ -493,7 +563,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-mari-laulu-05",
+        "voice": "Mari Mattila",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 21,
@@ -541,7 +618,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-teemu-laulu-01",
+        "voice": "Teemu",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 23,
@@ -589,7 +673,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-teemu-laulu-02",
+        "voice": "Teemu",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 25,
@@ -637,7 +728,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta."
+      "independent_transfer_prompt_fi": "Kerro omin sanoin sama asia uudessa arkitilanteessa. Käytä vähintään kahta hyödyllistä ilmausta.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-teemu-laulu-03",
+        "voice": "Teemu",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     },
     {
       "day": 27,
@@ -685,7 +783,14 @@
         "recorded_speech_optional": true,
         "independent_success_check": "unseen_task_required"
       },
-      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia."
+      "independent_transfer_prompt_fi": "Valitse sinulle tuntematon tilanne ja kerro tai kirjoita ratkaisu ilman mallia.",
+      "optional_human_literary_audio": {
+        "clip_id": "librivox-teemu-laulu-04",
+        "voice": "Teemu",
+        "extra_minutes": 6,
+        "graded": false,
+        "instructions_fi": "Kuuntele lyhyt oikean ihmisen lukema kirjallinen katkelma. Kerro pääasia ja mainitse kaksi kuulemaasi sanaa. Tämä ei ole YKI-koe."
+      }
     }
   ],
   "adaptive_policy_uk": {
@@ -696,5 +801,22 @@
     "human_audio": "Живі відкриті записи можуть повторюватися як практика, але не як незалежна оцінка після знайомства з ними.",
     "review_day": "День 7: 5 хв складніших або автентичних записів без транскриптів, 5 хв деталі, 5 хв перефразування, 5 хв журнал помилок. Міняти стимул для об'єктивного прогресу.",
     "speech": "Відповісти усно на нову схожу ситуацію наприкінці; не оцінювати вимову без реального запису."
+  },
+  "additional_human_literary_supplement": {
+    "source_manifest": "content/b1/audio-training/librivox-human.json",
+    "intended_role": "optional_b1_plus_b2_literature_not_yki_diagnostic",
+    "status": "real_audio_committed_2026-10-21",
+    "note_uk": "До 20-хвилинної основної програми ці записи не входять: 5–7 хв додаткової практики тільки за бажанням. Для вимірювання готовності до YKI використовувати нові сучасні ситуаційні тексти, а не старомодні літературні уривки.",
+    "reviewers_required": [
+      "Finnish-native listening review",
+      "segment boundary review",
+      "level appropriateness"
+    ],
+    "narrators": [
+      "Tuija Aalto",
+      "Mari Mattila",
+      "Teemu"
+    ],
+    "scheduled_clips": 15
   }
 }

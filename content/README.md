@@ -6,6 +6,11 @@
 
 Три повні відкриті PDF CC BY-SA 4.0 про комунікацію, жанри текстів і письмові роботи вже завантажені. [Відкрити](third-party/VIERKO-2024/README.md). Це оригінальні PDF VIERKO 2024, окремі від нашого оригінального контенту.
 
+## 🎙️ Нові людські диктори для слухання
+
+[15 реальних коротких аудіофрагментів](../audio/human/librivox/) із 3 голосами (Tuija Aalto, Mari Mattila, Teemu) та [45 навчальними запитами на gist, details, transfer](b1/audio-training/librivox-human.json). Це **художня старовинна фінська** й додатковий listening workout, не оцінка YKI. Дослівні транскрипти наразі не перевірені, тому відповіді без автоматичних ключів.
+
+
 ## 🎧 Озвучені YKI-подібні аудіозавдання
 
 **[23 готові за структурою аудіоуроки з 37 реальними OGG-файлами](b1/audio-training/README.md)** та [56 запитаннями й ключами](b1/audio-training/index.json) для listening. Це **Piper TTS (один голос)**, не автентичне мовлення, не офіційний цифровий YKI. Є режими normal, scaffold slow, challenge fast; teacher listening QA ще потрібен.
