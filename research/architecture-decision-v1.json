@@ -344,5 +344,91 @@
     "docs/12-mvp-architecture.md",
     "docs/15-two-modes-skill-scopes.md",
     "docs/21-digital-yki-exam-simulator-executable-spec.md"
+  ],
+  "acceptance_tests": [
+    {
+      "id": "ARC-01",
+      "criterion": "strict TS schema and pure domain no UI/cloud imports",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-02",
+      "criterion": "learn and exam policy distinct on same licensed content",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-03",
+      "criterion": "XState exam voice machine forbids invalid transitions",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-04",
+      "criterion": "IndexedDB Dexie local migration from v1 preserves first answers",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-05",
+      "criterion": "Service Worker never forces reload during active exam",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-06",
+      "criterion": "unverified official 2027 digital fields block exact-mode claim",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-07",
+      "criterion": "receptive objective accuracy never converted to official grade; productive ungraded",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-08",
+      "criterion": "media version/rights/hash/verified VTT validated",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-09",
+      "criterion": "microphone explicit permission and voice local by default",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-10",
+      "criterion": "optional cloud RLS in exact EU region and no guest lockout",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-11",
+      "criterion": "AI secrets server-side; long work durable with provider adapters",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-12",
+      "criterion": "independent four-skill evidence and model of unseen transfer",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-13",
+      "criterion": "automated browsers, physical mobile, audio, offline and recovery testing",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    },
+    {
+      "id": "ARC-14",
+      "criterion": "incremental migration, old app retained until parity and rollback tested",
+      "status": "NOT_IMPLEMENTED_REQUIREMENT",
+      "verification_kind": "future_automated_or_manual_test"
+    }
   ]
 }
