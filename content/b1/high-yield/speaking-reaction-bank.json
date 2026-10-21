@@ -1,0 +1,370 @@
+{
+  "schema_version": "1.0.0",
+  "type": "response_repair_transfer",
+  "created_at": "2026-10-21",
+  "origin": "original",
+  "is_official_yki": false,
+  "mode_note_uk": "Зразки показувати лише після власної відповіді. Робочі тренувальні вправи, не офіційні YKI питання і не норми часу.",
+  "items": [
+    {
+      "id": "b1-react-001",
+      "level": "A2.2-B1+",
+      "domain": "health",
+      "stimulus_fi": "Soitat hammashoitolaan. Vastaanottaja: «Vapaa aika olisi tiistaina kello 8.» Et pääse silloin.",
+      "objective_uk": "Kiitä, kerro este ja pyydä iltapäiväaikaa.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kiitos tarjouksesta, mutta olen silloin töissä. Olisiko samana päivänä iltapäivällä vapaita aikoja?",
+      "feedback_uk": "Älä vastaa pelkästään «ei käy»; esitä vaihtoehto.",
+      "transfer_prompt_fi": "Pyydä uutta aikaa, koska lapsesi sairastui.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-002",
+      "level": "A2.2-B1+",
+      "domain": "services",
+      "stimulus_fi": "Kaupassa myyjä sanoo: «Kuittia ei taida enää olla?» Sinulla on sähköinen kuitti.",
+      "objective_uk": "Selitä, mistä kuitti löytyy, ja kysy hyväksytäänkö se.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Minulla on sähköinen kuitti puhelimessani. Voinko näyttää sen tästä, vai tarvitsetteko sen sähköpostilla?",
+      "feedback_uk": "Yleinen epätarkka vastaus: «On puhelin».",
+      "transfer_prompt_fi": "Sinulla on tilausvahvistus mutta ei kuittia.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-003",
+      "level": "A2.2-B1+",
+      "domain": "housing",
+      "stimulus_fi": "Naapuri sanoo: «Musiikki kuuluu aika kovaa iltaisin.» Musiikki tulee sinun asunnostasi.",
+      "objective_uk": "Pahoittele ja sovi konkreettinen ratkaisu.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Voi anteeksi, en tiennyt että musiikki kuuluu teille asti. Hiljennän ääntä ja lopetan musiikin kuuntelun ennen kymmentä.",
+      "feedback_uk": "Pelkkä «okei» ei tunnista ongelmaa eikä tarjoa ratkaisua.",
+      "transfer_prompt_fi": "Naapuri kertoo, että pesukoneesi pitää kovaa ääntä.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-004",
+      "level": "A2.2-B1+",
+      "domain": "work",
+      "stimulus_fi": "Esihenkilö sanoo: «Tarvitsisimme sinua myös perjantai-iltana.» Et ole käytettävissä.",
+      "objective_uk": "Kerro kohteliaasti ettei sovi ja ehdota vaihtoehto.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Valitettavasti en pääse perjantai-iltana, koska minulla on jo sovittu meno. Voisinko auttaa torstaina tai lauantaina?",
+      "feedback_uk": "Älä lupaa, jos et voi tulla.",
+      "transfer_prompt_fi": "Esihenkilö pyytää tulemaan töihin lauantaina aamulla.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-005",
+      "level": "A2.2-B1+",
+      "domain": "society",
+      "stimulus_fi": "Kirjastossa sanotaan: «Tätä kirjaa ei voi enää uusia.» Tarvitset lisäaikaa.",
+      "objective_uk": "Tiedustele syy ja vaihtoehtoinen ratkaisu.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Ymmärrän. Saisinko tietää, miksi laina-aikaa ei voi pidentää? Voinko varata kirjan uudelleen myöhemmin?",
+      "feedback_uk": "Kysyminen ei tarkoita, että kirjasto varmasti suostuu.",
+      "transfer_prompt_fi": "Kirjaa ei löydy hyllystä, vaikka järjestelmä näyttää sen saatavaksi.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-006",
+      "level": "A2.2-B1+",
+      "domain": "travel",
+      "stimulus_fi": "Bussinkuljettaja sanoo: «Tämä linja ei kulje enää torin kautta.» Olet menossa torille.",
+      "objective_uk": "Kysy sopivasta pysäkistä tai vaihdosta.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kiitos tiedosta. Millä pysäkillä minun kannattaa jäädä pois, jos haluan torille? Pitääkö minun vaihtaa bussia?",
+      "feedback_uk": "Kohteen nimen toisto ei riitä kysymykseksi.",
+      "transfer_prompt_fi": "Bussi vaihtaa reittiä tietyömaan vuoksi.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-007",
+      "level": "A2.2-B1+",
+      "domain": "education",
+      "stimulus_fi": "Kouluttaja kysyy: «Miksi haluat osallistua tälle kurssille?»",
+      "objective_uk": "Anna kaksi käytännön syytä ja tuleva tavoite.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Haluan kehittää suomen puhumista ja ymmärtää paremmin työpaikan keskusteluja. Tavoitteeni on myös käyttää suomea arjessa itsenäisemmin.",
+      "feedback_uk": "Vältä yhtä epämääräistä lausetta, kuten «suomi tärkeä».",
+      "transfer_prompt_fi": "Selitä, miksi tarvitset kirjoituskurssin.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-008",
+      "level": "A2.2-B1+",
+      "domain": "culture",
+      "stimulus_fi": "Ystävä sanoo: «Mennäänkö ulos jo kuudelta?» Olet vapaa vasta seitsemältä.",
+      "objective_uk": "Kieltäydy ajasta, mutta hyväksy idea ja ehdota myöhempää aikaa.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Mielelläni tulen mukaan, mutta ehdin vasta seitsemän jälkeen. Sopisiko, että tapaamme puoli kahdeksalta?",
+      "feedback_uk": "Älä jätä vastausta avoimeksi, jos tehtävä vaatii sopimista.",
+      "transfer_prompt_fi": "Ystävä ehdottaa sunnuntaita, mutta sinulle käy vain lauantai.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-009",
+      "level": "A2.2-B1+",
+      "domain": "work",
+      "stimulus_fi": "Työpaikan IT-tuki kysyy: «Oletko jo käynnistänyt tietokoneen uudelleen?» Kokeilit sitä.",
+      "objective_uk": "Kerro tehdyt toimet ja nykyinen ongelma.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kyllä, käynnistin koneen uudelleen kahdesti, mutta ohjelma ei vieläkään avaudu. Mitä minun kannattaisi kokeilla seuraavaksi?",
+      "feedback_uk": "Selkeä kuvaus erottaa aikaisemman toimen ja nykytilan.",
+      "transfer_prompt_fi": "Tulostin ei toimi, vaikka tarkistit paperin ja virran.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-010",
+      "level": "A2.2-B1+",
+      "domain": "housing",
+      "stimulus_fi": "Huoltomies sanoo: «Pääsisin katsomaan hanaa huomenna kello yksitoista.» Olet kotona vasta viiden jälkeen.",
+      "objective_uk": "Ehdota oikea aika, vahvista yhteystapa.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kiitos soitosta. Olen töissä viiteen asti, joten sopisiko käynti puoli kuuden jälkeen? Voitteko vahvistaa ajan tekstiviestillä?",
+      "feedback_uk": "Käyntiaika on sovittava, ei vain kerrottava estettä.",
+      "transfer_prompt_fi": "Huolto ehdottaa keskiviikkoa, mutta olet kotona torstaina.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-011",
+      "level": "A2.2-B1+",
+      "domain": "education",
+      "stimulus_fi": "Opettaja sanoo: «Voisitko kertoa mielipiteesi etäopiskelusta?»",
+      "objective_uk": "Esitä näkökulma, hyöty ja ongelma.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Minusta etäopiskelu on kätevää, koska matkustamiseen ei kulu aikaa. Toisaalta keskustelu voi olla vaikeampaa, jos kaikki pitävät mikrofonin kiinni.",
+      "feedback_uk": "Mielipide tarvitsee perustelun.",
+      "transfer_prompt_fi": "Arvioi ryhmässä opiskelun hyötyjä ja haittoja.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-012",
+      "level": "A2.2-B1+",
+      "domain": "services",
+      "stimulus_fi": "Asiakaspalvelija: «Uusi paketti saapuu ehkä vasta ensi viikon lopulla.» Tarvitset tuotteen aiemmin.",
+      "objective_uk": "Selitä kiire, kysy vaihtoehdosta, älä vaadi mahdotonta takuuta.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kiitos tiedosta. Tarvitsisin tuotteen jo torstaina, koska lähden matkalle. Olisiko nopeampi toimitustapa mahdollinen?",
+      "feedback_uk": "«Ehkä» merkitsee epävarmuutta, joten kysy äläkä oleta.",
+      "transfer_prompt_fi": "Tilauksesi tulee väärään noutopisteeseen.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-013",
+      "level": "A2.2-B1+",
+      "domain": "education",
+      "stimulus_fi": "Kurssikaveri sanoo: «En ymmärtänyt opettajan ohjetta.» Ymmärsit pääasian.",
+      "objective_uk": "Selitä omin sanoin ja kysy, tarvitseeko hän lisäapua.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Minun käsittääkseni meidän pitää kirjoittaa lyhyt viesti ja palauttaa se perjantaihin mennessä. Haluatko, että katsomme tehtävän yhdessä?",
+      "feedback_uk": "Älä väitä varmaksi epäselvää tietoa.",
+      "transfer_prompt_fi": "Kaveri ei kuullut, mihin luokkaan tunnit siirtyivät.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-014",
+      "level": "A2.2-B1+",
+      "domain": "environment",
+      "stimulus_fi": "Vapaaehtoinen sanoo: «Lajittelutilaisuus peruttiin huonon sään vuoksi.»",
+      "objective_uk": "Varmista uusi ajankohta ja miten saat tiedon.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Harmi, mutta ymmärrän päätöksen. Onko uusi ajankohta jo tiedossa, ja mistä mahdollisesta muutoksesta ilmoitetaan?",
+      "feedback_uk": "Olennaista on varmistaa jatkotoimi.",
+      "transfer_prompt_fi": "Ulkotapahtuma siirrettiin sisätiloihin.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-015",
+      "level": "A2.2-B1+",
+      "domain": "health",
+      "stimulus_fi": "Kuntosalin vastaanotto sanoo: «Jäsenyytesi päättyy tämän kuun lopussa.»",
+      "objective_uk": "Kysy jatkamisen hinnasta ja menettelystä.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Kiitos muistutuksesta. Haluaisin jatkaa jäsenyyttäni. Paljonko se maksaa ensi kuussa, ja pitääkö minun tehdä uusi sopimus?",
+      "feedback_uk": "Lupausta hinnasta ei saa keksiä.",
+      "transfer_prompt_fi": "Kuntosalin aukioloajat muuttuvat.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-016",
+      "level": "A2.2-B1+",
+      "domain": "travel",
+      "stimulus_fi": "Juna-asemalla virkailija sanoo: «Vaihtoyhteytesi on jo lähtenyt.»",
+      "objective_uk": "Kysy korvaavaa reittiä ja lipun voimassaolosta.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Voi harmi. Onko seuraavaa yhteyttä samaan suuntaan, ja kelpaako nykyinen lippuni siihen?",
+      "feedback_uk": "Älä päättele automaattista oikeutta korvaukseen.",
+      "transfer_prompt_fi": "Junasi peruttiin, ja tarvitset vaihtoehdon.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-017",
+      "level": "A2.2-B1+",
+      "domain": "culture",
+      "stimulus_fi": "Lasten harrastusryhmän ohjaaja: «Ryhmä on täynnä.»",
+      "objective_uk": "Kysy jonosta tai toisesta ryhmästä.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Selvä, kiitos tiedosta. Voisiko lapsen lisätä jonotuslistalle, tai onko teillä vastaava ryhmä toisena päivänä?",
+      "feedback_uk": "Älä pidä paikkaa varmana, jos ryhmä on täysi.",
+      "transfer_prompt_fi": "Ryhmän ikäraja ei sovi lapselle.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    },
+    {
+      "id": "b1-react-018",
+      "level": "A2.2-B1+",
+      "domain": "society",
+      "stimulus_fi": "Kaupunkineuvonta: «Tämän hakemuksen voi tehdä vain verkossa.»",
+      "objective_uk": "Kysy käytännön apua ja tarvittavista tiedoista.",
+      "required_functions_fi": [
+        "vastaa tilanteeseen",
+        "selitä tai tarkenna",
+        "kysy tai ehdota sopivaa jatkoa"
+      ],
+      "model_answer_fi": "Ymmärrän. Minulle verkkolomakkeen täyttäminen on vielä vaikeaa. Mistä voin saada apua, ja mitä tietoja minun pitää varata valmiiksi?",
+      "feedback_uk": "Kysy tarkasti mitä tarvitset.",
+      "transfer_prompt_fi": "Sähköisen palvelun kirjautuminen epäonnistuu.",
+      "mode": "speaking_roleplay",
+      "training_only": true,
+      "model_is_official_yki_answer": false,
+      "model_visibility": "after_first_attempt",
+      "audio_status": "text_only_can_be_read_by_fi_voice"
+    }
+  ]
+}
