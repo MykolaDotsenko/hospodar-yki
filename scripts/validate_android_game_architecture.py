@@ -60,7 +60,26 @@ def main():
     assert j["game_design"]["exam_mode_no_gameplay"] is True
     assert j["game_design"]["skip_scene"] is True
     assert j["game_design"]["reduced_motion"] is True
-    assert j["acceptance_ids"]==[f"ANDR-{i:02d}" for i in range(1,19)]
+    assert j["acceptance_ids"]==(
+        [f"ANDR-{i:02d}" for i in range(1,19)] +
+        [f"WEB-{i:02d}" for i in range(1,11)]
+    )
+    platforms=j["platform_strategy"]
+    assert platforms["web"]["mandatory"] is True
+    assert platforms["android"]["mandatory"] is True
+    assert "PWA" in platforms["web"]["kind"]
+    assert "Capacitor" in platforms["android"]["kind"]
+    assert "Phaser" in platforms["model"]
+    assert "2–3 GB" in platforms["web"]["media"]
+    assert "install-time" in platforms["android"]["deploy"]
+    assert platforms["sync"]["optional"] is True
+    assert platforms["sync"]["upload_raw_learner_voice_by_default"] is False
+    assert len(platforms["strict_parity"])>=6
+    assert any(x["id"]=="web_pwa_parity" for x in j["development_gates"])
+    assert any(x["id"]=="cross_platform_domain_parity" for x in j["development_gates"])
+    assert "WEB-01" in (ROOT/"docs/23-android-offline-game-and-3gb-media-architecture.md").read_text(encoding="utf8")
+    assert "WEB-10" in (ROOT/"docs/23-android-offline-game-and-3gb-media-architecture.md").read_text(encoding="utf8")
+
     assert j["source_urls"] and all(urlparse(x).scheme=="https" for x in j["source_urls"])
     assert all(x["status"]=="NOT_IMPLEMENTED" for x in j["development_gates"])
     for path,markers in {
@@ -74,6 +93,6 @@ def main():
       for marker in markers:
         assert marker in text,(path,marker)
     assert not (ROOT/"apps/android").is_dir(), "Android scaffold exists; revisit NOT_IMPLEMENTED status before merging"
-    print("PASS: ADR-023 target only; valid Play install-time split limits; 2.6GB planning budget; no false single-APK and content rights claims")
+    print("PASS: dual-platform ADR-023: Web/PWA + Android, 18 Android and 10 Web gates, shared TS, 2.6GB planning pack")
 
 if __name__=="__main__":main()
