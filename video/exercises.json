@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "author": "Hospodar YKI original prompt drafts",
+  "copyright_note": "Questions are original. Videos belong to their respective CC-licensed creators.",
+  "status": "not_assessment_ready",
+  "mode": "learn_after_independent_listening",
+  "items": [
+    {
+      "id": "jenni-puhekieli",
+      "status": "editorial_draft_teacher_review_pending",
+      "level": "B1+",
+      "skill": "listening",
+      "prompts": [
+        [
+          "gist",
+          "Mitä Jenni kertoo suomalaisista ja amerikkalaisista?",
+          "Що Дженні розповідає про фінів та американців?"
+        ],
+        [
+          "detail",
+          "Missä eri maissa hän on asunut?",
+          "У яких країнах вона жила?"
+        ],
+        [
+          "opinion",
+          "Miksi hänen mielestään matkustaminen auttaa ymmärtämään muita ihmisiä?",
+          "Чому, на її думку, подорожі допомагають розуміти інших?"
+        ]
+      ],
+      "scoring": "ungraded_until_S2_source_alignment",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "id": "jenni-puhekieli-q1",
+          "type": "gist",
+          "prompt_fi": "Mitä Jenni kertoo suomalaisista ja amerikkalaisista?",
+          "prompt_uk": "Що Дженні розповідає про фінів та американців?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "jenni-puhekieli-q2",
+          "type": "detail",
+          "prompt_fi": "Missä eri maissa hän on asunut?",
+          "prompt_uk": "У яких країнах вона жила?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "jenni-puhekieli-q3",
+          "type": "opinion",
+          "prompt_fi": "Miksi hänen mielestään matkustaminen auttaa ymmärtämään muita ihmisiä?",
+          "prompt_uk": "Чому, на її думку, подорожі допомагають розуміти інших?",
+          "answer_key": null,
+          "review_status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "kinola-helsinki",
+      "status": "editorial_draft_teacher_review_pending",
+      "level": "B1+",
+      "skill": "listening",
+      "prompts": [
+        [
+          "gist",
+          "Mistä paikasta tässä videossa kerrotaan?",
+          "Про яке місце розповідає відео?"
+        ],
+        [
+          "detail",
+          "Missä tämä paikka sijaitsi?",
+          "Де розташовувалося це місце?"
+        ],
+        [
+          "retell",
+          "Kerro omin sanoin, mitä videosta jäi mieleen.",
+          "Розкажи своїми словами, що запам'яталося з відео."
+        ]
+      ],
+      "scoring": "ungraded_until_S2_source_alignment",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "id": "kinola-helsinki-q1",
+          "type": "gist",
+          "prompt_fi": "Mistä paikasta tässä videossa kerrotaan?",
+          "prompt_uk": "Про яке місце розповідає відео?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "kinola-helsinki-q2",
+          "type": "detail",
+          "prompt_fi": "Missä tämä paikka sijaitsi?",
+          "prompt_uk": "Де розташовувалося це місце?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "kinola-helsinki-q3",
+          "type": "retell",
+          "prompt_fi": "Kerro omin sanoin, mitä videosta jäi mieleen.",
+          "prompt_uk": "Розкажи своїми словами, що запам'яталося з відео.",
+          "answer_key": null,
+          "review_status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "claes-esittely",
+      "status": "editorial_draft_teacher_review_pending",
+      "level": "B1",
+      "skill": "listening",
+      "prompts": [
+        [
+          "gist",
+          "Miten puhuja esittelee itsensä?",
+          "Як мовець представляє себе?"
+        ],
+        [
+          "detail",
+          "Mistä työstä tai elämäntyöstä hän puhuu?",
+          "Про яку роботу або справу життя він говорить?"
+        ],
+        [
+          "transfer",
+          "Esittele oma työsi tai opiskelusi lyhyesti suomeksi.",
+          "Коротко представ свою роботу чи навчання фінською."
+        ]
+      ],
+      "scoring": "ungraded_until_S2_source_alignment",
+      "teacher_review": "pending",
+      "questions": [
+        {
+          "id": "claes-esittely-q1",
+          "type": "gist",
+          "prompt_fi": "Miten puhuja esittelee itsensä?",
+          "prompt_uk": "Як мовець представляє себе?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "claes-esittely-q2",
+          "type": "detail",
+          "prompt_fi": "Mistä työstä tai elämäntyöstä hän puhuu?",
+          "prompt_uk": "Про яку роботу або справу життя він говорить?",
+          "answer_key": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "claes-esittely-q3",
+          "type": "transfer",
+          "prompt_fi": "Esittele oma työsi tai opiskelusi lyhyesti suomeksi.",
+          "prompt_uk": "Коротко представ свою роботу чи навчання фінською.",
+          "answer_key": null,
+          "review_status": "pending"
+        }
+      ]
+    }
+  ]
+}
