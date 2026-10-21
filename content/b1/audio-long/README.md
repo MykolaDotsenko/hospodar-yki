@@ -2,6 +2,25 @@
 
 **Повноцінний оригінальний навчальний контент, а не каталог посилань.**
 
+## ✅ Фактично збережені довгі треки — 21.10.2026
+
+Перевірено в гілці `main`: **6 синтетичних сучасних уроків по 2 хв 23 с із повними TXT-транскриптами, 12-блоковими WebVTT субтитрами та 24 питаннями**. Всі OGG, TXT і VTT фізично присутні в GitHub.
+
+| Фінська історія | Аудіо | Транскрипт | Субтитри |
+|---|---|---|---|
+| Vesikatko ja huoltokäynti | [OGG](../../../audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.ogg) | [TXT](../../../audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.txt) | [VTT](../../../audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.vtt) |
+| Kurssi, joka sopii työvuoroihin | [OGG](../../../audio/long/b1/b1long-02-kurssi-ja-tyovuorot.ogg) | [TXT](../../../audio/long/b1/b1long-02-kurssi-ja-tyovuorot.txt) | [VTT](../../../audio/long/b1/b1long-02-kurssi-ja-tyovuorot.vtt) |
+| Kun verkkokaupan tilaus meni pieleen | [OGG](../../../audio/long/b1/b1long-03-verkkokaupan-palautus.ogg) | [TXT](../../../audio/long/b1/b1long-03-verkkokaupan-palautus.txt) | [VTT](../../../audio/long/b1/b1long-03-verkkokaupan-palautus.vtt) |
+| Muuttunut bussireitti | [OGG](../../../audio/long/b1/b1long-04-muuttunut-bussireitti.ogg) | [TXT](../../../audio/long/b1/b1long-04-muuttunut-bussireitti.txt) | [VTT](../../../audio/long/b1/b1long-04-muuttunut-bussireitti.vtt) |
+| Yhteinen piha, yhteinen päätös | [OGG](../../../audio/long/b1/b1long-05-taloyhtion-pihatalkoot.ogg) | [TXT](../../../audio/long/b1/b1long-05-taloyhtion-pihatalkoot.txt) | [VTT](../../../audio/long/b1/b1long-05-taloyhtion-pihatalkoot.vtt) |
+| Uusi harrastus ja parempi arki | [OGG](../../../audio/long/b1/b1long-06-uimahallin-uusi-ryhma.ogg) | [TXT](../../../audio/long/b1/b1long-06-uimahallin-uusi-ryhma.txt) | [VTT](../../../audio/long/b1/b1long-06-uimahallin-uusi-ryhma.vtt) |
+
+**Також 1 повний людський MP3 2:38,6:** [Todellinen prinsessa](../../../audio/human/short-stories/todellinen-prinsessa-cygnaeus.mp3), диктор Cygnaeus, і [повний фінський друкований текст](../../../audio/human/short-stories/todellinen-prinsessa-original-text-fi.txt) за Project Gutenberg. Запис історичної казки — **B1+/B2, літературна фінська**, не приклад сучасного YKI. Друкований текст не є синхронізованими субтитрами; можливий вступ/відмінності в читанні.
+
+**Поточна загальна бібліотека: 85 реальних аудіофайлів** — [audio/library.json](../../../audio/library.json). Перевірка тривалості та хешів 6 нових OGG пройшла в workflow збірки.
+
+
+
 - [source-lessons.json](source-lessons.json): 6 повних фінських сценаріїв, 24 запитання з правильними відповідями й українськими поясненнями.
 - [lessons.json](lessons.json) створюється після успішного аудіоімпорту: реальна тривалість, пов'язані файли й контрольні суми. Поки не створений, фізичні файли не зараховувати.
 - [audio/long/b1](../../../audio/long/b1/): кожна історія у форматі **OGG**, точний **.txt транскрипт**, **.vtt субтитри**, часові межі яких взято з фактично згенерованих сегментів.
