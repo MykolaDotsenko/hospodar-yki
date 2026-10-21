@@ -115,3 +115,9 @@ Existing methodology registry (67 approaches) + licensed reviewed content
 Історичне рішення вище (`zero-build HTML+ES modules+localStorage`) **залишається правильним описом фактичного MVP**. Для подальшої повної розробки прийнято **TypeScript + React + Vite local-first PWA + Dexie/IndexedDB** з `XState v5` **лише для** екзаменаційного і голосового workflow; `pnpm` модульний моноліт і чисте domain layer. Не робити destructive big-bang rewrite. `Supabase EU PostgreSQL/Auth/Storage` і окремий AI worker — **opt-in P1/P2**, не requirement для користувача без акаунта.
 
 **Контракт переходу:** `app/` працює до parity/migration; нова оболонка в `apps/web`; контент зі старих `content/` джерел зі схемним контролем; існуючі Node/Python тести збережені. Відгуки та `firstCorrect` не перетворюються на офіційні рівні YKI. Синхронізація event/outbox идемпотентна; cache PWA не активується серед іспитової сесії; міграція localStorage з export+rollback. **Текст цього ADR не означає виконану міграцію.**
+
+## ADR-023 — зміна архітектури для Android-гри та 2–3GB мультимедіа
+
+Цільова архітектура [22](22-optimal-stack-and-architecture-adr-2026-10.md) **тепер розширена Android-first вимогою**: [23 — Android offline game & Play Asset Delivery](23-android-offline-game-and-3gb-media-architecture.md) · [JSON contract](../research/android-game-distribution-v1.json).
+
+`apps/web` — PWA/React, `apps/android` — Capacitor 8/Kotlin+Google Play AAB+install-time asset packs, `packages/game` — Phaser 2D (за межами exam), `packages/media` — browser vs native media adapters. Shared TS learning/exam domain не дублювати. Поточні `app/*.mjs` + `localStorage` лишаються робочим MVP. Надійні програвач/seek/codec, pack size, offline-first і Android mic/back є **попередніми приймальними тестами**, не доказом поточної реалізації. Офіційний цифровий YKI UI, як і раніше, не відтворювати без джерел.
