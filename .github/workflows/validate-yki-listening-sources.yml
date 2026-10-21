@@ -1,0 +1,28 @@
+name: Validate YKI listening discovery catalogue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'audio/yki-targeted-sources-2026-10.json'
+      - 'audio/YKI-LISTENING-RESEARCH-2026-10.md'
+      - 'scripts/validate_yki_listening_sources.py'
+      - '.github/workflows/validate-yki-listening-sources.yml'
+  pull_request:
+    paths:
+      - 'audio/yki-targeted-sources-2026-10.json'
+      - 'audio/YKI-LISTENING-RESEARCH-2026-10.md'
+      - 'scripts/validate_yki_listening_sources.py'
+      - '.github/workflows/validate-yki-listening-sources.yml'
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check external audio links, source types and attribution metadata
+        run: python3 scripts/validate_yki_listening_sources.py
