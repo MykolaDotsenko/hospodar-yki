@@ -288,3 +288,7 @@ Browser (authenticated optional)
 ## Final verdict
 
 **TARGET 95/100 engineering fit**, contingent on implementation/QA, not a claim of finished code. Adopt TS/React/Vite + Dexie + XState + local-first PWA **now in phases**, Supabase EU + AI worker **only when justified**. The strongest moat for Hospodar YKI will be **authentic licensed Finnish audio, reviewed high-value tasks, independent 7/14-day retention outcomes and reliable four-skill exam workflow**—not the maximum number of technologies.
+
+## ADR-023 Web/PWA parity — explicit equal-priority platform requirement
+
+[23 — Dual-platform Android + full Web/PWA with 2–3GB offline media only on Android](23-android-offline-game-and-3gb-media-architecture.md). The original choice of React 19+Vite 8+Phaser in game scenes+TypeScript domain is now a **single shared codebase for Web and Android**. For Web: browser/desktop/mobile PWA, CDN/HTTP streaming of licensed content, opt-in selected offline packs, no 3GB first-load. For Android: Capacitor+native Kotlin player, all redistributable bundled media from install-time PAD packs. Same learn/exam workflow, 4 skills, progression, stories, item IDs and accessibility. Optional authenticated sync later. New acceptance `WEB-01…10`. Neither web parity nor native app is implemented by this ADR alone.
