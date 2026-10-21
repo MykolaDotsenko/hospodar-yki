@@ -10,65 +10,77 @@
 4. **Тексти/аудіювання:** офіційні демонстрації OPH/JYU та B1-вправи Yle залишаються на зовнішніх сторінках; у продукті — наші нові тексти з ключами, аудіо, перевірка підказок після спроби.
 5. **Справжні документи:** матеріали Kela, муніципалітетів і Selkouutiset використовувати для читання через оригінальні сторінки; не видавати їхні зміни, тарифи та терміни за сталі приклади.
 
-## Перевірений каталог — прямі посилання (53 джерела)
+## Перевірений каталог — прямі посилання (65 джерел)
 
-**Рейтинги експертні, не виміряні ефекти.** Позначення прав описують статус використання в застосунку; прямий доступ та дозволи кожного вкладення перевіряються окремо.
+Рейтинги — експертні оцінки придатності **для Hospodar YKI**, а не виміряна ефективність. Коди прав — робоча класифікація; ліцензія має перевірятися для кожного окремого файлу.
 
 | № | Джерело | /100 | Рівень | Права/використання |
 |---:|---|---:|---|---|
 | 1 | [OPH 2027 Finnish digital YKI dates](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat) | 100 | YKI | `OFFICIAL_LINK_ONLY` |
 | 2 | [OPH YKI kirjoittamisen arviointikriteerit](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen) | 100 | YKI_3_4 | `OFFICIAL_PDF_LINK_ONLY` |
 | 3 | [OPH YKI puhumisen arviointikriteerit (original PDF)](https://www.oph.fi/sites/default/files/documents/Puhumisen_arviointikriteerit.pdf) | 100 | YKI_3_4 | `OFFICIAL_PDF_LINK_ONLY` |
-| 4 | [OPH Ennen YKI-testiä: study and procedures](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) | 99 | YKI | `OFFICIAL_LINK_ONLY` |
-| 5 | [OPH YKI format and study guidance](https://www.oph.fi/en/education-and-qualifications/yki-test) | 99 | B1 | `LINK_ONLY` |
-| 6 | [University of Jyväskylä official YKI demo](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/) | 99 | B1-B2 | `LINK_ONLY_PROTECTED_EXAM_MATERIAL` |
-| 7 | [YKI-arviointi — Nina Reiman (video)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/arviointiapua-suomenopettajille/yki-arviointi) | 99 | A2-B2 | `CC_BY_ND_4_LINK_ONLY` |
-| 8 | [Yle — Harjoittele YKI-testiin, B1](https://yle.fi/a/20-10002426) | 99 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 9 | [Kotus Nykysuomen sanalista](https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/) | 98 | A1-C2 | `IMPORT_CC_BY_4_WITH_CREDITS` |
-| 10 | [Mikä fiilis?](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/mika-fiilis) | 98 | A2-B2 | `CC_BY_4_LINK_REUSE_WITH_CREDIT` |
-| 11 | [Yle B1 — Kauppa ja palvelut](https://yle.fi/a/74-20082590) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 12 | [Yle B1 — Koti ja asuminen](https://yle.fi/a/74-20082589) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 13 | [Yle B1 — Kulttuuri ja urheilu](https://yle.fi/a/74-20082592) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 14 | [Yle B1 — Matkustaminen](https://yle.fi/a/74-20082594) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 15 | [Yle B1 — Minä ja taustani](https://yle.fi/a/74-20082587) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 16 | [Yle B1 — Terveys ja hyvinvointi](https://yle.fi/a/74-20082597) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 17 | [Yle B1 — Työ](https://yle.fi/a/74-20082599) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 18 | [Yle B1 — Yhteiskunta](https://yle.fi/a/74-20082605) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 19 | [Yle B1 — Ympäristö](https://yle.fi/a/74-20082603) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 20 | [Kielibuusti S2-opetusmateriaalipankki filters](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki) | 97 | A1-C2 | `LINK_ONLY_INDIVIDUAL_ITEM_RIGHTS` |
-| 21 | [Niinku — autenttista kuunneltavaa suomenoppijoille](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/niinku-autenttista-kuunneltavaa-suomenoppijoille) | 97 | A2.2-B1 | `CC_BY_ND_4_LINK_ONLY` |
-| 22 | [Yle Uutisten taajuussanakirja v1.1.1](https://github.com/danradice/yle-uutiset-taajuussanakirja/tree/v1.1.1) | 97 | A1-C2 | `IMPORT_CC_BY_4_WITH_CREDITS` |
-| 23 | [Kielitoimiston sanakirja](https://www.kielitoimistonsanakirja.fi/) | 96 | A1-C2 | `LINK_ONLY_TERMS_UNCONFIRMED` |
-| 24 | [Koiranomistajan suomea — 3 MP3 + scripts](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/koiranomistajan-suomea) | 96 | A2-B2 | `CC_BY_4_DIRECT_MEDIA_403_NOT_IMPORTED` |
-| 25 | [Opiskele tekstitaitoja](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja/opiskele-tekstitaitoja) | 96 | A2-C1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 26 | [Puhutsä suomee? — puhekieli](https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/puhutsa-suomee) | 96 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 27 | [VIERKO 2 — Selkokieliset YTO-materiaalit, perusteet 2026](https://aoe.fi/materiaali/5774) | 96 | A2-B1 | `CC_BY_SA_4_CHECK_EACH_LINKED_ITEM` |
-| 28 | [FinnWordNet, Kielipankki](https://www.kielipankki.fi/corpora/finnwordnet/) | 95 | B1-C2 | `IMPORT_DUAL_CC_BY_3_AND_PRINCETON_WITH_CREDITS` |
-| 29 | [Keskusteluja suomeksi Turussa](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa) | 95 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 30 | [Kielibuusti — добірка авторських матеріалів](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja) | 95 | A2-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 31 | [Sanatyyppien harjoittelua](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/sanatyyppien-harjoittelua) | 95 | A2-B1 | `CC_BY_4_REUSE_WITH_CREDIT` |
-| 32 | [Tatoeba reuse policy](https://en.wiki.tatoeba.org/articles/show/using-the-tatoeba-corpus) | 95 | all | `REFERENCE_ONLY` |
-| 33 | [Tekstinymmärtämisharjoitus: passiivi ja sanasto](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/tekstinymmartamisharjoitus-passiivi-ja-sanasto) | 95 | B1 | `CC_BY_4_WRAPPER_THIRD_PARTY_NEWS_RIGHTS_REVIEW` |
-| 34 | [Asiakaspalvelutilanteita hotellin vastaanotossa](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/asiakaspalvelutilanteita-hotellin-vastaanotossa) | 94 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
-| 35 | [Kielibuusti materials directory](https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials) | 94 | A1-C2 | `LINK_ONLY` |
-| 36 | [Tatoeba Finnish–Ukrainian example sentences](https://tatoeba.org/en/downloads) | 94 | A1-B2 | `IMPORT_TEXT_CC_BY_2_FR_WITH_AUTHOR_ID_OR_CC0_FILTER` |
-| 37 | [Tilanteet, teemat ja toimijuus (TTT-malli)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/tilanteet-teemat-ja-toimijuus-opetuksen-lahtokohtina-ttt-malli) | 94 | A2-B2 | `LINK_ONLY_SITE_REUSE_UNCHECKED` |
-| 38 | [Uusi kielemme — grammar + vocabulary + exercises](https://uusikielemme.fi/) | 94 | A1-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 39 | [VIERKO 2024 S2 (already in repository)](../content/third-party/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
-| 40 | [Yle YKItreenit keskitaso](https://yle.fi/a/20-146216) | 94 | B1-B2 | `LINK_ONLY_YLE_RIGHTS` |
-| 41 | [Yle Selkouutiset](https://yle.fi/selkouutiset) | 93 | A2-B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 42 | [Hospodar YKI licensed audio library (existing)](../audio/library.json) | 92 | A2-B2 | `LOCAL_MIXED_SEE_ITEM_LICENSE` |
-| 43 | [Korp Finnish corpus API](https://www.kielipankki.fi/support/korpapi/) | 92 | B1-C2 | `API_PER_CORPUS_RIGHTS` |
-| 44 | [Omistusliitteet — text skills](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/omistusliitteet-0) | 92 | B1-B2 | `CC_BY_4_PHOTOS_EXCLUDED` |
-| 45 | [Yle Asiointisuomea](https://yle.fi/a/20-10002426) | 92 | A2-B2 | `LINK_ONLY_YLE_RIGHTS` |
-| 46 | [Selkosanomat](https://selkosanomat.fi/) | 91 | A2-B1 | `LINK_ONLY_TERMS_UNCONFIRMED` |
-| 47 | [Kela Selkokieli: asumislisä](https://www.kela.fi/web/selkokieli/asumislisa) | 90 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 48 | [Omorfi open Finnish morphology](https://github.com/flammie/omorfi) | 90 | A1-C2 | `GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW` |
-| 49 | [Verbejä hoitotyöhön](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/verbeja-hoitotyohon) | 89 | B1-B2 | `CC_BY_4_REUSE_WITH_CREDIT` |
-| 50 | [GiellaLT lang-fin](https://github.com/giellalt/lang-fin) | 88 | A1-C2 | `GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW` |
-| 51 | [Kauhua ja kansantarinoita](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/kauhua-ja-kansantarinoita) | 79 | A2-B2 | `CC_BY_ND_4_LINK_ONLY` |
-| 52 | [Elämiä — tehtäviä Petri Tammisen novelleista](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/elamia-tehtavia-petri-tammisen-kahdesta-novellista) | 77 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
-| 53 | [Tunteita ja runoutta](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/tunteita-ja-runoutta-kirjallisuusaiheinen-tehtavapaketti) | 76 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
+| 4 | [University of Jyväskylä — Finnish keskitaso speaking examples](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/) | 100 | YKI3_4 | `OFFICIAL_PDF_LINK_ONLY` |
+| 5 | [University of Jyväskylä — Finnish keskitaso writing examples](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/) | 100 | YKI3_4 | `OFFICIAL_PDF_LINK_ONLY` |
+| 6 | [OPH Ennen YKI-testiä: study and procedures](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) | 99 | YKI | `OFFICIAL_LINK_ONLY` |
+| 7 | [OPH YKI format and study guidance](https://www.oph.fi/en/education-and-qualifications/yki-test) | 99 | B1 | `LINK_ONLY` |
+| 8 | [University of Jyväskylä official YKI demo](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/) | 99 | B1-B2 | `LINK_ONLY_PROTECTED_EXAM_MATERIAL` |
+| 9 | [YKI-arviointi — Nina Reiman (video)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/arviointiapua-suomenopettajille/yki-arviointi) | 99 | A2-B2 | `CC_BY_ND_4_LINK_ONLY` |
+| 10 | [Yle — Harjoittele YKI-testiin, B1](https://yle.fi/a/20-10002426) | 99 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 11 | [FinnTreeBank / Universal Dependencies Finnish FTB](https://github.com/UniversalDependencies/UD_Finnish-FTB) | 98 | A2-C2 | `IMPORT_CC_BY_4_WITH_CREDIT_AND_SOURCE_NOTICES` |
+| 12 | [FinnTreeBank FTB explicit CC BY 4.0 license text](https://github.com/UniversalDependencies/UD_Finnish-FTB/blob/master/LICENSE.txt) | 98 | all | `REFERENCE_ONLY` |
+| 13 | [Kotus Nykysuomen sanalista](https://kotus.fi/sanakirjat/kielitoimiston-sanakirja/nykysuomen-sana-aineistot/nykysuomen-sanalista/) | 98 | A1-C2 | `IMPORT_CC_BY_4_WITH_CREDITS` |
+| 14 | [Mikä fiilis?](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/mika-fiilis) | 98 | A2-B2 | `CC_BY_4_LINK_REUSE_WITH_CREDIT` |
+| 15 | [Yle B1 — Kauppa ja palvelut](https://yle.fi/a/74-20082590) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 16 | [Yle B1 — Koti ja asuminen](https://yle.fi/a/74-20082589) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 17 | [Yle B1 — Kulttuuri ja urheilu](https://yle.fi/a/74-20082592) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 18 | [Yle B1 — Matkustaminen](https://yle.fi/a/74-20082594) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 19 | [Yle B1 — Minä ja taustani](https://yle.fi/a/74-20082587) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 20 | [Yle B1 — Terveys ja hyvinvointi](https://yle.fi/a/74-20082597) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 21 | [Yle B1 — Työ](https://yle.fi/a/74-20082599) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 22 | [Yle B1 — Yhteiskunta](https://yle.fi/a/74-20082605) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 23 | [Yle B1 — Ympäristö](https://yle.fi/a/74-20082603) | 98 | B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 24 | [Kielibuusti S2-opetusmateriaalipankki filters](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki) | 97 | A1-C2 | `LINK_ONLY_INDIVIDUAL_ITEM_RIGHTS` |
+| 25 | [Niinku — autenttista kuunneltavaa suomenoppijoille](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/niinku-autenttista-kuunneltavaa-suomenoppijoille) | 97 | A2.2-B1 | `CC_BY_ND_4_LINK_ONLY` |
+| 26 | [Yle Uutisten taajuussanakirja v1.1.1](https://github.com/danradice/yle-uutiset-taajuussanakirja/tree/v1.1.1) | 97 | A1-C2 | `IMPORT_CC_BY_4_WITH_CREDITS` |
+| 27 | [Kielitoimiston sanakirja](https://www.kielitoimistonsanakirja.fi/) | 96 | A1-C2 | `LINK_ONLY_TERMS_UNCONFIRMED` |
+| 28 | [Koiranomistajan suomea — 3 MP3 + scripts](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/koiranomistajan-suomea) | 96 | A2-B2 | `CC_BY_4_DIRECT_MEDIA_403_NOT_IMPORTED` |
+| 29 | [Opiskele tekstitaitoja](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja/opiskele-tekstitaitoja) | 96 | A2-C1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 30 | [Puhutsä suomee? — puhekieli](https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/puhutsa-suomee) | 96 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 31 | [VIERKO 2 — Selkokieliset YTO-materiaalit, perusteet 2026](https://aoe.fi/materiaali/5774) | 96 | A2-B1 | `CC_BY_SA_4_CHECK_EACH_LINKED_ITEM` |
+| 32 | [ArkiSyn — 29 hours everyday Finnish conversations](https://www.utu.fi/en/university/faculty-of-humanities/school-of-languages-and-translation-studies/research/utu-digilang/arkisyn-database-of-finnish-conversational-discourse) | 95 | B1-C2 | `CC_BY_ND_PRIV_PERSONAL_DATA_LINK_RESEARCH_ONLY` |
+| 33 | [FinnWordNet, Kielipankki](https://www.kielipankki.fi/corpora/finnwordnet/) | 95 | B1-C2 | `IMPORT_DUAL_CC_BY_3_AND_PRINCETON_WITH_CREDITS` |
+| 34 | [Keskusteluja suomeksi Turussa](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa) | 95 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 35 | [Kielibuusti — добірка авторських матеріалів](https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja) | 95 | A2-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 36 | [Sanatyyppien harjoittelua](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/sanatyyppien-harjoittelua) | 95 | A2-B1 | `CC_BY_4_REUSE_WITH_CREDIT` |
+| 37 | [Tatoeba reuse policy](https://en.wiki.tatoeba.org/articles/show/using-the-tatoeba-corpus) | 95 | all | `REFERENCE_ONLY` |
+| 38 | [Tekstinymmärtämisharjoitus: passiivi ja sanasto](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/tekstinymmartamisharjoitus-passiivi-ja-sanasto) | 95 | B1 | `CC_BY_4_WRAPPER_THIRD_PARTY_NEWS_RIGHTS_REVIEW` |
+| 39 | [Asiakaspalvelutilanteita hotellin vastaanotossa](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/asiakaspalvelutilanteita-hotellin-vastaanotossa) | 94 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
+| 40 | [Kielibuusti materials directory](https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials) | 94 | A1-C2 | `LINK_ONLY` |
+| 41 | [TallVocabL2Fi — vocabulary knowledge of 15 Finnish learners](https://www.kielipankki.fi/arkisto/resource-info/l2-learner-corpora/) | 94 | B1-C2 | `PUBLIC_DATA_BUT_VERSION_LICENSE_TO_CONFIRM` |
+| 42 | [Tatoeba Finnish–Ukrainian example sentences](https://tatoeba.org/en/downloads) | 94 | A1-B2 | `IMPORT_TEXT_CC_BY_2_FR_WITH_AUTHOR_ID_OR_CC0_FILTER` |
+| 43 | [Tilanteet, teemat ja toimijuus (TTT-malli)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/tilanteet-teemat-ja-toimijuus-opetuksen-lahtokohtina-ttt-malli) | 94 | A2-B2 | `LINK_ONLY_SITE_REUSE_UNCHECKED` |
+| 44 | [Turku Dependency Treebank (Universal Dependencies)](https://universaldependencies.org/treebanks/fi_tdt/index.html) | 94 | A2-C2 | `CC_BY_SA_4_REVIEW_ALL_SOURCE_NOTICES` |
+| 45 | [Uusi kielemme — grammar + vocabulary + exercises](https://uusikielemme.fi/) | 94 | A1-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 46 | [VIERKO 2024 S2 (already in repository)](../content/third-party/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
+| 47 | [Yle YKItreenit keskitaso](https://yle.fi/a/20-146216) | 94 | B1-B2 | `LINK_ONLY_YLE_RIGHTS` |
+| 48 | [Yle Selkouutiset](https://yle.fi/selkouutiset) | 93 | A2-B1 | `LINK_ONLY_YLE_RIGHTS` |
+| 49 | [Hospodar YKI licensed audio library (existing)](../audio/library.json) | 92 | A2-B2 | `LOCAL_MIXED_SEE_ITEM_LICENSE` |
+| 50 | [Korp Finnish corpus API](https://www.kielipankki.fi/support/korpapi/) | 92 | B1-C2 | `API_PER_CORPUS_RIGHTS` |
+| 51 | [Omistusliitteet — text skills](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/omistusliitteet-0) | 92 | B1-B2 | `CC_BY_4_PHOTOS_EXCLUDED` |
+| 52 | [Yle Asiointisuomea](https://yle.fi/a/20-10002426) | 92 | A2-B2 | `LINK_ONLY_YLE_RIGHTS` |
+| 53 | [Selkosanomat](https://selkosanomat.fi/) | 91 | A2-B1 | `LINK_ONLY_TERMS_UNCONFIRMED` |
+| 54 | [VIERKO 2024 S2/YTO open material index](https://sites.google.com/edu.hel.fi/selkomateriaaleja/yto-materiaalit) | 91 | A2-B1 | `LINK_ONLY_CHECK_EACH_SUBRESOURCE` |
+| 55 | [Kela Selkokieli: asumislisä](https://www.kela.fi/web/selkokieli/asumislisa) | 90 | A2-B1 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
+| 56 | [Omorfi open Finnish morphology](https://github.com/flammie/omorfi) | 90 | A1-C2 | `GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW` |
+| 57 | [VIERKO 2024 — Selkopuhe and selkokieli guidance for teachers](https://www.finna.fi/Record/aoe.4227) | 90 | pedagogy | `CC_BY_4_VERIFY_EACH_EXTERNAL_VIDEO` |
+| 58 | [Verbejä hoitotyöhön](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/verbeja-hoitotyohon) | 89 | B1-B2 | `CC_BY_4_REUSE_WITH_CREDIT` |
+| 59 | [GiellaLT lang-fin](https://github.com/giellalt/lang-fin) | 88 | A1-C2 | `GPL_3_COMPONENT_REQUIRES_ARCHITECTURE_REVIEW` |
+| 60 | [Testipiste — immigrant Finnish writing assessments](https://www.kielipankki.fi/arkisto/resource-info/l2-learner-corpora/) | 88 | A1-C1 | `RESTRICTED_VARIANTS_PERSONAL_DATA_NO_IMPORT` |
+| 61 | [Kielitietoiset vinkit opas (Karelia 2026)](https://aoe.fi/materiaali/6207) | 84 | pedagogy | `CC_BY_NC_ND_LINK_ONLY` |
+| 62 | [UD Finnish Out-of-Domain (OOD)](https://github.com/UniversalDependencies/UD_Finnish-OOD) | 80 | B1-C2 | `LINK_ONLY_UNDERLYING_TEXT_RIGHTS_MIXED` |
+| 63 | [Kauhua ja kansantarinoita](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/kauhua-ja-kansantarinoita) | 79 | A2-B2 | `CC_BY_ND_4_LINK_ONLY` |
+| 64 | [Elämiä — tehtäviä Petri Tammisen novelleista](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/elamia-tehtavia-petri-tammisen-kahdesta-novellista) | 77 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
+| 65 | [Tunteita ja runoutta](https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/tunteita-ja-runoutta-kirjallisuusaiheinen-tehtavapaketti) | 76 | A2-B1 | `CC_BY_ND_4_LINK_ONLY` |
 
 ## Уже збережено в нашому репозиторії
 
@@ -126,3 +138,7 @@
 - **Цифровий тест 2027:** OPH [офіційний календар](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat) підтверджує цифрові весняні тести, включно з 10.04.2027. [Новина від 18.09.2026](https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026) говорить про комп'ютер у тестовому центрі; НЕ вигадувати точні UI екрани й таймери. Старі PDF/текстові демо можуть описувати заповнення паперових бланків і не мають використовуватися як цифровий протокол.
 
 **Застосунок / policy:** кожному активу присвоїти `license_class` та `media_access_verified`; розділити `reference_only`, `imported_verified`, `pending_rights`, `failed_import`. Для speaking оцінювати communicative success і linguistic control окремо. Для тестової симуляції використовувати лише підтверджені офіційні процедури.
+
+## Подальше дослідження корпусів та прикладів (21.10.2026)
+
+[**Детальне дослідження 12 нових джерел та правила використання**](10-open-corpora-yki-2026-10.md). У репозиторій додано **120** прикладів із FinnTreeBank ([вправи](../content/b1/grammar/ftb-frequency-cloze-v1.json), [атрибуція](../content/b1/grammar/README.md)). Цей набір — зовнішній, ліцензований CC BY 4.0 corpus, **не** авторські YKI-завдання і **не** відредагований B1 банк. Офіційні екзаменаційні приклади зі speaking/writing додані окремими прямими посиланнями.
