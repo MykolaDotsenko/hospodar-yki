@@ -3,7 +3,7 @@
   "created_at": "2026-10-21",
   "catalog_type": "youtube_watch_links_only",
   "goal": "A2.2 to B1/B1+ Finnish and 4-skill YKI practical preparation",
-  "source_audit": "Direct public youtube watch URLs with creator/title/topic corroborated by search metadata; video playback/embed permission, subtitle availability and full content NOT independently verified; ask teacher S2 QA before graded tasks",
+  "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified.",
   "display_policy": "Scores expert product fit, not measured learning outcomes; levels tentative where not explicitly asserted by creator",
   "copyright": "Do not download, mirror, re-upload or scrape YouTube videos/captions. Use direct URL and later official YouTube embedding/player API subject to platform terms; preserve branding and attribution.",
   "review_workflow": [
@@ -57,7 +57,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-veera-interview",
@@ -104,7 +105,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-kata-job-interview",
@@ -149,7 +151,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-lauran-day-1",
@@ -211,7 +214,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-lauran-day-2",
@@ -278,7 +282,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-janet-flu",
@@ -323,7 +328,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-yki-speaking-1",
@@ -405,7 +411,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-yki-speaking-more",
@@ -427,7 +434,7 @@
       ],
       "product_fit_score_100": 99,
       "why_useful": "Practice-first timed speaking prompts with answer examples deliberately delayed; not an official task or verified 2027 timer",
-      "source_verification": "watch_page_title_description_seen",
+      "source_verification": "watch_id_creator_and_description_seen_youtube_title_not_returned",
       "playback_verified": false,
       "embeddable": null,
       "subtitles_fi_verified": false,
@@ -461,7 +468,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": true
     },
     {
       "id": "yt-yki-speaking-situations",
@@ -482,7 +490,7 @@
       ],
       "product_fit_score_100": 97,
       "why_useful": "Situational prompts first, then example answers, then functional chunks",
-      "source_verification": "watch_page_title_description_seen",
+      "source_verification": "watch_id_creator_and_description_seen_youtube_title_not_returned",
       "playback_verified": false,
       "embeddable": null,
       "subtitles_fi_verified": false,
@@ -521,7 +529,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": true
     },
     {
       "id": "yt-yki-writing-listening-2026",
@@ -583,7 +592,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-yki-writing-opinion",
@@ -644,7 +654,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-illatiivi",
@@ -707,7 +718,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-partitiivi-short",
@@ -769,7 +781,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     },
     {
       "id": "yt-partitiivi-deep",
@@ -837,7 +850,8 @@
           "answer_key": null,
           "status": "original_draft_pending_teacher_review"
         }
-      ]
+      ],
+      "title_is_editorial_summary": false
     }
   ]
 }
