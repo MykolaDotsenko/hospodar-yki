@@ -1,7 +1,9 @@
 # YouTube learning videos — curated external catalog
 
 **Added 2026-10-21; target:** adult Ukrainian-speaking learners progressing A2.2 → B1/B1+, YKI keskitaso.  
-**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **30 unique direct YouTube watch URLs** (14 first-round + 16 new; [ranked round-2 pack](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)), detailed learning topics, estimated CEFR, **53 descriptive chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
+**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **38 unique direct YouTube watch URLs** (14 initial + 16 round-2 + [8 publisher-confirmed round-3 links](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md)), detailed learning topics, estimated CEFR, **123 descriptive chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
+
+**The initial table below describes the original 14 only.** Round 2: [16 videos](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). Round 3: [8 publisher-confirmed YouTube videos and 7 publisher-hosted series](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md). Source-of-truth totals 38 YouTube links and 7 external publisher series, not 45 verified embeddable videos.
 
 ## Selection principles
 
