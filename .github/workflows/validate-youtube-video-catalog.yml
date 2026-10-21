@@ -9,9 +9,11 @@ on:
       - scripts/validate_youtube_video_catalog.py
       - .github/workflows/validate-youtube-video-catalog.yml
   push:
-    branches: [main, content/youtube-b1-yki-video-catalog-2026-10-21]
+    branches: [main, content/verified-yki-video-pack-round3-2026-10-21]
     paths:
       - video/youtube-catalog.json
+      - video/publisher-series-catalog.json
+      - video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
       - video/YOUTUBE-LEARNING-CATALOG.md
       - scripts/validate_youtube_video_catalog.py
       - .github/workflows/validate-youtube-video-catalog.yml
