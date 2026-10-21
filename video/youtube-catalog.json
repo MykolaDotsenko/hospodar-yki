@@ -3116,10 +3116,227 @@
       "source_publisher_url": null,
       "source_content_review": "publisher_metadata_only_no_full_playback_or_teacher_rating",
       "role_in_learning": "learning_listening_and_transfer"
+    },
+    {
+      "id": "yt-r5-9Ec6inVRHRg",
+      "provider": "youtube",
+      "youtube_video_id": "9Ec6inVRHRg",
+      "watch_url": "https://www.youtube.com/watch?v=9Ec6inVRHRg",
+      "creator": "Suomen kurssi",
+      "title": "Kuuntelu (B1/B2): Palkasta palkkaan",
+      "publication_date": "2025-09-14",
+      "cefr_estimate": "B1-B2 (publisher stated)",
+      "skills": [
+        "listening",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "salary",
+        "work",
+        "budget",
+        "income",
+        "financial_literacy",
+        "question_answer"
+      ],
+      "product_fit_score_100": 100,
+      "why_useful": "Publisher explicitly states B1/B2 listening: play audio twice, answer four questions, verify, then listen with script. Exactly retrieval-before-transcript and realistic work/pay vocabulary.",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r5-9Ec6inVRHRg-q1",
+          "prompt_fi": "Mikä on puhujan tärkein viesti palkasta?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-r5-9Ec6inVRHRg-q2",
+          "prompt_fi": "Mitä ongelmia voi olla, jos rahat eivät riitä seuraavaan palkkapäivään?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_caption_claim": "publisher_mentions_script_after_answer;FI_captions_not_verified",
+      "source_metadata_ref": "turn564421youtube1",
+      "learning_role": "B1_audio_4_questions_then_verified_publisher_script"
+    },
+    {
+      "id": "yt-r5-SEtwic9RjhE",
+      "provider": "youtube",
+      "youtube_video_id": "SEtwic9RjhE",
+      "watch_url": "https://www.youtube.com/watch?v=SEtwic9RjhE",
+      "creator": "Suomen kurssi",
+      "title": "Lue ja kuuntele: Sairaana (B1/B2)",
+      "publication_date": "2025-09-04",
+      "cefr_estimate": "B1-B2 (publisher stated)",
+      "skills": [
+        "listening",
+        "reading",
+        "speaking",
+        "writing"
+      ],
+      "yki_topics": [
+        "illness",
+        "health",
+        "work_absence",
+        "comprehension",
+        "vocabulary",
+        "self-expression"
+      ],
+      "product_fit_score_100": 99,
+      "why_useful": "B1/B2 healthcare reading+audio with MCQs, open questions, word quiz, student questions; especially suitable for multimedia scaffold fading and productive free answer, with text leakage risk.",
+      "source_verification": "watch_page_title_description_seen",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "introduction",
+          "start_seconds": 0,
+          "end_seconds": 48
+        },
+        {
+          "kind": "read_and_listen_TEXT_VISIBLE",
+          "start_seconds": 48,
+          "end_seconds": 162
+        },
+        {
+          "kind": "multiple_choice",
+          "start_seconds": 162,
+          "end_seconds": 278
+        },
+        {
+          "kind": "open_questions",
+          "start_seconds": 278,
+          "end_seconds": 407
+        },
+        {
+          "kind": "word_quiz",
+          "start_seconds": 407,
+          "end_seconds": 482
+        },
+        {
+          "kind": "questions_for_student",
+          "start_seconds": 482,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-r5-SEtwic9RjhE-q1",
+          "prompt_fi": "Mitä päähenkilölle tapahtui ja miksi?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-r5-SEtwic9RjhE-q2",
+          "prompt_fi": "Kirjoita työnantajalle lyhyt viesti sairastumisesta.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "publisher_caption_claim": "text_on_screen_directly_from_start_not_uncued_listening",
+      "source_metadata_ref": "turn564421youtube0",
+      "learning_role": "multimodal_text_audio_B1_questions"
+    },
+    {
+      "id": "yt-r5-cJmmKAmAslw",
+      "provider": "youtube",
+      "youtube_video_id": "cJmmKAmAslw",
+      "watch_url": "https://www.youtube.com/watch?v=cJmmKAmAslw",
+      "creator": "Finnish Flow",
+      "title": "Finnish Flow: Jyväskylä — city interview (editorial title)",
+      "publication_date": "2024-11-24",
+      "cefr_estimate": "B1+ (publisher: B1 and up)",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "city_life",
+        "work_and_study",
+        "public_transport",
+        "living_in_finland",
+        "regional_accents",
+        "personal_experience"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Two people discuss living in Jyväskylä at publisher-described normal conversational speed, B1 and up, with subtitles; concrete interview questions and 2–3 min sections.",
+      "source_verification": "watch_id_creator_and_description_seen_youtube_title_not_returned",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [
+        {
+          "kind": "city_intro",
+          "start_seconds": 0,
+          "end_seconds": 116
+        },
+        {
+          "kind": "interview_how_are_you",
+          "start_seconds": 116,
+          "end_seconds": 185
+        },
+        {
+          "kind": "past_places_lived",
+          "start_seconds": 185,
+          "end_seconds": 302
+        },
+        {
+          "kind": "public_transport",
+          "start_seconds": 302,
+          "end_seconds": 487
+        },
+        {
+          "kind": "unique_features",
+          "start_seconds": 487,
+          "end_seconds": null
+        }
+      ],
+      "original_question_seeds": [
+        {
+          "id": "yt-r5-cJmmKAmAslw-q1",
+          "prompt_fi": "Mitä vieras kertoo Jyväskylän joukkoliikenteestä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        },
+        {
+          "id": "yt-r5-cJmmKAmAslw-q2",
+          "prompt_fi": "Mikä tekee sinun kotikaupungistasi ainutlaatuisen?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": true,
+      "publisher_caption_claim": "publisher_says_subtitles_available_not_verified",
+      "source_metadata_ref": "turn111049youtube0",
+      "learning_role": "natural_two_speaker_B1_interview"
     }
   ],
   "last_curated_update": "2026-10-21",
   "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format.",
   "round3_update": "8 added with publisher watch-page URLs; six/seven are publisher described A1-A2 slow scenario stories best used as bridging material, not substitute for B1+ naturally spoken exam prep. One authentic Kielibuusti working-life interview. All remain pending playback and S2 verification.",
-  "round4_update": "Quality-gated +6 video URLs (44 total). B1/B2 explicit listening, 2 independent productive YKI-style lessons, native workplace coffee phrases, natural-speed KatChats and two news discussion examples; no generic A1/A2 video dumps. All checked against 38 unique previous IDs, no duplicate."
+  "round4_update": "Quality-gated +6 video URLs (44 total). B1/B2 explicit listening, 2 independent productive YKI-style lessons, native workplace coffee phrases, natural-speed KatChats and two news discussion examples; no generic A1/A2 video dumps. All checked against 38 unique previous IDs, no duplicate.",
+  "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified."
 }
