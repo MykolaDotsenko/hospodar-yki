@@ -4,6 +4,9 @@ on:
     branches: [main, 'architecture/**']
     paths:
       - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
+      - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'research/android-game-distribution-v1.json'
+      - 'scripts/validate_android_game_architecture.py'
       - 'docs/12-mvp-architecture.md'
       - 'docs/15-two-modes-skill-scopes.md'
       - 'research/architecture-decision-v1.json'
@@ -14,6 +17,9 @@ on:
   pull_request:
     paths:
       - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
+      - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'research/android-game-distribution-v1.json'
+      - 'scripts/validate_android_game_architecture.py'
       - 'docs/12-mvp-architecture.md'
       - 'docs/15-two-modes-skill-scopes.md'
       - 'research/architecture-decision-v1.json'
@@ -33,4 +39,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check architecture decision truth and linked acceptance requirements
-        run: python3 scripts/validate_architecture_decision.py
+        run: |
+          python3 scripts/validate_architecture_decision.py
+          python3 scripts/validate_android_game_architecture.py
