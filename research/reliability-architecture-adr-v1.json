@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "adr": "ADR-024",
+  "date": "2026-10-22",
+  "status": "TARGET_ONLY_NOT_IMPLEMENTED",
+  "decision": "One TypeScript domain across Web/PWA and Capacitor Android; native Room/SQLite for critical Android exam and progress; Web IndexedDB/Dexie; PAD Media3 adapters, optional EU cloud",
+  "parent_adrs": [
+    "docs/22-optimal-stack-and-architecture-adr-2026-10.md",
+    "docs/23-android-offline-game-and-3gb-media-architecture.md"
+  ],
+  "canonical": "docs/24-reliability-hardened-architecture-web-android.md",
+  "platforms": {
+    "web": {
+      "ui": "React/Vite+Phaser",
+      "repository": "IndexedDB/Dexie",
+      "media": "CDN + selected offline packs",
+      "offline": "selected media",
+      "data_eviction_possible": true
+    },
+    "android": {
+      "ui": "Capacitor/React+Phaser",
+      "repository": "Kotlin Room/SQLite via Capacitor bridge",
+      "media": "Play Asset Delivery install-time + Media3 native playback",
+      "offline": "all legally distributable bundled media",
+      "app_package": "AAB Play install, not one standalone 3GB APK"
+    }
+  },
+  "contracts": {
+    "domain_pure_ts": true,
+    "versioned_content": true,
+    "storage_repository_interface": true,
+    "append_once_event_id": true,
+    "transactional_first_attempt_and_snapshot": true,
+    "save_failure_blocks_progression": true,
+    "production_grade_official_yki_grade": false,
+    "unverified_2027_exactness_blocked": true,
+    "voice_upload_by_default": false
+  },
+  "release_constraints": {
+    "android_media_target_download_gb": [
+      2,
+      3
+    ],
+    "base_mb_max": 500,
+    "single_asset_pack_gb_max": 1.5,
+    "total_installtime_gb_max": 4,
+    "installtime_disk_headroom_factor_min": 2,
+    "actual_aab_size_measured": false,
+    "actual_room_plugin_implemented": false,
+    "actual_pwa_build_implemented": false
+  },
+  "audit_rounds": [
+    "domain policy parity and four skill functionality",
+    "crash persistence and media/asset handling reliability",
+    "deploy/ops/security cost and YKI exactness claims"
+  ],
+  "test_ids": [
+    "REL-01",
+    "REL-02",
+    "REL-03",
+    "REL-04",
+    "REL-05",
+    "REL-06",
+    "REL-07",
+    "REL-08",
+    "REL-09",
+    "REL-10",
+    "REL-11",
+    "REL-12",
+    "REL-13",
+    "REL-14",
+    "REL-15",
+    "REL-16"
+  ],
+  "sources": [
+    "https://developer.android.com/topic/architecture/data-layer/offline-first",
+    "https://developer.android.com/training/data-storage/sqlite",
+    "https://developer.android.com/guide/playcore/asset-delivery",
+    "https://support.google.com/googleplay/android-developer/answer/9859372",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
+    "https://developer.android.com/media/media3/exoplayer/supported-formats",
+    "https://stately.ai/docs/persistence",
+    "https://supabase.com/docs/guides/database/postgres/row-level-security",
+    "https://supabase.com/docs/guides/functions/limits"
+  ],
+  "security": {
+    "personal_voice_consented_only": true,
+    "eu_region_not_total_gdpr_assurance": true,
+    "no_offline_hidden_answer_keys_considered_secure": true,
+    "rights_gated_assets": true
+  }
+}
