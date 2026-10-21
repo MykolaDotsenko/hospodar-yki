@@ -1,0 +1,51 @@
+name: Render B1 2–3 minute Finnish audio + exact subtitles
+on:
+  push:
+    branches: [main]
+    paths:
+      - content/b1/audio-long/source-lessons.json
+      - scripts/render_b1_long_audio.py
+      - .github/workflows/render-b1-long-audio.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 27
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install audio tools and Finnish speech synthesizer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --disable-pip-version-check 'piper-tts==1.3.0'
+      - name: Download and verify Finnish Piper model
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/hospodar-yki-piper
+          BASE=https://huggingface.co/rhasspy/piper-voices/resolve/main/fi/fi_FI/harri/medium
+          curl -fsSL --retry 3 "$BASE/fi_FI-harri-medium.onnx" -o /tmp/hospodar-yki-piper/fi_FI-harri-medium.onnx
+          curl -fsSL --retry 3 "$BASE/fi_FI-harri-medium.onnx.json" -o /tmp/hospodar-yki-piper/fi_FI-harri-medium.onnx.json
+          echo 'a44167faa34caed940e4fcad139fcc35922266b2593bcebe77701774c0fb2389  /tmp/hospodar-yki-piper/fi_FI-harri-medium.onnx' | sha256sum -c -
+      - name: Create six playable original long-form Finnish lessons and WebVTT subtitles
+        run: python3 scripts/render_b1_long_audio.py
+      - name: Verify audio files, exact transcripts and synchronized subtitle times
+        run: |
+          python3 scripts/validate_b1_long_audio.py
+          python3 scripts/validate_listening_library.py
+      - name: Commit actual tracks, captions, texts and manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- audio/long/b1/ content/b1/audio-long/lessons.json audio/library.json
+          if git diff --cached --quiet; then
+            echo "Nothing new"
+          else
+            git commit -m "audio: archive original 2-3m B1 listening tracks with exact captions [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

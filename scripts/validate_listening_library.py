@@ -32,7 +32,12 @@ def main():
     if mp.is_file():
         human=load("content/b1/audio-training/librivox-human.json")
         librivox={i["path"] for i in human["items"]}
-    require(seen==actual_sources|actual_tts|librivox,"Index doesn't match actual recording manifests")
+    longfiles=set()
+    lp2=ROOT/"content/b1/audio-long/lessons.json"
+    if lp2.is_file():
+        longpack=load("content/b1/audio-long/lessons.json")
+        longfiles={e["path"] for e in longpack["lessons"]}
+    require(seen==actual_sources|actual_tts|librivox|longfiles,"Index doesn't match actual recording manifests")
     require(len(plan["days"])==28,"Four week plan incomplete")
     ordered=[d["lesson_id"] for d in plan["days"] if d["lesson_id"]]
     require(len(ordered)==23 and len(set(ordered))==23,"Lesson coverage count")
