@@ -1,0 +1,757 @@
+{
+  "schema_version": "1.0.0",
+  "date": "2026-10-21",
+  "name": "Hospodar YKI evidence-informed methods",
+  "purpose": "Future implementation planning. Not implemented in app.",
+  "target": "Adult Ukrainian-speaking A2.2 → B1/B1+ YKI keskitaso",
+  "score_definition": "Expert priority 0-100: evidence strength 0-30, Finnish/YKI fit 0-30, A2.2→B1 suitability 0-20, engineering feasibility 0-10, agency and sustainable motivation 0-10. These are expert judgments, not measured effect sizes.",
+  "source_limitations": "Many studies focus on languages other than Finnish. No method has been demonstrated here to cause a specific YKI pass probability.",
+  "source_register": {
+    "spaced": {
+      "title": "Kim & Webb (2022), spacing in L2, 48 experiments",
+      "url": "https://doi.org/10.1111/lang.12479",
+      "type": "L2-meta"
+    },
+    "retrieval": {
+      "title": "Dunlosky et al. (2013), effective learning methods",
+      "url": "https://doi.org/10.1177/1529100612453266",
+      "type": "general-review"
+    },
+    "oralcf": {
+      "title": "Lyster & Saito (2010), oral feedback, 15 studies",
+      "url": "https://eric.ed.gov/?id=EJ892626",
+      "type": "L2-meta"
+    },
+    "speakingrepeat": {
+      "title": "Abdi Tabari et al. (2025), oral repetition",
+      "url": "https://doi.org/10.1016/j.system.2025.103868",
+      "type": "L2-meta"
+    },
+    "writingrepeat": {
+      "title": "Abdi Tabari et al. (2025), writing repetition, 31 studies",
+      "url": "https://doi.org/10.1016/j.jslw.2025.101255",
+      "type": "L2-meta"
+    },
+    "explicit": {
+      "title": "Li & Sun (2024), explicit instruction, 28 reports",
+      "url": "https://doi.org/10.1111/flan.12726",
+      "type": "L2-meta"
+    },
+    "writingcf": {
+      "title": "Scherer et al. (2024), writing feedback, 200 comparisons",
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101961",
+      "type": "writing-meta"
+    },
+    "metacog": {
+      "title": "Sun & Shin (2023), metacognitive listening",
+      "url": "https://doi.org/10.17960/ell.2023.29.1.006",
+      "type": "English-only-meta"
+    },
+    "reading": {
+      "title": "Nakanishi (2015), extensive reading, 34 studies",
+      "url": "https://doi.org/10.1002/tesq.157",
+      "type": "L2-meta"
+    },
+    "hvpt": {
+      "title": "Uchihara et al. (2025), HVPT perception, 79 studies",
+      "url": "https://doi.org/10.1017/S0272263125100879",
+      "type": "L2-meta"
+    },
+    "hvptprod": {
+      "title": "Uchihara et al. (2024), phonetic perception-to-production",
+      "url": "https://doi.org/10.1017/S0142716424000195",
+      "type": "L2-meta"
+    },
+    "genai": {
+      "title": "Li et al. (2025), GenAI in L2, 41 studies",
+      "url": "https://doi.org/10.1111/jcal.70060",
+      "type": "L2-meta"
+    },
+    "kieliaudio": {
+      "title": "Kielibuusti, listening and speaking, updated 2025",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen/kielivinkit-arkeen/vinkkeja-kuuntelemiseen-ja-puhumiseen",
+      "type": "Finnish-guidance"
+    },
+    "kieliwriting": {
+      "title": "Kielibuusti, writing tips, 2024",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen/kielivinkit-arkeen/vinkkeja-kirjoittamiseen",
+      "type": "Finnish-guidance"
+    },
+    "kielitips": {
+      "title": "Kielibuusti, Finnish learning tips",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen",
+      "type": "Finnish-guidance"
+    },
+    "cefr": {
+      "title": "Council of Europe CEFR Companion Volume (2020)",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-companion-volume-and-its-language-versions",
+      "type": "official-descriptors"
+    },
+    "gloss": {
+      "title": "Mahdi et al. (2024), glosses, seven meta-analyses",
+      "url": "https://doi.org/10.1016/j.actpsy.2024.104341",
+      "type": "L2-umbrella-meta"
+    },
+    "caption": {
+      "title": "Kurokawa et al., captioned video vocabulary, 49 studies",
+      "url": "https://doi.org/10.1111/lang.12697",
+      "type": "L2-meta"
+    },
+    "games": {
+      "title": "Li et al. (2024), gamification, 35 interventions",
+      "url": "https://doi.org/10.1007/s11423-023-10337-7",
+      "type": "education-meta"
+    },
+    "mobilegames": {
+      "title": "Liu et al. (2025), mobile games, 38 studies",
+      "url": "https://doi.org/10.1080/09588221.2025.2528786",
+      "type": "language-meta"
+    },
+    "aifeedback": {
+      "title": "Scherer et al. (2026), algorithmic writing feedback, 33 studies",
+      "url": "https://www.sciencedirect.com/science/article/pii/S107529352600022X",
+      "type": "writing-meta"
+    },
+    "fluency": {
+      "title": "Guo & Saito (2026), 4/3/2, N=50",
+      "url": "https://doi.org/10.1016/j.system.2025.103936",
+      "type": "single-EL2-study"
+    },
+    "s2bank": {
+      "title": "Kielibuusti S2 teaching material bank",
+      "url": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki",
+      "type": "Finnish-resource"
+    },
+    "shadow": {
+      "title": "Shadowing for pronunciation: systematic review (2025)",
+      "url": "https://doi.org/10.1080/29984475.2025.2546827",
+      "type": "L2-review"
+    },
+    "selfassess": {
+      "title": "Kielibuusti Finnish self-assessment",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/language-learning-tips/assess-your-language-skills",
+      "type": "Finnish-guidance"
+    },
+    "yki": {
+      "title": "OPH: Finnish YKI test preparation and tasks",
+      "url": "https://www.oph.fi/en/education-and-qualifications/yki-test",
+      "type": "official-exam"
+    },
+    "tblt": {
+      "title": "Technology-mediated TBLT systematic review (2025)",
+      "url": "https://doi.org/10.1080/2331186X.2025.2560051",
+      "type": "English-only-review"
+    },
+    "repetitionreview": {
+      "title": "Hanzawa et al. (2026), task repetition, 74 studies",
+      "url": "https://doi.org/10.1016/j.rmal.2025.100292",
+      "type": "L2-scoping-review"
+    },
+    "finnmorph": {
+      "title": "Åbo Akademi: Finnish L2 stem-change research",
+      "url": "https://research.abo.fi/sv/activities/processing-of-inflectional-stem-changes-of-finnish-words-in-nativ-2/",
+      "type": "Finnish-research"
+    }
+  },
+  "methods": [
+    {
+      "id": "spaced-retrieval",
+      "name_uk": "Інтервальне активне пригадування",
+      "score": 98,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2",
+      "priority": "P0",
+      "sources": [
+        "spaced",
+        "retrieval"
+      ],
+      "reason_uk": "Повторне самостійне відтворення з паузами краще за перечитування, особливо на відкладених тестах.",
+      "example_fi": "Haluaisin siirtää tapaamista — відтворити без зразка після 3 і 10 днів.",
+      "app_feature_uk": "Адаптивний SRS для підтверджено проблемних chunks.",
+      "measurement_uk": "Recall у новому контексті через 7/14/30 днів.",
+      "limitation_uk": "Немає єдиного найкращого розкладу інтервалів."
+    },
+    {
+      "id": "task-based",
+      "name_uk": "Task-Based Language Teaching: вирішення життєвого завдання",
+      "score": 97,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2",
+      "priority": "P0",
+      "sources": [
+        "cefr",
+        "tblt",
+        "kieliaudio"
+      ],
+      "reason_uk": "Одиницею навчання є досягнута мета спілкування, не лише знання правила.",
+      "example_fi": "Soita huoltoyhtiöön: selitä ongelma, sovi aika, varmista jatko.",
+      "app_feature_uk": "20-хвилинні сценарії з ролями та змінними умовами.",
+      "measurement_uk": "Частка незалежно виконаних комунікативних задач.",
+      "limitation_uk": "Не називати TBLT експериментально найкращим саме для YKI."
+    },
+    {
+      "id": "prompted-self-repair",
+      "name_uk": "Corrective feedback → самовиправлення → друга спроба",
+      "score": 96,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2",
+      "priority": "P0",
+      "sources": [
+        "oralcf",
+        "writingcf"
+      ],
+      "reason_uk": "Активне виправлення замість миттєвої готової моделі розвиває контроль форми.",
+      "example_fi": "Eilen olen mennyt → знайди помилку часу → Eilen menin.",
+      "app_feature_uk": "1–3 критичні помилки і guided repair після власної відповіді.",
+      "measurement_uk": "Частка самостійних виправлень і повторні помилки через тиждень.",
+      "limitation_uk": "Не переривати екзаменаційну симуляцію."
+    },
+    {
+      "id": "comprehensible-input",
+      "name_uk": "Зрозуміле поступово складніше аудіо й читання",
+      "score": 95,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_INDIRECT",
+      "priority": "P0",
+      "sources": [
+        "reading",
+        "kieliaudio",
+        "cefr"
+      ],
+      "reason_uk": "Регулярне посильне читання та слухання створюють ресурс для продуктивної мови.",
+      "example_fi": "Kuuntele uusi viesti; kerro mitä tapahtui ja miksi.",
+      "app_feature_uk": "Нові тексти й аудіо A2.2→B1+, опори після спроби.",
+      "measurement_uk": "Відповіді на gist/details/inference на незнайомих матеріалах.",
+      "limitation_uk": "Формула i+1 не є точним навчальним алгоритмом."
+    },
+    {
+      "id": "task-repetition-transfer",
+      "name_uk": "Task Repetition із перенесенням у нову ситуацію",
+      "score": 95,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2",
+      "priority": "P0",
+      "sources": [
+        "speakingrepeat",
+        "writingrepeat",
+        "repetitionreview"
+      ],
+      "reason_uk": "Повторне формулювання тієї самої задачі покращує контроль мовлення; перенос треба перевіряти окремо.",
+      "example_fi": "Спочатку перенести час у лікаря; потім перенести зустріч із роботодавцем.",
+      "app_feature_uk": "Task A → feedback → improved A → unseen B.",
+      "measurement_uk": "Якість непідказаної відповіді у зміненій ситуації.",
+      "limitation_uk": "Не вважати завчений монолог доказом B1."
+    },
+    {
+      "id": "explicit-context-grammar",
+      "name_uk": "Коротке пояснення граматики + практика у контексті",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2",
+      "priority": "P0",
+      "sources": [
+        "explicit",
+        "finnmorph"
+      ],
+      "reason_uk": "Явна граматика корисна, якщо одразу потрібна для конкретного смислового вибору.",
+      "example_fi": "Menen kauppaan / olen kaupassa / tulen kaupasta.",
+      "app_feature_uk": "Контраст форм, вибір значення, потім власний діалог.",
+      "measurement_uk": "Правильні відмінки у спонтанних нових репліках.",
+      "limitation_uk": "Таблиці форм не замінюють реальне говоріння."
+    },
+    {
+      "id": "metacognitive-listening",
+      "name_uk": "Metacognitive Listening: передбачення, gist, details, рефлексія",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_TRANSFER_ENGLISH",
+      "priority": "P0",
+      "sources": [
+        "metacog",
+        "kieliaudio"
+      ],
+      "reason_uk": "Вчить усвідомлено перевіряти розуміння, а не просто перезапускати трек.",
+      "example_fi": "Mikä viestin aihe on? Mikä muuttui? Miksi?",
+      "app_feature_uk": "Прогресивний плеєр: сліпа перша спроба, друге слухання, потім транскрипт.",
+      "measurement_uk": "Успіх із новими дикторами без субтитрів.",
+      "limitation_uk": "Метааналіз переважно про навчання англійської."
+    },
+    {
+      "id": "unseen-diagnostics",
+      "name_uk": "Незалежна діагностика 4 навичок і переносу",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_FRAMEWORK_INDIRECT",
+      "priority": "P0",
+      "sources": [
+        "cefr",
+        "selfassess",
+        "yki"
+      ],
+      "reason_uk": "Розмежовує тренувальний прогрес і реальну здатність виконувати нові задачі.",
+      "example_fi": "Невідоме аудіо, новий лист і голосова ситуація без підказок.",
+      "app_feature_uk": "Окремий тестовий банк і baseline кожні 2–4 тижні.",
+      "measurement_uk": "Окрема динаміка listening/reading/speaking/writing.",
+      "limitation_uk": "CEFR — рамка навичок, а не доказ конкретного методу."
+    },
+    {
+      "id": "writing-revision",
+      "name_uk": "Writing → feedback → rewrite → нове письмо",
+      "score": 94,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_WRITING",
+      "priority": "P0",
+      "sources": [
+        "writingcf",
+        "writingrepeat",
+        "kieliwriting"
+      ],
+      "reason_uk": "Комбінований фідбек за змістом і мовною формою допомагає письмовій компетентності.",
+      "example_fi": "Напиши valitus, перевір вимоги, перепиши, потім інший лист.",
+      "app_feature_uk": "Два критерії — зміст/структура та мова, і нова редакція.",
+      "measurement_uk": "Нове письмо з виконанням усіх умов та меншими повторними помилками.",
+      "limitation_uk": "Не видавати AI-score за YKI grade 3."
+    },
+    {
+      "id": "kirja-puhe",
+      "name_uk": "Kirjakieli ↔ puhekieli, впізнавання регістрів",
+      "score": 93,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "FINNISH_SPECIFIC_APPLIED",
+      "priority": "P0",
+      "sources": [
+        "kieliaudio",
+        "s2bank"
+      ],
+      "reason_uk": "Реальне фінське мовлення містить скорочення, письмовий стандарт потрібен для текстів.",
+      "example_fi": "Minä olen ↔ mä oon; sinä olet ↔ sä oot.",
+      "app_feature_uk": "Парні аудіо від живих мовців з тегами регістру.",
+      "measurement_uk": "Розуміння живого мовлення й доречність регістру.",
+      "limitation_uk": "Не узагальнювати один діалект як єдину норму."
+    },
+    {
+      "id": "chunk-learning",
+      "name_uk": "Функціональні мовні chunks і колокації",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_APPLIED",
+      "priority": "P0",
+      "sources": [
+        "spaced",
+        "kieliaudio",
+        "cefr"
+      ],
+      "reason_uk": "Найважливіше — активно вживати корисні конструкції, а не впізнавати словник.",
+      "example_fi": "Voisitteko auttaa? Olen kiinnostunut tästä.",
+      "app_feature_uk": "Chunk cards із керуванням, прикладом і transfer.",
+      "measurement_uk": "Самостійна частота доречних chunk у нових задачах.",
+      "limitation_uk": "Додавати тільки реально проблемні конструкції."
+    },
+    {
+      "id": "high-variability-phonetics",
+      "name_uk": "High-Variability Phonetic Training: багато дикторів",
+      "score": 92,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_PERCEPTION",
+      "priority": "P0",
+      "sources": [
+        "hvpt",
+        "hvptprod"
+      ],
+      "reason_uk": "Різні голоси тренують сприймання фонем, з обмеженим автоматичним переносом на вимову.",
+      "example_fi": "tuli / tuuli, muta / mutta, kuka / kukka.",
+      "app_feature_uk": "Різні голоси, контрасти, random trials і feedback.",
+      "measurement_uk": "Точність на нових дикторах та невивчених словах.",
+      "limitation_uk": "Перцептивний прогрес ≠ гарантована правильна вимова."
+    },
+    {
+      "id": "extensive-reading",
+      "name_uk": "Extensive Reading на посильному рівні",
+      "score": 91,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_READING",
+      "priority": "P0",
+      "sources": [
+        "reading"
+      ],
+      "reason_uk": "Регулярне об'ємне читання покращує навичку читання та мовний досвід.",
+      "example_fi": "Lue selkouutinen; kerro tärkein ajatus.",
+      "app_feature_uk": "Градуйована бібліотека з reading-for-meaning.",
+      "measurement_uk": "Невідомі reading inference питання.",
+      "limitation_uk": "Саме по собі не замінює розмову."
+    },
+    {
+      "id": "finnish-morph-contrast",
+      "name_uk": "Контрастивна фінська морфологія: KPT, rektio, sijamuodot",
+      "score": 91,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_INSTRUCTION_FINNISH_TRANSFER",
+      "priority": "P0",
+      "sources": [
+        "explicit",
+        "finnmorph"
+      ],
+      "reason_uk": "Треба навчитися вибирати правильну форму за змістом у словосполученні.",
+      "example_fi": "kaupunki → kaupungissa → kaupunkiin; odotan bussia.",
+      "app_feature_uk": "Інтерактивні контрасти й реєстр системних помилок.",
+      "measurement_uk": "Точність у нових ситуативних реченнях.",
+      "limitation_uk": "Лінгвістична QA обов'язкова для винятків."
+    },
+    {
+      "id": "real-world-interaction",
+      "name_uk": "Мікромісії в реальному фінському середовищі",
+      "score": 91,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_APPLIED",
+      "priority": "P0",
+      "sources": [
+        "kieliaudio",
+        "kielitips"
+      ],
+      "reason_uk": "Справжні розмови створюють непередбачуваність і соціальні наслідки.",
+      "example_fi": "Попроси фінською уточнити час автобусу або зустрічі.",
+      "app_feature_uk": "Опціональна місія поза застосунком із приватним самозвітом.",
+      "measurement_uk": "Різноманітність завершених реальних мовних дій.",
+      "limitation_uk": "Не записувати третіх осіб без згоди."
+    },
+    {
+      "id": "caption-fading",
+      "name_uk": "Субтитри і транскрипти з поступовим приховуванням",
+      "score": 90,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_LEXIS",
+      "priority": "P0",
+      "sources": [
+        "caption",
+        "gloss"
+      ],
+      "reason_uk": "Текст допомагає осмислити нову лексику, але розуміння без нього окреме.",
+      "example_fi": "Дивись/слухай без тексту → покажи транскрипт → новий запис без нього.",
+      "app_feature_uk": "Стан hidden-until-attempt у плеєрі.",
+      "measurement_uk": "Listening score на першій спробі без transcript.",
+      "limitation_uk": "Recognition із субтитрами не дорівнює самостійному слуханню."
+    },
+    {
+      "id": "productive-paraphrasing",
+      "name_uk": "Продуктивне перефразування забутого слова",
+      "score": 90,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_TRANSFER",
+      "priority": "P0",
+      "sources": [
+        "retrieval",
+        "cefr"
+      ],
+      "reason_uk": "B1-учень повинен уміти пояснити слово, якого зараз не пам'ятає.",
+      "example_fi": "En muista sanaa laturi: se antaa puhelimelle sähköä.",
+      "app_feature_uk": "Semantic paraphrase та новий контекст без multiple choice.",
+      "measurement_uk": "Частка зрозумілих самостійних пояснень.",
+      "limitation_uk": "Не карати за допустимі змістові синоніми."
+    },
+    {
+      "id": "phonemic-minimal-pairs",
+      "name_uk": "Мінімальні фінські пари і тривалість звуків",
+      "score": 88,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_PHONETIC_TRANSFER",
+      "priority": "P1",
+      "sources": [
+        "hvpt",
+        "hvptprod"
+      ],
+      "reason_uk": "Довжина звуку часто змінює смисл, тому важливі discrimination trials.",
+      "example_fi": "tuli / tuuli, kukka / kuka.",
+      "app_feature_uk": "Озвучення кількома перевіреними дикторами + слухове розрізнення.",
+      "measurement_uk": "Accuracy на нових парах.",
+      "limitation_uk": "Не оцінювати вимову за одним ASR-текстом."
+    },
+    {
+      "id": "ai-voice-roleplay",
+      "name_uk": "AI voice roleplay із живими реакціями",
+      "score": 87,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "EMERGING_L2",
+      "priority": "P1",
+      "sources": [
+        "genai",
+        "tblt",
+        "kieliaudio"
+      ],
+      "reason_uk": "Забезпечує часту практику відповіді, але AI не завжди володіє бездоганною фінською.",
+      "example_fi": "Soita hammaslääkäriin ja kysy iltapäiväaikaa.",
+      "app_feature_uk": "Voice-first діалог зі змінними сценаріями, self-repair.",
+      "measurement_uk": "Task success без підказок у новому діалозі.",
+      "limitation_uk": "Фактична акустика потрібна для оцінки вимови."
+    },
+    {
+      "id": "glosses",
+      "name_uk": "Контекстні підказки/переклад тільки за запитом",
+      "score": 87,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_RECOGNITION",
+      "priority": "P1",
+      "sources": [
+        "gloss"
+      ],
+      "reason_uk": "Може підсилювати розуміння слів, насамперед recognition.",
+      "example_fi": "Торкнись viimeistään → «не пізніше», після власної спроби.",
+      "app_feature_uk": "Pop-up gloss без захаращення інтерфейсу.",
+      "measurement_uk": "Відкладене продуктивне використання.",
+      "limitation_uk": "Не залишати переклад видимим під час recall."
+    },
+    {
+      "id": "interleaving-grammar",
+      "name_uk": "Interleaving: перемішування близьких форм",
+      "score": 87,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_INDIRECT",
+      "priority": "P1",
+      "sources": [
+        "retrieval",
+        "explicit"
+      ],
+      "reason_uk": "Після базової практики змішані задачі тренують вибір правила за ситуацією.",
+      "example_fi": "missä / mistä / mihin у випадкових коротких розмовах.",
+      "app_feature_uk": "Confusable-pairs scheduler.",
+      "measurement_uk": "Точність вибору форми у новій ситуації.",
+      "limitation_uk": "Не змішувати складні форми до першого розуміння."
+    },
+    {
+      "id": "yki-mock",
+      "name_uk": "Unseen YKI-like simulation, без підказок",
+      "score": 87,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_ALIGNMENT_NOT_EFFECT_ESTIMATE",
+      "priority": "P1",
+      "sources": [
+        "yki",
+        "cefr"
+      ],
+      "reason_uk": "Навчає виконувати чотири типи завдань у непідказаному режимі.",
+      "example_fi": "Kirjoita mielipide, puhu ongelmasta ja kuuntele uusi viesti.",
+      "app_feature_uk": "Відокремлений exam mode із перевіреними правилами.",
+      "measurement_uk": "Стабільна успішність independent tasks.",
+      "limitation_uk": "UI/таймери digital YKI 2027 лише за підтвердженим OPH."
+    },
+    {
+      "id": "self-regulation",
+      "name_uk": "Самооцінювання й метацілі по чотирьох навичках",
+      "score": 86,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "FRAMEWORK_APPLIED",
+      "priority": "P1",
+      "sources": [
+        "selfassess",
+        "cefr"
+      ],
+      "reason_uk": "Робить слабкі місця зрозумілими, підтримує автономію.",
+      "example_fi": "Osaan pyytää apua, mutta en osaa vielä selittää syytä.",
+      "app_feature_uk": "Dashboard «вмію/ще вчуся» плюс незалежний результат.",
+      "measurement_uk": "Різниця self-report і objectively scored tasks.",
+      "limitation_uk": "Суб'єктивна самооцінка не є підтвердженням B1."
+    },
+    {
+      "id": "visual-scaffolds",
+      "name_uk": "Візуальні опори з реальними квитками, листами, схемами",
+      "score": 85,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_LEXICAL_RECOGNITION",
+      "priority": "P1",
+      "sources": [
+        "gloss",
+        "cefr"
+      ],
+      "reason_uk": "Малюнки й реальні документи можуть бути контекстом, а не декорацією.",
+      "example_fi": "На основі квитка поясни, коли відправляється автобус.",
+      "app_feature_uk": "Візуальні завдання з поступовим приховуванням підказок.",
+      "measurement_uk": "Незалежна відповідь на нове зображення.",
+      "limitation_uk": "Не заміняти практику стоковими картинками."
+    },
+    {
+      "id": "dictogloss",
+      "name_uk": "Dictogloss: відтворення смислу після слухання",
+      "score": 84,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_APPLIED",
+      "priority": "P1",
+      "sources": [
+        "metacog",
+        "kieliaudio"
+      ],
+      "reason_uk": "Поєднує слухання, переказ і увагу до форм.",
+      "example_fi": "Kuuntele ilmoitus ja selitä omin sanoin.",
+      "app_feature_uk": "Переказ із затриманим розкриттям транскрипту.",
+      "measurement_uk": "Утримання ключових фактів на новому матеріалі.",
+      "limitation_uk": "Потрібна semantic QA для відкритих відповідей."
+    },
+    {
+      "id": "fluency-432",
+      "name_uk": "4/3/2 fluency з помірним темповим обмеженням",
+      "score": 84,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "EMERGING_L2",
+      "priority": "P1",
+      "sources": [
+        "fluency",
+        "speakingrepeat"
+      ],
+      "reason_uk": "Може покращити деякі показники плавності, але не обов'язково точність.",
+      "example_fi": "Один сюжет: 120 → 90 → 60 секунд (навчальна адаптація).",
+      "app_feature_uk": "Таймер як опція для підготовлених учнів.",
+      "measurement_uk": "Плавність нової теми без втрати змісту.",
+      "limitation_uk": "Не видавати час за офіційну вимогу YKI."
+    },
+    {
+      "id": "micro-missions",
+      "name_uk": "Короткі регулярні місії 10–20 хв",
+      "score": 83,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_BEHAVIORAL",
+      "priority": "P1",
+      "sources": [
+        "spaced",
+        "kielitips"
+      ],
+      "reason_uk": "Невелика щоденна дія полегшує сталість навчання.",
+      "example_fi": "Поясни одну проблему в магазині.",
+      "app_feature_uk": "Одна корисна місія, гнучка тривалість і opt-out.",
+      "measurement_uk": "Retention та регулярність незалежних завдань.",
+      "limitation_uk": "20 хв не є науково доведеним оптимумом."
+    },
+    {
+      "id": "shadowing",
+      "name_uk": "Shadowing із якісним живим аудіо",
+      "score": 82,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "LIMITED_HETEROGENEOUS",
+      "priority": "P1",
+      "sources": [
+        "shadow",
+        "kieliaudio"
+      ],
+      "reason_uk": "Імітація інтонації корисна як допоміжна вправа, не заміна діалогу.",
+      "example_fi": "Повтори за диктором: Voisitteko toistaa?",
+      "app_feature_uk": "Echo-player з паузами і власним записом.",
+      "measurement_uk": "Експертна зрозумілість нової фрази.",
+      "limitation_uk": "Докази неоднорідні; не вважати репліку спонтанною."
+    },
+    {
+      "id": "gamification",
+      "name_uk": "Опційна змістовна гейміфікація",
+      "score": 75,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "SMALL_MOTIVATION_EFFECT",
+      "priority": "P2",
+      "sources": [
+        "games",
+        "mobilegames"
+      ],
+      "reason_uk": "Може допомагати мотивації; зв'язок із B1 продуктивними навичками не підтверджено.",
+      "example_fi": "Нагорода лише за завершену непідказану місію.",
+      "app_feature_uk": "Optional mascot, meaningful choices, mute, reduced motion.",
+      "measurement_uk": "Unseen performance разом із retention, не кліки.",
+      "limitation_uk": "Без стресових гучних сюрпризів і примусових streaks."
+    },
+    {
+      "id": "contrast-uk-fi",
+      "name_uk": "Українсько-фінський contrastive teaching",
+      "score": 72,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "PEDAGOGIC_HYPOTHESIS",
+      "priority": "P2",
+      "sources": [
+        "explicit",
+        "s2bank"
+      ],
+      "reason_uk": "Може швидко пояснити відмінності, але буквальний переклад закінчень помилковий.",
+      "example_fi": "Я йду в магазин → Menen kauppaan.",
+      "app_feature_uk": "Короткі пояснення українською і приклади фінською.",
+      "measurement_uk": "Зменшення повторних міжмовних помилок.",
+      "limitation_uk": "Немає прямого доведеного ефекту на YKI."
+    },
+    {
+      "id": "single-tts-only",
+      "name_uk": "Лише один синтетичний диктор для аудіювання",
+      "score": 59,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "WEAK_STANDALONE",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "hvpt",
+        "kieliaudio"
+      ],
+      "reason_uk": "Одноманітне TTS не репрезентує природної фінської багатьох мовців.",
+      "example_fi": "Той самий вираз у кількох живих голосах.",
+      "app_feature_uk": "Single-voice позначати synthetic; доповнювати живими.",
+      "measurement_uk": "Незалежне розуміння різних голосів.",
+      "limitation_uk": "Не називати один TTS-голос природним діалогом."
+    },
+    {
+      "id": "passive-listening-only",
+      "name_uk": "Виключно пасивне аудіо у фоні",
+      "score": 57,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "WEAK_STANDALONE",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "kieliaudio",
+        "reading"
+      ],
+      "reason_uk": "Експозиція може бути додатком, але без розуміння й відтворення її користь невідома.",
+      "example_fi": "Після аудіо сформулюй хоча б gist.",
+      "app_feature_uk": "Не робити базовим режимом.",
+      "measurement_uk": "Нове аудіювання, а не хвилини програвання.",
+      "limitation_uk": "Не називати кількість хвилин виміром знання."
+    },
+    {
+      "id": "isolated-word-lists-only",
+      "name_uk": "Лише списки слів без контекстного мовлення",
+      "score": 50,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "WEAK_STANDALONE",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "retrieval",
+        "gloss"
+      ],
+      "reason_uk": "Впізнавання лексики не доводить комунікативної продуктивності.",
+      "example_fi": "sopia → Voisimmeko sopia uuden ajan?",
+      "app_feature_uk": "Тільки як другорядний допоміжний інструмент.",
+      "measurement_uk": "Використання в новому реченні.",
+      "limitation_uk": "Не плутати flashcard accuracy з YKI."
+    },
+    {
+      "id": "instant-answer",
+      "name_uk": "Показ готової правильної відповіді до власної спроби",
+      "score": 28,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "COUNTERPRODUCTIVE_RISK",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "retrieval",
+        "oralcf"
+      ],
+      "reason_uk": "Передчасне рішення позбавляє можливості активного пригадування.",
+      "example_fi": "Спершу відповідай → лише потім дивись модель.",
+      "app_feature_uk": "Заборонити auto-reveal до відповіді в тренувальному циклі.",
+      "measurement_uk": "First-attempt independent recall.",
+      "limitation_uk": "Робить вимірювання прогресу недостовірним."
+    },
+    {
+      "id": "surprise-noise",
+      "name_uk": "Раптові гучні вигуки персонажа для налякування",
+      "score": 22,
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "NO_SUPPORT_AND_ACCESSIBILITY_RISK",
+      "priority": "AVOID_OR_SUPPLEMENT_ONLY",
+      "sources": [
+        "games"
+      ],
+      "reason_uk": "Підстав вважати стресові звукові сюрпризи прискоренням фінської немає.",
+      "example_fi": "Не застосовувати. Альтернатива — спокійні optional hint.",
+      "app_feature_uk": "Mute by default; no surprise sounds.",
+      "measurement_uk": "Не рекомендується як навчальний прийом.",
+      "limitation_uk": "Відволікання й шкода accessibility."
+    }
+  ]
+}
