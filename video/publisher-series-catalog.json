@@ -1,0 +1,224 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "purpose": "Publisher-hosted B1 audiovisual and practice resources for Hospodar YKI; not a YouTube player catalog. Direct watch ID unavailable or publisher player separate.",
+  "status": "links_only_not_rehosted",
+  "count": 7,
+  "classification": "Curated independent provider video SERIES/PAGES; distinct from video/youtube-catalog.json. Video count cannot be equated to number of verified YouTube IDs.",
+  "copyright_policy": "Follow publisher site; no copying videos or captions unless separately licensed. CC licence on series page does not authorize unrelated third-party assets.",
+  "sources": [
+    {
+      "id": "yle-b1-yki-treenit",
+      "url": "https://yle.fi/a/74-20082612",
+      "provider": "Yle Oppiminen",
+      "title": "YKI-testi tulossa? Harjoittele B1-suomea hauskalla tavalla",
+      "level": "B1 (publisher stated)",
+      "score": 100,
+      "format": "Yle native hosted B1 video/audio/text + linked comprehension quiz",
+      "known_episodes": 9,
+      "topics": [
+        "daily_life",
+        "media",
+        "YKI_situations",
+        "listening",
+        "reading"
+      ],
+      "skills": [
+        "listening",
+        "reading"
+      ],
+      "why": "Professional B1 exercises with questions and short audio/video, 3 Finnish teachers, closest reliable free resource for YKI-like comprehension",
+      "direct_video_ids_known": false,
+      "rights": "Publisher video reuse/license not established; link to original, do not download/mirror.",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-maku-work-situations",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/vinkkeja-kielenoppimiseen/opi-suomea-toissa/tyoelaman-tilanteita-videot",
+      "provider": "Kielibuusti / MAKU (Laurea + Haaga-Helia + Lingsoft + Arffman)",
+      "title": "Työelämän tilanteita -videot",
+      "level": "A2-B1 estimated, not publisher-graded",
+      "score": 99,
+      "format": "Publisher-hosted series of workplace situational videos",
+      "known_episodes": 6,
+      "episode_names": [
+        "Taukohuoneessa",
+        "Työvuoron vaihtaminen",
+        "Töistä myöhästyminen",
+        "Sairastuminen töissä",
+        "Kuinka huomioida työkaverit tasapuolisesti",
+        "Miten toimia kun kielitaito ei riitä"
+      ],
+      "topics": [
+        "work",
+        "shift_swap",
+        "late_for_work",
+        "sick_leave",
+        "communication_breakdown",
+        "coffee_room"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "6 high-relevance work situations with practical problem-solving; strong source authority and explicit publisher CC by-nc-sa notice",
+      "direct_video_ids_known": false,
+      "rights": "Original publisher site states CC BY-NC-SA (verify full legal version/asset rights before redistribution); linking only; no unverified YouTube IDs.",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-regional-turku",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa",
+      "provider": "Kielibuusti",
+      "title": "Keskusteluja suomeksi — Turussa",
+      "level": "B1 stretch estimated (not publisher CEFR-graded)",
+      "score": 98,
+      "format": "Short natural conversational videos on publisher site",
+      "known_episodes": 2,
+      "episode_names": [
+        "Et sä mittää pullaa ottais?",
+        "Miten sul meni viikonloppu?"
+      ],
+      "topics": [
+        "regional_puhekieli",
+        "turku",
+        "cafe",
+        "weekend"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "Natural regional colloquial speech in Turku, highly relevant to recognizing contracted forms and spontaneous conversational turns",
+      "direct_video_ids_known": false,
+      "rights": "Linked official site only, no video redistribution or unsupported derivative transcription.",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-regional-kuopio",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-kuopiossa",
+      "provider": "Kielibuusti",
+      "title": "Keskusteluja suomeksi — Kuopiossa",
+      "level": "B1 stretch estimated",
+      "score": 98,
+      "format": "Publisher-hosted video conversations",
+      "known_episodes": 2,
+      "episode_names": [
+        "Missähän päin teillä on kuumemittarit?",
+        "Onkos tätä litkuna vai pelekkänä tablettina?"
+      ],
+      "topics": [
+        "pharmacy",
+        "health",
+        "asking_location",
+        "requesting_medicine",
+        "Savo_puhekieli"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "Actual community pharmacy dialogue, request/clarification, regional pronunciation variation useful for nuanced B1 listening",
+      "direct_video_ids_known": false,
+      "rights": "Linked official site only, no video redistribution.",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-regional-helsinki",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-suomen-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-helsingissa",
+      "provider": "Kielibuusti",
+      "title": "Keskusteluja suomeksi — Helsingissä",
+      "level": "A2-B1 estimated",
+      "score": 97,
+      "format": "13 publisher-hosted colloquial Finnish everyday videos",
+      "known_episodes": 13,
+      "episode_names": [
+        "Mikä sun nimi on?",
+        "Mitä sä opiskelet?",
+        "Mulla on nälkä",
+        "Kahvi ja pulla",
+        "Mitä toi linssi on?",
+        "Yksi päivän lounas",
+        "Juustoleipä ja kahvi",
+        "Mun täytyy lähteä",
+        "Missä sä asut?",
+        "Mitä sä teet viikonloppuna?",
+        "Millä sä meet kotiin?",
+        "Mä haluaisin mennä joogatunnille",
+        "Milloin sulle sopisi?"
+      ],
+      "topics": [
+        "introductions",
+        "cafe",
+        "schedule",
+        "transport",
+        "housing",
+        "puhekieli"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "Broad collection of compact situational dialogues with recognizable natural speech; provides diverse Finnish contexts and roleplay themes",
+      "direct_video_ids_known": false,
+      "rights": "Linked official publisher only",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-regional-tampere",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-tampereella",
+      "provider": "Kielibuusti",
+      "title": "Keskusteluja suomeksi — Tampereella",
+      "level": "B1 stretch estimated",
+      "score": 94,
+      "format": "Two short authentic regional exchanges",
+      "known_episodes": 2,
+      "episode_names": [
+        "Mitähän sitä tekis miäli?",
+        "Mitäs sä tänään meinaat?"
+      ],
+      "topics": [
+        "dialect",
+        "ordering",
+        "cafe",
+        "plans"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "Naturally colored regional forms in short everyday exchanges",
+      "direct_video_ids_known": false,
+      "rights": "Linked official publisher only",
+      "source_checked": "verified_publisher_page"
+    },
+    {
+      "id": "kielibuusti-regional-oulu",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-oulussa",
+      "provider": "Kielibuusti",
+      "title": "Keskusteluja suomeksi — Oulussa",
+      "level": "B1 stretch estimated",
+      "score": 94,
+      "format": "Two short regional spoken Finnish scenes",
+      "known_episodes": 2,
+      "episode_names": [
+        "Mitähän mää ottasin..?",
+        "Miten teillä meni ne juhulat?"
+      ],
+      "topics": [
+        "dialect",
+        "cafe",
+        "past_tense",
+        "events"
+      ],
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "why": "Contrast everyday vocabulary and Northern dialect, with speaking retell about events",
+      "direct_video_ids_known": false,
+      "rights": "Linked official publisher only",
+      "source_checked": "verified_publisher_page"
+    }
+  ]
+}
