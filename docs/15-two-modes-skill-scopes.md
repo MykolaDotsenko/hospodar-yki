@@ -441,7 +441,7 @@ type Session = {
 
 ## YouTube video library — навчальний каталог + майбутній compliant плеєр (P1)
 
-**Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`video/youtube-catalog.json`](../video/youtube-catalog.json) (**14 різних відео, 35 chapter windows**) і [добірка та product requirements YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**
+**Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`video/youtube-catalog.json`](../video/youtube-catalog.json) (**30 різних відео, 53 chapter windows**, із них [16 нових відео високої цінності](../video/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)) і [добірка та product requirements YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**
 
 - **YTP-P0:** schema `provider=youtube`, `youtube_video_id`, `watch_url`, `chapters`, `learning_mode_only`, `teacher_review=pending`; metadata-based source verification **не дорівнює** перевіреному playback.
 - **YTP-P1:** official YouTube IFrame Player API/embedded player with explicit user interaction, metadata and appropriate privacy notice, source link fallback, user-visible title + creator, official playback controls, preserved advertising/branding. Respect current YouTube terms, embed restrictions and client identity/`Referer` policy.
@@ -449,5 +449,10 @@ type Session = {
 - **YTP-P1:** optional teacher-reviewed after-response comprehension/writing/roleplay questions in app; independent `unseen` tasks must use new licensed materials, never mark YouTube practice clips as official YKI simulator items.
 - **YTP-P0:** do not download/stream/cache/rehost YouTube videos or audio/subtitles without separate applicable rights/approval. No bypass for ads, regional restrictions, embed blocking; no hidden/background player or audio extraction.
 - **YTP-P1:** accessibility (responsive layout, focus, keyboard, captions through player), consent-sensitive third-party integration, fallback to YouTube, `video_unavailable` state. Confirm API and Finnish content restrictions at integration time.
+
+
+- **YTP-P1 content priority:** спочатку ліцензовано описані (але не скопійовані) A2–B1 **двосторонні** рольові сцени без текстових cue, незалежна відповідь, новий учнівський рольовий сценарій; тільки потім довгі монологи, граматика або B1+ влоги. Зберігати `spoken_register`, `dialogue_type`, `publisher_caption_claim`, `rights_note` якщо відомі; де невідомо — null, а не припущення.
+- **YTP-P0 rights:** Haaga-Helia/Kielibuusti позначає серію `CC BY-ND 4.0`: відкривати оригінал через YouTube, коректно кредитувати, **не** публікувати похідні змонтовані файли або перепаковану/перекладену медіадоріжку без окремої згоди.
+- **YTP-P1 multi-speaker:** приймання вбудованого learning flow потребує independent `gist`, `detail`, `repair` і transfer у новій рольовій розмові; перевіряти 7/14-day uncued результат, а не лише watch complete.
 
 **Acceptance contract**: [YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md#future-youtube-player--acceptance-specification-ytp-0114); work is **requirements and content catalogue only**, the integrated player is **not implemented**. Existing two high-level modes remain LEARN and EXAM.
