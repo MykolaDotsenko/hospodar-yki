@@ -4,7 +4,7 @@
 
 ### YouTube — link-only curated material (NEW 2026-10-21)
 
-**[14 directly verified-by-metadata watch URLs, 35 teacher-description chapter markers](youtube-catalog.json)** · **[Human-readable selection and future player UX spec (YTP-01…14)](YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../scripts/validate_youtube_video_catalog.py)**.
+**[30 YouTube watch links, 53 descriptive chapter markers](youtube-catalog.json)** · **[16 new high-value lessons: authentic dialogues, puhekieli, YKI writing](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)** · **[Human-readable selection and future player UX spec (YTP-01…14)](YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../scripts/validate_youtube_video_catalog.py)**.
 
 YouTube content is **NOT downloaded or copied** into this repository. Catalog entries store `youtube_video_id`, `watch_url`, creator/title, estimated level, skill, topic, why it helps, original pending-review exercise seeds, and study chapters. Playback/embedding, language quality and subtitles **are not yet verified**. Future player uses only official embed/IFrame API (when allowed), otherwise opens source in YouTube. No third-party audio extraction; creator branding/ads/player controls remain intact. The video lessons are **learn-only**, not unseen exam tasks.
 
