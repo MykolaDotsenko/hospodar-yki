@@ -30,10 +30,10 @@ def require(test, message):
 def main():
     data = json.loads(CATALOG.read_text(encoding="utf-8"))
     sources, methods = data["source_register"], data["methods"]
-    require(data["schema_version"] == "1.1.0", "Unexpected schema")
+    require(data["schema_version"] == "1.2.0", "Unexpected schema")
     require(data["score_component_limits"] == LIMITS, "Rubric changed without updating validator")
-    require(len(methods) == 51, "Expected 51 reviewed methods")
-    require(len(sources) == 49, "Expected 49 references")
+    require(len(methods) == 67, "Expected 67 reviewed methods")
+    require(len(sources) == 69, "Expected 69 references")
     require(len({m["id"] for m in methods}) == len(methods), "Duplicate method IDs")
 
     for ref_id, entry in sources.items():
@@ -89,14 +89,44 @@ def main():
     require(len({e["id"] for e in blueprint["experiment_backlog"]}) == 4, "Duplicate experiment ID")
     legacy_docs = (ROOT / "docs" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
     new_docs = (ROOT / "docs" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
-    require("## Повний рейтинг: 51 методика" in legacy_docs, "Main method ranking stale")
+    require("## Повний рейтинг (Product-fit, 67 методик)" in legacy_docs, "Main method ranking stale")
     for method in methods:
         require("(`" + method["id"] + "`)" in legacy_docs, "Missing detailed method card " + method["id"])
     require("11 модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
 
+
+    effectiveness = json.loads((ROOT / "research" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
+    require(effectiveness["count"] == len(effectiveness["ratings"]) == 67, "Expected 67 effectiveness ratings")
+    require(len({r["id"] for r in effectiveness["ratings"]}) == 67, "Duplicate effectiveness rating IDs")
+    require({r["id"] for r in effectiveness["ratings"]} == known_method_ids, "Effectiveness index not a one-to-one match with methods")
+    require(effectiveness["scoring_methodology"]["model"] == "EXPERT_JUDGMENT_ORDINAL", "Method effectiveness cannot be claimed as empirical outcome")
+    previous_effectiveness = 101
+    for rating in effectiveness["ratings"]:
+        method = next(m for m in methods if m["id"] == rating["id"])
+        ident = rating["id"]
+        n = rating["learning_effectiveness_0_to_100"]
+        require(type(n) is int and 0 <= n <= 100, "Bad effectiveness rating: " + ident)
+        require(n <= previous_effectiveness, "Effectiveness not sorted: " + ident)
+        previous_effectiveness = n
+        require(method["score"] == rating["previous_product_fit_0_to_100"], "Product-fit overwritten: " + ident)
+        require(rating["source_ids"] == method["sources"], "Rating citations drifted: " + ident)
+        if "effectiveness_preestimate" in method:
+            require(n == method["effectiveness_preestimate"], "New research effectiveness estimate drifted: " + ident)
+        low, high = rating["plausible_expert_band"]
+        require(type(low) is int and type(high) is int and 0 <= low <= n <= high <= 100, "Illogical uncertainty range: " + ident)
+        require(rating["actual_research_effect_size_not_this_score"] is True, "Score misrepresented as evidence: " + ident)
+        require(rating["not_yki_pass_probability"] is True, "Unvalidated YKI score misrepresented: " + ident)
+        require(rating["confidence_in_score"] in {"high", "moderate", "low"}, "Unknown evidence confidence")
+        require(rating["role"] in {"learning_intervention", "assessment_or_infrastructure", "technology_conditional", "not_recommended_standalone"}, "Unknown method role")
+    effectiveness_report = (ROOT / "docs" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
+    require("67" in effectiveness_report and "69" in effectiveness_report and "g=0,18" in effectiveness_report, "Research findings summary incomplete")
+    require(effectiveness_report.count("| **") >= 67, "Not all 67 rated methods shown in table")
+
     print(json.dumps({
         "result": "PASS",
         "methods": len(methods),
+        "effectiveness_ratings": len(effectiveness["ratings"]),
+        "rated_scores_not_empirical": True,
         "blueprint_modules": len(modules),
         "ab_hypotheses": len(blueprint["experiment_backlog"]),
         "sources": len(sources),
