@@ -1,0 +1,36 @@
+name: Validate YKI exam pattern research
+on:
+  push:
+    branches: [main, 'research/**']
+    paths:
+      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki-exam-examples-2026-10.json'
+      - 'content/b1/exam-patterns/**'
+      - 'content/b1/audio-long/lessons.json'
+      - 'content/b1/contextual/reading-pack-v1.json'
+      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'scripts/validate_yki_exam_research.py'
+      - '.github/workflows/validate-yki-exam-research.yml'
+  pull_request:
+    paths:
+      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki-exam-examples-2026-10.json'
+      - 'content/b1/exam-patterns/**'
+      - 'content/b1/audio-long/lessons.json'
+      - 'content/b1/contextual/reading-pack-v1.json'
+      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'scripts/validate_yki_exam_research.py'
+      - '.github/workflows/validate-yki-exam-research.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate sources, dates, licenses and four-skill mini-rehearsals
+        run: python3 scripts/validate_yki_exam_research.py
