@@ -86,3 +86,11 @@
 ### Висновок
 
 **Не можна чесно назвати нинішні 9 завдань «точною повною копією цифрового YKI 2027»**. Зате це справжня відтворювана, source-linked, конфіденційна **навчальна репетиція**, структурована за чотирма навичками, яку можна розвинути до повного каліброваного mock після OPH digital-2027 UX уточнень.
+
+## Офіційний комплексний аудит v2 (21.10.2026) — канонічне доповнення
+
+**Вивчено:** [20 — норма/правила/SOLKI зразки/рубрики](20-yki-official-complete-audit-2026-10.md); **нове інженерне ТЗ:** [21 — шість fidelity axes, state machine, 20 тести](21-digital-yki-exam-simulator-executable-spec.md); **40 source-linked claims і 15 невідомих**: [research/official-yki-deep-audit-v2.json](../research/official-yki-deep-audit-v2.json); **13 families × 12 demo specimens**: [research/yki-official-patterns-v2.json](../research/yki-official-patterns-v2.json).
+
+**Важливе уточнення:** OPH сторінка підписує PDF як `perusteet 2026`, але пряме посилання фактично веде до наказу **30.11.2011**; підтвердження — Finlex. Усі paper-sheet/legacy timers з SOLKI є **лише historical samples**; заборонено вважати їх точними правилами computer-based 2027. Actual `official_2027_exact` = **false** до OPH/JYU post-pilot підтвердження.
+
+**Acceptance:** реалізовувати `strict_verified` тільки після source-backed modules, durations, player, mic, writing UI, result validation; якщо `null` — training-only. Для письменного/усного YKI 3/4 потрібна людська калібровка. Нині 9-item мінірепетиція, не full mock.
