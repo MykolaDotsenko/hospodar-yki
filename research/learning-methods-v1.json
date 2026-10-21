@@ -251,6 +251,106 @@
       "title": "FSRS benchmark; memory prediction on flashcards, engineering benchmark not YKI learning trial",
       "url": "https://github.com/ankitects/fsrs-benchmark",
       "type": "software-research-benchmark"
+    },
+    "multimedia25": {
+      "title": "Zhang, Sala & Gobet (2025), L1+picture L2 vocabulary meta, 2056 participants, immediate g=0.33–0.35",
+      "url": "https://doi.org/10.1016/j.edurev.2025.100681",
+      "type": "L2-vocabulary-meta"
+    },
+    "peerwrite25": {
+      "title": "Li et al. (2025), peer tutoring L2 writing, 26 experiments, g=0.84",
+      "url": "https://doi.org/10.1016/j.ijedro.2024.100422",
+      "type": "L2-writing-meta"
+    },
+    "collabwrite21": {
+      "title": "Elabdali (2021), collaborative writing meta, 33 studies",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1060374320300874",
+      "type": "L2-writing-meta"
+    },
+    "planning22": {
+      "title": "Task Planning and Oral L2 Production (2022), meta-analysis",
+      "url": "https://academic.oup.com/applij/article-abstract/43/6/1143/6682841",
+      "type": "L2-speaking-meta"
+    },
+    "sequencing25": {
+      "title": "Abdi Tabari et al. (2025), simple-complex task sequence meta-analysis",
+      "url": "https://doi.org/10.1111/ijal.12670",
+      "type": "L2-task-meta"
+    },
+    "conceptmap25": {
+      "title": "Han (2025), L2 concept maps meta-analysis, 68 studies",
+      "url": "https://doi.org/10.1186/s40862-025-00331-2",
+      "type": "L2-meta"
+    },
+    "mnemonic24": {
+      "title": "Keyword mnemonic plus retrieval for L2, 110 EFL university learners (2024)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10839596/",
+      "type": "English-L2-experiment"
+    },
+    "mobilevocab22": {
+      "title": "Yu & Trainin (2022), technology-assisted L2 vocabulary, 34 studies, d=0.64",
+      "url": "https://doi.org/10.1017/S0958344021000239",
+      "type": "L2-technology-meta"
+    },
+    "mobilevocab26": {
+      "title": "Bayesian mobile-assisted vocabulary meta-analysis, 65 studies; long-term treatment subgroup",
+      "url": "https://www.cambridge.org/core/journals/recall/article/metaanalysis-on-mobileassisted-vocabulary-learning-do-mobile-applications-help/79C8F00E48D521ED3BCFE0625B5549F3",
+      "type": "L2-mobile-meta"
+    },
+    "readlisten23": {
+      "title": "Clinton-Lisell (2023), reading while listening meta, g=0.18 overall; null self-paced",
+      "url": "https://commons.und.edu/ehb-fac/75/",
+      "type": "reading-meta-not-L2-specific"
+    },
+    "surface-deep24": {
+      "title": "Scherer et al. (2024), 200 surface/deep/combined writing feedback contrasts",
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101961",
+      "type": "mixed-L1-L2-FL-writing-meta"
+    },
+    "cmcoral15": {
+      "title": "Computer-mediated L2 oral interaction meta-analysis, 25 studies",
+      "url": "https://www.cambridge.org/core/journals/recall/article/computermediated-communication-cmc-in-l2-oral-proficiency-development-a-metaanalysis/638CE918F42429104E2E582D5AD771B0",
+      "type": "L2-speaking-meta"
+    },
+    "phonetic65": {
+      "title": "Yao et al. (2025), 65 phonetic training studies, N=2793, d=0.762",
+      "url": "https://doi.org/10.1044/2024_JSLHR-24-00432",
+      "type": "L2-phonetics-meta"
+    },
+    "visualpron18": {
+      "title": "L2 visual articulation feedback review (2018)",
+      "url": "https://benjamins.com/catalog/jslp.00006.bli",
+      "type": "technology-method-review"
+    },
+    "vrreview26": {
+      "title": "VR in second-language education 2026 systematic review, 55 empirical studies",
+      "url": "https://doi.org/10.1080/29984475.2025.2603960",
+      "type": "L2-technology-review"
+    },
+    "ddlmeta23": {
+      "title": "Effective corpus use and data-driven language learning meta-analysis (2023)",
+      "url": "https://doi.org/10.1016/j.acorp.2023.100076",
+      "type": "L2-DDL-meta"
+    },
+    "ddlcolloc23": {
+      "title": "Corpus-based collocation acquisition review (2023), 32 EFL studies",
+      "url": "https://www.mdpi.com/2071-1050/15/17/13242",
+      "type": "English-L2-corpus-review"
+    },
+    "motivation25": {
+      "title": "Self-determination and L2 achievement meta-analysis (2025), largely correlational",
+      "url": "https://doi.org/10.1007/s10648-025-10038-y",
+      "type": "L2-correlational-meta"
+    },
+    "srltech25": {
+      "title": "Pan, Lai & Guo (2025), technology-enhanced L2 self-regulation review, 57 studies",
+      "url": "https://doi.org/10.1016/j.system.2025.103675",
+      "type": "L2-self-regulation-review"
+    },
+    "kielibuusti_path": {
+      "title": "Kielibuusti Finnish S2 pathway, learner plans and level progression",
+      "url": "https://www.kielibuusti.fi/en/career-and-study-advisors-and-heis/support-functions-in-higher-education/s2-language-learning-path-for-international-students",
+      "type": "Finnish-S2-framework"
     }
   },
   "methods": [
