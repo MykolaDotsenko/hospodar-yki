@@ -52,7 +52,7 @@ function renderWelcome(){
       <option value="60">60 хвилин — особистий тренувальний ліміт</option>
     </select>
     <div class="actions"><button class="btn" type="submit">Почати репетицію</button></div></form>
-    <p class="muted">Кожен набір містить 3 запитання до тексту, 4 до аудіо, 1 письмо й 1 говоріння. Це ${3+4+1+1} коротких завдань, **не** повний YKI.</p>
+    <p class="muted">Кожен набір містить 3 запитання до тексту, 4 до аудіо, 1 письмо й 1 говоріння. Це ${3+4+1+1} коротких завдань, <strong>не</strong> повний YKI.</p>
     <details><summary>Які правила підтверджені?</summary><p>OPH підтверджує іспит на комп'ютері в центрі та відповідність загального типу завдань; повний цифровий інтерфейс і точні таймінги 2027 поки не підтверджені.</p>
     <p><a href="https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026" target="_blank" rel="noopener noreferrer">OPH — цифровий пілот</a> · <a href="https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/" target="_blank" rel="noopener noreferrer">SOLKI — офіційні приклади</a></p></details>`+policy());
 }
@@ -140,7 +140,7 @@ function selectItem(index){
   persist();draw();root.focus({preventScroll:true});
 }
 function stopAudio(){
-  if(exam.recorder?.state==="recording")exam.recorder.stop();
+  if(exam.recorder?.state==="recording"){exam.recorder.onstop=null;exam.recorder.stop();}
   if(exam.stream)exam.stream.getTracks().forEach(x=>x.stop());
   if(exam.url){URL.revokeObjectURL(exam.url);exam.url=null;}
 }
@@ -163,7 +163,7 @@ async function record(){
       exam.stream=null;exam.recorder=null;
       if(exam.url)URL.revokeObjectURL(exam.url);
       exam.url=chunks.length?URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"})):null;
-      exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
+      if(!exam.session.finishedAt)exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
       persist();draw();
       alertUser(exam.url?"Можна прослухати свою відповідь. Голосовий файл не зберігається після перезавантаження.":"Не вдалося створити запис.");
     };
