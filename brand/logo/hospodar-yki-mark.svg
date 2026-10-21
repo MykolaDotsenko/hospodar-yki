@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc"><title id="title">Hospodar YKI symbol</title><desc id="desc">An open doorway and speech shape with a small golden grain motif</desc><rect x="4" y="4" width="120" height="120" rx="27" fill="#083B7A"/><path d="M28 57 64 29 100 57" fill="none" stroke="#F8F5ED" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M37 60H91V91H69L49 106V91H37Z" fill="#F8F5ED"/><path d="M56 75H77" stroke="#083B7A" stroke-width="7" stroke-linecap="round"/><path d="M64 17v9M57 22l-7-5M71 22l7-5" fill="none" stroke="#C99135" stroke-width="4" stroke-linecap="round"/><path d="m103 89 6 6-6 6-6-6Z" fill="#C99135"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">Hospodar YKI — відкритий поріг</title>
+<desc id="desc">Distinct H monogram, a threshold and a golden step forward on deep Finnish blue</desc>
+<path fill="#083B7A" d="M28 4H100C113.25 4 124 14.75 124 28V94L94 124H28C14.75 124 4 113.25 4 100V28C4 14.75 14.75 4 28 4Z"/>
+<path d="M36 32V94M91 32V92M36 64H91" fill="none" stroke="#F8F5ED" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M91 94L105 80" fill="none" stroke="#C99135" stroke-width="9" stroke-linecap="round"/>
+</svg>
