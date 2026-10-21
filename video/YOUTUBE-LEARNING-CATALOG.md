@@ -1,9 +1,9 @@
 # YouTube learning videos — curated external catalog
 
 **Added 2026-10-21; target:** adult Ukrainian-speaking learners progressing A2.2 → B1/B1+, YKI keskitaso.  
-**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **44 unique direct YouTube watch URLs** (14 initial + 16 round-2 + [8 publisher-confirmed round-3 links](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md) + [6 higher-priority B1/B2 round-4 links](YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)), detailed learning topics, estimated CEFR, **171 descriptive chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
+**Canonical data:** [`youtube-catalog.json`](youtube-catalog.json) contains **47 unique direct YouTube watch URLs** (14 initial + 16 round-2 + [8 publisher-confirmed round-3 links](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md) + [6 higher-priority B1/B2 round-4 links](YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md) + [3 B1/B2 and natural-speaking round-5 links](YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)), detailed learning topics, estimated CEFR, **182 descriptive chapter intervals**, relative priority 0–100, and a starter exercise prompt per video. Files are **links/metadata only**, not redistributed YouTube media.
 
-**The initial table below describes the original 14 only.** Round 2: [16 videos](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). Round 3: [8 publisher-confirmed YouTube videos and 7 publisher-hosted series](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md). Source-of-truth totals 44 YouTube links and 7 external publisher series, not 51 verified embeddable videos.
+**The initial table below describes the original 14 only.** Round 2: [16 videos](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). Round 3: [8 publisher-confirmed YouTube videos and 7 publisher-hosted series](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md). Source-of-truth totals 47 YouTube links and 9 external publisher series plus 8 separately linked Yle episodes, not 64 verified embeddable videos.
 
 **Round 4 strict shortlist:** [6 higher-value B1/B2, productive YKI and natural-puhekieli examples](YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md). These take precedence over long A1/A2-only videos when building B1 learning and 7-day unseen transfer.
 
@@ -16,7 +16,7 @@
 - **Exam honesty:** videos titled YKI are **third-party practice**, not OPH/JYU official digital exams. They are appropriate **only for LEARN**; model answers may be visible in the YouTube video and its chapters, so none belongs in the unseen exam bank.
 
 
-**Important:** The table below is the **original first 14**, not a full listing of 44. For all 16 newest verified-source links, publisher/rights context and personalized task prompts, open [the second-round ranking](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). 
+**Important:** The table below is the **original first 14**, not a full listing of 47. For all 16 newest verified-source links, publisher/rights context and personalized task prompts, open [the second-round ranking](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md). 
 
 ## High-value curated links (all direct `watch?v=` URLs)
 
