@@ -70,9 +70,35 @@ def main():
             require(ref_id in sources, "Unknown cited source: " + ref_id + " in " + key)
         counts[m["priority"]] += 1
 
+    # Implementation blueprint must trace directly to researched method IDs.
+    blueprint_file = ROOT / "research" / "yki-methodology-implementation-v1.json"
+    blueprint = json.loads(blueprint_file.read_text(encoding="utf-8"))
+    require(blueprint["status"] == "implementation_design_not_implemented", "Blueprint cannot claim implementation")
+    require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
+    require(len(blueprint["experiment_backlog"]) == 4, "Expected 4 explicit experiments")
+    known_method_ids = {m["id"] for m in methods}
+    modules = blueprint["modules"]
+    require(len({mod["id"] for mod in modules}) == len(modules), "Duplicate blueprint modules")
+    for mod in modules:
+        require(mod.get("methods") and set(mod["methods"]) <= known_method_ids, "Unknown method in module: " + mod["id"])
+        require(mod.get("steps") and mod.get("acceptance") and mod.get("risks"), "Module missing concrete protocol: " + mod["id"])
+        require(mod["priority"] in {"P0","P1","P2"}, "Module priority invalid: " + mod["id"])
+    for exp in blueprint["experiment_backlog"]:
+        require(exp["source_methods"] and set(exp["source_methods"]) <= known_method_ids, "Unknown experiment methods " + exp["id"])
+        require(all(exp.get(k) for k in ("treatment","control","primary_outcome","guardrail")), "Incomplete A/B hypothesis " + exp["id"])
+    require(len({e["id"] for e in blueprint["experiment_backlog"]}) == 4, "Duplicate experiment ID")
+    legacy_docs = (ROOT / "docs" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
+    new_docs = (ROOT / "docs" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
+    require("## Повний рейтинг: 51 методика" in legacy_docs, "Main method ranking stale")
+    for method in methods:
+        require("(`" + method["id"] + "`)" in legacy_docs, "Missing detailed method card " + method["id"])
+    require("11 модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
+
     print(json.dumps({
         "result": "PASS",
         "methods": len(methods),
+        "blueprint_modules": len(modules),
+        "ab_hypotheses": len(blueprint["experiment_backlog"]),
         "sources": len(sources),
         "priority_counts": counts,
         "scope": "metadata integrity only; research interpretation and CEFR suitability require expert review",
