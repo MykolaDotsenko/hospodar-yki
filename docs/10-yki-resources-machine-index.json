@@ -1,0 +1,178 @@
+{
+  "as_of": "2026-10-21",
+  "purpose": "method discovery and research not copied lessons",
+  "rights_policy": "Do not redistribute copyrighted educational content",
+  "resources": [
+    {
+      "id": "OPH-digitesti-2026",
+      "title": "OPH цифровий YKI 2027",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "priority_0_100": 100,
+      "how_to_use": "Пілот листопад 2026, план переходу з початку 2027; комп'ютерна практика, не припускати конкретний інтерфейс",
+      "rights_status": "official_public_info",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "JYU-speaking",
+      "title": "Офіційні приклади puhuminen",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "priority_0_100": 100,
+      "how_to_use": "Підготовка, kertominen, tilanteita, mielipide, виконання теми",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "JYU-writing",
+      "title": "Офіційні приклади kirjoittaminen",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "priority_0_100": 100,
+      "how_to_use": "Формальний лист, власна позиція, правильний стиль",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "JYU-listening",
+      "title": "Офіційні приклади puheen ymmärtäminen",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "priority_0_100": 100,
+      "how_to_use": "Розуміння наміру і деталей, відкриті й закриті питання",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "JYU-reading",
+      "title": "Офіційні приклади tekstin ymmärtäminen",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "priority_0_100": 100,
+      "how_to_use": "Умови, винятки, суть повідомлень",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Yle-2024",
+      "title": "Yle: 90 B1 запитань / 9 тем",
+      "url": "https://yle.fi/a/74-20082612",
+      "priority_0_100": 98,
+      "how_to_use": "B1 listening і reading; самоперевірка, короткі аудіо",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Yle-older",
+      "title": "Yle: попередні YKI-тренування",
+      "url": "https://yle.fi/a/20-146803",
+      "priority_0_100": 96,
+      "how_to_use": "Аудіювання, читання, граматика та лексика",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Suomikoulut",
+      "title": "Suomi-koulujen tuki",
+      "url": "https://www.suomikoulut.fi/yki/",
+      "priority_0_100": 96,
+      "how_to_use": "70 вправ: 19 lexis/grammar, 23 reading, 28 listening; *–*** складність",
+      "rights_status": "copyright_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Video-YKI-full",
+      "title": "YKI Harjoitus: speaking+answers",
+      "url": "https://www.youtube.com/watch?v=htrQhR-HGM4",
+      "priority_0_100": 97,
+      "how_to_use": "Вправи до 16:22, зразки після; kertominen, keskustelu, tilanteita, mielipide",
+      "rights_status": "video_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Video-YKI-basics",
+      "title": "YKI Harjoitus: speaking 1",
+      "url": "https://www.youtube.com/watch?v=EcIuejiFLZo",
+      "priority_0_100": 95,
+      "how_to_use": "Демонстрація коротких усних ситуацій із відповідями",
+      "rights_status": "video_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Video-YKI-opinion",
+      "title": "YKI-matka: mielipide",
+      "url": "https://www.youtube.com/watch?v=gmg4A5w7eOI",
+      "priority_0_100": 94,
+      "how_to_use": "Самостійна думка і зразок відповіді",
+      "rights_status": "video_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Haaga-Helia",
+      "title": "Haaga-Helia 10 курсів за навичками",
+      "url": "https://www.haaga-helia.fi/fi/avoin-amk/yki-kurssit-avoin-amk",
+      "priority_0_100": 98,
+      "how_to_use": "4 speaking, 2 writing, 2 reading, 2 listening; feedback викладача; 15 €/1 op осінь 2026",
+      "rights_status": "course_paid_do_not_copy",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Haaga-writing",
+      "title": "Haaga-Helia writing 1",
+      "url": "https://www.haaga-helia.fi/fi/avoin-amk/keskitason-yki-harjoittele-kirjoittamista-1",
+      "priority_0_100": 98,
+      "how_to_use": "Формальний і дружній тон, структури вступу й завершення",
+      "rights_status": "course_paid_do_not_copy",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Aalto-2027",
+      "title": "Aalto YKI valmentava 2027",
+      "url": "https://www.aalto.fi/fi/avoimen-yliopiston-kurssit/yki-tutkinnon-keskitason-testiin-valmentava-kurssi-2",
+      "priority_0_100": 88,
+      "how_to_use": "21.01–16.03.2027, 2 ECTS, 40€, очний вечірній; task strategies",
+      "rights_status": "course_paid_do_not_copy",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Kielibuusti-Turku",
+      "title": "Kielibuusti Turku conversations",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/kielibuustissa-kehitettyja-oppimateriaaleja/keskusteluja-suomeksi/keskusteluja-suomeksi-turussa",
+      "priority_0_100": 95,
+      "how_to_use": "Автентичне puhekieli у кафе та бесіди про вихідні",
+      "rights_status": "video_link_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Kielibuusti-writing",
+      "title": "Kielibuusti tips for writing",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/language-learning-tips/language-tips/tips-for-writing",
+      "priority_0_100": 92,
+      "how_to_use": "Регулярні повідомлення, перекази, нові слова в тексті",
+      "rights_status": "open_advice_paraphrase",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Kielibuusti-finnishit",
+      "title": "Kielibuusti review of Finnish it!",
+      "url": "https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/finnish-it",
+      "priority_0_100": 89,
+      "how_to_use": "Переваги AI-практики, але ризик помилок та одноманітного книжного TTS",
+      "rights_status": "review_only",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "Moikka-webinar",
+      "title": "Moikka+ YKI Webinar 7.10.2026",
+      "url": "https://www.moikkaplus.fi/yki-webinar",
+      "priority_0_100": 91,
+      "how_to_use": "Формат, 4 навички, типові помилки, fluency; replay не підтверджено",
+      "rights_status": "video_replay_unverified",
+      "verified_page_date": "2026-10-21"
+    },
+    {
+      "id": "YKI-testi-practice",
+      "title": "YKI-testi.fi practice platform",
+      "url": "https://www.yki-testi.fi/fi",
+      "priority_0_100": 85,
+      "how_to_use": "Розмовні ситуації, таймер, додатковий фоновий шум; 95% match claim not verified",
+      "rights_status": "commercial_no_copy",
+      "verified_page_date": "2026-10-21"
+    }
+  ]
+}
