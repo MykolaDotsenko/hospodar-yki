@@ -34,8 +34,8 @@ def contrast(a:str,b:str)->float:
 
 def main():
     t=json.loads(text(TOKENS))
-    assert t["version"]=="0.2.0"
-    assert t["concept"]=="Відкритий поріг / The open threshold"
+    assert t["version"]=="0.3.0"
+    assert t["concept"]=="Поріг → Маршрут → Дія / Threshold → Route → Action"
     for role in ("primary","accent","paper","forest","ink","surface","learn_tint","exam_tint"):
         assert t["colors"][role].startswith("#")
     for s in ("learn","exam"):
@@ -57,6 +57,15 @@ def main():
     assert t["attention_design"]["not_color_only"] is True
     assert t["attention_design"]["no_unverified_learning_claims"] is True
     assert len(t["attention_design"]["avoid_ai_sameness"]) >= 5
+    assert t["screen_signature"]["name"]=="ThresholdLine"
+    assert "score" in t["screen_signature"]["semantics"] or "YKI" in t["screen_signature"]["semantics"]
+    assert t["attention_design"]["active_accents_per_task"]==1
+    assert t["attention_design"]["proven_learning_effect"]=="NOT_ESTABLISHED"
+    assert t["attention_design"]["contrast_regular_text_min"]==4.5
+    assert t["attention_design"]["contrast_large_text_min"]==3
+    assert t["attention_design"]["target_size_min_css_px"]>=24
+    assert 320 in t["attention_design"]["breakpoints_qa_px"]
+    assert (ROOT/"brand/identity-v03-screen-system.md").is_file()
     # Gold is signature decoration; it is intentionally not allowed as small-on-white text.
     assert contrast(t["colors"]["accent"],t["colors"]["surface"])<4.5
     for path in (MARK,LOCKUP,MONO):
@@ -88,6 +97,18 @@ def main():
     assert "--learn-tint" in css and "--exam-tint" in css
     assert "@media (max-width:560px)" in css
     assert "prefers-reduced-motion" in css
+    assert ".threshold-route" in css and ".threshold-segment.current" in css
+    assert "@media(max-width:380px)" in css
+    assert "@media(forced-colors:active)" in css
+    learn=text(ROOT/"app/app.mjs")
+    exam=text(ROOT/"app/exam.mjs")
+    assert "missionThresholdRoute(m.phase)" in learn
+    assert 'aria-label="Кроки місії"' in learn
+    assert 'threshold-route-exam' in exam
+    assert "Тренувальна послідовність" in exam
+    design=text(ROOT/"docs/15-two-modes-skill-scopes.md")
+    for requirement in ("DESIGN-08","DESIGN-09","DESIGN-10","DESIGN-11","DESIGN-12","DESIGN-13","DESIGN-14","DESIGN-15","DESIGN-16","AC-25","AC-32"):
+        assert requirement in design, requirement
     assert 'gateway.hidden=Boolean(exam.session && !exam.session.finishedAt)' in text(ROOT/"app/exam.mjs")
     assert "recognition" in text(ROOT/"brand/recognition-strategy-v02.md")
     print("PASS: one shared mark, two functional mode links, logo SVG, source-aware brand tokens and accessible text pairs")

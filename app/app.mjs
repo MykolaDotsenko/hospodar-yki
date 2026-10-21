@@ -54,13 +54,27 @@ function missionSelection() {
     secondAnswer:"", repairCorrect:null};
 }
 function ensureMission() { if (!app.mission) app.mission = missionSelection(); }
+
+function missionThresholdRoute(phase) {
+  const labels = ["Спроба", "Перевірка", "Контекст", "Збережено"];
+  const stepIndex = ({answer:0, repair:1, feedback:1, transfer:2, done:3})[phase] ?? 0;
+  return '<ol class="threshold-route" aria-label="Кроки місії">' +
+    labels.map((label, i) => {
+      const status = i < stepIndex ? "completed" : i === stepIndex ? "current" : "upcoming";
+      const accessible = label + (status === "completed" ? " — пройдено" : status === "current" ? " — зараз" : " — попереду");
+      return '<li class="threshold-segment ' + status + '" aria-label="' + accessible + '"' +
+        (status === "current" ? ' aria-current="step"' : '') + '>' +
+        '<span class="threshold-index" aria-hidden="true">' + String(i+1).padStart(2,"0") + '</span>' +
+        '<span class="threshold-label">' + label + '</span></li>';
+    }).join("") + '</ol>';
+}
+
 function renderMission() {
   ensureMission();
   const m = app.mission, t = m.task;
   const overview = panelTitle("20-хвилинна місія · граматика", "Скажи правильно у справжній ситуації",
     "Спроба без підказки → самовиправлення → новий контекст → повторення");
-  const progress = `<div class="steps" aria-label="Етап місії">${Array.from({length:4},(_,i) =>
-    `<span class="step ${i <= ["answer","repair","feedback","transfer","done"].indexOf(m.phase) ? "done":""}"></span>`).join("")}</div>`;
+  const progress = missionThresholdRoute(m.phase);
   const instruction = `<div class="prompt" lang="fi">${h(t.prompt_fi)}</div><span class="pill">${h(t.grammar_tag || "kielioppi")}</span>`;
   if(m.phase === "answer") return panel(overview+progress+
     "<p>Впиши пропущене слово. Перевірка першої самостійної спроби впливає на дату повторення.</p>"+

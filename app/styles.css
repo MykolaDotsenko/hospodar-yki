@@ -99,3 +99,39 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 .skill-writing{border-bottom-color:var(--skill-writing);color:var(--skill-writing)}
 .skill-speaking{border-bottom-color:var(--skill-speaking);color:var(--skill-speaking)}
 @media(max-width:560px){.skills-legend{gap:5px;margin:3px 0 10px}.skill-label{font-size:.71rem;padding:8px 2px}}
+
+
+/* Hospodar v0.3 signature: threshold-route geometry is a working state display,
+   not a decorative loading bar or a percentage pretending to measure YKI B1. */
+.threshold-route{list-style:none;margin:5px 0 20px;padding:0;display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.threshold-segment{min-width:0;min-height:42px;display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;gap:1px;padding:6px 13px 6px 13px;
+  background:#f1f4ef;color:#38564c;
+  clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%,9px 50%)}
+.threshold-segment:first-child{
+  clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%)}
+.threshold-segment.completed{background:#dfece3;color:#31574c}
+.threshold-segment.current{background:#31574c;color:#fff}
+.threshold-index{font-size:.62rem;font-weight:800;letter-spacing:.08em;line-height:1}
+.threshold-label{font-size:.78rem;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+.threshold-route-exam{margin:-5px 0 20px}
+.threshold-route-exam .threshold-segment{background:#e9eef4;color:#083b7a}
+.threshold-route-exam .threshold-segment.completed{background:#d7e3f0}
+.threshold-route-exam .threshold-segment.current{background:#083b7a;color:#fff}
+/* Focus belongs to the answer, not to a collection of competing shiny cards. */
+.site-learn .panel>.eyebrow{color:#31574c}
+.site-exam .panel>.eyebrow{color:#083b7a}
+@media(max-width:380px){
+  .mode-gateway{grid-template-columns:1fr}
+  .skills-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .threshold-route{gap:2px}
+  .threshold-segment{padding:5px 10px 5px 9px}
+  .threshold-index{font-size:.57rem}
+  .threshold-label{font-size:.68rem}
+}
+@media(forced-colors:active){
+  .threshold-segment{clip-path:none;border:1px solid CanvasText;background:Canvas;color:CanvasText}
+  .threshold-segment.current{border-width:3px}
+  .mode-entry{border-color:CanvasText}
+}
