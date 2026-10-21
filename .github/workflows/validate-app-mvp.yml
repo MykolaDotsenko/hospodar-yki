@@ -1,0 +1,36 @@
+name: Validate Hospodar YKI MVP
+on:
+  push:
+    branches: [main, 'feat/**']
+    paths:
+      - 'app/**'
+      - 'content/b1/grammar/contextual-cloze.json'
+      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'content/b1/audio-long/**'
+      - 'content/b1/contextual/reading-pack-v1.json'
+      - '.github/workflows/validate-app-mvp.yml'
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'content/b1/grammar/contextual-cloze.json'
+      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'content/b1/audio-long/**'
+      - 'content/b1/contextual/reading-pack-v1.json'
+      - '.github/workflows/validate-app-mvp.yml'
+permissions:
+  contents: read
+jobs:
+  browser-core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate module syntax
+        run: |
+          node --check app/core.mjs
+          node --check app/app.mjs
+      - name: Unit and real-content integration tests
+        run: node --test app/tests/*.test.mjs
