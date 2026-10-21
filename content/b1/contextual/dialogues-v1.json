@@ -1,0 +1,588 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "name": "9 new functional B1 dialogues",
+  "count_dialogues": 9,
+  "count_turns": 72,
+  "count_questions": 18,
+  "not_official_yki": true,
+  "warning": "Scripts only; NOT actual listening tests until licensed voice recordings with matching checked transcripts exist.",
+  "items": [
+    {
+      "id": "ctx-dialog-01",
+      "theme": "identity",
+      "title_fi": "Ensimmäinen kerta kielikahvilassa",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei! Onko tässä kielikahvila? Olen ensimmäistä kertaa täällä."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kyllä on, tervetuloa! Minun nimeni on Marja. Mikä sinun nimesi on?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Minä olen Oksana. Haluaisin harjoitella puhumista, mutta minua vähän jännittää."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Se on ihan tavallista. Meillä saa puhua rauhassa ja kysyä apua."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Pitääkö minun ilmoittautua johonkin ryhmään?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ei tarvitse. Voit istua tähän pöytään meidän kanssamme."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Hienoa! Mistä täällä yleensä keskustellaan?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Tavallisista asioista, esimerkiksi työstä, harrastuksista ja viikonlopusta."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-01-q1",
+          "type": "open",
+          "prompt_fi": "Miksi Oksana tuli kielikahvilaan?",
+          "model_answer_fi": "Hän haluaa harjoitella puhumista.",
+          "evidence_fi": "Haluaisin harjoitella puhumista",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-01-q2",
+          "type": "open",
+          "prompt_fi": "Pitääkö ryhmään ilmoittautua?",
+          "model_answer_fi": "Ei tarvitse.",
+          "evidence_fi": "Ei tarvitse.",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Esittäydy kielikahvilassa ja pyydä, että toinen puhuu vähän hitaammin.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-02",
+      "theme": "housing",
+      "title_fi": "Soitto huoltoyhtiöön",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei, täällä puhuu talon asukas. Keittiön ikkunasta vetää todella paljon."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kiitos ilmoituksesta. Onko ongelma ollut kauan?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Huomasin sen viime viikolla, kun ulkona kylmeni."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ymmärrän. Voimmeko lähettää huoltomiehen torstaina aamupäivällä?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Torstaiaamu ei valitettavasti sovi, koska olen töissä."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Entä perjantaina kello neljän jälkeen?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Se sopii hyvin. Voisitteko lähettää ajan myös tekstiviestillä?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Totta kai. Lähetän vahvistuksen vielä tänään."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-02-q1",
+          "type": "open",
+          "prompt_fi": "Mikä asunnossa on vialla?",
+          "model_answer_fi": "Keittiön ikkunasta vetää.",
+          "evidence_fi": "Keittiön ikkunasta vetää todella paljon.",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-02-q2",
+          "type": "open",
+          "prompt_fi": "Milloin käynti lopulta sovittiin?",
+          "model_answer_fi": "Perjantaina kello neljän jälkeen.",
+          "evidence_fi": "Entä perjantaina kello neljän jälkeen?",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Soitat uudestaan, koska korjaaja ei tullut sovittuna aikana.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-03",
+      "theme": "services",
+      "title_fi": "Kahvinkeittimen palauttaminen",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei, ostin tämän kahvinkeittimen viime viikolla, mutta se ei käynnisty."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ikävä kuulla. Onko sinulla kuitti mukana?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Kyllä, tässä on sähköinen kuitti puhelimessani."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kiitos. Haluaisitko vaihtaa tuotteen samanlaiseen vai saada rahat takaisin?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Tarvitsen kahvinkeittimen heti, joten haluaisin uuden laitteen."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Tätä mallia ei ole nyt varastossa. Uusi erä saapuu ensi viikolla."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Siinä tapauksessa haluaisin rahani takaisin, jos se on mahdollista."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Selvä. Tarkistan palautuksen tiedot ja kerron, miten se hoidetaan."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-03-q1",
+          "type": "open",
+          "prompt_fi": "Miksi asiakas muuttaa päätöksensä?",
+          "model_answer_fi": "Samaa kahvinkeitinmallia ei ole varastossa.",
+          "evidence_fi": "Tätä mallia ei ole nyt varastossa.",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-03-q2",
+          "type": "open",
+          "prompt_fi": "Mitä asiakas lopuksi toivoo?",
+          "model_answer_fi": "Rahojen palautusta.",
+          "evidence_fi": "haluaisin rahani takaisin",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Valitat verkkokaupan myöhästyneestä toimituksesta ja pyydät ratkaisua.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-04",
+      "theme": "culture",
+      "title_fi": "Ilmoittautuminen uimakurssille",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei! Näin ilmoituksen aikuisten uimakurssista. Onko ryhmässä vielä tilaa?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Hei! Tiistain ryhmä on jo täynnä, mutta torstaina on muutama paikka."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Mihin aikaan torstain ryhmä alkaa?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kello kuudelta illalla, ja tunti kestää 45 minuuttia."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Tarvitseeko osallistujan osata uida etukäteen?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ei, tämä on alkeisryhmä. Ohjaaja auttaa vedessä rauhallisesti."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Hyvä! Voinko ilmoittautua nyt puhelimitse?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kyllä voit. Tarvitsen vain nimesi ja yhteystietosi."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-04-q1",
+          "type": "open",
+          "prompt_fi": "Millä päivällä on vapaita paikkoja?",
+          "model_answer_fi": "Torstaina.",
+          "evidence_fi": "torstaina on muutama paikka",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-04-q2",
+          "type": "open",
+          "prompt_fi": "Sopiiko kurssi aloittelijalle?",
+          "model_answer_fi": "Kyllä, se on alkeisryhmä.",
+          "evidence_fi": "tämä on alkeisryhmä",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Kysy toisesta harrastuksesta ja selvitä, onko välineitä saatavilla.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-05",
+      "theme": "travel",
+      "title_fi": "Missä bussi pysähtyy?",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Anteeksi, meneekö tämä bussi vielä Kauppatorille?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ei tänään. Keskustassa on tapahtuma, ja linja kulkee poikkeusreittiä."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Voi harmi! Missä minun kannattaa jäädä pois?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kirjaston pysäkiltä on lyhyt kävelymatka torille."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Kuinka pitkä matka sieltä on suunnilleen?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ehkä viisi minuuttia kävellen."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Kiitos tiedosta. Myöhästynköhän tapaamisesta?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Toivottavasti et. Voit tarkistaa seuraavan yhteyden reittioppaasta."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-05-q1",
+          "type": "open",
+          "prompt_fi": "Miksi linja ei mene Kauppatorille?",
+          "model_answer_fi": "Keskustassa on tapahtuma.",
+          "evidence_fi": "Keskustassa on tapahtuma",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-05-q2",
+          "type": "open",
+          "prompt_fi": "Missä asiakas voi jäädä pois?",
+          "model_answer_fi": "Kirjaston pysäkillä.",
+          "evidence_fi": "Kirjaston pysäkiltä",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Kysy kuljettajalta toista reittiä, sillä tarvitset esteettömän kulkuyhteyden.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-06",
+      "theme": "health",
+      "title_fi": "Ajan siirtäminen",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hyvää huomenta, haluaisin siirtää perjantain vastaanottoaikaani."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Totta kai. Mikä on syy muutokseen?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Työvuoroni muuttui enkä pääse perjantaina aamulla."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ymmärrän. Meillä olisi vapaa aika maanantaina kello 14."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Maanantai sopii, mutta ehtisinkö paikalle vasta puoli kolmelta?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Valitettavasti seuraava vapaa aika on vasta keskiviikkona kello 15."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Keskiviikko sopii hyvin. Voitteko lähettää vahvistuksen?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kyllä. Lähetän sinulle tekstiviestin vielä tänään."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-06-q1",
+          "type": "open",
+          "prompt_fi": "Miksi aika pitää siirtää?",
+          "model_answer_fi": "Työvuoro muuttui.",
+          "evidence_fi": "Työvuoroni muuttui",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-06-q2",
+          "type": "open",
+          "prompt_fi": "Mihin aikaan uusi käynti sovittiin?",
+          "model_answer_fi": "Keskiviikkona kello 15.",
+          "evidence_fi": "keskiviikkona kello 15",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Soitat uudestaan ja tarkistat, missä vastaanotto järjestetään.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-07",
+      "theme": "work",
+      "title_fi": "Työvuoron vaihtaminen",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei! Voisitko vaihtaa työvuoroa kanssani ensi perjantaina?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ehkä voisin. Minkä vuoron haluaisit vaihtaa?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Minulla on iltavuoro, mutta minun pitäisi päästä perhejuhliin."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Minulla on aamuvuoro. Voisin ehkä tehdä illan, jos esihenkilö hyväksyy vaihdon."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Kiitos paljon! Voimmeko kysyä häneltä tänään?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kyllä. Hän on palaverissa, mutta tulee takaisin kahdelta."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Sopiiko, että menemme yhdessä juttelemaan hänen kanssaan?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Sopii. Nähdään työhuoneen edessä vähän ennen kahta."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-07-q1",
+          "type": "open",
+          "prompt_fi": "Miksi henkilö haluaa vaihtaa vuoroa?",
+          "model_answer_fi": "Hänellä on perhejuhlat.",
+          "evidence_fi": "minun pitäisi päästä perhejuhliin",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-07-q2",
+          "type": "open",
+          "prompt_fi": "Kuka hyväksyy mahdollisen vaihdon?",
+          "model_answer_fi": "Esihenkilö.",
+          "evidence_fi": "jos esihenkilö hyväksyy vaihdon",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Pyydät esihenkilöltä joustoa koulutukseen osallistumista varten.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-08",
+      "theme": "environment",
+      "title_fi": "Mihin muovipakkaus kuuluu?",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Anteeksi, osaatko sanoa, mihin nämä muovipakkaukset laitetaan?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Toki. Muovinkeräysastia on jätekatoksen oikeassa reunassa."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Pitääkö pakkaukset pestä kokonaan puhtaiksi?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ei tarvitse, mutta niiden pitää olla tyhjiä."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Entä nämä vanhat paristot? Voinko laittaa ne sekajätteeseen?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Ei, paristot viedään erilliseen keräyspisteeseen."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Missä sellainen piste on lähistöllä?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Yleensä ruokakaupassa on paristokeräys. Kannattaa tarkistaa kaupasta."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-08-q1",
+          "type": "open",
+          "prompt_fi": "Mihin muovipakkaukset viedään?",
+          "model_answer_fi": "Jätekatoksen oikeassa reunassa olevaan astiaan.",
+          "evidence_fi": "Muovinkeräysastia on jätekatoksen oikeassa reunassa.",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-08-q2",
+          "type": "open",
+          "prompt_fi": "Saako paristot laittaa sekajätteeseen?",
+          "model_answer_fi": "Ei saa.",
+          "evidence_fi": "paristot viedään erilliseen keräyspisteeseen",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Kysyt, miten suuret sähkölaitteet pitää kierrättää.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    },
+    {
+      "id": "ctx-dialog-09",
+      "theme": "society",
+      "title_fi": "Kurssi-ilmoittautumisen vahvistus",
+      "turns": [
+        {
+          "speaker": "A",
+          "text_fi": "Hei, ilmoittauduin kurssille maanantaina, mutta en ole saanut vahvistusta."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Hei! Millä nimellä ilmoittauduit?"
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Nimeni on Olli Laine. Kurssi alkaa ensi kuussa."
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Kiitos. Näen ilmoittautumisesi, mutta se on vielä käsittelyssä."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Tarkoittaako se, etten ole vielä saanut kurssipaikkaa?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Juuri niin. Saat sähköpostin heti, kun paikka varmistuu."
+        },
+        {
+          "speaker": "A",
+          "text_fi": "Selvä. Kuinka kauan minun kannattaa odottaa?"
+        },
+        {
+          "speaker": "B",
+          "text_fi": "Jos viestiä ei tule viikon kuluessa, ota uudelleen yhteyttä neuvontaan."
+        }
+      ],
+      "questions": [
+        {
+          "id": "ctx-dialog-09-q1",
+          "type": "open",
+          "prompt_fi": "Miksi kurssipaikka ei ole vielä varma?",
+          "model_answer_fi": "Ilmoittautuminen on vielä käsittelyssä.",
+          "evidence_fi": "se on vielä käsittelyssä",
+          "scoring": "semantic"
+        },
+        {
+          "id": "ctx-dialog-09-q2",
+          "type": "open",
+          "prompt_fi": "Miten vahvistus tulee?",
+          "model_answer_fi": "Sähköpostilla.",
+          "evidence_fi": "Saat sähköpostin heti",
+          "scoring": "semantic"
+        }
+      ],
+      "roleplay_transfer_fi": "Soitat uudestaan ja kysyt, onko kurssille jäänyt vapaita paikkoja.",
+      "register": "neutral_spoken_yleispuhekieli",
+      "level_hint": "A2.2-B1",
+      "audio_status": "script_only_no_recording_yet",
+      "scoring_status": "NOT_VALID_FOR_LISTENING_ASSESSMENT_UNTIL_AUDIO_RECORDED",
+      "source": "project_original",
+      "quality_status": "pending_S2_teacher_review"
+    }
+  ]
+}
