@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-21",
+  "identity": "Hospodar YKI",
+  "is_official_exam": false,
+  "notes_uk": "Оригінальні вправи до легально доступних записів. Не видавати семантичні деталі (особливо в монологах) за перевірений транскрипт без людського прослуховування.",
+  "lessons": [
+    {
+      "id": "audio-suomen-kieli",
+      "audio_id": "spoken_finnish_intro",
+      "task_type": "gist_own_words",
+      "level": "B1-B2",
+      "instruction_fi": "Kuuntele ensin kerran ilman tekstiä. Kerro sen jälkeen omin sanoin, mistä puhuja kertoo ja mitä uutta kuulit.",
+      "review_criteria_uk": [
+        "Тема аудіо визначена без субтитрів",
+        "Є мінімум одна конкретна деталь",
+        "Переказ самостійний, а не скопійований"
+      ],
+      "transfer_fi": "Kerro omin sanoin suomen kielestä uudelle opiskelijalle.",
+      "audio_verified_transcript": false
+    },
+    {
+      "id": "audio-suomi",
+      "audio_id": "spoken_finland_intro",
+      "task_type": "gist_and_details",
+      "level": "B1-B2",
+      "instruction_fi": "Kuuntele puhetta Suomesta. Kerro pääasia ja kaksi yksityiskohtaa. Mikä tieto oli sinulle uusi?",
+      "review_criteria_uk": [
+        "Головна тема",
+        "Дві конкретні деталі без підказок",
+        "Розмежування почутого та власних знань"
+      ],
+      "transfer_fi": "Kerro ystävällesi kahdesta asiasta, joita Suomessa kannattaa tietää.",
+      "audio_verified_transcript": false
+    },
+    {
+      "id": "audio-numbers",
+      "audio_id": "numbers_1_24",
+      "task_type": "listening_number_recognition",
+      "level": "A2-B1",
+      "instruction_fi": "Kuuntele numerot. Kirjoita viisi peräkkäistä numeroa, jotka kuulit, ja tarkista sitten oikea järjestys.",
+      "answer_pattern": "1, 2, 3, ..., 24",
+      "scoring_note_uk": "Потрібно знати позицію сегмента; для машинного оцінювання знадобляться точні таймкоди.",
+      "transfer_fi": "Keksi puhelinnumero tai kellonaika ja sano se ääneen.",
+      "audio_verified_transcript": true
+    },
+    {
+      "id": "audio-dialogue-existing",
+      "audio_id": "metro_dialogue",
+      "task_type": "dialogue_roleplay",
+      "level": "A2-B1",
+      "instruction_fi": "Kuuntele keskustelu kahdesti. Kerro, kuka puhuu ja mikä on heidän tapaamisensa tarkoitus. Vastaa sitten yhdelle puhujalle.",
+      "review_criteria_uk": [
+        "Зрозумів, що це діалог",
+        "Власна відповідь",
+        "Перенесення у новий діалог"
+      ],
+      "transfer_fi": "Sovi ystäväsi kanssa uusi tapaamispaikka.",
+      "audio_verified_transcript": false
+    },
+    {
+      "id": "audio-clarification",
+      "audio_ids": [
+        "en_ymmarra",
+        "en_ymmarra_alt",
+        "en_ymmarra_pd_alt",
+        "en_tieda"
+      ],
+      "task_type": "short_response_shadowing",
+      "level": "A2-B1",
+      "instruction_fi": "Kuuntele eri puhujien lyhyet ilmaukset. Toista ja käytä yhtä niistä kohteliaassa tilanteessa. Lisää oma tarkentava kysymys.",
+      "review_criteria_uk": [
+        "Репліка використана в доречному контексті",
+        "Є уточнювальне запитання",
+        "Можна відповісти без текстової опори"
+      ],
+      "transfer_fi": "Kysy lisätietoja, jos et ymmärrä bussin reittimuutosta."
+    }
+  ]
+}

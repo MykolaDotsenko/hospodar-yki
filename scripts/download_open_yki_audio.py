@@ -94,7 +94,7 @@ def main() -> int:
         except Exception as exc:
             errors.append((entry["id"], str(exc)))
             print(f"FAILED {entry['id']}: {exc}", file=sys.stderr)
-        time.sleep(0.25)
+        time.sleep(0.9)
     if errors:
         print(f"{len(errors)} downloads failed of {len(catalog['open_licensed_downloads'])}", file=sys.stderr)
         print("Partial import is acceptable: successfully downloaded files will be committed; failed sources remain catalogued.", file=sys.stderr)
