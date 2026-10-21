@@ -1,4 +1,18 @@
-# 🇫🇮 HospOdar YKI — evidence-based Finnish B1/B1+ preparation
+<p align="center">
+  <img src="brand/logo/hospodar-yki-lockup.svg" alt="Hospodar YKI — logo concept" width="720" />
+</p>
+
+# Hospodar YKI
+
+<p align="center"><strong>Real Finnish. Ready for YKI.</strong></p>
+
+**Фінська для життя. Впевненість для YKI.**
+
+Evidence-informed навчання живої фінської: реалістичні ситуації, корекція помилок, повторення та незалежна перевірка прогресу. Ми створюємо **оригінальні матеріали**, а не переписуємо підручники чи продаємо ілюзію успіху.
+
+**[🎨 Бренд](brand/README.md)** · [💬 Позиціонування й місія](brand/brand-platform.md) · [🎛️ Візуальна система](brand/visual-system.md) · [📣 Маркетинг](brand/marketing.md) · [📚 Навчальний контент](content/README.md)
+
+> Незалежний освітній проєкт. Не є офіційним продуктом YKI, Opetushallitus чи University of Jyväskylä. Оцінки тренувань не є офіційними результатами іспиту.
 
 **Мета:** YKI suomi, **keskitaso**, оцінка **3 / B1** (робоча ціль — стабільний B1+) на **10.04.2027**. Додаткові можливості — окремі модулі у травні/червні 2027. Початкова робоча гіпотеза рівня: приблизно **A2.2**, ще не підтверджена стандартизованою діагностикою.
 
