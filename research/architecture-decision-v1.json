@@ -9,7 +9,8 @@
     "separate learn and exam policies",
     "source-faithful but not falsely-official YKI 2027 rehearsal",
     "offline local-first, voice and rich multimedia",
-    "simple deployment and incremental evolution"
+    "simple deployment and incremental evolution",
+    "First-class Android game: one Google Play installation, ~2–3 GB rights-cleared offline media available from first launch"
   ],
   "repository_baseline": {
     "source": "docs/12-mvp-architecture.md",
@@ -34,7 +35,7 @@
     "workflow_state": "XState v5 only for exam and recording orchestration",
     "domain": "pure typed functions and use-cases",
     "local_db": "IndexedDB + Dexie",
-    "offline": "versioned Service Worker / Workbox via vite-plugin-pwa; user-selected cache packs",
+    "offline": "Web: PWA/Workbox downloadable content packs. Android: asset-pack supplied all licensed bundled lessons before first launch (no mandatory lesson downloads).",
     "test": [
       "Vitest",
       "Playwright Chromium Firefox WebKit",
@@ -49,7 +50,11 @@
       "durable queue and EU container worker for long jobs"
     ],
     "media": "content-addressed external object storage for binary with rights metadata in Git",
-    "package_boundary": "UI may import domain; domain MUST NOT import React, Supabase or browser APIs"
+    "package_boundary": "UI may import domain; domain MUST NOT import React, Supabase or browser APIs",
+    "android": "Capacitor 8 + native Kotlin asset/media bridge + Play Asset Delivery install-time",
+    "game": "Phaser 2D used only for story/world/mini-game screens (not exam/writing)",
+    "android_distribution": "AAB + install-time PAD, NOT a literal single standalone 3 GB APK",
+    "native_media": "installed packs played directly via native media adapter with tested seek/byte range; no multi-GB IndexedDB copy"
   },
   "three_audits": [
     {
@@ -89,7 +94,7 @@
   ],
   "candidate_scores": {
     "editorial_not_empirical": true,
-    "method": "Weighted engineering fit: maintenance <=30, offline <=25, rich learning <=20, deploy <=15, portability <=10; judgments, not tested benchmarks",
+    "method": "Weighted engineering fit: maintenance <=30, offline <=25, rich learning <=20, deploy <=15, portability <=10; judgments, not tested benchmarks Baseline scoring predates mobile-game requirement; cannot be reused as tested comparison against Godot/Capacitor Android.",
     "weights": {
       "maintainability": 30,
       "offline_exam_reliability": 25,
@@ -158,7 +163,8 @@
         "total100": 70,
         "recommended": false
       }
-    ]
+    ],
+    "not_android_benchmarked": true
   },
   "architectural_packages": [
     {
@@ -277,6 +283,21 @@
       "id": "no_audio_based_cefr_with_asr_alone",
       "value": true,
       "reason": "STT recognized text is not fluency/phonology"
+    },
+    {
+      "id": "android_game_no_replay_hints_in_exam",
+      "value": true,
+      "reason": "game canvas/NPC/streak overlays prohibited in independent YKI rehearsal"
+    },
+    {
+      "id": "android_media_in_install_time_play_asset_delivery_packs",
+      "value": true,
+      "reason": "2–3 GB offline release requires pack readiness on first launch"
+    },
+    {
+      "id": "no_unlicensed_youtube_content_download",
+      "value": true,
+      "reason": "external third-party links cannot be rehosted without distribution permission"
     }
   ],
   "delivery_phases": [
@@ -430,5 +451,8 @@
       "status": "NOT_IMPLEMENTED_REQUIREMENT",
       "verification_kind": "future_automated_or_manual_test"
     }
-  ]
+  ],
+  "latest_amendment": "ADR-023",
+  "android_supplemental_adr": "research/android-game-distribution-v1.json",
+  "android_supplemental_doc": "docs/23-android-offline-game-and-3gb-media-architecture.md"
 }
