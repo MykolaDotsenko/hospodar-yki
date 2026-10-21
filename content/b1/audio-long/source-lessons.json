@@ -1,0 +1,490 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-21",
+  "producer": "Hospodar YKI",
+  "source_type": "original",
+  "disclaimer": "Independent practice, not official YKI test materials. Texts aimed B1/B1+; not CEFR calibrated by certified assessor.",
+  "count": 6,
+  "items": [
+    {
+      "id": "b1long-01-vesikatko-ja-huoltokaynti",
+      "title_fi": "Vesikatko ja huoltokäynti",
+      "topic": "housing",
+      "level_target": "B1",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Tiistaiaamuna Liisa huomasi, että keittiön hanasta ei tullut vettä. Hän oli juuri valmistamassa aamupalaa ja mietti, oliko ongelma vain hänen asunnossaan.",
+        "Hän tarkisti kylpyhuoneen hanan, mutta sielläkään vesi ei toiminut. Kun Liisa katsoi puhelintaan, hän huomasi taloyhtiön lähettämän viestin.",
+        "Viestissä kerrottiin, että lähellä oli rikkoutunut vesiputki ja korjaustyö oli aloitettu aamulla. Veden arvioitiin palaavan kello kahteen mennessä, mutta tarkkaa aikaa ei vielä tiedetty.",
+        "Liisa oli hieman huolissaan, koska hänen piti lähteä töihin tunnin kuluttua. Lisäksi hänellä oli iltapäivällä vieraita, eikä hän ollut ehtinyt siivota keittiötä.",
+        "Hän päätti kysyä neuvoa huoltoyhtiöltä ja soitti viestissä olevaan numeroon. Asiakaspalvelija kertoi, että kaikki saman talon asunnot olivat ilman vettä.",
+        "Huoltoyhtiö neuvoi varaamaan juomavettä läheisestä kaupasta ja välttämään pesukoneen käyttöä. Samalla asiakaspalvelija muistutti, että korjauksen jälkeen vesi saattaa olla hetken sameaa.",
+        "Liisa kysyi, voiko vettä käyttää heti korjauksen valmistuttua. Työntekijä vastasi, että asukkaille lähetetään uusi viesti, kun veden käyttö on jälleen turvallista.",
+        "Töissä Liisa kertoi tilanteesta työkaverilleen, joka ehdotti, että vierailun voisi siirtää toiselle päivälle. Liisa ei kuitenkaan halunnut perua tapaamista kokonaan.",
+        "Hän lähetti ystävilleen viestin, jossa hän selitti tilanteen ja ehdotti kahvilassa tapaamista. Ystävät pitivät ajatusta hyvänä, joten suunnitelmaa muutettiin.",
+        "Iltapäivällä taloyhtiö ilmoitti, että putki oli korjattu ja vesi toimi jälleen. Liisa kävi kotona tarkistamassa hanat ennen kuin lähti tapaamaan ystäviään.",
+        "Keittiössä vesi oli aluksi hieman sameaa, joten Liisa antoi sen juosta hetken. Sen jälkeen vesi näytti normaalilta, eikä hän huomannut enää mitään ongelmia.",
+        "Päivä ei mennyt aivan suunnitelmien mukaan, mutta Liisa oppi, miten tärkeää on lukea taloyhtiön viestit. Hän päätti myös säilyttää kotona pienen määrän juomavettä mahdollisia häiriöitä varten."
+      ],
+      "word_count": 256,
+      "questions": [
+        {
+          "prompt_fi": "Mikä aiheutti vesikatkon?",
+          "options_fi": [
+            "Rikkoutunut vesiputki",
+            "Taloyhtiön siivouspäivä",
+            "Liisan oma hana"
+          ],
+          "correct_index": 0,
+          "why_uk": "Труба поблизу зламалася, воду відключили під час ремонту.",
+          "id": "b1long-1-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Milloin veden arvioitiin palaavan?",
+          "options_fi": [
+            "Kello kahdeksaan",
+            "Kello kahteen",
+            "Vasta seuraavana aamuna"
+          ],
+          "correct_index": 1,
+          "why_uk": "Орієнтовно до 14:00, точний час був невідомий.",
+          "id": "b1long-1-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä Liisa teki ystävien tapaamisen kanssa?",
+          "options_fi": [
+            "Perui tapaamisen",
+            "Siirsi tapaamisen kahvilaan",
+            "Kutsui huoltoyhtiön mukaan"
+          ],
+          "correct_index": 1,
+          "why_uk": "Вона змінила місце зустрічі на кафе, а не скасувала її.",
+          "id": "b1long-1-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miksi Liisa antoi veden juosta hetken?",
+          "options_fi": [
+            "Vesi oli aluksi sameaa",
+            "Hana ei mennyt kiinni",
+            "Hän halusi täyttää pesukoneen"
+          ],
+          "correct_index": 0,
+          "why_uk": "Вода після ремонту спочатку була мутною.",
+          "id": "b1long-1-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    },
+    {
+      "id": "b1long-02-kurssi-ja-tyovuorot",
+      "title_fi": "Kurssi, joka sopii työvuoroihin",
+      "topic": "education_work",
+      "level_target": "B1",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Markus oli opiskellut suomea itsenäisesti jo pitkään, mutta hän kaipasi enemmän keskusteluharjoituksia. Erityisesti puhelimessa puhuminen tuntui vaikealta, koska hän ei aina ymmärtänyt kaikkea heti.",
+        "Eräänä päivänä Markus näki kirjastossa ilmoituksen uudesta iltakurssista. Kurssilla harjoiteltiin arjen tilanteita, kuten ajanvarausta, asiakaspalvelua ja mielipiteiden perustelemista.",
+        "Kurssi alkoi marraskuussa, ja opetusta järjestettiin kahdesti viikossa. Markus kiinnostui heti, mutta hänen työvuoronsa vaihtelivat viikosta toiseen.",
+        "Hän päätti kirjoittaa kurssin järjestäjälle ennen ilmoittautumista. Viestissä hän kertoi kielitasostaan ja kysyi, voisiko yksittäisen poissaolon korvata kotitehtävillä.",
+        "Seuraavana aamuna opettaja vastasi ystävällisesti ja selitti kurssin käytännöt. Suurin osa harjoituksista tehtiin pareittain, joten säännöllinen osallistuminen oli tärkeää.",
+        "Opettaja kertoi kuitenkin, että poissaolon jälkeen sai aina tehtävät ja lyhyen yhteenvedon. Lisäksi opiskelijoille annettiin palautetta sekä kirjoitetuista teksteistä että suullisista harjoituksista.",
+        "Markus piti vastausta rohkaisevana, mutta halusi varmistaa vielä työnantajansa kanssa työvuorot. Hän kysyi esihenkilöltään, voisiko tiistai-iltojen vuoroja vaihtaa toisiin päiviin.",
+        "Esihenkilö ei voinut luvata muutosta kaikkiin viikkoihin, mutta ehdotti kokeilua ensimmäiseksi kuukaudeksi. Markus sopi asiasta työkaverinsa kanssa ja kiitti molempia joustamisesta.",
+        "Ensimmäisellä kurssikerralla opiskelijat esittelivät itsensä ja kertoivat tilanteista, joissa suomi tuntui hankalalta. Monet mainitsivat samoja ongelmia kuin Markus, joten hän ei tuntenut olevansa yksin.",
+        "Toisella viikolla harjoiteltiin puhelua, jossa lääkäriaikaa piti siirtää. Markus huomasi, että valmiit fraasit auttoivat aluksi, mutta tärkeintä oli oppia kysymään lisää.",
+        "Opettaja pyysi jokaista opiskelijaa yrittämään uudestaan palautteen jälkeen. Kun Markus toisti saman tilanteen hieman eri sanoilla, hän onnistui paljon paremmin.",
+        "Kuukauden lopussa Markus huomasi uskaltavansa käyttää suomea myös työn ulkopuolella. Hän ei enää odottanut täydellistä kielitaitoa, vaan keskittyi siihen, että toinen ihminen ymmärtää hänen asiansa."
+      ],
+      "word_count": 249,
+      "questions": [
+        {
+          "prompt_fi": "Mikä oli Markuksen suurin harjoittelutarve?",
+          "options_fi": [
+            "Keskustelu ja puhelut",
+            "Matematiikka",
+            "Ajokortin teoriakoe"
+          ],
+          "correct_index": 0,
+          "why_uk": "Він хотів більше розмовної практики, особливо телефонних дзвінків.",
+          "id": "b1long-2-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä opettaja sanoi poissaoloista?",
+          "options_fi": [
+            "Kaikki poissaolot olivat kiellettyjä",
+            "Tehtävät ja yhteenveto sai jälkikäteen",
+            "Kurssi loppui heti poissaolon jälkeen"
+          ],
+          "correct_index": 1,
+          "why_uk": "Після пропуску можна отримати завдання та короткий підсумок.",
+          "id": "b1long-2-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miten työvuoroista sovittiin?",
+          "options_fi": [
+            "Kokeiltiin muutosta ensimmäinen kuukausi",
+            "Markus lopetti työnsä",
+            "Työpaikka maksoi kurssin"
+          ],
+          "correct_index": 0,
+          "why_uk": "Керівник запропонував випробувати зміну графіка на місяць.",
+          "id": "b1long-2-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mikä auttoi Markusta eniten?",
+          "options_fi": [
+            "Virheiden välttäminen kokonaan",
+            "Palautteen jälkeinen uusi yritys",
+            "Kaikkien fraasien ulkoa opettelu"
+          ],
+          "correct_index": 1,
+          "why_uk": "Нова спроба після зворотного зв'язку допомогла найкраще.",
+          "id": "b1long-2-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    },
+    {
+      "id": "b1long-03-verkkokaupan-palautus",
+      "title_fi": "Kun verkkokaupan tilaus meni pieleen",
+      "topic": "shopping_services",
+      "level_target": "B1",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Sofia oli tilannut verkkokaupasta uuden takin, koska vanha ei enää pitänyt sadetta. Hän oli tarkistanut kokotaulukon huolellisesti ja valinnut tavallisesti käyttämänsä koon.",
+        "Paketti saapui torstaina lähellä olevaan noutopisteeseen. Sofia haki sen töiden jälkeen ja huomasi kotona, että paketissa oli vääränvärinen takki.",
+        "Hän oli tilannut tummansinisen mallin, mutta saanut kirkkaanpunaisen. Lisäksi pakkauksessa ollut toimituslista näytti oikeaa väriä, joten virhe oli luultavasti tapahtunut varastossa.",
+        "Sofia avasi verkkokaupan asiakaspalvelusivun ja etsi ohjeet väärän tuotteen palauttamiseen. Sivulla oli useita vaihtoehtoja, eikä ollut heti selvää, mikä niistä sopi hänen tilanteeseensa.",
+        "Hän päätti ensin lähettää viestin, jossa kertoi tilausnumeron ja selitti ongelman. Sofia liitti mukaan myös kuvan takista ja pakkauksen toimituslistasta.",
+        "Seuraavana päivänä asiakaspalvelu vastasi ja pahoitteli virhettä. Yritys tarjosi kahta vaihtoehtoa: tuotteen vaihtamista oikeaan väriin tai maksun palauttamista.",
+        "Sofia halusi edelleen tummansinisen takin, mutta hän tarvitsi sen jo seuraavalla viikolla. Siksi hän kysyi, kauanko uuden tuotteen lähettäminen tavallisesti kestää.",
+        "Asiakaspalvelija kertoi, että oikeaa väriä oli varastossa, mutta toimitusaika saattoi vaihdella. Hän ei halunnut luvata tarkkaa päivää ennen kuin uusi paketti oli lähetetty.",
+        "Sofia päätti ottaa vaihtotuotteen ja kysyi samalla, miten väärä takki palautetaan. Asiakaspalvelija lähetti sähköpostiin maksuttoman palautuskoodin ja selkeät ohjeet.",
+        "Lauantaina Sofia vei punaisen takin noutopisteeseen ja pyysi kuitin palautuksesta. Hän säilytti kuitin, jotta voisi myöhemmin todistaa lähettäneensä tuotteen takaisin.",
+        "Maanantaina tuli ilmoitus, että uusi takki oli lähtenyt varastolta. Sofia seurasi pakettia verkossa, mutta ei vielä tiennyt, ehtisikö se saapua ennen viikonlopun matkaa.",
+        "Kun oikea takki lopulta tuli, se sopi hyvin ja oli juuri sellainen kuin Sofia oli toivonut. Hän oppi, että reklamaatiossa kannattaa kertoa ongelma täsmällisesti ja pyytää selkeä ratkaisu."
+      ],
+      "word_count": 257,
+      "questions": [
+        {
+          "prompt_fi": "Mikä tilauksessa oli väärin?",
+          "options_fi": [
+            "Takin väri",
+            "Takin koko",
+            "Hinta oli kaksinkertainen"
+          ],
+          "correct_index": 0,
+          "why_uk": "Товар прийшов неправильного кольору.",
+          "id": "b1long-3-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä vaihtoehtoja kauppa tarjosi?",
+          "options_fi": [
+            "Vaihto tai rahojen palautus",
+            "Vain alennuskuponki",
+            "Tuotteen korjaus kotona"
+          ],
+          "correct_index": 0,
+          "why_uk": "Запропонували обмін або повернення коштів.",
+          "id": "b1long-3-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miksi Sofia kysyi toimitusajasta?",
+          "options_fi": [
+            "Hän tarvitsi takin seuraavalla viikolla",
+            "Hän oli muuttamassa pois",
+            "Hän ei halunnut kuittia"
+          ],
+          "correct_index": 0,
+          "why_uk": "Пальто було потрібне наступного тижня.",
+          "id": "b1long-3-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miksi Sofia säilytti palautuskuitin?",
+          "options_fi": [
+            "Todistaakseen palautuksen",
+            "Saadakseen uuden koon ilman lupaa",
+            "Koska kauppa pyysi rahaa"
+          ],
+          "correct_index": 0,
+          "why_uk": "Щоб мати доказ повернення товару.",
+          "id": "b1long-3-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    },
+    {
+      "id": "b1long-04-muuttunut-bussireitti",
+      "title_fi": "Muuttunut bussireitti",
+      "topic": "travel",
+      "level_target": "B1",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Antti matkusti tavallisesti töihin samalla bussilla joka aamu. Matka kesti noin puoli tuntia, ja hän tunsi jo hyvin kaikki pysäkit.",
+        "Eräänä keskiviikkona bussipysäkillä oli uusi ilmoitus, jossa kerrottiin poikkeusreitistä. Läheisellä kadulla tehtiin putkiremonttia, joten kaksi pysäkkiä jäi väliaikaisesti pois käytöstä.",
+        "Antti luki ilmoituksen nopeasti, mutta ei ollut varma, missä uusi pysäkki sijaitsi. Hän huomasi myös, että aikataulut olivat muuttuneet ja matkaan piti varata lisää aikaa.",
+        "Hän avasi liikennesovelluksen puhelimessaan ja etsi vaihtoehtoisen reitin. Sovellus ehdotti toista bussia, mutta siihen olisi pitänyt vaihtaa matkan puolivälissä.",
+        "Antti ei halunnut myöhästyä tärkeästä aamupalaverista, joten hän päätti kysyä kuljettajalta neuvoa. Kuljettaja vahvisti, että bussi kiertäisi keskustan kautta eikä pysähtyisi vanhalla työpaikan pysäkillä.",
+        "Hän neuvoi Anttia jäämään pois seuraavalla suurella pysäkillä ja kävelemään loppumatkan. Antti kysyi vielä, kuinka kauan kävely suunnilleen kestää.",
+        "Kuljettajan mukaan matkaa oli noin kymmenen minuuttia, jos käveli tavallista vauhtia. Antti kiitti neuvoista ja lähetti nopeasti viestin työkaverilleen.",
+        "Viestissä hän kertoi, että saapuisi ehkä muutaman minuutin myöhemmin. Työkaveri vastasi, että palaverin aloitusta voitiin tarvittaessa siirtää hieman.",
+        "Matkan aikana Antti kuunteli pysäkkikuulutuksia tavallista tarkemmin. Hän ei halunnut jäädä pois liian aikaisin tai ajaa vahingossa pysäkin ohi.",
+        "Kaikki meni lopulta hyvin, ja Antti ehti työpaikalle juuri ennen palaveria. Hän huomasi, että rauhallinen kysyminen oli auttanut enemmän kuin kiireinen arvaaminen.",
+        "Iltapäivällä Antti tarkisti vielä remontin arvioidun keston. Kaupungin sivulla kerrottiin, että poikkeusreittiä käytettäisiin mahdollisesti kaksi viikkoa.",
+        "Antti päätti lähteä seuraavina aamuina hieman aikaisemmin ja opetella uuden reitin kunnolla. Samalla hän sai hyvän tilaisuuden harjoitella suomalaisia liikenneilmoituksia ja kysymysten tekemistä."
+      ],
+      "word_count": 244,
+      "questions": [
+        {
+          "prompt_fi": "Miksi bussireitti oli muuttunut?",
+          "options_fi": [
+            "Putkiremontin takia",
+            "Kesäloman vuoksi",
+            "Kuljettajan pyynnöstä"
+          ],
+          "correct_index": 0,
+          "why_uk": "Причина — ремонт труб на вулиці.",
+          "id": "b1long-4-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä kuljettaja suositteli?",
+          "options_fi": [
+            "Jäämään suurella pysäkillä ja kävelemään",
+            "Odottamaan seuraavaa päivää",
+            "Ostamaan uuden lipun"
+          ],
+          "correct_index": 0,
+          "why_uk": "Вийти на великій зупинці й пройти пішки.",
+          "id": "b1long-4-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä Antti kertoi työkaverilleen?",
+          "options_fi": [
+            "Hän saattaisi hieman myöhästyä",
+            "Hän oli sairas",
+            "Hän vaihtoi työpaikkaa"
+          ],
+          "correct_index": 0,
+          "why_uk": "Попередив про можливе невелике запізнення.",
+          "id": "b1long-4-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Kuinka kauan poikkeusreittiä saatettiin käyttää?",
+          "options_fi": [
+            "Noin kaksi viikkoa",
+            "Vain yksi tunti",
+            "Koko vuoden"
+          ],
+          "correct_index": 0,
+          "why_uk": "Орієнтовно два тижні.",
+          "id": "b1long-4-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    },
+    {
+      "id": "b1long-05-taloyhtion-pihatalkoot",
+      "title_fi": "Yhteinen piha, yhteinen päätös",
+      "topic": "community_environment",
+      "level_target": "B1+",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Vanhan kerrostalon piha oli kevään jälkeen hieman epäsiistissä kunnossa. Pensaat olivat kasvaneet liian suuriksi, ja lasten leikkipaikan vieressä lojui vanhoja oksia.",
+        "Taloyhtiön hallitus ehdotti, että asukkaat järjestäisivät yhteiset pihatalkoot. Tarkoituksena oli siivota piha ja miettiä samalla, miten yhteisiä alueita voisi käyttää paremmin.",
+        "Kaikki eivät innostuneet ajatuksesta heti, sillä monilla oli kiireinen arki. Osa asukkaista ajatteli, että pihan kunnossapito kuuluisi kokonaan huoltoyhtiölle.",
+        "Hallitus selitti, että ammattilaiset hoitavat suuremmat korjaustyöt ja vaaralliset tehtävät. Talkoissa keskityttäisiin vain helppoihin töihin, kuten roskien keräämiseen ja kukkien istuttamiseen.",
+        "Ilmoitustaululle laitettiin lista, johon asukkaat saivat kirjoittaa nimensä. Mukaan pystyi tulemaan vaikka vain puoleksi tunniksi, eikä keneltäkään vaadittu aikaisempaa kokemusta.",
+        "Eräs naapuri ehdotti, että pihalle hankittaisiin uusi penkki. Toinen taas toivoi lisää kasveja, koska nykyinen piha näytti hänen mielestään liian harmaalta.",
+        "Ennen hankintoja hallitus pyysi asukkailta mielipiteitä verkkokyselyn avulla. Vastauksista selvisi, että penkki oli monelle tärkeämpi kuin ylimääräiset kukkaistutukset.",
+        "Talkoopäivänä sää oli viileä, mutta aurinko paistoi ajoittain. Asukkaat jakoivat tehtävät pieniin ryhmiin ja työskentelivät yhdessä pari tuntia.",
+        "Joku keräsi roskia, toinen haravoi, ja muutamat ihmiset puhdistivat yhteisiä puutarhakalusteita. Lapset saivat auttaa kevyissä tehtävissä aikuisten valvonnassa.",
+        "Työn jälkeen kaikki kokoontuivat pihalle juomaan kahvia ja keskustelemaan. Myös ne asukkaat, jotka eivät olleet ehtineet siivota, olivat tervetulleita mukaan.",
+        "Hallitus lupasi selvittää uuden penkin hinnan ja pyytää tarjoukset ennen seuraavaa kokousta. Päätöstä ei haluttu tehdä kiireessä, koska hankinta vaikuttaisi kaikkien yhteisiin kustannuksiin.",
+        "Illalla pihasta näki jo selvän eron, mutta moni piti tärkeimpänä sitä, että naapurit olivat tutustuneet paremmin. Yhteinen tekeminen auttoi keskustelemaan myös eriävistä mielipiteistä rauhallisesti."
+      ],
+      "word_count": 244,
+      "questions": [
+        {
+          "prompt_fi": "Mihin talkoissa keskityttiin?",
+          "options_fi": [
+            "Helppoihin siivous- ja istutustöihin",
+            "Vaarallisiin kattotöihin",
+            "Sähköjärjestelmän korjaukseen"
+          ],
+          "correct_index": 0,
+          "why_uk": "Складні та небезпечні роботи залишили професіоналам.",
+          "id": "b1long-5-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miksi asukkaille tehtiin kysely?",
+          "options_fi": [
+            "Jotta hankinnoissa huomioitaisiin mielipiteet",
+            "Jotta valittaisiin uusi opettaja",
+            "Jotta lopetettaisiin kaikki huolto"
+          ],
+          "correct_index": 0,
+          "why_uk": "Опитування визначало пріоритети спільних закупівель.",
+          "id": "b1long-5-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mikä oli monelle tärkeämpää?",
+          "options_fi": [
+            "Uusi penkki",
+            "Lisää kukkaistutuksia",
+            "Isompi autopaikka"
+          ],
+          "correct_index": 0,
+          "why_uk": "Лавка виявилась важливішою для багатьох.",
+          "id": "b1long-5-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä hankinnasta päätettiin talkoopäivänä?",
+          "options_fi": [
+            "Pyydetään ensin tarjoukset",
+            "Ostetaan heti kallein penkki",
+            "Perutaan hanke varmasti"
+          ],
+          "correct_index": 0,
+          "why_uk": "Вирішили спочатку дізнатися ціну і зібрати пропозиції.",
+          "id": "b1long-5-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    },
+    {
+      "id": "b1long-06-uimahallin-uusi-ryhma",
+      "title_fi": "Uusi harrastus ja parempi arki",
+      "topic": "health_leisure",
+      "level_target": "B1",
+      "material_type": "original_situational_listening",
+      "narrators_type": "single_finnish_tts",
+      "transcript_status": "exact_source_script",
+      "subtitles_status": "timecode_per_synthesized_sentence_block",
+      "source_copyright": "original project content",
+      "segments_fi": [
+        "Emilia oli huomannut, että pitkät työpäivät väsyttivät häntä tavallista enemmän. Hän halusi liikkua säännöllisemmin, mutta ei pitänyt kovin kilpailullisista urheilulajeista.",
+        "Ystävä ehdotti, että Emilia kokeilisi kaupungin uimahallin kevyttä vesiliikuntaryhmää. Ryhmän tavoitteena oli parantaa kuntoa rauhallisesti eikä kilpailla muiden osallistujien kanssa.",
+        "Emilia meni uimahallin verkkosivuille ja luki ryhmän esittelyn. Tunnit järjestettiin maanantai-iltaisin, ja mukaan sai tulla myös ilman aikaisempaa kokemusta.",
+        "Kurssin hinta oli kuitenkin Emilialle hieman epäselvä, sillä sivulla mainittiin sekä osallistumismaksu että tavallinen sisäänpääsy. Hän päätti kysyä asiasta suoraan uimahallilta.",
+        "Asiakaspalvelija selitti, että kurssimaksu kattoi ohjauksen, mutta sisäänpääsy maksettiin erikseen. Jos asiakkaalla oli voimassa oleva sarjakortti, sitä sai käyttää tavalliseen tapaan.",
+        "Emilia halusi tietää myös, millaisia välineitä tunnilla tarvittaisiin. Ohjaajan mukaan uimapuku ja pyyhe riittivät, eikä osallistujien tarvinnut ostaa erityisiä varusteita.",
+        "Ensimmäinen tunti jännitti Emiliaa hieman, sillä hän ei tuntenut ryhmästä ketään. Ohjaaja esitteli harjoitukset rauhallisesti ja muistutti, että jokainen sai edetä oman kuntonsa mukaan.",
+        "Aluksi Emilia teki liikkeet varovasti ja seurasi muiden esimerkkiä. Pian hän huomasi, ettei hänen tarvinnut osata kaikkea täydellisesti, vaan tärkeintä oli osallistua.",
+        "Harjoituksen jälkeen muutama ryhmäläinen jäi juttelemaan pukuhuoneen ulkopuolelle. He kertoivat, että olivat aloittaneet liikunnan samasta syystä: arjen jaksamisen parantamiseksi.",
+        "Seuraavalla viikolla Emilia tuli tunnille jo hieman aikaisemmin. Hän halusi vaihtaa kuulumisia uusien tuttaviensa kanssa ennen harjoituksen alkua.",
+        "Kuukauden kuluttua Emilia huomasi nukkuvansa paremmin ja odottavansa maanantai-iltoja innolla. Hän ei tiennyt, johtuiko muutos vain liikunnasta vai myös uusista ystävistä.",
+        "Emilia päätti jatkaa ryhmässä ainakin kevääseen asti ja kannusti ystäväänsä mukaan. Hän oli oppinut, että uusi harrastus voi parantaa oloa monella eri tavalla."
+      ],
+      "word_count": 248,
+      "questions": [
+        {
+          "prompt_fi": "Miksi Emilia halusi uuden harrastuksen?",
+          "options_fi": [
+            "Parantaakseen arjen jaksamista",
+            "Voittaakseen kilpailun",
+            "Saadakseen uuden työpaikan"
+          ],
+          "correct_index": 0,
+          "why_uk": "Хотіла поліпшити самопочуття та регулярніше рухатись.",
+          "id": "b1long-6-q1",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mitä kurssimaksu kattoi?",
+          "options_fi": [
+            "Ohjauksen, muttei sisäänpääsyä",
+            "Kaikki ostettavat varusteet",
+            "Koko uimahallin käyttö vuodeksi"
+          ],
+          "correct_index": 0,
+          "why_uk": "Оплата курсу покривала інструктаж, але не вхід.",
+          "id": "b1long-6-q2",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Miten ohjaaja suhtautui osallistujien taitoihin?",
+          "options_fi": [
+            "Jokainen sai edetä omalla tavallaan",
+            "Kaikkien piti kilpailla",
+            "Aloittelijoita ei hyväksytty"
+          ],
+          "correct_index": 0,
+          "why_uk": "Можна було працювати у власному темпі.",
+          "id": "b1long-6-q3",
+          "format": "single_choice"
+        },
+        {
+          "prompt_fi": "Mikä saattoi auttaa Emiliaa voimaan paremmin?",
+          "options_fi": [
+            "Liikunta ja uudet ystävät",
+            "Ylimääräiset työvuorot",
+            "Kallis uusi väline"
+          ],
+          "correct_index": 0,
+          "why_uk": "Поліпшення могло бути і від активності, і від соціального спілкування.",
+          "id": "b1long-6-q4",
+          "format": "single_choice"
+        }
+      ],
+      "training_only": true,
+      "official_yki": false,
+      "teacher_review": "pending",
+      "variant_exposure": "subtitles and answer key hidden until after initial attempt"
+    }
+  ]
+}
