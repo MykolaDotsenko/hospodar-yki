@@ -5,9 +5,15 @@ on:
     paths:
       - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
       - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'docs/24-reliability-hardened-architecture-web-android.md'
+      - 'research/reliability-architecture-adr-v1.json'
+      - 'scripts/validate_reliability_architecture.py'
       - 'research/android-game-distribution-v1.json'
       - 'scripts/validate_android_game_architecture.py'
       - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'docs/24-reliability-hardened-architecture-web-android.md'
+      - 'research/reliability-architecture-adr-v1.json'
+      - 'scripts/validate_reliability_architecture.py'
       - 'research/android-game-distribution-v1.json'
       - 'scripts/validate_android_game_architecture.py'
       - 'docs/12-mvp-architecture.md'
@@ -21,9 +27,15 @@ on:
     paths:
       - 'docs/22-optimal-stack-and-architecture-adr-2026-10.md'
       - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'docs/24-reliability-hardened-architecture-web-android.md'
+      - 'research/reliability-architecture-adr-v1.json'
+      - 'scripts/validate_reliability_architecture.py'
       - 'research/android-game-distribution-v1.json'
       - 'scripts/validate_android_game_architecture.py'
       - 'docs/23-android-offline-game-and-3gb-media-architecture.md'
+      - 'docs/24-reliability-hardened-architecture-web-android.md'
+      - 'research/reliability-architecture-adr-v1.json'
+      - 'scripts/validate_reliability_architecture.py'
       - 'research/android-game-distribution-v1.json'
       - 'scripts/validate_android_game_architecture.py'
       - 'docs/12-mvp-architecture.md'
@@ -48,3 +60,4 @@ jobs:
         run: |
           python3 scripts/validate_architecture_decision.py
           python3 scripts/validate_android_game_architecture.py
+          python3 scripts/validate_reliability_architecture.py
