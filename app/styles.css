@@ -89,3 +89,13 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 @media (max-width:560px){.head-note{display:none}.panel{border-radius:14px}.tab{padding:9px 11px}.wrap{padding:0 13px}.actions .btn{flex:1}.brand strong{font-size:1.03rem}.brand small{font-size:.68rem;max-width:242px}.brand-mark{width:42px;height:42px}.mode-gateway{gap:9px;margin:12px 0 5px}.mode-entry{padding:11px 13px 11px 16px}.mode-entry strong{font-size:.99rem}.mode-entry small{font-size:.72rem}.mode-entry::after{width:11px;height:4px;right:10px;top:13px}.mode-number{font-size:.61rem;letter-spacing:.05em}}
 @media (prefers-reduced-motion:no-preference){.btn,.tab{transition:background-color .16s,filter .16s}}
 @media print{nav,.actions,.topbar,.footer{display:none}.panel{border:0;box-shadow:none}}
+
+/* Purposeful color, not generic AI-generated decoration: every cue has a skill label. */
+:root{--skill-reading:#126D79;--skill-listening:#694E9A;--skill-writing:#985023;--skill-speaking:#247244}
+.skills-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:5px 0 14px}
+.skill-label{position:relative;display:flex;align-items:center;justify-content:center;border:1px solid var(--stroke);border-bottom-width:3px;background:#fff;padding:7px 5px;border-radius:8px;font-size:.83rem;min-width:0;font-weight:750;line-height:1.35}
+.skill-reading{border-bottom-color:var(--skill-reading);color:var(--skill-reading)}
+.skill-listening{border-bottom-color:var(--skill-listening);color:var(--skill-listening)}
+.skill-writing{border-bottom-color:var(--skill-writing);color:var(--skill-writing)}
+.skill-speaking{border-bottom-color:var(--skill-speaking);color:var(--skill-speaking)}
+@media(max-width:560px){.skills-legend{gap:5px;margin:3px 0 10px}.skill-label{font-size:.71rem;padding:8px 2px}}
