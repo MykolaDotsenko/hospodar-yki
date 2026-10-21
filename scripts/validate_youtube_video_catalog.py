@@ -18,7 +18,7 @@ def main() -> int:
     assert data["catalog_type"] == "youtube_watch_links_only"
     assert data["schema_version"] == "1.0.0"
     assert len(data["items"]) >= 1, "catalog must not be empty"
-    assert "no_redistribution" in data["copyright"], "rights warning is required"
+    assert "Do not download" in data["copyright"], "rights warning is required"
     video_ids, item_ids = set(), set()
     for item in data["items"]:
         video_id = item["youtube_video_id"]
