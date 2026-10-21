@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "checked_at": "2026-10-21",
   "description": "Curated Finnish speech video for independent Hospodar YKI learning. The links and verified license pages are source-of-truth; binary availability must be confirmed in video/open/available.json",
-  "status": "download_automated_pending_verified_output",
+  "status": "source_catalog_only_see_video/open/available.json_for_verified_binaries",
   "license_policy": "Copying/redistributing only these 3 checked Wikimedia Commons Creative Commons items. Keep attribution and share-alike obligations for transformed/edited works; not official YKI content.",
   "items": [
     {
