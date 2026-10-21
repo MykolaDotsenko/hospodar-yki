@@ -55,7 +55,7 @@ def run():
     assert "full copyrighted books were NOT read" in data["book_access_rule"]
     assert "commercial" in data["rights"].lower()
     docs={
-        "docs/19-learning-books-to-engineering-2026-10.md": ["11. Калібрування","20-хвилинної місії","повні тексти"],
+        "docs/19-learning-books-to-engineering-2026-10.md": ["LE-11. Calibration","20-хвилинної місії","повні тексти"],
         "docs/15-two-modes-skill-scopes.md": ["**LE-01**","**LE-13**","**AC-47:**","**AC-59:**"],
         "docs/12-mvp-architecture.md": ["Learning-science implementation bridge","RetrievalScheduler"],
         "docs/11-mvp-product-requirements.md": ["Новий фундамент навчального двигуна","LE-01"],
