@@ -107,3 +107,11 @@ Existing methodology registry (67 approaches) + licensed reviewed content
 **Scheduler:** current `INTERVAL_DAYS=[1,3,7,14,30]` remains **heuristic transparent MVP fallback**; no evidence it is globally optimal. Equal/expanding intervals were not reliably separated in L2 meta; evaluate data-driven alternatives against unseen retention.  
 **Testing:** deterministic session planner; no starvation for 4 skills; novice content cannot be impossible by policy; zero answer leakage; 7/14-day held-out first attempts must not contain previously taught test item.  
 **No false rollout:** work listed is **planned**, the current vertical mission and mini mock have only partial supporting primitives.
+
+## ADR-022 (21.10.2026) — прийнята цільова архітектура для наступних етапів
+
+**Рішення:** [22 — тричі перевірений стек, архітектура й migration strategy](22-optimal-stack-and-architecture-adr-2026-10.md) · [структурований ADR із fit 0–100 та release gates](../research/architecture-decision-v1.json).
+
+Історичне рішення вище (`zero-build HTML+ES modules+localStorage`) **залишається правильним описом фактичного MVP**. Для подальшої повної розробки прийнято **TypeScript + React + Vite local-first PWA + Dexie/IndexedDB** з `XState v5` **лише для** екзаменаційного і голосового workflow; `pnpm` модульний моноліт і чисте domain layer. Не робити destructive big-bang rewrite. `Supabase EU PostgreSQL/Auth/Storage` і окремий AI worker — **opt-in P1/P2**, не requirement для користувача без акаунта.
+
+**Контракт переходу:** `app/` працює до parity/migration; нова оболонка в `apps/web`; контент зі старих `content/` джерел зі схемним контролем; існуючі Node/Python тести збережені. Відгуки та `firstCorrect` не перетворюються на офіційні рівні YKI. Синхронізація event/outbox идемпотентна; cache PWA не активується серед іспитової сесії; міграція localStorage з export+rollback. **Текст цього ADR не означає виконану міграцію.**
