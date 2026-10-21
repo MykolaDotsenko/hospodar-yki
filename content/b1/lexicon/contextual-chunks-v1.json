@@ -1,0 +1,3458 @@
+{
+  "schema_version": "1.0.0",
+  "date": "2026-10-21",
+  "name": "Hospodar YKI — curated contextual chunks",
+  "target_level": "A2.2-B1+",
+  "counts": {
+    "total": 132,
+    "themes": {
+      "identity": 12,
+      "housing": 12,
+      "services": 12,
+      "culture": 12,
+      "travel": 12,
+      "health": 12,
+      "work": 12,
+      "environment": 12,
+      "society": 12,
+      "functions": 24
+    }
+  },
+  "rights": "Original illustrative examples written for this educational project; no copied third-party lesson text.",
+  "quality": "Draft language examples — S2 teacher review pending, not calibrated for YKI grade.",
+  "usage_rule": "All records are potential material; add a chunk to individual learner's personal SRS ONLY after explicit failure/confusion. Never mark entire bank 'unknown'.",
+  "items": [
+    {
+      "id": "ctx-identity-001",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "muuttaa Suomeen",
+      "meaning_uk": "переїхати до Фінляндії",
+      "context_fi": "Muutin Suomeen kolme vuotta sitten.",
+      "context_uk": "Я переїхала до Фінляндії три роки тому.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «переїхати до Фінляндії». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-002",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "asua vuokralla",
+      "meaning_uk": "орендувати житло",
+      "context_fi": "Asun vuokralla pienessä kerrostalossa.",
+      "context_uk": "Я орендую квартиру в невеликому багатоквартирному будинку.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «орендувати житло». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-003",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla kotoisin",
+      "meaning_uk": "бути родом із",
+      "context_fi": "Olen kotoisin Ukrainasta.",
+      "context_uk": "Я родом з України.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «бути родом із». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-004",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tutustua ihmisiin",
+      "meaning_uk": "знайомитися з людьми",
+      "context_fi": "Haluan tutustua uusiin ihmisiin.",
+      "context_uk": "Я хочу познайомитися з новими людьми.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «знайомитися з людьми». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-005",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "viettää vapaa-aikaa",
+      "meaning_uk": "проводити дозвілля",
+      "context_fi": "Vietän vapaa-aikaani usein luonnossa.",
+      "context_uk": "У вільний час я часто буваю на природі.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «проводити дозвілля». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-006",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pitää yhteyttä",
+      "meaning_uk": "підтримувати зв'язок",
+      "context_fi": "Pidän yhteyttä perheeseeni videopuheluilla.",
+      "context_uk": "Я підтримую зв'язок із сім'єю через відеодзвінки.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «підтримувати зв'язок». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-007",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla kiinnostunut jostakin",
+      "meaning_uk": "цікавитися чимось",
+      "context_fi": "Olen kiinnostunut suomalaisesta kulttuurista.",
+      "context_uk": "Я цікавлюся фінською культурою.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «цікавитися чимось». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-008",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "opiskella itsenäisesti",
+      "meaning_uk": "навчатися самостійно",
+      "context_fi": "Opiskelen suomea itsenäisesti joka ilta.",
+      "context_uk": "Я самостійно вивчаю фінську щовечора.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «навчатися самостійно». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-009",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tottua johonkin",
+      "meaning_uk": "звикнути до чогось",
+      "context_fi": "Olen tottunut talven pimeyteen.",
+      "context_uk": "Я звикла до зимової темряви.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «звикнути до чогось». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-010",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "selviytyä arjessa",
+      "meaning_uk": "справлятися в повсякденні",
+      "context_fi": "Haluan selviytyä arjessa suomeksi.",
+      "context_uk": "Я хочу давати собі раду фінською в повсякденному житті.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «справлятися в повсякденні». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-011",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "rohkaistua puhumaan",
+      "meaning_uk": "наважитися говорити",
+      "context_fi": "Rohkaistuin puhumaan suomea kaupassa.",
+      "context_uk": "Я наважилася говорити фінською в магазині.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «наважитися говорити». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-identity-012",
+      "theme": "identity",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "saada uusia ystäviä",
+      "meaning_uk": "знайти нових друзів",
+      "context_fi": "Sain kurssilta uusia ystäviä.",
+      "context_uk": "Я знайшла нових друзів на курсі.",
+      "tags": [
+        "life",
+        "social"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «знайти нових друзів». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-001",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ilmoittaa viasta",
+      "meaning_uk": "повідомити про несправність",
+      "context_fi": "Ilmoitin viasta huoltoyhtiölle.",
+      "context_uk": "Я повідомила про несправність обслуговуючу компанію.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «повідомити про несправність». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-002",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tehdä vikailmoitus",
+      "meaning_uk": "подати заявку про несправність",
+      "context_fi": "Tein vikailmoituksen verkkopalvelussa.",
+      "context_uk": "Я подала заявку про несправність онлайн.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «подати заявку про несправність». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-003",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vuokrasopimus",
+      "meaning_uk": "договір оренди",
+      "context_fi": "Vuokrasopimus päättyy ensi kuussa.",
+      "context_uk": "Договір оренди закінчується наступного місяця.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «договір оренди». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-004",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "maksaa vuokra ajoissa",
+      "meaning_uk": "вчасно платити оренду",
+      "context_fi": "Maksan vuokran aina ajoissa.",
+      "context_uk": "Я завжди вчасно сплачую оренду.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «вчасно платити оренду». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-005",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "sopia huoltokäynnistä",
+      "meaning_uk": "домовитися про візит майстра",
+      "context_fi": "Voimmeko sopia huoltokäynnistä torstaille?",
+      "context_uk": "Чи можемо домовитися про візит майстра на четвер?",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «домовитися про візит майстра». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-006",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "asunnossa on vetoa",
+      "meaning_uk": "у квартирі протяг",
+      "context_fi": "Makuuhuoneessa on vetoa ikkunan lähellä.",
+      "context_uk": "Біля вікна у спальні протяг.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «у квартирі протяг». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-007",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lämmitys ei toimi",
+      "meaning_uk": "опалення не працює",
+      "context_fi": "Lämmitys ei toimi olohuoneessa.",
+      "context_uk": "У вітальні не працює опалення.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «опалення не працює». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-008",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pitää melua",
+      "meaning_uk": "шуміти",
+      "context_fi": "Naapurit pitävät melua myöhään illalla.",
+      "context_uk": "Сусіди шумлять пізно ввечері.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «шуміти». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-009",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tehdä muuttoilmoitus",
+      "meaning_uk": "повідомити про переїзд",
+      "context_fi": "Tein muuttoilmoituksen ennen muuttoa.",
+      "context_uk": "Я повідомила про зміну адреси до переїзду.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «повідомити про переїзд». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-010",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "palauttaa avaimet",
+      "meaning_uk": "повернути ключі",
+      "context_fi": "Palautan avaimet vuokranantajalle perjantaina.",
+      "context_uk": "Я поверну ключі орендодавцю в п'ятницю.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «повернути ключі». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-011",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kosteusvaurio",
+      "meaning_uk": "пошкодження від вологи",
+      "context_fi": "Seinässä saattaa olla kosteusvaurio.",
+      "context_uk": "У стіні може бути пошкодження від вологи.",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «пошкодження від вологи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-housing-012",
+      "theme": "housing",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pyytää kirjallinen vahvistus",
+      "meaning_uk": "попросити письмове підтвердження",
+      "context_fi": "Voisitteko lähettää kirjallisen vahvistuksen?",
+      "context_uk": "Чи могли б ви надіслати письмове підтвердження?",
+      "tags": [
+        "housing",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «попросити письмове підтвердження». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-001",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tehdä reklamaatio",
+      "meaning_uk": "подати рекламацію",
+      "context_fi": "Tein reklamaation rikkoutuneesta tuotteesta.",
+      "context_uk": "Я подала рекламацію щодо зламаного товару.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «подати рекламацію». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-002",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "palauttaa tuote",
+      "meaning_uk": "повернути товар",
+      "context_fi": "Voinko palauttaa tämän tuotteen ilman kuittia?",
+      "context_uk": "Чи можу повернути цей товар без чека?",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «повернути товар». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-003",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vaihtaa toiseen kokoon",
+      "meaning_uk": "замінити на інший розмір",
+      "context_fi": "Voinko vaihtaa takin toiseen kokoon?",
+      "context_uk": "Чи можу замінити куртку на інший розмір?",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «замінити на інший розмір». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-004",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "saada rahat takaisin",
+      "meaning_uk": "повернути кошти",
+      "context_fi": "Haluaisin saada rahani takaisin.",
+      "context_uk": "Я хотіла б отримати свої гроші назад.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «повернути кошти». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-005",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pyytää kuitti",
+      "meaning_uk": "попросити чек",
+      "context_fi": "Saisinko kuitin, kiitos?",
+      "context_uk": "Чи можна мені чек, будь ласка?",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «попросити чек». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-006",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tilaus on myöhässä",
+      "meaning_uk": "замовлення запізнюється",
+      "context_fi": "Tilaukseni on jo viikon myöhässä.",
+      "context_uk": "Моє замовлення запізнюється вже на тиждень.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «замовлення запізнюється». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-007",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "toimitusaika",
+      "meaning_uk": "строк доставки",
+      "context_fi": "Mikä on tuotteen arvioitu toimitusaika?",
+      "context_uk": "Який орієнтовний строк доставки товару?",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «строк доставки». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-008",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ottaa yhteyttä asiakaspalveluun",
+      "meaning_uk": "зв'язатися зі службою підтримки",
+      "context_fi": "Otin yhteyttä asiakaspalveluun sähköpostitse.",
+      "context_uk": "Я звернулася до підтримки електронною поштою.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «зв'язатися зі службою підтримки». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-009",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "varata aika",
+      "meaning_uk": "записатися на прийом",
+      "context_fi": "Haluaisin varata ajan ensi viikolle.",
+      "context_uk": "Я хотіла б записатися на наступний тиждень.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «записатися на прийом». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-010",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "perua varaus",
+      "meaning_uk": "скасувати бронювання",
+      "context_fi": "Minun täytyy perua huominen varaus.",
+      "context_uk": "Мені потрібно скасувати завтрашнє бронювання.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «скасувати бронювання». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-011",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "maksaa lasku eräpäivään mennessä",
+      "meaning_uk": "оплатити рахунок до строку",
+      "context_fi": "Lasku pitää maksaa eräpäivään mennessä.",
+      "context_uk": "Рахунок потрібно оплатити до дати платежу.",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «оплатити рахунок до строку». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-services-012",
+      "theme": "services",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "selvittää ongelma",
+      "meaning_uk": "з'ясувати проблему",
+      "context_fi": "Voisitteko auttaa minua selvittämään ongelman?",
+      "context_uk": "Чи могли б ви допомогти мені з'ясувати проблему?",
+      "tags": [
+        "service",
+        "consumer"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «з'ясувати проблему». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-001",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "osallistua tapahtumaan",
+      "meaning_uk": "взяти участь у заході",
+      "context_fi": "Haluaisin osallistua kirjaston tapahtumaan.",
+      "context_uk": "Я хотіла б взяти участь у заході бібліотеки.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «взяти участь у заході». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-002",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "harrastaa liikuntaa",
+      "meaning_uk": "займатися фізичною активністю",
+      "context_fi": "Harrastan liikuntaa kolme kertaa viikossa.",
+      "context_uk": "Я займаюся спортом тричі на тиждень.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «займатися фізичною активністю». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-003",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "liittyä ryhmään",
+      "meaning_uk": "приєднатися до групи",
+      "context_fi": "Voinko vielä liittyä keskusteluryhmään?",
+      "context_uk": "Чи можу я ще приєднатися до розмовної групи?",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «приєднатися до групи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-004",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pääsylippu",
+      "meaning_uk": "вхідний квиток",
+      "context_fi": "Ostin pääsylipun museoon verkosta.",
+      "context_uk": "Я купила квиток до музею онлайн.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «вхідний квиток». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-005",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "näyttely on avoinna",
+      "meaning_uk": "виставка відкрита",
+      "context_fi": "Näyttely on avoinna sunnuntaihin asti.",
+      "context_uk": "Виставка відкрита до неділі включно.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «виставка відкрита». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-006",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lainata kirja",
+      "meaning_uk": "позичити книжку",
+      "context_fi": "Lainasin kirjastosta helppolukuisen kirjan.",
+      "context_uk": "Я позичила в бібліотеці легку для читання книжку.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «позичити книжку». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-007",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "palautuspäivä",
+      "meaning_uk": "дата повернення",
+      "context_fi": "Kirjan palautuspäivä on maanantaina.",
+      "context_uk": "Книжку потрібно повернути в понеділок.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дата повернення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-008",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla vapaita paikkoja",
+      "meaning_uk": "мати вільні місця",
+      "context_fi": "Onko kurssilla vielä vapaita paikkoja?",
+      "context_uk": "Чи є ще вільні місця на курсі?",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «мати вільні місця». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-009",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "käydä uimassa",
+      "meaning_uk": "ходити плавати",
+      "context_fi": "Käyn uimassa työpäivän jälkeen.",
+      "context_uk": "Я ходжу плавати після робочого дня.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «ходити плавати». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-010",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kokeilla uutta harrastusta",
+      "meaning_uk": "спробувати нове хобі",
+      "context_fi": "Haluaisin kokeilla uutta harrastusta.",
+      "context_uk": "Я хотіла б спробувати нове захоплення.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «спробувати нове хобі». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-011",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ilmoittautua kurssille",
+      "meaning_uk": "записатися на курс",
+      "context_fi": "Ilmoittauduin suomen jatkokurssille.",
+      "context_uk": "Я записалася на продовження курсу фінської.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «записатися на курс». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-culture-012",
+      "theme": "culture",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kulttuuriero",
+      "meaning_uk": "культурна відмінність",
+      "context_fi": "Tämä kulttuuriero oli minulle aluksi yllätys.",
+      "context_uk": "Спочатку ця культурна відмінність мене здивувала.",
+      "tags": [
+        "free_time",
+        "learning"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «культурна відмінність». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-001",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "myöhästyä bussista",
+      "meaning_uk": "запізнитися на автобус",
+      "context_fi": "Myöhästyin bussista viidellä minuutilla.",
+      "context_uk": "Я запізнилася на автобус на п'ять хвилин.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «запізнитися на автобус». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-002",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vaihtaa junaa",
+      "meaning_uk": "пересісти на інший потяг",
+      "context_fi": "Pitääkö minun vaihtaa junaa Tampereella?",
+      "context_uk": "Чи потрібно мені робити пересадку в Тампере?",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «пересісти на інший потяг». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-003",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "menolippu",
+      "meaning_uk": "квиток в один бік",
+      "context_fi": "Tarvitsen menolipun Helsinkiin.",
+      "context_uk": "Мені потрібен квиток до Гельсінкі в один бік.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «квиток в один бік». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-004",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "meno-paluulippu",
+      "meaning_uk": "квиток туди й назад",
+      "context_fi": "Meno-paluulippu on hieman edullisempi.",
+      "context_uk": "Квиток туди й назад трохи дешевший.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «квиток туди й назад». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-005",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lähtöaika",
+      "meaning_uk": "час відправлення",
+      "context_fi": "Mikä on seuraavan junan lähtöaika?",
+      "context_uk": "Коли відправляється наступний потяг?",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «час відправлення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-006",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "saapumisaika",
+      "meaning_uk": "час прибуття",
+      "context_fi": "Bussin saapumisaika on muuttunut.",
+      "context_uk": "Час прибуття автобуса змінився.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «час прибуття». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-007",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "liikennekatkos",
+      "meaning_uk": "перерва в русі транспорту",
+      "context_fi": "Liikennekatkos kestää arviolta tunnin.",
+      "context_uk": "Перерва в русі триватиме приблизно годину.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «перерва в русі транспорту». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-008",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "korvaava bussi",
+      "meaning_uk": "автобус на заміну",
+      "context_fi": "Junavuoron tilalla kulkee korvaava bussi.",
+      "context_uk": "Замість потяга курсує автобус.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «автобус на заміну». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-009",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "myöhästymisen vuoksi",
+      "meaning_uk": "через запізнення",
+      "context_fi": "Myöhästymisen vuoksi en ehtinyt tapaamiseen.",
+      "context_uk": "Через запізнення я не встигла на зустріч.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «через запізнення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-010",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "löytää perille",
+      "meaning_uk": "дістатися до місця призначення",
+      "context_fi": "Löydänkö perille ilman autoa?",
+      "context_uk": "Чи зможу я дістатися туди без автомобіля?",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дістатися до місця призначення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-011",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kysyä tietä",
+      "meaning_uk": "спитати дорогу",
+      "context_fi": "Kysyin tietä asemalle.",
+      "context_uk": "Я запитала дорогу до вокзалу.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «спитати дорогу». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-travel-012",
+      "theme": "travel",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "matka kestää",
+      "meaning_uk": "дорога триває",
+      "context_fi": "Matka Turusta Helsinkiin kestää noin kaksi tuntia.",
+      "context_uk": "Дорога з Турку до Гельсінкі триває приблизно дві години.",
+      "tags": [
+        "travel",
+        "transport"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дорога триває». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-001",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "varata lääkäriaika",
+      "meaning_uk": "записатися до лікаря",
+      "context_fi": "Yritän varata lääkäriaikaa ensi viikolle.",
+      "context_uk": "Я намагаюся записатися до лікаря на наступний тиждень.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «записатися до лікаря». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-002",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "siirtää vastaanottoaika",
+      "meaning_uk": "перенести час прийому",
+      "context_fi": "Voisinko siirtää vastaanottoaikaani?",
+      "context_uk": "Чи могла б я перенести час прийому?",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «перенести час прийому». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-003",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "minulla on kuumetta",
+      "meaning_uk": "у мене температура",
+      "context_fi": "Minulla on ollut kuumetta kaksi päivää.",
+      "context_uk": "У мене температура вже два дні.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «у мене температура». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-004",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla allerginen jollekin",
+      "meaning_uk": "мати алергію на щось",
+      "context_fi": "Olen allerginen pähkinöille.",
+      "context_uk": "У мене алергія на горіхи.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «мати алергію на щось». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-005",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lääkkeen annostus",
+      "meaning_uk": "дозування ліків",
+      "context_fi": "En ole varma lääkkeen annostuksesta.",
+      "context_uk": "Я не впевнена щодо дозування ліків.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дозування ліків». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-006",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tarvita sairauslomatodistus",
+      "meaning_uk": "потребувати лікарняної довідки",
+      "context_fi": "Tarvitsen sairauslomatodistuksen työnantajalle.",
+      "context_uk": "Мені потрібна довідка про лікарняний для роботодавця.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «потребувати лікарняної довідки». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-007",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vointini on parantunut",
+      "meaning_uk": "мені стало краще",
+      "context_fi": "Vointini on parantunut viikon aikana.",
+      "context_uk": "За тиждень мені стало краще.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «мені стало краще». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-008",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "oireet alkoivat",
+      "meaning_uk": "симптоми почалися",
+      "context_fi": "Oireet alkoivat eilen illalla.",
+      "context_uk": "Симптоми почалися вчора ввечері.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «симптоми почалися». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-009",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pitää huolta terveydestä",
+      "meaning_uk": "дбати про здоров'я",
+      "context_fi": "Yritän pitää huolta terveydestäni.",
+      "context_uk": "Я намагаюся дбати про своє здоров'я.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дбати про здоров'я». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-010",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ottaa yhteyttä terveyskeskukseen",
+      "meaning_uk": "звернутися до медичного центру",
+      "context_fi": "Otin aamulla yhteyttä terveyskeskukseen.",
+      "context_uk": "Вранці я звернулася до медичного центру.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «звернутися до медичного центру». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-011",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tarvita apua kiireellisesti",
+      "meaning_uk": "терміново потребувати допомоги",
+      "context_fi": "Jos tilanne pahenee, tarvitsen apua kiireellisesti.",
+      "context_uk": "Якщо стан погіршиться, мені терміново знадобиться допомога.",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «терміново потребувати допомоги». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-health-012",
+      "theme": "health",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kuvata oireet",
+      "meaning_uk": "описати симптоми",
+      "context_fi": "Osaatko kuvata oireesi tarkemmin?",
+      "context_uk": "Чи можеш описати свої симптоми точніше?",
+      "tags": [
+        "health",
+        "service"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «описати симптоми». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-001",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "hakea työpaikkaa",
+      "meaning_uk": "подаватися на роботу",
+      "context_fi": "Aion hakea työpaikkaa ensi kuussa.",
+      "context_uk": "Я планую подаватися на роботу наступного місяця.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «подаватися на роботу». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-002",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "määräaikainen työsopimus",
+      "meaning_uk": "строковий трудовий договір",
+      "context_fi": "Minulla on määräaikainen työsopimus.",
+      "context_uk": "У мене строковий трудовий договір.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «строковий трудовий договір». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-003",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vakituinen työsuhde",
+      "meaning_uk": "постійні трудові відносини",
+      "context_fi": "Haluaisin saada vakituisen työsuhteen.",
+      "context_uk": "Я хотіла б отримати постійну роботу.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «постійні трудові відносини». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-004",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "työvuoron vaihtaminen",
+      "meaning_uk": "зміна робочої зміни",
+      "context_fi": "Haluaisin sopia työvuoron vaihtamisesta.",
+      "context_uk": "Я хотіла б домовитися про зміну робочої зміни.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «зміна робочої зміни». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-005",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tehdä ylitöitä",
+      "meaning_uk": "працювати понаднормово",
+      "context_fi": "En voi tehdä ylitöitä tänä viikonloppuna.",
+      "context_uk": "Я не можу працювати понаднормово цими вихідними.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «працювати понаднормово». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-006",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "osallistua koulutukseen",
+      "meaning_uk": "взяти участь у навчанні",
+      "context_fi": "Osallistun työturvallisuuskoulutukseen.",
+      "context_uk": "Я беру участь у навчанні з охорони праці.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «взяти участь у навчанні». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-007",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "saada palautetta",
+      "meaning_uk": "отримати зворотний зв'язок",
+      "context_fi": "Haluaisin saada palautetta työstäni.",
+      "context_uk": "Я хотіла б отримати відгук про свою роботу.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «отримати зворотний зв'язок». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-008",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "työkokemus",
+      "meaning_uk": "досвід роботи",
+      "context_fi": "Minulla on kolmen vuoden työkokemus.",
+      "context_uk": "У мене три роки досвіду роботи.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «досвід роботи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-009",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "oppia työssä",
+      "meaning_uk": "вчитися під час роботи",
+      "context_fi": "Opin uusia sanoja työssä joka päivä.",
+      "context_uk": "Я щодня вивчаю нові слова на роботі.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «вчитися під час роботи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-010",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "sopia työajoista",
+      "meaning_uk": "домовитися про графік роботи",
+      "context_fi": "Voimmeko sopia työajoista ensi viikolle?",
+      "context_uk": "Чи можемо погодити робочі години на наступний тиждень?",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «домовитися про графік роботи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-011",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla vastuussa jostakin",
+      "meaning_uk": "відповідати за щось",
+      "context_fi": "Olen vastuussa asiakaspalvelusta.",
+      "context_uk": "Я відповідаю за обслуговування клієнтів.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «відповідати за щось». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-work-012",
+      "theme": "work",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "perehdyttää uusi työntekijä",
+      "meaning_uk": "ввести нового працівника в курс роботи",
+      "context_fi": "Esihenkilö perehdyttää uuden työntekijän.",
+      "context_uk": "Керівник вводить нового працівника в курс роботи.",
+      "tags": [
+        "work",
+        "training"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «ввести нового працівника в курс роботи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-001",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lajitella jätteet",
+      "meaning_uk": "сортувати відходи",
+      "context_fi": "Meillä lajitellaan jätteet kotona.",
+      "context_uk": "У нас вдома сортують відходи.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «сортувати відходи». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-002",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "säästää energiaa",
+      "meaning_uk": "заощаджувати енергію",
+      "context_fi": "Yritän säästää energiaa talvella.",
+      "context_uk": "Я намагаюся заощаджувати енергію взимку.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «заощаджувати енергію». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-003",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "käyttää joukkoliikennettä",
+      "meaning_uk": "користуватися громадським транспортом",
+      "context_fi": "Käytän joukkoliikennettä lähes joka päivä.",
+      "context_uk": "Я користуюся громадським транспортом майже щодня.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «користуватися громадським транспортом». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-004",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "huolehtia luonnosta",
+      "meaning_uk": "дбати про природу",
+      "context_fi": "Meidän pitäisi huolehtia luonnosta paremmin.",
+      "context_uk": "Нам варто краще дбати про природу.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дбати про природу». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-005",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "kierrättää vaatteita",
+      "meaning_uk": "передавати одяг на повторне використання",
+      "context_fi": "Vien vanhat vaatteet kierrätykseen.",
+      "context_uk": "Я здаю старий одяг на повторне використання.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «передавати одяг на повторне використання». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-006",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ilmastonmuutos",
+      "meaning_uk": "зміна клімату",
+      "context_fi": "Ilmastonmuutos vaikuttaa myös Suomeen.",
+      "context_uk": "Зміна клімату впливає також на Фінляндію.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «зміна клімату». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-007",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vähentää jätettä",
+      "meaning_uk": "зменшувати кількість відходів",
+      "context_fi": "Ostan vähemmän turhaa tavaraa vähentääkseni jätettä.",
+      "context_uk": "Я купую менше непотрібних речей, щоб зменшити кількість відходів.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «зменшувати кількість відходів». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-008",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "luonnonsuojelualue",
+      "meaning_uk": "природоохоронна територія",
+      "context_fi": "Kävimme viikonloppuna luonnonsuojelualueella.",
+      "context_uk": "На вихідних ми були на природоохоронній території.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «природоохоронна територія». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-009",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ympäristöystävällinen vaihtoehto",
+      "meaning_uk": "екологічніший варіант",
+      "context_fi": "Pyöräily on usein ympäristöystävällinen vaihtoehto.",
+      "context_uk": "Велосипед часто є екологічнішим варіантом.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «екологічніший варіант». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-010",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "viedä roskat",
+      "meaning_uk": "винести сміття",
+      "context_fi": "Vien roskat ennen töihin lähtöä.",
+      "context_uk": "Я винесу сміття перед виходом на роботу.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «винести сміття». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-011",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vedenkulutus",
+      "meaning_uk": "споживання води",
+      "context_fi": "Olen alkanut seurata vedenkulutustani.",
+      "context_uk": "Я почала стежити за своїм споживанням води.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «споживання води». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-environment-012",
+      "theme": "environment",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "sääennuste",
+      "meaning_uk": "прогноз погоди",
+      "context_fi": "Sääennusteen mukaan huomenna sataa.",
+      "context_uk": "За прогнозом погоди завтра буде дощ.",
+      "tags": [
+        "environment",
+        "daily"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «прогноз погоди». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-001",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "täyttää hakemus",
+      "meaning_uk": "заповнити заяву",
+      "context_fi": "Täytin hakemuksen verkkopalvelussa.",
+      "context_uk": "Я заповнила заяву онлайн.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «заповнити заяву». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-002",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "toimittaa liitteet",
+      "meaning_uk": "надати додатки до заяви",
+      "context_fi": "Minun täytyy toimittaa liitteet perjantaihin mennessä.",
+      "context_uk": "Мені потрібно надати додатки до п'ятниці.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «надати додатки до заяви». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-003",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "käsittelyaika",
+      "meaning_uk": "термін розгляду",
+      "context_fi": "Hakemuksen käsittelyaika voi vaihdella.",
+      "context_uk": "Термін розгляду заяви може відрізнятися.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «термін розгляду». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-004",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "julkinen palvelu",
+      "meaning_uk": "державна або муніципальна послуга",
+      "context_fi": "Monia julkisia palveluja voi käyttää verkossa.",
+      "context_uk": "Багатьма публічними послугами можна користуватися онлайн.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «державна або муніципальна послуга». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-005",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "henkilöllisyystodistus",
+      "meaning_uk": "документ, що посвідчує особу",
+      "context_fi": "Tarvitset voimassa olevan henkilöllisyystodistuksen.",
+      "context_uk": "Тобі потрібен чинний документ, що посвідчує особу.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «документ, що посвідчує особу». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-006",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "varmistaa tieto",
+      "meaning_uk": "перевірити інформацію",
+      "context_fi": "Haluan varmistaa tiedon viralliselta sivulta.",
+      "context_uk": "Я хочу перевірити інформацію на офіційному сайті.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «перевірити інформацію». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-007",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "maksuton palvelu",
+      "meaning_uk": "безкоштовна послуга",
+      "context_fi": "Tämä neuvontapalvelu on maksuton.",
+      "context_uk": "Ця консультаційна послуга безкоштовна.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «безкоштовна послуга». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-008",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olla oikeutettu johonkin",
+      "meaning_uk": "мати право на щось",
+      "context_fi": "En tiedä, olenko oikeutettu tukeen.",
+      "context_uk": "Я не знаю, чи маю право на допомогу.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «мати право на щось». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-009",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ottaa selvää",
+      "meaning_uk": "дізнатися, з'ясувати",
+      "context_fi": "Aion ottaa selvää hakemuksen ehdoista.",
+      "context_uk": "Я планую з'ясувати умови подання заяви.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «дізнатися, з'ясувати». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-010",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "määräaika päättyy",
+      "meaning_uk": "строк закінчується",
+      "context_fi": "Ilmoittautumisen määräaika päättyy torstaina.",
+      "context_uk": "Строк реєстрації закінчується в четвер.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «строк закінчується». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-011",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "saada päätös",
+      "meaning_uk": "отримати рішення",
+      "context_fi": "Sain päätöksen sähköpostitse.",
+      "context_uk": "Я отримала рішення електронною поштою.",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «отримати рішення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-society-012",
+      "theme": "society",
+      "level_hint": "A2.2-B1",
+      "unit_type": "functional_chunk",
+      "expression_fi": "pyytää lisätietoja",
+      "meaning_uk": "попросити додаткову інформацію",
+      "context_fi": "Voisitteko antaa asiasta lisätietoja?",
+      "context_uk": "Чи могли б ви надати додаткову інформацію?",
+      "tags": [
+        "public_service",
+        "documents"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «попросити додаткову інформацію». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-001",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "minun mielestäni",
+      "meaning_uk": "на мою думку",
+      "context_fi": "Minun mielestäni tämä ratkaisu on hyvä.",
+      "context_uk": "На мою думку, це хороше рішення.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «на мою думку». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-002",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olen samaa mieltä",
+      "meaning_uk": "я погоджуюся",
+      "context_fi": "Olen samaa mieltä, koska se helpottaa arkea.",
+      "context_uk": "Я погоджуюся, бо це спрощує повсякденне життя.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я погоджуюся». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-003",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olen eri mieltä",
+      "meaning_uk": "я не погоджуюся",
+      "context_fi": "Olen eri mieltä tästä asiasta.",
+      "context_uk": "Я не погоджуюся з цього питання.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я не погоджуюся». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-004",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "toisaalta",
+      "meaning_uk": "з іншого боку",
+      "context_fi": "Toisaalta palvelu maksaa aika paljon.",
+      "context_uk": "З іншого боку, послуга коштує доволі дорого.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «з іншого боку». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-005",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "sen takia",
+      "meaning_uk": "через це",
+      "context_fi": "Bussi oli myöhässä, ja sen takia myöhästyin töistä.",
+      "context_uk": "Автобус запізнився, і через це я запізнилася на роботу.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «через це». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-006",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "siitä huolimatta",
+      "meaning_uk": "попри це",
+      "context_fi": "Satoi paljon, mutta siitä huolimatta lähdimme ulos.",
+      "context_uk": "Дощило сильно, але попри це ми вийшли надвір.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «попри це». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-007",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "jos mahdollista",
+      "meaning_uk": "якщо можливо",
+      "context_fi": "Haluaisin vaihtaa aikaa, jos mahdollista.",
+      "context_uk": "Я хотіла б змінити час, якщо можливо.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «якщо можливо». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-008",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "niin pian kuin mahdollista",
+      "meaning_uk": "якомога швидше",
+      "context_fi": "Vastatkaa minulle niin pian kuin mahdollista.",
+      "context_uk": "Дайте мені відповідь якомога швидше.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «якомога швидше». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-009",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "viimeistään",
+      "meaning_uk": "не пізніше",
+      "context_fi": "Lähetä lomake viimeistään perjantaina.",
+      "context_uk": "Надішли форму не пізніше п'ятниці.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «не пізніше». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-010",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ainakin",
+      "meaning_uk": "принаймні",
+      "context_fi": "Tarvitsen ainakin kaksi päivää lisää.",
+      "context_uk": "Мені потрібно принаймні ще два дні.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «принаймні». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-011",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "suunnilleen",
+      "meaning_uk": "приблизно",
+      "context_fi": "Matka kestää suunnilleen puoli tuntia.",
+      "context_uk": "Дорога займає приблизно пів години.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «приблизно». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-012",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "vaikka",
+      "meaning_uk": "хоча; навіть якщо",
+      "context_fi": "Lähden kävelylle, vaikka sataa.",
+      "context_uk": "Я піду гуляти, хоча дощить.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «хоча; навіть якщо». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-013",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "sen sijaan",
+      "meaning_uk": "натомість",
+      "context_fi": "En tule maanantaina, mutta voin tulla tiistaina sen sijaan.",
+      "context_uk": "Я не прийду в понеділок, але натомість можу прийти у вівторок.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «натомість». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-014",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "tarkoitan sitä, että",
+      "meaning_uk": "я маю на увазі, що",
+      "context_fi": "Tarkoitan sitä, että tarvitsen uuden ajan.",
+      "context_uk": "Я маю на увазі, що мені потрібен інший час.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я маю на увазі, що». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-015",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "voisitteko toistaa",
+      "meaning_uk": "чи могли б ви повторити",
+      "context_fi": "Voisitteko toistaa viimeisen lauseen?",
+      "context_uk": "Чи могли б ви повторити останнє речення?",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «чи могли б ви повторити». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-016",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "en saanut selvää",
+      "meaning_uk": "я не розібрала",
+      "context_fi": "Anteeksi, en saanut selvää osoitteesta.",
+      "context_uk": "Перепрошую, я не розібрала адресу.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я не розібрала». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-017",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "ymmärsinkö oikein",
+      "meaning_uk": "чи правильно я зрозуміла",
+      "context_fi": "Ymmärsinkö oikein, että aika on torstaina?",
+      "context_uk": "Чи правильно я зрозуміла, що прийом у четвер?",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «чи правильно я зрозуміла». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-018",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "haluaisin kysyä",
+      "meaning_uk": "я хотіла б запитати",
+      "context_fi": "Haluaisin kysyä, onko kurssilla tilaa.",
+      "context_uk": "Я хотіла б запитати, чи є місця на курсі.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я хотіла б запитати». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-019",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olisiko mahdollista",
+      "meaning_uk": "чи було б можливо",
+      "context_fi": "Olisiko mahdollista siirtää tapaamista?",
+      "context_uk": "Чи можна було б перенести зустріч?",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «чи було б можливо». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-020",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olisiko teillä aikaa",
+      "meaning_uk": "чи мали б ви час",
+      "context_fi": "Olisiko teillä aikaa keskustella huomenna?",
+      "context_uk": "Чи мали б ви час поговорити завтра?",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «чи мали б ви час». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-021",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "olen sitä mieltä, että",
+      "meaning_uk": "я вважаю, що",
+      "context_fi": "Olen sitä mieltä, että palvelun pitäisi olla maksuton.",
+      "context_uk": "Я вважаю, що послуга мала б бути безкоштовною.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «я вважаю, що». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-022",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "esimerkiksi",
+      "meaning_uk": "наприклад",
+      "context_fi": "Voimme säästää energiaa esimerkiksi sammuttamalla turhat valot.",
+      "context_uk": "Можемо заощаджувати енергію, наприклад вимикаючи непотрібне світло.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «наприклад». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-023",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "yleensä",
+      "meaning_uk": "зазвичай",
+      "context_fi": "Yleensä käyn kaupassa töiden jälkeen.",
+      "context_uk": "Зазвичай я ходжу до магазину після роботи.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «зазвичай». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    },
+    {
+      "id": "ctx-functions-024",
+      "theme": "functions",
+      "level_hint": "A2.2-B1+",
+      "unit_type": "functional_chunk",
+      "expression_fi": "lopuksi",
+      "meaning_uk": "на завершення",
+      "context_fi": "Lopuksi haluan kiittää avustanne.",
+      "context_uk": "На завершення хочу подякувати за вашу допомогу.",
+      "tags": [
+        "discourse",
+        "interaction"
+      ],
+      "retrieval_prompt_uk": "Не підглядаючи, вислови фінською: «на завершення». Потім придумай власне речення в новій ситуації.",
+      "production_mode": [
+        "speak",
+        "write"
+      ],
+      "model_visibility": "after_attempt",
+      "mastery_metric": "accurate_unseen_use_after_delay",
+      "grammar_note": null,
+      "source_type": "project_original",
+      "is_official_yki": false,
+      "linguistic_review": "pending_S2_teacher",
+      "default_known_status": "unassessed_not_unknown"
+    }
+  ]
+}
