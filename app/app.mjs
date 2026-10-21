@@ -128,7 +128,7 @@ function renderAudio() {
   const long=app.sources.long.lessons[0];
   const story=app.sources.human.items[0];
   if(app.audio.pick===1) return panel(panelTitle("Практика сприйняття", "Людський голос · літературна фінська")+
-    `<p>Додатковий запис живого диктора з історичної казки. <strong>Це не сучасний багатоголосий діалог YKI.</strong></p><audio controls preload="none" src="${h(dataURL(story.path))}"></audio>
+    `<p>Додатковий запис живого диктора з історичної казки. <strong>Це не сучасний багатоголосий діалог YKI.</strong></p><audio controls preload="none" src="${h(dataURL(story.audio_path))}"></audio>
       <p>Послухай головну думку й спробуй переказати своїми словами. Без автоматичного оцінювання.</p>
       <div class="actions">${btn("Сучасний B1-трек (TTS)","audio-synthetic")}</div>`+note);
   const q=long.questions[0];
