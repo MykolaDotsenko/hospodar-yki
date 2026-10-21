@@ -56,11 +56,31 @@ def convert(src,target):
     return data
 
 def fetch_rows():
-    params=urllib.parse.urlencode({"dataset":DATASET,"config":CONFIG,"split":SPLIT,"offset":0,"length":100})
-    raw=json.loads(get(API+"?"+params,600_000))
-    if 'rows' not in raw:raise ValueError("Dataset server did not return rows")
-    print(f"Fetched {len(raw['rows'])} candidate dataset rows",flush=True)
-    return raw['rows']
+    """Try modest row windows and preview API; avoid loading the huge shard.
+
+    Dataset server sometimes replies 500 to length=100 even when small
+    slices or first-rows are usable. Fail transparently if all methods fail.
+    """
+    urls=[]
+    for length in (12,3,1):
+        params=urllib.parse.urlencode({"dataset":DATASET,"config":CONFIG,"split":SPLIT,
+                                        "offset":0,"length":length})
+        urls.append(API+"?"+params)
+    params=urllib.parse.urlencode({"dataset":DATASET,"config":CONFIG,"split":SPLIT})
+    urls.append("https://datasets-server.huggingface.co/first-rows?"+params)
+    failures=[]
+    for url in urls:
+        try:
+            raw=json.loads(get(url,1_200_000))
+            rows=raw.get('rows') or []
+            if rows:
+                print(f"Fetched {len(rows)} FLEURS entries from {url.split('?')[0]}",flush=True)
+                return rows
+            failures.append("no rows")
+        except (urllib.error.HTTPError, urllib.error.URLError,ValueError,KeyError) as ex:
+            failures.append(f"{type(ex).__name__} ({getattr(ex,'code','unknown')})")
+    raise RuntimeError("FLEURS dataset preview currently unavailable: "+"; ".join(failures))
+
 
 def main():
     rows=fetch_rows()
