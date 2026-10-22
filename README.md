@@ -38,7 +38,8 @@ python3 scripts/validate_ai_docs.py
 | [`sources/youtube/`](sources/youtube/README.md) | YouTube-посилання й таймкоди, **без завантажених відео** |
 | [`sources/audio/`](sources/audio/README.md), [`sources/official/`](sources/official/README.md), [`sources/publishers/`](sources/publishers/README.md) | Зовнішні аудіо, офіційні демонстрації, видавці та права |
 | [`knowledge/dictionaries/`](knowledge/dictionaries/README.md) | Контекстні chunks, частотність слів, rektio |
-| [`knowledge/books/`](knowledge/books/README.md), [`knowledge/sources/`](knowledge/README.md) | Книжки/PDF і джерела знань |
+| [`knowledge/books/`](knowledge/books/README.md) | Локальні PDF із правами використання |
+| [`sources/learning/`](sources/learning/README.md) | Джерела знань, підручники, курси й корпуси |
 | [`learning/exercises/`](learning/exercises/README.md) | Теми, діалоги, граматика, чотири навички, іспитові репетиції |
 | [`learning/plans/`](learning/plans/README.md) | Навчальні послідовності, плани аудіювання |
 | [`research/`](research/README.md) | Дослідження педагогіки, дизайну, UX, геймплею, user cases, YKI й архітектури |

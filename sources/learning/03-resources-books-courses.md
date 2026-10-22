@@ -69,7 +69,7 @@
 
 ## Нові джекпот-ресурси (пошук 21.10.2026)
 
-**Не дублювати всю добірку тут.** Повні ціни, прямі посилання, обмеження, рейтинг 0–100 та план використання — у **[knowledge/sources/07-new-yki-resources-2026-10.md](07-new-yki-resources-2026-10.md)**.
+**Не дублювати всю добірку тут.** Повні ціни, прямі посилання, обмеження, рейтинг 0–100 та план використання — у **[sources/learning/07-new-yki-resources-2026-10.md](07-new-yki-resources-2026-10.md)**.
 
 Короткий shortlist: **Haaga-Helia YKI online (15 €/модуль, фідбек викладача)**; **Suomi-koulujen tuki (70 безкоштовних вправ)**; **Puhutsä suomee? (безкоштовна puhekieli A2–B1)**; **Yle Asiointisuomea (ситуації з транскриптами)**; **Kielibuusti Tekstitaidot і Turku dialogues**. Платний Lexie тестувати спочатку безкоштовно; Finnish it! використовувати з обережністю через можливі граматичні неточності в AI-завданнях. **Yle Kielikoulu закритий 2025 року**.
 

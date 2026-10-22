@@ -24,6 +24,9 @@ REQUIRED = (
     "learning/plans/listening-4-weeks.json",
     "assets/video/open/available.json",
     "sources/youtube/youtube-catalog.json",
+    "sources/learning/README.md",
+    "sources/learning/06-sources-and-verification.md",
+    "sources/learning/10-yki-resources-machine-index.json",
     "sources/official/yki-mock-simulation-sources.json",
     "sources/publishers/publisher-series-catalog.json",
     "learning/exercises/b1/index.json",
@@ -35,7 +38,7 @@ REQUIRED = (
     "research/gameplay/gameplay-learning-loops-v1.md",
     "research/user-cases/core-flows-v1.md",
 )
-NO_LONGER_CANONICAL = ("catalog/", "audio/", "video/", "content/", "brand/logo/")
+NO_LONGER_CANONICAL = ("catalog/", "audio/", "video/", "content/", "brand/logo/", "knowledge/sources/")
 MISPLACED_CONTENT = ("assets/audio/catalog.json", "assets/audio/learning-plan.json",
                      "assets/audio/program-4weeks.json",
                      "assets/audio/yki-targeted-sources-2026-10.json",

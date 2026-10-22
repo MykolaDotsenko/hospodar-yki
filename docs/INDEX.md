@@ -16,7 +16,7 @@
 | Android packaging/2D media? | [23 — distribution/game ADR](23-android-offline-game-and-3gb-media-architecture.md) | **TARGET** install-time PAD, licensed media only |
 | Which work next? | [25 — G0–G6 roadmap](25-implementation-vertical-slice-roadmap.md) | **PARTIAL** G0; G1–G6 not complete |
 | Exam and official YKI fidelity? | [14 — digital fidelity](14-digital-yki-fidelity-spec.md) + [21 — executable exam spec](21-digital-yki-exam-simulator-executable-spec.md) | **TARGET**, 2027 unknowns explicit |
-| Content and rights? | [../learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) + [06 — verification](../knowledge/sources/06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
+| Content and rights? | [../learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) + [06 — verification](../sources/learning/06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
 
 For **present code facts**, inspect the actual files/tests and CI, not an old roadmap snapshot. For **what should be built**, use current product spec/ADR. When they differ, record the gap; don't describe the feature as implemented.
 

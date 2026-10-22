@@ -77,6 +77,11 @@ class LocalMediaOwnership(unittest.TestCase):
         self.assertTrue(any("noncanonical duplicate research/plan" in e
                             for e in errors))
 
+    def test_legacy_duplicate_sources_folder_is_rejected(self):
+        (self.root / "knowledge/sources").mkdir(parents=True)
+        errors, _ = check_tree(self.root)
+        self.assertTrue(any("knowledge/sources/" in e for e in errors))
+
     def test_orphan_audio_is_rejected(self):
         (self.root / "assets/audio/tts/harri/duplicate.ogg").write_bytes(b"two")
         self.assertTrue(any("unreferenced media file" in e

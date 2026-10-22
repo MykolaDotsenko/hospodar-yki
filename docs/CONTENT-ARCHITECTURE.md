@@ -15,7 +15,8 @@
 | Publisher links | [sources/publishers/](../sources/publishers/README.md) | Series and episode URLs; not redistributed media |
 | Official demonstrations | [sources/official/](../sources/official/README.md) | YKI/SOLKI references, source verification, no assumed redistribution rights |
 | Dictionaries and chunks | [knowledge/dictionaries/](../knowledge/dictionaries/README.md) | B1 lexicon, corpus frequency words and rektio |
-| Books and external sources | [knowledge/](../knowledge/README.md) | Licensed third-party PDFs in `books/`, course/source research in `sources/` |
+| Licensed local books | [knowledge/books/](../knowledge/books/README.md) | PDF files that can legally be stored, with attribution and license |
+| Learning source references and corpora | [sources/learning/](../sources/learning/README.md) | Books, courses, corpora, verification and link-only material |
 | Learning exercises | [learning/exercises/](../learning/exercises/README.md) | B1 lessons, real-life tasks, dialogues, cloze, diagnostics, 4 skills, video exercises |
 | Pedagogical research | [research/pedagogy/](../research/pedagogy/README.md) | Methods, spaced recall, learning-science reviews, book blueprints |
 | Visual design research | [research/design/](../research/design/README.md) | Color/attention evidence and design evaluation |
@@ -38,4 +39,4 @@
 
 ## External best-practice references
 
-[GitHub Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage) · [Vite static assets](https://vite.dev/guide/assets.html) · [Android Play Asset Delivery](https://developer.android.com/guide/playcore/asset-delivery) · [W3C text alternatives](https://www.w3.org/WAI/tutorials/images/) · [REUSE software license specification](https://reuse.software/spec/) · [YouTube developer policies](https://developers.google.com/youtube/terms/developer-policies).
+[GitHub repository practices](https://docs.github.com/en/repositories/creating-and-managing-repositories/best-practices-for-repositories) · [Diátaxis documentation](https://diataxis.fr/) · [W3C accessible audio/video](https://www.w3.org/WAI/media/av/) · [GitHub Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage) · [Vite static assets](https://vite.dev/guide/assets.html) · [Android Play Asset Delivery](https://developer.android.com/guide/playcore/asset-delivery) · [W3C text alternatives](https://www.w3.org/WAI/tutorials/images/) · [REUSE software license specification](https://reuse.software/spec/) · [YouTube developer policies](https://developers.google.com/youtube/terms/developer-policies).
