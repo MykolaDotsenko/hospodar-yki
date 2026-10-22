@@ -12,6 +12,7 @@
 | Implement React/TypeScript, Dexie, Android Room or PAD | [Web and Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) | Step-by-step safety gates and tests |
 | Add a YKI task, dictionary, image, audio, transcript or video URL | [Content authoring guide](guides/CONTENT-AUTHORING.md) | One physical owner, rights, review, validation |
 | Change GitHub Actions or qualify release | [CI and quality gates](operations/CI-QUALITY-GATES.md) | Exact triggers, evidence, planned versus runnable commands |
+| Research memory, attention, audio/visual learning effects or competitive learning outcomes | [Evidence-based research program](../research/RESEARCH-PROGRAM.md) → [research-to-UX handoff](guides/EVIDENCE-TO-UX.md) | Scientific evidence, accessibility, experiment protocols and implementation gates |
 | Choose code/media redistribution policy | [Licensing boundaries](../LICENSING.md) | Public repo does not automatically grant media rights |
 
 The core [ARCHITECTURE](ARCHITECTURE.md), [CONTRACTS](CONTRACTS.md), [TESTING](TESTING.md), [SECURITY](SECURITY.md), [RELEASE](RELEASE.md) and numbered ADRs keep their historical stable paths. This is deliberate: large file migrations would break existing deep links without improving code quality.
@@ -31,6 +32,10 @@ The core [ARCHITECTURE](ARCHITECTURE.md), [CONTRACTS](CONTRACTS.md), [TESTING](T
 | Content and rights? | [../learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) + [06 — verification](../sources/learning/06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
 
 For **present code facts**, inspect the actual files/tests and CI, not an old roadmap snapshot. For **what should be built**, use current product spec/ADR. When they differ, record the gap; don't describe the feature as implemented.
+
+## From scientific evidence to actual learning outcomes
+
+The [research program](../research/RESEARCH-PROGRAM.md) owns methodology and taxonomy: **no parallel registry**. The [memory, attention, audio/visual synthesis](../research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md) contains first source-linked findings; [impact evaluation](../research/ux/learning-impact-evaluation-protocol.md) owns pre-registered outcome measurements. Convert insights into code only through the [EVIDENCE-TO-UX checklist](guides/EVIDENCE-TO-UX.md), the product's canonical requirement, and real acceptance tests. No feature efficacy is implemented or validated by adding these documents.
 
 ## AI-engineering operational entrypoints
 ### Media, content, knowledge and research

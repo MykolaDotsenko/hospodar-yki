@@ -43,6 +43,10 @@ The browser HTTP server is **not a deployment**. Node 22 is used in CI; Python 3
 
 On conflict, identify the contradiction, preserve data and working behavior, and propose the smallest testable correction. Do not silently rewrite policies.
 
+## Research-driven UX and pedagogy, no engagement theater
+
+If changing learning strategies, sounds, visual cues, animations, AI feedback, concentration features or game mechanics, first consult [research protocol](research/RESEARCH-PROGRAM.md), [sensory/memory evidence](research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md), and [implementation checklist](docs/guides/EVIDENCE-TO-UX.md). The existing [67 learning methods](research/pedagogy/08-learning-methods-evidence-2026-10.md) are research proposals and fit ratings, not measured in-app success. Demand controlled, delayed **independent** Finnish language transfer; avoid decorative distractions, mandatory background sound and unsupported learning-style/brainwave claims. Never add duplicate catalogs to document this work.
+
 ## Hard engineering invariants
 
 - Keep `app/` runnable (vanilla ES modules today). **LEARN uses `localStorage`; EXAM checkpoints use IndexedDB.** React/Vite/Phaser/Capacitor/Kotlin Room are **target design or prototypes**, not a built Android app.
