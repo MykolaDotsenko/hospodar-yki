@@ -9,7 +9,7 @@ test("media manifest rejects duplicates, traversals, source links without rights
   const ok=fixture();assert.equal(validateMediaManifest(ok).size,1);
   const duplicate=fixture();duplicate.entries.push({...duplicate.entries[0]});
   assert.throws(()=>validateMediaManifest(duplicate),e=>e.code==="BAD_ENTRY");
-  for(const path of ["../secret","/private/foo","https://evil.example/bad","../..","a\\b","audio/?x"]){
+  for(const path of ["../secret","/private/foo","https://evil.example/bad","../..","a\\b","audio/?x","audio/%2e%2e/admin.m4a","%252e%252e/audio.m4a"]){
     const t=fixture();t.entries[0].path=path;
     assert.throws(()=>validateMediaManifest(t),e=>e.code==="BAD_ENTRY",path);
   }
