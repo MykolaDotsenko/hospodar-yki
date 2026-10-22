@@ -1,0 +1,36 @@
+# Local dependencies and generated outputs (never ignore original learning assets)
+node_modules/
+.pnpm-store/
+dist/
+coverage/
+.cache/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.gradle/
+**/build/
+local.properties
+*.apk
+*.aab
+
+# Local secrets and configuration
+.env
+.env.*
+!.env.example
+!*.env.example
+*.keystore
+*.jks
+
+# Editor, OS and transient files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.log
