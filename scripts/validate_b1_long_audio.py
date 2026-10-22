@@ -2,9 +2,9 @@
 """Validate 2-3 minute B1 generated audio and its exact transcript/subtitle cues."""
 import json,pathlib,hashlib,re
 R=pathlib.Path(__file__).resolve().parents[1]
-s=json.loads((R/"content/b1/audio-long/source-lessons.json").read_text())
-m=json.loads((R/"content/b1/audio-long/lessons.json").read_text())
-l=json.loads((R/"audio/library.json").read_text())
+s=json.loads((R/"learning/exercises/b1/audio-long/source-lessons.json").read_text())
+m=json.loads((R/"learning/exercises/b1/audio-long/lessons.json").read_text())
+l=json.loads((R/"assets/audio/library.json").read_text())
 assert len(s["items"])==len(m["lessons"])==6
 assert len({x["id"] for x in m["lessons"]})==6
 for source,lesson in zip(s["items"],m["lessons"]):

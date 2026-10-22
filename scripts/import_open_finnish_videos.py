@@ -19,8 +19,8 @@ from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "video/catalog.json"
-RESULT = ROOT / "video/open/available.json"
+CATALOG = ROOT / "assets/video/catalog.json"
+RESULT = ROOT / "assets/video/open/available.json"
 MAX_BYTES = 16 * 1024 * 1024
 ALLOWED_LICENSES = {"CC BY 3.0", "CC BY-SA 3.0", "CC BY-SA 4.0"}
 USER_AGENT = "HospodarYKI-media-import/1.0 (+https://github.com/MykolaDotsenko/hospodar-yki)"
@@ -108,7 +108,7 @@ def main() -> int:
             raise ValueError("Invalid source allowlist/duplicate/license: " + name)
         seen.add(name)
         dest = ROOT / item["output_path"]
-        if not dest.is_relative_to(ROOT / "video/open"):
+        if not dest.is_relative_to(ROOT / "assets/video/open"):
             raise ValueError("Illegal output path")
         dest.parent.mkdir(parents=True, exist_ok=True)
         uri = transcode_url(item)

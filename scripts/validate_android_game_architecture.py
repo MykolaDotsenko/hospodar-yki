@@ -12,12 +12,12 @@ ROOT=Path(__file__).resolve().parents[1]
 def read(p):return json.loads((ROOT/p).read_text(encoding="utf8"))
 
 def main():
-    j=read("research/android-game-distribution-v1.json")
-    parent=read("research/architecture-decision-v1.json")
+    j=read("research/architecture/android-game-distribution-v1.json")
+    parent=read("research/architecture/architecture-decision-v1.json")
     assert j["schema_version"]=="1.0.0"
     assert j["adr"]=="ADR-023" and j["based_on"]=="ADR-022"
     assert parent["latest_amendment"]=="ADR-023"
-    assert parent["android_supplemental_adr"]=="research/android-game-distribution-v1.json"
+    assert parent["android_supplemental_adr"]=="research/architecture/android-game-distribution-v1.json"
     assert parent["repository_baseline"]["full_exam_implemented"] is False
     assert j["status"]=="TARGET_SPEC_NOT_IMPLEMENTED"
     preferred=[x for x in j["distributions"] if x["preferred"]]
@@ -87,7 +87,7 @@ def main():
       "docs/22-optimal-stack-and-architecture-adr-2026-10.md":["PRODUCT AMENDMENT","ADR-023","Phaser"],
       "docs/15-two-modes-skill-scopes.md":["ANDR-01…18","docs/23-android-offline-game-and-3gb-media-architecture.md".split("/")[-1]],
       "docs/12-mvp-architecture.md":["ADR-023", "Capacitor"],
-      "README.md":["Android game with all offline multimedia","research/android-game-distribution-v1.json"]
+      "README.md":["Android game with all offline multimedia","research/architecture/android-game-distribution-v1.json"]
     }.items():
       text=(ROOT/path).read_text(encoding="utf8")
       for marker in markers:

@@ -10,7 +10,7 @@ def read(path):
     return json.loads((ROOT/path).read_text(encoding="utf8"))
 
 def main():
-    d=read("research/architecture-decision-v1.json")
+    d=read("research/architecture/architecture-decision-v1.json")
     assert d["schema_version"]=="1.0.0"
     assert d["decision_id"]=="ADR-022"
     assert d["status"]=="ACCEPTED_AS_TARGET_NOT_IMPLEMENTED"
@@ -50,7 +50,7 @@ def main():
       "docs/22-optimal-stack-and-architecture-adr-2026-10.md":["Audit A", "Audit B", "Audit C", "95", "Dexie", "XState", "Next.js", "Cloudflare", "2011"],
       "docs/12-mvp-architecture.md":["ADR-022 (21.10.2026)", "app/"],
       "docs/15-two-modes-skill-scopes.md":["**ARCH-01", "**ARCH-14", "ARC-01..ARC-14"],
-      "README.md":["Optimal stack / Architecture Decision Record", "research/architecture-decision-v1.json"]
+      "README.md":["Optimal stack / Architecture Decision Record", "research/architecture/architecture-decision-v1.json"]
     }
     for path,need in docs.items():
         content=(ROOT/path).read_text(encoding="utf8")

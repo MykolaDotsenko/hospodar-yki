@@ -10,9 +10,9 @@ import json
 import pathlib
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-LESSONS=ROOT/'content/b1/audio-training/index.json'
-INDEX=ROOT/'content/b1/index.json'
-HIGH=ROOT/'content/b1/high-yield/reading-inference-bank.json'
+LESSONS=ROOT/'learning/exercises/b1/audio-training/index.json'
+INDEX=ROOT/'learning/exercises/b1/index.json'
+HIGH=ROOT/'learning/exercises/b1/high-yield/reading-inference-bank.json'
 
 def load(path):
     return json.loads(path.read_text(encoding='utf-8'))

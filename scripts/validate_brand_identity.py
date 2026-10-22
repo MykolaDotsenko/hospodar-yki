@@ -11,9 +11,9 @@ from xml.etree import ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 TOKENS=ROOT/"brand/tokens.json"
-MARK=ROOT/"brand/logo/hospodar-yki-mark.svg"
-LOCKUP=ROOT/"brand/logo/hospodar-yki-lockup.svg"
-MONO=ROOT/"brand/logo/hospodar-yki-mark-mono.svg"
+MARK=ROOT/"assets/images/brand/hospodar-yki-mark.svg"
+LOCKUP=ROOT/"assets/images/brand/hospodar-yki-lockup.svg"
+MONO=ROOT/"assets/images/brand/hospodar-yki-mark-mono.svg"
 CSS=ROOT/"app/styles.css"
 HTMLS=[ROOT/"app/index.html",ROOT/"app/exam.html"]
 
@@ -79,7 +79,7 @@ def main():
     assert "#C99135" not in text(MONO)
     for html in HTMLS:
         page=text(html)
-        assert page.count("../brand/logo/hospodar-yki-mark.svg")==2, html
+        assert page.count("../assets/images/brand/hospodar-yki-mark.svg")==2, html
         assert page.count('class="mode-entry ')==2, html
         assert page.count('class="skill-label skill-')==4, html
         for label in ("Читання","Аудіювання","Письмо","Говоріння"):
@@ -88,7 +88,7 @@ def main():
         assert 'href="./exam.html"' in page
         assert 'href="./"' in page
         assert 'aria-current="page"' in page
-        assert 'class="brand-mark" src="../brand/logo/hospodar-yki-mark.svg"' in page
+        assert 'class="brand-mark" src="../assets/images/brand/hospodar-yki-mark.svg"' in page
         assert '<span class="brand-mark"' not in page
     css=text(CSS)
     assert ".mode-entry-exam" in css and ".mode-entry-learn" in css
