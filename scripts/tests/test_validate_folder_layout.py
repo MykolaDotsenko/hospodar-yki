@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_folder_layout import check_links
+from validate_folder_layout import check_links, check_local_media_ownership, check_tree
 
 
 class MarkdownLinks(unittest.TestCase):
@@ -40,6 +40,72 @@ class MarkdownLinks(unittest.TestCase):
         )
         self.assertEqual(check_links(self.root), [])
 
+
+
+class LocalMediaOwnership(unittest.TestCase):
+    def setUp(self):
+        import json
+        self.json = json
+        self.context = tempfile.TemporaryDirectory()
+        self.addCleanup(self.context.cleanup)
+        self.root = Path(self.context.name)
+        (self.root / "assets/audio/tts/harri").mkdir(parents=True)
+        (self.root / "assets/video/open").mkdir(parents=True)
+        (self.root / "assets/audio/tts/harri/lesson.ogg").write_bytes(b"one")
+        (self.root / "assets/video/open/scene.webm").write_bytes(b"video")
+        self.audio = {
+            "entries": [{"id": "lesson-one", "path": "assets/audio/tts/harri/lesson.ogg"}]
+        }
+        self.video = {
+            "assets": [{"id": "scene-one", "path": "assets/video/open/scene.webm"}]
+        }
+        self.save()
+
+    def save(self):
+        (self.root / "assets/audio/library.json").write_text(self.json.dumps(self.audio))
+        (self.root / "assets/video/open/available.json").write_text(self.json.dumps(self.video))
+
+    def test_exact_membership_is_valid(self):
+        self.assertEqual(check_local_media_ownership(self.root), [])
+
+    def test_old_source_catalog_location_is_rejected(self):
+        (self.root / "assets/audio/catalog.json").write_text("{}")
+        errors, _ = check_tree(self.root)
+        self.assertTrue(any("noncanonical duplicate research/plan" in e
+                            for e in errors))
+
+    def test_orphan_audio_is_rejected(self):
+        (self.root / "assets/audio/tts/harri/duplicate.ogg").write_bytes(b"two")
+        self.assertTrue(any("unreferenced media file" in e
+                            for e in check_local_media_ownership(self.root)))
+
+    def test_unregistered_other_audio_format_is_rejected(self):
+        (self.root / "assets/audio/tts/harri/accidental.wav").write_bytes(b"wav")
+        self.assertTrue(any("unreferenced media file" in e
+                            for e in check_local_media_ownership(self.root)))
+
+    def test_missing_video_is_rejected(self):
+        (self.root / "assets/video/open/scene.webm").unlink()
+        self.assertTrue(any("manifest points to missing media" in e
+                            for e in check_local_media_ownership(self.root)))
+
+    def test_duplicate_audio_record_is_rejected(self):
+        self.audio["entries"].append(dict(self.audio["entries"][0]))
+        self.save()
+        errors = check_local_media_ownership(self.root)
+        self.assertTrue(any("duplicate media ID" in e for e in errors))
+        self.assertTrue(any("duplicate media path" in e for e in errors))
+
+    def test_outside_folder_and_traversal_rejected(self):
+        self.audio["entries"][0]["path"] = "../private.ogg"
+        self.save()
+        self.assertTrue(any("unsafe/wrong-root media path" in e
+                            for e in check_local_media_ownership(self.root)))
+
+    def test_corrupt_manifest_fails_safely(self):
+        (self.root / "assets/audio/library.json").write_text("{not json}")
+        self.assertTrue(any("invalid media manifest" in e
+                            for e in check_local_media_ownership(self.root)))
 
 if __name__ == "__main__":
     unittest.main()

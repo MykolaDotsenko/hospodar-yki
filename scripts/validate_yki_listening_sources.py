@@ -20,8 +20,8 @@ def https_url(value, label):
     verify(parsed.scheme == "https" and parsed.netloc, "Must be an HTTPS URL: " + label)
 
 def main():
-    data = json.loads((ROOT / "assets/audio/yki-targeted-sources-2026-10.json").read_text(encoding="utf-8"))
-    old = json.loads((ROOT / "assets/audio/catalog.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "sources/audio/yki-targeted-sources-2026-10.json").read_text(encoding="utf-8"))
+    old = json.loads((ROOT / "sources/audio/recording-sources.json").read_text(encoding="utf-8"))
     entries = data["external_candidates"]
     summary = data["summary"]
     official = old["official_yki_link_only"]
@@ -50,7 +50,7 @@ def main():
         verify(x["is_official_yki_sample"] is False and x["not_exam_simulation"] is True, "Mislabelled exam audio " + ident)
         verify(type(x["expert_fit_score_0_100"]) is int and 0 <= x["expert_fit_score_0_100"] <= 100, "Bad rating")
     verify(direct == summary["verified_direct_external_mp3_urls"] == 2, "Direct links mismatched")
-    doc = (ROOT / "assets/audio/YKI-LISTENING-RESEARCH-2026-10.md").read_text(encoding="utf-8")
+    doc = (ROOT / "sources/audio/YKI-LISTENING-RESEARCH-2026-10.md").read_text(encoding="utf-8")
     verify("16 каталогізованих" in doc, "Doc lost entry count")
     verify("0 нових аудіофайлів" in doc, "Must distinguish sources from downloaded audio")
     print(json.dumps({"result": "PASS", "new_external_candidates": len(entries), "publisher_linked_direct_mp3": direct, "official_listening_existing": official_listening, "official_speaking_existing": official_speaking, "new_local_audio_files": 0, "scope": "metadata-only; not acoustic or license compliance testing"}, ensure_ascii=False))

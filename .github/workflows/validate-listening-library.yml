@@ -4,13 +4,13 @@ on:
     branches: [main]
     paths:
       - assets/audio/library.json
-      - assets/audio/program-4weeks.json
+      - learning/plans/listening-4-weeks.json
       - scripts/validate_listening_library.py
       - .github/workflows/validate-listening-library.yml
   pull_request:
     paths:
       - assets/audio/library.json
-      - assets/audio/program-4weeks.json
+      - learning/plans/listening-4-weeks.json
       - scripts/validate_listening_library.py
 permissions:
   contents: read

@@ -66,7 +66,7 @@
 - [Оголошення про поїздки / відкриті — Keskitaso_avoimet_kysymykset_2-1.mp3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskitaso_avoimet_kysymykset_2-1.mp3)
 - [Телефонний етикет — suktpy050.mp3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy050.mp3)
 
-Усі **11 каталогізованих official listening MP3 + 2 speaking MP3** уже посилально зібрані в [assets/audio/catalog.json](../../assets/audio/catalog.json). **Права на повторне поширення не знайдено:** зберігати як URL у реєстрі, не завантажувати MP3 у Git без ліцензії.
+Усі **11 каталогізованих official listening MP3 + 2 speaking MP3** уже посилально зібрані в [sources/audio/recording-sources.json](../../sources/audio/recording-sources.json). **Права на повторне поширення не знайдено:** зберігати як URL у реєстрі, не завантажувати MP3 у Git без ліцензії.
 
 **Для Hospodar YKI:** contemporary B1 2–3 хв з **різними людськими голосами** і перевіреним verbatim transcript + WebVTT; перша спроба без тексту; контроль головної думки, деталей, намірів, прихованої інформації; лише після відповіді повторне навчальне слухання з субтитрами. Для симуляції правила відтворення мають бути окремим конфігом `officially_verified=false`.
 

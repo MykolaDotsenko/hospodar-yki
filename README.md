@@ -6,7 +6,7 @@
 
 ## 🗂️ Де що лежить
 
-**[Структура репозиторію](docs/FOLDER-STRUCTURE.md)** · [Зображення, аудіо, відео](assets/README.md) · [YouTube та офіційні посилання](sources/README.md) · [Словники](knowledge/dictionaries/README.md) · [Вправи](learning/exercises/README.md) · [Дослідження методик, дизайну, UX, геймплею, user cases](research/README.md).
+**[Структура репозиторію](docs/FOLDER-STRUCTURE.md)** · [Зображення, аудіо, відео](assets/README.md) · [YouTube, аудіоджерела й офіційні посилання](sources/README.md) · [Словники](knowledge/dictionaries/README.md) · [Вправи](learning/exercises/README.md) · [Плани навчання](learning/plans/README.md) · [Дослідження методик, дизайну, UX, геймплею, user cases](research/README.md).
 
 Матеріали **фізично впорядковано за призначенням**: `assets/`, `learning/`, `knowledge/`, `sources/`, `research/`. Окремого каталогу-реєстру немає. Локальні файли зберігаються у власних папках; зовнішні YouTube посилання не копіюють відео. Команда перевірки: `python3 scripts/validate_folder_layout.py`.
 
@@ -117,7 +117,7 @@ Evidence-informed навчання живої фінської: реалісти
 
 ## 🎧 Нові YKI-орієнтовані аудіоджерела (21.10.2026)
 
-**[Добірка 16 навчальних аудіоджерел із рейтингами](assets/audio/YKI-LISTENING-RESEARCH-2026-10.md)** · **[JSON-каталог посилань для застосунку](assets/audio/yki-targeted-sources-2026-10.json)**.
+**[Добірка 16 навчальних аудіоджерел із рейтингами](sources/audio/YKI-LISTENING-RESEARCH-2026-10.md)** · **[JSON-каталог посилань для застосунку](sources/audio/yki-targeted-sources-2026-10.json)**.
 
 У добірці офіційні YKI-демо (11 listening аудіо, вже у старому каталозі), природна фінська A2.2–B1, телефонні діалоги VIERKO, 2 багатоголосні Sitra MP3 із опублікованим текстом і Selkosanomat із вебозвученням. **Нових MP3 у GitHub не імпортовано:** права та фактична доступність окремих файлів потребують перевірки.
 

@@ -11,6 +11,7 @@
 | Shared contract unit | `node --test packages/contracts/tests/*.test.mjs` | JS in-memory reference semantics, **not Kotlin parity** |
 | Stack design/ADRs | `python3 scripts/validate_architecture_decision.py && python3 scripts/validate_android_game_architecture.py && python3 scripts/validate_reliability_architecture.py` | Requirement snapshots, **not deployed stack** |
 | AI docs/invariants | `python3 scripts/validate_ai_docs.py` | Required files/links/document ownership + source baseline references |
+| Physical folder, all media membership and references | `python3 scripts/validate_folder_layout.py && python3 -m unittest discover -s scripts/tests -p 'test_validate_folder_layout.py'` | Catch broken paths, orphan or duplicate OGG/MP3/WebM, invalid source ownership; not audio rights or teaching quality |
 | AI docs validator tests | `python3 -m unittest discover -s scripts/tests -p 'test_validate_ai_docs.py'` | Validator handles valid and invalid fixtures |
 | Browser IndexedDB | See shell example below | **Real Chromium IndexedDB** durability/concurrency subset, not Room/device |
 
@@ -33,7 +34,7 @@ Replace `google-chrome` with an installed Chromium binary if necessary; test har
 | `app/` display or navigation | Syntax, `app/tests`, browser smoke/manual keyboard check where UI impact exists |
 | `app/attempt-storage*` | Unit + **real Chromium** IndexedDB concurrent writers, retry, duplicate IDs, quota/write failure |
 | `packages/contracts/` | Contract tests + fixture compatibility; Kotlin parity **blocked** until native build exists |
-| `content/`, `audio/`, `video/` | Relevant content/audio validators, human Finnish/rights sign-off; never import unknown rights |
+| `learning/`, `assets/audio/`, `assets/video/`, `sources/` | Relevant content/audio validators, human Finnish/rights sign-off; never import unknown rights |
 | `native/android/prototype/` | JS contract tests only are **insufficient**; compiled Android tests needed to claim implementation |
 | ADR, `AGENTS.md`, `docs/` | AI-doc validator + applicable architecture validators |
 | Platform/cloud/security | Secrets/privacy/RLS + threat model and actual integration/E2E checks before enabled release |

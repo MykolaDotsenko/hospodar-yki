@@ -17,6 +17,11 @@ REQUIRED = (
     "assets/images/brand/hospodar-yki-mark.svg",
     "assets/audio/available.json",
     "assets/audio/library.json",
+    "sources/audio/recording-sources.json",
+    "sources/audio/yki-targeted-sources-2026-10.json",
+    "sources/audio/YKI-LISTENING-RESEARCH-2026-10.md",
+    "learning/plans/listening-lesson-plan.json",
+    "learning/plans/listening-4-weeks.json",
     "assets/video/open/available.json",
     "sources/youtube/youtube-catalog.json",
     "sources/official/yki-mock-simulation-sources.json",
@@ -31,6 +36,10 @@ REQUIRED = (
     "research/user-cases/core-flows-v1.md",
 )
 NO_LONGER_CANONICAL = ("catalog/", "audio/", "video/", "content/", "brand/logo/")
+MISPLACED_CONTENT = ("assets/audio/catalog.json", "assets/audio/learning-plan.json",
+                     "assets/audio/program-4weeks.json",
+                     "assets/audio/yki-targeted-sources-2026-10.json",
+                     "assets/audio/YKI-LISTENING-RESEARCH-2026-10.md")
 MIME = ("audio/webm", "audio/ogg", "audio/mpeg", "video/webm", "image/svg+xml")
 MARKDOWN_FILES = (
     "README.md", "AGENTS.md", "docs/INDEX.md", "docs/FOLDER-STRUCTURE.md",
@@ -48,6 +57,9 @@ def check_tree(root: Path):
     for name in NO_LONGER_CANONICAL:
         if (root / name).exists():
             errors.append(f"old top-level category remains: {name}")
+    for name in MISPLACED_CONTENT:
+        if (root / name).exists():
+            errors.append(f"noncanonical duplicate research/plan in assets: {name}")
     if list(root.glob("catalog/**/registry*.json")):
         errors.append("machine registry still exists")
     # Essential binary payloads can never be silently dropped to appease checkers.
@@ -61,6 +73,70 @@ def check_tree(root: Path):
         if counts[key] < min_count:
             errors.append(f"missing physical {key} files: {counts[key]} < {min_count}")
     return errors, counts
+
+
+
+def check_local_media_ownership(root: Path):
+    """Every local OGG/MP3/WebM must have exactly one player entry.
+
+    These existing player manifests are not extra catalogs/registries.
+    This prevents duplicate bot-generated audio and unreferenced orphan files.
+    It checks file ownership, not copyright permissions or transcription QA.
+    """
+    problems = []
+    specs = (
+        ("assets/audio/library.json", "entries", "assets/audio", {".ogg", ".mp3"}),
+        ("assets/video/open/available.json", "assets", "assets/video/open", {".webm"}),
+    )
+    discovered_audio_suffixes = {".ogg", ".oga", ".mp3", ".m4a", ".aac", ".wav", ".flac", ".opus", ".aiff"}
+    for manifest, collection, folder, extensions in specs:
+        path = root / manifest
+        if not path.is_file():
+            problems.append(f"media manifest missing: {manifest}")
+            continue
+        try:
+            rows = json.loads(path.read_text(encoding="utf-8"))[collection]
+        except (ValueError, KeyError, UnicodeError) as exc:
+            problems.append(f"invalid media manifest: {manifest}: {exc}")
+            continue
+        if not isinstance(rows, list):
+            problems.append(f"media manifest entries must be a list: {manifest}")
+            continue
+        listed = set()
+        ids = set()
+        for row in rows:
+            if not isinstance(row, dict):
+                problems.append(f"invalid media row: {manifest}: {row!r}")
+                continue
+            identifier, value = row.get("id"), row.get("path")
+            if not isinstance(identifier, str) or not identifier:
+                problems.append(f"missing media ID in {manifest}")
+            elif identifier in ids:
+                problems.append(f"duplicate media ID in {manifest}: {identifier}")
+            ids.add(identifier)
+            if not isinstance(value, str) or not value:
+                problems.append(f"missing media path in {manifest}: {identifier}")
+                continue
+            reference = Path(value)
+            if (reference.is_absolute() or ".." in reference.parts
+                    or not value.startswith(folder + "/")
+                    or reference.suffix.lower() not in extensions):
+                problems.append(f"unsafe/wrong-root media path in {manifest}: {value}")
+                continue
+            if value in listed:
+                problems.append(f"duplicate media path in {manifest}: {value}")
+            listed.add(value)
+        folder_path = root / folder
+        actual = {
+            p.relative_to(root).as_posix()
+            for p in folder_path.rglob("*")
+            if p.is_file() and p.suffix.lower() in (
+                discovered_audio_suffixes if folder == "assets/audio" else extensions
+            )
+        } if folder_path.is_dir() else set()
+        problems.extend(f"unreferenced media file: {p}" for p in sorted(actual - listed))
+        problems.extend(f"manifest points to missing media file: {p}" for p in sorted(listed - actual))
+    return problems
 
 
 def check_json(root: Path):
@@ -207,7 +283,7 @@ def check_import_workflows(root: Path):
                 for old in ("-- audio/", "-- video/", "-- content/"):
                     if old in line:
                         errors.append(f"old git add path in {name}: {line.strip()}")
-    path = root / "assets/audio/catalog.json"
+    path = root / "sources/audio/recording-sources.json"
     if path.is_file():
         data = json.loads(path.read_text(encoding="utf-8"))
         for record in data.get("open_licensed_downloads", []):
@@ -215,7 +291,7 @@ def check_import_workflows(root: Path):
             if not isinstance(relative, str) or not relative.startswith("assets/audio/open/"):
                 errors.append(f"open audio uses invalid source path: {record.get('id')}: {relative!r}")
     else:
-        errors.append("missing assets/audio/catalog.json")
+        errors.append("missing sources/audio/recording-sources.json")
     return errors
 
 
@@ -223,7 +299,7 @@ def validate(root: Path):
     tree_errors, counts = check_tree(root)
     json_errors, num_json = check_json(root)
     manifest_errors, references = check_manifest_file_references(root)
-    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root)
+    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root) + check_local_media_ownership(root)
     return problems, counts, num_json
 
 

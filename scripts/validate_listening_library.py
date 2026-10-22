@@ -11,7 +11,7 @@ def require(ok,msg):
 
 def main():
     lib=load("assets/audio/library.json")
-    plan=load("assets/audio/program-4weeks.json")
+    plan=load("learning/plans/listening-4-weeks.json")
     tts=load("learning/exercises/b1/audio-training/index.json")
     audio=load("assets/audio/available.json")
     require(lib["counts"]["total_files"]>=63,"Total count")

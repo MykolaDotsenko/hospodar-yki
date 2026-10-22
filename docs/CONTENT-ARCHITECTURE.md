@@ -9,6 +9,8 @@
 | Images, marks, textures | [assets/images/](../assets/images/README.md) | Project SVGs in `assets/images/brand/`; educational art belongs in an owned future images subfolder |
 | Local audio, transcripts, captions | [assets/audio/](../assets/audio/README.md) | Human narration, original recordings, synthetic training, B1 listening audio and WebVTT |
 | Licensed local videos | [assets/video/](../assets/video/README.md) | `open/*.webm`, source data, file availability and related README |
+| External audio sources and listening research | [sources/audio](../sources/audio/README.md) | Link-only/rights-candidate audio references; never binary copies without rights |
+| Study plans and listening routines | [learning/plans](../learning/plans/README.md) | 4-week listening and lesson plans; media referenced by stable paths |
 | YouTube links and timestamps | [sources/youtube/](../sources/youtube/README.md) | Link-only JSON, YouTube research and creator/chapter references |
 | Publisher links | [sources/publishers/](../sources/publishers/README.md) | Series and episode URLs; not redistributed media |
 | Official demonstrations | [sources/official/](../sources/official/README.md) | YKI/SOLKI references, source verification, no assumed redistribution rights |

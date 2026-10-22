@@ -7,7 +7,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 manifest=json.loads((ROOT/'assets/audio/available.json').read_text(encoding='utf-8'))
 segment_index=json.loads((ROOT/'assets/audio/segments/index.json').read_text(encoding='utf-8'))
-catalog=json.loads((ROOT/'assets/audio/catalog.json').read_text(encoding='utf-8'))
+catalog=json.loads((ROOT/'sources/audio/recording-sources.json').read_text(encoding='utf-8'))
 sources={x['relative_path']:x for x in catalog['open_licensed_downloads']}
 segments={x['path']:x for x in segment_index['items']}
 def verify(ok,msg):
