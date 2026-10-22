@@ -1,7 +1,7 @@
 # 20 — Другий раунд досліджень: інтерактивні мультимодальні завдання, відео, жести, голос та візуальна економія
 
 **Перевірено:** 2026-10-21. **Статус:** дослідження → вимоги продукту, **не реалізація**.  
-**Мета:** доповнити [18 — інтерактивний UX](18-interactive-visual-learning-evidence-2026-10.md), [19 — learning engine](../../pedagogy/19-learning-books-to-engineering-2026-10.md) і [17 — color attention](../../design/17-color-attention-l2-deep-dive.md) **новими, не дубльованими** результатами; навчати дорослих A2.2→B1/B1+ для фінської й YKI.  
+**Мета:** доповнити [18 — інтерактивний UX](18-interactive-visual-learning-evidence-2026-10.md), [19 — learning engine](../pedagogy/19-learning-books-to-engineering-2026-10.md) і [17 — color attention](../design/17-color-attention-l2-deep-dive.md) **новими, не дубльованими** результатами; навчати дорослих A2.2→B1/B1+ для фінської й YKI.  
 **JSON для розробників:** [research/ux/multimodal-interaction-evidence-v2.json](multimodal-interaction-evidence-v2.json). *Цільовий, критичний огляд selected sources; не systematic PRISMA review. Числові g — стандартизовані ефекти оригінальних досліджень, не % поліпшення нашого застосунку.*
 
 ## 1. Executive decision — головна зміна дизайну

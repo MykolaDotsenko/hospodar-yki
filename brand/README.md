@@ -33,4 +33,4 @@
 
 ## Visual asset ownership (22.10.2026)
 
-The real SVG logo masters remain in [brand/logo](../assets/images/logo) to preserve existing app/repository links. The [images taxonomy](../assets/images/README.md) indexes these without copying them; UX/design research lives in [research/design](../research/design/README.md). All new educational images require creator/rights, accessibility alternative text and performance budget.
+The real SVG logo masters remain in [brand/logo](../assets/images/brand/) with updated app/repository links. The [images taxonomy](../assets/images/README.md) indexes these without copying them; UX/design research lives in [research/design](../research/design/README.md). All new educational images require creator/rights, accessibility alternative text and performance budget.

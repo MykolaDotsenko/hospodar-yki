@@ -8,7 +8,7 @@
 | [../../../../knowledge/dictionaries/b1/rektio-v1.json](../../../../knowledge/dictionaries/b1/rektio-v1.json) | 40 дієслівних моделей керування в контексті |
 | [reading-pack-v1.json](reading-pack-v1.json) | 9 коротких читальних текстів, 27 об'єктивних/відкритих питань і transfer |
 | [dialogues-v1.json](dialogues-v1.json) | 9 діалогів, 72 репліки, 18 питань, рольові transfer-підказки |
-| [../lexicon/frequency](../lexicon/frequency) | незалежний CC BY 4.0 частотний словник з 10 000 записів |
+| [../lexicon/frequency](../../../../knowledge/dictionaries/b1/frequency/) | незалежний CC BY 4.0 частотний словник з 10 000 записів |
 
 **Без удаваної готовності:** короткі тексти не замінюють повні 2–3-хвилинні B1 записи; усі діалоги — script-only (НЕ слухова діагностика); приклади original draft, **S2 teacher review pending**. Немає тверджень про офіційну калібровку YKI.
 
