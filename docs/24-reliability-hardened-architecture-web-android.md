@@ -1,5 +1,7 @@
 # ADR-024 — Hospodar YKI: production-reliability architecture (Web + Android + 2–3GB offline game)
 
+> **Implementation clarification — [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md):** TypeScript command boundary must be serializable across Capacitor, not a callback-based transaction protocol. `ExamCheckpoint` and immutable `FirstAttemptEvent` require a unified registry but distinct event semantics. Native Room/Media3 files are prototypes, not verified device binaries.
+
 **Date:** 22.10.2026 · **Decision:** recommended target, **NOT implemented**, no claim of measured 98/100 reliability.  
 **Amends:** [ADR-022](22-optimal-stack-and-architecture-adr-2026-10.md) (TS/React/Vite, local-first), [ADR-023](23-android-offline-game-and-3gb-media-architecture.md) (Phaser 2D + Capacitor Android + Play Asset Delivery/Web parity); [YKI fidelity](21-digital-yki-exam-simulator-executable-spec.md).  
 **Primary architectural difference versus ADR-023:** **separate persistent stores by platform** behind the *same domain-facing TypeScript Repository contract*. Browser: IndexedDB/Dexie. Android: **Kotlin Room/SQLite**. Do not claim IndexedDB is an equally durable source for exam/record data on both platforms merely because it works in the WebView.
@@ -41,23 +43,22 @@ flowchart TB
 
 ## 2. Storage: two providers, one event schema (key correction)
 
-### Core interface (TypeScript conceptual contract)
+### Core interface (TypeScript conceptual contract — clarified by ADR-027)
+
+**Bridge contract must use one serializable command per atomic commit**. A JavaScript `transact(work: callback)` is *not* transferable through Capacitor to native Room; callback-based transactions may only be implementation-local inside one runtime. The same validated envelope must be accepted by a Web IndexedDB transaction and a single native Room `@Transaction`. This is target pseudocode, not a current shared TypeScript API.
 
 ```ts
 interface LearnerRepository {
-  transact<T>(work: (tx: LearnerTransaction) => Promise<T>): Promise<T>;
+  commit(command: CommitSessionV2): Promise<CommitResult>;
   readSession(sessionId: string): Promise<SessionSnapshot | null>;
+  readCommittedCommand(commandId: string): Promise<CommittedEvent | null>;
   listDueCards(day: string): Promise<Card[]>;
-  exportEncryptedOrPortableBackup(): Promise<Blob>;
+  exportPortableBackup(): Promise<Blob>;
   deleteLocalLearnerData(): Promise<void>;
 }
-interface LearnerTransaction {
-  appendOnce(event: AttemptEvent): Promise<"inserted"|"already_exists">;
-  updateSnapshot(snapshot: SessionSnapshot): Promise<void>;
-  upsertCard(card: Card): Promise<void>;
-  queueSync(eventId: string): Promise<void>; // only if sync opted in
-}
 ```
+
+**MUST:** update event + snapshot together; use `commandId` and canonical payload fingerprint for idempotent exact retries and lost-ack recovery; reject divergent duplicate IDs and stale revisions. A matching *snapshot* alone is insufficient proof that the command was committed. Distinguish `ExamCheckpoint` from write-once `FirstAttemptEvent`; persist the latter before changing first-answer score/SRS. Preserve portable error codes in native bridge, rather than collapsing conflict or storage exhaustion to generic `SAVE_FAILED`. See [G1 / C-01…C-06](27-stack-architecture-compatibility-and-implementation-gates.md).
 
 **Web driver: IndexedDB/Dexie**, versioned migrations, persist request `navigator.storage.persist()` where available; warns about quota and eviction and offers export+optional sync. Do **not** promise never-lost Web data. (MDN confirms browser default `best-effort` eviction.)
 
