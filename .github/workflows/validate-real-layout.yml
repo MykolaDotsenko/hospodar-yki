@@ -30,6 +30,12 @@ jobs:
         run: python3 scripts/validate_architecture_boundaries.py
       - name: Regression test architecture import boundaries
         run: python3 -m unittest discover -s scripts/tests -p 'test_validate_architecture_boundaries.py' -v
+      - name: Install pinned TypeScript AST parser
+        run: npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund
+      - name: AST boundary regressions and source audit
+        run: npm test --prefix tools/architecture
+      - name: Portable V2 contracts and Web receipt regressions
+        run: node --test packages/contracts/tests/*.test.mjs app/tests/attempt-storage.test.mjs
       - name: Python syntax all scripts
         run: python3 -m compileall -q scripts
       - name: Exercise Markdown link validator positive and negative fixtures

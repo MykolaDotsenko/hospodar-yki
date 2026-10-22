@@ -8,6 +8,8 @@
 | --- | --- | --- |
 | Browser JS syntax | `node --check app/core.mjs && node --check app/app.mjs && node --check app/exam-core.mjs && node --check app/exam.mjs && node --check app/attempt-storage.mjs` | Syntax, not user journeys |
 | App unit/integration | `node --test app/tests/*.test.mjs` | Present unit/content and in-memory storage behavior, not all browsers |
+| Portable V2 commands and golden fixtures | `node --test packages/contracts/tests/session-v2.test.mjs` | In-memory portable JS commands only, NOT Kotlin parity |
+| TypeScript AST import boundaries | `npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund && npm test --prefix tools/architecture` | Real AST dependency/static API checks; not a compiler typecheck or Android build |
 | Shared contract unit | `node --test packages/contracts/tests/*.test.mjs` | JS in-memory reference semantics, **not Kotlin parity** |
 | Stack design/ADRs | `python3 scripts/validate_architecture_decision.py && python3 scripts/validate_android_game_architecture.py && python3 scripts/validate_reliability_architecture.py` | Requirement snapshots, **not deployed stack** |
 | CI trigger paths and live normative content paths | `python3 scripts/validate_doc_integrity.py && python3 -m unittest discover -s scripts/tests -p 'test_validate_doc_integrity.py'` | Detect stale non-triggering workflow filters and obsolete educational doc paths; **not** runtime integration proof |

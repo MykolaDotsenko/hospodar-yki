@@ -6,7 +6,7 @@
 | --- | --- | --- | --- | --- |
 | Q-01 | Browser LEARN still stores progress in `localStorage` | High | Versioned IDB migration, backup/export, idempotent tests | **OPEN** |
 | Q-02 | `ExamCheckpoint` and `FirstAttemptEvent` have separate JS models | High | One versioned schema/fixtures and cross-platform durable parity | **OPEN** |
-| Q-03 | Lost-ACK reconciliation can rely on snapshot rather than verified event identity | High | C-03 event ID/payload fingerprint and ambiguous-write tests | **OPEN** |
+| Q-03 | Browser V1 used a matching snapshot as lost-ACK confirmation; Android native still lacks verified receipt parity | High | Browser now verifies durable eventId + exact payload fingerprint; native protocol still needs compiled implementation | **PARTIAL — WEB MITIGATED** |
 | Q-04 | Native Room/Capacitor media are source-only Kotlin prototypes | High | Gradle build, emulator/device transactional tests | **OPEN** |
 | Q-05 | Native `packId` selection and full Media3 video surface unverified | High | Play-installed synthetic PAD, real path/seek/video + rights checks | **OPEN** |
 | Q-06 | 2027 digital YKI details, free response grading and human media review incomplete | High | Verified OPH evidence, human Finnish rubric calibration, qualified rights | **OPEN** |

@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/index.mjs"
+    ".": "./src/index.mjs",
+    "./session-v2": "./src/session-v2.mjs"
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs"
