@@ -42,24 +42,15 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           for attempt in {1..25}; do
-            if curl -fsS http://127.0.0.1:8765/app/tests/atomic-idb-browser.html >/dev/null; then break; fi
+            if curl -fsS http://127.0.0.1:8765/app/tests/atomic-idb-browser.html >/dev/null 2>&1; then break; fi
             sleep 0.2
           done
           if command -v google-chrome >/dev/null; then
-            chrome=google-chrome
+            export CHROME_BINARY=google-chrome
           elif command -v chromium >/dev/null; then
-            chrome=chromium
+            export CHROME_BINARY=chromium
           else
-            echo "No Chromium/Google Chrome installed; IDB E2E cannot be skipped"
+            echo "Chromium is required to test real IndexedDB"
             exit 1
           fi
-          "$chrome" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage \
-            --virtual-time-budget=15000 --dump-dom \
-            http://127.0.0.1:8765/app/tests/atomic-idb-browser.html \
-            > /tmp/yki-idb-result.html 2>/tmp/yki-chrome.log
-          grep -q 'data-result="PASS"' /tmp/yki-idb-result.html || {
-            tail -n 50 /tmp/yki-idb-result.html
-            tail -n 50 /tmp/yki-chrome.log
-            exit 1
-          }
-
+          node scripts/run-chromium-idb.mjs
