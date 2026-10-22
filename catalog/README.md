@@ -1,5 +1,7 @@
 # Catalog — one indexed view of existing Hospodar YKI materials
 
+To register a reviewed binary change without guessing Git hashes, run `python3 scripts/update_media_inventory.py --write` and review the diff. This updates **technical identities only**; independently verify file-level source, license and redistribution permissions before release.
+
 **Authoritative discovery data:** [registry.v1.json](registry.v1.json). **Binary baseline:** [media-inventory-v1.json](media-inventory-v1.json) (Git SHAs/sizes, not a copyright claim). **Future resource schema:** [schemas/resource.v1.schema.json](schemas/resource.v1.schema.json).
 
 These files are **pointers**: keep originals in `content/`, `audio/`, `video/`, `brand/`, `research/`, `docs/`. No exercise, voice sample, title, answer key, license or YouTube stream is duplicated in this catalog. The manifest defines **where to look and who owns changes**, not a new asset-serving URL or validated media-rights list.
