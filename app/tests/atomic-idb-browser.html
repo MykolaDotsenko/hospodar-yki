@@ -4,6 +4,8 @@
 <output id="result" data-result="RUNNING">RUNNING</output>
 <script type="module">
 import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "../attempt-storage.mjs";
+import {createIndexedDbSessionRepository} from "../session-v2-idb.mjs";
+import {commitSessionWithRecovery} from "../../packages/contracts/src/session-v2.mjs";
 const out=document.getElementById("result");
 const check=(condition,message)=>{if(!condition)throw Error(message);};
 const s=(answer="",index=0)=>({version:1,blueprintId:"yki-mini-idb",startedAt:"2026-10-22T09:00:00Z",
@@ -48,13 +50,66 @@ const id=n=>"browser-test-"+String(n).padStart(8,"0");
    };
    try{await commitWithRecovery(lost,phantom);throw Error("false ACK for identical snapshot")}
    catch(e){check(e.message==="network ACK missing","identical snapshot rejected without receipt")}
+   // V2 uses a SEPARATE IndexedDB database; legacy exam data is not migrated.
+   const v2name="yki-v2-integration-"+Date.now()+"-"+Math.random();
+   const webV2=createIndexedDbSessionRepository({dbName:v2name});
+   const peerV2=createIndexedDbSessionRepository({dbName:v2name});
+   const proto={
+     protocolVersion:2,commandId:"v2-first-0001",sessionId:"v2-session-0001",expectedRevision:0,
+     event:{type:"first-attempt",itemId:"finnish-quantity-1",itemVersion:1,
+       contentHash:"sha256:"+"a".repeat(64),hintUsed:false,outcome:"answered",
+       response:"tuli"},
+     nextSnapshot:{progress:1,skill:"listening"}
+   };
+   const firstV2=await webV2.commit(proto);
+   check(firstV2.revision===1 && firstV2.applied,"V2 IndexedDB independent first answer");
+   const idempotent=await peerV2.commit(proto);
+   check(idempotent.duplicate===true && idempotent.revision===1,"V2 duplicate original receipt");
+   try{await peerV2.commit({...proto,commandId:"v2-first-0002",expectedRevision:1});
+     throw Error("V2 duplicate independent answer allowed");}
+   catch(e){check(e.code==="FIRST_ATTEMPT_EXISTS","V2 independent first-answer uniqueness");}
+   try{await webV2.commit({...proto,commandId:"v2-other-0002",expectedRevision:0,
+       event:{type:"checkpoint"}});
+     throw Error("V2 stale writer allowed");}
+   catch(e){check(e.code==="REVISION_CONFLICT","V2 stale revision rejected");}
+   const repair={...proto,commandId:"v2-repair-0001",expectedRevision:1,
+     event:{type:"repair",itemId:"finnish-quantity-1",sourceAttemptId:"v2-first-0001",
+       assessmentStatus:"ungraded",response:"tuuli"},
+     nextSnapshot:{progress:2,skill:"listening"}};
+   const repaired=await peerV2.commit(repair);
+   check(repaired.revision===2,"V2 repair linked, independent answer unchanged");
+   const cp={...proto,commandId:"v2-checkpoint-0001",expectedRevision:2,
+     event:{type:"checkpoint",index:3},nextSnapshot:{progress:3}};
+   const lostV2={
+     commit:async command=>{await webV2.commit(command);throw Error("V2 lost ACK");},
+     readReceipt:cid=>peerV2.readReceipt(cid)
+   };
+   const reconciledV2=await commitSessionWithRecovery(lostV2,cp);
+   check(reconciledV2.reconciled===true && reconciledV2.revision===3,
+     "V2 original receipt proves lost ACK");
+   const phantomV2={...cp,commandId:"v2-checkpoint-phantom"};
+   const noReceipt={
+     commit:async()=>{throw Error("V2 missing ACK");},
+     readReceipt:cid=>webV2.readReceipt(cid)
+   };
+   try{await commitSessionWithRecovery(noReceipt,phantomV2);
+     throw Error("V2 false ACK from equal snapshot");}
+   catch(e){check(e.message==="V2 missing ACK","V2 identical snapshot never sufficient");}
+   const finalV2=await peerV2.readSession("v2-session-0001");
+   check(finalV2.revision===3 && finalV2.snapshot.progress===3,
+     "V2 IndexedDB event and session durability");
+   await peerV2.close();
+   await webV2.deleteLocal();
+   check((await webV2.readReceipt("v2-first-0001"))===null,"V2 clear removes event receipts");
+   await webV2.close();
+   indexedDB.deleteDatabase(v2name);
    await secondTab.close();
    await repo.deleteLocal();
    check((await repo.readCurrent())===null,"delete clears records");
    await repo.close();
    const drop=indexedDB.deleteDatabase(name);
    drop.onerror=()=>console.warn("Could not clean test database");
-   out.textContent="PASS: real Chromium IndexedDB atomic, duplicate, collision, retry, conflict, restore and clear";
+   out.textContent="PASS: V1 + isolated V2 real Chromium IndexedDB: atomic events, first-attempt uniqueness, receipts, conflict and rollback";
    out.dataset.result="PASS";
  }catch(error){
    out.textContent="FAIL: "+error.message;
