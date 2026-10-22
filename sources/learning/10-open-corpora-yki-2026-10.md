@@ -50,7 +50,7 @@
 
 - Корпус: **FIN-CLARIN / University of Helsinki — FinnTreeBank 1 2014, UD Finnish-FTB**, за вибором **CC BY 4.0**. Початкові приклади адаптовані з **Iso suomen kielioppi (VISK)**: Auli Hakulinen, Maria Vilkuna, Riitta Korhonen, Vesa Koivisto, Tarja Riitta Heinonen, Irja Alho (2004). Деталі: [оригінальна ліцензія FinnTreeBank](https://www.kielipankki.fi/lic/finntreebank-eng/finntreebank1-dual-license-eng/) та [LICENSE.txt](https://github.com/UniversalDependencies/UD_Finnish-FTB/blob/master/LICENSE.txt).
 - **Наші зміни:** автоматичний вибір за частотністю, відновлення звичайних пробілів біля пунктуації, маскування одного слова і додавання навчальних полів. Первинні речення збережено в `original_text_fi` для походження.
-- Частотне джерело: **Yle Uutisten taajuussanakirja**, Daniel Radice, CC BY 4.0; Yle News Archive 2011–2024 (© Yle, CC BY 4.0 via Kielipankki), Kotus Nykysuomen sanalista (© Kotus, CC BY 4.0). [Всі атрибуції](../dictionaries/b1/frequency/README.md).
+- Частотне джерело: **Yle Uutisten taajuussanakirja**, Daniel Radice, CC BY 4.0; Yle News Archive 2011–2024 (© Yle, CC BY 4.0 via Kielipankki), Kotus Nykysuomen sanalista (© Kotus, CC BY 4.0). [Всі атрибуції](../../knowledge/dictionaries/b1/frequency/README.md).
 
 **При побудові застосунку** джерела й ліцензійні повідомлення мають бути доступні користувачу, а перероблені приклади повинні залишатися з позначенням змін.
 
