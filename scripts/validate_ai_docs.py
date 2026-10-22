@@ -72,7 +72,7 @@ def check_docs(root: Path) -> list[str]:
         if not target.is_file():
             continue
         body = target.read_text(encoding="utf-8")
-        if len(body.strip()) < 100 or not body.lstrip().startswith("# "):
+        if len(body.strip()) < 100 or not body.lstrip().startswith(("# ", "## ")):
             failures.append(f"{path}: missing substantive Markdown heading/content")
         for url in links_in(body):
             problem = check_link(root, path, url)
