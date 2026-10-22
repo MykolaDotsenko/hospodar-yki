@@ -158,6 +158,18 @@ class OperationalReferences(unittest.TestCase):
         self.assertEqual(errors, [])
         self.assertEqual(count, 0)
 
+    def test_external_audio_candidate_is_not_installed_media(self):
+        (self.root / "sources/audio").mkdir(parents=True)
+        (self.root / "sources/audio/recording-sources.json").write_text(
+            self.json.dumps({"open_licensed_downloads": [{
+                "relative_path": "assets/audio/open/not-downloaded-yet.ogg"
+            }]}), encoding="utf-8"
+        )
+        self.write({"lessons": [{"audio_path": "assets/audio/open/lesson.ogg"}]})
+        errors, count = check_operational_json_references(self.root)
+        self.assertEqual(errors, [])
+        self.assertEqual(count, 1)
+
     def test_binary_inside_youtube_sources_is_rejected(self):
         (self.root / "sources/youtube/copied.mp4").write_bytes(b"not permitted")
         self.assertTrue(any("downloaded media" in x
