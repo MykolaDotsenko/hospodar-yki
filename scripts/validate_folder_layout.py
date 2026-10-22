@@ -111,10 +111,75 @@ def check_mvp(root: Path):
     return errors
 
 
+
+# These are executable content manifests, not a new registry: verify their file
+# references by reading the original lesson/source JSON already shipped.
+MANIFEST_PATH_FIELDS = (
+    ("learning/exercises/b1/index.json", "themes", ("path",)),
+    ("learning/exercises/b1/audio-training/index.json", "lessons", ("original_content_path",)),
+    ("learning/exercises/b1/audio-long/lessons.json", "lessons",
+     ("path", "subtitles_path", "transcript_path")),
+    ("learning/exercises/b1/audio-long/human-stories.json", "items",
+     ("audio_path", "transcript_path")),
+    ("assets/audio/library.json", "entries", ("path",)),
+    ("assets/audio/available.json", "items", ("path",)),
+    ("assets/audio/segments/index.json", "items", ("path", "parent")),
+    ("assets/video/open/available.json", "assets", ("path",)),
+)
+
+
+def check_manifest_file_references(root: Path):
+    errors = []
+    references = 0
+
+    def check_reference(owner: str, value: str):
+        nonlocal references
+        if not isinstance(value, str) or not value:
+            errors.append(f"invalid manifest reference: {owner}: {value!r}")
+            return
+        ref = Path(value)
+        if ref.is_absolute() or ".." in ref.parts:
+            errors.append(f"unsafe manifest path: {owner}: {value}")
+            return
+        if not value.startswith((
+            "learning/exercises/", "assets/audio/", "assets/video/",
+        )):
+            errors.append(f"noncanonical manifest path: {owner}: {value}")
+            return
+        if not (root / ref).is_file():
+            errors.append(f"missing manifest file: {owner}: {value}")
+            return
+        references += 1
+
+    for file, collection, keys in MANIFEST_PATH_FIELDS:
+        source = root / file
+        if not source.is_file():
+            errors.append(f"manifest itself missing: {file}")
+            continue
+        data = json.loads(source.read_text(encoding="utf-8"))
+        items = data.get(collection)
+        if not isinstance(items, list):
+            errors.append(f"manifest items not a list: {file}/{collection}")
+            continue
+        for row in items:
+            if not isinstance(row, dict):
+                errors.append(f"invalid row: {file}/{collection}")
+                continue
+            for key in keys:
+                # Some audited source rows genuinely have no optional transcript.
+                if row.get(key) is not None:
+                    check_reference(f"{file}:{row.get('id', '?')}.{key}", row[key])
+            if file.endswith("audio-training/index.json"):
+                for version in row.get("audio_versions", []):
+                    check_reference(f"{file}:{row.get('id', '?')}.audio_versions",
+                                    version.get("path"))
+    return errors, references
+
 def validate(root: Path):
     tree_errors, counts = check_tree(root)
     json_errors, num_json = check_json(root)
-    problems = tree_errors + json_errors + check_links(root) + check_mvp(root)
+    manifest_errors, references = check_manifest_file_references(root)
+    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors
     return problems, counts, num_json
 
 
@@ -125,4 +190,4 @@ if __name__ == "__main__":
     if problems:
         print(f"FAIL: {len(problems)} errors", file=sys.stderr)
         sys.exit(1)
-    print(f"PASS: directories, {num} JSON files, {counts}, internal navigation, Web imports")
+    print(f"PASS: directories, {num} JSON files, {counts}, internal navigation, Web imports, operational media/lesson references")
