@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "checked_at": "2026-10-21",
-  "description": "Curated Finnish speech video for independent Hospodar YKI learning. The links and verified license pages are source-of-truth; binary availability must be confirmed in video/open/available.json",
+  "description": "Curated Finnish speech video for independent Hospodar YKI learning. The links and verified license pages are source-of-truth; binary availability must be confirmed in assets/video/open/available.json",
   "status": "source_catalog_only_see_video/open/available.json_for_verified_binaries",
   "license_policy": "Copying/redistributing only these 3 checked Wikimedia Commons Creative Commons items. Keep attribution and share-alike obligations for transformed/edited works; not official YKI content.",
   "items": [
@@ -28,7 +28,7 @@
       "source_transcript": "full unverified transcription present on Commons description page",
       "teacher_review": "pending",
       "pedagogic_score_estimate": 93,
-      "output_path": "video/open/jenni-puhekieli.webm",
+      "output_path": "assets/video/open/jenni-puhekieli.webm",
       "source_notes": "Natural colloquial Finnish with fillers; 3:11 slightly exceeds original 3-minute target; useful for contrast puhekieli/kirjakieli",
       "license_checked": true
     },
@@ -55,7 +55,7 @@
       "source_transcript": "not independently verified",
       "teacher_review": "pending",
       "pedagogic_score_estimate": 82,
-      "output_path": "video/open/kinola-helsinki.webm",
+      "output_path": "assets/video/open/kinola-helsinki.webm",
       "source_notes": "Narration about a Helsinki cinema; requires cautious evaluation of period-specific vocabulary",
       "license_checked": true
     },
@@ -82,7 +82,7 @@
       "source_transcript": "source describes subtitles; exact subtitle accessibility/timecodes unverified",
       "teacher_review": "pending",
       "pedagogic_score_estimate": 84,
-      "output_path": "video/open/claes-esittely.webm",
+      "output_path": "assets/video/open/claes-esittely.webm",
       "source_notes": "Book-fair introduction, possible embedded subtitles; train audio-only gist in separate blind exercise if captions are visible",
       "license_checked": true
     }

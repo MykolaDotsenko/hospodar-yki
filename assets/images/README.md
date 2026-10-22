@@ -1,6 +1,6 @@
 # Images / illustrations / textures
 
-**Real existing:** [brand/logo](../../brand/logo/) contains project SVG logo files. No separately audited Finnish vocabulary picture library or Phaser sprite atlas currently exists.
+**Real existing:** [brand/logo](logo) contains project SVG logo files. No separately audited Finnish vocabulary picture library or Phaser sprite atlas currently exists.
 
 **For new work:** source masters (SVG/PNG/WebP/AVIF as applicable) require `imageId`, locale/theme/use case, accessible `alt_fi`/translation (or explicit decorative role), license/creator/source, version/digest, aspect/crops, mobile size budget, and whether it is UI, pedagogy, or gameplay. Keep original design assets distinct from automatically optimized production renditions. Do not add personal photos without explicit consent.
 

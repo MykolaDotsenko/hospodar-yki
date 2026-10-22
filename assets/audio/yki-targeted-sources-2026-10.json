@@ -11,7 +11,7 @@
     "verified_direct_external_mp3_urls": 2
   },
   "official_demos_existing": {
-    "pointer": "audio/catalog.json#/official_yki_link_only",
+    "pointer": "assets/audio/catalog.json#/official_yki_link_only",
     "landing": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
     "note": "11 official listening MP3 and 2 speaking prompts were already catalogued. Do not duplicate or claim newly imported. No full transcript/rights verified."
   },
