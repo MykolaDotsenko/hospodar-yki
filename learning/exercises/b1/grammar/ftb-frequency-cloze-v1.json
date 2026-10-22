@@ -21,7 +21,7 @@
       "One surface form replaced with cloze placeholder; original preserved for answer",
       "Learning metadata added; no claim that examples are teacher-approved"
     ],
-    "lexical_frequency_signal": "Daniel Radice Yle Uutisten taajuussanakirja v1.1.1, CC BY 4.0, Yle 2011–2024 + Kotus. See content/b1/lexicon/frequency/README.md"
+    "lexical_frequency_signal": "Daniel Radice Yle Uutisten taajuussanakirja v1.1.1, CC BY 4.0, Yle 2011–2024 + Kotus. See knowledge/dictionaries/b1/frequency/README.md"
   },
   "counts_by_focus": {
     "Gen": 15,

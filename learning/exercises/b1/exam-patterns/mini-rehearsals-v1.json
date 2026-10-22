@@ -22,7 +22,7 @@
       "skill_blocks": [
         {
           "skill": "reading",
-          "content_path": "content/b1/contextual/reading-pack-v1.json",
+          "content_path": "learning/exercises/b1/contextual/reading-pack-v1.json",
           "item_id": "ctx-reading-02-housing",
           "question_ids": [
             "ctx-reading-02-housing-q1",
@@ -38,9 +38,9 @@
         },
         {
           "skill": "listening",
-          "content_path": "content/b1/audio-long/lessons.json",
+          "content_path": "learning/exercises/b1/audio-long/lessons.json",
           "item_id": "b1long-01-vesikatko-ja-huoltokaynti",
-          "audio_path": "audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.ogg",
+          "audio_path": "assets/audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.ogg",
           "question_ids": [
             "b1long-1-q1",
             "b1long-1-q2",
@@ -53,7 +53,7 @@
         },
         {
           "skill": "writing",
-          "content_path": "content/b1/diagnostics/baseline-v1.json",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
           "item_id": "d-w1",
           "scoring_policy": "ungraded_until_human_review",
           "task_family": [
@@ -62,7 +62,7 @@
         },
         {
           "skill": "speaking",
-          "content_path": "content/b1/diagnostics/baseline-v1.json",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
           "item_id": "d-s1",
           "scoring_policy": "ungraded_until_human_review",
           "task_family": [
@@ -78,7 +78,7 @@
       "skill_blocks": [
         {
           "skill": "reading",
-          "content_path": "content/b1/contextual/reading-pack-v1.json",
+          "content_path": "learning/exercises/b1/contextual/reading-pack-v1.json",
           "item_id": "ctx-reading-03-services",
           "question_ids": [
             "ctx-reading-03-services-q1",
@@ -94,9 +94,9 @@
         },
         {
           "skill": "listening",
-          "content_path": "content/b1/audio-long/lessons.json",
+          "content_path": "learning/exercises/b1/audio-long/lessons.json",
           "item_id": "b1long-02-kurssi-ja-tyovuorot",
-          "audio_path": "audio/long/b1/b1long-02-kurssi-ja-tyovuorot.ogg",
+          "audio_path": "assets/audio/long/b1/b1long-02-kurssi-ja-tyovuorot.ogg",
           "question_ids": [
             "b1long-2-q1",
             "b1long-2-q2",
@@ -109,7 +109,7 @@
         },
         {
           "skill": "writing",
-          "content_path": "content/b1/diagnostics/baseline-v1.json",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
           "item_id": "d-w2",
           "scoring_policy": "ungraded_until_human_review",
           "task_family": [
@@ -118,7 +118,7 @@
         },
         {
           "skill": "speaking",
-          "content_path": "content/b1/diagnostics/baseline-v1.json",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
           "item_id": "d-s2",
           "scoring_policy": "ungraded_until_human_review",
           "task_family": [
