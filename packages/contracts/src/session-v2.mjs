@@ -89,7 +89,8 @@ export class InMemorySessionRepository {
     }else if(event.type==="repair"||event.type==="transfer"){
       if(!this.#commands.has(event.sourceAttemptId) ||
          this.#commands.get(event.sourceAttemptId)?.eventType!=="first-attempt" ||
-         this.#commands.get(event.sourceAttemptId)?.sessionId!==command.sessionId)
+         this.#commands.get(event.sourceAttemptId)?.sessionId!==command.sessionId ||
+         this.#commands.get(event.sourceAttemptId)?.itemId!==event.itemId)
         throw new CommandError("INVALID_COMMAND","Missing source first attempt");
     }
     const receipt={protocolVersion:2,commandId:command.commandId,
@@ -99,7 +100,7 @@ export class InMemorySessionRepository {
     // platform adapters MUST transact command/receipt, event and snapshot together.
     this.#sessions.set(command.sessionId,next);
     this.#commands.set(command.commandId,{fingerprint,receipt,eventType:event.type,
-      sessionId:command.sessionId});
+      sessionId:command.sessionId,itemId:event.itemId||null});
     if(event.type==="first-attempt")this.#firstAttempts.set(firstKey(command.sessionId,event),command.commandId);
     return structuredClone(receipt);
   }

@@ -75,6 +75,8 @@ test("repair event must link prior first answer and remain ungraded",async()=>{
    assessmentStatus:"ungraded",response:"tuuli"}};
  await r.commit(repair);
  assert.equal((await r.readSession(input.sessionId)).revision,2);
+ await assert.rejects(r.commit({...repair,commandId:"repair-wrong-item",expectedRevision:2,
+   event:{...repair.event,itemId:"unrelated-lesson"}}),e=>e.code==="INVALID_COMMAND");
  await assert.rejects(r.commit({...repair,commandId:"repair-002",expectedRevision:2,
    event:{...repair.event,sourceAttemptId:"missing"}}),
    e=>e.code==="INVALID_COMMAND");

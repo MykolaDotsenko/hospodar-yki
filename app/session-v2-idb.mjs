@@ -54,7 +54,7 @@ export function createIndexedDbSessionRepository({indexedDB=globalThis.indexedDB
       sessionId:cmd.sessionId,revision:nextRev,fingerprint,applied:true,duplicate:false};
      sessions.put({sessionId:cmd.sessionId,revision:nextRev,snapshot:cmd.nextSnapshot});
      commands.add({commandId:cmd.commandId,sessionId:cmd.sessionId,
-      fingerprint,eventType:cmd.event.type,receipt});
+      fingerprint,eventType:cmd.event.type,itemId:cmd.event.itemId||null,receipt});
      if(cmd.event.type==="first-attempt")
       first.add({identity:firstKey(cmd.sessionId,cmd.event),commandId:cmd.commandId});
      output=receipt;
@@ -80,7 +80,8 @@ export function createIndexedDbSessionRepository({indexedDB=globalThis.indexedDB
        const source=commands.get(e.sourceAttemptId);
        source.onsuccess=()=>{
         if(source.result?.eventType!=="first-attempt"||
-           source.result?.sessionId!==cmd.sessionId){
+           source.result?.sessionId!==cmd.sessionId ||
+           source.result?.itemId!==e.itemId){
           abort("INVALID_COMMAND");return;
         }
         write(actual+1);
