@@ -1,22 +1,13 @@
 name: Import permitted Finnish speech videos (actual WebM binaries)
 
 on:
-  push:
-    branches:
-      - main
-      - content/open-finnish-video-pack-2026-10-21
-    paths:
-      - assets/video/catalog.json
-      - learning/exercises/video/exercises.json
-      - scripts/import_open_finnish_videos.py
-      - .github/workflows/import-open-finnish-videos.yml
   workflow_dispatch:
-
 permissions:
   contents: write
 
 jobs:
   import:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -60,7 +51,7 @@ jobs:
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f -- video/open/
+          git add -f -- assets/video/open/
           if git diff --cached --quiet; then
             echo "All approved videos already present"
           else

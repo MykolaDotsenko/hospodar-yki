@@ -176,11 +176,54 @@ def check_manifest_file_references(root: Path):
                                     version.get("path"))
     return errors, references
 
+# Asset imports mutate media and manifests, so they are intentionally explicit
+# manual actions on main. Check concrete workflow files, not a synthetic registry.
+IMPORT_WORKFLOWS = (
+    "import-open-finnish-videos.yml", "import-vierko-oer.yml",
+    "import-open-audio.yml", "import-librivox-human.yml",
+    "build-listening-excerpts.yml", "import-fleurs-human-audio.yml",
+    "import-prinsessa-audio.yml", "build-b1-listening.yml",
+    "render-b1-long-audio.yml",
+)
+
+
+def check_import_workflows(root: Path):
+    errors = []
+    for name in IMPORT_WORKFLOWS:
+        file = root / ".github" / "workflows" / name
+        if not file.is_file():
+            errors.append(f"missing importer workflow: {name}")
+            continue
+        content = file.read_text(encoding="utf-8")
+        trigger = content.partition("permissions:")[0]
+        if "on:" not in trigger.splitlines() or "  workflow_dispatch:" not in trigger.splitlines():
+            errors.append(f"import must be manually dispatched: {name}")
+        if "push:" in trigger:
+            errors.append(f"import auto-runs on push: {name}")
+        if "if: github.ref == 'refs/heads/main'" not in content:
+            errors.append(f"import lacks main-only guard: {name}")
+        for line in content.splitlines():
+            if "git add " in line:
+                for old in ("-- audio/", "-- video/", "-- content/"):
+                    if old in line:
+                        errors.append(f"old git add path in {name}: {line.strip()}")
+    path = root / "assets/audio/catalog.json"
+    if path.is_file():
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for record in data.get("open_licensed_downloads", []):
+            relative = record.get("relative_path", "")
+            if not isinstance(relative, str) or not relative.startswith("assets/audio/open/"):
+                errors.append(f"open audio uses invalid source path: {record.get('id')}: {relative!r}")
+    else:
+        errors.append("missing assets/audio/catalog.json")
+    return errors
+
+
 def validate(root: Path):
     tree_errors, counts = check_tree(root)
     json_errors, num_json = check_json(root)
     manifest_errors, references = check_manifest_file_references(root)
-    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors
+    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root)
     return problems, counts, num_json
 
 

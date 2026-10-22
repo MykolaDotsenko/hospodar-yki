@@ -105,7 +105,7 @@
       "title_fi": "Kyllä",
       "title_uk": "Коротке підтвердження",
       "duration_seconds": 1.1,
-      "relative_path": "audio/open/phrases/kylla.ogg",
+      "relative_path": "assets/audio/open/phrases/kylla.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -128,7 +128,7 @@
       "title_fi": "Kiitos",
       "title_uk": "Подяка в реальній розмові",
       "duration_seconds": 1.16,
-      "relative_path": "audio/open/phrases/kiitos.ogg",
+      "relative_path": "assets/audio/open/phrases/kiitos.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -151,7 +151,7 @@
       "title_fi": "Hei",
       "title_uk": "Привітання",
       "duration_seconds": 0.5,
-      "relative_path": "audio/open/phrases/hei.ogg",
+      "relative_path": "assets/audio/open/phrases/hei.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -197,7 +197,7 @@
       "title_fi": "Entä",
       "title_uk": "Переведення питання на співрозмовника",
       "duration_seconds": 1.7,
-      "relative_path": "audio/open/phrases/enta.ogg",
+      "relative_path": "assets/audio/open/phrases/enta.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -220,7 +220,7 @@
       "title_fi": "Hei hei",
       "title_uk": "Прощання",
       "duration_seconds": 1,
-      "relative_path": "audio/open/phrases/hei_hei.ogg",
+      "relative_path": "assets/audio/open/phrases/hei_hei.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -266,7 +266,7 @@
       "title_fi": "En ymmärrä",
       "title_uk": "Ще одна версія, дає різноманітність вимови",
       "duration_seconds": null,
-      "relative_path": "audio/open/phrases/en_ymmarra_pd_alt.oga",
+      "relative_path": "assets/audio/open/phrases/en_ymmarra_pd_alt.oga",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -289,7 +289,7 @@
       "title_fi": "Helsinki",
       "title_uk": "Топонім фінською",
       "duration_seconds": 1,
-      "relative_path": "audio/open/pronunciation/helsinki.oga",
+      "relative_path": "assets/audio/open/pronunciation/helsinki.oga",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -312,7 +312,7 @@
       "title_fi": "Hän",
       "title_uk": "Звук ä; особовий займенник",
       "duration_seconds": 1.3,
-      "relative_path": "audio/open/pronunciation/han.ogg",
+      "relative_path": "assets/audio/open/pronunciation/han.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -335,7 +335,7 @@
       "title_fi": "Numerot 1–10",
       "title_uk": "Коротке число-вправляння",
       "duration_seconds": 15,
-      "relative_path": "audio/open/listening/numerot_1_10.ogg",
+      "relative_path": "assets/audio/open/listening/numerot_1_10.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -397,7 +397,7 @@
       "title_fi": "Anteeksi",
       "title_uk": "Вибачте",
       "duration_seconds": 1.5,
-      "relative_path": "audio/open/phrases/anteeksi.ogg",
+      "relative_path": "assets/audio/open/phrases/anteeksi.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -417,7 +417,7 @@
       "title_fi": "Opiskelemme suomea",
       "title_uk": "Ми вивчаємо фінську",
       "duration_seconds": 1.5,
-      "relative_path": "audio/open/phrases/opiskelemme_suomea.ogg",
+      "relative_path": "assets/audio/open/phrases/opiskelemme_suomea.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -437,7 +437,7 @@
       "title_fi": "Uusi",
       "title_uk": "Новий",
       "duration_seconds": 0.91,
-      "relative_path": "audio/open/pronunciation/uusi.ogg",
+      "relative_path": "assets/audio/open/pronunciation/uusi.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -457,7 +457,7 @@
       "title_fi": "Sydän",
       "title_uk": "Серце",
       "duration_seconds": 0.85,
-      "relative_path": "audio/open/pronunciation/sydan.ogg",
+      "relative_path": "assets/audio/open/pronunciation/sydan.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -477,7 +477,7 @@
       "title_fi": "Vesi",
       "title_uk": "Вода",
       "duration_seconds": 0.63,
-      "relative_path": "audio/open/pronunciation/vesi.ogg",
+      "relative_path": "assets/audio/open/pronunciation/vesi.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
