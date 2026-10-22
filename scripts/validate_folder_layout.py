@@ -79,6 +79,7 @@ def check_local_media_ownership(root: Path):
         ("assets/audio/library.json", "entries", "assets/audio", {".ogg", ".mp3"}),
         ("assets/video/open/available.json", "assets", "assets/video/open", {".webm"}),
     )
+    discovered_audio_suffixes = {".ogg", ".oga", ".mp3", ".m4a", ".aac", ".wav", ".flac", ".opus", ".aiff"}
     for manifest, collection, folder, extensions in specs:
         path = root / manifest
         if not path.is_file():
@@ -120,7 +121,9 @@ def check_local_media_ownership(root: Path):
         actual = {
             p.relative_to(root).as_posix()
             for p in folder_path.rglob("*")
-            if p.is_file() and p.suffix.lower() in extensions
+            if p.is_file() and p.suffix.lower() in (
+                discovered_audio_suffixes if folder == "assets/audio" else extensions
+            )
         } if folder_path.is_dir() else set()
         problems.extend(f"unreferenced media file: {p}" for p in sorted(actual - listed))
         problems.extend(f"manifest points to missing media file: {p}" for p in sorted(listed - actual))
