@@ -2,7 +2,7 @@
 
 - **Date:** 2026-10-22 · **Owner:** repository AI architecture/content agent
 - **Baseline:** `main@0f7cbb2dc2e06c68a2fe6007ed3f5abe6a82d25c`
-- **Status:** IN_PROGRESS (mark DONE_TESTED only after PR checks actually pass)
+- **Status:** DONE_TESTED — taxonomy and existing affected CI passed on PR #30 (documentation/metadata only)
 - **User outcome:** consistently discover media, YouTube, sources, knowledge, dictionaries, exercises, methods, design, UX, gameplay and user cases.
 - **Non-goal:** destructive runtime path moves, fake licenses, 3GB video imports, Web/Android new binaries, unofficial YKI grading.
 
@@ -27,9 +27,9 @@
 
 | Check | Status | Evidence |
 | --- | --- | --- |
-| Taxonomy Python unit tests | NOT RUN | Await PR workflow result |
-| Binary/hash/category/links validator | NOT RUN | Await PR workflow result |
-| Existing Web/architecture tests | NOT RUN | Await PR workflow result |
+| Taxonomy Python unit tests | PASS | [New taxonomy CI](https://github.com/MykolaDotsenko/hospodar-yki/actions/runs/39784645088) |
+| Binary/hash/category/links validator | PASS | [New taxonomy CI](https://github.com/MykolaDotsenko/hospodar-yki/actions/runs/39784645088) — 94 tracked media, 16 collections |
+| Existing Web/architecture checks | PASS (affected workflows) | [Architecture CI](https://github.com/MykolaDotsenko/hospodar-yki/actions/runs/39784644948), [AI docs CI](https://github.com/MykolaDotsenko/hospodar-yki/actions/runs/39784645077); full Android/native E2E not run |
 | Real Android pack delivery | NOT APPLICABLE | No Android AAB in repo |
 
-**Completion:** update with real PR/CI URL and close after tests and review.
+**Completion:** [PR #30](https://github.com/MykolaDotsenko/hospodar-yki/pull/30) passed taxonomy and related path-aware CI; existing binaries and runtime paths unchanged. Future physical migration and item-level license audits remain separate gated work.
