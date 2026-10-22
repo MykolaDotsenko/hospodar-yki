@@ -6,8 +6,8 @@ on:
       - main
       - content/open-finnish-video-pack-2026-10-21
     paths:
-      - video/catalog.json
-      - video/exercises.json
+      - assets/video/catalog.json
+      - learning/exercises/video/exercises.json
       - scripts/import_open_finnish_videos.py
       - .github/workflows/import-open-finnish-videos.yml
   workflow_dispatch:
@@ -35,8 +35,8 @@ jobs:
       - name: Compile importer / validate catalog
         run: |
           python3 -m py_compile scripts/import_open_finnish_videos.py
-          python3 -m json.tool video/catalog.json > /dev/null
-          python3 -m json.tool video/exercises.json > /dev/null
+          python3 -m json.tool assets/video/catalog.json > /dev/null
+          python3 -m json.tool learning/exercises/video/exercises.json > /dev/null
       - name: Fetch real, allowlisted, licensed Commons WebM transcodes
         run: python3 scripts/import_open_finnish_videos.py
       - name: Check SHA-256 manifest & commit ONLY actual media to current branch
@@ -46,7 +46,7 @@ jobs:
           python3 - <<'PY'
           import json,hashlib,pathlib
           root=pathlib.Path(".")
-          manifest=json.loads((root/"video/open/available.json").read_text())
+          manifest=json.loads((root/"assets/video/open/available.json").read_text())
           ready=0
           for asset in manifest["assets"]:
               if asset["state"]!="verified_binary":

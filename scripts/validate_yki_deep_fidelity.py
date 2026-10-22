@@ -106,12 +106,12 @@ def validate():
     assert spec["can_prove_exact_fidelity"] is False
     assert all(v is None for k, v in spec.items() if k not in {"source_status", "can_prove_exact_fidelity"})
     for name, parts in {
-        "docs/20-yki-official-complete-audit-2026-10.md": [
+        "research/yki/20-yki-official-complete-audit-2026-10.md": [
             "30.11.2011", "13", "2027", "SOLKI", "B1", "B2", "2011", "U10"],
         "docs/21-digital-yki-exam-simulator-executable-spec.md": [
             "F1", "F6", "strict_verified", "EXV-01", "EXV-20", "ASR"],
         "docs/14-digital-yki-fidelity-spec.md": ["Офіційний комплексний аудит v2"],
-        "docs/13-yki-exam-format-and-real-examples-2027.md": ["granular SOLKI"],
+        "research/yki/13-yki-exam-format-and-real-examples-2027.md": ["granular SOLKI"],
         "docs/15-two-modes-skill-scopes.md": ["YKI-FID-01", "YKI-FID-10"],
         "README.md": ["Повний офіційний аудит YKI"]
     }.items():
