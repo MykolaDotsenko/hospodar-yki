@@ -34,7 +34,7 @@
 
 ### 3.1. H-поріг (brand anchor)
 
-`brand/logo/hospodar-yki-mark.svg` — єдиний знак у toolbar, favicon, лендінгу, демо та маркетингових матеріалах. Усі застосування зберігають той самий силует, без альтернативного «AI robot», прапора, екзаменаційної печатки чи випадкової іконки. Юридичну унікальність ще перевірити (PRH, EUIPO, app stores).
+`assets/images/brand/hospodar-yki-mark.svg` — єдиний знак у toolbar, favicon, лендінгу, демо та маркетингових матеріалах. Усі застосування зберігають той самий силует, без альтернативного «AI robot», прапора, екзаменаційної печатки чи випадкової іконки. Юридичну унікальність ще перевірити (PRH, EUIPO, app stores).
 
 ### 3.2. Threshold line — функціональна лінія поступу
 
@@ -104,13 +104,13 @@
 
 ## 5.1. Наукове обґрунтування кольору (2026-10-21)
 
-Повний evidence review: [docs/16-color-attention-memory-research-2026-10.md](../docs/16-color-attention-memory-research-2026-10.md). Найсильніша емпірична база — корисність **signaling**, а не магічного `blue for memory`. Тому зберігати чотири брендовані skill colors у навігації, але мовний зміст виділяти **одним контрастним cue + underline лише під час фідбеку після спроби**; transfer, spaced recall та exam без cue.
+Повний evidence review: [research/design/16-color-attention-memory-research-2026-10.md](../research/design/16-color-attention-memory-research-2026-10.md). Найсильніша емпірична база — корисність **signaling**, а не магічного `blue for memory`. Тому зберігати чотири брендовані skill colors у навігації, але мовний зміст виділяти **одним контрастним cue + underline лише під час фідбеку після спроби**; transfer, spaced recall та exam без cue.
 
 Палітра сигналу: background `#FFF1C6`, ink `#083B7A`, underline (доступно без визначення кольору). Нейтральні тексти на `paper/white`. Не заливати кожну картку різними кольорами, не створювати неочевидні кольорові mnemonic categories. Аудіотранскрипти підсвічувати тільки після відповіді за перевіреним VTT. Це частина унікальності продукту — **потрібний сигнал у правильну мить**, а не AI visual noise.
 
 ## 5.2. Research-backed UI: увага до сенсу, а не лише до кольору
 
-[17 — нова наукова база (2026)](../docs/17-color-attention-l2-deep-dive.md) · [машинозчитувана політика](../research/color-attention-design-policy-v2.json).
+[17 — нова наукова база (2026)](../research/design/17-color-attention-l2-deep-dive.md) · [машинозчитувана політика](../research/design/color-attention-design-policy-v2.json).
 
 З урахуванням Lee & Huang (2008) **підсвічена граматична форма не може підміняти розуміння значення**. У типовому екрані grammar feedback: спершу окремий нейтральний `meaning-first` блок; нижче вузька одна `learning-cue` з правильним словом; у наступному `transfer` обидві cue відсутні. Якщо відомої `meaning_uk` немає, не створювати фіктивного перекладу. Чотири навички мають власні акценти **лише як UI navigation**, не кольорове кодування кожного відмінка.
 

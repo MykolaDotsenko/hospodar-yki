@@ -3,7 +3,7 @@
 # Hospodar YKI — впізнавана айдентика v0.2 («Відкритий поріг»)
 
 **Дата:** 2026-10-21 · **Статус:** обраний дизайн-напрям і готова дизайн-система прототипу, **не** зареєстрований торговий знак і не дослідження доведеної впізнаваності.  
-**Канонічні артефакти:** [brand-platform.md](brand-platform.md), [visual-system.md](visual-system.md), [tokens.json](tokens.json), [logo](logo/hospodar-yki-mark.svg), [wordmark](logo/hospodar-yki-lockup.svg), [app UI](../app/index.html).
+**Канонічні артефакти:** [brand-platform.md](brand-platform.md), [visual-system.md](visual-system.md), [tokens.json](tokens.json), [logo](../assets/images/brand/hospodar-yki-mark.svg), [wordmark](../assets/images/brand/hospodar-yki-lockup.svg), [app UI](../app/index.html).
 
 ## Бренд-гіпотеза
 

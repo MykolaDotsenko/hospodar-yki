@@ -4,13 +4,13 @@
 
 ### 🎯 YKI mock videos and official SOLKI intermediate demos (21.10.2026)
 
-**[Mock source JSON: 3 timed/section-wise YouTube clips + 5 official organizer demo pages](yki-mock-simulation-sources.json)** · **[Detailed video mock audit, risks and 8 acceptance requirements](YKI-MOCK-VIDEO-SOURCES-2026-10.md)**.
+**[Mock source JSON: 3 timed/section-wise YouTube clips + 5 official organizer demo pages](../../sources/official/yki-mock-simulation-sources.json)** · **[Detailed video mock audit, risks and 8 acceptance requirements](../../sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md)**.
 
 **Highest-priority actual rehearsal source:** [YKI Harjoitus timed speaking video](https://www.youtube.com/watch?v=htrQhR-HGM4): 0:00–16:22 independent speaking prompts, samples only after 16:22. **Official source for constructing practice types:** [JYU/SOLKI keskitaso puhuminen](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/) (audio examples), [listening](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/). These **legacy demonstration sources are not** complete spring-2027 digital exam simulations or a license to redistribute recordings. The other two timed/situational YKI videos and exact model-answer timestamps are in JSON.
 
 ### YouTube — link-only curated material (NEW 2026-10-21)
 
-**[47 YouTube watch links, 182 source-described chapter markers](youtube-catalog.json)** · **[Round 5: B1/B2 listening, 8 individual Yle videos and 2 trusted new series](YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)** · **[8 Yle episode URLs](publisher-episode-catalog.json)** · **[Round 4: six prioritized B1/B2 / YKI speaking-writing / puhekieli links](YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)** · **[9 official publisher learning video series (publisher URLs, NOT YouTube IDs)](publisher-series-catalog.json)** · **[Round 3: verified outgoing links, B1 Yle, housing, doctor, work](YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md)** · **[16 new high-value lessons: authentic dialogues, puhekieli, YKI writing](YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)** · **[Human-readable selection and future player UX spec (YTP-01…14)](YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../scripts/validate_youtube_video_catalog.py)**.
+**[47 YouTube watch links, 182 source-described chapter markers](../../sources/youtube/youtube-catalog.json)** · **[Round 5: B1/B2 listening, 8 individual Yle videos and 2 trusted new series](../../sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)** · **[8 Yle episode URLs](../../sources/publishers/publisher-episode-catalog.json)** · **[Round 4: six prioritized B1/B2 / YKI speaking-writing / puhekieli links](../../sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)** · **[9 official publisher learning video series (publisher URLs, NOT YouTube IDs)](../../sources/publishers/publisher-series-catalog.json)** · **[Round 3: verified outgoing links, B1 Yle, housing, doctor, work](../../sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md)** · **[16 new high-value lessons: authentic dialogues, puhekieli, YKI writing](../../sources/youtube/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md)** · **[Human-readable selection and future player UX spec (YTP-01…14)](../../sources/youtube/YOUTUBE-LEARNING-CATALOG.md)** · **[Static validator](../../scripts/validate_youtube_video_catalog.py)**.
 
 YouTube content is **NOT downloaded or copied** into this repository. Catalog entries store `youtube_video_id`, `watch_url`, creator/title, estimated level, skill, topic, why it helps, original pending-review exercise seeds, and study chapters. Playback/embedding, language quality and subtitles **are not yet verified**. Future player uses only official embed/IFrame API (when allowed), otherwise opens source in YouTube. No third-party audio extraction; creator branding/ads/player controls remain intact. The video lessons are **learn-only**, not unseen exam tasks.
 
@@ -32,8 +32,8 @@ YouTube content is **NOT downloaded or copied** into this repository. Catalog en
 - `open/*.webm`: **actual downloaded** lower-resolution Commons VP9/Opus transcoded source (if successful).
 - `open/available.json`: importer-generated audit with playback codec, duration, bytes, SHA-256, error status.
 - `exercises.json`: original draft comprehension prompts with `teacher_review=pending`, no graded keys before manual S2 verification.
-- `../scripts/import_open_finnish_videos.py`: restricted allowlist downloader and media quality gate.
-- `../.github/workflows/import-open-finnish-videos.yml`: CI downloads compact 360p sources, commits only validated video binary outputs; never writes learner data.
+- `../../scripts/import_open_finnish_videos.py`: restricted allowlist downloader and media quality gate.
+- `../../.github/workflows/import-open-finnish-videos.yml`: CI downloads compact 360p sources, commits only validated video binary outputs; never writes learner data.
 
 Run locally from repository root: `python3 scripts/import_open_finnish_videos.py` with `ffprobe` installed and network access. This script **does not modify** `app/**` or official exam item banks. Manually inspect source and verify rights before adding any future titles.
 
@@ -42,4 +42,4 @@ Run locally from repository root: `python3 scripts/import_open_finnish_videos.py
 
 ## Canonical ownership and external-link separation (22.10.2026)
 
-[Licensed local WebM binaries](../assets/video/README.md) · [YouTube link-only sources](../sources/youtube/README.md) · [Publisher links](../sources/publishers/README.md) · [Rights and catalog structure](../docs/CONTENT-ARCHITECTURE.md). Existing `video/*.json` remain at stable paths for validators and app consumers; URL-only entries are NOT local downloadable videos.
+[Licensed local WebM binaries](README.md) · [YouTube link-only sources](../../sources/youtube/README.md) · [Publisher links](../../sources/publishers/README.md) · [Rights and catalog structure](../../docs/CONTENT-ARCHITECTURE.md). Existing `video/*.json` remain at stable paths for validators and app consumers; URL-only entries are NOT local downloadable videos.

@@ -5,7 +5,7 @@
   "assets": [
     {
       "id": "jenni-puhekieli",
-      "path": "video/open/jenni-puhekieli.webm",
+      "path": "assets/video/open/jenni-puhekieli.webm",
       "source_url": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Jenni_speaking_Finnish.webm",
       "author": "Wikitongues",
       "license": "CC BY 3.0",
@@ -23,7 +23,7 @@
     },
     {
       "id": "kinola-helsinki",
-      "path": "video/open/kinola-helsinki.webm",
+      "path": "assets/video/open/kinola-helsinki.webm",
       "source_url": "https://commons.wikimedia.org/wiki/File:Elokuvateatteri_Kinola.webm",
       "author": "Aprom; historical photo credited to Museovirasto/Pietinen in source",
       "license": "CC BY-SA 4.0",
@@ -41,7 +41,7 @@
     },
     {
       "id": "claes-esittely",
-      "path": "video/open/claes-esittely.webm",
+      "path": "assets/video/open/claes-esittely.webm",
       "source_url": "https://commons.wikimedia.org/wiki/File:Claes_Andersson_fi.webm",
       "author": "Holger Motzkau",
       "license": "CC BY-SA 3.0",

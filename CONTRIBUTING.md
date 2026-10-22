@@ -1,6 +1,6 @@
 # Contributing to Hospodar YKI
 
-This file describes **software contributions**. For Finnish lesson/audio/video authoring and redistribution rights, see [content/CONTRIBUTING.md](content/CONTRIBUTING.md).
+This file describes **software contributions**. For Finnish lesson/audio/video authoring and redistribution rights, see [learning/CONTRIBUTING.md](learning/CONTRIBUTING.md).
 
 1. Start with [AGENTS.md](AGENTS.md), [docs/INDEX.md](docs/INDEX.md), [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) and the area-specific tests.
 2. Keep PRs small, reversible and linked to an acceptance criterion. Respect [architecture](docs/ARCHITECTURE.md), [contracts](docs/CONTRACTS.md) and [security](docs/SECURITY.md).
