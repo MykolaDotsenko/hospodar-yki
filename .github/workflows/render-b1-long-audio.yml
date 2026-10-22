@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - content/b1/audio-long/source-lessons.json
+      - learning/exercises/b1/audio-long/source-lessons.json
       - scripts/render_b1_long_audio.py
       - .github/workflows/render-b1-long-audio.yml
   workflow_dispatch:
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- audio/long/b1/ content/b1/audio-long/lessons.json audio/library.json
+          git add -- audio/long/b1/ learning/exercises/b1/audio-long/lessons.json assets/audio/library.json
           if git diff --cached --quiet; then
             echo "Nothing new"
           else

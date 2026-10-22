@@ -4,13 +4,13 @@ on:
     branches: [main]
     paths:
       - 'audio/tts/**'
-      - 'content/b1/audio-training/index.json'
+      - 'learning/exercises/b1/audio-training/index.json'
       - 'scripts/validate_b1_audio_pack.py'
       - '.github/workflows/validate-b1-audio.yml'
   pull_request:
     paths:
       - 'audio/tts/**'
-      - 'content/b1/audio-training/index.json'
+      - 'learning/exercises/b1/audio-training/index.json'
       - 'scripts/validate_b1_audio_pack.py'
 permissions:
   contents: read

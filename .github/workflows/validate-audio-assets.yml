@@ -3,14 +3,14 @@ on:
   push:
     branches: [main]
     paths:
-      - audio/available.json
+      - assets/audio/available.json
       - audio/segments/**
       - audio/open/**
       - scripts/validate_audio_assets.py
       - .github/workflows/validate-audio-assets.yml
   pull_request:
     paths:
-      - audio/available.json
+      - assets/audio/available.json
       - audio/segments/**
       - audio/open/**
       - scripts/validate_audio_assets.py
