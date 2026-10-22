@@ -9,9 +9,11 @@ on:
       - 'docs/**'
       - '.github/copilot-instructions.md'
       - '.github/pull_request_template.md'
-      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - '.github/workflows/**'
       - 'scripts/validate_ai_docs.py'
+      - 'scripts/validate_doc_integrity.py'
       - 'scripts/tests/test_validate_ai_docs.py'
+      - 'scripts/tests/test_validate_doc_integrity.py'
       - 'app/**'
       - 'packages/contracts/**'
       - 'native/android/prototype/**'
@@ -22,9 +24,11 @@ on:
       - 'docs/**'
       - '.github/copilot-instructions.md'
       - '.github/pull_request_template.md'
-      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - '.github/workflows/**'
       - 'scripts/validate_ai_docs.py'
+      - 'scripts/validate_doc_integrity.py'
       - 'scripts/tests/test_validate_ai_docs.py'
+      - 'scripts/tests/test_validate_doc_integrity.py'
       - 'app/**'
       - 'packages/contracts/**'
       - 'native/android/prototype/**'
@@ -45,5 +49,9 @@ jobs:
         run: python3 -m py_compile scripts/validate_ai_docs.py scripts/tests/test_validate_ai_docs.py
       - name: Validate path safety and broken-link detection
         run: python3 -m unittest discover -s scripts/tests -p 'test_validate_ai_docs.py' -v
+      - name: Catch obsolete workflow filters and stale normative content paths
+        run: |
+          python3 scripts/validate_doc_integrity.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_doc_integrity.py' -v
       - name: Check required docs, relative links and engineering truth
         run: python3 scripts/validate_ai_docs.py

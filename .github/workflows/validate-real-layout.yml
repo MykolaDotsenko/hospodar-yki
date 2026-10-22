@@ -22,6 +22,10 @@ jobs:
           node-version: '22'
       - name: Validate physical files JSON and important relative links
         run: python3 scripts/validate_folder_layout.py
+      - name: Validate CI filters and active documentation references
+        run: python3 scripts/validate_doc_integrity.py
+      - name: Regression test documentation integrity validator
+        run: python3 -m unittest discover -s scripts/tests -p 'test_validate_doc_integrity.py' -v
       - name: Python syntax all scripts
         run: python3 -m compileall -q scripts
       - name: Exercise Markdown link validator positive and negative fixtures
