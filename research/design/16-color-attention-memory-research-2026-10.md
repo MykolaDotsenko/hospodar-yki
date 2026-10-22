@@ -2,9 +2,9 @@
 
 **Дата перевірки:** 2026-10-21 · **Тип:** прикладне дослідження для фінської A2.2→B1/B1+; **не** systematic review і не результат власного експерименту.  
 **Завдання:** використати колір там, де є обґрунтована користь, але не підміняти practice retrieval, SRS, meaningful conversation або калібровані YKI завдання декоративною палітрою.  
-**Реєстр досліджень та технічний контракт:** [research/color-memory-evidence-v1.json](../research/color-memory-evidence-v1.json). Пов'язані: [головне ТЗ](15-two-modes-skill-scopes.md), [бренд v0.3](../brand/identity-v03-screen-system.md), [MVP](../app/README.md).
+**Реєстр досліджень та технічний контракт:** [research/design/color-memory-evidence-v1.json](color-memory-evidence-v1.json). Пов'язані: [головне ТЗ](../../docs/15-two-modes-skill-scopes.md), [бренд v0.3](../../brand/identity-v03-screen-system.md), [MVP](../../app/README.md).
 
-> **Доповнення 21.10.2026:** [поглиблений огляд 2026 meta-analysis + L2 language tradeoff + eye-tracking](17-color-attention-l2-deep-dive.md) уточнив критичний ризик: помічання граматичної форми може відвертати увагу від значення речення. Тому UI має давати **значення перед підсвіченим граматичним поясненням у post-response feedback**, не кольорову підказку до відповіді. **Новий policy:** [color-attention-design-policy-v2.json](../research/color-attention-design-policy-v2.json).
+> **Доповнення 21.10.2026:** [поглиблений огляд 2026 meta-analysis + L2 language tradeoff + eye-tracking](17-color-attention-l2-deep-dive.md) уточнив критичний ризик: помічання граматичної форми може відвертати увагу від значення речення. Тому UI має давати **значення перед підсвіченим граматичним поясненням у post-response feedback**, не кольорову підказку до відповіді. **Новий policy:** [color-attention-design-policy-v2.json](color-attention-design-policy-v2.json).
 
 ## Головний висновок
 

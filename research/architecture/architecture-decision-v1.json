@@ -453,6 +453,6 @@
     }
   ],
   "latest_amendment": "ADR-023",
-  "android_supplemental_adr": "research/android-game-distribution-v1.json",
+  "android_supplemental_adr": "research/architecture/android-game-distribution-v1.json",
   "android_supplemental_doc": "docs/23-android-offline-game-and-3gb-media-architecture.md"
 }

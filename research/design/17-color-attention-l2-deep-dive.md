@@ -1,9 +1,9 @@
 # 17 — Колір, увага та пам'ять у Hospodar YKI: поглиблений аналіз наукових досліджень
 
 **Перевірено:** 21.10.2026 · **Обсяг:** прикладне дослідження для дорослих A2.2→B1+, чотирьох навичок YKI. Це не власний RCT, не систематичний огляд усіх світових публікацій і не доказ ефекту конкретної палітри Hospodar.  
-**Підстава:** [попередній огляд 15 джерел](16-color-attention-memory-research-2026-10.md) і [науковий реєстр](../research/color-memory-evidence-v1.json). **Нове доповнення:** незалежно перевірені L2 meta-analysis, 2026 meta-analysis, eye-tracking, негативні/неоднозначні ефекти, WCAG.  
-**Машинозчитувані рішення:** [color-attention-design-policy-v2.json](../research/color-attention-design-policy-v2.json).  
-**Дизайн-система:** [Brand v0.3](../brand/identity-v03-screen-system.md), [product modes](15-two-modes-skill-scopes.md).
+**Підстава:** [попередній огляд 15 джерел](16-color-attention-memory-research-2026-10.md) і [науковий реєстр](color-memory-evidence-v1.json). **Нове доповнення:** незалежно перевірені L2 meta-analysis, 2026 meta-analysis, eye-tracking, негативні/неоднозначні ефекти, WCAG.  
+**Машинозчитувані рішення:** [color-attention-design-policy-v2.json](color-attention-design-policy-v2.json).  
+**Дизайн-система:** [Brand v0.3](../../brand/identity-v03-screen-system.md), [product modes](../../docs/15-two-modes-skill-scopes.md).
 
 ## Головна зміна від попереднього огляду
 

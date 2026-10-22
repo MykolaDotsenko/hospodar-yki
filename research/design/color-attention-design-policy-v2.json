@@ -3,7 +3,7 @@
   "reviewed_at": "2026-10-21",
   "product": "Hospodar YKI",
   "purpose": "research_to_design_handoff",
-  "canonical_review": "docs/17-color-attention-l2-deep-dive.md",
+  "canonical_review": "research/design/17-color-attention-l2-deep-dive.md",
   "science_constraints": {
     "no_universal_best_hue": true,
     "causal_color_memory_gain_unverified": true,

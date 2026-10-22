@@ -437,7 +437,7 @@
     "status": "not_run",
     "no_learning_claim_until_tested": true
   },
-  "related_doc": "docs/16-color-attention-memory-research-2026-10.md",
-  "extended_evidence_review": "docs/17-color-attention-l2-deep-dive.md",
+  "related_doc": "research/design/16-color-attention-memory-research-2026-10.md",
+  "extended_evidence_review": "research/design/17-color-attention-l2-deep-dive.md",
   "new_key_risk": "L2 text enhancement can improve form noticing but harm meaning processing: Lee & Huang d=+0.22 grammar vs d=-0.26 meaning. Meaning-first required."
 }
