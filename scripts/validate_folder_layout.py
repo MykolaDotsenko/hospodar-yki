@@ -196,7 +196,7 @@ def check_import_workflows(root: Path):
             continue
         content = file.read_text(encoding="utf-8")
         trigger = content.partition("permissions:")[0]
-        if "workflow_dispatch:" not in trigger or not trigger.lstrip().startswith("on:"):
+        if "on:" not in trigger.splitlines() or "  workflow_dispatch:" not in trigger.splitlines():
             errors.append(f"import must be manually dispatched: {name}")
         if "push:" in trigger:
             errors.append(f"import auto-runs on push: {name}")
