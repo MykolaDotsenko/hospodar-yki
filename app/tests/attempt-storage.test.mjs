@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   createMemoryExamRepository,createAndroidExamRepository,assertCommit,
-  newCommit,PersistenceError
+  newCommit,commitWithRecovery,PersistenceError
 } from "../attempt-storage.mjs";
 
 const make=(text="")=>({version:1,blueprintId:"yki-mini-1",startedAt:"2026-10-22T08:00:00Z",
@@ -79,4 +79,21 @@ test("read operations cannot mutate persisted state and deletion clears events",
   await repo.deleteLocal();
   assert.equal(await repo.readCurrent(),null);
   assert.equal((await repo.commit(newCommit(make("uusi"),0,"start",uuid(9)))).applied,true);
+});
+
+test("lost acknowledgement reconciles committed state, real failed write does not",async()=>{
+  const repository=createMemoryExamRepository();
+  const tricky={
+    readCurrent:()=>repository.readCurrent(),
+    commit:async cmd=>{await repository.commit(cmd);throw Object.assign(new Error("Lost ACK"),{code:"SAVE_FAILED"});}
+  };
+  const c=newCommit(make("asunut"),0,"answer",uuid(11));
+  const recovered=await commitWithRecovery(tricky,c);
+  assert.equal(recovered.reconciled,true);assert.equal(recovered.revision,1);
+  const impossible={
+    readCurrent:async()=>null,
+    commit:async()=>{throw Object.assign(new Error("Disk full"),{code:"SAVE_FAILED"});}
+  };
+  await assert.rejects(()=>commitWithRecovery(impossible,newCommit(make(),0,"answer",uuid(12))),
+    e=>e.code==="SAVE_FAILED");
 });
