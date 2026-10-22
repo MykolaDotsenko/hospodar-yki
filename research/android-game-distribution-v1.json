@@ -36,7 +36,7 @@
     "web_ui": "React 19 + Vite 8 + TypeScript strict",
     "game2d": "Phaser, loaded only in game scenes",
     "android_shell": "Capacitor 8 native Android + Kotlin custom plugins",
-    "local_events": "IndexedDB Dexie",
+    "local_events": "Web: IndexedDB Dexie; Android: Kotlin Room/SQLite via Capacitor native commit, per ADR-024/ADR-027",
     "exam": "XState fail-closed shared exam workflow",
     "asset_delivery": "Play Asset Delivery, install-time",
     "media": "native media data source/Media3 or verified WebViewAssetLoader Range/seek adapter; no raw file:// assumptions",
@@ -279,5 +279,10 @@
       "Distinct offline delivery policy on Web vs Android"
     ],
     "web_not_secondary": true
+  },
+  "decision_precedence": {
+    "android_persistence": "ADR-024 and ADR-027 supersede ADR-023 Android IndexedDB/Dexie",
+    "contract_registry": "ADR-027 distinction: ExamCheckpoint versus FirstAttemptEvent",
+    "status": "TARGET_SPEC_NOT_IMPLEMENTED"
   }
 }

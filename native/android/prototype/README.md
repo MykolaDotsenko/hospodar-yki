@@ -31,3 +31,15 @@ The corresponding executable, tested Web+JS protocol is `app/attempt-storage.mjs
 - P1: content rights gate rejects YouTube or external YKI samples without explicit redistribution authorization.
 
 Official references: [Play install-time packs](https://developer.android.com/guide/playcore/asset-delivery/integrate-java), [Media3 asset protocol](https://developer.android.com/reference/androidx/media3/datasource/DefaultDataSource), [Capacitor plugin API](https://capacitorjs.com/docs/plugins/android), [Room](https://developer.android.com/training/data-storage/room).
+
+## Architecture review notes (22.10.2026)
+
+See [ADR-027](../../../docs/27-stack-architecture-compatibility-and-implementation-gates.md) for the intended versioned bridge, distinct `ExamCheckpoint` and `FirstAttemptEvent`, recovery by committed event ID, and acceptance gates C-01…C-10. **These are documented gaps, not fixed code or compiled runtime evidence:**
+
+- Current `HospodarExamStorePlugin.reject` maps most native errors to `SAVE_FAILED`; the portable conflict/error taxonomy has to be preserved.
+- Current native JSON uses `JSONObject(sessionJson)` / `session.toString()`; cross-runtime canonical payload comparison with JS `JSON.stringify` has not been demonstrated.
+- Current `HospodarMediaPlugin.prepareAsset` validates `packId` but does not use it for pack-specific resource lookup. Check native and Web path validation parity, including percent-encoded path traversal.
+- Per-asset complete SHA-256 hash before playback may be costly for large files; measure on physical devices and define a version-aware verified-hash cache before enabling a shortcut.
+- No Android Gradle project, native instrumented tests, Play-installed PAD pack, Media3 video surface or verified 2–3GB offline delivery exists in this source folder.
+
+**Release condition:** a compiled app and real device tests, not the mere existence of Kotlin source files.
