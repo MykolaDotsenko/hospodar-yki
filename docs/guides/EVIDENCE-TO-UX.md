@@ -26,6 +26,10 @@ Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [sta
 | Guardrails | No autoplay, no forced microphone recording, no unsupported claim that ASR transcript grades pronunciation |
 | Implementation | \`RESEARCH_ONLY\` until code/tests/protocol evidence; link PR if actual implementation begins |
 
+## Comparison with real products (future study, not marketing claim)
+
+When reviewing a competitor, evaluate comparable **Finnish-capable** learning tasks with current screenshots/workflows, accessible interaction, offline/rights and independent outcomes, controlling for prior skill, practice time, learner attrition and content quality. The fact a competitor has immersive 2D worlds or branded sound does not itself imply better learning. Save study observations with the relevant [UX research protocol](../../research/ux/learning-impact-evaluation-protocol.md), **not a copied competitor asset or new master catalog**.
+
 ## UI research acceptance checklist for a scoped PR
 
 - [ ] Research owner + status + sources/evidence limitations identified; negative and conflicting data noted.

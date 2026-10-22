@@ -40,6 +40,10 @@ A draft autosave is NOT proof of an independently recalled first answer. Current
 - G5–G6: Android process kill, low disk, update/reinstall, headphone interruption, verified captions/codec, reduced-motion + sustained FPS/battery/memory; media licensing ledger and security review.
 - Each gate PR must include code/test evidence, actual status and rollback. No release claim based solely on markdown, compiled Kotlin sources or design-fit score.
 
+## Research-to-UX adoption gate (not an additional product milestone)
+
+For upcoming G2/G5 UI, voice, SRS and Phaser work, apply [research program](../research/RESEARCH-PROGRAM.md) → [experiment protocol](../research/ux/learning-impact-evaluation-protocol.md) → [engineering handoff](guides/EVIDENCE-TO-UX.md). Use a small accessible and silent-by-default learning loop before adding game or audiovisual effects. Retain human Finnish S2 review and 7/14-day unseen transfer evaluation; research and experiments are not implementation completion evidence. This gate uses existing G0–G6, C-01…C-10 and current PR reviews; **no extra registry**.
+
 ## 4. Exclusions / migration safety
 
 Do **not** deploy two independent domain engines or score ungraded speaking/writing as an official YKI level. Do **not** block offline core on Supabase login or automatic 3GB Web download. Do **not** remove the existing `app/` until critical flows, old exports, check/scores and data migrations are demonstrably equivalent. Checksum/version pin content to an in-progress attempt.

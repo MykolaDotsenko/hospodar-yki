@@ -19,6 +19,12 @@
 - **Тест:** оцінювати значеннєву адекватність та граматичний контроль **окремо**, з blind scoring human Finnish reviewer where applicable; не рахувати copying/model rewrite як independent competence.
 - **Джерело:** [Rice & Tokowicz 2020, ERIC](https://eric.ed.gov/?id=EJ1251020).
 
+### FEED-01 — Письмо: глибокий зміст + корекція форми, не тільки граматика (P0)
+- **Доказ:** meta-analysis у *Learning and Instruction* (2024) порівняв типи письмового фідбеку; surface-level feedback може допомагати поверхневим помилкам, deep-level — ідейному змісту, а комбінований — обом вимірам. У різних групах L1/L2/FL ефекти відрізнялися, тому жодне абсолютне правило для Finnish не виводимо.
+- **Дизайн:** у LEARN оцінювати виконання завдання та зрозумілість до виправлення відмінків; 1–3 пріоритетні feedback points, self-repair, unseen rewriting; human-review productive rubric у graded flows.
+- **Тест:** зміна communicative success, coherence і form control на новому письмовому завданні через 7–14 днів, blind rating, не кількість AI-підказок.
+- **Джерело:** [2024 feedback meta-analysis, DOI](https://doi.org/10.1016/j.learninstruc.2024.101961).
+
 ### ATT-01 — Visual signaling, coherence and cognitive-load protection: P0
 - **Докази:** Fiorella & Mayer (2021) принципи coherence, signaling, spatial/temporal contiguity зменшують зайву обробку; Noetel et al. (2022) overview of 29 systematic reviews / 1,189 studies finds benefits from signaling, spatial/temporal alignment and **captioning second-language videos**. Це не схвалення довільної анімації на кожній кнопці.
 - **Пропозиція:** **одна основна ціль на екран**; релевантна ілюстрація поруч із текстом; semantic highlighting для пошуку конкретного правила, який згасає перед незалежною спробою; одна керована action за раз. Усі key cues мають текстову/формальну альтернативу, не тільки колір.

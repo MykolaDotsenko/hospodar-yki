@@ -69,6 +69,12 @@ python3 scripts/validate_ai_docs.py
 - [Як додавати вправи, словники та медіа](docs/guides/CONTENT-AUTHORING.md) — права, якість фінської й тести.
 - [CI, безпека змін і release evidence](docs/operations/CI-QUALITY-GATES.md) · [межі ліцензування](LICENSING.md).
 
+## 🧠 Наукові методики → результат навчання
+
+[Програма дослідження методів, пам'яті та уваги](research/RESEARCH-PROGRAM.md) · [Критичний огляд звуку, візуальних ефектів і когнітивного навчання](research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md) · [Як вимірювати реальне запам'ятовування](research/ux/learning-impact-evaluation-protocol.md) · [Як переносити докази в UI/UX](docs/guides/EVIDENCE-TO-UX.md).
+
+Мета — відкладене самостійне використання фінської, а не декоративна гейміфікація чи неперевірені твердження «найкращий у світі». Поки що це **дослідження та процес**, а не підтверджена ефективність нашого застосунку.
+
 ## 🛠️ Документація для розробника й AI
 
 [AGENTS.md](AGENTS.md) — головні правила роботи агентів · [внесення змін](CONTRIBUTING.md) · [документація](docs/INDEX.md) · [архітектура](docs/ARCHITECTURE.md) · [політика контенту й папок](docs/CONTENT-ARCHITECTURE.md) · [тести](docs/TESTING.md) · [privacy/security](docs/SECURITY.md) · [випуск і відкат](docs/RELEASE.md).

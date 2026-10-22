@@ -19,3 +19,7 @@
 - File follow-up engineering changes with screenshot *of real existing UI*, specific acceptance case, reviewer and privacy-safe evidence.
 
 **Output required for a completed study:** reproducible anonymized observations and task logs, never just agent-estimated scores.
+
+## Learning effectiveness and competitor benchmark extension (PLANNED)
+
+Use [learning impact protocol](learning-impact-evaluation-protocol.md) as the **method owner**, not a second competing backlog. For each future competitor comparison record product/version/date, public mode availability, Finnish coverage, offline/accessibility and comparable tasks, observed outcome evidence and limitations. No copying protected lessons, using screenshots as causal proof, or claiming the 'best in the world' without representative independent matched evidence. Prioritize research questions UX-L01…UX-L06; actual studies remain NOT RUN.

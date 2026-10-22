@@ -2,6 +2,10 @@
 
 **Applies to:** any coding assistant or human contributor using AI-generated patches. [AGENTS.md](../AGENTS.md) is the compact entrypoint; this document owns the execution and review process.
 
+## Learning science and sensory UI/UX research
+
+For pedagogical, audio, animation, color, focus, adaptive feedback or gameplay claims, begin at [the research program](../research/RESEARCH-PROGRAM.md), not at new interface effects. Check the [evidence-to-UX handoff](guides/EVIDENCE-TO-UX.md) and [learning impact evaluation](../research/ux/learning-impact-evaluation-protocol.md). Demand primary source, negative/null findings, applicability to adult Finnish A2–B1, concrete independent learner behavior, control condition and delayed unseen transfer. Document which accessibility/consent modes are needed. This review is required before converting a research hypothesis into implemented LEARN or EXAM logic. Do not equate method rankings, gamification metrics or instant MCQ correctness with YKI competence.
+
 ## One reproducible work loop
 
 1. **Orient:** read AGENTS and [INDEX](INDEX.md); inspect exact current main/head commit, nearby code/tests and relevant ADR/requirement. Identify whether a claim is IMPLEMENTED, PARTIAL, SOURCE_PROTOTYPE or TARGET.
