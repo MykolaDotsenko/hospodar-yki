@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "product": "Hospodar YKI",
+  "status": "target_syllabus_not_current_app_coverage",
+  "start_level": "A1.3",
+  "end_level": "B2.1",
+  "level_scale_note": "A1.3, A2.1, A2.2, B1.1, B1.2 and B2.1 are Finnish curriculum sublevel labels, not six separate CEFR certificates.",
+  "goals": [
+    "Independent everyday Finnish communication",
+    "Four skills reading/listening/writing/speaking",
+    "YKI keskitaso optional B1/B2 subtest-focused practice",
+    "Accessibility, delayed transfer and teacher review"
+  ],
+  "levels": [
+    {
+      "id": "A1.3",
+      "stage": "foundation",
+      "entry": "Start learning from this level; placement test may skip known skills",
+      "grammar": [
+        "present_positive_negative",
+        "questions",
+        "basic_local_cases",
+        "clock_time"
+      ],
+      "situations": [
+        "introductions",
+        "daily_routine",
+        "shopping",
+        "home",
+        "appointment_time"
+      ],
+      "outputs": [
+        "short_self_introduction",
+        "basic_questions",
+        "clock_and_schedule"
+      ],
+      "content_status": "planned",
+      "minimum_review": "teacher_review_pending"
+    },
+    {
+      "id": "A2.1",
+      "stage": "early_independent",
+      "grammar": [
+        "verb_types",
+        "past_imperfekti_introduction",
+        "partitive",
+        "object_basics"
+      ],
+      "situations": [
+        "public_transport",
+        "doctor_booking",
+        "service_dialogue",
+        "housing"
+      ],
+      "outputs": [
+        "short_message",
+        "past_event_description",
+        "clarification_request"
+      ],
+      "content_status": "planned",
+      "minimum_review": "teacher_review_pending"
+    },
+    {
+      "id": "A2.2",
+      "stage": "upper_elementary",
+      "grammar": [
+        "past_imperfekti",
+        "perfect_introduction",
+        "comparison",
+        "conditional_requests"
+      ],
+      "situations": [
+        "work_schedules",
+        "neighbour_notice",
+        "product_return",
+        "personal_experiences"
+      ],
+      "outputs": [
+        "email_request",
+        "narrated_event",
+        "short_opinion"
+      ],
+      "content_status": "partially_represented_by_existing_B1_content",
+      "minimum_review": "teacher_review_pending"
+    },
+    {
+      "id": "B1.1",
+      "stage": "intermediate_start",
+      "grammar": [
+        "perfect_vs_imperfect",
+        "conditional",
+        "complex_sentences",
+        "rektio"
+      ],
+      "situations": [
+        "employment",
+        "health",
+        "official_services",
+        "daily_conflicts"
+      ],
+      "outputs": [
+        "structured_opinion",
+        "situation_roleplay",
+        "understanding_authentic_speech"
+      ],
+      "content_status": "partially_represented_by_existing_B1_content",
+      "minimum_review": "teacher_review_pending"
+    },
+    {
+      "id": "B1.2",
+      "stage": "intermediate_strong",
+      "grammar": [
+        "pluperfect",
+        "reported_speech",
+        "passive",
+        "cohesion"
+      ],
+      "situations": [
+        "workplace_problem",
+        "housing_repair",
+        "societal_topics",
+        "formal_complaint"
+      ],
+      "outputs": [
+        "two_minute_spontaneous_answer",
+        "formal_message",
+        "multi_speaker_listening",
+        "YKI_practice"
+      ],
+      "content_status": "partially_represented_by_existing_B1_content",
+      "minimum_review": "teacher_review_pending"
+    },
+    {
+      "id": "B2.1",
+      "stage": "upper_intermediate_entry",
+      "grammar": [
+        "advanced_tense_choices",
+        "complex_subordinate_clauses",
+        "register",
+        "nuanced_argumentation"
+      ],
+      "situations": [
+        "media_and_society",
+        "work_negotiation",
+        "civic_issues",
+        "complex_presentations"
+      ],
+      "outputs": [
+        "reasoned_position_with_counterargument",
+        "natural_spoken_interaction",
+        "extended_comprehension"
+      ],
+      "content_status": "planned",
+      "minimum_review": "teacher_review_pending"
+    }
+  ],
+  "rules": {
+    "skills": [
+      "listening",
+      "reading",
+      "speaking",
+      "writing"
+    ],
+    "YKI_test_scope": "EXAM practice must adhere to evidence-backed OPH format, and never imply official exams",
+    "promotion": "diagnose by independent tasks, not videos watched or XP",
+    "level_disclosure": "A1.3..B2.1 TARGET; do not claim all levels currently implemented",
+    "reference_topic": "learning/exercises/grammar/tenses/lessons.json",
+    "visual_assets": "assets/images/illustrations/ and assets/images/pictures/"
+  }
+}

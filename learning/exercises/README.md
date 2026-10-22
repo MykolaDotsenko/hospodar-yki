@@ -1,9 +1,13 @@
-# Learning exercises — B1 and video tasks
+# Learning exercises — present B1 assets plus A1.3–B2.1 curriculum expansion
 
 These are real authoring files consumed by the Web MVP and validators, not catalog pointers. [Detailed historical content overview](CONTENT-OVERVIEW-2026-10.md) retains the 21 October inventory and editorial notes.
 
+**Target range:** [A1.3 → B2.1](../curriculum/README.md). **Actually existing app exercise coverage** is still concentrated on B1; new tense/time exercises are draft content, not proof of six complete levels.
+
 | Learning content | Folder |
 | --- | --- |
+| Finnish tenses across A1.3–B2.1 | [tenses](grammar/tenses/README.md) |
+| Clock, schedules and time expressions from A1.3 | [time-and-clock](grammar/time-and-clock/README.md) |
 | Practical B1 situations across four skills | [themes](b1/themes/) |
 | Dialogues and contextual reading | [contextual](b1/contextual/README.md) |
 | Grammar, rektio practice and cloze | [grammar](b1/grammar/README.md) |

@@ -36,6 +36,10 @@ jobs:
         run: npm test --prefix tools/architecture
       - name: Portable V2 contracts and Web receipt regressions
         run: node --test packages/contracts/tests/*.test.mjs app/tests/attempt-storage.test.mjs
+      - name: Validate expanded A1.3–B2.1 curriculum and pedagogical media folders
+        run: |
+          python3 scripts/validate_curriculum_coverage.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_curriculum_coverage.py' -v
       - name: Python syntax all scripts
         run: python3 -m compileall -q scripts
       - name: Exercise Markdown link validator positive and negative fixtures

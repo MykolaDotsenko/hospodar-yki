@@ -2,6 +2,8 @@
 
 You are working on a **local-first Finnish/YKI learning application**: Ukrainian-language explanations; Finnish-language practice; LEARN and EXAM modes with reading, listening, writing and speaking. Optimize for reliable learning outcomes, privacy, accessibility, and verified tests—not for new frameworks or large diffs.
 
+**Product scope update:** design new LEARN content for **A1.3 → B2.1** with differentiated levels; do not mislabel the working B1 MVP as six-level-ready. Images have distinct [illustration](assets/images/illustrations/README.md)/[picture](assets/images/pictures/README.md) homes; grammar tenses live in [learning/exercises/grammar/tenses](learning/exercises/grammar/tenses/README.md). EXAM remains evidence-based YKI keskitaso, not invented A1.3 exam certification.
+
 ## First read (progressive disclosure)
 > **Content ownership:** media files live in [assets](assets/README.md), exercises in [learning/exercises](learning/exercises/README.md), dictionaries in [knowledge/dictionaries](knowledge/dictionaries/README.md), plans in [learning/plans](learning/plans/README.md), external video/audio links in [sources](sources/README.md), and research in [research](research/README.md). Read the [physical folder structure](docs/FOLDER-STRUCTURE.md) before touching assets; do not restore machine registries or copy YouTube media.
 

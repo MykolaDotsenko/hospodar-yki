@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "status": "project_original_draft_teacher_review_pending",
+  "scope": "Kello ja aika, ajanilmaukset (distinct from grammatical tenses)",
+  "references": [
+    "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot"
+  ],
+  "examples": [
+    {
+      "fi": "Kello on kolme.",
+      "time": "15:00",
+      "uk": "Третя година."
+    },
+    {
+      "fi": "Kello on puoli neljä.",
+      "time": "15:30",
+      "uk": "Пів на четверту."
+    },
+    {
+      "fi": "Kello on varttia yli neljä.",
+      "time": "16:15",
+      "uk": "Чверть на п'яту (16:15)."
+    },
+    {
+      "fi": "Kello on varttia vaille seitsemän.",
+      "time": "18:45",
+      "uk": "Без чверті сьома (18:45)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "clock-001",
+      "level": "A1.3",
+      "prompt_fi": "Kello on puoli neljä. Mikä aika on?",
+      "choices": [
+        "15:30",
+        "16:30",
+        "15:15"
+      ],
+      "answer": "15:30"
+    },
+    {
+      "id": "clock-002",
+      "level": "A1.3",
+      "prompt_fi": "Kello on varttia yli neljä. Mikä aika on?",
+      "choices": [
+        "16:15",
+        "16:45",
+        "15:15"
+      ],
+      "answer": "16:15"
+    },
+    {
+      "id": "clock-003",
+      "level": "A2.1",
+      "prompt_fi": "Tapaaminen alkaa kello 9.45. Milloin se alkaa?",
+      "choices": [
+        "varttia vaille kymmenen",
+        "varttia yli yhdeksän",
+        "puoli kymmenen"
+      ],
+      "answer": "varttia vaille kymmenen"
+    }
+  ]
+}
