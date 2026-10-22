@@ -297,8 +297,10 @@ def check_import_workflows(root: Path):
 
 # Validate the actual source JSON already consumed by lessons and media players.
 # No parallel file index: references are discovered in place, recursively.
+# sources/audio contains *candidate* download destinations, not installed assets.
+# Validate only local delivery/learning manifests that promise real files.
 REFERENCE_FOLDERS = (
-    "assets/audio", "assets/video", "learning", "sources/audio",
+    "assets/audio", "assets/video", "learning",
 )
 REFERENCE_PREFIXES = (
     "assets/", "learning/", "knowledge/", "research/", "sources/", "docs/", "brand/",
@@ -314,7 +316,7 @@ def check_operational_json_references(root: Path):
     """Every repository-root file reference in runtime/authoring JSON must resolve.
 
     Values such as 'file.json#lesson-id' resolve against the file portion.
-    Prose, HTTP(S) citations and future architecture research are not paths.
+    External candidate downloads, prose and future architecture research are not installed files.
     Reject traversal and absolute forms rather than attempting to resolve them.
     """
     from urllib.parse import urlsplit
