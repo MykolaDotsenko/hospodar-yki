@@ -5,7 +5,10 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_folder_layout import check_links, check_local_media_ownership, check_tree
+from validate_folder_layout import (
+    check_links, check_local_media_ownership, check_tree,
+    check_operational_json_references, check_youtube_link_only,
+)
 
 
 class MarkdownLinks(unittest.TestCase):
@@ -106,6 +109,75 @@ class LocalMediaOwnership(unittest.TestCase):
         (self.root / "assets/audio/library.json").write_text("{not json}")
         self.assertTrue(any("invalid media manifest" in e
                             for e in check_local_media_ownership(self.root)))
+
+
+class OperationalReferences(unittest.TestCase):
+    def setUp(self):
+        import json
+        self.json = json
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+        (self.root / "learning/exercises/b1").mkdir(parents=True)
+        (self.root / "assets/audio/open").mkdir(parents=True)
+        (self.root / "sources/youtube").mkdir(parents=True)
+        (self.root / "assets/audio/open/lesson.ogg").write_bytes(b"fixture")
+
+    def write(self, obj):
+        (self.root / "learning/exercises/b1/test.json").write_text(
+            self.json.dumps(obj), encoding="utf-8"
+        )
+
+    def test_nested_valid_path_and_fragment(self):
+        self.write({"lessons": [{"variants": [
+            {"audio_path": "assets/audio/open/lesson.ogg"},
+            {"transcript_ref": "learning/exercises/b1/test.json#my-id"},
+        ]}]})
+        errors, count = check_operational_json_references(self.root)
+        self.assertEqual(errors, [])
+        self.assertEqual(count, 2)
+
+    def test_missing_nested_binary_fails(self):
+        self.write({"lessons": [{"audio_versions": [
+            {"path": "assets/audio/open/missing.ogg"}
+        ]}]})
+        errors, count = check_operational_json_references(self.root)
+        self.assertEqual(count, 1)
+        self.assertTrue(any("missing referenced resource" in x for x in errors))
+
+    def test_unsafe_path_fails_closed(self):
+        self.write({"path": "assets/audio/../../private.ogg"})
+        errors, _ = check_operational_json_references(self.root)
+        self.assertTrue(any("unsafe resource path" in x for x in errors))
+
+    def test_external_urls_are_not_local_paths(self):
+        self.write({"source_page": "https://youtube.com/watch?v=test",
+                    "preview": "link-only",
+                    "note": "assets/audio/future target TBD"})
+        errors, count = check_operational_json_references(self.root)
+        self.assertEqual(errors, [])
+        self.assertEqual(count, 0)
+
+    def test_external_audio_candidate_is_not_installed_media(self):
+        (self.root / "sources/audio").mkdir(parents=True)
+        (self.root / "sources/audio/recording-sources.json").write_text(
+            self.json.dumps({"open_licensed_downloads": [{
+                "relative_path": "assets/audio/open/not-downloaded-yet.ogg"
+            }]}), encoding="utf-8"
+        )
+        self.write({"lessons": [{"audio_path": "assets/audio/open/lesson.ogg"}]})
+        errors, count = check_operational_json_references(self.root)
+        self.assertEqual(errors, [])
+        self.assertEqual(count, 1)
+
+    def test_binary_inside_youtube_sources_is_rejected(self):
+        (self.root / "sources/youtube/copied.mp4").write_bytes(b"not permitted")
+        self.assertTrue(any("downloaded media" in x
+                            for x in check_youtube_link_only(self.root)))
+
+    def test_json_in_youtube_sources_is_allowed(self):
+        (self.root / "sources/youtube/links.json").write_text("{}")
+        self.assertEqual(check_youtube_link_only(self.root), [])
 
 if __name__ == "__main__":
     unittest.main()

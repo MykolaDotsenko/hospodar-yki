@@ -295,11 +295,103 @@ def check_import_workflows(root: Path):
     return errors
 
 
+# Validate the actual source JSON already consumed by lessons and media players.
+# No parallel file index: references are discovered in place, recursively.
+# sources/audio contains *candidate* download destinations, not installed assets.
+# Validate only local delivery/learning manifests that promise real files.
+REFERENCE_FOLDERS = (
+    "assets/audio", "assets/video", "learning",
+)
+REFERENCE_PREFIXES = (
+    "assets/", "learning/", "knowledge/", "research/", "sources/", "docs/", "brand/",
+)
+REFERENCE_SUFFIXES = {
+    ".json", ".ogg", ".oga", ".mp3", ".webm", ".wav", ".flac", ".opus",
+    ".m4a", ".aac", ".aiff", ".vtt", ".txt", ".pdf", ".svg", ".png",
+    ".jpg", ".jpeg", ".webp", ".avif", ".tsv", ".md",
+}
+
+
+def check_operational_json_references(root: Path):
+    """Every repository-root file reference in runtime/authoring JSON must resolve.
+
+    Values such as 'file.json#lesson-id' resolve against the file portion.
+    External candidate downloads, prose and future architecture research are not installed files.
+    Reject traversal and absolute forms rather than attempting to resolve them.
+    """
+    from urllib.parse import urlsplit
+    problems = []
+    checked = 0
+    visited = set()
+    for folder in REFERENCE_FOLDERS:
+        base = root / folder
+        for source in sorted(base.rglob("*.json")) if base.is_dir() else ():
+            if source in visited:
+                continue
+            visited.add(source)
+            try:
+                payload = json.loads(source.read_text(encoding="utf-8"))
+            except (ValueError, UnicodeError):
+                # check_json already owns the parse error.
+                continue
+
+            def walk(value, pointer="$"):
+                nonlocal checked
+                if isinstance(value, dict):
+                    for key, inner in value.items():
+                        walk(inner, f"{pointer}.{key}")
+                elif isinstance(value, list):
+                    for i, inner in enumerate(value):
+                        walk(inner, f"{pointer}[{i}]")
+                elif isinstance(value, str):
+                    # Only explicit repo-root paths, not prose or external URLs.
+                    if not value.startswith(REFERENCE_PREFIXES):
+                        return
+                    path_text = urlsplit(value).path
+                    # Support references like .json#item_id while checking file existence.
+                    if Path(path_text).suffix.lower() not in REFERENCE_SUFFIXES:
+                        return
+                    checked += 1
+                    display = f"{source.relative_to(root)}:{pointer}"
+                    decoded = unquote(path_text)
+                    ref = Path(decoded)
+                    if ("\\" in decoded or ref.is_absolute()
+                            or ".." in ref.parts or decoded.startswith("./")
+                            or "\x00" in decoded):
+                        problems.append(f"unsafe resource path {display}: {value}")
+                        return
+                    resolved = (root / ref).resolve()
+                    if not resolved.is_relative_to(root.resolve()):
+                        problems.append(f"resource path escapes repository {display}: {value}")
+                    elif not resolved.is_file():
+                        problems.append(f"missing referenced resource {display}: {value}")
+            walk(payload)
+    return problems, checked
+
+
+def check_youtube_link_only(root: Path):
+    """The source folder must not turn into an offline copy of YouTube."""
+    source = root / "sources/youtube"
+    if not source.is_dir():
+        return ["YouTube source folder is missing"]
+    binary = {".mp4", ".webm", ".mkv", ".mov", ".m4v", ".mp3",
+              ".ogg", ".m4a", ".aac", ".wav", ".flac"}
+    return [
+        f"downloaded media in YouTube link-only folder: {p.relative_to(root)}"
+        for p in sorted(source.rglob("*"))
+        if p.is_file() and p.suffix.lower() in binary
+    ]
+
+
 def validate(root: Path):
     tree_errors, counts = check_tree(root)
     json_errors, num_json = check_json(root)
     manifest_errors, references = check_manifest_file_references(root)
-    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root) + check_local_media_ownership(root)
+    resource_errors, _ = check_operational_json_references(root)
+    problems = (tree_errors + json_errors + check_links(root) + check_mvp(root)
+                + manifest_errors + check_import_workflows(root)
+                + check_local_media_ownership(root) + resource_errors
+                + check_youtube_link_only(root))
     return problems, counts, num_json
 
 
