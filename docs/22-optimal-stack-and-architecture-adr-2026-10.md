@@ -1,5 +1,7 @@
 # ADR-022 — Hospodar YKI: оптимальний стек та модульна local-first архітектура
 
+> **Інтеграційний план 22.10.2026 — [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md):** design-fit стеку/архітектури оцінено окремо від реального implementation readiness. Уточнено два типи подій (чернетка vs незалежна перша відповідь), native bridge та обов'язкові Web/Android/PAD release gates. Для критичних Android-даних чинний ADR-024 (Kotlin Room), а не IndexedDB. **React/Phaser/Capacitor/PAD ще не пройшли end-to-end інтеграцію.**
+
 > **PRODUCT AMENDMENT — ADR-023 (21.10.2026):** Додаток має бути також **2D Android-грою з повністю встановленими офлайн-мультимедіа ~2–3 ГБ**. Канонічна додаткова специфікація: [23 — Android offline game/Google Play Asset Delivery](23-android-offline-game-and-3gb-media-architecture.md). Вибір нижче **доповнено** Phaser для ігрових сцен, Capacitor 8 + Kotlin для Android і `install-time` Play Asset Delivery для ліцензованого медіа. Дві оболонки **Web/PWA та Android**, один TypeScript домен. Попереднє оцінювання **95/100 зроблене до вимоги Android-гри** і не є виміряною оцінкою APK/PAD/game performance. Самостійний один `.apk` 3GB не обіцяємо. До підтвердження на реальному Android/Google Play це лише архітектура.
 
 
