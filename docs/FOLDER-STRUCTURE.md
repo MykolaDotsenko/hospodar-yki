@@ -7,10 +7,14 @@ hospodar-yki/
 ├── app/                         # Поточний працюючий Web MVP
 ├── assets/
 │   ├── images/brand/            # Справжні SVG логотипи
+│   ├── images/illustrations/    # Майбутні навчальні схеми / ілюстрації, README нині
+│   ├── images/pictures/         # Майбутні навчальні фотографії, README нині
 │   ├── audio/{human,long,open,segments}/  # OGG/MP3, субтитри, записи
 │   └── video/open/              # Ліцензовані локальні WebM
 ├── learning/
-│   ├── exercises/b1/            # Теми, діалоги, граматика, діагностика,
+│   ├── curriculum/             # Цільова програма A1.3 → B2.1 (не готовий курс)
+│   ├── exercises/grammar/       # Aikamuodot + kello ja aika — чернетки рівневих вправ
+│   ├── exercises/b1/            # Наявні теми, діалоги, граматика,
 │   │                             # практичний іспит, аудіоуроки, high-yield
 │   ├── exercises/video/         # Вправи для реального відео
 │   ├── plans/                   # Навчальні плани, 4 тижні слухання

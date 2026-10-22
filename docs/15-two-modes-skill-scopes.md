@@ -5,6 +5,8 @@
 **Пов'язані документи:** [продуктове ТЗ MVP](11-mvp-product-requirements.md) · [архітектура](12-mvp-architecture.md) · [доказові методики](../research/pedagogy/08-learning-methods-evidence-2026-10.md) · [digital exam fidelity](14-digital-yki-fidelity-spec.md) · [офіційні приклади](../research/yki/13-yki-exam-format-and-real-examples-2027.md).  
 **Контракт конфігурації:** [research/user-cases/product-session-modes-v1.json](../research/user-cases/product-session-modes-v1.json).
 
+**Оновлена межа продукту 2026-10-23:** **LEARN A1.3 → A2.1 → A2.2 → B1.1 → B1.2 → B2.1** з діагностичним пропуском уже засвоєного; **EXAM** зосереджується на YKI keskitaso B1/B2. [Канонічна рівнева програма](../learning/curriculum/README.md), [ілюстрації](../assets/images/illustrations/README.md), [картинки](../assets/images/pictures/README.md), [часи](../learning/exercises/grammar/tenses/README.md). Ця зміна **target scope**, чинний B1 JavaScript MVP не має повного наповнення A1.3–B2.1.
+
 ## 0. Одне речення про продукт
 
 **Hospodar YKI — застосунок із двома незалежними режимами: (1) надзвичайно ефективне персоналізоване навчання фінської та підготовка до YKI на підставі перевірених методик; (2) максимально достовірна репетиція реального YKI keskitaso. У КОЖНОМУ режимі можна обрати всі чотири навички або окремий модуль; у навчанні всі навички можна свідомо перемішувати.**
