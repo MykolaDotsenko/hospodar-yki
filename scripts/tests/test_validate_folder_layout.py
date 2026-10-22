@@ -73,6 +73,11 @@ class LocalMediaOwnership(unittest.TestCase):
         self.assertTrue(any("unreferenced media file" in e
                             for e in check_local_media_ownership(self.root)))
 
+    def test_unregistered_other_audio_format_is_rejected(self):
+        (self.root / "assets/audio/tts/harri/accidental.wav").write_bytes(b"wav")
+        self.assertTrue(any("unreferenced media file" in e
+                            for e in check_local_media_ownership(self.root)))
+
     def test_missing_video_is_rejected(self):
         (self.root / "assets/video/open/scene.webm").unlink()
         self.assertTrue(any("manifest points to missing media" in e
