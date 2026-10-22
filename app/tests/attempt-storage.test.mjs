@@ -42,7 +42,7 @@ test("invalid commands and oversized payload fail without mutation",async()=>{
     {...newCommit(make(),0,"start",uuid(6)),expectedRevision:-1},
     {...newCommit(make(),0,"start",uuid(6)),kind:"secret"},
     {...newCommit(make(),0,"start",uuid(6)),session:{...make(),answers:["bad"]}},
-    newCommit({...make(),answers:{long:"x".repeat(250001)}},0,"answer",uuid(7))
+    {...newCommit(make(),0,"answer",uuid(7)),session:{...make(),answers:{long:"x".repeat(250001)}}}
   ]) await assert.rejects(()=>repo.commit(invalid),e=>e.code?.startsWith("INVALID")||e.code==="TOO_LARGE");
   assert.equal(await repo.readCurrent(),null);
 });
