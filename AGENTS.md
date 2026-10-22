@@ -26,6 +26,13 @@ python3 scripts/validate_ai_docs.py
 
 The browser HTTP server is **not a deployment**. Node 22 is used in CI; Python 3.12 for architecture/doc checks. See [TESTING](docs/TESTING.md) for the real Chromium IndexedDB integration test. Do not claim that a test ran if you did not run it.
 
+## Task-specific how-to guides
+
+- [Current ADR status, decision precedence](docs/architecture/README.md) — accepted target is not implemented behavior.
+- [Web/Android phased migration](docs/guides/WEB-ANDROID-MIGRATION.md) — durability, Gradle/Room and PAD release gates.
+- [Content authoring and licensing](docs/guides/CONTENT-AUTHORING.md) — official YKI vs practice and media rights.
+- [CI path filters and evidence](docs/operations/CI-QUALITY-GATES.md) — never assume a green workflow ran unless the path trigger matches.
+
 ## Source of truth / precedence
 
 - **Implemented behavior:** current code, reproducible tests and CI runs. A design document is *not* proof of an implementation.

@@ -41,3 +41,10 @@
 - Known gaps:
 - Follow-up plan / rollback:
 - Reviewer attention:
+
+## Documentation and supply-chain gate
+
+- [ ] Checked `python3 scripts/validate_doc_integrity.py` and the folder validator after changing docs, workflows or content paths.
+- [ ] Existing ADR decision was preserved; any replacement has an explicit superseding ADR link and actual implementation status.
+- [ ] GitHub Actions versions are pinned to reviewed upstream commit SHAs, and changed paths trigger their respective validations.
+- [ ] [LICENSING.md](../LICENSING.md) respected: licensed source assets remain separate from project-authored code.

@@ -10,6 +10,7 @@
 | App unit/integration | `node --test app/tests/*.test.mjs` | Present unit/content and in-memory storage behavior, not all browsers |
 | Shared contract unit | `node --test packages/contracts/tests/*.test.mjs` | JS in-memory reference semantics, **not Kotlin parity** |
 | Stack design/ADRs | `python3 scripts/validate_architecture_decision.py && python3 scripts/validate_android_game_architecture.py && python3 scripts/validate_reliability_architecture.py` | Requirement snapshots, **not deployed stack** |
+| CI trigger paths and live normative content paths | `python3 scripts/validate_doc_integrity.py && python3 -m unittest discover -s scripts/tests -p 'test_validate_doc_integrity.py'` | Detect stale non-triggering workflow filters and obsolete educational doc paths; **not** runtime integration proof |
 | AI docs/invariants | `python3 scripts/validate_ai_docs.py` | Required files/links/document ownership + source baseline references |
 | Physical folder, all media membership and references | `python3 scripts/validate_folder_layout.py && python3 -m unittest discover -s scripts/tests -p 'test_validate_folder_layout.py'` | Catch broken paths, orphan or duplicate OGG/MP3/WebM, invalid source ownership; not audio rights or teaching quality |
 | AI docs validator tests | `python3 -m unittest discover -s scripts/tests -p 'test_validate_ai_docs.py'` | Validator handles valid and invalid fixtures |
@@ -56,3 +57,5 @@ Report `PASS`, `FAIL`, or `NOT RUN` **per command** with relevant logs/CI URL. T
 ## When tests fail
 
 Reproduce before patching; preserve a minimized failing fixture, fix the cause, rerun the specific test and affected neighboring tests, report what remains unverified. Never lower acceptance criteria, skip checks, blanket-ignore exceptions or redefine the assertion to hide failures.
+
+**CI hardening:** [path-filter ownership and current release gates](operations/CI-QUALITY-GATES.md) explains which checks are real now; do not promote a future scaffold to a passing build. GitHub Action dependencies are pinned to upstream-verified commit SHAs and require reviewed upgrades.

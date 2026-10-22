@@ -38,3 +38,10 @@
 ## Release blockers
 
 Until established: verified content-license inventory, privacy notices/consent and retention, backup/export, applicable GDPR assessment, threat review, Kotlin/Capacitor build and malicious-path tests, supply-chain review, and evaluated AI feedback. See [RELEASE.md](RELEASE.md).
+
+## Repository supply-chain and licensing controls (documentation policy)
+
+- External GitHub Actions are pinned to the verified commit SHA of the upstream action, not mutable major-version tags. Recheck the upstream tag and review changes when upgrading; see [CI quality gates](operations/CI-QUALITY-GATES.md).
+- Keep workflow permissions least privileged, never run untrusted PR scripts with write tokens, and treat content and media metadata as untrusted inputs.
+- No blanket license grant exists for the entire public repository. Follow [licensing boundaries](../LICENSING.md) and review each third-party audio/video/PDF before redistribution.
+- A local-first architecture reduces some data transfers but is **not** a blanket GDPR compliance claim. Voice, optional AI and eventual Supabase require concrete privacy documentation and platform tests.

@@ -62,6 +62,13 @@ python3 scripts/validate_ai_docs.py
 
 **Мовна якість та права:** частина вправ і відеозавдань потребує S2/редакторської перевірки. Джерело, доступність посилання та право на копіювання — різні речі. Зовнішні матеріали не включаємо в офлайн-пакети без права на поширення.
 
+## 📋 Швидкі інструкції за завданням
+
+- [Чинна й цільова архітектура / рішення ADR](docs/architecture/README.md) — що реально працює та які рішення діють.
+- [Безпечна міграція React/Vite/TypeScript → Android Room/PAD](docs/guides/WEB-ANDROID-MIGRATION.md) — покрокові gates без удаваної готовності.
+- [Як додавати вправи, словники та медіа](docs/guides/CONTENT-AUTHORING.md) — права, якість фінської й тести.
+- [CI, безпека змін і release evidence](docs/operations/CI-QUALITY-GATES.md) · [межі ліцензування](LICENSING.md).
+
 ## 🛠️ Документація для розробника й AI
 
 [AGENTS.md](AGENTS.md) — головні правила роботи агентів · [внесення змін](CONTRIBUTING.md) · [документація](docs/INDEX.md) · [архітектура](docs/ARCHITECTURE.md) · [політика контенту й папок](docs/CONTENT-ARCHITECTURE.md) · [тести](docs/TESTING.md) · [privacy/security](docs/SECURITY.md) · [випуск і відкат](docs/RELEASE.md).
