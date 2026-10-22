@@ -2,8 +2,8 @@
 
 **Зріз:** 21.10.2026. **Ціль:** підготувати дорослого користувача до фінського YKI keskitaso (A2.2 → стабільний B1/B1+), а не максимізувати кліки/серію днів.  
 **Статус:** evidence-to-engineering specification, **НЕ** твердження про реалізовані алгоритми, лабораторну перевірку додатка або прочитання повних платних книжок.  
-**Machine-readable registry:** [research/learning-blueprints-books-v1.json](../research/learning-blueprints-books-v1.json).  
-**Не дублювати:** [67 методик](08-learning-methods-evidence-2026-10.md) / [реєстр методик](../research/learning-methods-v1.json) / [оцінки ефективності](../research/learning-effectiveness-ratings-v1.json) / [наявне ТЗ](15-two-modes-skill-scopes.md). Цей документ — **implementation bridge** від книжок/джерел до конкретних правил, алгоритмів, тестів і метрик.
+**Machine-readable registry:** [research/pedagogy/learning-blueprints-books-v1.json](learning-blueprints-books-v1.json).  
+**Не дублювати:** [67 методик](08-learning-methods-evidence-2026-10.md) / [реєстр методик](learning-methods-v1.json) / [оцінки ефективності](learning-effectiveness-ratings-v1.json) / [наявне ТЗ](../../docs/15-two-modes-skill-scopes.md). Цей документ — **implementation bridge** від книжок/джерел до конкретних правил, алгоритмів, тестів і метрик.
 
 ## 0. Що реально вдалося прочитати / перевірити
 

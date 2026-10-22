@@ -5,8 +5,8 @@
   "book_access_rule": "Authorized author/publisher excerpts TOCs and summaries; full copyrighted books were NOT read; no book text or publisher graphic redistributed",
   "rights": "No commercial reuse of Learning Scientists CC BY-NC-ND posters or any copyright protected excerpts without license",
   "book_effects_warning": "Book popularity and product-fit100 are not controlled evidence of effectiveness in Finnish YKI",
-  "existing_method_registry": "research/learning-methods-v1.json",
-  "existing_ratings": "research/learning-effectiveness-ratings-v1.json",
+  "existing_method_registry": "research/pedagogy/learning-methods-v1.json",
+  "existing_ratings": "research/pedagogy/learning-effectiveness-ratings-v1.json",
   "books": [
     {
       "id": "make-it-stick",
@@ -514,5 +514,5 @@
     "results_measured": false
   },
   "implementation_status": "requirements_and_catalog_only_most_planned",
-  "linked_doc": "docs/19-learning-books-to-engineering-2026-10.md"
+  "linked_doc": "research/pedagogy/19-learning-books-to-engineering-2026-10.md"
 }

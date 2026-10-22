@@ -3,7 +3,7 @@
   "updated_at": "2026-10-21",
   "project": "Hospodar YKI",
   "target": "Ukrainian-speaking adult learner from A2.2 to B1/B1+, four official YKI skills",
-  "source_catalog": "research/learning-methods-v1.json",
+  "source_catalog": "research/pedagogy/learning-methods-v1.json",
   "count": 67,
   "scoring_methodology": {
     "model": "EXPERT_JUDGMENT_ORDINAL",

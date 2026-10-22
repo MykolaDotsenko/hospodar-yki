@@ -1,6 +1,6 @@
 # 08 — Світові методики ефективного вивчення фінської: Hospodar YKI
 
-> Стан на **21.10.2026**. Evidence-informed research shortlist, НЕ реліз застосунку. Оновлено з 35 до **67** методик і до **69** джерел. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/learning-methods-v1.json`](../research/learning-methods-v1.json).
+> Стан на **21.10.2026**. Evidence-informed research shortlist, НЕ реліз застосунку. Оновлено з 35 до **67** методик і до **69** джерел. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/pedagogy/learning-methods-v1.json`](learning-methods-v1.json).
 
 ## Методологія рейтингу
 
@@ -8,7 +8,7 @@
 
 **Рівні доказів:** L2 meta-analysis > міжмовна педагогічна екстраполяція > локальні освітні рекомендації > гіпотези. OPH і CEFR задають компетенції, не підтверджують ефективність втручання. Переваги англійською не гарантують аналогічних для фінської, і жодне дослідження тут не оцінює шанс скласти саме YKI.
 
-**Окрема навчальна ефективність 0–100 для всіх 67:** [дослідження](12-finnish-yki-learning-effectiveness-2026-10.md) і [JSON рейтингу](../research/learning-effectiveness-ratings-v1.json). Це не measured percent, Hedges g чи офіційний grade.
+**Окрема навчальна ефективність 0–100 для всіх 67:** [дослідження](12-finnish-yki-learning-effectiveness-2026-10.md) і [JSON рейтингу](learning-effectiveness-ratings-v1.json). Це не measured percent, Hedges g чи офіційний grade.
 
 ## Повний рейтинг (Product-fit, 67 методик)
 

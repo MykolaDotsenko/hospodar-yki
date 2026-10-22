@@ -1,6 +1,6 @@
 # Gameplay learning loops — anti-gimmick 2D proposal
 
-**Status:** architecture/design proposal only; no Phaser implementation. Sources: [Android game ADR](../../docs/23-android-offline-game-and-3gb-media-architecture.md), [methods](../pedagogy/README.md), [product modes](../product-session-modes-v1.json).
+**Status:** architecture/design proposal only; no Phaser implementation. Sources: [Android game ADR](../../docs/23-android-offline-game-and-3gb-media-architecture.md), [methods](../pedagogy/README.md), [product modes](../user-cases/product-session-modes-v1.json).
 
 ## Loop contract
 

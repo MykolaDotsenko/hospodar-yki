@@ -70,7 +70,7 @@ Active Recall і testing effect — сильна загальна навчаль
 
 ## Додатковий evidence-to-engineering review — бестселери та практики (21.10.2026)
 
-[Новий короткий road map 13 engine features](19-learning-books-to-engineering-2026-10.md) і [registry з 11 книжками/13 джерелами](../research/learning-blueprints-books-v1.json) пояснює, як реалізувати existing [67 методик](08-learning-methods-evidence-2026-10.md) **без дублювання списків**.
+[Новий короткий road map 13 engine features](19-learning-books-to-engineering-2026-10.md) і [registry з 11 книжками/13 джерелами](learning-blueprints-books-v1.json) пояснює, як реалізувати existing [67 методик](08-learning-methods-evidence-2026-10.md) **без дублювання списків**.
 
 Окремі корисні першоджерела:
 - [Cepeda et al. 2006](https://doi.org/10.1037/0033-2909.132.3.354) — delay/retention horizon взаємозалежні, тому 1/3/7/14/30 не універсальна формула.
