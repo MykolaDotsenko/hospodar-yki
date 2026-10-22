@@ -161,6 +161,26 @@ export function createAndroidExamRepository(nativeBridge) {
     async close(){}
   };
 }
+/**
+ * If the native or IDB commit succeeded but its Promise rejected (lost ACK),
+ * re-read durable state to avoid incorrectly telling the learner that a saved
+ * answer was lost. Conflicts NEVER auto-merge or overwrite another session.
+ */
+export async function commitWithRecovery(repository,command){
+  const cmd=assertCommit(command);
+  try{return await repository.commit(cmd);}
+  catch(error){
+    if(["REVISION_CONFLICT","IDEMPOTENCY_CONFLICT","INVALID_COMMAND","TOO_LARGE"].includes(error?.code))
+      throw error;
+    let persisted;
+    try{persisted=await repository.readCurrent();}catch{}
+    if(persisted && persisted.revision===cmd.expectedRevision+1 &&
+       JSON.stringify(persisted.session)===JSON.stringify(cmd.session)){
+      return {applied:false,reconciled:true,revision:persisted.revision,session:persisted.session};
+    }
+    throw error;
+  }
+}
 export function newCommit(session,expectedRevision,kind,uuid=globalThis.crypto?.randomUUID?.()){
   return assertCommit({protocol:EXAM_COMMIT_PROTOCOL,eventId:uuid,expectedRevision,kind,session});
 }
