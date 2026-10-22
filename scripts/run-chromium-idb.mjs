@@ -15,32 +15,37 @@ const url="http://127.0.0.1:8765/app/tests/atomic-idb-browser.html";
 const dir=await mkdtemp(join(tmpdir(),"yki-idb-chrome-"));
 const proc=spawn(chrome,[
   "--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
+  "--disable-background-networking","--disable-extensions",
   "--remote-debugging-port=0","--remote-allow-origins=*",
   "--user-data-dir="+dir,"--no-first-run","--no-default-browser-check",url
-],{stdio:"ignore"});
+],{stdio:["ignore","ignore","pipe"]});
+let chromeDiagnostics="";
+proc.stderr?.on("data",chunk=>{
+  chromeDiagnostics=(chromeDiagnostics+String(chunk)).slice(-12000);
+});
 async function port(){
-  for(let i=0;i<100;i++){
-    if(proc.exitCode!==null)throw Error("Chrome quit before opening DevTools: "+proc.exitCode);
+  for(let i=0;i<225;i++){
+    if(proc.exitCode!==null)throw Error("Chrome quit before opening DevTools: "+proc.exitCode+"; "+chromeDiagnostics);
     try{
       const raw=await readFile(join(dir,"DevToolsActivePort"),"utf8");
       const p=Number(raw.split("\n")[0]);
       if(Number.isInteger(p)&&p>0)return p;
     }catch{}
-    await delay(150);
+    await delay(200);
   }
-  throw Error("No Chrome DevTools port after 15 seconds");
+  throw Error("No Chrome DevTools port after 45 seconds; stderr="+chromeDiagnostics);
 }
 async function getPage(p){
-  for(let i=0;i<70;i++){
+  for(let i=0;i<120;i++){
     try{
       const res=await fetch(`http://127.0.0.1:${p}/json/list`);
       const tabs=await res.json();
       const found=tabs.find(t=>t.type==="page"&&t.url.includes("atomic-idb-browser.html"));
       if(found)return found;
     }catch{}
-    await delay(150);
+    await delay(200);
   }
-  throw Error("Test tab was never available");
+  throw Error("Test tab was never available; Chrome stderr="+chromeDiagnostics);
 }
 async function devtools(wsUrl){
   const ws=new WebSocket(wsUrl);
