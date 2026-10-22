@@ -87,8 +87,24 @@ def check_active_content_paths(root: Path):
     return errors
 
 
+
+def check_action_pins(root: Path):
+    """Guard against accidentally reverting reviewed immutable action references."""
+    failures = []
+    use_action = re.compile(r"\buses:\s*([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@([^\s#]+)")
+    for file in sorted((root / ".github/workflows").glob("*.yml")):
+        relative = file.relative_to(root).as_posix()
+        for number, line in enumerate(file.read_text(encoding="utf-8").splitlines(), 1):
+            match = use_action.search(line)
+            if match and not re.fullmatch(r"[a-f0-9]{40}", match.group(2)):
+                failures.append(
+                    f"{relative}:{number}: external action {match.group(1)} "
+                    "must use a verified immutable 40-character commit SHA"
+                )
+    return failures
+
 def validate(root: Path):
-    return check_workflow_paths(root) + check_active_content_paths(root)
+    return check_workflow_paths(root) + check_active_content_paths(root) + check_action_pins(root)
 
 
 if __name__ == "__main__":
