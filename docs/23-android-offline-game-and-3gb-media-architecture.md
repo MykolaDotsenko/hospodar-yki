@@ -1,5 +1,7 @@
 # ADR-023 — Hospodar YKI: Android game 2–3 GB з усією дозволеною мультимедіа офлайн
 
+> **Стан рішення (22.10.2026):** цей ADR визначає game/distribution goals. Пізніший [ADR-024](24-reliability-hardened-architecture-web-android.md) **замінює ранній Android IndexedDB/Dexie вибір** на Room/SQLite для критичного прогресу; [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md) уточнює єдиний контракт, `packId` resolution та вимірювані інтеграційні gates. Документація — не підтвердження Android/Play релізу.
+
 > **Дата:** 21.10.2026 · **Статус:** ACCEPTED PRODUCT CONSTRAINT + TARGET ARCHITECTURE, NOT IMPLEMENTED.  
 > **Оновлює** [ADR-022](22-optimal-stack-and-architecture-adr-2026-10.md) — mobile game та large installable media pack стають P0, а веб/PWA лишається доступною з тим самим предметним рушієм.  
 > **Джерело вимоги:** користувач хоче **Android-гру, приблизно 2–3 ГБ, із усім мультимедійним навчальним контентом у встановленні, без потреби скачувати уроки після запуску**.
@@ -32,7 +34,7 @@ Sources: [current Google Play size limits](https://support.google.com/googleplay
 | Android runtime | **Capacitor 8 + Android native Kotlin custom plugin** (pin actual supported version when scaffolding) | Native media access, microphone, back button, app lifecycle, share & media controls; one existing TS source |
 | Large offline media | **Google Play Asset Delivery install-time**; native `AssetPackProvider` & `MediaAssetBridge` | First install ~2–3GB with packs present before launch, without manually downloading media after launch |
 | Audio/video | **HTMLAudio/Video on web**, Android **native Media3/ExoPlayer or verified byte-range local provider** via bridge | Stream without loading 2GB in WebView memory; video seek/speech playback, lifecycle control |
-| User state | Android **IndexedDB + Dexie**, for small progress and written answers; file/Blob only for consented user voice | **Never** copy shipped 2–3GB reference media to IndexedDB |
+| User state | **Web:** IndexedDB/Dexie; **Android:** native Kotlin Room/SQLite via one Capacitor command per atomic commit; app-private file storage only for consented user voice | Keep immutable attempt evidence and drafts distinct; **never** copy shipped 2–3GB media into DB or WebView cache |
 | CDN/Internet | Optional for updates, cloud sync, live AI; all **pre-licensed bundled learning content** playable with airplane mode | Offline baseline is guaranteed only after full successful installation |
 | Tests | Vitest + Playwright + Android instrumentation/Espresso + Google Play internal testing + physical low/mid devices | Real WebView audio buffer/seek, large pack delivery, progress persistence, GPU heat, lifecycle |
 | Backend | Optional Supabase EU cloud sync, server-side AI transcription; optional local on-device STT as P2 separate model pack | No internet dependence for the **core game / curriculum / native playback**; online AI clearly marked optional |
@@ -59,7 +61,7 @@ Shared Typescript ContentResolver / MediaAdapter
         │
        React task player  ↔ Phaser world scenes
         │
-       Dexie learner events/scores, NOT bundled media data
+       Web Dexie / Android Room learner events, NOT bundled media data
 ```
 
 - Android PAD via `com.android.asset-pack` modules registered in Gradle; `install-time` packs arrive with install; `fast-follow` and `on-demand` **do not satisfy** «everything on first run without downloads». Pack asset-location strategy depends on type: install-time APK assets vs file-backed pack; **not** one generic filesystem path.
