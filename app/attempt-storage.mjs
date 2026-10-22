@@ -45,6 +45,7 @@ export function createMemoryExamRepository({failWrite=()=>false}={}) {
   const events=new Map();
   return {
     async readCurrent(){return current?structuredClone(current):null;},
+    async readEvent(eventId){return structuredClone(events.get(eventId)||null);},
     async commit(command){
       const cmd=assertCommit(command);
       if(events.has(cmd.eventId)){
@@ -88,6 +89,18 @@ export function createIndexedDbExamRepository({indexedDB=globalThis.indexedDB,db
         tx.oncomplete=()=>resolve(row?structuredClone(row):null);
         tx.onerror=()=>reject(new PersistenceError("READ_FAILED","Unable to read saved exam"));
         tx.onabort=()=>reject(new PersistenceError("READ_FAILED","Exam read aborted"));
+      });
+    },
+    async readEvent(eventId) {
+      const db=await opening;
+      return new Promise((resolve,reject)=>{
+        const tx=db.transaction("events","readonly");
+        const req=tx.objectStore("events").get(eventId);
+        let event=null;
+        req.onsuccess=()=>{event=req.result||null;};
+        tx.oncomplete=()=>resolve(event?structuredClone(event):null);
+        tx.onabort=()=>reject(new PersistenceError("READ_FAILED","Unable to read event receipt"));
+        tx.onerror=()=>{};
       });
     },
     async commit(command) {
@@ -150,6 +163,11 @@ export function createAndroidExamRepository(nativeBridge) {
       const row=await nativeBridge.readAttempt({key:EXAM_RECORD_KEY});
       return row?.session?row:null;
     },
+    async readEvent(eventId){
+      if(typeof nativeBridge.readEvent!=="function")return null; // fail closed on old Android plugins
+      const event=await nativeBridge.readEvent({eventId});
+      return event?.eventId===eventId?event:null;
+    },
     async commit(command){
       const cmd=assertCommit(command);
       const answer=await nativeBridge.commitAttempt({...cmd,key:EXAM_RECORD_KEY});
@@ -163,7 +181,7 @@ export function createAndroidExamRepository(nativeBridge) {
 }
 /**
  * If the native or IDB commit succeeded but its Promise rejected (lost ACK),
- * re-read durable state to avoid incorrectly telling the learner that a saved
+ * re-read the exact durable event receipt to avoid telling the learner that a saved
  * answer was lost. Conflicts NEVER auto-merge or overwrite another session.
  */
 export async function commitWithRecovery(repository,command){
@@ -172,11 +190,17 @@ export async function commitWithRecovery(repository,command){
   catch(error){
     if(["REVISION_CONFLICT","IDEMPOTENCY_CONFLICT","INVALID_COMMAND","TOO_LARGE"].includes(error?.code))
       throw error;
-    let persisted;
-    try{persisted=await repository.readCurrent();}catch{}
-    if(persisted && persisted.revision===cmd.expectedRevision+1 &&
-       JSON.stringify(persisted.session)===JSON.stringify(cmd.session)){
-      return {applied:false,reconciled:true,revision:persisted.revision,session:persisted.session};
+    // Durable evidence is the exact command receipt. A coincidentally identical
+    // snapshot from another tab is NOT an acknowledgment of this event ID.
+    let receipt=null,persisted=null;
+    try{receipt=await repository.readEvent?.(cmd.eventId);}catch{}
+    if(receipt?.eventId===cmd.eventId &&
+       receipt?.revision===cmd.expectedRevision+1 &&
+       receipt?.fingerprint===fingerprint(cmd)){
+      try{persisted=await repository.readCurrent();}catch{}
+      if(persisted?.revision===receipt.revision &&
+         JSON.stringify(persisted.session)===JSON.stringify(cmd.session))
+        return {applied:false,reconciled:true,revision:receipt.revision,session:persisted.session};
     }
     throw error;
   }

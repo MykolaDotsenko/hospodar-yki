@@ -25,7 +25,8 @@ TARGET: apps/web (React/Vite) ── use cases/domain ── repository interfac
 - \`python3 scripts/validate_architecture_boundaries.py\` scans actual pure files: \`app/core.mjs\`, \`app/exam-core.mjs\`, \`packages/contracts/src\`, and any future \`packages/domain/src\`, \`packages/exam-engine/src\`, \`packages/learning-engine/src\`. **No future paths required to exist**.
 - \`python3 -m unittest discover -s scripts/tests -p 'test_validate_architecture_boundaries.py' -v\` proves that attempts to reverse module direction or add framework/platform dependencies fail.
 - Unconditional [source-tree CI](../../.github/workflows/validate-real-layout.yml) executes both, so file changes cannot bypass a path-scoped-only workflow.
-- Static validation does not fully parse TypeScript or guarantee platform reliability. At G1/G2 introduce actual TypeScript compiler, package \`exports\`, type-level dependency rules, Vite/Playwright and on-device tests **only after those builds exist**. Keep current Node+Chromium baseline until parity.
+- **AST upgrade:** `npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund && npm test --prefix tools/architecture` parses real JS/TS syntax trees with lockfile-pinned TypeScript and checks static/re-export/dynamic imports, reverse dependencies and platform API globals. This complements the earlier Python checks.
+- Static parsing still does not imply full TypeScript typechecking or Android runtime parity. At G1/G2 introduce actual TypeScript compiler, package \`exports\`, type-level dependency rules, Vite/Playwright and on-device tests **only after those builds exist**. Keep current Node+Chromium baseline until parity.
 
 ## Research and learning invariants at implementation boundary
 
@@ -35,3 +36,5 @@ TARGET: apps/web (React/Vite) ── use cases/domain ── repository interfac
 - Keep Android-specific Room and Media3 native, Web Dexie/IndexedDB browser-specific. Avoid client-side Supabase SDK or license-gated media in the shared domain.
 
 **Official design support:** [Android architecture separation of concerns, UDF and SSOT](https://developer.android.com/topic/architecture), [Android recommended data layer](https://developer.android.com/topic/architecture/recommendations), [TypeScript project references](https://www.typescriptlang.org/docs/handbook/project-references.html).
+
+**Experimental V2 storage:** [app/session-v2-idb.mjs](../../app/session-v2-idb.mjs) is an adapter, **not** a pure domain import target. It may import `packages/contracts/src/session-v2.mjs`; the shared contract may never import the adapter. The browser test uses a separate database name and does not migrate real exam V1 data.

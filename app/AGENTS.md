@@ -7,3 +7,7 @@ Read [root policy](../AGENTS.md), [actual architecture](../docs/ARCHITECTURE.md)
 - **Learning integrity:** LEARN first independent answer is not assisted repair; EXAM must not leak solutions before submission. Do not report unreviewed Finnish speaking/writing as an official YKI score.
 - **Data safety:** failed IndexedDB commit must not show success or allow unsafe next/finish; preserve event identity, export/migration semantics, privacy and browser recovery. Real Chromium integration is required for persistence changes.
 - **UX changes:** cite [evidence-to-UX](../docs/guides/EVIDENCE-TO-UX.md), human language review and accessible audio/visual alternatives; no mandatory decorative sound.
+
+## Experimental G1 browser storage
+
+`session-v2-idb.mjs` demonstrates an isolated atomic V2 IndexedDB transaction with unique first-attempt evidence and durable receipts, tested in `tests/atomic-idb-browser.html`. **Do not** switch existing LEARN or EXAM to this database without explicit version negotiation, data export/migration tests and approved UI behavior. See [G1 evidence](../docs/architecture/G1-IMPLEMENTATION.md).

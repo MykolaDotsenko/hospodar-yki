@@ -84,3 +84,7 @@ python3 scripts/validate_ai_docs.py
 [Історія досліджень та оновлень за жовтень 2026](docs/history/2026-10-product-development-log.md) збережена окремо, щоб не перевантажувати головну сторінку.
 
 **Правило:** документація описує ціль, але готовність функції доводять тільки реальний код, тести, браузерні/Android-перевірки й ліцензійні дозволи.
+
+## G1 implementation status (2026-10-23)
+
+The current browser YKI exam still uses V1 local IndexedDB; ambiguous lost acknowledgments now require an exact saved event receipt. A **separate** [experimental V2 IndexedDB implementation](app/session-v2-idb.mjs) and [portable command fixtures](packages/contracts/fixtures/v2-golden.json) demonstrate durable first-attempt uniqueness and revision/duplicate handling in Chromium. **No automatic data migration, active learning UI switch or compiled Android parity** is claimed. See [G1 evidence](docs/architecture/G1-IMPLEMENTATION.md) and [AST architecture gate](tools/architecture/check-boundaries.mjs).

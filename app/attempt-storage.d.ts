@@ -28,14 +28,17 @@ export interface SavedExam {
   revision: number;
   session: ExamSessionV1;
 }
+export interface ExamEventReceipt { eventId:string; kind:string; revision:number; fingerprint:string; }
 export interface ExamRepository {
   readCurrent(): Promise<SavedExam|null>;
+  readEvent(eventId:string): Promise<ExamEventReceipt|null>;
   commit(command: ExamCommitCommand): Promise<ExamCommitResult>;
   deleteLocal(): Promise<void>;
   close(): Promise<void>;
 }
 export interface AndroidExamStoreBridge {
   readAttempt(args: {key: "current"}): Promise<SavedExam|null>;
+  readEvent?(args:{eventId:string}):Promise<ExamEventReceipt|null>;
   commitAttempt(args: ExamCommitCommand & {key: "current"}): Promise<ExamCommitResult>;
   deleteAttempt(args: {key: "current"}): Promise<void>;
 }

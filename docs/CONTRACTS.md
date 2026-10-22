@@ -1,6 +1,6 @@
 # Cross-platform contracts — truth, invariants, migration boundaries
 
-**State:** target contract defined; only pieces exist in runnable JS. [ADR-027 §3](27-stack-architecture-compatibility-and-implementation-gates.md) owns canonical target semantics. Do not mistake examples here for published V2 runtime types.
+**State:** V2 portable event commands and JSON fixtures exist in JavaScript, and a **separate experimental V2 IndexedDB adapter** is integration-tested. The live EXAM UI still persists V1. G1 is PARTIAL, not complete. [ADR-027 §3](27-stack-architecture-compatibility-and-implementation-gates.md) owns canonical target semantics. Do not mistake examples here for published V2 runtime types.
 
 ## Existing sources and honest boundaries
 
@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | [app/attempt-storage.mjs](../app/attempt-storage.mjs) | `EXAM_COMMIT_PROTOCOL=1`; Web IndexedDB event + checkpoint transaction, revision, retries | Immutable first-answer repository and multi-platform canonical V2 |
 | [app/attempt-storage.d.ts](../app/attempt-storage.d.ts) | Type declaration for existing JS prototype | A shared generated TypeScript/Kotlin contract |
-| [packages/contracts/src/index.mjs](../packages/contracts/src/index.mjs) | Immutable first-answer commands/in-memory reference & tests | Persisted Android/Web canonical first-attempt storage |
+| [packages/contracts/src/index.mjs](../packages/contracts/src/index.mjs) | First-answer in-memory V1 reference + [V2 discriminated event commands](../packages/contracts/src/session-v2.mjs) and [golden fixtures](../packages/contracts/fixtures/v2-golden.json) | Durable V2 Web/Android storage and Kotlin parity |
 | [packages/contracts/src/media.mjs](../packages/contracts/src/media.mjs) | Media identity/rights policy | Installed native PAD pack player |
 | [native prototype](../native/android/prototype/README.md) | Room DAO/Capacitor plugin/Media3 sources | Compiled, instrumented, device-verified Android app |
 
@@ -36,7 +36,9 @@ A single versioned, JSON-serializable `commitAttempt(command)` invocation goes t
 9. Versioned migrations need backup/export, forward/rollback path, repeatable restart semantics, content pinning and test fixtures.
 10. Android Room/SQLite and Web Dexie/IndexedDB are separate adapters sharing one domain contract—not independent domain models.
 
-**Current gap:** exact protocol V2 and shared Kotlin/JS golden fixtures are specified in [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md), **not implemented**. Existing checkpoint recovery and Kotlin errors require separate integration fixes. Do not change exported V1 shape without migration/version negotiation.
+**Production V2 adapters are not implemented yet.** Kotlin/Room parity is not implemented until Gradle/device tests succeed.
+
+**Actual progress:** V2 event validation, deterministic key ordering, exact retry receipts, first-attempt uniqueness and JS regression tests exist in a pure reference; a separate V2 Web IndexedDB adapter now has real Chromium tests for atomic events/receipts/uniqueness. The Web V1 exam now requires persisted matching eventId and fingerprint before claiming a recovered lost-ACK write; matching snapshots alone are insufficient. **Remaining:** integration of durable V2 with actual LEARN/EXAM workflows, Kotlin Room V2 adapter, V1-to-V2 migration, Kotlin golden-fixture parity and Android compilation. The native prototype cannot yet prove an ambiguous ACK and fails closed. See [G1 implementation evidence](architecture/G1-IMPLEMENTATION.md).
 
 ## Evidence to accept G1
 

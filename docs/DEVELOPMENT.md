@@ -69,3 +69,7 @@ The Web migration adds a lockfile, strict TypeScript, scripts, package boundarie
 - The reviewed methods catalog **may grow beyond its historic 67-method baseline**, but additions must update source citations, an effectiveness score (expert estimate, not an effect size), detailed method Markdown card and matching count. See [research program](../research/RESEARCH-PROGRAM.md) and [method validator](../scripts/validate_learning_methods.py).
 - Pure core and shared contract code must obey the [module dependency gate](architecture/MODULE-BOUNDARIES.md); run its Python regression suite before sending a PR.
 - Prefer a **scoped** [research/AGENTS.md](../research/AGENTS.md), [app/AGENTS.md](../app/AGENTS.md) or [packages/contracts/AGENTS.md](../packages/contracts/AGENTS.md) for the area being edited. These point at canonical policies, not duplicate architecture specifications.
+
+## G1 contract and AST architecture checks
+
+See [precise G1 implementation state](architecture/G1-IMPLEMENTATION.md). Run `node --test app/tests/attempt-storage.test.mjs packages/contracts/tests/*.test.mjs`; for architecture run `npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund && npm test --prefix tools/architecture`. Current Web exam uses legacy V1, portable V2 has a **separate tested experimental Web IndexedDB adapter**, not yet integrated with active LEARN/EXAM; Android compile and cross-language parity are NOT RUN.

@@ -23,6 +23,7 @@ The core [ARCHITECTURE](ARCHITECTURE.md), [CONTRACTS](CONTRACTS.md), [TESTING](T
 | --- | --- | --- |
 | What is the product? | [15 — modes, four skills and UX](15-two-modes-skill-scopes.md) + [11 — MVP requirements](11-mvp-product-requirements.md) | **TARGET** product behavior; some browser functionality exists |
 | What already runs? | [../app/README.md](../app/README.md) + `app/` source/tests + [26 — implementation evidence](26-atomic-exam-and-media-implementation-2026-10.md) | **PARTIAL** Web vanilla JS, IndexedDB exam only |
+| How much of G1 event unification actually runs? | [G1 implementation evidence](architecture/G1-IMPLEMENTATION.md) + [contracts](CONTRACTS.md) | Hardened Web V1 vs V2 in-memory reference and pending Android |
 | What is the approved cross-platform architecture? | [27 — integrations/contracts/gates](27-stack-architecture-compatibility-and-implementation-gates.md) | **TARGET** integration contract; not an Android release |
 | Where does critical data live? | [24 — reliability decision](24-reliability-hardened-architecture-web-android.md) | **TARGET** Web Dexie/IndexedDB, Android Kotlin Room |
 | Why this stack? | [22 — stack ADR](22-optimal-stack-and-architecture-adr-2026-10.md) | **ACCEPTED DESIGN**, not deployed React/Phaser |

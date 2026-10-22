@@ -14,12 +14,13 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
      └── app/exam.html ── app/exam.mjs ── app/exam-core.mjs
                                   └── app/attempt-storage.mjs
                                        └── IndexedDB (exam event + checkpoint)
+app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
 ```
 
-**Runnable Web MVP:** plain JavaScript ES modules; browser pages served via a local HTTP server (not a build step). UI, progression, sample exam and limited audio exist. Browser exam IndexedDB uses event+snapshot transactions and a Chromium integration check; learning SRS still uses `localStorage`.
+**Runnable Web MVP:** plain JavaScript ES modules; browser pages served via a local HTTP server (not a build step). UI, progression, sample exam and limited audio exist. Browser exam V1 IndexedDB uses event+snapshot transactions with event-receipt recovery and a Chromium integration check; an **isolated** V2 adapter separately proves first-attempt uniqueness. The live learning SRS still uses `localStorage`.
 
 **Not implemented:** `apps/web` React/Vite/PWA, `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery 2–3GB, full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
 

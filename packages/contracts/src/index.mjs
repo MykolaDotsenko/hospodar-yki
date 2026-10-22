@@ -41,3 +41,7 @@ export function createRepository(adapter) {
   if (!adapter || typeof adapter.commitAttempt !== "function" || typeof adapter.readSession !== "function") throw new TypeError("Invalid repository adapter");
   return Object.freeze({commitAttempt:async(command)=>adapter.commitAttempt(validateAttempt(command)),readSession:async(id)=>adapter.readSession(assertId(id))});
 }
+
+/** V2 session protocol: checkpoint vs independently recalled first-answer evidence. */
+export {SESSION_PROTOCOL_VERSION,EVENT_TYPES,CommandError,canonicalJson,
+  assertSessionCommand,InMemorySessionRepository,commitSessionWithRecovery} from "./session-v2.mjs";
