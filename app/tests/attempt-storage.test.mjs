@@ -19,6 +19,15 @@ test("atomic response+snapshot commit and exactly-once retry",async()=>{
   assert.equal(next.revision,2);assert.equal((await repo.readCurrent()).session.index,1);
   assert.equal((await repo.readCurrent()).session.answers.reading01,"öljy");
 });
+test("reuse of event ID with different data is forbidden",async()=>{
+  const repo=createMemoryExamRepository();
+  const original=newCommit(make("moi"),0,"start",uuid(10));
+  await repo.commit(original);
+  await assert.rejects(
+    ()=>repo.commit({...original,session:make("different")}),
+    e=>e.code==="IDEMPOTENCY_CONFLICT");
+  assert.equal((await repo.readCurrent()).session.answers.reading01,"moi");
+});
 test("stale revision rejected, current progress remains intact",async()=>{
   const repo=createMemoryExamRepository();
   await repo.commit(newCommit(make("a"),0,"start",uuid(3)));
