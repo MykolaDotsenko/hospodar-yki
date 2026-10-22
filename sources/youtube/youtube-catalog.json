@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "created_at": "2026-10-21",
   "catalog_type": "youtube_watch_links_only",
-  "goal": "A2.2 to B1/B1+ Finnish and 4-skill YKI practical preparation",
+  "goal": "Finnish A1.3→B2.1 plus B1/B2 YKI keskitaso practice; study-level evidence/review differentiated",
   "source_audit": "YouTube public watch URLs identified by indexed creator/description. 12 video titles confirmed in search metadata; two indexed pages returned no title, and these use explicitly flagged editorial descriptive titles. Live playability, embedding permissions, captions, and full spoken contents not verified. Round 2 appended 16 new direct video URLs with indexed title/creator descriptions, except one link supported by publisher-referenced podcast or syndicated metadata. No full-video inspection, availability or embed approval claimed; Haaga-Helia short dialogues have publisher CC BY-ND 4.0 and no subtitles. The Mari interview YouTube ID is linked from the publisher's podcast episode; original YouTube page title and embed not verified.",
   "display_policy": "Scores expert product fit, not measured learning outcomes; levels tentative where not explicitly asserted by creator",
   "copyright": "Do not download, mirror, re-upload or scrape YouTube videos/captions. Use direct URL and later official YouTube embedding/player API subject to platform terms; preserve branding and attribution.",
@@ -3944,6 +3944,135 @@
       "title_is_editorial_summary": false,
       "round": 6,
       "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-15",
+      "provider": "youtube",
+      "youtube_video_id": "xb8nJ-Eiits",
+      "watch_url": "https://www.youtube.com/watch?v=xb8nJ-Eiits",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Johdanto imperfektiin — Introduction to simple past",
+      "publication_date": null,
+      "cefr_estimate": "A2.1–A2.2",
+      "skills": [
+        "listening",
+        "reading"
+      ],
+      "yki_topics": [
+        "past_tense",
+        "imperfect",
+        "grammar"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Publisher-linked short teacher lesson directly supporting A1.3→B2.1 scaffold; CEFR mapping editorial, not a certified assessment.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-15-q1",
+          "prompt_fi": "Kerro kaksi asiaa, jotka teit eilen.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "Official University of Turku teaching-video page, direct watch link verified"
+    },
+    {
+      "id": "yt-r6-utu-16",
+      "provider": "youtube",
+      "youtube_video_id": "tXAt3mot2vs",
+      "watch_url": "https://www.youtube.com/watch?v=tXAt3mot2vs",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Imperfekti (positiivinen) — Positive past tense",
+      "publication_date": null,
+      "cefr_estimate": "A2.1–B1.1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "imperfekti",
+        "verb_forms",
+        "narration"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Publisher-linked short teacher lesson directly supporting A1.3→B2.1 scaffold; CEFR mapping editorial, not a certified assessment.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-16-q1",
+          "prompt_fi": "Mitä teit viime viikonloppuna? Vastaa kahdella lauseella.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "Official University of Turku teaching-video page, direct watch link verified"
+    },
+    {
+      "id": "yt-r6-utu-17",
+      "provider": "youtube",
+      "youtube_video_id": "M_2tFoljI70",
+      "watch_url": "https://www.youtube.com/watch?v=M_2tFoljI70",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Kello ja aika — Clock and time",
+      "publication_date": null,
+      "cefr_estimate": "A1.3–A2.1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "clock",
+        "time_expressions",
+        "appointments"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Publisher-linked short teacher lesson directly supporting A1.3→B2.1 scaffold; CEFR mapping editorial, not a certified assessment.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-17-q1",
+          "prompt_fi": "Mihin aikaan työpäiväsi alkaa?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "Official University of Turku teaching-video page, direct watch link verified"
     }
   ],
   "last_curated_update": "2026-10-23",
@@ -3953,5 +4082,5 @@
   "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified.",
   "yki_mock_index": "sources/official/yki-mock-simulation-sources.json",
   "mock_classification_warning": "3 preexisting YouTube records tagged. Timed speaking mock is not complete official 4-skill YKI nor faithful digital 2027 UX. Video sample-answer leakage invalidates held-out exam scoring.",
-  "round6_update": "14 new unique individual YouTube watch IDs directly linked from the official University of Turku / Ohjatusti sujuvaan suomeen teaching-video page. Publisher-linked identity verified; current playback/embeddability/subtitles not verified. These are training videos, not YKI mock or offline-licensed video assets."
+  "round6_update": "17 unique publisher-sourced University of Turku YouTube watch IDs added for puhekieli, pronunciation, active interaction, imperfekti and clock/time. Direct outbound YouTube ID verified by clicking university lesson links; playback/embeddability/transcript/teacher review remain pending."
 }

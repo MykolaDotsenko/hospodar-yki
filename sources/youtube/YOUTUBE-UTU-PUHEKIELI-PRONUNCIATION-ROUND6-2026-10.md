@@ -1,6 +1,6 @@
 # Round 6 — University of Turku: puhekieli, pronunciation and speaking interaction
 
-**Reviewed:** 2026-10-23. **Status:** 14 individual publisher-verified YouTube watch links saved; no copied streams, no teacher-reviewed answer keys. Existing **47 → 61** unique YouTube IDs. Local audio/video counts do not change from adding YouTube links.
+**Reviewed:** 2026-10-23. **Status:** 17 individual publisher-verified YouTube watch links saved; no copied streams, no teacher-reviewed answer keys. Existing **47 → 64** unique YouTube IDs. Local audio/video counts do not change from adding YouTube links.
 
 **Official publisher page:** [University of Turku — Suomen kielen opetusvideoita](https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot). The university explains that these resources teach Finnish, especially spoken language against written forms, and include English as support. It does **not** state that this is an official YKI exam course or that redistribution is allowed. Level tags below are editorial estimates.
 
@@ -28,3 +28,13 @@
 - For **reaction** videos, require a spoken/text reply and a later unpredictable variant; never mark unreviewed speech with official B1/YKI score.
 
 **Copyright/QA:** YouTube external links only. Do not download or cache source audio/video/captions; use official player when permitted, otherwise open source. Live playback, embeddability, transcript and captions **not verified**. All questions are original and pending qualified Finnish-language educator review. Do not use these videos as unseen EXAM tasks.
+
+## B. Aikamuodot та години — ще три відео
+
+| Пріоритет /100 | Дійсне посилання від університету | Застосування |
+| ---: | --- | --- |
+| 95 | [Johdanto imperfektiin](https://www.youtube.com/watch?v=xb8nJ-Eiits) | A2.1/A2.2: розповідь про вчора |
+| 95 | [Imperfekti (pos.)](https://www.youtube.com/watch?v=tXAt3mot2vs) | A2–B1: правильна минула форма |
+| 98 | [Kello ja aika](https://www.youtube.com/watch?v=M_2tFoljI70) | A1.3–A2.1: час, зустрічі, розклад |
+
+Авторські вправи: [граматичні часи](../../learning/exercises/grammar/tenses/README.md), [години](../../learning/exercises/grammar/time-and-clock/README.md). Це не перепублікація відео і не офіційний YKI.
