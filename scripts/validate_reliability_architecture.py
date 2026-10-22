@@ -11,7 +11,7 @@ def read(path):
     return json.loads((ROOT/path).read_text(encoding="utf-8"))
 
 def main():
-    a=read("research/reliability-architecture-adr-v1.json")
+    a=read("research/architecture/reliability-architecture-adr-v1.json")
     assert a["adr"]=="ADR-024"
     assert a["status"]=="TARGET_ONLY_NOT_IMPLEMENTED"
     assert a["platforms"]["web"]["repository"]=="IndexedDB/Dexie"

@@ -9,15 +9,15 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[1]
-CATALOG=ROOT/"research/learning-blueprints-books-v1.json"
+CATALOG=ROOT/"research/pedagogy/learning-blueprints-books-v1.json"
 
 def run():
     data=json.loads(CATALOG.read_text(encoding="utf-8"))
-    old=json.loads((ROOT/"research/learning-methods-v1.json").read_text(encoding="utf-8"))
+    old=json.loads((ROOT/"research/pedagogy/learning-methods-v1.json").read_text(encoding="utf-8"))
     existing={x["id"] for x in old["methods"]}
     assert len(existing)==len(old["methods"])==67, "Original 67 methodological entries should not change"
     assert data["schema_version"]=="1.0.0"
-    assert data["existing_method_registry"]=="research/learning-methods-v1.json"
+    assert data["existing_method_registry"]=="research/pedagogy/learning-methods-v1.json"
     books=data["books"]; studies=data["studies"]; actions=data["backlog"]
     assert len(books)==11 and len(studies)==13 and len(actions)==13
     assert len(set(x["id"] for x in books))==len(books)
@@ -55,12 +55,12 @@ def run():
     assert "full copyrighted books were NOT read" in data["book_access_rule"]
     assert "commercial" in data["rights"].lower()
     docs={
-        "docs/19-learning-books-to-engineering-2026-10.md": ["LE-11. Calibration","20-хвилинної місії","платних книжок"],
+        "research/pedagogy/19-learning-books-to-engineering-2026-10.md": ["LE-11. Calibration","20-хвилинної місії","платних книжок"],
         "docs/15-two-modes-skill-scopes.md": ["**LE-01**","**LE-13**","**AC-47:**","**AC-59:**"],
         "docs/12-mvp-architecture.md": ["Learning-science implementation bridge","RetrievalScheduler"],
         "docs/11-mvp-product-requirements.md": ["Новий фундамент навчального двигуна","LE-01"],
-        "docs/04-evidence-and-learning-science.md": ["Додатковий evidence-to-engineering review"],
-        "README.md": ["Evidence-to-engineering","research/learning-blueprints-books-v1.json"]
+        "research/pedagogy/04-evidence-and-learning-science.md": ["Додатковий evidence-to-engineering review"],
+        "README.md": ["Evidence-to-engineering","research/pedagogy/learning-blueprints-books-v1.json"]
     }
     for path,phrases in docs.items():
         content=(ROOT/path).read_text(encoding="utf-8")

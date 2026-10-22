@@ -10,10 +10,10 @@ def require(ok,msg):
     if not ok:raise AssertionError(msg)
 
 def main():
-    lib=load("audio/library.json")
-    plan=load("audio/program-4weeks.json")
-    tts=load("content/b1/audio-training/index.json")
-    audio=load("audio/available.json")
+    lib=load("assets/audio/library.json")
+    plan=load("assets/audio/program-4weeks.json")
+    tts=load("learning/exercises/b1/audio-training/index.json")
+    audio=load("assets/audio/available.json")
     require(lib["counts"]["total_files"]>=63,"Total count")
     require(len(lib["entries"])==lib["counts"]["total_files"],"Actual number of files")
     seen=set()
@@ -28,19 +28,19 @@ def main():
     actual_tts={v["path"] for item in tts["lessons"] for v in item["audio_versions"]}
     require(actual_sources.isdisjoint(actual_tts),"Overlapping source and TTS sets")
     librivox=set()
-    mp=ROOT/"content/b1/audio-training/librivox-human.json"
+    mp=ROOT/"learning/exercises/b1/audio-training/librivox-human.json"
     if mp.is_file():
-        human=load("content/b1/audio-training/librivox-human.json")
+        human=load("learning/exercises/b1/audio-training/librivox-human.json")
         librivox={i["path"] for i in human["items"]}
     longfiles=set()
-    lp2=ROOT/"content/b1/audio-long/lessons.json"
+    lp2=ROOT/"learning/exercises/b1/audio-long/lessons.json"
     if lp2.is_file():
-        longpack=load("content/b1/audio-long/lessons.json")
+        longpack=load("learning/exercises/b1/audio-long/lessons.json")
         longfiles={e["path"] for e in longpack["lessons"]}
     stories=set()
-    story_manifest=ROOT/"content/b1/audio-long/human-stories.json"
+    story_manifest=ROOT/"learning/exercises/b1/audio-long/human-stories.json"
     if story_manifest.exists():
-        stories={entry["audio_path"] for entry in load("content/b1/audio-long/human-stories.json")["items"]}
+        stories={entry["audio_path"] for entry in load("learning/exercises/b1/audio-long/human-stories.json")["items"]}
     require(seen==actual_sources|actual_tts|librivox|longfiles|stories,"Index doesn't match actual recording manifests")
     require(len(plan["days"])==28,"Four week plan incomplete")
     ordered=[d["lesson_id"] for d in plan["days"] if d["lesson_id"]]

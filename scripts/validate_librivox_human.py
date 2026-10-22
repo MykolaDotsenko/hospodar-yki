@@ -2,8 +2,8 @@
 """Validate imported human LibriVox clips and unified catalog."""
 import hashlib,json,pathlib
 R=pathlib.Path(__file__).resolve().parents[1]
-m=json.loads((R/"content/b1/audio-training/librivox-human.json").read_text())
-l=json.loads((R/"audio/library.json").read_text())
+m=json.loads((R/"learning/exercises/b1/audio-training/librivox-human.json").read_text())
+l=json.loads((R/"assets/audio/library.json").read_text())
 assert len(m["items"])==m["count"]>0
 paths=set()
 for i in m["items"]:

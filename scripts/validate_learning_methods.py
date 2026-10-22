@@ -77,7 +77,7 @@ def main():
     require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
     require(len(blueprint["experiment_backlog"]) == 4, "Expected 4 explicit experiments")
     require(len(blueprint.get("new_evidence_workstreams", [])) == 5, "Expected five extensions from fresh effectiveness review")
-    require(blueprint.get("evidence_effectiveness_registry") == "research/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
+    require(blueprint.get("evidence_effectiveness_registry") == "research/pedagogy/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
 
     known_method_ids = {m["id"] for m in methods}
     modules = blueprint["modules"]

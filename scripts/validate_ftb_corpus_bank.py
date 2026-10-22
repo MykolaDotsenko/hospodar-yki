@@ -5,7 +5,7 @@ import json
 from collections import Counter
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-data = json.loads((ROOT/"content/b1/grammar/ftb-frequency-cloze-v1.json").read_text(encoding="utf-8"))
+data = json.loads((ROOT/"learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json").read_text(encoding="utf-8"))
 focuses = {"Gen","Par","Ill","Ela","All","Ade","Conditional","Passive"}
 assert data["count"] == len(data["items"]) == 120
 assert set(data["counts_by_focus"]) == focuses
