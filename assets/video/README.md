@@ -42,4 +42,4 @@ Run locally from repository root: `python3 scripts/import_open_finnish_videos.py
 
 ## Canonical ownership and external-link separation (22.10.2026)
 
-[Licensed local WebM binaries](README.md) · [YouTube link-only sources](../../sources/youtube/README.md) · [Publisher links](../../sources/publishers/README.md) · [Rights and catalog structure](../../docs/CONTENT-ARCHITECTURE.md). Existing `video/*.json` remain at stable paths for validators and app consumers; URL-only entries are NOT local downloadable videos.
+[Licensed local WebM binaries](README.md) · [YouTube link-only sources](../../sources/youtube/README.md) · [Publisher links](../../sources/publishers/README.md) · [Rights and catalog structure](../../docs/CONTENT-ARCHITECTURE.md). Real WebM assets are physically under `assets/video/open/`; YouTube/publisher/official links live separately in `sources/`. URL-only entries are NOT local downloadable videos.

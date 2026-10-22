@@ -24,11 +24,11 @@ For **present code facts**, inspect the actual files/tests and CI, not an old ro
 ### Media, content, knowledge and research
 
 - [Content Architecture](CONTENT-ARCHITECTURE.md) — accepted semantic storage plan, migration rules and verified vs link-only sources.
-- [Catalog](FOLDER-STRUCTURE.md) — registry of owners, binary SHA inventory, new resource metadata schema and CI.
+- [Папки матеріалів](FOLDER-STRUCTURE.md) — фізична структура, справжні файли та правила розміщення; без додаткових реєстрів.
 - [Assets](../assets/README.md) — images, local audio, licensed video; Web/Android delivery boundaries.
 - [Sources](../sources/README.md) — YouTube/link-only, publishers and official YKI demonstrations.
-- [Dictionaries](FOLDER-STRUCTURE.md) · [Exercises](../learning/exercises/README.md) — actual existing data owners.
-- [Research](../research/README.md) — pedagogy, design, UX, gameplay, user cases. Existing research files stay at their original paths until tested migration.
+- [Dictionaries](../knowledge/dictionaries/README.md) · [Exercises](../learning/exercises/README.md) — actual existing data owners.
+- [Research](../research/README.md) — pedagogy, design, UX, gameplay, user cases; studies now physically organized by topic.
 
 
 | Task | Read |

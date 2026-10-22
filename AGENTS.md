@@ -3,7 +3,7 @@
 You are working on a **local-first Finnish/YKI learning application**: Ukrainian-language explanations; Finnish-language practice; LEARN and EXAM modes with reading, listening, writing and speaking. Optimize for reliable learning outcomes, privacy, accessibility, and verified tests—not for new frameworks or large diffs.
 
 ## First read (progressive disclosure)
-> **Content ownership:** before touching files in `audio/`, `video/`, `content/`, `brand/logo/`, `docs/` research or external resource links, read [content architecture](docs/CONTENT-ARCHITECTURE.md), the [canonical collection registry](docs/FOLDER-STRUCTURE.md), and the appropriate [research](research/README.md)/[sources](sources/README.md)/[learning](learning/README.md)/[assets](assets/README.md) index. Keep legacy runtime paths stable until consumers/CI migrate together; never duplicate payloads or convert YouTube links into offline media.
+> **Content ownership:** media files live in [assets](assets/README.md), exercises in [learning/exercises](learning/exercises/README.md), dictionaries in [knowledge/dictionaries](knowledge/dictionaries/README.md), external links in [sources](sources/README.md), and research in [research](research/README.md). Read the [physical folder structure](docs/FOLDER-STRUCTURE.md) before touching assets; do not restore machine registries or copy YouTube media.
 
 
 1. [docs/INDEX.md](docs/INDEX.md) — which document owns which decision, and its status.

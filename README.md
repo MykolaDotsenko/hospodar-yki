@@ -4,12 +4,11 @@
 
 # Hospodar YKI
 
-## 🗂️ Матеріали, дослідження й джерела — єдина структура (22.10.2026)
+## 🗂️ Де що лежить
 
-**[Загальна карта матеріалів](docs/CONTENT-ARCHITECTURE.md)** · **[Каталог із власниками](docs/FOLDER-STRUCTURE.md)** · **[Зображення/аудіо/відео](assets/README.md)** · **[Зовнішні джерела та YouTube](sources/README.md)** · **[Словники](docs/FOLDER-STRUCTURE.md)** · **[Вправи](learning/exercises/README.md)** · **[Педагогіка, дизайн, UX, геймплей і user cases](research/README.md)**.
+**[Структура репозиторію](docs/FOLDER-STRUCTURE.md)** · [Зображення, аудіо, відео](assets/README.md) · [YouTube та офіційні посилання](sources/README.md) · [Словники](knowledge/dictionaries/README.md) · [Вправи](learning/exercises/README.md) · [Дослідження методик, дизайну, UX, геймплею, user cases](research/README.md).
 
-Зараз **не переносимо** робочі файли з `audio/`, `video/`, `content/b1/` і `brand/logo/`: ці шляхи використовують застосунок та валідатори. Новий `docs/FOLDER-STRUCTURE.md` однозначно індексує існуючі оригінали без копій, а `docs/FOLDER-STRUCTURE.md` фіксує Git SHA/розміри 94 наявних бінарних файлів. **Git-хеш не є підтвердженням ліцензії.** Перевірка: `python3 scripts/validate_repository_taxonomy.py`. Великі майбутні медіапакети Android не додаємо без дозволів і реальної збірки PAD.
-
+Матеріали **фізично впорядковано за призначенням**: `assets/`, `learning/`, `knowledge/`, `sources/`, `research/`. Окремого каталогу-реєстру немає. Локальні файли зберігаються у власних папках; зовнішні YouTube посилання не копіюють відео. Команда перевірки: `python3 scripts/validate_folder_layout.py`.
 
 ## 🧭 Розробка з AI: перевірені правила та документація (22.10.2026)
 

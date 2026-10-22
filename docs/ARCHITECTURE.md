@@ -5,7 +5,7 @@
 ## Implemented now (source exists)
 
 ```text
-app/index.html ── app/app.mjs ── app/core.mjs ── content/**/*.json
+app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/**/*.json
      │                                 └── LEARN progress: localStorage
      └── app/exam.html ── app/exam.mjs ── app/exam-core.mjs
                                   └── app/attempt-storage.mjs

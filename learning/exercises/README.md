@@ -1,18 +1,16 @@
-# Exercises and assessments — discoverability by skill / format
+# Практичні вправи — одна фізична структура
 
-The **canonical machine content is `content/b1/`**. This page gives semantic categories without physically duplicating JSON or changing working imports.
+Навчальні завдання зберігаються безпосередньо в `b1/`, а не в окремому реєстрі. Кожна категорія має свій каталог, вміст файлів залишається тим самим.
 
-| Family | Current canonical location | Skills / review |
-| --- | --- | --- |
-| Thematic real-life missions | [learning/exercises/b1/themes](b1/themes) | reading, listening, writing, speaking |
-| Dialogues and contextual reading | [contextual](b1/contextual) | comprehension / active production |
-| Grammar / rektio / contextual cloze | [grammar](b1/grammar) | functional Finnish use |
-| High-yield paraphrasing, reactions, opinion, writing repair | [high-yield](b1/high-yield) | higher-value 4-skill transfer |
-| 25-minute lessons / masterclasses | [masterclasses](b1/masterclasses) | structured learning progression |
-| Listening with matching real/synthetic audio | [audio-long](b1/audio-long), [audio-training](b1/audio-training) | listening and production; recordings in audio/ |
-| Exam mock / diagnostics | [exam-patterns](b1/exam-patterns), [diagnostics](b1/diagnostics) | **practice**, not official YKI |
-| Audio/video comprehension questions | [learning/exercises/video/exercises.json](learning/exercises/video/exercises.json) | teacher review pending, not automatically graded |
+| Категорія | Папка |
+| --- | --- |
+| Тематичні ситуації | [b1/themes](b1/themes/) |
+| Діалоги, читання | [b1/contextual](b1/contextual/) |
+| Граматика та cloze | [b1/grammar](b1/grammar/) |
+| Paraphrase, реакції, аргументація | [b1/high-yield](b1/high-yield/) |
+| Майстер-класи | [b1/masterclasses](b1/masterclasses/) |
+| Аудіоуроки та тренування | [b1/audio-long](b1/audio-long/), [b1/audio-training](b1/audio-training/) |
+| Пробні іспити / діагностика | [b1/exam-patterns](b1/exam-patterns/), [b1/diagnostics](b1/diagnostics/) |
+| Завдання за відео | [video/exercises.json](video/exercises.json) |
 
-**For each item:** stable `itemId`, `itemVersion`, `contentHash`, language, CEFR estimate and skills, outcome/functional chunk, source and redistribution rights, prompt, optional media ID, response type, key/rubric, distractor quality, explicit `ungraded` status, S2 review gate, accessibility fallback. First-attempt evidence is separate from draft and training repair (see [contracts](../../docs/CONTRACTS.md)).
-
-Future interoperability may be inspired by [1EdTech QTI](https://www.1edtech.org/standards/qti); **no QTI import/export or conformance is implemented** today.
+Словники й chunks живуть у [knowledge/dictionaries](../../knowledge/dictionaries/README.md), самі аудіозаписи — в [assets/audio](../../assets/audio/README.md). Стабільні `itemId`, версії, джерела й ключі не змінюються під час переміщення папок. Відповіді writing/speaking без підтвердженого оцінювання залишаються `ungraded`. [Правила авторства](../CONTRIBUTING.md) · [Контракти спроб](../../docs/CONTRACTS.md).
