@@ -1,7 +1,10 @@
-# Learning content — authoring and delivery
+# Learning — навчальні матеріали Hospodar YKI
 
-Canonical project-authored exercises remain under [content/b1](../content/b1/) with [content/README](../content/README.md) and [authoring checklist](../content/CONTRIBUTING.md). Material is organized by CEFR band and curriculum theme rather than by the frontend component rendering it.
+Тут знаходиться те, з чим реально працює учень: **завдання, тексти, діалоги, практичні іспити, граматика та аудіовправи**.
 
-Use [exercise index](exercises/README.md) to discover lesson, dialogue, dictionary context, multimedia tasks and YKI-style rehearsals; use [media](../assets/README.md) only for actual binaries/rights. Do not embed or duplicate media files inside JSON question payloads.
+- [exercises/](exercises/README.md) — оригінальні вправи A2.2–B1/B1+, теми, навчальні місії, читання, письмо, говоріння, слухання, міні-іспити та завдання до відео;
+- [CONTRIBUTING.md](CONTRIBUTING.md) — як додавати нове навчальне завдання, перевіряти фінську, авторські права, відповіді, метадані й контроль якості.
 
-**Learning mode** allows feedback, recall/repair/transfer; **exam mode** suppresses hints until submission. Keep stable task IDs and immutable independent first attempts; graded answers must have S2 review, while writing/speaking without qualified evaluation stay `ungraded`. See [product spec](../docs/15-two-modes-skill-scopes.md).
+**Що не зберігаємо тут:** OGG/MP3/WebM/SVG — у [assets/](../assets/README.md); словникові довідники — у [knowledge/dictionaries/](../knowledge/dictionaries/README.md); лише зовнішні URL — у [sources/](../sources/README.md); дослідження — у [research/](../research/README.md). Учнівські відповіді та аудіозаписи — приватні дані, їх не додають до Git.
+
+Файли вправ мають стабільний ідентифікатор, версію, джерело, рівень/навички та статус перевірки викладачем. **EXAM не відкриває підказок до завершення**, а невідкалібровані письмо й говоріння не отримують вигаданий офіційний бал YKI.

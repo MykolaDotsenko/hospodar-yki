@@ -26,25 +26,25 @@ Open **http://localhost:8080/app/** in a browser. Do not use `file://` because t
 
 Використовує **обидва оригінальні 4-навичкові набори**, `9` завдань на один (3 reading, 4 listening, 1 writing, 1 speaking). Зрозумілий послідовний UI, відповіді/чернетки зберігаються локально, необов'язкові **навчальні** таймери 15/30/60 хв, відкладені ключі після завершення, результати окремо за навичками, `ungraded` для open/writing/speaking, локальний голосовий запис зі згодою, експорт JSON.
 
-Це **не** повна достовірна копія цифрового YKI 2027: офіційні exact UI/timers/audio-replay не опубліковані в перевірених джерелах, speaking needs human review, аудіо поточних наборів синтетичне. Повний план і критерії — [docs/14-digital-yki-fidelity-spec.md](../docs/14-digital-yki-fidelity-spec.md); кожна деталь підтвердження — [33 evidence claims](../research/yki-digital-fidelity-evidence-2026-10.json).
+Це **не** повна достовірна копія цифрового YKI 2027: офіційні exact UI/timers/audio-replay не опубліковані в перевірених джерелах, speaking needs human review, аудіо поточних наборів синтетичне. Повний план і критерії — [docs/14-digital-yki-fidelity-spec.md](../docs/14-digital-yki-fidelity-spec.md); кожна деталь підтвердження — [33 evidence claims](../research/yki/yki-digital-fidelity-evidence-2026-10.json).
 
 Тести включені в `node --test app/tests/*.test.mjs`.
 
 ## Evidence-based visual feedback cue
 
-**Source-reviewed proposal:** [docs/16-color-attention-memory-research-2026-10.md](../docs/16-color-attention-memory-research-2026-10.md).
+**Source-reviewed proposal:** [research/design/16-color-attention-memory-research-2026-10.md](../research/design/16-color-attention-memory-research-2026-10.md).
 
 Implemented: **one non-animated `learning-cue`** with high contrast and underline around the *correct answer* in the `feedback` phase of the current grammar mission, **after** independent answer. Initial `answer` and `repair` do not contain solution cue; `transfer` removes it. The separate `exam.html` mock is unaffected. This does not create verified automatic Finnish morphological highlighting, VTT karaoke or a demonstrated long-term memory effect.
 
 ## Meaning-first color-cue pilot (21.10.2026)
 
-Complementary [17 L2/color/attention study](../docs/17-color-attention-l2-deep-dive.md) and [machine policy](../research/color-attention-design-policy-v2.json). The existing 28-item cloze bank now carries **three** `meaning_uk` + `semantic_relation_uk` **editorial drafts pending S2 review** for common local cases (illatiivi, elatiivi, inessiivi). Only **after** the first response, the feedback displays neutral **meaning first**, then the single color+underline form cue. Initial, repair, transfer and exam views **do not** display those correct-answer signals. Other tasks fall back to original feedback without inventing translations.
+Complementary [17 L2/color/attention study](../research/design/17-color-attention-l2-deep-dive.md) and [machine policy](../research/design/color-attention-design-policy-v2.json). The existing 28-item cloze bank now carries **three** `meaning_uk` + `semantic_relation_uk` **editorial drafts pending S2 review** for common local cases (illatiivi, elatiivi, inessiivi). Only **after** the first response, the feedback displays neutral **meaning first**, then the single color+underline form cue. Initial, repair, transfer and exam views **do not** display those correct-answer signals. Other tasks fall back to original feedback without inventing translations.
 
 No claims are made about improved memory percentages, complete teacher-reviewed Finnish, or official YKI certification.
 
 ## Working now
 
-1. **Місія:** load `content/b1/grammar/contextual-cloze.json` → first attempt (answer hidden) → guided repair (if wrong) → reveal answer/explanation → own unseen transfer sentence → save. SRS records **first independent** recall, not success after a hint.
+1. **Місія:** load `learning/exercises/b1/grammar/contextual-cloze.json` → first attempt (answer hidden) → guided repair (if wrong) → reveal answer/explanation → own unseen transfer sentence → save. SRS records **first independent** recall, not success after a hint.
 2. **4 навички:** one short baseline probe per skill. Reading uses genuine test text and objective choices; listening uses an **existing real OGG file** of synthetic speech, not the script-only diagnostic; writing and speaking save ungraded work. This is a smoke-test of assessment UX, **not an adequate CEFR diagnostic**.
 3. **Аудіо:** six existing long synthetic lessons in the repository; MVP demonstrates one long original story, comprehension, and transcript reveal after the response. Extra real human voice is a historical LibriVox story, not the planned modern two-speaker dataset.
 4. **Digitesti:** four-step, feedback-delayed digital rehearsal based on existing independent training content. **No claims** about the exact OPH digital test screens, number/timing of tasks, permitted audio replay or official scoring.

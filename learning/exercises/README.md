@@ -1,18 +1,16 @@
-# Exercises and assessments — discoverability by skill / format
+# Learning exercises — B1 and video tasks
 
-The **canonical machine content is `content/b1/`**. This page gives semantic categories without physically duplicating JSON or changing working imports.
+These are real authoring files consumed by the Web MVP and validators, not catalog pointers. [Detailed historical content overview](CONTENT-OVERVIEW-2026-10.md) retains the 21 October inventory and editorial notes.
 
-| Family | Current canonical location | Skills / review |
-| --- | --- | --- |
-| Thematic real-life missions | [content/b1/themes](../../content/b1/themes/) | reading, listening, writing, speaking |
-| Dialogues and contextual reading | [contextual](../../content/b1/contextual/) | comprehension / active production |
-| Grammar / rektio / contextual cloze | [grammar](../../content/b1/grammar/) | functional Finnish use |
-| High-yield paraphrasing, reactions, opinion, writing repair | [high-yield](../../content/b1/high-yield/) | higher-value 4-skill transfer |
-| 25-minute lessons / masterclasses | [masterclasses](../../content/b1/masterclasses/) | structured learning progression |
-| Listening with matching real/synthetic audio | [audio-long](../../content/b1/audio-long/), [audio-training](../../content/b1/audio-training/) | listening and production; recordings in audio/ |
-| Exam mock / diagnostics | [exam-patterns](../../content/b1/exam-patterns/), [diagnostics](../../content/b1/diagnostics/) | **practice**, not official YKI |
-| Audio/video comprehension questions | [video/exercises.json](../../video/exercises.json) | teacher review pending, not automatically graded |
+| Learning content | Folder |
+| --- | --- |
+| Practical B1 situations across four skills | [themes](b1/themes/) |
+| Dialogues and contextual reading | [contextual](b1/contextual/README.md) |
+| Grammar, rektio practice and cloze | [grammar](b1/grammar/README.md) |
+| Paraphrasing, speaking reactions, writing repair | [high-yield](b1/high-yield/README.md) |
+| Guided lessons and masterclasses | [masterclasses](b1/masterclasses/README.md) |
+| Human/synthetic listening and B1 recordings | [audio-training](b1/audio-training/README.md), [audio-long](b1/audio-long/README.md) |
+| Mock exam practice and diagnostics | [exam-patterns](b1/exam-patterns/README.md), [diagnostics](b1/diagnostics/) |
+| Video-based comprehension prompts | [video exercises](video/exercises.json) |
 
-**For each item:** stable `itemId`, `itemVersion`, `contentHash`, language, CEFR estimate and skills, outcome/functional chunk, source and redistribution rights, prompt, optional media ID, response type, key/rubric, distractor quality, explicit `ungraded` status, S2 review gate, accessibility fallback. First-attempt evidence is separate from draft and training repair (see [contracts](../../docs/CONTRACTS.md)).
-
-Future interoperability may be inspired by [1EdTech QTI](https://www.1edtech.org/standards/qti); **no QTI import/export or conformance is implemented** today.
+The binary media files are physically under [assets](../../assets/README.md), not inside these lesson folders. IDs and versions are independent of file paths. Exams reveal no answers before finish; production speaking/writing remain ungraded without appropriate calibrated review. [Contribution policy](../CONTRIBUTING.md) · [contracts](../../docs/CONTRACTS.md).

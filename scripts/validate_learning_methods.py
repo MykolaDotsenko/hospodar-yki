@@ -11,7 +11,7 @@ import pathlib
 from urllib.parse import urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "research" / "learning-methods-v1.json"
+CATALOG = ROOT / "research" / "pedagogy" / "learning-methods-v1.json"
 LIMITS = {
     "evidence": 30,
     "Finnish_YKI_fit": 30,
@@ -71,13 +71,13 @@ def main():
         counts[m["priority"]] += 1
 
     # Implementation blueprint must trace directly to researched method IDs.
-    blueprint_file = ROOT / "research" / "yki-methodology-implementation-v1.json"
+    blueprint_file = ROOT / "research" / "pedagogy" / "yki-methodology-implementation-v1.json"
     blueprint = json.loads(blueprint_file.read_text(encoding="utf-8"))
     require(blueprint["status"] == "implementation_design_not_implemented", "Blueprint cannot claim implementation")
     require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
     require(len(blueprint["experiment_backlog"]) == 4, "Expected 4 explicit experiments")
     require(len(blueprint.get("new_evidence_workstreams", [])) == 5, "Expected five extensions from fresh effectiveness review")
-    require(blueprint.get("evidence_effectiveness_registry") == "research/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
+    require(blueprint.get("evidence_effectiveness_registry") == "research/pedagogy/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
 
     known_method_ids = {m["id"] for m in methods}
     modules = blueprint["modules"]
@@ -95,15 +95,15 @@ def main():
         require(exp["source_methods"] and set(exp["source_methods"]) <= known_method_ids, "Unknown experiment methods " + exp["id"])
         require(all(exp.get(k) for k in ("treatment","control","primary_outcome","guardrail")), "Incomplete A/B hypothesis " + exp["id"])
     require(len({e["id"] for e in blueprint["experiment_backlog"]}) == 4, "Duplicate experiment ID")
-    legacy_docs = (ROOT / "docs" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
-    new_docs = (ROOT / "docs" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
+    legacy_docs = (ROOT / "research" / "pedagogy" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
+    new_docs = (ROOT / "research" / "pedagogy" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
     require("## Повний рейтинг (Product-fit, 67 методик)" in legacy_docs, "Main method ranking stale")
     for method in methods:
         require("(`" + method["id"] + "`)" in legacy_docs, "Missing detailed method card " + method["id"])
     require("11 модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
 
 
-    effectiveness = json.loads((ROOT / "research" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
+    effectiveness = json.loads((ROOT / "research" / "pedagogy" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
     require(effectiveness["count"] == len(effectiveness["ratings"]) == 67, "Expected 67 effectiveness ratings")
     require(len({r["id"] for r in effectiveness["ratings"]}) == 67, "Duplicate effectiveness rating IDs")
     require({r["id"] for r in effectiveness["ratings"]} == known_method_ids, "Effectiveness index not a one-to-one match with methods")
@@ -126,7 +126,7 @@ def main():
         require(rating["not_yki_pass_probability"] is True, "Unvalidated YKI score misrepresented: " + ident)
         require(rating["confidence_in_score"] in {"high", "moderate", "low"}, "Unknown evidence confidence")
         require(rating["role"] in {"learning_intervention", "assessment_or_infrastructure", "technology_conditional", "not_recommended_standalone"}, "Unknown method role")
-    effectiveness_report = (ROOT / "docs" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
+    effectiveness_report = (ROOT / "research" / "pedagogy" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
     require("67" in effectiveness_report and "69" in effectiveness_report and "g=0,18" in effectiveness_report, "Research findings summary incomplete")
     require(effectiveness_report.count("| **") >= 67, "Not all 67 rated methods shown in table")
 

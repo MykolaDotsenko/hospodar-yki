@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "imported_count": 3,
+  "total_sources": 3,
+  "assets": [
+    {
+      "id": "jenni-puhekieli",
+      "path": "assets/video/open/jenni-puhekieli.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Jenni_speaking_Finnish.webm",
+      "author": "Wikitongues",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c8/WIKITONGUES-_Jenni_speaking_Finnish.webm/WIKITONGUES-_Jenni_speaking_Finnish.webm.360p.vp9.webm",
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "duration_seconds": 191.455,
+      "video_codec": "vp9",
+      "audio_codec": "opus",
+      "width": 640,
+      "height": 360,
+      "bytes": 10463142,
+      "sha256": "def7813511ea15923eaace0c36608347ee907accb24a89023c22d7420f3113e0"
+    },
+    {
+      "id": "kinola-helsinki",
+      "path": "assets/video/open/kinola-helsinki.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Elokuvateatteri_Kinola.webm",
+      "author": "Aprom; historical photo credited to Museovirasto/Pietinen in source",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2c/Elokuvateatteri_Kinola.webm/Elokuvateatteri_Kinola.webm.360p.vp9.webm",
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "duration_seconds": 94.814,
+      "video_codec": "vp9",
+      "audio_codec": "opus",
+      "width": 640,
+      "height": 360,
+      "bytes": 3448659,
+      "sha256": "7bac8917b6e7e7c06eb20e79ed9c953131b3937827113847d09c5effbb0fa335"
+    },
+    {
+      "id": "claes-esittely",
+      "path": "assets/video/open/claes-esittely.webm",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Claes_Andersson_fi.webm",
+      "author": "Holger Motzkau",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ee/Claes_Andersson_fi.webm/Claes_Andersson_fi.webm.360p.vp9.webm",
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "duration_seconds": 77.317,
+      "video_codec": "vp9",
+      "audio_codec": "opus",
+      "width": 640,
+      "height": 360,
+      "bytes": 3519327,
+      "sha256": "016e1500eba082f3c5cba6d5eef3a76a144c7d2eed19942eb5d4fdc979f98f83"
+    }
+  ],
+  "note": "All source material is unofficial, teacher review pending; no captions claimed"
+}

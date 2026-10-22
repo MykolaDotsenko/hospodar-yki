@@ -375,11 +375,11 @@ document.addEventListener("click",e=>{
 async function init(){
   useState();
   const sources=[
-    "content/b1/grammar/contextual-cloze.json",
-    "content/b1/diagnostics/baseline-v1.json",
-    "content/b1/audio-long/lessons.json",
-    "content/b1/audio-long/human-stories.json",
-    "content/b1/contextual/reading-pack-v1.json"
+    "learning/exercises/b1/grammar/contextual-cloze.json",
+    "learning/exercises/b1/diagnostics/baseline-v1.json",
+    "learning/exercises/b1/audio-long/lessons.json",
+    "learning/exercises/b1/audio-long/human-stories.json",
+    "learning/exercises/b1/contextual/reading-pack-v1.json"
   ];
   try{
     const values=await Promise.all(sources.map(async path=>{

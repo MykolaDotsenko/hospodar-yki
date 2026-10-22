@@ -9,9 +9,9 @@ SOURCES=[
  ("mari-laulu","Mari Mattila","Laulu tulipunaisesta kukasta","Johannes Linnankoski",1913,"https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/","https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_01_linnankoski_128kb.mp3"),
  ("teemu-laulu","Teemu","Laulu tulipunaisesta kukasta","Johannes Linnankoski",1913,"https://librivox.org/laulu-tulipunaisesta-kukasta-by-johannes-linnankoski/","https://archive.org/download/laulutulipunaisestakukasta_1501_librivox/laulutulipunaisestakukasta_21_linnankoski_64kb.mp3")
 ]
-DEST=ROOT/"audio/human/librivox"
-MANIFEST=ROOT/"content/b1/audio-training/librivox-human.json"
-LIB=ROOT/"audio/library.json"
+DEST=ROOT/"assets/audio/human/librivox"
+MANIFEST=ROOT/"learning/exercises/b1/audio-training/librivox-human.json"
+LIB=ROOT/"assets/audio/library.json"
 def cmd(args):
     return subprocess.run(args,capture_output=True,text=True,check=True)
 def seconds(file):
@@ -67,10 +67,10 @@ def main():
     present={e["path"] for e in library["entries"]}
     for i in items:
         if i["path"] in present:continue
-        library["entries"].append(dict(id=i["id"],kind="human_librivox_excerpt",path=i["path"],actual_human=True,synthetic=False,author=i["narrator"],license=i["license"],source_page=i["source_page"],duration_seconds=i["duration_seconds"],level=i["level_hint"],topic="literary_narrative",transcript_ref=None,lesson_ref="content/b1/audio-training/librivox-human.json",qa="teacher_review_pending"))
+        library["entries"].append(dict(id=i["id"],kind="human_librivox_excerpt",path=i["path"],actual_human=True,synthetic=False,author=i["narrator"],license=i["license"],source_page=i["source_page"],duration_seconds=i["duration_seconds"],level=i["level_hint"],topic="literary_narrative",transcript_ref=None,lesson_ref="learning/exercises/b1/audio-training/librivox-human.json",qa="teacher_review_pending"))
     library["counts"]["human_librivox_excerpts"]=len(items)
     library["counts"]["total_files"]=len(library["entries"])
-    library["librivox_manifest"]="content/b1/audio-training/librivox-human.json"
+    library["librivox_manifest"]="learning/exercises/b1/audio-training/librivox-human.json"
     LIB.write_text(json.dumps(library,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
     print(json.dumps({"created":len(items),"narrators":manifest["narrators"],"errors":errors,"total":len(library["entries"])},ensure_ascii=False),flush=True)
 if __name__=="__main__":main()

@@ -19,7 +19,7 @@ def contrast(a:str,b:str)->float:
     return (y+0.05)/(x+0.05)
 
 def main():
-    data=json.loads((ROOT/"research/color-memory-evidence-v1.json").read_text(encoding="utf8"))
+    data=json.loads((ROOT/"research/design/color-memory-evidence-v1.json").read_text(encoding="utf8"))
     tokens=json.loads((ROOT/"brand/tokens.json").read_text(encoding="utf8"))
     assert data["schema_version"]=="1.0.0"
     assert data["not_systematic_review"] is True
@@ -66,25 +66,25 @@ def main():
     assert "meaning-first" in feedback and "h(t.meaning_uk)" in feedback
     assert feedback.index('h(t.meaning_uk)') < feedback.index('h(t.answer_fi)')
     assert "meaning-first" in appcss
-    tasks=json.loads((ROOT/"content/b1/grammar/contextual-cloze.json").read_text(encoding="utf8"))
+    tasks=json.loads((ROOT/"learning/exercises/b1/grammar/contextual-cloze.json").read_text(encoding="utf8"))
     prepared=[x for x in tasks["exercises"] if x.get("meaning_uk")]
     assert len(prepared)==3
     assert {x["id"] for x in prepared}=={"b1-g-001","b1-g-002","b1-g-003"}
     assert all(x.get("meaning_review_status")=="editorial_draft_pending_S2_review" and
                x.get("semantic_relation_uk") for x in prepared)
-    extra=json.loads((ROOT/"research/color-attention-design-policy-v2.json").read_text(encoding="utf8"))
+    extra=json.loads((ROOT/"research/design/color-attention-design-policy-v2.json").read_text(encoding="utf8"))
     assert extra["schema_version"]=="2.0.0"
     source_ids={x["id"] for x in extra["science_constraints"]["data_sources"]}
     assert source_ids=={"ma2026","leehuang2008","ozcelik2009","schneider2018"}
     assert extra["test_plan"]["status"]=="planned_not_executed"
     assert extra["test_plan"]["guardrail"].startswith("unseen gist comprehension")
     assert extra["visual_layers"]["explanation"]["available_only_post_response"] is True
-    assert (ROOT/"docs/17-color-attention-l2-deep-dive.md").is_file()
+    assert (ROOT/"research/design/17-color-attention-l2-deep-dive.md").is_file()
     for gate in extra["gates"]:
         assert set(gate["why"]) <= ids,gate["id"]
     assert ".learning-cue" in appcss and "text-decoration:underline" in appcss
     assert "forced-colors:active" in appcss
-    assert (ROOT/"docs/16-color-attention-memory-research-2026-10.md").exists()
+    assert (ROOT/"research/design/16-color-attention-memory-research-2026-10.md").exists()
     spec=(ROOT/"docs/15-two-modes-skill-scopes.md").read_text(encoding="utf8")
     for tag in ["COLOR-01","COLOR-02","COLOR-03","COLOR-04","COLOR-05",
                 "COLOR-06","COLOR-07","COLOR-08","COLOR-09","COLOR-10",

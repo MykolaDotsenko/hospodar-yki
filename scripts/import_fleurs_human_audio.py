@@ -19,8 +19,8 @@ import urllib.parse
 import urllib.request
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-DEST=ROOT/'audio'/'human'/'fleurs-fi'
-OUT=ROOT/'content'/'b1'/'audio-training'/'fleurs-fi.json'
+DEST=ROOT/'assets'/'audio'/'human'/'fleurs-fi'
+OUT=ROOT/'learning'/'exercises'/'b1'/'audio-training'/'fleurs-fi.json'
 API='https://datasets-server.huggingface.co/rows'
 DATASET='google/fleurs'
 CONFIG='fi_fi'

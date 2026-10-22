@@ -8,9 +8,9 @@ NOT verified word-aligned ASR (LibriVox chapter includes introduction/credits).
 from __future__ import annotations
 import hashlib,json,pathlib,re,subprocess,urllib.request
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-OUT=ROOT/"audio/human/short-stories"
-INDEX=ROOT/"content/b1/audio-long/human-stories.json"
-LIB=ROOT/"audio/library.json"
+OUT=ROOT/"assets/audio/human/short-stories"
+INDEX=ROOT/"learning/exercises/b1/audio-long/human-stories.json"
+LIB=ROOT/"assets/audio/library.json"
 AUDIO="https://www.archive.org/download/satujajatarinoitai_2507_librivox/satujajatarinoitai_03_andersen_128kb.mp3"
 TEXT="https://www.gutenberg.org/cache/epub/53484/pg53484.txt"
 def fetch(url,limit):
@@ -63,11 +63,11 @@ def main():
            synthetic=False,actual_human=True,license=item["rights"],author="Cygnaeus / LibriVox",
            source_page=item["audio_source"],duration_seconds=item["duration_seconds"],
            level=item["level_estimate"],topic="fiction",transcript_ref=item["transcript_path"],
-           subtitles_ref=None,lesson_ref="content/b1/audio-long/human-stories.json",
+           subtitles_ref=None,lesson_ref="learning/exercises/b1/audio-long/human-stories.json",
            qa="original_story_transcript_not_aligned_teacher_review_pending"))
     lib["counts"]["human_public_domain_story"]=1
     lib["counts"]["total_files"]=len(lib["entries"])
-    lib["human_story_manifest"]="content/b1/audio-long/human-stories.json"
+    lib["human_story_manifest"]="learning/exercises/b1/audio-long/human-stories.json"
     LIB.write_text(json.dumps(lib,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"saved":item["audio_path"],"duration":seconds,"transcript_characters":len(story),"total_audio":len(lib["entries"])},ensure_ascii=False))
 if __name__=="__main__":main()

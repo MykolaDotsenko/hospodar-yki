@@ -1,7 +1,7 @@
 # 21 — Hospodar YKI Digital Exam Emulator: executable fidelity specification v2
 
 **21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не опублікувала точне UI/playback/timing.  
-**Джерела:** [20 — детальний фактчек](20-yki-official-complete-audit-2026-10.md), [official evidence JSON](../research/official-yki-deep-audit-v2.json), [task patterns](../research/yki-official-patterns-v2.json), [попередня v1](14-digital-yki-fidelity-spec.md). Відповідає [15 — режимам](15-two-modes-skill-scopes.md).
+**Джерела:** [20 — детальний фактчек](../research/yki/20-yki-official-complete-audit-2026-10.md), [official evidence JSON](../research/yki/official-yki-deep-audit-v2.json), [task patterns](../research/yki/yki-official-patterns-v2.json), [попередня v1](14-digital-yki-fidelity-spec.md). Відповідає [15 — режимам](15-two-modes-skill-scopes.md).
 
 ## 0. Визначення «точної» імітації: шість незалежних вимірів
 
@@ -129,7 +129,7 @@ type Attempt = {
 
 ## 5. Content coverage and hard separation
 
-Source blueprint: [nine topics + six communication functions](20-yki-official-complete-audit-2026-10.md), `source`, `contentVersion`, `reviewStatus`, `license`, `difficultyHint`, `audioStatus`, `heldOutGroup`, `seenBy`.
+Source blueprint: [nine topics + six communication functions](../research/yki/20-yki-official-complete-audit-2026-10.md), `source`, `contentVersion`, `reviewStatus`, `license`, `difficultyHint`, `audioStatus`, `heldOutGroup`, `seenBy`.
 
 Coverage testing:
 - each task family has ≥2 **S2-reviewed, original** specimens before claim `genre-supported`;

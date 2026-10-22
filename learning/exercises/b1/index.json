@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "rights_note": "Original generated educational text: not transcribed from third-party YKI exams/books.",
+  "is_official_exam_content": false,
+  "created_at": "2026-10-21",
+  "description_uk": "Перша оригінальна база практичних матеріалів B1, не офіційний банк YKI.",
+  "activity_count": 54,
+  "stats": {
+    "themes": 9,
+    "reading": 9,
+    "listening": 9,
+    "speaking": 18,
+    "writing": 18,
+    "objective_questions": 36,
+    "chunks": 54
+  },
+  "themes": [
+    {
+      "id": "01-mina-ja-taustani",
+      "title_fi": "Minä ja taustani",
+      "title_uk": "Я і моє життя",
+      "path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "02-koti-ja-asuminen",
+      "title_fi": "Koti ja asuminen",
+      "title_uk": "Житло та побут",
+      "path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "03-kaupat-ja-palvelut",
+      "title_fi": "Kaupat ja palvelut",
+      "title_uk": "Магазини та послуги",
+      "path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "04-kulttuuri",
+      "title_fi": "Kulttuuri",
+      "title_uk": "Культура та дозвілля",
+      "path": "learning/exercises/b1/themes/04-kulttuuri.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "05-matkustaminen",
+      "title_fi": "Matkustaminen",
+      "title_uk": "Подорожі й транспорт",
+      "path": "learning/exercises/b1/themes/05-matkustaminen.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "06-terveys-ja-hyvinvointi",
+      "title_fi": "Terveys ja hyvinvointi",
+      "title_uk": "Здоров'я та самопочуття",
+      "path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "07-tyo",
+      "title_fi": "Työ",
+      "title_uk": "Робота та навчання",
+      "path": "learning/exercises/b1/themes/07-tyo.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "08-ymparisto",
+      "title_fi": "Ympäristö",
+      "title_uk": "Довкілля та сортування",
+      "path": "learning/exercises/b1/themes/08-ymparisto.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    },
+    {
+      "id": "09-yhteiskunta",
+      "title_fi": "Yhteiskunta",
+      "title_uk": "Суспільство та міські послуги",
+      "path": "learning/exercises/b1/themes/09-yhteiskunta.json",
+      "level": "A2.2-B1",
+      "activity_counts": {
+        "reading": 1,
+        "listening": 1,
+        "speaking": 2,
+        "writing": 2,
+        "objective_questions": 4,
+        "chunks": 6
+      }
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 ## Implemented now (source exists)
 
 ```text
-app/index.html ── app/app.mjs ── app/core.mjs ── content/**/*.json
+app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/**/*.json
      │                                 └── LEARN progress: localStorage
      └── app/exam.html ── app/exam.mjs ── app/exam-core.mjs
                                   └── app/attempt-storage.mjs
@@ -56,7 +56,7 @@ React/Vite Web UI       XState exam policy     Phaser 2D scenes
 | Immutable attempts | `packages/contracts/src/index.mjs` | [CONTRACTS](CONTRACTS.md), `packages/contracts/tests/` |
 | Media/rights | `app/media-platform.mjs`, `packages/contracts/src/media.mjs` | [SECURITY](SECURITY.md), media tests |
 | Kotlin source prototype | `native/android/prototype/` | [native README](../native/android/prototype/README.md); compile gate still absent |
-| Curriculum and audio | `content/`, `audio/`, `video/` | [content authoring](../content/CONTRIBUTING.md) |
+| Curriculum and audio | `content/`, `audio/`, `video/` | [content authoring](../learning/CONTRIBUTING.md) |
 
 ## Change protocol
 

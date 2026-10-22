@@ -12,8 +12,8 @@ from datetime import date
 from urllib.parse import urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SOURCES = ROOT / "research/yki-exam-examples-2026-10.json"
-MOCKS = ROOT / "content/b1/exam-patterns/mini-rehearsals-v1.json"
+SOURCES = ROOT / "research/yki/yki-exam-examples-2026-10.json"
+MOCKS = ROOT / "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json"
 SKILLS = {"reading", "listening", "writing", "speaking"}
 
 

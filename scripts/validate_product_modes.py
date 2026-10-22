@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 SKILLS={"reading","listening","writing","speaking"}
 
 def main() -> None:
-    p=ROOT/"research/product-session-modes-v1.json"
+    p=ROOT/"research/user-cases/product-session-modes-v1.json"
     doc=ROOT/"docs/15-two-modes-skill-scopes.md"
     data=json.loads(p.read_text(encoding="utf-8"))
     spec=doc.read_text(encoding="utf-8")

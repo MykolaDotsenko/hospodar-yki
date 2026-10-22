@@ -10,7 +10,7 @@ import urllib.request
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DEST = ROOT / "content" / "third-party" / "VIERKO-2024"
+DEST = ROOT / "knowledge" / "books" / "VIERKO-2024"
 MAX_BYTES = 10_000_000
 PDFS = [
     ("01-vuorovaikutus.pdf", "https://aoe.fi/api/v1/download/file/s2osa1vuorovaikutusselkokielivierko-1731401579848.pdf"),

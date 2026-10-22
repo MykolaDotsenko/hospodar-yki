@@ -4,18 +4,18 @@ on:
     branches: [main, 'feat/**']
     paths:
       - 'app/**'
-      - 'content/b1/grammar/contextual-cloze.json'
-      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'learning/exercises/b1/grammar/contextual-cloze.json'
+      - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'content/b1/audio-long/**'
-      - 'content/b1/contextual/reading-pack-v1.json'
+      - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - '.github/workflows/validate-app-mvp.yml'
   pull_request:
     paths:
       - 'app/**'
-      - 'content/b1/grammar/contextual-cloze.json'
-      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'learning/exercises/b1/grammar/contextual-cloze.json'
+      - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'content/b1/audio-long/**'
-      - 'content/b1/contextual/reading-pack-v1.json'
+      - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - '.github/workflows/validate-app-mvp.yml'
 permissions:
   contents: read

@@ -15,4 +15,4 @@
 
 Maintain design hypotheses with a link to screenshot/build commit, usability task, specific success metric, observed results and regression test. Track a color attention claim as `research_inference` until a controlled study demonstrates effect in Hospodar's learner population.
 
-Sources: [W3C Image Tutorials](https://www.w3.org/WAI/tutorials/images/), [brand identity spec](../../brand/identity-v03-screen-system.md), [color/L2 evidence](../../docs/17-color-attention-l2-deep-dive.md).
+Sources: [W3C Image Tutorials](https://www.w3.org/WAI/tutorials/images/), [brand identity spec](../../brand/identity-v03-screen-system.md), [color/L2 evidence](17-color-attention-l2-deep-dive.md).

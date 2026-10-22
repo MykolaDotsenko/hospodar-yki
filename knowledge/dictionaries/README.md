@@ -1,12 +1,11 @@
-# Finnish dictionaries, lexicon and chunks — A2.2 to B1+
+# Dictionaries — фінська лексика та сталі конструкції
 
-Current canonical files:
-- [Contextual Finnish chunks](../../content/b1/lexicon/contextual-chunks-v1.json) — phrase-level retrieval, real contexts.
-- [Word frequency TSV](../../content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv) — corpus vocabulary, see [frequency metadata](../../content/b1/lexicon/frequency/README.md).
-- [Verb rections](../../content/b1/grammar/rektio-v1.json) — governing cases/prepositions as reviewed by content editor.
-- [Grammar with context](../../content/b1/grammar/README.md) — drills linked to lexical patterns, **not another canonical dictionary**.
-- [Original teaching chunks in themes](../../content/b1/index.json).
+Словникові набори зберігаються **безпосередньо в цій папці**, а не в окремому реєстрі.
 
-Record lemma, POS, forms/government, chunk, meaning Ukrainian, Finnish contextual example, source/rights, proficiency estimate and unique ID; do not tag every unfamiliar-looking word as proven unknown to an individual learner. Personal spaced-review status and first attempts live in a **private learner data store**, not in Git.
+- [b1/contextual-chunks-v1.json](b1/contextual-chunks-v1.json) — мовні конструкції та приклади для реальних ситуацій;
+- [b1/rektio-v1.json](b1/rektio-v1.json) — керування фінських дієслів (rektion);
+- [b1/frequency/](b1/frequency/README.md) — частотність і корпусні джерела.
 
-Do not fork the same lexicon into independent JSON copies in `knowledge/`; this is the discoverability layer. The future normalized `packages/content` domain should consume these via stable IDs and versioned adapters after tested migration.
+Новий запис: базова форма (lemma), граматичні форми й керування за потреби, chunk, пояснення українською, природний приклад фінською, джерело, рівень CEFR (орієнтовний), ліцензія та редакторська перевірка. Не копіювати цілі словники видавців без дозволу.
+
+**Власна історія повторень користувача не належить до репозиторію.** Вона живе в локальному сховищі застосунку відповідно до [контрактів](../../docs/CONTRACTS.md). Навчальні вправи з цією лексикою — у [learning/exercises/](../../learning/exercises/README.md).

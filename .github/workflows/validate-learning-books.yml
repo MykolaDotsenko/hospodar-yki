@@ -3,26 +3,26 @@ on:
   push:
     branches: [main, 'research/**']
     paths:
-      - 'docs/19-learning-books-to-engineering-2026-10.md'
-      - 'research/learning-blueprints-books-v1.json'
+      - 'research/pedagogy/19-learning-books-to-engineering-2026-10.md'
+      - 'research/pedagogy/learning-blueprints-books-v1.json'
       - 'scripts/validate_learning_books_bridge.py'
       - 'docs/15-two-modes-skill-scopes.md'
       - 'docs/11-mvp-product-requirements.md'
-      - 'docs/04-evidence-and-learning-science.md'
+      - 'research/pedagogy/04-evidence-and-learning-science.md'
       - 'README.md'
-      - 'research/learning-methods-v1.json'
+      - 'research/pedagogy/learning-methods-v1.json'
       - 'docs/12-mvp-architecture.md'
       - '.github/workflows/validate-learning-books.yml'
   pull_request:
     paths:
-      - 'docs/19-learning-books-to-engineering-2026-10.md'
-      - 'research/learning-blueprints-books-v1.json'
+      - 'research/pedagogy/19-learning-books-to-engineering-2026-10.md'
+      - 'research/pedagogy/learning-blueprints-books-v1.json'
       - 'scripts/validate_learning_books_bridge.py'
       - 'docs/15-two-modes-skill-scopes.md'
       - 'docs/11-mvp-product-requirements.md'
-      - 'docs/04-evidence-and-learning-science.md'
+      - 'research/pedagogy/04-evidence-and-learning-science.md'
       - 'README.md'
-      - 'research/learning-methods-v1.json'
+      - 'research/pedagogy/learning-methods-v1.json'
       - 'docs/12-mvp-architecture.md'
       - '.github/workflows/validate-learning-books.yml'
 permissions:

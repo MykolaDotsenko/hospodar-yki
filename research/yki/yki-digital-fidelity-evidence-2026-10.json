@@ -1,0 +1,449 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "scope": "Finnish YKI keskitaso; digital spring 2027",
+  "purpose": "Evidence ledger and guardrails for fidelity-oriented independent YKI simulator",
+  "tags": {
+    "official_current": "current official or OPH-confirmed public fact",
+    "official_university_construct": "university description of construct; not proof of exact digital UX",
+    "official_scoring_rubric": "official published human assessment rubric",
+    "official_general_mixed_legacy": "current general page still containing old paper descriptions",
+    "historical_official_demo": "historic official task samples, useful construct but not new UI rules",
+    "historical_paper_only": "outdated paper-only action; must NOT be implemented as digital requirement",
+    "unverified_2027": "not confirmed in accessed primary sources"
+  },
+  "rights": "External OPH/JYU/SOLKI pages, PDFs, samples and MP3 linked for study; do not commit copyrighted texts, entire PDF or audio without permission",
+  "digital_current_status": {
+    "mode": "on_site_computer",
+    "rollout": "2027_finnish_digitesti",
+    "pilot": "2026-11-07_finnish_intermediate",
+    "ui_specification": "not_yet_publicly_verified",
+    "next_check": "after_2026_11_pilot",
+    "verified_source": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+  },
+  "assessment_rubrics": {
+    "writing": {
+      "url": "https://www.jyu.fi/fi/file-download/download/public/14097",
+      "local_copy": false,
+      "focus": [
+        "overall communicative success",
+        "coherence and cohesion",
+        "register and flexibility",
+        "lexical range and accuracy",
+        "grammar accuracy",
+        "fulfilment of task"
+      ]
+    },
+    "speaking": {
+      "url": "https://www.jyu.fi/fi/file-download/download/public/14098",
+      "local_copy": false,
+      "focus": [
+        "intelligibility and communicative outcome",
+        "fluency",
+        "coherence",
+        "register and flexibility",
+        "vocabulary",
+        "pronunciation",
+        "grammar accuracy"
+      ]
+    },
+    "grade_policy": "NO_AUTOMATIC_YKI_GRADE"
+  },
+  "evidence": [
+    {
+      "id": "DIG-001",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Весною 2027 усі фінські YKI цифрові",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
+      ],
+      "simulator_policy": "display_confirmed",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-002",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Пілотний цифровий тест проводиться на комп'ютері в тестовому центрі, не на своєму комп'ютері",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "display_confirmed",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-003",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Завдання цифрового тесту за змістом схожі на паперові",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "replicate_task_construct_not_unverified_UI",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-004",
+      "skill": "all",
+      "status": "unverified_2027",
+      "claim_uk": "Точний порядок чотирьох осакоке на цифровому тесті",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+      ],
+      "simulator_policy": "do_not_claim; app_order_is_practice_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-005",
+      "skill": "all",
+      "status": "unverified_2027",
+      "claim_uk": "Перемикання вперед/назад, завершення завдання, autosave в екзаменаційному ПЗ",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "practice_implementation_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-006",
+      "skill": "all",
+      "status": "unverified_2027",
+      "claim_uk": "Офіційні таймери цифрових осакоке і паузи",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+      ],
+      "simulator_policy": "optional_user_practice_time_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-007",
+      "skill": "all",
+      "status": "unverified_2027",
+      "claim_uk": "UI: розташування кнопок, поля введення, кольори, скриншоти",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "original_UI_do_not_clone",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-008",
+      "skill": "all",
+      "status": "unverified_2027",
+      "claim_uk": "Технічна перевірка мікрофона, навушників, мережі або клавіатури у цифровому тесті",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "user_practice_checks_not_official",
+      "notes_uk": ""
+    },
+    {
+      "id": "DIG-009",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Пільгові/спеціальні умови можна запитувати також для пілотного цифрового тесту",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "show_info_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "DAY-001",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Потрібні чинний оригінал посвідчення особи і своєчасне прибуття",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+      ],
+      "simulator_policy": "display_checklist",
+      "notes_uk": ""
+    },
+    {
+      "id": "DAY-002",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Пристрої, годинники, телефони заборонені навіть на перервах",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+      ],
+      "simulator_policy": "display_checklist",
+      "notes_uk": ""
+    },
+    {
+      "id": "DAY-003",
+      "skill": "all",
+      "status": "official_general_mixed_legacy",
+      "claim_uk": "OPH орієнтовно 5 годин для keskitaso з перервами в загальній інструкції",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+      ],
+      "simulator_policy": "display_with_2027_schedule_caveat",
+      "notes_uk": ""
+    },
+    {
+      "id": "DAY-004",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Окремі оцінки чотирьох навичок; немає одного загального тестового бала",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen"
+      ],
+      "simulator_policy": "separate_scorecards_no_cefr_prediction",
+      "notes_uk": ""
+    },
+    {
+      "id": "READ-001",
+      "skill": "reading",
+      "status": "historical_official_demo",
+      "claim_uk": "Типи A/B/C, oikein/väärin і відкриті відповіді у зразках",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/"
+      ],
+      "simulator_policy": "implement_all_types",
+      "notes_uk": ""
+    },
+    {
+      "id": "READ-002",
+      "skill": "reading",
+      "status": "official_university_construct",
+      "claim_uk": "Жанри: лист, повідомлення, оголошення, реклама, новина, стаття, історія",
+      "source_urls": [
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "genre_pool_original",
+      "notes_uk": ""
+    },
+    {
+      "id": "READ-003",
+      "skill": "reading",
+      "status": "official_university_construct",
+      "claim_uk": "Читання вимірює зміст, ключові характеристики, не лише окремі слова",
+      "source_urls": [
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "check_gist_details_inference",
+      "notes_uk": ""
+    },
+    {
+      "id": "READ-004",
+      "skill": "reading",
+      "status": "historical_paper_only",
+      "claim_uk": "Позначення відповідей на окремому паперовому бланку",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/"
+      ],
+      "simulator_policy": "never_implement_as_digitesti_2027_rule",
+      "notes_uk": ""
+    },
+    {
+      "id": "LIST-001",
+      "skill": "listening",
+      "status": "historical_official_demo",
+      "claim_uk": "Для середнього рівня в архівних зразках аудіо звучить двічі",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/"
+      ],
+      "simulator_policy": "optional_historical_training_profile_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "LIST-002",
+      "skill": "listening",
+      "status": "historical_official_demo",
+      "claim_uk": "Архівний зразок інтерв'ю: спершу цілком, потім частинами із часом відповіді",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/"
+      ],
+      "simulator_policy": "optional_historical_training_profile_only",
+      "notes_uk": "",
+      "historical_example_time_seconds": 30
+    },
+    {
+      "id": "LIST-003",
+      "skill": "listening",
+      "status": "official_university_construct",
+      "claim_uk": "Повідомлення, оголошення, новини, реклама, діалоги й інтерв'ю; різна швидкість мовлення",
+      "source_urls": [
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "diverse_spoken_voices_future",
+      "notes_uk": ""
+    },
+    {
+      "id": "LIST-004",
+      "skill": "listening",
+      "status": "unverified_2027",
+      "claim_uk": "Кількість повторів, швидкість, pause/seek для цифрового тесту",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/"
+      ],
+      "simulator_policy": "never_claim_2027; free_play_in_current_practice",
+      "notes_uk": ""
+    },
+    {
+      "id": "LIST-005",
+      "skill": "listening",
+      "status": "historical_paper_only",
+      "claim_uk": "10 хв на перенесення відповідей на окремий бланк у старому зразку",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/"
+      ],
+      "simulator_policy": "exclude_in_digital_training",
+      "notes_uk": ""
+    },
+    {
+      "id": "SPEAK-001",
+      "skill": "speaking",
+      "status": "historical_official_demo",
+      "claim_uk": "Монолог із попередньою підготовкою (демо: 1 хв) і відповіддю (1,5 хв)",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/"
+      ],
+      "simulator_policy": "optional_historical_drill_not_digitesti_default",
+      "notes_uk": "Приклад конкретного завдання, не універсальний норматив.",
+      "historical_example_time_seconds": 90
+    },
+    {
+      "id": "SPEAK-002",
+      "skill": "speaking",
+      "status": "historical_official_demo",
+      "claim_uk": "Симульовані діалоги, записані репліки співрозмовника й відповіді 10–25 секунд",
+      "source_urls": [
+        "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/"
+      ],
+      "simulator_policy": "original_roleplay_with_licensed_audio_further_work",
+      "notes_uk": ""
+    },
+    {
+      "id": "SPEAK-003",
+      "skill": "speaking",
+      "status": "official_university_construct",
+      "claim_uk": "Говоріння фіксується для подальшого оцінювання; контекст, рольові реакції і монологи",
+      "source_urls": [
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "user_consent_local_voice; no_official_score",
+      "notes_uk": ""
+    },
+    {
+      "id": "SPEAK-004",
+      "skill": "speaking",
+      "status": "unverified_2027",
+      "claim_uk": "Цифрова схема запису й аудіопідказок та обмеження часу запису",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "user_microphone_practice_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "SPEAK-005",
+      "skill": "speaking",
+      "status": "official_scoring_rubric",
+      "claim_uk": "Для taso 3 важливі зрозумілість, зв'язність, достатній словник, комунікативна результативність та вимова, яка дозволяє зрозуміти",
+      "source_urls": [
+        "https://www.jyu.fi/fi/file-download/download/public/14098"
+      ],
+      "simulator_policy": "rubric_checklist_ungraded_no_ASR_pronunciation",
+      "notes_uk": ""
+    },
+    {
+      "id": "WRITE-001",
+      "skill": "writing",
+      "status": "historical_official_demo",
+      "claim_uk": "У письмі три різних письмових завдання",
+      "source_urls": [
+        "https://ykitesti2.solki.jyu.fi/ykitesti2/web/en/node/21",
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "future_full_blueprint_three_writing_tasks",
+      "notes_uk": ""
+    },
+    {
+      "id": "WRITE-002",
+      "skill": "writing",
+      "status": "historical_official_demo",
+      "claim_uk": "Зразки: формальний e-mail із обов'язковими пунктами і думка з кількома аргументами",
+      "source_urls": [
+        "https://ykitesti2.solki.jyu.fi/ykitesti2/web/en/node/21"
+      ],
+      "simulator_policy": "original_guided_prompt_and_opinion",
+      "notes_uk": ""
+    },
+    {
+      "id": "WRITE-003",
+      "skill": "writing",
+      "status": "official_scoring_rubric",
+      "claim_uk": "Taso 3: зрозумілий простий зв'язний текст на звичні теми; можливі помилки та недостатнє розрізнення регістрів",
+      "source_urls": [
+        "https://www.jyu.fi/fi/file-download/download/public/14097"
+      ],
+      "simulator_policy": "teacher_or_self_review_not_AI_grade",
+      "notes_uk": ""
+    },
+    {
+      "id": "WRITE-004",
+      "skill": "writing",
+      "status": "unverified_2027",
+      "claim_uk": "Правила редагування тексту, підрахунок слів, автозбереження й спосіб подачі тексту на комп'ютері",
+      "source_urls": [
+        "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026"
+      ],
+      "simulator_policy": "local_autosave_practice_only",
+      "notes_uk": ""
+    },
+    {
+      "id": "RESULT-001",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Для keskitaso результати по модулях можуть бути alle 3, 3 або 4; можливий ei voida arvioida",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen"
+      ],
+      "simulator_policy": "never_convert_training_percentage_to_YKI",
+      "notes_uk": ""
+    },
+    {
+      "id": "RESULT-002",
+      "skill": "all",
+      "status": "official_current",
+      "claim_uk": "Оцінюють кваліфіковані оцінювачі; критерії результативності відомі, не еквівалент арифметиці по ключах",
+      "source_urls": [
+        "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+        "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+      ],
+      "simulator_policy": "objective_practice_accuracy_only;productive_ungraded",
+      "notes_uk": ""
+    }
+  ],
+  "summary": {
+    "official_current": 9,
+    "unverified_2027": 8,
+    "official_general_mixed_legacy": 1,
+    "historical_official_demo": 7,
+    "official_university_construct": 4,
+    "historical_paper_only": 2,
+    "official_scoring_rubric": 2
+  },
+  "linked_resources": {
+    "legacy_samples": {
+      "reading": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "listening": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "writing": "https://ykitesti2.solki.jyu.fi/ykitesti2/web/en/node/21",
+      "speaking": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/"
+    },
+    "official_pages": {
+      "dates": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+      "pilot": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "exam_day": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "results": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "jyu_overview": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
+    },
+    "original_internal_blueprints": "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json"
+  }
+}

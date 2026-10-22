@@ -1,14 +1,15 @@
-# Research hub — evidence, design, UX, gameplay and use cases
+# Research — методики, дизайн, UX, геймплей, сценарії
 
-The existing machine-readable research JSON under `research/*.json` and numbered studies under `docs/` remain the **only canonical copies** until an explicit, tested file/path migration. Indexing them by topic is safer for the currently path-coupled scripts/CI. New discoveries should add citations with date, claim, population, limitations, and whether they have actually been implemented.
+Ця папка містить **реальні дослідження й гіпотези**, а не застосунок або архів посилань. Дані та Markdown-дослідження лежать у відповідній темі; окремого каталогу-реєстру немає.
 
-| Discipline | Focus |
-| --- | --- |
-| [Pedagogy](pedagogy/README.md) | spaced retrieval, SRS, feedback, language learning, B1/YKI transfer |
-| [Design](design/README.md) | brand system, color research, attention, illustrative pedagogy |
-| [UX](ux/README.md) | learning flows, multimodal interfaces, accessibility, human research |
-| [Gameplay](gameplay/README.md) | playable 2D world, quest loops, Phaser design hypotheses |
-| [User cases](user-cases/README.md) | personas, journeys, storyboards, use-case acceptance |
-| [Cross-platform architecture](../docs/27-stack-architecture-compatibility-and-implementation-gates.md) | data/storage/Android media/release specifications |
+| Тема | Папка | Зміст |
+| --- | --- | --- |
+| 📖 Методики навчання | [pedagogy/](pedagogy/README.md) | Spaced retrieval, самовиправлення, transfer, B1/YKI, джерела й оцінки доказовості |
+| 🎨 Дизайн | [design/](design/README.md) | Кольори, увага, візуальні рішення, план перевірки дизайну |
+| 🧭 UX та доступність | [ux/](ux/README.md) | Інтерактивні вправи, мультимодальність, тестування користувачів |
+| 🎮 Геймплей | [gameplay/](gameplay/README.md) | NPC-місії, навчальні цикли, гіпотези Phaser |
+| 👥 User cases | [user-cases/](user-cases/README.md) | Персонажі, конкретні сценарії, edge cases і критерії приймання |
+| 🇫🇮 YKI | [yki/](yki/README.md) | Перевірені офіційні відомості, приклади та невизначеності |
+| 🏗️ Архітектура | [architecture/](architecture/README.md) | Машинозчитувані архітектурні рішення; нормативні ADR — в [docs/](../docs/INDEX.md) |
 
-**Evidence ranks:** official technical specs / primary studies / reviews / human-observed tests / editorial proposals. Do not turn subjective product-fit scores into demonstrated effect sizes or app performance metrics. Never infer official exam format beyond sourced evidence.
+**Порядок додавання:** новий матеріал → тематична папка → файл із назвою й версією → посилання на первинне джерело та обмеження дослідження → за потреби тест/редакторський перегляд. Не дублювати той самий JSON в іншій папці. Оцінка «95/100» — експертна пріоритизація, **не виміряний приріст результатів YKI**. Дизайн або геймплей у дослідженнях не означає, що функція вже реалізована в застосунку.

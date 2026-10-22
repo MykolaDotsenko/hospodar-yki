@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-10-21",
+  "format": "four_skill_mini_rehearsal_blueprints",
+  "rights": "references internal original project exercises only; no external copyrighted text/audio incorporated",
+  "not_official_yki": true,
+  "exact_digital_format_verified": false,
+  "human_cefr_calibrated": false,
+  "scope_warning": "These are SMALL original app-ready practice sequences, not complete old papers or faithful digital YKI 2027 mock exams.",
+  "pedagogy": {
+    "phase": "unseen_first_attempt; delayed_feedback_after_last_skill",
+    "time_policy": "practice times only; official digitesti duration unknown",
+    "audio_policy": "synthetic TTS: explicit provenance, repeat control for the official format NOT yet verified",
+    "answer_policy": "objective questions scored by keys, open answers writing/speaking ungraded until teacher-reviewed",
+    "progress_policy": "report skill results separately, no automatic YKI 3/B1 prediction"
+  },
+  "blueprints": [
+    {
+      "id": "yki-mini-a-housing",
+      "title_uk": "Mini-rehearsal A: житло та побут",
+      "audience": "A2.2-B1 developing",
+      "skill_blocks": [
+        {
+          "skill": "reading",
+          "content_path": "learning/exercises/b1/contextual/reading-pack-v1.json",
+          "item_id": "ctx-reading-02-housing",
+          "question_ids": [
+            "ctx-reading-02-housing-q1",
+            "ctx-reading-02-housing-q2",
+            "ctx-reading-02-housing-q3"
+          ],
+          "scoring_policy": "objective_only_if_key; open_human_or_semantic_review",
+          "task_family": [
+            "multiple_choice",
+            "true_false",
+            "open"
+          ]
+        },
+        {
+          "skill": "listening",
+          "content_path": "learning/exercises/b1/audio-long/lessons.json",
+          "item_id": "b1long-01-vesikatko-ja-huoltokaynti",
+          "audio_path": "assets/audio/long/b1/b1long-01-vesikatko-ja-huoltokaynti.ogg",
+          "question_ids": [
+            "b1long-1-q1",
+            "b1long-1-q2",
+            "b1long-1-q3",
+            "b1long-1-q4"
+          ],
+          "scoring_policy": "objective_key_only",
+          "synthetic_audio": true,
+          "teacher_review": "pending"
+        },
+        {
+          "skill": "writing",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
+          "item_id": "d-w1",
+          "scoring_policy": "ungraded_until_human_review",
+          "task_family": [
+            "guided_message"
+          ]
+        },
+        {
+          "skill": "speaking",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
+          "item_id": "d-s1",
+          "scoring_policy": "ungraded_until_human_review",
+          "task_family": [
+            "situational_response"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yki-mini-b-work",
+      "title_uk": "Mini-rehearsal B: робота та суспільство",
+      "audience": "A2.2-B1 developing",
+      "skill_blocks": [
+        {
+          "skill": "reading",
+          "content_path": "learning/exercises/b1/contextual/reading-pack-v1.json",
+          "item_id": "ctx-reading-03-services",
+          "question_ids": [
+            "ctx-reading-03-services-q1",
+            "ctx-reading-03-services-q2",
+            "ctx-reading-03-services-q3"
+          ],
+          "scoring_policy": "objective_only_if_key; open_human_or_semantic_review",
+          "task_family": [
+            "multiple_choice",
+            "true_false",
+            "open"
+          ]
+        },
+        {
+          "skill": "listening",
+          "content_path": "learning/exercises/b1/audio-long/lessons.json",
+          "item_id": "b1long-02-kurssi-ja-tyovuorot",
+          "audio_path": "assets/audio/long/b1/b1long-02-kurssi-ja-tyovuorot.ogg",
+          "question_ids": [
+            "b1long-2-q1",
+            "b1long-2-q2",
+            "b1long-2-q3",
+            "b1long-2-q4"
+          ],
+          "scoring_policy": "objective_key_only",
+          "synthetic_audio": true,
+          "teacher_review": "pending"
+        },
+        {
+          "skill": "writing",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
+          "item_id": "d-w2",
+          "scoring_policy": "ungraded_until_human_review",
+          "task_family": [
+            "opinion"
+          ]
+        },
+        {
+          "skill": "speaking",
+          "content_path": "learning/exercises/b1/diagnostics/baseline-v1.json",
+          "item_id": "d-s2",
+          "scoring_policy": "ungraded_until_human_review",
+          "task_family": [
+            "opinion_monologue"
+          ]
+        }
+      ]
+    }
+  ]
+}

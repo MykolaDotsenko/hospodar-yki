@@ -7,8 +7,8 @@
 
 > **Дата:** 21.10.2026 · **Статус:** ACCEPTED AS TARGET ARCHITECTURE — дизайн-рішення, **не реалізація міграції**.  
 > **Ціль:** повноцінне B1/B1+ навчання фінської, 4 навички, натуральне аудіо/розмови, вимірюваний SRS, AI feedback, **навчальний режим та максимально достовірна репетиція цифрового YKI 2027**, мобільна UX і low-cost deployment.  
-> **Основа:** [11 — MVP ТЗ](11-mvp-product-requirements.md), [15 — 2×4 режимів](15-two-modes-skill-scopes.md), [19 — наука навчання](19-learning-books-to-engineering-2026-10.md), [20 — офіційний YKI](20-yki-official-complete-audit-2026-10.md), [21 — fidelity/державний іспит](21-digital-yki-exam-simulator-executable-spec.md).  
-> **Структурований ADR:** [research/architecture-decision-v1.json](../research/architecture-decision-v1.json).  
+> **Основа:** [11 — MVP ТЗ](11-mvp-product-requirements.md), [15 — 2×4 режимів](15-two-modes-skill-scopes.md), [19 — наука навчання](../research/pedagogy/19-learning-books-to-engineering-2026-10.md), [20 — офіційний YKI](../research/yki/20-yki-official-complete-audit-2026-10.md), [21 — fidelity/державний іспит](21-digital-yki-exam-simulator-executable-spec.md).  
+> **Структурований ADR:** [research/architecture/architecture-decision-v1.json](../research/architecture/architecture-decision-v1.json).  
 > **Публічні технічні джерела:** наприкінці документа.
 
 ## 0. Остаточне рішення
@@ -137,7 +137,7 @@ type ContentItem = {
   id: string;
   version: string;               // immutable when publishing
   skill: "reading"|"listening"|"writing"|"speaking";
-  family: string;                // from research/yki-official-patterns-v2.json
+  family: string;                // from research/yki/yki-official-patterns-v2.json
   topicId: string;               // T01..T09
   functionIds: string[];         // F01..F06
   cefrHint: "A2"|"B1"|"B2"|null;  // hint != validated CEFR level
@@ -168,7 +168,7 @@ select_mode → choose_scope → system_check → instructions → ready
 ```
 
 - Freeze `exam_profile_id`, `profile_version`, `contentPackHash` at `ready`; **no PWA/package upgrade mid-attempt**.
-- `practice_exam` vs `official_2027_verified` fully separated; **currently strict `official_2027_verified` disabled** owing to [15 undocumented digital fields](../research/official-yki-deep-audit-v2.json). No paper sample timer accidentally becomes digital rule.
+- `practice_exam` vs `official_2027_verified` fully separated; **currently strict `official_2027_verified` disabled** owing to [15 undocumented digital fields](../research/yki/official-yki-deep-audit-v2.json). No paper sample timer accidentally becomes digital rule.
 - Attempt store = **append-only events** `ATTEMPT_STARTED`, `ANSWER_DRAFT_SAVED`, `AUDIO_RECORDED`, `TASK_COMMITTED`, `SESSION_SUBMITTED`. Snapshots for fast resume.
 - **First submitted answer immutable**; practice feedback only **after** `submitted`. User-visible `answer_draft` can be edited before commit only under session practice policy; exam-specific navigation not marked official without evidence.
 - Redo prompts/independent retest cannot share `item_version` or `exposure_history` silently.

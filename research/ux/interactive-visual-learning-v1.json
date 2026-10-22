@@ -1,0 +1,470 @@
+{
+  "schema_version": "1.0.0",
+  "review_date": "2026-10-21",
+  "name": "Hospodar YKI interactive + visual learning: evidence and build contract",
+  "target": "Adult A2.2 to B1/B1+ Finnish; all 4 YKI skills",
+  "review_type": "targeted academic literature review; not PRISMA or app trial",
+  "status": "requirements_only; do not infer feature completion",
+  "rating_definition": "Expert product priority score /100 (evidence, transfer relevance, accessibility, implementation cost). NOT experimental effect, score improvement percentage, or YKI pass probability.",
+  "limitations": [
+    "Most experiments are not in Finnish or the digital YKI format.",
+    "Immediate recognition does not establish 7/14-day productive transfer.",
+    "Meta-analysis standardized g values are not improvement percentages.",
+    "Experiments with images, captions or colors do not prove a specific Hospodar theme.",
+    "Interactions, animations and gamification are not assumed beneficial without measured learning effects."
+  ],
+  "sources": [
+    {
+      "id": "E01",
+      "title": "Dunlosky et al. 2013",
+      "evidence_type": "review",
+      "population": "general_learning",
+      "url": "https://doi.org/10.1177/1529100612453266"
+    },
+    {
+      "id": "E02",
+      "title": "Roediger and Karpicke 2006",
+      "evidence_type": "experiments",
+      "population": "general_learning",
+      "url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x"
+    },
+    {
+      "id": "E03",
+      "title": "Kim and Webb 2022; 48 experiments, N=3411",
+      "evidence_type": "meta_analysis",
+      "population": "L2",
+      "url": "https://doi.org/10.1111/lang.12479"
+    },
+    {
+      "id": "E04",
+      "title": "Li 2010; 33 studies",
+      "evidence_type": "meta_analysis",
+      "population": "L2",
+      "url": "https://doi.org/10.1111/j.1467-9922.2010.00561.x"
+    },
+    {
+      "id": "E05",
+      "title": "Montero Perez, Van Den Noortgate and Desmet 2013; 18 studies",
+      "evidence_type": "meta_analysis",
+      "population": "L2",
+      "url": "https://doi.org/10.1016/j.system.2013.07.013"
+    },
+    {
+      "id": "E06",
+      "title": "Schneider et al. 2018; 103 studies, N=12201",
+      "evidence_type": "meta_analysis",
+      "population": "general_multimedia",
+      "url": "https://doi.org/10.1016/j.edurev.2017.11.001"
+    },
+    {
+      "id": "E07",
+      "title": "Richter, Scheiter and Eitel 2016",
+      "evidence_type": "meta_analysis",
+      "population": "general_multimedia",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1747938X15000664"
+    },
+    {
+      "id": "E08",
+      "title": "Zhang, Sala and Gobet 2025; N=2056",
+      "evidence_type": "meta_analysis",
+      "population": "L2",
+      "url": "https://doi.org/10.1016/j.edurev.2025.100681"
+    },
+    {
+      "id": "E09",
+      "title": "Vandergrift and Tafaghodtari 2010; N=106",
+      "evidence_type": "controlled_study",
+      "population": "L2_French",
+      "url": "https://doi.org/10.1111/j.1467-9922.2009.00559.x"
+    },
+    {
+      "id": "E10",
+      "title": "Fiorella 2023",
+      "evidence_type": "review",
+      "population": "general_learning",
+      "url": "https://doi.org/10.1007/s10648-023-09769-7"
+    },
+    {
+      "id": "E11",
+      "title": "Sailer and Homner 2020",
+      "evidence_type": "meta_analysis",
+      "population": "general_education",
+      "url": "https://doi.org/10.1007/s10648-019-09498-w"
+    },
+    {
+      "id": "E12",
+      "title": "Bai, Hew and Huang 2020",
+      "evidence_type": "meta_analysis",
+      "population": "general_education",
+      "url": "https://doi.org/10.1016/j.edurev.2020.100322"
+    },
+    {
+      "id": "E13",
+      "title": "Limited evidence for the effect of red color on cognitive performance, 2020",
+      "evidence_type": "meta_analysis",
+      "population": "color_priming",
+      "url": "https://doi.org/10.3758/s13423-020-01772-1"
+    },
+    {
+      "id": "E14",
+      "title": "W3C WCAG 2.2",
+      "evidence_type": "technical_standard",
+      "population": "accessibility",
+      "url": "https://www.w3.org/TR/WCAG22/"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "IV-01",
+      "slug": "generate-before-reveal",
+      "priority": "P0",
+      "expert_product_fit_score": 98,
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E01",
+        "E02",
+        "E03"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-02",
+      "slug": "prompted-self-repair",
+      "priority": "P0",
+      "expert_product_fit_score": 97,
+      "skills": [
+        "writing",
+        "speaking",
+        "reading"
+      ],
+      "evidence_refs": [
+        "E04",
+        "E06"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-03",
+      "slug": "unseen-transfer-and-delayed-retrieval",
+      "priority": "P0",
+      "expert_product_fit_score": 97,
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E02",
+        "E03"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-04",
+      "slug": "guided-listening-prediction-gist-evidence",
+      "priority": "P0",
+      "expert_product_fit_score": 95,
+      "skills": [
+        "listening"
+      ],
+      "evidence_refs": [
+        "E05",
+        "E09"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-05",
+      "slug": "real-world-document-evidence-span",
+      "priority": "P0",
+      "expert_product_fit_score": 94,
+      "skills": [
+        "reading"
+      ],
+      "evidence_refs": [
+        "E06",
+        "E07"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-06",
+      "slug": "meaningful-image-l1-gloss-fade",
+      "priority": "P1",
+      "expert_product_fit_score": 92,
+      "skills": [
+        "reading",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E08",
+        "E03"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-07",
+      "slug": "branching-information-gap",
+      "priority": "P1",
+      "expert_product_fit_score": 92,
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "evidence_refs": [
+        "E10"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-08",
+      "slug": "write-feedback-rewrite-new-task",
+      "priority": "P1",
+      "expert_product_fit_score": 93,
+      "skills": [
+        "writing"
+      ],
+      "evidence_refs": [
+        "E04",
+        "E10"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-09",
+      "slug": "learner-generated-concept-map",
+      "priority": "P1",
+      "expert_product_fit_score": 88,
+      "skills": [
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E10"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-10",
+      "slug": "finnish-quantity-minimal-pair-audio",
+      "priority": "P1",
+      "expert_product_fit_score": 91,
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E06"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-11",
+      "slug": "optional-contextual-gloss",
+      "priority": "P1",
+      "expert_product_fit_score": 89,
+      "skills": [
+        "reading"
+      ],
+      "evidence_refs": [
+        "E08"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-12",
+      "slug": "independent-skill-evidence-dashboard",
+      "priority": "P0",
+      "expert_product_fit_score": 94,
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E01",
+        "E03"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-13",
+      "slug": "choice-driven-short-mission",
+      "priority": "P1",
+      "expert_product_fit_score": 87,
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E11",
+        "E12"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    },
+    {
+      "id": "IV-14",
+      "slug": "opt-in-mascot-audio-interruptions",
+      "priority": "P2-experiment",
+      "expert_product_fit_score": 51,
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "evidence_refs": [
+        "E11",
+        "E12"
+      ],
+      "implementation_status": "planned_or_partial_not_verified"
+    }
+  ],
+  "policies": {
+    "mode_learn": [
+      "allow_feedback_after_attempt",
+      "allow_hints_without_premature_key",
+      "allow_teacher_reviewed_multimedia",
+      "record_hint_use",
+      "schedule_independent_retest"
+    ],
+    "mode_exam": [
+      "hide_all_learning_hints_until_end",
+      "do_not_reveal_answer_keys_during_attempt",
+      "disable_mascot",
+      "disable_karaoke_captions",
+      "use_only_permitted_confirmed_exam_controls",
+      "writing_speaking_ungraded_without_calibration"
+    ],
+    "interaction_lifecycle": [
+      "prompt",
+      "unassisted_response",
+      "graded_objective_or_ungraded_open",
+      "optional_hint_after_wrong",
+      "self_repair",
+      "feedback_meaning_before_form",
+      "transfer_no_cue",
+      "spaced_unseen_retest"
+    ],
+    "feedback_order": [
+      "communicative_task_success",
+      "one_or_two_high_priority_errors",
+      "optional_form_details"
+    ],
+    "cue_policy": [
+      "meaningful",
+      "after_first_independent_attempt",
+      "single_focus",
+      "underlining_plus_text_not_color_only",
+      "faded_for_transfer",
+      "never_in_exam"
+    ],
+    "accessibility": [
+      "WCAG_2_2_AA",
+      "keyboard_and_screen_reader",
+      "text_equivalent_for_image_and_audio",
+      "reduce_motion",
+      "pause_animations",
+      "drag_alternative",
+      "adequate_contrast",
+      "calm_mode"
+    ],
+    "quality": [
+      "item_license_and_source",
+      "S2_teacher_review",
+      "metadata_version",
+      "verified_audio_transcription_alignment",
+      "no_false_official_YKI_scoring",
+      "local_private_progress_default"
+    ]
+  },
+  "task_contract": {
+    "required": [
+      "task_id",
+      "content_version",
+      "mode",
+      "skill",
+      "task_pattern_id",
+      "prompt",
+      "response_modality",
+      "teacher_review_status"
+    ],
+    "optional": [
+      "target_chunk_ids",
+      "attempt_phase",
+      "hint_level",
+      "feedback_evidence",
+      "feedback_meaning",
+      "feedback_form",
+      "transfer_task_id",
+      "source_id",
+      "license"
+    ],
+    "learner_record": [
+      "first_attempt_result",
+      "hint_used",
+      "repair_result",
+      "transfer_first_attempt",
+      "retest_at",
+      "retention_7d",
+      "retention_14d"
+    ],
+    "productive_assessment_default": "ungraded",
+    "exam_keys_access_note": "Do not claim server-side key secrecy in a static browser-only prototype"
+  },
+  "acceptance_criteria": [
+    "IV-AC-01",
+    "IV-AC-02",
+    "IV-AC-03",
+    "IV-AC-04",
+    "IV-AC-05",
+    "IV-AC-06",
+    "IV-AC-07",
+    "IV-AC-08",
+    "IV-AC-09",
+    "IV-AC-10",
+    "IV-AC-11",
+    "IV-AC-12",
+    "IV-AC-13",
+    "IV-AC-14",
+    "IV-AC-15"
+  ],
+  "pilot": {
+    "status": "proposed_not_executed",
+    "comparison": "A same-content retrieval+feedback+SRS with simple text vs B plus purposeful image/evidence cues and cue fading",
+    "primary_metric": "day_7_first_attempt_unseen_uncued_correctness",
+    "secondary_metrics": [
+      "day_14_unseen_transfer",
+      "listening_gist_without_captions",
+      "productive_attempt_rate",
+      "error_recurrence",
+      "accessibility_completion",
+      "cognitive_load",
+      "abandonment"
+    ],
+    "requirements": [
+      "pre_register",
+      "teacher_graded_open_responses",
+      "counterbalance_item_banks",
+      "no_exposed_exam_items",
+      "consent",
+      "no_inference_from_micro_pilot"
+    ]
+  },
+  "related_docs": [
+    "docs/11-mvp-product-requirements.md",
+    "docs/15-two-modes-skill-scopes.md",
+    "research/design/17-color-attention-l2-deep-dive.md",
+    "research/ux/18-interactive-visual-learning-evidence-2026-10.md"
+  ]
+}

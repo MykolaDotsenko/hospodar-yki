@@ -1,0 +1,576 @@
+{
+  "schema_version": "2.0.0",
+  "checked_at": "2026-10-21",
+  "method": "structured index of publicly published historical university YKI example types; never copy question/passages/audio without license",
+  "doc": "research/yki/20-yki-official-complete-audit-2026-10.md",
+  "execution_spec": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+  "parent_science": "research/yki/official-yki-deep-audit-v2.json",
+  "right_policy": "URLs and own summaries only",
+  "language": "fi",
+  "test_level": "keskitaso",
+  "topic_taxonomy": [
+    {
+      "id": "T01",
+      "name_fi": "Minä ja taustani",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T02",
+      "name_fi": "Koti ja asuminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T03",
+      "name_fi": "Kauppa ja palvelut",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T04",
+      "name_fi": "Kulttuuri",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T05",
+      "name_fi": "Matkustaminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T06",
+      "name_fi": "Terveys ja hyvinvointi",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T07",
+      "name_fi": "Työ",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T08",
+      "name_fi": "Ympäristö",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "T09",
+      "name_fi": "Yhteiskunta",
+      "source_ids": [
+        "oph_basis"
+      ]
+    }
+  ],
+  "communication_functions": [
+    {
+      "id": "F01",
+      "name_fi": "Tietojen antaminen, selostaminen ja kysyminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "F02",
+      "name_fi": "Mielipiteiden ja asenteiden ilmaiseminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "F03",
+      "name_fi": "Tunteiden ilmaiseminen ja kysyminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "F04",
+      "name_fi": "Asioiden hoitaminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "F05",
+      "name_fi": "Sosiaalisten käytänteiden ja normien mukaan toimiminen",
+      "source_ids": [
+        "oph_basis"
+      ]
+    },
+    {
+      "id": "F06",
+      "name_fi": "Viestinnän säätely",
+      "source_ids": [
+        "oph_basis"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "READING_MCQ",
+      "skill": "reading",
+      "task_family": "multiple_choice_3",
+      "summary_en": "3 options, 1 selected",
+      "measures": [
+        "gist",
+        "detail",
+        "inference"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_reading"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "READING_TF",
+      "skill": "reading",
+      "task_family": "true_false",
+      "summary_en": "one of true/false",
+      "measures": [
+        "detail",
+        "inference"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_reading"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "READING_OPEN",
+      "skill": "reading",
+      "task_family": "open_short",
+      "summary_en": "short free answer; rubric reviewed",
+      "measures": [
+        "gist",
+        "detail"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_reading"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "LISTENING_MCQ",
+      "skill": "listening",
+      "task_family": "multiple_choice_3",
+      "summary_en": "3 options, 1 selected",
+      "measures": [
+        "gist",
+        "detail",
+        "inference"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_listening"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "LISTENING_TF",
+      "skill": "listening",
+      "task_family": "true_false",
+      "summary_en": "one of true/false",
+      "measures": [
+        "detail",
+        "inference"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_listening"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "LISTENING_OPEN",
+      "skill": "listening",
+      "task_family": "open_short",
+      "summary_en": "open free response",
+      "measures": [
+        "detail",
+        "inference"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_listening"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "WRITING_MESSAGE",
+      "skill": "writing",
+      "task_family": "guided_message_or_email",
+      "summary_en": "brief friendly or business message with must-cover points",
+      "measures": [
+        "communicative_goal",
+        "register",
+        "coherence"
+      ],
+      "provenance": "legal_2011_plus_historic_sample",
+      "source_ids": [
+        "oph_basis",
+        "jyu_writing"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "WRITING_FORMAL",
+      "skill": "writing",
+      "task_family": "formal_request_complaint_application",
+      "summary_en": "formal/request with reasons, schedule, contact",
+      "measures": [
+        "communicative_goal",
+        "register",
+        "must_cover"
+      ],
+      "provenance": "legal_2011_plus_historic_sample",
+      "source_ids": [
+        "oph_basis",
+        "jyu_writing"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "WRITING_OPINION",
+      "skill": "writing",
+      "task_family": "opinion",
+      "summary_en": "choose one of prompts; defend with reasons",
+      "measures": [
+        "stance",
+        "support",
+        "coherence"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_writing"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "SPEAKING_NARRATIVE",
+      "skill": "speaking",
+      "task_family": "kertominen",
+      "summary_en": "guided talk with preparation then free speech",
+      "measures": [
+        "topic_relevance",
+        "fluency",
+        "coherence"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "SPEAKING_DIALOGUE",
+      "skill": "speaking",
+      "task_family": "keskustelu",
+      "summary_en": "timed simulated peer turns, call roleplay",
+      "measures": [
+        "turntaking",
+        "register",
+        "task_success"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "SPEAKING_SITUATIONS",
+      "skill": "speaking",
+      "task_family": "tilanteita",
+      "summary_en": "several independent short real-life reactions",
+      "measures": [
+        "request",
+        "apology",
+        "information"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "rights": "external_description_only_no_official_item_text"
+    },
+    {
+      "id": "SPEAKING_OPINION",
+      "skill": "speaking",
+      "task_family": "mielipide",
+      "summary_en": "long answer with 1/2 topic choice and reasons",
+      "measures": [
+        "stance",
+        "justification",
+        "fluency"
+      ],
+      "provenance": "historical_sample",
+      "source_ids": [
+        "jyu_speaking"
+      ],
+      "official_2027_item_count": null,
+      "official_2027_timer_seconds": null,
+      "use_in_product": "original_reviewed_task_blueprint",
+      "legacy_test_page": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "rights": "external_description_only_no_official_item_text"
+    }
+  ],
+  "historical_examples": [
+    {
+      "sample_id": "SOLKI-R-ANIMAL",
+      "pattern_id": "READING_MCQ",
+      "theme": "animal_play",
+      "document_genre": "popular_science_news",
+      "known_question_count": 4,
+      "note": "Historical sample news-style item; one source passage; use original author-written text in app.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-R-TALKOOT",
+      "pattern_id": "READING_MCQ",
+      "theme": "volunteering",
+      "document_genre": "public_comment",
+      "known_question_count": 7,
+      "note": "Sample contrasts volunteer work terms and implications.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-R-TAX",
+      "pattern_id": "READING_MCQ",
+      "theme": "tax_return_information",
+      "document_genre": "official_notice",
+      "known_question_count": 4,
+      "note": "Second sample set; no guarantee 2027 uses same item count.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-L-PRIVATE-INVESTIGATOR",
+      "pattern_id": "LISTENING_MCQ",
+      "theme": "private_investigator_interview",
+      "known_question_count": 4,
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy083.mp3",
+      "play_order_legacy": [
+        "full",
+        "two_parts"
+      ],
+      "response_window_seconds_legacy": 30,
+      "note": "Response time in parenthesis on legacy sample, scoped to its parts.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-L-JUMBO-ROOPE",
+      "pattern_id": "LISTENING_MCQ",
+      "theme": "island_recycling_interview",
+      "known_question_count": 6,
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy109.mp3",
+      "play_order_legacy": [
+        "full",
+        "two_parts"
+      ],
+      "response_window_seconds_legacy": 30,
+      "note": "Second sample interview in university demo.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-W-BATHROOM",
+      "pattern_id": "WRITING_FORMAL",
+      "theme": "request_manager_permission_renovation",
+      "known_prompt_points": 6,
+      "required_open_and_close": true,
+      "note": "Formal email sample, summary only, must explain condition, plan, timing, contacts, two extra points.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-W-OPINION",
+      "pattern_id": "WRITING_OPINION",
+      "theme": "childcare_or_fashion",
+      "topic_options": 2,
+      "opinion_legacy_arguments_min": 3,
+      "note": "At least three reasons in this example; not globally 2027 word/argument requirement.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-S-NARRATIVE",
+      "pattern_id": "SPEAKING_NARRATIVE",
+      "theme": "important_person",
+      "preparation_seconds_legacy": 60,
+      "response_seconds_legacy": 90,
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Kertominen-1-KT-PU.mp3",
+      "note": "Specific example only, no verified digital 2027 time.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-S-DIALOGUE-RENT",
+      "pattern_id": "SPEAKING_DIALOGUE",
+      "theme": "rent_party_hall",
+      "response_turns_seconds_legacy": [
+        20,
+        20,
+        10,
+        15,
+        20,
+        10,
+        10
+      ],
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskustelu-1-KT-PU.mp3",
+      "note": "Peer audio alternates with timed user turns, alignment offsets not published here.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-S-DIALOGUE-SELL",
+      "pattern_id": "SPEAKING_DIALOGUE",
+      "theme": "sale_secondhand_item",
+      "response_turns_seconds_legacy": [
+        10,
+        20,
+        20,
+        20,
+        20,
+        25,
+        10
+      ],
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskustelu-2-KT-PU.mp3",
+      "note": "Another historical specific conversation timing.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-S-SITUATIONS",
+      "pattern_id": "SPEAKING_SITUATIONS",
+      "theme": "weather_train_late_party_pharmacy_renovation",
+      "situations_count_legacy": 5,
+      "preparation_seconds_legacy_per_item": 20,
+      "response_turns_seconds_legacy": [
+        20,
+        30,
+        30,
+        30,
+        30
+      ],
+      "audio_urls_legacy": [
+        "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-1-KT-PU.mp3",
+        "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-2-KT-PU.mp3",
+        "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-3-KT-PU.mp3",
+        "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-4-KT-PU.mp3",
+        "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Tilanne-5-KT-PU.mp3"
+      ],
+      "note": "FIVE historical examples, not a guaranteed 2027 group size.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    },
+    {
+      "sample_id": "SOLKI-S-OPINION",
+      "pattern_id": "SPEAKING_OPINION",
+      "theme": "family_money_or_medicine_advertising",
+      "topic_options": 2,
+      "response_seconds_legacy": 120,
+      "official_audio_url": "https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Puheenvuoro-KT-PU.mp3",
+      "note": "Specific sample, not exact 2027 timing.",
+      "rights": "LINK_ONLY_NOT_DISTRIBUTABLE_BY_DEFAULT",
+      "digital_2027_timing_verified": false,
+      "teacher_review_for_original_derivative_required": true
+    }
+  ],
+  "official_2027_exact_profile": {
+    "writing_item_count": null,
+    "reading_item_count": null,
+    "listening_item_count": null,
+    "speaking_item_count": null,
+    "screen_count": null,
+    "module_order": null,
+    "playback_repeats": null,
+    "speaking_prep_and_response_timer": null,
+    "source_status": "UNVERIFIED",
+    "can_prove_exact_fidelity": false
+  },
+  "constraints": [
+    "Never silently transfer legacy paper timings into digital 2027",
+    "Do not use official sample materials as held-out original test",
+    "Student first exposure logged",
+    "Teacher-review original prompts and spoken scripts",
+    "Do not label source MP3 redistribution as permitted",
+    "Historical examples are for familiarization only"
+  ]
+}

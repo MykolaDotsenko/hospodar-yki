@@ -8,10 +8,10 @@ Files carry full exact source text, linked objective questions and provenance.
 from __future__ import annotations
 import hashlib,json,pathlib,subprocess,tempfile,wave
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-SOURCE=ROOT/"content/b1/audio-long/source-lessons.json"
-OUT=ROOT/"audio/long/b1"
-LESSONS=ROOT/"content/b1/audio-long/lessons.json"
-LIBRARY=ROOT/"audio/library.json"
+SOURCE=ROOT/"learning/exercises/b1/audio-long/source-lessons.json"
+OUT=ROOT/"assets/audio/long/b1"
+LESSONS=ROOT/"learning/exercises/b1/audio-long/lessons.json"
+LIBRARY=ROOT/"assets/audio/library.json"
 VOICE=pathlib.Path("/tmp/hospodar-yki-piper/fi_FI-harri-medium.onnx")
 MODEL_SHA="a44167faa34caed940e4fcad139fcc35922266b2593bcebe77701774c0fb2389"
 
@@ -111,10 +111,10 @@ def main():
              author="Hospodar YKI / Piper Harri",source_page="https://github.com/MykolaDotsenko/hospodar-yki",
              duration_seconds=x["duration_seconds"],level=x["level_target"],topic=x["topic"],
              transcript_ref=x["transcript_path"],subtitles_ref=x["subtitles_path"],
-             lesson_ref="content/b1/audio-long/lessons.json",qa="machine_checked_native_teacher_review_pending"))
+             lesson_ref="learning/exercises/b1/audio-long/lessons.json",qa="machine_checked_native_teacher_review_pending"))
     lib["counts"]["tts_b1_long"]=len(result)
     lib["counts"]["total_files"]=len(lib["entries"])
-    lib["b1_long_manifest"]="content/b1/audio-long/lessons.json"
+    lib["b1_long_manifest"]="learning/exercises/b1/audio-long/lessons.json"
     LIBRARY.write_text(json.dumps(lib,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"COMPLETE {len(result)} original B1 tracks and VTTs. Total audio {len(lib['entries'])}",flush=True)
 if __name__=="__main__":main()

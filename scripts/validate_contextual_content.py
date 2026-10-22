@@ -15,7 +15,7 @@ def check(ok,msg):
     if not ok: raise AssertionError(msg)
 
 def main():
-    freq=ROOT/"content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv"
+    freq=ROOT/"knowledge/dictionaries/b1/frequency/yle-news-top10000-v1.1.1.tsv"
     with freq.open(encoding="utf-8", newline="") as f:
         raw=list(csv.DictReader(f,delimiter="\t"))
     check(len(raw)==10000,"Frequency list is not 10,000 rows")
@@ -27,7 +27,7 @@ def main():
         check(0<count<=prev,"Missing/unsorted count "+str(i))
         prev=count
     check(raw[0]["Hakusana"]=="olla","Unexpected first lemma, check version")
-    chunks=load("content/b1/lexicon/contextual-chunks-v1.json")
+    chunks=load("knowledge/dictionaries/b1/contextual-chunks-v1.json")
     check(len(chunks["items"])==chunks["counts"]["total"]==132,"Wrong chunk count")
     check(sum(chunks["counts"]["themes"].values())==132,"Wrong theme sum")
     ids=set()
@@ -38,12 +38,12 @@ def main():
         check(x["context_fi"].strip().endswith((".","!","?")),"Example not full sentence "+x["id"])
         check(x["default_known_status"]=="unassessed_not_unknown","Automatically treating words as unknown "+x["id"])
         check(x["linguistic_review"]=="pending_S2_teacher","Wrong review status "+x["id"])
-    grammar=load("content/b1/grammar/rektio-v1.json")
+    grammar=load("knowledge/dictionaries/b1/rektio-v1.json")
     check(len(grammar["items"])==grammar["count"]==40,"Wrong rektio count")
     for x in grammar["items"]:
         check(x["id"] not in ids,"Duplicate rektio "+x["id"]); ids.add(x["id"])
         check(all(x.get(f) for f in ("construction_fi","case_or_pattern","meaning_uk","example_fi","example_uk")),"Incomplete rektio "+x["id"])
-    reading=load("content/b1/contextual/reading-pack-v1.json")
+    reading=load("learning/exercises/b1/contextual/reading-pack-v1.json")
     check(len(reading["items"])==reading["count_texts"]==9,"Wrong reading count")
     check(reading["count_questions"]==27,"Wrong reading question count")
     for item in reading["items"]:
@@ -62,7 +62,7 @@ def main():
             elif q["type"]=="open":
                 check(bool(q["model_answer_fi"]),"Missing open answer "+q["id"])
             else: raise AssertionError("Unknown Q type "+q["id"])
-    dialogs=load("content/b1/contextual/dialogues-v1.json")
+    dialogs=load("learning/exercises/b1/contextual/dialogues-v1.json")
     check(len(dialogs["items"])==dialogs["count_dialogues"]==9,"Wrong dialogues count")
     check(dialogs["count_turns"]==72 and dialogs["count_questions"]==18,"Wrong dialogue stats")
     for row in dialogs["items"]:
@@ -73,7 +73,7 @@ def main():
         for q in row["questions"]:
             check(q["id"] not in ids,"Duplicate dialogue question "+q["id"]);ids.add(q["id"])
             check(any(q["evidence_fi"] in turn["text_fi"] for turn in row["turns"]),"Dialogue evidence missing "+q["id"])
-    sources=load("research/yki-content-sources-2026-10.json")
+    sources=load("research/yki/yki-content-sources-2026-10.json")
     check(len(sources["items"])>=34,"Source registry unexpectedly shrank")
     rights={i["rights"] for i in sources["items"]}
     check(any("LINK_ONLY" in x for x in rights) and "IMPORT_CC_BY_4_WITH_CREDITS" in rights,"Rights classifications missing")

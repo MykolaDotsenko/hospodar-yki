@@ -1,6 +1,6 @@
 # Hospodar YKI — authentic visual system v0.2
 
-> **Оновлено 21.10.2026.** Канонічний візуальний контроль: [recognition-strategy-v02.md](recognition-strategy-v02.md), [tokens.json](tokens.json), [SVG mark](logo/hospodar-yki-mark.svg), [monochrome mark](logo/hospodar-yki-mark-mono.svg). Новий знак **H-поріг** замінює стару складну піктограму даху/репліки. SVG у застосунку й README тепер один.
+> **Оновлено 21.10.2026.** Канонічний візуальний контроль: [recognition-strategy-v02.md](recognition-strategy-v02.md), [tokens.json](tokens.json), [SVG mark](../assets/images/brand/hospodar-yki-mark.svg), [monochrome mark](../assets/images/brand/hospodar-yki-mark-mono.svg). Новий знак **H-поріг** замінює стару складну піктограму даху/репліки. SVG у застосунку й README тепер один.
 
 ## Концепція: «Відкритий поріг»
 
@@ -34,7 +34,7 @@
 
 ## Логотип — робочий концепт
 
-[Знак](logo/hospodar-yki-mark.svg) · [Wordmark / README lockup](logo/hospodar-yki-lockup.svg)
+[Знак](../assets/images/brand/hospodar-yki-mark.svg) · [Wordmark / README lockup](../assets/images/brand/hospodar-yki-lockup.svg)
 
 Це **векторний v0.2 кандидат, а не зареєстрований товарний знак**. SVG має бути чітким у 24–32px, монохромному варіанті, на темній і світлій темах. Перед фіналізацією потрібні тест на впізнаваність, візуальна правка, PRH/EUIPO clearance. Не вбудовувати в знак точну копію фінського прапора, державну печатку чи «офіційний» штамп.
 

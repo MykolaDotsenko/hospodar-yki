@@ -45,7 +45,7 @@ Full validation by affected area is in [TESTING.md](TESTING.md). Do **not** run 
 
 ## Content authoring vs code
 
-- Curriculum, human Finnish, keys, subtitles and media rights: follow [content/CONTRIBUTING.md](../content/CONTRIBUTING.md) and validations; do not let AI-generated text bypass language review.
+- Curriculum, human Finnish, keys, subtitles and media rights: follow [learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) and validations; do not let AI-generated text bypass language review.
 - Official YKI exactness is not proven by a plausible-looking UI. Separate confirmed OPH evidence from simulations and unverified format assumptions.
 - Secrets, personal voice recordings, consent data and unknown-license media must not be committed.
 

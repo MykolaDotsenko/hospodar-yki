@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - audio/catalog.json
+      - assets/audio/catalog.json
       - scripts/download_open_yki_audio.py
       - .github/workflows/import-open-audio.yml
   workflow_dispatch:

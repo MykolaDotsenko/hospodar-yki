@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0.0",
+  "id": "b1-diagnostic-v1",
+  "level": "B1",
+  "origin": "project_original_generated",
+  "is_official_exam_content": false,
+  "usage_note_uk": "Діагностика з новими завданнями. Без аудіозапису script-only listening не можна використовувати для визначення аудитивного рівня. Жодні бали не прирівнюються до офіційного YKI 3.",
+  "reading": {
+    "kind": "reading_comprehension",
+    "title_fi": "Kielikahvilan uusi aikataulu",
+    "text_fi": "Kielikahvila kokoontui aiemmin keskiviikkoisin, mutta marraskuusta alkaen tapaamiset järjestetään maanantaisin kello 17–18.30. Ensimmäinen tapaaminen on 2. marraskuuta. Tilaisuus on maksuton eikä ennakkoilmoittautumista tarvita. Halutessaan osallistuja voi ottaa mukaan oman keskusteluaiheen. Järjestäjät muistuttavat, että paikalla harjoitellaan suomea yhdessä, joten täydellistä kielitaitoa ei odoteta.",
+    "questions": [
+      {
+        "id": "d-r1",
+        "prompt_fi": "Mikä muuttuu marraskuussa?",
+        "options": [
+          "Tapaamispaikka",
+          "Tapaamispäivä",
+          "Osallistumismaksu"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Змінюється день із середи на понеділок."
+      },
+      {
+        "id": "d-r2",
+        "prompt_fi": "Mitä osallistujalta vaaditaan?",
+        "options": [
+          "Ennakkoilmoittautuminen",
+          "Täydellinen kielitaito",
+          "Ei kumpaakaan näistä"
+        ],
+        "correct_index": 2,
+        "explanation_uk": "Не вимагається ні реєстрація, ні ідеальна фінська."
+      }
+    ]
+  },
+  "listening": {
+    "kind": "script_based_listening",
+    "audio_status": "script_only_no_recording_yet",
+    "scoring_status": "NOT_VALID_FOR_LISTENING_DIAGNOSIS_UNTIL_RECORDED",
+    "title_fi": "Kirjaston tilavaraus",
+    "turns": [
+      {
+        "speaker": "A",
+        "text_fi": "Hei, haluaisin varata huoneen pienelle keskusteluryhmälle."
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Meillä on vapaa huone keskiviikkona kello kuudesta kahdeksaan."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Se sopii. Pitääkö minun maksaa varauksesta?"
+      },
+      {
+        "speaker": "B",
+        "text_fi": "Ei, varaus on maksuton. Tarvitsemme vain nimesi ja sähköpostiosoitteesi."
+      },
+      {
+        "speaker": "A",
+        "text_fi": "Hyvä, kiitos tiedosta!"
+      }
+    ],
+    "questions": [
+      {
+        "id": "d-l1",
+        "prompt_fi": "Mitä soittaja haluaa?",
+        "options": [
+          "Varata huoneen",
+          "Lainata kirjan",
+          "Perua kurssin"
+        ],
+        "correct_index": 0,
+        "explanation_uk": "Потрібна кімната для дискусійної групи."
+      },
+      {
+        "id": "d-l2",
+        "prompt_fi": "Mitä varaukseen tarvitaan?",
+        "options": [
+          "Maksu etukäteen",
+          "Nimi ja sähköposti",
+          "Passin kopio"
+        ],
+        "correct_index": 1,
+        "explanation_uk": "Працівник просить ім'я й email."
+      }
+    ]
+  },
+  "speaking": [
+    {
+      "id": "d-s1",
+      "kind": "interaction",
+      "prompt_fi": "Sinun pitää muuttaa sovittua tapaamisaikaa. Selitä tilanne ja ehdota kaksi uutta aikaa.",
+      "required_points_fi": [
+        "selitys",
+        "ensimmäinen ehdotus",
+        "toinen ehdotus",
+        "kohtelias kysymys"
+      ]
+    },
+    {
+      "id": "d-s2",
+      "kind": "opinion",
+      "prompt_fi": "Pitäisikö kaikkien opetella käyttämään digitaalisia palveluita? Kerro mielipiteesi ja kaksi perustelua.",
+      "required_points_fi": [
+        "mielipide",
+        "kaksi perustelua",
+        "konkreettinen esimerkki"
+      ]
+    }
+  ],
+  "writing": [
+    {
+      "id": "d-w1",
+      "kind": "formal_message",
+      "prompt_fi": "Kirjoita kurssin järjestäjälle viesti, jossa kysyt kurssista. Kerro nykyinen kielitaitosi, sopiva aikataulu ja kaksi kysymystä.",
+      "required_points_fi": [
+        "kielitaito",
+        "aikataulu",
+        "kaksi kysymystä"
+      ]
+    },
+    {
+      "id": "d-w2",
+      "kind": "opinion",
+      "prompt_fi": "Kirjoita mielipiteesi: onko rauhallinen asuinalue parempi lapsiperheille kuin kaupungin keskusta? Perustele kaksi näkökulmaa.",
+      "required_points_fi": [
+        "selkeä kanta",
+        "vähintään kaksi näkökulmaa",
+        "perusteltu lopetus"
+      ]
+    }
+  ],
+  "rubric_ref": "learning/exercises/b1/feedback-rubrics.json"
+}

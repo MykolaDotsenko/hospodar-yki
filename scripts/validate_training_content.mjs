@@ -11,7 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const get=(p)=>JSON.parse(fs.readFileSync(path.join(root,p),"utf8"));
 const verify=(condition,message)=>{if(!condition)throw new Error(message);};
 const nonempty=(v)=>typeof v==="string"&&v.trim().length>0;
-const themesIndex=get("content/b1/index.json");
+const themesIndex=get("learning/exercises/b1/index.json");
 verify(themesIndex.stats.themes===9,"Expected nine official YKI topic categories");
 const allIDs = new Set();
 const claimID=(id)=>{verify(nonempty(id),"Blank ID");verify(!allIDs.has(id),"Duplicate ID: "+id);allIDs.add(id);};
@@ -28,7 +28,7 @@ const verifyQs=(questions,prefix)=>{
 };
 const c={themes:0,reading:0,listening:0,speaking:0,writing:0,objective_questions:0,chunks:0};
 for(const row of themesIndex.themes){
- verify(row.path==="content/b1/themes/"+row.id+".json","Unexpected theme path");
+ verify(row.path==="learning/exercises/b1/themes/"+row.id+".json","Unexpected theme path");
  const m=get(row.path);
  claimID(m.id);
  verify(m.id===row.id&&m.level==="B1"&&m.is_official_exam_content===false,"Incorrect theme metadata: "+row.id);
@@ -55,20 +55,20 @@ for(const row of themesIndex.themes){
  c.objective_questions+=m.reading.questions.length+m.listening.questions.length;
 }
 for(const k of Object.keys(c))verify(themesIndex.stats[k]===c[k],"Index count mismatch: "+k);
-const grammar=get("content/b1/grammar/contextual-cloze.json");
+const grammar=get("learning/exercises/b1/grammar/contextual-cloze.json");
 verify(grammar.count===28&&grammar.exercises.length===28,"Grammar count mismatch");
 for(const g of grammar.exercises){
  claimID(g.id);
  verify(g.type==="contextual_cloze"&&nonempty(g.answer_fi)&&nonempty(g.prompt_fi)&&nonempty(g.explanation_uk)&&nonempty(g.transfer_task_fi),"Invalid grammar: "+g.id);
 }
-const diagnostic=get("content/b1/diagnostics/baseline-v1.json");
+const diagnostic=get("learning/exercises/b1/diagnostics/baseline-v1.json");
 verify(diagnostic.id==="b1-diagnostic-v1"&&diagnostic.listening.audio_status==="script_only_no_recording_yet"&&diagnostic.listening.scoring_status.startsWith("NOT_VALID"),"Diagnostic listening cannot be scored without audio");
 for(const q of [...diagnostic.reading.questions,...diagnostic.listening.questions]){
  claimID(q.id);
  verify(q.options.length===3&&new Set(q.options).size===3&&q.correct_index>=0&&q.correct_index<3&&nonempty(q.explanation_uk),"Invalid diagnostic: "+q.id);
 }
 for(const t of [...diagnostic.speaking,...diagnostic.writing]){claimID(t.id);verify(nonempty(t.prompt_fi)&&t.required_points_fi.length>=3,"Incomplete diagnostic task: "+t.id);}
-const rubric=get("content/b1/feedback-rubrics.json");
+const rubric=get("learning/exercises/b1/feedback-rubrics.json");
 for(const mod of ["speaking","writing"])verify(rubric[mod].reduce((sum,x)=>sum+x.weight,0)===100,"Rubric sum must equal 100: "+mod);
-verify(fs.existsSync(path.join(root,"audio/catalog.json")),"Previously imported audio catalog missing");
+verify(fs.existsSync(path.join(root,"assets/audio/catalog.json")),"Previously imported audio catalog missing");
 console.log(JSON.stringify({result:"PASS",themes:c.themes,activities:c.reading+c.listening+c.speaking+c.writing,objective_questions:c.objective_questions,grammar:grammar.count,chunks:c.chunks,diagnostic_tasks:diagnostic.reading.questions.length+diagnostic.listening.questions.length+diagnostic.speaking.length+diagnostic.writing.length},null,2));

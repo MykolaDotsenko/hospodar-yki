@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "video/youtube-catalog.json"
+SOURCE = ROOT / "sources/youtube/youtube-catalog.json"
 VIDEO_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 
 
@@ -64,7 +64,7 @@ def main() -> int:
             assert end is None or isinstance(end, int) and end > start
             assert (start, end) not in seen_segs
             seen_segs.add((start, end))
-    series_path = ROOT / "video/publisher-series-catalog.json"
+    series_path = ROOT / "sources/publishers/publisher-series-catalog.json"
     if series_path.is_file():
         collection = json.loads(series_path.read_text(encoding="utf-8"))
         assert collection["schema_version"] == "1.0.0"
@@ -84,7 +84,7 @@ def main() -> int:
             assert row["skills"] and row["topics"]
             assert row["known_episodes"] >= 1
         print(f"OK: {len(publisher_ids)} distinct external publisher video-series URLs, not mixed with YouTube IDs")
-    episode_path = ROOT / "video/publisher-episode-catalog.json"
+    episode_path = ROOT / "sources/publishers/publisher-episode-catalog.json"
     if episode_path.is_file():
         index = json.loads(episode_path.read_text(encoding="utf-8"))
         assert index["schema_version"] == "1.0.0"
@@ -104,7 +104,7 @@ def main() -> int:
             assert row["review"] == "teacher_review_pending"
             assert row["original_prompt_fi"] and row["topics"] and row["skills"]
         print(f"OK: {len(used_ids)} distinct Yle Areena episode URLs, separate from YouTube")
-    mock_path = ROOT / "video/yki-mock-simulation-sources.json"
+    mock_path = ROOT / "sources/official/yki-mock-simulation-sources.json"
     if mock_path.is_file():
         mock = json.loads(mock_path.read_text(encoding="utf-8"))
         assert mock["schema_version"] == "1.0.0"

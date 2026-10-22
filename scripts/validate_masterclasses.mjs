@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 const load=p=>JSON.parse(fs.readFileSync(p,"utf8"));
-const data=load("content/b1/masterclasses/lessons.json");
-const sources=load("docs/10-yki-resources-machine-index.json");
-const audio=load("content/b1/audio-training/index.json");
+const data=load("learning/exercises/b1/masterclasses/lessons.json");
+const sources=load("knowledge/sources/10-yki-resources-machine-index.json");
+const audio=load("learning/exercises/b1/audio-training/index.json");
 const sourceIds=new Set(sources.resources.map(x=>x.id));
 const audioIds=new Set(audio.lessons.map(x=>x.id));
 const check=(b,m)=>{if(!b)throw new Error(m)};

@@ -1,0 +1,518 @@
+{
+  "schema_version": "1.0.0",
+  "checked_at": "2026-10-21",
+  "purpose": "Book and science cross-reference to existing 67 methods, NOT duplicate ranking",
+  "book_access_rule": "Authorized author/publisher excerpts TOCs and summaries; full copyrighted books were NOT read; no book text or publisher graphic redistributed",
+  "rights": "No commercial reuse of Learning Scientists CC BY-NC-ND posters or any copyright protected excerpts without license",
+  "book_effects_warning": "Book popularity and product-fit100 are not controlled evidence of effectiveness in Finnish YKI",
+  "existing_method_registry": "research/pedagogy/learning-methods-v1.json",
+  "existing_ratings": "research/pedagogy/learning-effectiveness-ratings-v1.json",
+  "books": [
+    {
+      "id": "make-it-stick",
+      "title": "Make It Stick",
+      "authors": "Brown, Roediger, McDaniel",
+      "year": 2014,
+      "url": "https://www.makeitstick.com/about-make-it-stick",
+      "fit100": 98,
+      "access": "authorized_excerpt",
+      "ideas": "retrieval, spacing, interleaving",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "understanding-how-we-learn",
+      "title": "Understanding How We Learn",
+      "authors": "Weinstein, Sumeracki, Caviglioli",
+      "year": 2019,
+      "url": "https://www.learningscientists.org/uhwl",
+      "fit100": 98,
+      "access": "author_summary_publisher_TOC",
+      "ideas": "six strategies and evidence limits",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "how-learning-happens",
+      "title": "How Learning Happens (2nd ed.)",
+      "authors": "Kirschner and Hendrick",
+      "year": 2024,
+      "url": "https://www.routledge.com/How-Learning-Happens-Seminal-Works-in-Educational-Psychology-and-What-/A-Kirschner-Hendrick/p/book/9781032498409",
+      "fit100": 96,
+      "access": "publisher_TOC",
+      "ideas": "working memory and novice scaffolding",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "how-we-learn",
+      "title": "How We Learn",
+      "authors": "Stanislas Dehaene",
+      "year": 2020,
+      "url": "https://www.penguinrandomhouse.com/books/579922/how-we-learn-by-stanislas-dehaene/",
+      "fit100": 94,
+      "access": "publisher_description",
+      "ideas": "attention engagement error feedback consolidation",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "outsmart-your-brain",
+      "title": "Outsmart Your Brain",
+      "authors": "Daniel Willingham",
+      "year": 2023,
+      "url": "https://www.simonandschuster.com/books/Outsmart-Your-Brain/Daniel-T-Willingham/9781982167172",
+      "fit100": 94,
+      "access": "publisher_description",
+      "ideas": "illusion of familiarity and effective study",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "small-teaching",
+      "title": "Small Teaching (2nd ed.)",
+      "authors": "James M Lang",
+      "year": 2021,
+      "url": "https://www.wiley.com/en-us/small-teaching-everyday-lessons-from-the-science-of-learning-2nd-edition-p-9781119755548",
+      "fit100": 93,
+      "access": "publisher_TOC_excerpts",
+      "ideas": "brief retrieval prediction connection practice",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "peak",
+      "title": "Peak",
+      "authors": "K Anders Ericsson and Robert Pool",
+      "year": 2016,
+      "url": "https://www.publishersweekly.com/9780544456235",
+      "fit100": 91,
+      "access": "professional_public_review",
+      "ideas": "deliberate feedback-driven practice",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "fluent-forever",
+      "title": "Fluent Forever (revised ed.)",
+      "authors": "Gabriel Wyner",
+      "year": 2024,
+      "url": "https://www.penguinrandomhouse.com/books/224541/fluent-forever-revised-edition-by-gabriel-wyner/",
+      "fit100": 90,
+      "access": "publisher_author_method",
+      "ideas": "pronunciation and personal vocabulary cards",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "mind-for-numbers",
+      "title": "A Mind for Numbers",
+      "authors": "Barbara Oakley",
+      "year": 2014,
+      "url": "https://www.penguinrandomhouse.com/books/314056/a-mind-for-numbers-by-barbara-oakley-phd/",
+      "fit100": 88,
+      "access": "publisher_author_excerpt",
+      "ideas": "focused intervals and learning breaks",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "atomic-habits",
+      "title": "Atomic Habits",
+      "authors": "James Clear",
+      "year": 2018,
+      "url": "https://www.penguinrandomhouse.com/books/543993/atomic-habits-by-james-clear/",
+      "fit100": 84,
+      "access": "publisher_author_description",
+      "ideas": "sustainable voluntary routine not direct memory evidence",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    },
+    {
+      "id": "why-students-dislike-school",
+      "title": "Why Don't Students Like School? (2nd ed.)",
+      "authors": "Daniel T Willingham",
+      "year": 2021,
+      "url": "https://www.wiley-vch.de/en/areas-interest/humanities-social-sciences/education-12ed/k-12-general-12ed1/teaching-learning-k-12-12ed13/why-don-39-t-students-like-school-978-1-119-71566-5",
+      "fit100": 92,
+      "access": "publisher_description",
+      "ideas": "prior knowledge and calibrated challenge",
+      "full_text_read": false,
+      "impact_is_empirically_measured": false
+    }
+  ],
+  "studies": [
+    {
+      "id": "dunlosky2013",
+      "url": "https://doi.org/10.1177/1529100612453266",
+      "type": "review",
+      "n": null,
+      "claim": "testing and spacing more broadly supported than passive highlighting",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "kimwebb2022",
+      "url": "https://doi.org/10.1111/lang.12479",
+      "type": "L2_meta",
+      "n": 3411,
+      "claim": "48 L2 experiments, expanding versus equal intervals not reliably different",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "cepeda2006",
+      "url": "https://doi.org/10.1037/0033-2909.132.3.354",
+      "type": "meta",
+      "n": null,
+      "claim": "317 experiments and spacing horizon-dependent",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "rowland2014",
+      "url": "https://doi.org/10.1037/a0037559",
+      "type": "meta",
+      "n": null,
+      "claim": "retrieval beats restudy on retention in many contexts",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "panrickard2018",
+      "url": "https://doi.org/10.1037/bul0000151",
+      "type": "meta",
+      "n": 10382,
+      "claim": "122 experiments, transfer d=0.40 vs re-exposure, heterogeneous",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "brunmair2019",
+      "url": "https://doi.org/10.1037/bul0000209",
+      "type": "meta",
+      "n": null,
+      "claim": "interleaving depends on category similarity and materials",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "wisniewski2020",
+      "url": "https://doi.org/10.3389/fpsyg.2019.03087",
+      "type": "meta",
+      "n": ">61000",
+      "claim": "435 studies, overall feedback d=0.48, large heterogeneity",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "scherer2024",
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101961",
+      "type": "writing_meta",
+      "n": null,
+      "claim": "95 papers, 200 comparisons, surface and content both matter",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "lyster2013",
+      "url": "https://www.cambridge.org/core/journals/language-teaching/article/abs/oral-corrective-feedback-in-second-language-classrooms/B33FC71C12A1317DCA0CE704B7B0BC00",
+      "type": "L2_review",
+      "n": null,
+      "claim": "corrective feedback different forms with different implications",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "pashler2009",
+      "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x",
+      "type": "critical_review",
+      "n": null,
+      "claim": "matching fixed learning styles lacks adequate evidence",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "leehuang2008",
+      "url": "https://doi.org/10.1017/S0272263108080479",
+      "type": "L2_meta",
+      "n": null,
+      "claim": "highlighting form can detract from meaning",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "learning-scientists-six",
+      "url": "https://www.learningscientists.org/blog/2016/8/18-1",
+      "type": "expert_translation",
+      "n": null,
+      "claim": "6 learning practices vary in evidence strength",
+      "not_finnish_yki_direct": true
+    },
+    {
+      "id": "wwc2007",
+      "url": "https://ies.ed.gov/ncee/wwc/PracticeGuide/1",
+      "type": "practice_guide",
+      "n": null,
+      "claim": "spacing, examples and integration recommendations",
+      "not_finnish_yki_direct": true
+    }
+  ],
+  "backlog": [
+    {
+      "id": "LE-01",
+      "priority100": 98,
+      "phase": "P0",
+      "method_ids": [
+        "spaced-retrieval"
+      ],
+      "study_ids": [
+        "dunlosky2013",
+        "rowland2014",
+        "panrickard2018"
+      ],
+      "implementation": "immutable first attempt; no answer reveal pre-submission",
+      "success_measure": "independent first attempt",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-02",
+      "priority100": 98,
+      "phase": "P0/P1",
+      "method_ids": [
+        "fsrs-scheduler-chunks",
+        "spaced-retrieval"
+      ],
+      "study_ids": [
+        "kimwebb2022",
+        "cepeda2006"
+      ],
+      "implementation": "due reviews based on performance and target horizon; 1/3/7/14/30 not optimal",
+      "success_measure": "7d unseen recall",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-03",
+      "priority100": 93,
+      "phase": "P1",
+      "method_ids": [
+        "graduated-task-sequencing",
+        "explicit-context-grammar"
+      ],
+      "study_ids": [
+        "wwc2007"
+      ],
+      "implementation": "worked example then fade help based on demonstrated novice status",
+      "success_measure": "unseen independent transfer",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-04",
+      "priority100": 94,
+      "phase": "P1",
+      "method_ids": [
+        "interleaving-grammar",
+        "finnish-morph-contrast"
+      ],
+      "study_ids": [
+        "brunmair2019"
+      ],
+      "implementation": "initial block then contrastive illatiivi/inessiivi/elatiivi, no blind random",
+      "success_measure": "new-case discrimination",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-05",
+      "priority100": 97,
+      "phase": "P0",
+      "method_ids": [
+        "task-based",
+        "information-gap-decisions"
+      ],
+      "study_ids": [
+        "panrickard2018"
+      ],
+      "implementation": "every mission has communicative goal recipient register and situation",
+      "success_measure": "goal completion",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-06",
+      "priority100": 96,
+      "phase": "P0",
+      "method_ids": [
+        "prompted-self-repair",
+        "balanced-deep-surface-feedback"
+      ],
+      "study_ids": [
+        "wisniewski2020",
+        "scherer2024",
+        "lyster2013"
+      ],
+      "implementation": "communication before language form; up to 3 key errors; student retries",
+      "success_measure": "new-situation production",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-07",
+      "priority100": 92,
+      "phase": "P1",
+      "method_ids": [
+        "finnish-quantity-dual-track",
+        "high-variability-phonetics"
+      ],
+      "study_ids": [
+        "pashler2009"
+      ],
+      "implementation": "human reviewed Finnish quantity and pronunciation, ASR not official grade",
+      "success_measure": "human-rated intelligibility",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-08",
+      "priority100": 95,
+      "phase": "P1",
+      "method_ids": [
+        "metacognitive-listening",
+        "caption-fading"
+      ],
+      "study_ids": [
+        "leehuang2008"
+      ],
+      "implementation": "audio gist before transcript, no karaoke until attempt completed",
+      "success_measure": "unseen audio comprehension",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-09",
+      "priority100": 96,
+      "phase": "P1",
+      "method_ids": [
+        "writing-revision",
+        "balanced-deep-surface-feedback"
+      ],
+      "study_ids": [
+        "scherer2024"
+      ],
+      "implementation": "separate content and form reviews, independent rewrite to new recipient",
+      "success_measure": "unseen writing rubric",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-10",
+      "priority100": 97,
+      "phase": "P0",
+      "method_ids": [
+        "unseen-diagnostics",
+        "holdout-item-bank-and-calibration"
+      ],
+      "study_ids": [
+        "panrickard2018",
+        "rowland2014"
+      ],
+      "implementation": "held out 7/14 day per skill evidence and versioned exposure history",
+      "success_measure": "7d/14d transfer",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-11",
+      "priority100": 90,
+      "phase": "P1",
+      "method_ids": [
+        "self-regulation",
+        "unseen-diagnostics"
+      ],
+      "study_ids": [
+        "dunlosky2013"
+      ],
+      "implementation": "optional confidence vs measured first attempt, no YKI grade based on confidence",
+      "success_measure": "calibration gap",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-12",
+      "priority100": 86,
+      "phase": "P1",
+      "method_ids": [
+        "autonomy-support-and-choice",
+        "micro-missions"
+      ],
+      "study_ids": [
+        "learning-scientists-six"
+      ],
+      "implementation": "10/20/30 min one-click start; optional routine no punishing streaks",
+      "success_measure": "completion and voluntary use",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    },
+    {
+      "id": "LE-13",
+      "priority100": 97,
+      "phase": "P0",
+      "method_ids": [
+        "chunk-learning",
+        "human-anchor-calibration"
+      ],
+      "study_ids": [
+        "wwc2007"
+      ],
+      "implementation": "content provenance S2 status version and separate heldout bank",
+      "success_measure": "zero assessment leakage",
+      "status": "target_not_yet_accepted",
+      "score_is": "editorial_product_fit_not_measured_effect"
+    }
+  ],
+  "prototype_schedule": {
+    "duration_minutes": 20,
+    "phases": [
+      [
+        "retrieval",
+        2
+      ],
+      [
+        "gist",
+        4
+      ],
+      [
+        "productive_task",
+        4
+      ],
+      [
+        "feedback",
+        3
+      ],
+      [
+        "self_repair",
+        3
+      ],
+      [
+        "unseen_transfer",
+        3
+      ],
+      [
+        "recap",
+        1
+      ]
+    ],
+    "schedule_is_experimental_design_not_optimal_science": true
+  },
+  "effectiveness": {
+    "primary": "seven_day_unseen_cueless_per_skill",
+    "secondary": [
+      "fourteen_day_transfer",
+      "communication_goal_success",
+      "four_skill_coverage",
+      "recurring_errors"
+    ],
+    "guardrails": [
+      "meaning_comprehension",
+      "AI_feedback_uncertainty",
+      "voice_privacy",
+      "no_exam_key_leakage",
+      "teacher_approval"
+    ],
+    "results_measured": false
+  },
+  "implementation_status": "requirements_and_catalog_only_most_planned",
+  "linked_doc": "research/pedagogy/19-learning-books-to-engineering-2026-10.md"
+}

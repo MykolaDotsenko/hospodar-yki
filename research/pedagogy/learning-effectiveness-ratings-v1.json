@@ -1,0 +1,1545 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-21",
+  "project": "Hospodar YKI",
+  "target": "Ukrainian-speaking adult learner from A2.2 to B1/B1+, four official YKI skills",
+  "source_catalog": "research/pedagogy/learning-methods-v1.json",
+  "count": 67,
+  "scoring_methodology": {
+    "model": "EXPERT_JUDGMENT_ORDINAL",
+    "scale": "0–100 relative expert judgment of expected real learning/skill contribution if properly implemented for A2.2→B1+ Finnish YKI; not measured percentages, g, d, CEFR grade or YKI probability",
+    "evaluation_factors": [
+      "Quality/causal relevance of source evidence",
+      "Expected improvement in actual target skill, not only test-task familiarity",
+      "Transfer to unfamiliar Finnish communicative situations",
+      "Delayed retention, sustainability and burden",
+      "Language specificity: Finnish morphology, phonetic quantity, formal vs colloquial speech",
+      "Potential harm from hallucinated feedback, stress, passivity"
+    ],
+    "anchors": {
+      "90–100": "highest expected real skill-building impact on a specified learning outcome, evidence at least moderately relevant",
+      "80–89": "meaningfully helpful with boundaries, requires proper fit",
+      "70–79": "useful supplementary / indirectly enables valid learning, should not dominate practice",
+      "50–69": "speculative, niche, expensive, or uncertain, not core MVP",
+      "0–49": "poor standalone teaching choice, misleading, or avoid"
+    },
+    "estimated_uncertainty": "Each plausible_expert_band is illustrative subjective uncertainty, not a statistical confidence interval. Differences of 1-5 points are not scientifically meaningful.",
+    "methods_not_direct_interventions": "Assessment, privacy and engineering modules may be indispensable but have weaker direct causal learning impact; do not confuse score with product necessity.",
+    "novelty_warning": "A high result in an English L2 or classroom study cannot be interpreted as an observed impact on Finnish YKI; no individual randomized YKI trial has been conducted."
+  },
+  "audit_rules": [
+    "Method record IDs are a one-to-one copy of learning-methods-v1.json; product-fit score never overwritten.",
+    "Citation source IDs in all rows resolve against exactly that existing register.",
+    "No third-party article text copied; links and high-level paraphrases only.",
+    "All research scores use source abstract/available public publisher text; full systematic quality audits and risk-of-bias appraisals have not been completed.",
+    "No method by itself guarantees YKI grade 3, and each of the four skills needs independent unseen tasks.",
+    "Role=assessment_or_infrastructure is necessary for validity or privacy but not a direct training effect."
+  ],
+  "ratings": [
+    {
+      "id": "spaced-retrieval",
+      "name_uk": "Інтервальне активне пригадування",
+      "learning_effectiveness_0_to_100": 96,
+      "previous_product_fit_0_to_100": 98,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        86,
+        100
+      ],
+      "benefit_domain": "Recall у новому контексті через 7/14/30 днів.",
+      "basis_uk": "Повторне самостійне відтворення з паузами краще за перечитування, особливо на відкладених тестах.",
+      "study_caveat_uk": "Немає єдиного найкращого розкладу інтервалів.",
+      "source_ids": [
+        "spaced",
+        "retrieval",
+        "fsrsbench"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "error-bottleneck-deliberate",
+      "name_uk": "Deliberate practice: усунення індивідуальних вузьких місць",
+      "learning_effectiveness_0_to_100": 94,
+      "previous_product_fit_0_to_100": 96,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        79,
+        100
+      ],
+      "benefit_domain": "Зниження повторної помилки в незнайомих завданнях через 7/14 днів, без підказок.",
+      "basis_uk": "Вправи на слабку навичку після діагностики мають вищий практичний пріоритет, ніж випадкова генерація уроків.",
+      "study_caveat_uk": "Не маркувати весь словник як невідомий; пріоритезація — продуктна гіпотеза, потребує A/B валідації.",
+      "source_ids": [
+        "retrieval",
+        "oralcf",
+        "writingcf",
+        "listenmeta45"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "explicit-context-grammar",
+      "name_uk": "Коротке пояснення граматики + практика у контексті",
+      "learning_effectiveness_0_to_100": 94,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        84,
+        100
+      ],
+      "benefit_domain": "Правильні відмінки у спонтанних нових репліках.",
+      "basis_uk": "Явна граматика корисна, якщо одразу потрібна для конкретного смислового вибору.",
+      "study_caveat_uk": "Таблиці форм не замінюють реальне говоріння.",
+      "source_ids": [
+        "explicit",
+        "finnmorph",
+        "formfocused36",
+        "focusform24"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "metacognitive-listening",
+      "name_uk": "Metacognitive Listening: передбачення, gist, details, рефлексія",
+      "learning_effectiveness_0_to_100": 94,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        84,
+        100
+      ],
+      "benefit_domain": "Успіх із новими дикторами без субтитрів.",
+      "basis_uk": "Вчить усвідомлено перевіряти розуміння, а не просто перезапускати трек.",
+      "study_caveat_uk": "Метааналіз переважно про навчання англійської.",
+      "source_ids": [
+        "metacog",
+        "kieliaudio",
+        "listenmeta45"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "task-based",
+      "name_uk": "Task-Based Language Teaching: вирішення життєвого завдання",
+      "learning_effectiveness_0_to_100": 93,
+      "previous_product_fit_0_to_100": 97,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        78,
+        100
+      ],
+      "benefit_domain": "Частка незалежно виконаних комунікативних задач.",
+      "basis_uk": "Одиницею навчання є досягнута мета спілкування, не лише знання правила.",
+      "study_caveat_uk": "Не називати TBLT експериментально найкращим саме для YKI.",
+      "source_ids": [
+        "cefr",
+        "tblt",
+        "kieliaudio",
+        "tmtbltmeta25",
+        "genaitblt25"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "writing-revision",
+      "name_uk": "Writing → feedback → rewrite → нове письмо",
+      "learning_effectiveness_0_to_100": 93,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        83,
+        100
+      ],
+      "benefit_domain": "Нове письмо з виконанням усіх умов та меншими повторними помилками.",
+      "basis_uk": "Комбінований фідбек за змістом і мовною формою допомагає письмовій компетентності.",
+      "study_caveat_uk": "Не видавати AI-score за YKI grade 3.",
+      "source_ids": [
+        "writingcf",
+        "writingrepeat",
+        "kieliwriting",
+        "genaiwrite79",
+        "aiwritereview22"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "balanced-deep-surface-feedback",
+      "name_uk": "Комбінована корекція змісту, структури та граматики",
+      "learning_effectiveness_0_to_100": 92,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        82,
+        100
+      ],
+      "benefit_domain": "Нове письмо: зрозумілість, повнота, форми окремо.",
+      "basis_uk": "Поєднаний feedback краще охоплює поверхневі і глибинні недоліки письма.",
+      "study_caveat_uk": "Метааналіз змішував L1, L2 та FL; не прирівнювати до YKI.",
+      "source_ids": [
+        "surface-deep24",
+        "writingcf"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "finnish-morph-contrast",
+      "name_uk": "Контрастивна фінська морфологія: KPT, rektio, sijamuodot",
+      "learning_effectiveness_0_to_100": 92,
+      "previous_product_fit_0_to_100": 91,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        77,
+        100
+      ],
+      "benefit_domain": "Точність у нових ситуативних реченнях.",
+      "basis_uk": "Треба навчитися вибирати правильну форму за змістом у словосполученні.",
+      "study_caveat_uk": "Лінгвістична QA обов'язкова для винятків.",
+      "source_ids": [
+        "explicit",
+        "finnmorph"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "high-variability-phonetics",
+      "name_uk": "High-Variability Phonetic Training: багато дикторів",
+      "learning_effectiveness_0_to_100": 92,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        82,
+        100
+      ],
+      "benefit_domain": "Точність на нових дикторах та невивчених словах.",
+      "basis_uk": "Різні голоси тренують сприймання фонем, з обмеженим автоматичним переносом на вимову.",
+      "study_caveat_uk": "Перцептивний прогрес ≠ гарантована правильна вимова.",
+      "source_ids": [
+        "hvpt",
+        "hvptprod"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "prompted-self-repair",
+      "name_uk": "Corrective feedback → самовиправлення → друга спроба",
+      "learning_effectiveness_0_to_100": 92,
+      "previous_product_fit_0_to_100": 96,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        77,
+        100
+      ],
+      "benefit_domain": "Частка самостійних виправлень і повторні помилки через тиждень.",
+      "basis_uk": "Активне виправлення замість миттєвої готової моделі розвиває контроль форми.",
+      "study_caveat_uk": "Не переривати екзаменаційну симуляцію.",
+      "source_ids": [
+        "oralcf",
+        "writingcf"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "task-repetition-transfer",
+      "name_uk": "Task Repetition із перенесенням у нову ситуацію",
+      "learning_effectiveness_0_to_100": 92,
+      "previous_product_fit_0_to_100": 95,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        82,
+        100
+      ],
+      "benefit_domain": "Якість непідказаної відповіді у зміненій ситуації.",
+      "basis_uk": "Повторне формулювання тієї самої задачі покращує контроль мовлення; перенос треба перевіряти окремо.",
+      "study_caveat_uk": "Не вважати завчений монолог доказом B1.",
+      "source_ids": [
+        "speakingrepeat",
+        "writingrepeat",
+        "repetitionreview"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "chunk-learning",
+      "name_uk": "Функціональні мовні chunks і колокації",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        76,
+        100
+      ],
+      "benefit_domain": "Самостійна частота доречних chunk у нових задачах.",
+      "basis_uk": "Найважливіше — активно вживати корисні конструкції, а не впізнавати словник.",
+      "study_caveat_uk": "Додавати тільки реально проблемні конструкції.",
+      "source_ids": [
+        "spaced",
+        "kieliaudio",
+        "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "extensive-reading",
+      "name_uk": "Extensive Reading на посильному рівні",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 91,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        81,
+        100
+      ],
+      "benefit_domain": "Невідомі reading inference питання.",
+      "basis_uk": "Регулярне об'ємне читання покращує навичку читання та мовний досвід.",
+      "study_caveat_uk": "Саме по собі не замінює розмову.",
+      "source_ids": [
+        "reading"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "peer-writing-with-prompts",
+      "name_uk": "Peer tutoring письма з метакогнітивними питаннями",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        81,
+        100
+      ],
+      "benefit_domain": "Нове письмо через 7–14 днів оцінене незалежно.",
+      "basis_uk": "Peer tutoring L2 письма має позитивні результати, а метакогнітивні питання підсилювали ефект.",
+      "study_caveat_uk": "Peer feedback може бути неточним; потрібна модерація.",
+      "source_ids": [
+        "peerwrite25",
+        "surface-deep24"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "pre-task-planning",
+      "name_uk": "Короткий план перед говорінням/письмом",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        76,
+        100
+      ],
+      "benefit_domain": "Повнота й плавність нового монологу.",
+      "basis_uk": "Планування полегшує організацію висловлювання, але по-різному впливає на точність, швидкість і складність.",
+      "study_caveat_uk": "Час для планування в тренажері не є офіційним часом YKI.",
+      "source_ids": [
+        "planning22"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "real-world-interaction",
+      "name_uk": "Мікромісії в реальному фінському середовищі",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 91,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        76,
+        100
+      ],
+      "benefit_domain": "Різноманітність завершених реальних мовних дій.",
+      "basis_uk": "Справжні розмови створюють непередбачуваність і соціальні наслідки.",
+      "study_caveat_uk": "Не записувати третіх осіб без згоди.",
+      "source_ids": [
+        "kieliaudio",
+        "kielitips"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "comprehensible-input",
+      "name_uk": "Зрозуміле поступово складніше аудіо й читання",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 95,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        75,
+        100
+      ],
+      "benefit_domain": "Відповіді на gist/details/inference на незнайомих матеріалах.",
+      "basis_uk": "Регулярне посильне читання та слухання створюють ресурс для продуктивної мови.",
+      "study_caveat_uk": "Формула i+1 не є точним навчальним алгоритмом.",
+      "source_ids": [
+        "reading",
+        "kieliaudio",
+        "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "evidence-guided-listening",
+      "name_uk": "Listening evidence audit: gist → деталі → чому помилився",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        75,
+        100
+      ],
+      "benefit_domain": "Unseen first-listen comprehension by gist/details/inference, помилки за типом.",
+      "basis_uk": "Потрібно розрізняти незнайоме слово, втрачений часовий зв'язок і неправильно почуту відповідь.",
+      "study_caveat_uk": "Метааналіз різних L2 не встановлює конкретний ефект на фінський YKI; не вважати використання транскрипту самостійною діагностикою.",
+      "source_ids": [
+        "listenmeta45",
+        "metacog",
+        "cefrm2020"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "feedback-uptake-not-rewriting",
+      "name_uk": "Feedback literacy: самовиправлення, uptake, перевірка переносу",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 95,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        75,
+        100
+      ],
+      "benefit_domain": "Доля самовиправлених проблем та правильних нових відповідей без копіювання AI-тексту.",
+      "basis_uk": "AI має виділяти головні комунікативні помилки й дозволяти учню їх самостійно виправити; не виконувати всю роботу.",
+      "study_caveat_uk": "Миттєво красивіший текст не гарантує засвоєння; зміст і прагматика вимагають людського QA.",
+      "source_ids": [
+        "genaiwrite79",
+        "aiwritereview22",
+        "writingcf"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "finnish-quantity-dual-track",
+      "name_uk": "Фінська фонологічна тривалість: окремо сприйняття і вимова",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        75,
+        100
+      ],
+      "benefit_domain": "Perception accuracy і production human-rated intelligibility — дві різні криві прогресу.",
+      "basis_uk": "Фінські короткі/довгі голосні та приголосні змінюють значення; дослідження N=68 зафіксувало gains у слуховому розпізнаванні, але не вимові.",
+      "study_caveat_uk": "ASR transcript сам по собі не оцінює тривалість; дослід N=18 по приголосних не показав виробничого ефекту.",
+      "source_ids": [
+        "finnquantity68",
+        "finnquantity18",
+        "asrmeta"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "guided-corpus-discovery",
+      "name_uk": "Data-driven learning: знайти правило в корпусних прикладах",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        80,
+        100
+      ],
+      "benefit_domain": "Правильний відмінок у незнайомому контексті через 7 днів.",
+      "basis_uk": "Зіставлення реальних прикладів допомагає індуктивно помічати керування та словозміну.",
+      "study_caveat_uk": "Корпусні тексти мають пройти відбір і S2-редактуру.",
+      "source_ids": [
+        "ddlmeta23",
+        "explicit"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "multimedia-dual-code",
+      "name_uk": "Український переклад + тематичне фото + самостійне речення",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        80,
+        100
+      ],
+      "benefit_domain": "Затримане продуктивне пригадування без зображення.",
+      "basis_uk": "L1+picture краще за одне джерело підказок на негайних словникових тестах; delayed результат менш переконливий.",
+      "study_caveat_uk": "Не плутати негайні тести з довгим YKI переносом.",
+      "source_ids": [
+        "multimedia25",
+        "retrieval"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "phonemic-minimal-pairs",
+      "name_uk": "Мінімальні фінські пари і тривалість звуків",
+      "learning_effectiveness_0_to_100": 90,
+      "previous_product_fit_0_to_100": 88,
+      "interpretation": "дуже високий педагогічний потенціал для відповідної навички",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        80,
+        100
+      ],
+      "benefit_domain": "Accuracy на нових парах.",
+      "basis_uk": "Довжина звуку часто змінює смисл, тому важливі discrimination trials.",
+      "study_caveat_uk": "Не оцінювати вимову за одним ASR-текстом.",
+      "source_ids": [
+        "hvpt",
+        "hvptprod",
+        "finnquantity68",
+        "finnquantity18"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "focus-on-form-trigger",
+      "name_uk": "Focus on Form під час комунікативного завдання",
+      "learning_effectiveness_0_to_100": 89,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        74,
+        100
+      ],
+      "benefit_domain": "Correct form in next spontaneous task and retention after delay.",
+      "basis_uk": "Пояснювати потрібний відмінок або rektio після помилки в реальному завданні, а не ставити правила перед кожною розмовою.",
+      "study_caveat_uk": "Не весь мовний контент слід перетворювати на grammar drills; мовний зміст первинний.",
+      "source_ids": [
+        "focusform24",
+        "formfocused36",
+        "explicit"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "graduated-task-sequencing",
+      "name_uk": "SSARC: поступове ускладнення реальних завдань",
+      "learning_effectiveness_0_to_100": 89,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        74,
+        100
+      ],
+      "benefit_domain": "Якість виконання нової складнішої ситуації.",
+      "basis_uk": "Рух від простого завдання до складнішого підтримує граматичну точність і складність.",
+      "study_caveat_uk": "Ускладнення повинно залежати від навичок, не тиснути на учня.",
+      "source_ids": [
+        "sequencing25"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "negotiation-repair-dialogues",
+      "name_uk": "Negotiation of meaning: уточнення й відновлення спілкування",
+      "learning_effectiveness_0_to_100": 89,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        74,
+        100
+      ],
+      "benefit_domain": "Відсоток успішних repair episodes та фінального task completion, а не швидкість відповіді.",
+      "basis_uk": "Мовні збої природно виникають у живій розмові; навчати перепитувати, уточнювати, перефразовувати та перевіряти розуміння.",
+      "study_caveat_uk": "Діалог AI не гарантує соціальну правдоподібність; потрібно обмежувати ролі й сценарії.",
+      "source_ids": [
+        "cefrm2020",
+        "cefronline",
+        "tmtbltmeta25"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "corpus-collocation-noticing",
+      "name_uk": "Контекстне помічання колокацій і rektio",
+      "learning_effectiveness_0_to_100": 88,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        73,
+        100
+      ],
+      "benefit_domain": "Правильність нових chunks поза тренувальним корпусом.",
+      "basis_uk": "Повторення конструкції у різних прикладах краще ізолює її функцію.",
+      "study_caveat_uk": "Потрібна якісна рецензія фінських керувань; English evidence.",
+      "source_ids": [
+        "ddlcolloc23",
+        "ddlmeta23"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "interleaving-grammar",
+      "name_uk": "Interleaving: перемішування близьких форм",
+      "learning_effectiveness_0_to_100": 87,
+      "previous_product_fit_0_to_100": 87,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        72,
+        100
+      ],
+      "benefit_domain": "Точність вибору форми у новій ситуації.",
+      "basis_uk": "Після базової практики змішані задачі тренують вибір правила за ситуацією.",
+      "study_caveat_uk": "Не змішувати складні форми до першого розуміння.",
+      "source_ids": [
+        "retrieval",
+        "explicit"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "kirja-puhe",
+      "name_uk": "Kirjakieli ↔ puhekieli, впізнавання регістрів",
+      "learning_effectiveness_0_to_100": 87,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        72,
+        100
+      ],
+      "benefit_domain": "Розуміння живого мовлення й доречність регістру.",
+      "basis_uk": "Реальне фінське мовлення містить скорочення, письмовий стандарт потрібен для текстів.",
+      "study_caveat_uk": "Не узагальнювати один діалект як єдину норму.",
+      "source_ids": [
+        "kieliaudio",
+        "s2bank"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "mobile-contextual-micropractice",
+      "name_uk": "Мобільна контекстна практика між щоденними справами",
+      "learning_effectiveness_0_to_100": 87,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        77,
+        97
+      ],
+      "benefit_domain": "Delayed productive use на хвилину практики.",
+      "basis_uk": "Метааналізи mobile vocabulary демонструють користь, залежну від завдань і тривалості.",
+      "study_caveat_uk": "Мобільність не гарантує transfer; без нав'язливих нагадувань.",
+      "source_ids": [
+        "mobilevocab22",
+        "mobilevocab26"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "productive-paraphrasing",
+      "name_uk": "Продуктивне перефразування забутого слова",
+      "learning_effectiveness_0_to_100": 87,
+      "previous_product_fit_0_to_100": 90,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        72,
+        100
+      ],
+      "benefit_domain": "Частка зрозумілих самостійних пояснень.",
+      "basis_uk": "B1-учень повинен уміти пояснити слово, якого зараз не пам'ятає.",
+      "study_caveat_uk": "Не карати за допустимі змістові синоніми.",
+      "source_ids": [
+        "retrieval",
+        "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "caption-fading",
+      "name_uk": "Субтитри і транскрипти з поступовим приховуванням",
+      "learning_effectiveness_0_to_100": 86,
+      "previous_product_fit_0_to_100": 90,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        71,
+        100
+      ],
+      "benefit_domain": "Listening score на першій спробі без transcript.",
+      "basis_uk": "Текст допомагає осмислити нову лексику, але розуміння без нього окреме.",
+      "study_caveat_uk": "Recognition із субтитрами не дорівнює самостійному слуханню.",
+      "source_ids": [
+        "caption",
+        "gloss"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "collaborative-writing",
+      "name_uk": "Спільне написання + незалежний новий текст",
+      "learning_effectiveness_0_to_100": 86,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        71,
+        100
+      ],
+      "benefit_domain": "Самостійний текст після групової практики.",
+      "basis_uk": "Спільне письмо поліпшує точність і може впливати на пізніші індивідуальні тексти.",
+      "study_caveat_uk": "Коавторство не можна зараховувати як індивідуальний рівень.",
+      "source_ids": [
+        "collabwrite21"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "glosses",
+      "name_uk": "Контекстні підказки/переклад тільки за запитом",
+      "learning_effectiveness_0_to_100": 86,
+      "previous_product_fit_0_to_100": 87,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        76,
+        96
+      ],
+      "benefit_domain": "Відкладене продуктивне використання.",
+      "basis_uk": "Може підсилювати розуміння слів, насамперед recognition.",
+      "study_caveat_uk": "Не залишати переклад видимим під час recall.",
+      "source_ids": [
+        "gloss"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "dictogloss",
+      "name_uk": "Dictogloss: відтворення смислу після слухання",
+      "learning_effectiveness_0_to_100": 85,
+      "previous_product_fit_0_to_100": 84,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        70,
+        100
+      ],
+      "benefit_domain": "Утримання ключових фактів на новому матеріалі.",
+      "basis_uk": "Поєднує слухання, переказ і увагу до форм.",
+      "study_caveat_uk": "Потрібна semantic QA для відкритих відповідей.",
+      "source_ids": [
+        "metacog",
+        "kieliaudio"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "learner-concept-map",
+      "name_uk": "Мапи аргументів для говоріння та письма",
+      "learning_effectiveness_0_to_100": 85,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        70,
+        100
+      ],
+      "benefit_domain": "Зв'язність та структура нового письма/монологу.",
+      "basis_uk": "Огляд 68 досліджень показує користь concept maps, переважно в ESL/EFL.",
+      "study_caveat_uk": "Мапа — тимчасова опора, а не заміна власного мовлення.",
+      "source_ids": [
+        "conceptmap25"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "self-regulation",
+      "name_uk": "Самооцінювання й метацілі по чотирьох навичках",
+      "learning_effectiveness_0_to_100": 85,
+      "previous_product_fit_0_to_100": 86,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        70,
+        100
+      ],
+      "benefit_domain": "Різниця self-report і objectively scored tasks.",
+      "basis_uk": "Робить слабкі місця зрозумілими, підтримує автономію.",
+      "study_caveat_uk": "Суб'єктивна самооцінка не є підтвердженням B1.",
+      "source_ids": [
+        "selfassess",
+        "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "information-gap-decisions",
+      "name_uk": "Information-gap: уточнення фактів і ухвалення рішення",
+      "learning_effectiveness_0_to_100": 84,
+      "previous_product_fit_0_to_100": 88,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        64,
+        100
+      ],
+      "benefit_domain": "Чи прийнято обґрунтоване рішення без перекладу.",
+      "basis_uk": "Комунікація через рішення вимагає справжніх питань; CMC підгрупи мають різні результати.",
+      "study_caveat_uk": "Не представляти вигадані маршрути як справжні факти.",
+      "source_ids": [
+        "cmcoral15",
+        "tblt"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "cefr-mediation-paraphrase",
+      "name_uk": "CEFR mediation: пояснити текст/умову іншій людині просто",
+      "learning_effectiveness_0_to_100": 83,
+      "previous_product_fit_0_to_100": 90,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        68,
+        98
+      ],
+      "benefit_domain": "Покриття ключових фактів без вигадок, доступність пояснення, запитання адресата.",
+      "basis_uk": "YKI орієнтований на практичне розуміння й пояснення; компресія сенсу тренує speaking/writing, але не є окремим офіційним модулем.",
+      "study_caveat_uk": "CEFR mediation не є доказом причинного ефекту на YKI; контролювати помилкові пояснення.",
+      "source_ids": [
+        "cefrm2020",
+        "cefrscale"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "fluency-432",
+      "name_uk": "4/3/2 fluency з помірним темповим обмеженням",
+      "learning_effectiveness_0_to_100": 83,
+      "previous_product_fit_0_to_100": 84,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        63,
+        100
+      ],
+      "benefit_domain": "Плавність нової теми без втрати змісту.",
+      "basis_uk": "Може покращити деякі показники плавності, але не обов'язково точність.",
+      "study_caveat_uk": "Не видавати час за офіційну вимогу YKI.",
+      "source_ids": [
+        "fluency",
+        "speakingrepeat"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "micro-missions",
+      "name_uk": "Короткі регулярні місії 10–20 хв",
+      "learning_effectiveness_0_to_100": 83,
+      "previous_product_fit_0_to_100": 83,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        68,
+        98
+      ],
+      "benefit_domain": "Retention та регулярність незалежних завдань.",
+      "basis_uk": "Невелика щоденна дія полегшує сталість навчання.",
+      "study_caveat_uk": "20 хв не є науково доведеним оптимумом.",
+      "source_ids": [
+        "spaced",
+        "kielitips"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "yki-mock",
+      "name_uk": "Unseen YKI-like simulation, без підказок",
+      "learning_effectiveness_0_to_100": 83,
+      "previous_product_fit_0_to_100": 87,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        68,
+        98
+      ],
+      "benefit_domain": "Стабільна успішність independent tasks.",
+      "basis_uk": "Навчає виконувати чотири типи завдань у непідказаному режимі.",
+      "study_caveat_uk": "UI/таймери digital YKI 2027 лише за підтвердженим OPH.",
+      "source_ids": [
+        "yki",
+        "cefr",
+        "ophgrade",
+        "ophdigital"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "autonomy-support-and-choice",
+      "name_uk": "Автономія учня: вибір теми та мети місії",
+      "learning_effectiveness_0_to_100": 81,
+      "previous_product_fit_0_to_100": 88,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        66,
+        96
+      ],
+      "benefit_domain": "Незалежний прогрес і сталість без streak-маніпуляцій.",
+      "basis_uk": "Автономна мотивація пов'язана з успіхом; це не прямий доказ causal learning gain.",
+      "study_caveat_uk": "Кореляцію мотивації не називати ефектом навчальної кнопки.",
+      "source_ids": [
+        "motivation25",
+        "srltech25",
+        "kielibuusti_path"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "visual-scaffolds",
+      "name_uk": "Візуальні опори з реальними квитками, листами, схемами",
+      "learning_effectiveness_0_to_100": 81,
+      "previous_product_fit_0_to_100": 85,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        66,
+        96
+      ],
+      "benefit_domain": "Незалежна відповідь на нове зображення.",
+      "basis_uk": "Малюнки й реальні документи можуть бути контекстом, а не декорацією.",
+      "study_caveat_uk": "Не заміняти практику стоковими картинками.",
+      "source_ids": [
+        "gloss",
+        "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "ai-voice-roleplay",
+      "name_uk": "AI voice roleplay із живими реакціями",
+      "learning_effectiveness_0_to_100": 80,
+      "previous_product_fit_0_to_100": 87,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "technology_conditional",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        59,
+        100
+      ],
+      "benefit_domain": "Task success без підказок у новому діалозі.",
+      "basis_uk": "Забезпечує часту практику відповіді, але AI не завжди володіє бездоганною фінською.",
+      "study_caveat_uk": "Фактична акустика потрібна для оцінки вимови.",
+      "source_ids": [
+        "genai",
+        "tblt",
+        "kieliaudio",
+        "genaitblt25",
+        "genai51_2026"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "hybrid-ai-teacher-loop",
+      "name_uk": "AI рольові розмови + педагогічний контроль + AI literacy",
+      "learning_effectiveness_0_to_100": 80,
+      "previous_product_fit_0_to_100": 93,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "technology_conditional",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        59,
+        100
+      ],
+      "benefit_domain": "Результат на незалежних сценаріях і rate of teacher disagreement; практика vs контрольний набір.",
+      "basis_uk": "AI масштабує кількість спроб; викладач валідовує складні зворотні зв'язки, моделі та пограничні випадки.",
+      "study_caveat_uk": "Більшість AI досліджень англійською; не прирівнювати чатбот до сертифікованого YKI-екзаменатора.",
+      "source_ids": [
+        "genaitblt25",
+        "genai51_2026",
+        "genaireview144"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "keyword-mnemonic-retrieval",
+      "name_uk": "Keyword mnemonic + retrieval для складних слів",
+      "learning_effectiveness_0_to_100": 80,
+      "previous_product_fit_0_to_100": 84,
+      "interpretation": "високий потенціал за правильного застосування",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        60,
+        100
+      ],
+      "benefit_domain": "Пригадування і вживання у новому реченні за 14 днів.",
+      "basis_uk": "В одному EFL експерименті N=110 поєднання мнемоніки та пригадування допомогло засвоєнню пар слів.",
+      "study_caveat_uk": "Не призначати мнемоніки кожному слову; вивчалася англійська.",
+      "source_ids": [
+        "mnemonic24",
+        "spaced"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "contrast-uk-fi",
+      "name_uk": "Українсько-фінський contrastive teaching",
+      "learning_effectiveness_0_to_100": 79,
+      "previous_product_fit_0_to_100": 72,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        64,
+        94
+      ],
+      "benefit_domain": "Зменшення повторних міжмовних помилок.",
+      "basis_uk": "Може швидко пояснити відмінності, але буквальний переклад закінчень помилковий.",
+      "study_caveat_uk": "Немає прямого доведеного ефекту на YKI.",
+      "source_ids": [
+        "explicit",
+        "s2bank"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "fsrs-scheduler-chunks",
+      "name_uk": "FSRS-подібний data-driven scheduler для підтверджених chunks",
+      "learning_effectiveness_0_to_100": 78,
+      "previous_product_fit_0_to_100": 87,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "technology_conditional",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        57,
+        99
+      ],
+      "benefit_domain": "Calibration of predicted recall vs actual delayed recall + real-life novel use, not only flashcard clicks.",
+      "basis_uk": "Система повторень потребує оцінки пам'яті; FSRS — кандидат технології, але не свідчення росту YKI.",
+      "study_caveat_uk": "FSRS benchmark переважно на Anki: дані вибіркові та outcome інший; не обіцяти найкращого YKI результату.",
+      "source_ids": [
+        "spaced",
+        "fsrsbench"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "visual-acoustic-speech-feedback",
+      "name_uk": "Візуалізація тривалості фінських звуків",
+      "learning_effectiveness_0_to_100": 76,
+      "previous_product_fit_0_to_100": 86,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "technology_conditional",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        55,
+        97
+      ],
+      "benefit_domain": "Окремі показники розрізнення на слух і людська оцінка вимови.",
+      "basis_uk": "Докази підтримують фонетичний тренінг, але не доводять точність окремих графіків вимови.",
+      "study_caveat_uk": "Не карати акцент за неточним графіком або ASR.",
+      "source_ids": [
+        "phonetic65",
+        "visualpron18",
+        "finnquantity68"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "unseen-diagnostics",
+      "name_uk": "Незалежна діагностика 4 навичок і переносу",
+      "learning_effectiveness_0_to_100": 75,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        53,
+        97
+      ],
+      "benefit_domain": "Окрема динаміка listening/reading/speaking/writing.",
+      "basis_uk": "Розмежовує тренувальний прогрес і реальну здатність виконувати нові задачі.",
+      "study_caveat_uk": "CEFR — рамка навичок, а не доказ конкретного методу.",
+      "source_ids": [
+        "cefr",
+        "selfassess",
+        "yki",
+        "ophgrade",
+        "cefrscale"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "yki-constructive-alignment",
+      "name_uk": "YKI construct alignment: здібності → жанри → незалежне оцінювання",
+      "learning_effectiveness_0_to_100": 75,
+      "previous_product_fit_0_to_100": 98,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        53,
+        97
+      ],
+      "benefit_domain": "Відсоток незалежно виконаних can-do функцій по кожному модулю та жанру на unseen tasks.",
+      "basis_uk": "Навчальна ціль — не «знати тему», а виконати конкретну дію мовою, яку можна перевірити на новому завданні.",
+      "study_caveat_uk": "Відповідність стандартам — не експериментальний ефект і не офіційний бал YKI.",
+      "source_ids": [
+        "ophgrade",
+        "ophcalendar",
+        "cefrscale"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "privacy-and-safe-personalization",
+      "name_uk": "Privacy-first learner analytics: явна згода, локальна історія",
+      "learning_effectiveness_0_to_100": 74,
+      "previous_product_fit_0_to_100": 85,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        52,
+        96
+      ],
+      "benefit_domain": "Deletion coverage, no PII in public exports, diagnostics stable without personal recordings.",
+      "basis_uk": "Голос, тексти і помилки — особисті дані, що потрібні для адаптації, але не мають опинятися в публічному GitHub.",
+      "study_caveat_uk": "Це інженерна/етична вимога, не експериментально підтверджений метод вивчення мови.",
+      "source_ids": [
+        "genaireview144",
+        "cefronline",
+        "ophgrade"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "digital-task-literacy",
+      "name_uk": "Digital test literacy: клавіатура, таймер, навушники, навігація",
+      "learning_effectiveness_0_to_100": 73,
+      "previous_product_fit_0_to_100": 90,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        51,
+        95
+      ],
+      "benefit_domain": "Частка завершених завдань без технічних помилок та втрат часу, розділено з мовною оцінкою.",
+      "basis_uk": "2027 YKI проходить за комп'ютером; інтерфейс не повинен додавати сторонній бар'єр навіть за хорошої фінської.",
+      "study_caveat_uk": "Не копіювати непідтверджений дизайн, клавіші, правила повторного програвання або ліміти цифрового YKI.",
+      "source_ids": [
+        "ophdigital",
+        "ophcalendar",
+        "ophgrade"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "human-anchor-calibration",
+      "name_uk": "Якірні людські оцінки й перевірка узгодженості AI-feedback",
+      "learning_effectiveness_0_to_100": 73,
+      "previous_product_fit_0_to_100": 97,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        51,
+        95
+      ],
+      "benefit_domain": "MAE/узгодженість AI-human по комунікативних рубриках, частка abstain, fairness аудити за акцентами.",
+      "basis_uk": "Для відкритих відповідей автоматичні оцінки не можна прирівнювати до офіційного YKI; еталонні роботи оцінює S2-викладач.",
+      "study_caveat_uk": "Без репрезентативних людських оцінок немає валідної прогнозної CEFR/YKI шкали.",
+      "source_ids": [
+        "ophgrade",
+        "genaitblt25",
+        "genaiwrite79"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "shadowing",
+      "name_uk": "Shadowing із якісним живим аудіо",
+      "learning_effectiveness_0_to_100": 73,
+      "previous_product_fit_0_to_100": 82,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        58,
+        88
+      ],
+      "benefit_domain": "Експертна зрозумілість нової фрази.",
+      "basis_uk": "Імітація інтонації корисна як допоміжна вправа, не заміна діалогу.",
+      "study_caveat_uk": "Докази неоднорідні; не вважати репліку спонтанною.",
+      "source_ids": [
+        "shadow",
+        "kieliaudio"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "holdout-item-bank-and-calibration",
+      "name_uk": "Holdout item bank, difficulty tags і поступова психометрична калібровка",
+      "learning_effectiveness_0_to_100": 72,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        50,
+        94
+      ],
+      "benefit_domain": "Per-skill held-out trend, test–retest reliability, item drift і score standard error якщо калібровано.",
+      "basis_uk": "Робити чесне вимірювання: тренувальні завдання не входять до контрольного набору, складність фіксується за даними, а не фантазією AI.",
+      "study_caveat_uk": "Не оголошувати IRT чи точність B1 без достатнього корпусу людських відповідей та валідованих item parameters.",
+      "source_ids": [
+        "ophgrade",
+        "cefrscale",
+        "genaireview144"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "read-while-listen-scaffold",
+      "name_uk": "Читання одночасно зі слуханням як допоміжна опора",
+      "learning_effectiveness_0_to_100": 72,
+      "previous_product_fit_0_to_100": 82,
+      "interpretation": "допоміжний вплив або опосередкований",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        52,
+        92
+      ],
+      "benefit_domain": "Нова відповідь без субтитрів; окремо supported score.",
+      "basis_uk": "Метааналіз показав малий загальний ефект і непевність для самостійного читання.",
+      "study_caveat_uk": "Для YKI-like першого прослуховування текст лишається прихованим.",
+      "source_ids": [
+        "readlisten23",
+        "caption"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "gamification",
+      "name_uk": "Опційна змістовна гейміфікація",
+      "learning_effectiveness_0_to_100": 65,
+      "previous_product_fit_0_to_100": 75,
+      "interpretation": "обмежений або недостатньо обґрунтований",
+      "role": "learning_intervention",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        50,
+        80
+      ],
+      "benefit_domain": "Unseen performance разом із retention, не кліки.",
+      "basis_uk": "Може допомагати мотивації; зв'язок із B1 продуктивними навичками не підтверджено.",
+      "study_caveat_uk": "Без стресових гучних сюрпризів і примусових streaks.",
+      "source_ids": [
+        "games",
+        "mobilegames"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "uncertainty-aware-asr",
+      "name_uk": "ASR як допоміжна підказка з оцінкою впевненості, не суддя",
+      "learning_effectiveness_0_to_100": 64,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "обмежений або недостатньо обґрунтований",
+      "role": "assessment_or_infrastructure",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        42,
+        86
+      ],
+      "benefit_domain": "Human agreement on pronunciation and ASR false corrections by accent, noise and mic condition.",
+      "basis_uk": "AI transcript може помилятися через акцент, шум, довгі звуки; автоматично карати фінську вимову лише по WER небезпечно.",
+      "study_caveat_uk": "ESL ASR g=0.69 стосується англійської; для фінської немає підтвердженої калібрації.",
+      "source_ids": [
+        "asrmeta",
+        "asrsystematic24",
+        "finnquantity68"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "immersive-vr-roleplay",
+      "name_uk": "VR/AR занурення як необов'язкова експериментальна фіча",
+      "learning_effectiveness_0_to_100": 61,
+      "previous_product_fit_0_to_100": 71,
+      "interpretation": "обмежений або недостатньо обґрунтований",
+      "role": "technology_conditional",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        40,
+        82
+      ],
+      "benefit_domain": "Додаткова користь проти 2D сценарію на незнайомих завданнях.",
+      "basis_uk": "Огляди VR показують потенціал залучення, але для фінського YKI ефект не доведено.",
+      "study_caveat_uk": "Висока складність, доступність, cybersickness; не P0.",
+      "source_ids": [
+        "vrreview26"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "single-tts-only",
+      "name_uk": "Лише один синтетичний диктор для аудіювання",
+      "learning_effectiveness_0_to_100": 43,
+      "previous_product_fit_0_to_100": 59,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        31,
+        55
+      ],
+      "benefit_domain": "Незалежне розуміння різних голосів.",
+      "basis_uk": "Одноманітне TTS не репрезентує природної фінської багатьох мовців.",
+      "study_caveat_uk": "Не називати один TTS-голос природним діалогом.",
+      "source_ids": [
+        "hvpt",
+        "kieliaudio"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "passive-listening-only",
+      "name_uk": "Виключно пасивне аудіо у фоні",
+      "learning_effectiveness_0_to_100": 38,
+      "previous_product_fit_0_to_100": 57,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        26,
+        50
+      ],
+      "benefit_domain": "Нове аудіювання, а не хвилини програвання.",
+      "basis_uk": "Експозиція може бути додатком, але без розуміння й відтворення її користь невідома.",
+      "study_caveat_uk": "Не називати кількість хвилин виміром знання.",
+      "source_ids": [
+        "kieliaudio",
+        "reading"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "isolated-word-lists-only",
+      "name_uk": "Лише списки слів без контекстного мовлення",
+      "learning_effectiveness_0_to_100": 34,
+      "previous_product_fit_0_to_100": 50,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        22,
+        46
+      ],
+      "benefit_domain": "Використання в новому реченні.",
+      "basis_uk": "Впізнавання лексики не доводить комунікативної продуктивності.",
+      "study_caveat_uk": "Не плутати flashcard accuracy з YKI.",
+      "source_ids": [
+        "retrieval",
+        "gloss"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "ai-passive-rewrite-only",
+      "name_uk": "Пасивне AI-переписування відповідей без власної другої спроби",
+      "learning_effectiveness_0_to_100": 29,
+      "previous_product_fit_0_to_100": 46,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        17,
+        41
+      ],
+      "benefit_domain": "No-confidence gain on unseen writing/speaking and number of unassisted self repairs.",
+      "basis_uk": "Гарний переписаний текст може створити ілюзію прогресу без власного активного використання.",
+      "study_caveat_uk": "Користувач може вивчити модель після власної спроби, але пасивний режим не повинен бути основним.",
+      "source_ids": [
+        "genaiwrite79",
+        "aiwritereview22"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "instant-answer",
+      "name_uk": "Показ готової правильної відповіді до власної спроби",
+      "learning_effectiveness_0_to_100": 21,
+      "previous_product_fit_0_to_100": 28,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        9,
+        33
+      ],
+      "benefit_domain": "First-attempt independent recall.",
+      "basis_uk": "Передчасне рішення позбавляє можливості активного пригадування.",
+      "study_caveat_uk": "Робить вимірювання прогресу недостовірним.",
+      "source_ids": [
+        "retrieval",
+        "oralcf"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "surprise-noise",
+      "name_uk": "Раптові гучні вигуки персонажа для налякування",
+      "learning_effectiveness_0_to_100": 9,
+      "previous_product_fit_0_to_100": 22,
+      "interpretation": "непридатний як основний метод",
+      "role": "not_recommended_standalone",
+      "confidence_in_score": "low",
+      "plausible_expert_band": [
+        0,
+        21
+      ],
+      "benefit_domain": "Не рекомендується як навчальний прийом.",
+      "basis_uk": "Підстав вважати стресові звукові сюрпризи прискоренням фінської немає.",
+      "study_caveat_uk": "Відволікання й шкода accessibility.",
+      "source_ids": [
+        "games"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    }
+  ]
+}

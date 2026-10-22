@@ -1,0 +1,1599 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-21",
+  "generated_by": "scripts/build_b1_synthetic_audio.py",
+  "provenance": "original_content_and_open_licensed_speech_model",
+  "source_model": {
+    "name": "Piper Harri medium",
+    "locale": "fi-FI",
+    "source": "https://huggingface.co/rhasspy/piper-voices/tree/main/fi/fi_FI/harri/medium",
+    "model_card": "https://huggingface.co/rhasspy/piper-voices/blob/main/fi/fi_FI/harri/medium/MODEL_CARD",
+    "model_sha256": "a44167faa34caed940e4fcad139fcc35922266b2593bcebe77701774c0fb2389",
+    "training_dataset": "CC0",
+    "tts_engine": "piper-tts 1.3.0",
+    "sample_rate_hz": 22050,
+    "synthetic_single_voice": true
+  },
+  "count_lessons": 23,
+  "count_audio_files": 37,
+  "recommendation_uk": "Спочатку природне людське аудіо й власні діалоги; це синтетичне, придатне для керованого слухання/диктантів. 'slow' — адаптивна опора, 'fast' — окремий складніший режим.",
+  "disclaimer_uk": "Не є матеріалами офіційного YKI. Вимова, наголос, числа й паузи потребують перевірки носієм/викладачем; один синтетичний диктор не заміняє живу розмову.",
+  "lessons": [
+    {
+      "id": "01-mina-ja-taustani-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Moi! Oletko sinäkin uudella suomen kurssilla?\n\nOlen. Minä olen Leo. Muutin tänne kesällä työn takia.\n\nHauska tutustua! Minun nimeni on Sanna. Miten olet opiskellut suomea tähän asti?\n\nOlen opiskellut netissä, mutta haluan puhua enemmän muiden kanssa.\n\nHyvä! Kurssin jälkeen meillä on pieni keskusteluryhmä kirjastossa torstaisin.\n\nKuulostaa hyvältä. Voinko tulla mukaan jo tällä viikolla?",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi Leo muutti paikkakunnalle?",
+          "options": [
+            "Opiskelun vuoksi",
+            "Työn vuoksi",
+            "Perheensä vuoksi"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Leo sanoo «työn takia» — työn vuoksi.",
+          "id": "01-mina-ja-taustani-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Missä keskusteluryhmä kokoontuu?",
+          "options": [
+            "Kirjastossa",
+            "Kahvilassa",
+            "Koulun ruokalassa"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Sanna mainitsee kirjaston.",
+          "id": "01-mina-ja-taustani-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 28.46,
+          "bytes": 170388,
+          "sha256": "6b8eea6f2c1c30e96999ac987324b9abc2189b11807c9618599dd7a7fbaa3a07",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "01-mina-ja-taustani-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Nadia muutti Turkuun viime syksynä. Hän asuu pienessä kerrostaloasunnossa keskustan lähellä ja työskentelee kahvilassa. Aluksi hän tunsi vain työkaverinsa eikä uskaltanut puhua suomea muualla. Tammikuussa hän löysi kirjaston kielikahvilan, jossa ihmiset keskustelevat tavallisista asioista. Nadia käy siellä joka tiistai. Hän on saanut kaksi uutta ystävää ja uskaltaa nykyään kysyä neuvoa myös kaupassa. Ensi kuussa hän haluaa aloittaa uimaharrastuksen, mutta etsii vielä sopivaa ryhmää.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin Nadia muutti Turkuun?",
+          "options": [
+            "Viime syksynä",
+            "Viime keväänä",
+            "Tammikuussa"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "У першому реченні вказано «viime syksynä».",
+          "id": "01-mina-ja-taustani-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi kielikahvila on ollut Nadialle hyödyllinen?",
+          "options": [
+            "Hän on löytänyt asunnon",
+            "Hän on saanut ystäviä ja rohkeutta puhua",
+            "Hän on vaihtanut työpaikkaa"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Кафе допомогло знайти друзів та сміливіше говорити фінською.",
+          "id": "01-mina-ja-taustani-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 34.59,
+          "bytes": 201602,
+          "sha256": "c1304cfcca69151c839c05dbac5810a7fc87f5022dc83669f1f2b1259c50b5e3",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 39.74,
+          "bytes": 226544,
+          "sha256": "fe7e9bd85be0e4ba9382b4f0802838271a1e68369fbbf8e2d6630dc889eb79dc",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "02-koti-ja-asuminen-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Hyvää päivää, täällä taloyhtiön huolto. Soitan kylpyhuoneen hanasta.\n\nHei, hyvä että soititte. Hana vuotaa edelleen.\n\nVoisinko tulla katsomaan sitä huomenna kello kymmenen?\n\nKymmeneltä olen töissä. Kävisikö kello neljä iltapäivällä?\n\nSopii hyvin. Tulen neljältä ja ilmoitan, jos myöhästyn.\n\nKiitos! Olen silloin kotona.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mikä asunnossa on vialla?",
+          "options": [
+            "Lämmitys ei toimi",
+            "Hana vuotaa",
+            "Ikkuna ei mene kiinni"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Asukas sanoo «Hana vuotaa edelleen».",
+          "id": "02-koti-ja-asuminen-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin huoltomies tulee?",
+          "options": [
+            "Kello 10",
+            "Kello 14",
+            "Kello 16"
+          ],
+          "correct_index": 2,
+          "explanation_uk": "Aika muutettiin neljään iltapäivällä.",
+          "id": "02-koti-ja-asuminen-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 23.0,
+          "bytes": 136326,
+          "sha256": "663291e31269ddf76d8bd84234a94ccfdd69e8dc91f8df7c8e3233f215d5bf6c",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "02-koti-ja-asuminen-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Hyvät asukkaat! Taloyhtiössä tehdään putkien huoltotöitä keskiviikkona 4. marraskuuta kello 9–13. Tänä aikana kylmää ja lämmintä vettä ei tule asuntoihin. Varatkaa juomavettä etukäteen ja välttäkää pesukoneen käyttöä katkon aikana. Jos huoltotyöt päättyvät suunniteltua aikaisemmin, vedenjakelu alkaa heti. Mikäli vettä ei tule kello 14 mennessä, ottakaa yhteyttä huoltoyhtiöön. Yhteystiedot löytyvät porraskäytävän ilmoitustaululta. Pahoittelemme häiriötä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mihin aikaan vettä ei suunnitelman mukaan tule?",
+          "options": [
+            "Kello 9–13",
+            "Kello 13–17",
+            "Koko päivän"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "У повідомленні: «kello 9–13».",
+          "id": "02-koti-ja-asuminen-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä pitää tehdä, jos vettä ei tule vielä kello 14?",
+          "options": [
+            "Käyttää pesukonetta",
+            "Soittaa huoltoyhtiöön",
+            "Odottaa seuraavaan päivään"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Указано звернутися до huoltoyhtiö.",
+          "id": "02-koti-ja-asuminen-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 35.45,
+          "bytes": 211651,
+          "sha256": "2c9c3c42dc016755531785edc0c573b576734bc89e002f0d880435c2dbbb5d09",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 40.72,
+          "bytes": 238439,
+          "sha256": "6a22fef4bb1ac60f272870b798c6c5e70c23dd5f3d7e23461dc767fd6ad5d3e1",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "03-kaupat-ja-palvelut-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Asiakaspalvelu, kuinka voin auttaa?\n\nHei, sain tänään paketin, mutta siellä oli vääränkokoinen takki.\n\nOlen pahoillani. Mikä koko tilauksessanne oli?\n\nTilasin koon M, mutta paketissa oli koko L.\n\nLähetämme oikean koon. Voitte palauttaa väärän takin maksutta palautustarralla.\n\nKiitos! Milloin uusi takki lähtee?\n\nHuomenna. Saatte seurantakoodin sähköpostiin.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä asiakas oli tilannut?",
+          "options": [
+            "Koon L takin",
+            "Koon M takin",
+            "Kengät"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Tilauksessa oli koko M.",
+          "id": "03-kaupat-ja-palvelut-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miten uusi toimitus vahvistetaan?",
+          "options": [
+            "Tekstiviestillä ilman koodia",
+            "Postitse tulevalla kirjeellä",
+            "Sähköpostin seurantakoodilla"
+          ],
+          "correct_index": 2,
+          "explanation_uk": "Asiakaspalvelu lupasi seurantakoodin sähköpostiin.",
+          "id": "03-kaupat-ja-palvelut-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 26.1,
+          "bytes": 156176,
+          "sha256": "cc049119a3980eba809506f7297fedc0af66dcb6740487122516ce177ee628fc",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "03-kaupat-ja-palvelut-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Tämän verkkokaupan asiakkaat voivat palauttaa käyttämättömän tuotteen 30 päivän kuluessa tilauksen vastaanottamisesta. Tuotteen mukana pitää palauttaa kaikki pakkauksessa olleet osat. Ennen palautusta täytetään verkkosivulla lomake, jonka jälkeen sähköpostiin tulee osoitekortti. Jos tuote on viallinen, asiakkaan pitää ottaa ensin yhteyttä asiakaspalveluun ja kertoa ongelmasta. Palvelu vastaa arkisin yleensä kahden työpäivän sisällä. Huomaa, että tässä kuvataan tämän kaupan käytäntöä eikä kaikkien kauppojen sääntöjä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin käyttämättömän tuotteen voi palauttaa kaupan ohjeen mukaan?",
+          "options": [
+            "Seitsemän päivän aikana",
+            "30 päivän aikana vastaanottamisesta",
+            "Vain ostopäivänä"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Зазначено 30 днів від отримання.",
+          "id": "03-kaupat-ja-palvelut-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä vialliselle tuotteelle pitää ensin tehdä?",
+          "options": [
+            "Olla yhteydessä asiakaspalveluun",
+            "Heittää pakkaus pois",
+            "Tilata heti toinen"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Для дефектного товару спершу треба зв'язатися зі службою підтримки.",
+          "id": "03-kaupat-ja-palvelut-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 35.13,
+          "bytes": 215371,
+          "sha256": "6f8c9bcafe6782db8ec9a5cb1419eb13cceb419c0c2d046c7ae6fb58eef1ade1",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 40.36,
+          "bytes": 239241,
+          "sha256": "94a142f8ab5d9d3a0b44e62f6885d7ff43bfb70401f322927476495a78f24757",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "04-kulttuuri-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Lähdetkö lauantaina elokuviin?\n\nEhkä. Mitä siellä esitetään?\n\nKotimainen komedia alkaa kuudelta. Liput maksavat kymmenen euroa.\n\nKuudelta en ehdi, koska olen töissä seitsemään.\n\nSunnuntaina on toinen näytös kello viisi.\n\nSe sopii! Varataanko liput verkosta?\n\nJoo, minä varaan ne tänään.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi lauantain näytös ei sovi?",
+          "options": [
+            "Se on liian kallis",
+            "Toinen henkilö on töissä",
+            "Elokuva on loppuunmyyty"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Työvuoro päättyy seitsemältä, näytös alkaa kuudelta.",
+          "id": "04-kulttuuri-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin he aikovat mennä elokuviin?",
+          "options": [
+            "Sunnuntaina kello 17",
+            "Lauantaina kello 18",
+            "Sunnuntaina kello 19"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Sunnuntain näytös on viideltä.",
+          "id": "04-kulttuuri-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/04-kulttuuri.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 21.1,
+          "bytes": 127284,
+          "sha256": "33e1689467311aa67dbbd1e40a1e0582a3277564ae262fb4fc3d912fab3dfeab",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "04-kulttuuri-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Kaupunginkirjasto järjestää lauantaina kulttuuripäivän. Kello 13 alkaa maksuton valokuvanäyttelyn esittely, ja kello 15 järjestetään kirjoitustyöpaja. Työpajaan osallistuminen maksaa neljä euroa, ja siihen pitää ilmoittautua viimeistään torstaina. Päivän aikana kahvilassa soittaa paikallinen musiikkiryhmä. Kirjaston henkilökunta muistuttaa, että alle 12-vuotiaat voivat osallistua työpajaan aikuisen kanssa. Jos osallistuja ei pääse paikalle, ilmoittautumisen voi perua sähköpostilla.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mihin ohjelmaan pitää ilmoittautua etukäteen?",
+          "options": [
+            "Valokuvanäyttelyn esittelyyn",
+            "Kirjoitustyöpajaan",
+            "Kahvilan musiikkiin"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Вимога реєстрації стосується kirjoitustyöpaja.",
+          "id": "04-kulttuuri-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin ilmoittautuminen päättyy?",
+          "options": [
+            "Torstaina",
+            "Perjantaina",
+            "Lauantaina"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Зазначено «viimeistään torstaina».",
+          "id": "04-kulttuuri-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/04-kulttuuri.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/04-kulttuuri-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 35.61,
+          "bytes": 216400,
+          "sha256": "737cca32b008011657de6e0e36ddcb724aba86cd9b314705520c3764293bd249",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 40.92,
+          "bytes": 242454,
+          "sha256": "671e86a4a25d4d38a3d4d2371eaebfbe9d6d0f31188f420be928ec3d4acb8c1f",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "05-matkustaminen-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Anteeksi, meneekö tämä bussi keskustaan?\n\nMenee, mutta keskustaan pääsee nopeammin bussilla numero kuusi.\n\nMilloin kuutonen tulee?\n\nViiden minuutin päästä. Tämä bussi kiertää sairaalan kautta.\n\nKiitos tiedosta! Minulla on tapaaminen puolen tunnin kuluttua.\n\nSitten ottaisin kuutosen. Se pysähtyy torin lähellä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi toinen bussi on parempi?",
+          "options": [
+            "Se on ilmainen",
+            "Se menee nopeammin keskustaan",
+            "Se lähtee huomenna"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Bussi numero kuusi on nopeampi keskustaan.",
+          "id": "05-matkustaminen-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Minne nopeampi bussi pysähtyy?",
+          "options": [
+            "Torin lähelle",
+            "Sairaalan pihaan",
+            "Rautatieaseman sisään"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "B kertoo: «torin lähellä».",
+          "id": "05-matkustaminen-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/05-matkustaminen.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 21.21,
+          "bytes": 128229,
+          "sha256": "4efb336f40735b1b9c4ddd6cabf9703d8e3980874f02350e45810d593a3a745f",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "05-matkustaminen-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Matkustajatiedote: Kello 14.20 lähtevä juna Tampereelle on noin 15 minuuttia myöhässä teknisen tarkastuksen vuoksi. Juna lähtee poikkeuksellisesti raiteelta neljä, ei raiteelta kaksi, kuten lipussa lukee. Jos sinulla on jatkoyhteys Tampereelta, tarkista uusi aikataulu asemalla tai sovelluksessa. Liput ovat voimassa alkuperäisen matkasuunnitelman mukaisesti. Aseman neuvonta palvelee matkustajia pääaulassa kello 18 asti. Pahoittelemme viivästystä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miltä raiteelta juna lähtee?",
+          "options": [
+            "Raiteelta kaksi",
+            "Raiteelta neljä",
+            "Raiteelta kuusi"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Повідомлено нову колію №4.",
+          "id": "05-matkustaminen-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi jatkoyhteys kannattaa tarkistaa?",
+          "options": [
+            "Koska juna myöhästyy",
+            "Koska asemalla ei myydä lippuja",
+            "Koska juna perutaan"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Затримка 15 хв може вплинути на пересадку.",
+          "id": "05-matkustaminen-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/05-matkustaminen.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/05-matkustaminen-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 34.77,
+          "bytes": 207359,
+          "sha256": "a72bc361d210b56ea516d27246bd0053bfba029c6add94e6ea9e2108ccd1f751",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 39.95,
+          "bytes": 234423,
+          "sha256": "7d407ac9aadb3ec7208b6ecbf0f71e18ba2a4dd7090715b69319933650ec4efd",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "06-terveys-ja-hyvinvointi-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Terveysasema, hyvää huomenta.\n\nHei, minulla on aika torstaina kello yhdeksän, mutta en pääse silloin tulemaan.\n\nHaluatteko siirtää ajan toiselle päivälle?\n\nKyllä. Kävisikö perjantai iltapäivällä?\n\nPerjantaina on vapaa aika kello neljätoista kolmekymmentä.\n\nSe sopii. Pitääkö minun tehdä vielä jotain?\n\nEi tarvitse. Lähetämme vahvistuksen tekstiviestillä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi soittaja ottaa yhteyttä?",
+          "options": [
+            "Hän haluaa siirtää ajan",
+            "Hän kysyy lääkkeen hintaa",
+            "Hän haluaa perua kaikki ajanvaraukset"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Мета дзвінка — перенести запис.",
+          "id": "06-terveys-ja-hyvinvointi-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin uusi aika on?",
+          "options": [
+            "Torstaina 9.00",
+            "Perjantaina 14.30",
+            "Perjantaina 16.30"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Адміністратор запропонував п'ятницю о 14:30.",
+          "id": "06-terveys-ja-hyvinvointi-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 25.63,
+          "bytes": 152012,
+          "sha256": "c44851a1584a9efc4260d8a1944edfc2403db79b2d279fd72bbd102f3572eabb",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "06-terveys-ja-hyvinvointi-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Kaupungin liikuntakeskus aloittaa uuden kevyen liikunnan ryhmän maanantaina 9. marraskuuta. Ryhmä kokoontuu kahdeksan kertaa, aina maanantaisin kello 18. Tunnit sisältävät kävelyä, venyttelyä ja helppoja harjoituksia. Mukaan voi tulla myös ilman aikaisempaa kokemusta. Osallistumismaksu on 20 euroa koko jaksolta. Ilmoittautuminen tehdään verkossa viimeistään edellisenä perjantaina. Jos sinulla on kysymyksiä oman terveydentilasi ja liikunnan sopivuudesta, kysy tarvittaessa terveydenhuollon ammattilaiselta.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Kuinka usein ryhmä kokoontuu?",
+          "options": [
+            "Joka maanantai",
+            "Joka päivä",
+            "Kaksi kertaa kuussa"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Група збирається щопонеділка.",
+          "id": "06-terveys-ja-hyvinvointi-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Paljonko koko kahdeksan kerran jakso maksaa?",
+          "options": [
+            "8 euroa",
+            "20 euroa",
+            "40 euroa"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Ціна всього циклу 20 євро.",
+          "id": "06-terveys-ja-hyvinvointi-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 37.33,
+          "bytes": 221460,
+          "sha256": "21372cb1ede6bd7140c9f628f6ed2b46c2cae8e08e5795803552e74a84d2b428",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 42.89,
+          "bytes": 252279,
+          "sha256": "9316e5c9436c31d04c8db16c00fbb2b897d44e4a30a3861142cfcaac35efc6ff",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "07-tyo-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Moi! Voisitko vaihtaa työvuoroa kanssani perjantaina?\n\nEhkä. Minulla on aamuvuoro kahdeksasta neljään. Millainen vuoro sinulla on?\n\nMinulla on iltavuoro kahdesta kymmeneen, mutta minulla olisi meno illalla.\n\nSe voisi onnistua, mutta minun täytyy kysyä ensin esihenkilöltä.\n\nHyvä, kiitos! Ilmoitatko minulle huomenna?\n\nJoo, laitan viestin heti kun saan vastauksen.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Kumman vuoron A haluaa vaihtaa?",
+          "options": [
+            "Aamuvuoron",
+            "Iltavuoron",
+            "Yövuoron"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "A sanoo olevansa iltavuorossa klo 14–22.",
+          "id": "07-tyo-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä B tekee ennen päätöstä?",
+          "options": [
+            "Kysyy esihenkilöltä",
+            "Varaa lomamatkan",
+            "Lopettaa vuoronsa aikaisemmin"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "B:n pitää kysyä esihenkilöltä.",
+          "id": "07-tyo-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/07-tyo.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/07-tyo-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 26.7,
+          "bytes": 155610,
+          "sha256": "c7c7c1252a96c37bcf8bab614c3893342eab11a4353169b416836bd1763fbf75",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "07-tyo-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Työpaikallamme järjestetään asiakaspalvelukoulutus ensi kuussa. Koulutus alkaa maanantaina 2. marraskuuta ja jatkuu kolmena maanantai-iltapäivänä kello 15–17. Osallistuminen on työntekijöille maksutonta, mutta ryhmässä on vain 12 paikkaa. Ilmoittautumiset pyydetään lähettämään henkilöstöosastolle viimeistään perjantaina. Esihenkilöiden kanssa sovitaan erikseen, miten työvuorot järjestetään koulutuksen ajaksi. Koulutuksen jälkeen osallistujat voivat harjoitella uusia taitojaan työpareittain.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Kuinka monena päivänä koulutus järjestetään?",
+          "options": [
+            "Kolmena maanantaina",
+            "Kolmena perjantaina",
+            "Joka arkipäivä"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "У тексті «kolmena maanantai-iltapäivänä».",
+          "id": "07-tyo-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä osallistujan pitää tehdä ennen koulutusta?",
+          "options": [
+            "Ostaa oppikirja",
+            "Ilmoittautua henkilöstöosastolle",
+            "Vaihtaa työpaikkaa"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Потрібно записатися у відділі кадрів.",
+          "id": "07-tyo-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/07-tyo.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/07-tyo-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 35.42,
+          "bytes": 213000,
+          "sha256": "a9eea86b9661707d7d3de5c27ca588dbce1b4a8edadf7774dd105a29c23df0d1",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 40.7,
+          "bytes": 244314,
+          "sha256": "64fa5c95197e02595b00cbc328ad10dc2b2f46d847268aca30472b38ff274721",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "08-ymparisto-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Hei, tulethan lauantaina pihan siivoustalkoisiin?\n\nMihin aikaan ne alkavat?\n\nKello kymmeneltä. Me keräämme roskia ja istutamme muutaman pensaan.\n\nPitääkö minun tuoda jotain välineitä?\n\nHanskat kannattaa ottaa mukaan, mutta haravat ja jätesäkit löytyvät taloyhtiöltä.\n\nSelvä! Voin tulla noin yhdeltätoista.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä osallistujien kannattaa tuoda itse?",
+          "options": [
+            "Harava",
+            "Hanskat",
+            "Jätesäkit"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Рукавички варто принести; інструменти й пакети є у житлового товариства.",
+          "id": "08-ymparisto-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin siivoustalkoot alkavat?",
+          "options": [
+            "Kello 10",
+            "Kello 11",
+            "Kello 12"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Початок о 10; B прийде об 11.",
+          "id": "08-ymparisto-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/08-ymparisto.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 21.11,
+          "bytes": 128173,
+          "sha256": "431dd1e7cad39477fb8bd18a11d3d99f8fb2c4835d12a21310de988c7b7d5777",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "08-ymparisto-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Taloyhtiön jätehuoneeseen on tullut uusi muovipakkausten keräysastia. Sinne saa laittaa tyhjät muovipakkaukset, esimerkiksi jogurttipurkit ja pesuainepullot. Pakkaukset pitää tarvittaessa huuhtaista, jotta niihin ei jää paljon ruokaa. Muoviset lelut eivät kuulu tähän astiaan, vaan ne lajitellaan erikseen paikallisten ohjeiden mukaan. Lasipakkauksille on oma astia jätehuoneen oikeassa reunassa. Taloyhtiö järjestää ensi torstaina lyhyen lajitteluillan kerhohuoneessa.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä uuteen astiaan saa laittaa?",
+          "options": [
+            "Muovileluja",
+            "Tyhjiä muovipakkauksia",
+            "Lasipulloja"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "У новий контейнер приймають порожні пластикові упаковки.",
+          "id": "08-ymparisto-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Missä lajitteluillan tilaisuus pidetään?",
+          "options": [
+            "Kerhohuoneessa",
+            "Kirjastossa",
+            "Pysäköintialueella"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Зазначено kerhohuoneessa.",
+          "id": "08-ymparisto-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/08-ymparisto.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/08-ymparisto-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 32.86,
+          "bytes": 194887,
+          "sha256": "1899c8568be552680bfd12b6d2659f265fb2deb12403a4e609ad6276a0534ff4",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 37.75,
+          "bytes": 217393,
+          "sha256": "c0490b9b8f1525017e2a89d586b3f17e5c68fd824dc29bd466f68268f3c64f9d",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "09-yhteiskunta-dialogue",
+      "category": "one_voice_dialogue_script",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Hei! Mistä saan tietoa kaupungin ilmaisista suomen kursseista?\n\nKurssit löytyvät kaupungin verkkosivuilta, mutta voin näyttää sinulle osoitteen.\n\nKiitos. Voiko kursseille ilmoittautua täällä?\n\nEi täällä tiskillä. Ilmoittautuminen tehdään verkossa ensi maanantaista alkaen.\n\nEntä jos tarvitsen apua lomakkeen kanssa?\n\nKirjastossa on digitukea tiistaisin. He voivat neuvoa sinua.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin kursseille voi alkaa ilmoittautua?",
+          "options": [
+            "Ensi maanantaina",
+            "Tänään",
+            "Ensi perjantaina"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Реєстрація починається наступного понеділка.",
+          "id": "09-yhteiskunta-l-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mistä saa apua lomakkeen täyttämiseen?",
+          "options": [
+            "Kirjaston digituesta",
+            "Kaupungin liikuntahallista",
+            "Bussinkuljettajalta"
+          ],
+          "correct_index": 0,
+          "explanation_uk": "Співробітник скеровує до бібліотечної цифрової підтримки.",
+          "id": "09-yhteiskunta-l-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/09-yhteiskunta.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 25.9,
+          "bytes": 158615,
+          "sha256": "eb6cb896d4fa057196b64ca31d09a04631244fe470cefa4a0eeb923d0ad9eaf0",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "09-yhteiskunta-notice",
+      "category": "informational_monologue",
+      "level_hint": "A2.2-B1",
+      "transcript_fi": "Kaupunginkirjasto aloittaa maksuttoman digitukipalvelun marraskuussa. Vapaaehtoiset neuvovat esimerkiksi sähköpostin käytössä ja sähköisten lomakkeiden täyttämisessä. Digitukea saa tiistaisin kello 16–18, eikä aikaa tarvitse varata etukäteen. Palvelussa ei kuitenkaan hoideta asiakkaan pankkiasioita eikä täytetä hakemuksia hänen puolestaan. Mukaan kannattaa ottaa oma laite, jos kysymys koskee sitä. Tarvittaessa kirjastossa on myös tietokoneita asiakkaiden käytössä. Lisätietoja voi kysyä kirjaston palvelupisteestä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Pitääkö digitukeen varata aika?",
+          "options": [
+            "Kyllä, aina",
+            "Ei tarvitse",
+            "Vain verkkosivulla"
+          ],
+          "correct_index": 1,
+          "explanation_uk": "Чітко сказано «eikä aikaa tarvitse varata etukäteen».",
+          "id": "09-yhteiskunta-r-q1"
+        },
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mitä vapaaehtoiset eivät tee?",
+          "options": [
+            "Neuvo sähköpostin käytössä",
+            "Selitä sähköisiä lomakkeita",
+            "Hoida asiakkaan pankkiasioita"
+          ],
+          "correct_index": 2,
+          "explanation_uk": "Банківські операції не виконуються.",
+          "id": "09-yhteiskunta-r-q2"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/themes/09-yhteiskunta.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 38.12,
+          "bytes": 230319,
+          "sha256": "c0d3454fa894d7acc2fe5ac708fc0e846d7f2474bcc1d1cb765799c73cd3abbc",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
+          "variant": "scaffold_slow",
+          "tempo_multiplier": 0.87,
+          "duration_seconds": 43.8,
+          "bytes": 258697,
+          "sha256": "60a046732076347538db25c7fe3ae9da14b1e5816aa48994f9db8e715cb2ace9",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "b1-read-inference-001-audio",
+      "category": "complex_notice",
+      "level_hint": "B1-B2",
+      "transcript_fi": "Taloyhtiön hissi korjataan ensi viikon maanantaista keskiviikkoon. Työn aikana hissi ei ole käytössä, joten asukkaiden täytyy käyttää portaita. Huoltoyhtiö pyytää välttämään suurten tavaroiden kuljettamista porraskäytävässä ruuhka-aikoina. Tiistaina kello 12–15 talon pääovi pidetään työmaan takia lukittuna, ja kulku tapahtuu sisäpihan ovesta. Asukkaiden omat avaimet toimivat myös siellä. Jos et pysty käyttämään portaita ja tarvitset apua välttämättömissä asioissa, ota yhteyttä huoltoyhtiöön viimeistään perjantaina. Korjaus voi valmistua keskiviikkoa aikaisemmin, mutta tästä ilmoitetaan erikseen. Päivystäjä vastaa kiireellisiin turvallisuuskysymyksiin ympäri vuorokauden. Muista kuitenkin, että tavalliset huoltopyynnöt käsitellään arkisin.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miten taloon kuljetaan tiistaina kello 13?",
+          "options_fi": [
+            "Pääovesta",
+            "Sisäpihan ovesta",
+            "Autotallin kautta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "kulku tapahtuu sisäpihan ovesta",
+          "explanation_uk": "Точний час потрапляє у вікно, коли головні двері зачинені.",
+          "id": "b1-read-inference-001-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Hissin arvioidaan olevan poissa käytöstä koko seuraavan viikon.",
+          "answer": false,
+          "evidence_fi": "ensi viikon maanantaista keskiviikkoon",
+          "explanation_uk": "Три дні — не весь наступний тиждень.",
+          "id": "b1-read-inference-001-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mihin mennessä apua tarvitsevan asukkaan pitää ottaa yhteyttä huoltoyhtiöön?",
+          "model_answer_fi": "Viimeistään perjantaina.",
+          "evidence_fi": "viimeistään perjantaina",
+          "explanation_uk": "У відкритій відповіді достатньо часу з правильним значенням.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-001-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Korjaus voi valmistua ennen keskiviikkoa.",
+          "answer": true,
+          "evidence_fi": "Korjaus voi valmistua keskiviikkoa aikaisemmin",
+          "explanation_uk": "Може завершитися раніше, але немає гарантії.",
+          "id": "b1-read-inference-001-q4"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 51.14,
+          "bytes": 309690,
+          "sha256": "fe32244d6ca359769a58a753aba545a850e19954720804f6b1597db3bb7b6d72",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
+          "variant": "challenge_fast",
+          "tempo_multiplier": 1.12,
+          "duration_seconds": 45.68,
+          "bytes": 279337,
+          "sha256": "add48168907ed00bd2fbf57bce6c705c79bb69a7e005c28063b9be2a380291ab",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "b1-read-inference-002-audio",
+      "category": "complex_notice",
+      "level_hint": "B1-B2",
+      "transcript_fi": "Työpaikan työvuorolistat julkaistaan jatkossa kaksi viikkoa aikaisemmin kuin ennen. Muutoksen tarkoitus on helpottaa työntekijöiden vapaa-ajan suunnittelua. Jos työntekijä haluaa vaihtaa vuoroa työkaverin kanssa, hänen pitää pyytää esihenkilön hyväksyntä sähköisessä järjestelmässä. Pelkkä suullinen sopimus ei siis enää riitä. Kiireellisissä perhetilanteissa työntekijä voi edelleen soittaa suoraan esihenkilölle. Jos järjestelmä ei toimi, vuoronvaihtopyyntö tehdään sähköpostitse. Työvuorolista voi muuttua vielä julkaisun jälkeen esimerkiksi sairauspoissaolon vuoksi, ja tällaisista muutoksista ilmoitetaan työntekijöille erikseen. Henkilöstö saa koulutuksen uuden järjestelmän käyttöön ensi tiistaina. Koulutukseen osallistuminen on työaikaa.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi työvuorolistat julkaistaan aikaisemmin?",
+          "options_fi": [
+            "Jotta vapaa-aikaa olisi helpompi suunnitella",
+            "Jotta työpäivät olisivat pidempiä",
+            "Koska työntekijöitä on vähemmän"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "helpottaa työntekijöiden vapaa-ajan suunnittelua",
+          "explanation_uk": "Причина — зручніше планування позаробочого часу.",
+          "id": "b1-read-inference-002-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Työkaverien suullinen sopimus riittää vuoron vaihtamiseen.",
+          "answer": false,
+          "evidence_fi": "Pelkkä suullinen sopimus ei siis enää riitä.",
+          "explanation_uk": "Тепер потрібне погодження в системі.",
+          "id": "b1-read-inference-002-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mitä työntekijän pitäisi tehdä, jos järjestelmä on poissa käytöstä?",
+          "model_answer_fi": "Lähettää vuoronvaihtopyyntö sähköpostitse.",
+          "evidence_fi": "vuoronvaihtopyyntö tehdään sähköpostitse",
+          "explanation_uk": "Питання перевіряє альтернативний канал.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-002-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Kaikista työvuorolistan muutoksista ilmoitetaan työntekijöille erikseen.",
+          "answer": true,
+          "evidence_fi": "tällaisista muutoksista ilmoitetaan työntekijöille erikseen",
+          "explanation_uk": "Далі після публікації зміни повідомлятимуть окремо.",
+          "id": "b1-read-inference-002-q4"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 50.04,
+          "bytes": 298696,
+          "sha256": "efa1a63dbffc50156c8779fe676c195bc34f829e080327180f09cd4447962eab",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
+          "variant": "challenge_fast",
+          "tempo_multiplier": 1.12,
+          "duration_seconds": 44.68,
+          "bytes": 269196,
+          "sha256": "3278f9b0699466308943be7e703d1afc041a00400cecef6f3aaa57f3f5a4cac6",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "b1-read-inference-003-audio",
+      "category": "complex_notice",
+      "level_hint": "B1-B2",
+      "transcript_fi": "Verkkokaupan paketti on toimitettu lähikaupan noutopisteeseen, vaikka asiakas valitsi tilatessaan pakettiautomaatin. Muutos johtuu siitä, että automaatti oli täynnä toimituspäivänä. Asiakas saa viestin, jossa kerrotaan uusi noutopaikka ja viimeinen noutopäivä. Paketti säilytetään noutopisteessä seitsemän päivää saapumisesta. Jos asiakas ei ehdi hakea sitä ajoissa, hänen tulee ottaa yhteyttä kuljetusyritykseen ennen määräajan päättymistä. Noutopisteen henkilökunta ei voi pidentää säilytysaikaa. Pakettia noutaessa tarvitaan viestissä oleva noutokoodi ja henkilöllisyystodistus. Kuljetusyritys pahoittelee muutosta ja muistuttaa, että noutopisteen aukioloajat voivat poiketa pakettiautomaatin käytettävyydestä.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Miksi paketti vietiin lähikauppaan?",
+          "options_fi": [
+            "Automaatti oli täynnä",
+            "Asiakas tilasi kotiinkuljetuksen",
+            "Noutopiste oli suljettu"
+          ],
+          "correct_index": 0,
+          "evidence_fi": "automaatti oli täynnä toimituspäivänä",
+          "explanation_uk": "Заміна місця не була вибором покупця.",
+          "id": "b1-read-inference-003-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Lähikaupan henkilökunta voi pidentää paketin säilytysaikaa.",
+          "answer": false,
+          "evidence_fi": "henkilökunta ei voi pidentää säilytysaikaa",
+          "explanation_uk": "Право продовжити термін не у персоналу магазину.",
+          "id": "b1-read-inference-003-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mitä tarvitset, kun haet paketin?",
+          "model_answer_fi": "Noutokoodin ja henkilöllisyystodistuksen.",
+          "evidence_fi": "noutokoodi ja henkilöllisyystodistus",
+          "explanation_uk": "Два обов'язкових елементи.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-003-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Paketti on noudettavissa seitsemän päivää saapumisesta.",
+          "answer": true,
+          "evidence_fi": "Paketti säilytetään noutopisteessä seitsemän päivää saapumisesta.",
+          "explanation_uk": "У тексті прямо вказаний термін з моменту прибуття.",
+          "id": "b1-read-inference-003-q4"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 48.49,
+          "bytes": 295708,
+          "sha256": "fc5837c375198cd51a74a55b2c8036a01224014ec4da21116a6ccad734d7e439",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
+          "variant": "challenge_fast",
+          "tempo_multiplier": 1.12,
+          "duration_seconds": 43.3,
+          "bytes": 266201,
+          "sha256": "736790cf02634a99ceb9d0d6404627b9e354d840f1a54b3cd1ae8eec5709287e",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "b1-read-inference-004-audio",
+      "category": "complex_notice",
+      "level_hint": "B1-B2",
+      "transcript_fi": "Kaupungissa järjestetään sunnuntaina juoksutapahtuma, joka vaikuttaa keskustan bussiliikenteeseen. Linjat 6 ja 12 käyttävät poikkeusreittiä kello 9–16. Keskustorin tavalliset pysäkit eivät ole silloin käytössä, mutta matkustajat voivat nousta bussiin torin pohjoispuolella sijaitsevalta väliaikaiselta pysäkiltä. Liput maksavat normaalin hinnan. Tapahtuman järjestäjät suosittelevat saapumaan alueelle julkisilla kulkuneuvoilla, koska pysäköintipaikkoja on rajoitetusti. Bussien aikataulut voivat poiketa tavallisista, joten matkaan kannattaa varata tavallista enemmän aikaa. Jos tapahtuma päättyy aikaisemmin, linjat palaavat normaalille reitille vasta sitten, kun katujen avaaminen on turvallista. Tarkemmat tiedot löytyvät kaupungin liikennesivulta.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Mistä bussin voi ottaa sunnuntaina kello 11?",
+          "options_fi": [
+            "Keskustorin tavalliselta pysäkiltä",
+            "Torin pohjoispuolen väliaikaiselta pysäkiltä",
+            "Vain rautatieasemalta"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "torin pohjoispuolella sijaitsevalta väliaikaiselta pysäkiltä",
+          "explanation_uk": "Правильне місце — тимчасова зупинка.",
+          "id": "b1-read-inference-004-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Poikkeusreitin vuoksi liput ovat tavallista halvempia.",
+          "answer": false,
+          "evidence_fi": "Liput maksavat normaalin hinnan.",
+          "explanation_uk": "Про зміну ціни не сказано; ціна звичайна.",
+          "id": "b1-read-inference-004-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Miksi matkaan kannattaa varata enemmän aikaa?",
+          "model_answer_fi": "Bussien aikataulut voivat muuttua tai poiketa tavallisista.",
+          "evidence_fi": "Bussien aikataulut voivat poiketa tavallisista",
+          "explanation_uk": "Причина — можлива затримка / змінений розклад.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-004-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Bussit palaavat tavalliselle reitille heti, jos juoksutapahtuma loppuu aikaisin.",
+          "answer": false,
+          "evidence_fi": "vasta sitten, kun katujen avaaminen on turvallista",
+          "explanation_uk": "Потрібна додаткова умова безпеки.",
+          "id": "b1-read-inference-004-q4"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 53.66,
+          "bytes": 321795,
+          "sha256": "e65e87caf8f228b6646e3a1f7ac1ad688040d781708fb3b8f99c3ed62e176929",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
+          "variant": "challenge_fast",
+          "tempo_multiplier": 1.12,
+          "duration_seconds": 47.92,
+          "bytes": 291991,
+          "sha256": "69adc79179b3f2aa9754cc5c66aa2d1cf9f46d1a8dc45355454ce3c45f66d1a4",
+          "contains_human_voices": false
+        }
+      ]
+    },
+    {
+      "id": "b1-read-inference-005-audio",
+      "category": "complex_notice",
+      "level_hint": "B1-B2",
+      "transcript_fi": "Kirjasto aloittaa uuden digitukipalvelun ihmisille, jotka tarvitsevat apua sähköisten palveluiden käytössä. Ohjaajat näyttävät esimerkiksi, miten sähköpostiin liitetään tiedosto tai miten verkkolomaketta käytetään. He eivät kuitenkaan täytä virallisia hakemuksia asiakkaan puolesta eivätkä käsittele pankkitunnuksia. Palvelu on maksuton, mutta tiistai-iltapäivän tapaamiseen pitää varata aika etukäteen. Torstaisin järjestetään lyhyt avoin neuvonta, johon voi osallistua ilman ajanvarausta. Jos tarvitset tulkkausta, ota yhteyttä kirjastoon jo ennen käyntiä. Kirjastolla ei ole mahdollisuutta järjestää tulkkia jokaiseen tapaamiseen. Kirjaston tiedotteen mukaan palvelua kokeillaan aluksi kolmen kuukauden ajan, ja sen jatkosta päätetään asiakaspalautteen perusteella.",
+      "questions": [
+        {
+          "type": "single_choice",
+          "prompt_fi": "Milloin digitukeen voi tulla ilman ajanvarausta?",
+          "options_fi": [
+            "Tiistai-iltapäivänä",
+            "Torstaisin",
+            "Aina"
+          ],
+          "correct_index": 1,
+          "evidence_fi": "Torstaisin järjestetään lyhyt avoin neuvonta, johon voi osallistua ilman ajanvarausta.",
+          "explanation_uk": "Потрібно розрізнити вівторок за записом і четвер без запису.",
+          "id": "b1-read-inference-005-q1"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Ohjaajat voivat täyttää virallisen hakemuksen asiakkaan puolesta.",
+          "answer": false,
+          "evidence_fi": "eivät kuitenkaan täytä virallisia hakemuksia asiakkaan puolesta",
+          "explanation_uk": "Інструктор пояснює, але не оформлює за клієнта.",
+          "id": "b1-read-inference-005-q2"
+        },
+        {
+          "type": "open",
+          "prompt_fi": "Mistä digitukipalvelun jatkaminen riippuu?",
+          "model_answer_fi": "Asiakaspalautteesta.",
+          "evidence_fi": "sen jatkosta päätetään asiakaspalautteen perusteella",
+          "explanation_uk": "Майбутнє сервісу залежить від відгуків.",
+          "scoring": "semantic_manual_or_reviewed_AI_only_no_exact_string_match",
+          "id": "b1-read-inference-005-q3"
+        },
+        {
+          "type": "true_false",
+          "statement_fi": "Kirjasto lupaa tulkin jokaiseen tapaamiseen.",
+          "answer": false,
+          "evidence_fi": "ei ole mahdollisuutta järjestää tulkkia jokaiseen tapaamiseen",
+          "explanation_uk": "Потрібно заздалегідь запитати; гарантії немає.",
+          "id": "b1-read-inference-005-q4"
+        }
+      ],
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
+      "created_in_project": true,
+      "synthetic_audio": true,
+      "speaker_model": "Piper fi_FI-harri-medium",
+      "different_character_voices": false,
+      "speaker_count": 1,
+      "official_yki": false,
+      "quality_status": "needs_native_listening_review",
+      "transcript_status": "original_text_tts_unverified_pronunciation",
+      "intended_use": [
+        "gist",
+        "details",
+        "delayed_recall",
+        "transfer"
+      ],
+      "answer_reveal": "after_submission",
+      "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
+      "audio_versions": [
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
+          "variant": "normal",
+          "tempo_multiplier": 1.0,
+          "duration_seconds": 51.83,
+          "bytes": 311093,
+          "sha256": "642be549370238e5e83ce23ac13f413c12ceb0295a3c237115efd11e7ea7185e",
+          "contains_human_voices": false
+        },
+        {
+          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
+          "variant": "challenge_fast",
+          "tempo_multiplier": 1.12,
+          "duration_seconds": 46.28,
+          "bytes": 281083,
+          "sha256": "f1ba0ded82ec2ced8b3fa0bc6fce21ac1c4b13f88f7018f9e8a414ccedeb8fbc",
+          "contains_human_voices": false
+        }
+      ]
+    }
+  ]
+}
