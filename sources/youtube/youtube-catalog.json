@@ -3344,13 +3344,614 @@
       "publisher_caption_claim": "publisher_says_subtitles_available_not_verified",
       "source_metadata_ref": "turn111049youtube0",
       "learning_role": "natural_two_speaker_B1_interview"
+    },
+    {
+      "id": "yt-r6-utu-01",
+      "provider": "youtube",
+      "youtube_video_id": "XtuXlsyeYC0",
+      "watch_url": "https://www.youtube.com/watch?v=XtuXlsyeYC0",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Puhekieli, osa 1 — Spoken and written Finnish: Background",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "spoken_vs_written",
+        "informal_finnish"
+      ],
+      "product_fit_score_100": 93,
+      "why_useful": "Official University of Turku language-teaching video, spoken finnish. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-1-q1",
+          "prompt_fi": "Miten puhekieli ja kirjakieli eroavat toisistaan?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-02",
+      "provider": "youtube",
+      "youtube_video_id": "WzHAzmgCbwk",
+      "watch_url": "https://www.youtube.com/watch?v=WzHAzmgCbwk",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Puhekieli, osa 2 — Spoken and written Finnish: Key differences",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "pronouns",
+        "spoken_vs_written",
+        "everyday_conversation"
+      ],
+      "product_fit_score_100": 95,
+      "why_useful": "Official University of Turku language-teaching video, spoken finnish. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-2-q1",
+          "prompt_fi": "Muuta yksi kirjakielinen lause puhekielelle.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-03",
+      "provider": "youtube",
+      "youtube_video_id": "pMn3vwjBkPw",
+      "watch_url": "https://www.youtube.com/watch?v=pMn3vwjBkPw",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Puhekieli, osa 3 — Characteristics of spoken Finnish",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1+",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "informal_finnish",
+        "comprehension"
+      ],
+      "product_fit_score_100": 96,
+      "why_useful": "Official University of Turku language-teaching video, spoken finnish. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-3-q1",
+          "prompt_fi": "Mitkä puhekielen piirteet tunnistat videon esimerkeistä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-04",
+      "provider": "youtube",
+      "youtube_video_id": "sDNkw_QP9Hw",
+      "watch_url": "https://www.youtube.com/watch?v=sDNkw_QP9Hw",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Ääntäminen — lyhyet ja pitkät äänteet",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1+",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "phoneme_length",
+        "word_meaning",
+        "pronunciation"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-4-q1",
+          "prompt_fi": "Miten sanan merkitys voi muuttua, jos äänne on pitkä?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-05",
+      "provider": "youtube",
+      "youtube_video_id": "t4-B7ng-llw",
+      "watch_url": "https://www.youtube.com/watch?v=t4-B7ng-llw",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Ääntäminen — Diftongit",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "diphthongs",
+        "pronunciation"
+      ],
+      "product_fit_score_100": 89,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-5-q1",
+          "prompt_fi": "Anna kaksi esimerkkiä suomalaisista diftongeista.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-06",
+      "provider": "youtube",
+      "youtube_video_id": "W9ZdWVrCDxs",
+      "watch_url": "https://www.youtube.com/watch?v=W9ZdWVrCDxs",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Prosodia kielenopiskelussa",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1+",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "prosody",
+        "comprehension",
+        "speech_rhythm"
+      ],
+      "product_fit_score_100": 94,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-6-q1",
+          "prompt_fi": "Miten painotus vaikuttaa siihen, mitä kuulija ymmärtää?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-07",
+      "provider": "youtube",
+      "youtube_video_id": "EmmkStwhz1Q",
+      "watch_url": "https://www.youtube.com/watch?v=EmmkStwhz1Q",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Sanapaino — Word stress",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "word_stress",
+        "pronunciation"
+      ],
+      "product_fit_score_100": 90,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-7-q1",
+          "prompt_fi": "Mihin tavuun suomen sanan pääpaino tavallisesti osuu?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-08",
+      "provider": "youtube",
+      "youtube_video_id": "wFv7i0bL-is",
+      "watch_url": "https://www.youtube.com/watch?v=wFv7i0bL-is",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Lausepaino — Sentence stress",
+      "publication_date": null,
+      "cefr_estimate": "B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "sentence_stress",
+        "emphasis",
+        "conversation"
+      ],
+      "product_fit_score_100": 94,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-8-q1",
+          "prompt_fi": "Lausu sama lause kahdella eri painotuksella. Mikä muuttuu?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-09",
+      "provider": "youtube",
+      "youtube_video_id": "pVN3Hu5kLyY",
+      "watch_url": "https://www.youtube.com/watch?v=pVN3Hu5kLyY",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Intonaatio — Intonation",
+      "publication_date": null,
+      "cefr_estimate": "B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "intonation",
+        "questions",
+        "interaction"
+      ],
+      "product_fit_score_100": 93,
+      "why_useful": "Official University of Turku language-teaching video, pronunciation. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-9-q1",
+          "prompt_fi": "Mitä voit kertoa intonaation vaikutuksesta keskusteluun?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-10",
+      "provider": "youtube",
+      "youtube_video_id": "ZzL30LReMY8",
+      "watch_url": "https://www.youtube.com/watch?v=ZzL30LReMY8",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Tapaamisen sopiminen — Arranging a meeting",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "making_arrangements",
+        "scheduling",
+        "polite_requests"
+      ],
+      "product_fit_score_100": 97,
+      "why_useful": "Official University of Turku language-teaching video, situations. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-10-q1",
+          "prompt_fi": "Ehdota tapaamisaikaa ystävälle ja kysy, sopiiko aika.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-11",
+      "provider": "youtube",
+      "youtube_video_id": "SplL92RaU_g",
+      "watch_url": "https://www.youtube.com/watch?v=SplL92RaU_g",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Mielipiteen ilmaiseminen — Expressing an opinion",
+      "publication_date": null,
+      "cefr_estimate": "B1",
+      "skills": [
+        "speaking",
+        "listening",
+        "writing"
+      ],
+      "yki_topics": [
+        "expressing_opinion",
+        "giving_reasons",
+        "agree_disagree"
+      ],
+      "product_fit_score_100": 98,
+      "why_useful": "Official University of Turku language-teaching video, situations. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-11-q1",
+          "prompt_fi": "Kerro mielipiteesi ja perustele se kahdella syyllä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-12",
+      "provider": "youtube",
+      "youtube_video_id": "T4qNkR6melI",
+      "watch_url": "https://www.youtube.com/watch?v=T4qNkR6melI",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Dialogi — Miten se kirjoitetaan?",
+      "publication_date": null,
+      "cefr_estimate": "A2",
+      "skills": [
+        "listening",
+        "speaking"
+      ],
+      "yki_topics": [
+        "clarification",
+        "spelling",
+        "communication_repair"
+      ],
+      "product_fit_score_100": 86,
+      "why_useful": "Official University of Turku language-teaching video, situations. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-12-q1",
+          "prompt_fi": "Pyydä henkilöä toistamaan ja kirjoittamaan sukunimensä.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-13",
+      "provider": "youtube",
+      "youtube_video_id": "ivl8mSWyyOs",
+      "watch_url": "https://www.youtube.com/watch?v=ivl8mSWyyOs",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Reagointivideo — Kuka sä oot?",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "yki_topics": [
+        "reaction",
+        "identity",
+        "spoken_finnish"
+      ],
+      "product_fit_score_100": 91,
+      "why_useful": "Official University of Turku language-teaching video, situations. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-13-q1",
+          "prompt_fi": "Vastaa spontaanisti kysymykseen: Kuka sä oot?",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
+    },
+    {
+      "id": "yt-r6-utu-14",
+      "provider": "youtube",
+      "youtube_video_id": "BDoX2eOUn8k",
+      "watch_url": "https://www.youtube.com/watch?v=BDoX2eOUn8k",
+      "creator": "Turun yliopisto — Ohjatusti sujuvaan suomeen",
+      "title": "Kerro itsestäsi — Listen and react",
+      "publication_date": null,
+      "cefr_estimate": "A2–B1",
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "yki_topics": [
+        "self_introduction",
+        "work",
+        "studies",
+        "real_life_dialogue"
+      ],
+      "product_fit_score_100": 96,
+      "why_useful": "Official University of Turku language-teaching video, situations. Useful for active response and comparing spoken Finnish; supporting context is on the university course page. Editorial CEFR is not a certified level.",
+      "source_verification": "publisher_direct_watch_link_verified_by_click",
+      "source_page": "https://www.utu.fi/fi/fi/yliopisto/kieli-ja-viestintaopintojen-keskus/tutkimus-ja-kehittaminen/osus/opetusvideot",
+      "playback_verified": false,
+      "embeddable": null,
+      "subtitles_fi_verified": false,
+      "transcript_locally_stored": false,
+      "license": "youtube_link_only_no_redistribution_license_assumed",
+      "teacher_review": "pending",
+      "learning_mode_only": true,
+      "official_yki_material": false,
+      "chapters": [],
+      "original_question_seeds": [
+        {
+          "id": "yt-r6-utu-14-q1",
+          "prompt_fi": "Kerro itsestäsi, työstäsi ja opinnoistasi kolmella lauseella.",
+          "answer_key": null,
+          "status": "original_draft_pending_teacher_review"
+        }
+      ],
+      "title_is_editorial_summary": false,
+      "round": 6,
+      "educator_provenance": "University of Turku official video resources, verified published outbound YouTube ID"
     }
   ],
-  "last_curated_update": "2026-10-21",
+  "last_curated_update": "2026-10-23",
   "priority_note_round2": "Practical multi-speaker A2-B1 audio-only dialogues, YKI email self-production, Finnish Flow two-person conversations and natural Puhekieli take precedence over passive long grammar videos. Guide YKI 2026 not authoritative 2027 format.",
   "round3_update": "8 added with publisher watch-page URLs; six/seven are publisher described A1-A2 slow scenario stories best used as bridging material, not substitute for B1+ naturally spoken exam prep. One authentic Kielibuusti working-life interview. All remain pending playback and S2 verification.",
   "round4_update": "Quality-gated +6 video URLs (44 total). B1/B2 explicit listening, 2 independent productive YKI-style lessons, native workplace coffee phrases, natural-speed KatChats and two news discussion examples; no generic A1/A2 video dumps. All checked against 38 unique previous IDs, no duplicate.",
   "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified.",
   "yki_mock_index": "sources/official/yki-mock-simulation-sources.json",
-  "mock_classification_warning": "3 preexisting YouTube records tagged. Timed speaking mock is not complete official 4-skill YKI nor faithful digital 2027 UX. Video sample-answer leakage invalidates held-out exam scoring."
+  "mock_classification_warning": "3 preexisting YouTube records tagged. Timed speaking mock is not complete official 4-skill YKI nor faithful digital 2027 UX. Video sample-answer leakage invalidates held-out exam scoring.",
+  "round6_update": "14 new unique individual YouTube watch IDs directly linked from the official University of Turku / Ohjatusti sujuvaan suomeen teaching-video page. Publisher-linked identity verified; current playback/embeddability/subtitles not verified. These are training videos, not YKI mock or offline-licensed video assets."
 }
