@@ -79,7 +79,7 @@ def check_links(root: Path):
     """Check every Markdown navigation link, excluding fenced code examples."""
     from validate_ai_docs import markdown_without_fences
     errors = []
-    re_link = re.compile(r"!?\\[[^\\]\\n]+\\]\\(([^)\\n]+)\\)")
+    re_link = re.compile(r"!?\[[^\]\n]+\]\(([^)\n]+)\)"
     markdown_files = sorted(root.rglob("*.md"))
     for file in markdown_files:
         if ".git" in file.parts or "node_modules" in file.parts:
