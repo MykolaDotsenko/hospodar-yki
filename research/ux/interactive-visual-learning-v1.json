@@ -464,7 +464,7 @@
   "related_docs": [
     "docs/11-mvp-product-requirements.md",
     "docs/15-two-modes-skill-scopes.md",
-    "docs/17-color-attention-l2-deep-dive.md",
-    "docs/18-interactive-visual-learning-evidence-2026-10.md"
+    "research/design/17-color-attention-l2-deep-dive.md",
+    "research/ux/18-interactive-visual-learning-evidence-2026-10.md"
   ]
 }

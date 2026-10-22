@@ -1,8 +1,8 @@
 # 20 — Другий раунд досліджень: інтерактивні мультимодальні завдання, відео, жести, голос та візуальна економія
 
 **Перевірено:** 2026-10-21. **Статус:** дослідження → вимоги продукту, **не реалізація**.  
-**Мета:** доповнити [18 — інтерактивний UX](18-interactive-visual-learning-evidence-2026-10.md), [19 — learning engine](19-learning-books-to-engineering-2026-10.md) і [17 — color attention](17-color-attention-l2-deep-dive.md) **новими, не дубльованими** результатами; навчати дорослих A2.2→B1/B1+ для фінської й YKI.  
-**JSON для розробників:** [research/multimodal-interaction-evidence-v2.json](../research/multimodal-interaction-evidence-v2.json). *Цільовий, критичний огляд selected sources; не systematic PRISMA review. Числові g — стандартизовані ефекти оригінальних досліджень, не % поліпшення нашого застосунку.*
+**Мета:** доповнити [18 — інтерактивний UX](18-interactive-visual-learning-evidence-2026-10.md), [19 — learning engine](../../pedagogy/19-learning-books-to-engineering-2026-10.md) і [17 — color attention](../../design/17-color-attention-l2-deep-dive.md) **новими, не дубльованими** результатами; навчати дорослих A2.2→B1/B1+ для фінської й YKI.  
+**JSON для розробників:** [research/ux/multimodal-interaction-evidence-v2.json](multimodal-interaction-evidence-v2.json). *Цільовий, критичний огляд selected sources; не systematic PRISMA review. Числові g — стандартизовані ефекти оригінальних досліджень, не % поліпшення нашого застосунку.*
 
 ## 1. Executive decision — головна зміна дизайну
 
@@ -19,7 +19,7 @@
 
 | ID | Перевірене джерело | Що показано | Чому не можна надмірно узагальнювати |
 |---|---|---|---|
-| **V01** | [Mahdi, Mohsen & Almanea, 2024, Acta Psychologica](https://doi.org/10.1016/j.actpsy.2024.104341), **second-order meta-analysis 7 meta-analyses / 136 original studies** | Візуальні/мультимедійні glosses корисні, особливо для beginner/recognition; **single-mode gloss** у їхніх аналізах був кращий за multi-mode | Second-order overlapping studies; recognition не = продуктивна B1; інші умови [Zhang et al. 2025](../research/interactive-visual-learning-v1.json) показали перевагу L1+picture на immediate tests. Ніякої універсальної формули «завжди одна підказка» |
+| **V01** | [Mahdi, Mohsen & Almanea, 2024, Acta Psychologica](https://doi.org/10.1016/j.actpsy.2024.104341), **second-order meta-analysis 7 meta-analyses / 136 original studies** | Візуальні/мультимедійні glosses корисні, особливо для beginner/recognition; **single-mode gloss** у їхніх аналізах був кращий за multi-mode | Second-order overlapping studies; recognition не = продуктивна B1; інші умови [Zhang et al. 2025](interactive-visual-learning-v1.json) показали перевагу L1+picture на immediate tests. Ніякої універсальної формули «завжди одна підказка» |
 | **V02** | [Kurokawa, Hein & Uchihara, Language Learning, 2025 issue/first online 2024](https://doi.org/10.1111/lang.12697), **49 L2 captioned-viewing experiments / 89 effect sizes** | Captioned viewing давало середній позитивний ефект на **incidental vocabulary**: g=0.56 | Vocabulary from viewing не тотожне самостійному сприйманню на YKI: separate audio-only transfer потрібен |
 | **V03** | [Li, Chatain, Wang & Kapur, 2026, Educational Psychology Review](https://doi.org/10.1007/s10648-026-10194-9), **52 studies / 442 analyzed effect sizes** | Embodied vocabulary training: між групами g=0.65, у межах учасників g=0.27; **movement–meaning congruence** — найстійкіший moderator | Виявлено publication bias, отже сумарні ефекти могли бути завищені; не всі слова потребують руху |
 | **V04** | [Benefits of Enacting and Observing Gestures, 2023](https://doi.org/10.3390/bs13110920), **7 L2 studies / N=309** | Спостереження за змістовним жестом виявилося не гіршим за власний жест на вибраних словникових тестах | Мала база, переважно знайомі конкретні дії; не вимагати «рухай телефоном» |

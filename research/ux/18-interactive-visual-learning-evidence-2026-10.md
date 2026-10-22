@@ -4,7 +4,7 @@
 **Аудиторія:** дорослі, українськомовні, фінська приблизно A2.2 → B1/B1+, YKI keskitaso.  
 **Межі огляду:** цільовий огляд вибраних академічних праць і нормативних джерел; не PRISMA systematic review. Відокремлюємо загальну науку навчання від прямих L2-доказів, а перевірені ефекти — від власних UX-гіпотез.
 
-**Інтеграція:** [головне ТЗ](15-two-modes-skill-scopes.md) · [MVP ТЗ](11-mvp-product-requirements.md) · [методики (67)](08-learning-methods-evidence-2026-10.md) · [колір/увага](17-color-attention-l2-deep-dive.md) · [JSON-контракт](../research/interactive-visual-learning-v1.json).
+**Інтеграція:** [головне ТЗ](../../docs/15-two-modes-skill-scopes.md) · [MVP ТЗ](../../docs/11-mvp-product-requirements.md) · [методики (67)](../../pedagogy/08-learning-methods-evidence-2026-10.md) · [колір/увага](../../design/17-color-attention-l2-deep-dive.md) · [JSON-контракт](interactive-visual-learning-v1.json).
 
 ## 1. Executive decision
 

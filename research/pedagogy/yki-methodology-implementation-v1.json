@@ -3,7 +3,7 @@
   "created_at": "2026-10-21",
   "status": "implementation_design_not_implemented",
   "target": "A2.2 → stable B1+ on YKI keskitaso, official 4-skill outcomes evaluated independently",
-  "evidence_register": "research/learning-methods-v1.json",
+  "evidence_register": "research/pedagogy/learning-methods-v1.json",
   "source_scope": "No copyrighted lessons/videos copied; methods summarized/paraphrased and attributed in evidence register.",
   "architecture_principles": [
     "Task-success-first, teacher-reviewed examples where scored",
@@ -25,10 +25,10 @@
         "yki-constructive-alignment"
       ],
       "reads": [
-        "content/b1/lexicon/contextual-chunks-v1.json",
-        "content/b1/grammar/rektio-v1.json",
-        "content/b1/grammar/ftb-frequency-cloze-v1.json",
-        "content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv"
+        "knowledge/dictionaries/b1/contextual-chunks-v1.json",
+        "knowledge/dictionaries/b1/rektio-v1.json",
+        "learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json",
+        "knowledge/dictionaries/b1/frequency/yle-news-top10000-v1.1.1.tsv"
       ],
       "input": "content with source/rights and separate teacher review status",
       "outputs": [
@@ -70,8 +70,8 @@
       ],
       "reads": [
         "content/b1/themes/",
-        "content/b1/high-yield/opinion-argumentation-v1.json",
-        "content/b1/contextual/dialogues-v1.json"
+        "learning/exercises/b1/high-yield/opinion-argumentation-v1.json",
+        "learning/exercises/b1/contextual/dialogues-v1.json"
       ],
       "input": "skill+genre+scenario+user needs",
       "outputs": [
@@ -107,9 +107,9 @@
         "caption-fading"
       ],
       "reads": [
-        "audio/library.json",
-        "content/b1/audio-long/lessons.json",
-        "audio/yki-targeted-sources-2026-10.json"
+        "assets/audio/library.json",
+        "learning/exercises/b1/audio-long/lessons.json",
+        "assets/audio/yki-targeted-sources-2026-10.json"
       ],
       "input": "licensed audio + aligned transcript + questions + speaker tags",
       "outputs": [
@@ -144,8 +144,8 @@
         "human-anchor-calibration"
       ],
       "reads": [
-        "content/b1/high-yield/writing-repair-clinic.json",
-        "content/b1/high-yield/opinion-argumentation-v1.json"
+        "learning/exercises/b1/high-yield/writing-repair-clinic.json",
+        "learning/exercises/b1/high-yield/opinion-argumentation-v1.json"
       ],
       "input": "written response and teacher-approved rubric",
       "outputs": [
@@ -180,8 +180,8 @@
         "negotiation-repair-dialogues"
       ],
       "reads": [
-        "content/b1/contextual/dialogues-v1.json",
-        "content/b1/high-yield/speaking-reaction-bank.json"
+        "learning/exercises/b1/contextual/dialogues-v1.json",
+        "learning/exercises/b1/high-yield/speaking-reaction-bank.json"
       ],
       "input": "voice sample + known task constraints",
       "outputs": [
@@ -253,7 +253,7 @@
         "error-bottleneck-deliberate"
       ],
       "reads": [
-        "content/b1/lexicon/contextual-chunks-v1.json",
+        "knowledge/dictionaries/b1/contextual-chunks-v1.json",
         "content/b1/lexicon/frequency/"
       ],
       "input": "explicit unknown or verified production error",
@@ -289,9 +289,9 @@
         "yki-constructive-alignment"
       ],
       "reads": [
-        "docs/01-official-yki-2027.md",
-        "content/b1/diagnostics/baseline-v1.json",
-        "content/b1/feedback-rubrics.json"
+        "research/yki/01-official-yki-2027.md",
+        "learning/exercises/b1/diagnostics/baseline-v1.json",
+        "learning/exercises/b1/feedback-rubrics.json"
       ],
       "input": "teacher-checked blind items + skill-level rubric",
       "outputs": [
@@ -326,7 +326,7 @@
         "cefr-mediation-paraphrase"
       ],
       "reads": [
-        "docs/01-official-yki-2027.md"
+        "research/yki/01-official-yki-2027.md"
       ],
       "input": "OPH published digital announcements & accessibility settings",
       "outputs": [
@@ -359,7 +359,7 @@
         "privacy-and-safe-personalization"
       ],
       "reads": [
-        "research/learning-methods-v1.json"
+        "research/pedagogy/learning-methods-v1.json"
       ],
       "input": "consented anonymized attempt traces and held-out task bank",
       "outputs": [
@@ -396,7 +396,7 @@
       ],
       "reads": [
         "content/b1/",
-        "audio/library.json"
+        "assets/audio/library.json"
       ],
       "input": "draft learning content + copyright notice + teacher-review checklist",
       "outputs": [
@@ -495,8 +495,8 @@
         "finnish-morph-contrast"
       ],
       "assets": [
-        "content/b1/grammar/ftb-frequency-cloze-v1.json",
-        "content/b1/grammar/rektio-v1.json"
+        "learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json",
+        "knowledge/dictionaries/b1/rektio-v1.json"
       ],
       "flow": "3–5 teacher-reviewed Finnish corpus examples → learner hypothesis → small contrast → unseen new sentence",
       "done_when": [
@@ -515,7 +515,7 @@
         "mobile-contextual-micropractice"
       ],
       "assets": [
-        "content/b1/lexicon/contextual-chunks-v1.json"
+        "knowledge/dictionaries/b1/contextual-chunks-v1.json"
       ],
       "flow": "Finnish chunk + accurate Ukrainian gloss + relevant image → active sentence → image-hidden delayed use",
       "done_when": [
@@ -534,7 +534,7 @@
         "balanced-deep-surface-feedback"
       ],
       "assets": [
-        "content/b1/high-yield/writing-repair-clinic.json"
+        "learning/exercises/b1/high-yield/writing-repair-clinic.json"
       ],
       "flow": "Draft → opt-in peer/teacher comments using semantic rubric → self repair → unseen solo writing",
       "done_when": [
@@ -553,7 +553,7 @@
         "learner-concept-map"
       ],
       "assets": [
-        "content/b1/high-yield/opinion-argumentation-v1.json"
+        "learning/exercises/b1/high-yield/opinion-argumentation-v1.json"
       ],
       "flow": "Sketch reasons → say/write answer → one added problem → turn off scaffolds → independent response",
       "done_when": [
@@ -571,7 +571,7 @@
         "finnish-quantity-dual-track"
       ],
       "assets": [
-        "audio/library.json"
+        "assets/audio/library.json"
       ],
       "flow": "Different licensed human speakers → quantity identification → optional audio-waveform visual comparison → human calibrated production",
       "done_when": [
@@ -583,5 +583,5 @@
     }
   ],
   "updated_at": "2026-10-21",
-  "evidence_effectiveness_registry": "research/learning-effectiveness-ratings-v1.json"
+  "evidence_effectiveness_registry": "research/pedagogy/learning-effectiveness-ratings-v1.json"
 }

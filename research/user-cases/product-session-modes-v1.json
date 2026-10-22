@@ -252,7 +252,7 @@
       "UI navigation and pause rules",
       "recording interaction"
     ],
-    "source_ref": "research/yki-digital-fidelity-evidence-2026-10.json",
+    "source_ref": "research/yki/yki-digital-fidelity-evidence-2026-10.json",
     "claimed_fidelity": "must_not_say_exact_without_verified_source"
   },
   "deliverables": {

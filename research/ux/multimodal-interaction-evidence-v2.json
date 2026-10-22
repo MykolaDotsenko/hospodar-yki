@@ -6,8 +6,8 @@
   "status": "requirements_only_not_implemented",
   "score_definition": "Expert product priority 0-100, not measured impact or YKI pass rate",
   "related_docs": [
-    "docs/20-multimodal-interactive-learning-2026-10.md",
-    "docs/18-interactive-visual-learning-evidence-2026-10.md",
+    "research/ux/20-multimodal-interactive-learning-2026-10.md",
+    "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
     "docs/15-two-modes-skill-scopes.md"
   ],
   "sources": [
