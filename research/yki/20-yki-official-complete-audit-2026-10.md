@@ -2,7 +2,7 @@
 
 **Перевірено 21.10.2026, версія 1.0.0.** Об'єкт: **suomi / keskitaso / чотири навички**. Мета: доказова основа для максимально точної репетиції **цифрового YKI весни 2027** в Hospodar YKI.  
 **Не є:** офіційним збірником екзаменаційних завдань, розкриттям секретного test bank, копією UI, затвердженим прогнозом оцінки або підтвердженням параметрів ПЗ 2027.  
-**Зв'язки:** [13 — попередній огляд](13-yki-exam-format-and-real-examples-2027.md) · [14 — digital fidelity v1](14-digital-yki-fidelity-spec.md) · [21 — runtime state machine v2](21-digital-yki-exam-simulator-executable-spec.md) · [JSON evidence+source register](../research/official-yki-deep-audit-v2.json) · [JSON task-pattern catalogue](../research/yki-official-patterns-v2.json).
+**Зв'язки:** [13 — попередній огляд](13-yki-exam-format-and-real-examples-2027.md) · [14 — digital fidelity v1](../../docs/14-digital-yki-fidelity-spec.md) · [21 — runtime state machine v2](../../docs/21-digital-yki-exam-simulator-executable-spec.md) · [JSON evidence+source register](official-yki-deep-audit-v2.json) · [JSON task-pattern catalogue](yki-official-patterns-v2.json).
 
 ## 1. КЛАСИ ДОКАЗІВ — обов'язково
 
@@ -167,7 +167,7 @@
 - У repo — посилання та короткий аналіз метаданих і типів, **не** mass download копій SOLKI/Yle MP3 чи цілих текстів; авторські права перевіряти перед використанням у продукті.
 - Банк оригінальних вправ — два набори: `calibration/rehearsal` і **held-out independent evaluation**. Якщо користувач бачив задачу, `unseen=false`, навіть якщо змінилася назва кнопки.
 - Голос: розпізнавання відповіді ≠ оцінка інтонації, плавності, достатності комунікативного наміру; потрібен 2-оцінювачний calibration.
-- Скрипти мають відхиляти `official_2027_exact`, якщо `unverified` field у profile не `confirmed`. Детальні контрактні стани, mock UX, тестові сценарії: [21 — implementation spec](21-digital-yki-exam-simulator-executable-spec.md).
+- Скрипти мають відхиляти `official_2027_exact`, якщо `unverified` field у profile не `confirmed`. Детальні контрактні стани, mock UX, тестові сценарії: [21 — implementation spec](../../docs/21-digital-yki-exam-simulator-executable-spec.md).
 
 ### Висновок
 

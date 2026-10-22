@@ -1,7 +1,7 @@
 # 13 — Як проходить фінський YKI keskitaso і де подивитися справжні зразки
 
 **Оновлено:** 21.10.2026 · **Орієнтир:** YKI suomi keskitaso / B1 (taitotaso 3), бажаний B1+; повний іспит 10.04.2027.  
-**Статус:** перевірені публічні першоджерела OPH (організатор) і Jyväskylän yliopisto / SOLKI (розробник завдань). Це *дослідницька база для застосунку*, не офіційна інструкція YKI. Додатковий машинозчитуваний покажчик: [yki-exam-examples-2026-10.json](../research/yki-exam-examples-2026-10.json).
+**Статус:** перевірені публічні першоджерела OPH (організатор) і Jyväskylän yliopisto / SOLKI (розробник завдань). Це *дослідницька база для застосунку*, не офіційна інструкція YKI. Додатковий машинозчитуваний покажчик: [yki-exam-examples-2026-10.json](yki-exam-examples-2026-10.json).
 
 > **ВАЖЛИВО ДЛЯ РОЗРОБКИ:** історичні сторінки SOLKI містять інструкції **паперових** іспитів (паперові бланки, друковані зошити, студія). Навесні 2027 **всі фінські YKI — цифрові**. Не переносити механіку паперового бланка, тривалість окремих секцій, кількість повторів чи час на конкретну відповідь на digital-2027 без свіжого підтвердження OPH. Офіційні сторінки дають **моделі компетенцій та приклади завдань**, а не скриншоти нової системи.
 
@@ -66,7 +66,7 @@
 - [Оголошення про поїздки / відкриті — Keskitaso_avoimet_kysymykset_2-1.mp3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskitaso_avoimet_kysymykset_2-1.mp3)
 - [Телефонний етикет — suktpy050.mp3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy050.mp3)
 
-Усі **11 каталогізованих official listening MP3 + 2 speaking MP3** уже посилально зібрані в [audio/catalog.json](../audio/catalog.json). **Права на повторне поширення не знайдено:** зберігати як URL у реєстрі, не завантажувати MP3 у Git без ліцензії.
+Усі **11 каталогізованих official listening MP3 + 2 speaking MP3** уже посилально зібрані в [assets/audio/catalog.json](../../assets/audio/catalog.json). **Права на повторне поширення не знайдено:** зберігати як URL у реєстрі, не завантажувати MP3 у Git без ліцензії.
 
 **Для Hospodar YKI:** contemporary B1 2–3 хв з **різними людськими голосами** і перевіреним verbatim transcript + WebVTT; перша спроба без тексту; контроль головної думки, деталей, намірів, прихованої інформації; лише після відповіді повторне навчальне слухання з субтитрами. Для симуляції правила відтворення мають бути окремим конфігом `officially_verified=false`.
 
@@ -125,7 +125,7 @@ JYU та SOLKI описують **три різнотипні письмові �
 
 1. Зберігати **джерело та права** кожного елементу; офіційні приклади — `external_link_only`, не записувати тексти або офіційні MP3 до публічного Git без прав.
 2. Робити оригінальні незнайомі тренувальні завдання **за форматами** SOLKI: MCQ / true-false / open / guided email / opinion / monologue / simulated conversation / short situational response.
-3. Для наявної [digitesti UI](../app/README.md) не називати таймінги точними офіційними; доповнити 4-skill mini-rehearsal на основі [двох маніфестів](../content/b1/exam-patterns/mini-rehearsals-v1.json), але не стверджувати, що це повний mock.
+3. Для наявної [digitesti UI](../../app/README.md) не називати таймінги точними офіційними; доповнити 4-skill mini-rehearsal на основі [двох маніфестів](../../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json), але не стверджувати, що це повний mock.
 4. Перед справжнім YKI simulator знайти постпілотний документ OPH з UI та test-centre setup; тільки після цього версіонувати `digital_format_verified_at` і додавати строгі правила повторів/навігації/часу.
 5. До оцінки `B1 achieved` потрібні невідомі (unseen) завдання з усіх 4 навичок, калібровані людиною вимоги, відповідність YKI дескрипторам; збережений `score/100` — лише внутрішній прогрес.
 
@@ -133,6 +133,6 @@ JYU та SOLKI описують **три різнотипні письмові �
 
 ## Доповнення: granular SOLKI зразки / normative provenance (21.10.2026)
 
-Точні task patterns і **example-scoped** часові вікна зібрані окремо: [20 — офіційний аудит](20-yki-official-complete-audit-2026-10.md), [12 зразків у структурованому каталозі](../research/yki-official-patterns-v2.json). Класи: `OFFICIAL_CURRENT`, `LEGAL_FOUNDATION_2011`, `HISTORICAL_OFFICIAL_SAMPLE`, `OFFICIAL_RUBRIC`, `UNVERIFIED_DIGITAL_2027`. **Текст зразка ≠ реальна екзаменаційна задача.** `perusteet` PDF є 2011, навіть коли OPH page filename label 2026. У цифровому тесті 2027 **кількість завдань, таймери, навігація, replay, recording, editor досі не підтверджені**, деталі у [21 — runtime spec](21-digital-yki-exam-simulator-executable-spec.md).
+Точні task patterns і **example-scoped** часові вікна зібрані окремо: [20 — офіційний аудит](20-yki-official-complete-audit-2026-10.md), [12 зразків у структурованому каталозі](yki-official-patterns-v2.json). Класи: `OFFICIAL_CURRENT`, `LEGAL_FOUNDATION_2011`, `HISTORICAL_OFFICIAL_SAMPLE`, `OFFICIAL_RUBRIC`, `UNVERIFIED_DIGITAL_2027`. **Текст зразка ≠ реальна екзаменаційна задача.** `perusteet` PDF є 2011, навіть коли OPH page filename label 2026. У цифровому тесті 2027 **кількість завдань, таймери, навігація, replay, recording, editor досі не підтверджені**, деталі у [21 — runtime spec](../../docs/21-digital-yki-exam-simulator-executable-spec.md).
 
 Пряма архівна навігація: [читання](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/), [аудіювання](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/), [письмо](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/), [говоріння](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/). Лише short excerpts/URL; офіційні MP3 не rehost без дозволу.

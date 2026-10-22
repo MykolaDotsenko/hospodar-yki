@@ -3,7 +3,7 @@
   "checked_at": "2026-10-21",
   "language": "fi",
   "target": "YKI suomi keskitaso taitotaso 3/B1; spring 2027 digital",
-  "document_ref": "docs/13-yki-exam-format-and-real-examples-2027.md",
+  "document_ref": "research/yki/13-yki-exam-format-and-real-examples-2027.md",
   "purpose": "Machine-readable index of official descriptions, historical official example pages and third-party B1 practice. NOT a reproduced test, not certified 2027 digital UI.",
   "policy": {
     "official_examples": "EXTERNAL_LINK_ONLY",
@@ -120,7 +120,7 @@
       "app_use": "gist/details/inference; keep MP3 URLs separate",
       "rights_status": "LINK_ONLY_NOT_2027_DIGITAL_UI",
       "last_checked": "2026-10-21",
-      "existing_audio_index": "audio/catalog.json",
+      "existing_audio_index": "assets/audio/catalog.json",
       "existing_official_listening_links": 11
     },
     {
@@ -135,7 +135,7 @@
       "app_use": "monologue, simulated dialogue, situational response",
       "rights_status": "LINK_ONLY_NOT_2027_DIGITAL_UI",
       "last_checked": "2026-10-21",
-      "existing_audio_index": "audio/catalog.json",
+      "existing_audio_index": "assets/audio/catalog.json",
       "existing_official_speaking_links_in_catalog": 2
     },
     {
@@ -310,7 +310,7 @@
     }
   ],
   "existing_official_audio_ref": {
-    "manifest": "audio/catalog.json",
+    "manifest": "assets/audio/catalog.json",
     "listening_example_urls": 11,
     "speaking_example_urls": 2,
     "local_copy_permitted": false

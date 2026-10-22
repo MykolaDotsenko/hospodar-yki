@@ -444,6 +444,6 @@
       "results": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
       "jyu_overview": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
     },
-    "original_internal_blueprints": "content/b1/exam-patterns/mini-rehearsals-v1.json"
+    "original_internal_blueprints": "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json"
   }
 }

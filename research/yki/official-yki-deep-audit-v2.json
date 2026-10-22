@@ -4,9 +4,9 @@
   "authority_policy": "OPH current > legal 2011 foundation for content > OPH rubrics > SOLKI samples for historic task formats > training providers; no extrapolation to digital UI",
   "target": "Finnish intermediate YKI 2027 digital test",
   "links": {
-    "detail": "docs/20-yki-official-complete-audit-2026-10.md",
+    "detail": "research/yki/20-yki-official-complete-audit-2026-10.md",
     "simulator": "docs/21-digital-yki-exam-simulator-executable-spec.md",
-    "task_patterns": "research/yki-official-patterns-v2.json"
+    "task_patterns": "research/yki/yki-official-patterns-v2.json"
   },
   "rights_policy": "source URLs and own summaries only; no unauthorized reproduction of official texts, MP3, PDFs, screencasts or paid mock tests",
   "source_document_year_warning": {

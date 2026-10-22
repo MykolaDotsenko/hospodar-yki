@@ -413,7 +413,7 @@
     {
       "id": "vierko_local",
       "name": "VIERKO 2024 S2 (already in repository)",
-      "url": "content/third-party/VIERKO-2024/README.md",
+      "url": "knowledge/books/VIERKO-2024/README.md",
       "category": "open_educational_materials",
       "score": 94,
       "level": "A2-B2",
@@ -425,7 +425,7 @@
     {
       "id": "local_audio",
       "name": "Hospodar YKI licensed audio library (existing)",
-      "url": "audio/library.json",
+      "url": "assets/audio/library.json",
       "category": "existing_local_content",
       "score": 92,
       "level": "A2-B2",
