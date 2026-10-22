@@ -61,7 +61,7 @@
 | 43 | [Tilanteet, teemat ja toimijuus (TTT-malli)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/tilanteet-teemat-ja-toimijuus-opetuksen-lahtokohtina-ttt-malli) | 94 | A2-B2 | `LINK_ONLY_SITE_REUSE_UNCHECKED` |
 | 44 | [Turku Dependency Treebank (Universal Dependencies)](https://universaldependencies.org/treebanks/fi_tdt/index.html) | 94 | A2-C2 | `CC_BY_SA_4_REVIEW_ALL_SOURCE_NOTICES` |
 | 45 | [Uusi kielemme — grammar + vocabulary + exercises](https://uusikielemme.fi/) | 94 | A1-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 46 | [VIERKO 2024 S2 (already in repository) ](../../knowledge/books/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
+| 46 | [VIERKO 2024 S2 (already in repository)](../../knowledge/books/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
 | 47 | [Yle YKItreenit keskitaso](https://yle.fi/a/20-146216) | 94 | B1-B2 | `LINK_ONLY_YLE_RIGHTS` |
 | 48 | [Yle Selkouutiset](https://yle.fi/selkouutiset) | 93 | A2-B1 | `LINK_ONLY_YLE_RIGHTS` |
 | 49 | [Hospodar YKI licensed audio library (existing)](../../assets/audio/library.json) | 92 | A2-B2 | `LOCAL_MIXED_SEE_ITEM_LICENSE` |

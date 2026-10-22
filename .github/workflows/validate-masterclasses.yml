@@ -3,14 +3,14 @@ on:
   push:
     branches: [main]
     paths:
-      - 'content/b1/masterclasses/**'
-      - 'knowledge/sources/10-yki-resources-machine-index.json'
+      - 'learning/exercises/b1/masterclasses/**'
+      - 'sources/learning/10-yki-resources-machine-index.json'
       - 'scripts/validate_masterclasses.mjs'
       - '.github/workflows/validate-masterclasses.yml'
   pull_request:
     paths:
-      - 'content/b1/masterclasses/**'
-      - 'knowledge/sources/10-yki-resources-machine-index.json'
+      - 'learning/exercises/b1/masterclasses/**'
+      - 'sources/learning/10-yki-resources-machine-index.json'
       - 'scripts/validate_masterclasses.mjs'
 permissions:
   contents: read
