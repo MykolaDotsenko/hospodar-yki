@@ -1,7 +1,5 @@
-# Images / illustrations / textures
+# Images and visual assets
 
-**Real existing:** [SVG logos](brand/) (three project marks); no separate vocabulary illustration bank or Phaser sprite atlas has been verified yet.
+**Actual files:** [brand marks and lockup](brand/) — three SVG project graphics. There is no separately audited learning-picture bank or implemented Phaser sprite atlas yet.
 
-**For new work:** source masters (SVG/PNG/WebP/AVIF as applicable) require `imageId`, locale/theme/use case, accessible `alt_fi`/translation (or explicit decorative role), license/creator/source, version/digest, aspect/crops, mobile size budget, and whether it is UI, pedagogy, or gameplay. Keep original design assets distinct from automatically optimized production renditions. Do not add personal photos without explicit consent.
-
-**Where:** original project logo SVGs are stored here in `brand/`. Future lesson illustrations belong under this assets directory, grouped by topic or reusable purpose, with source and alt text alongside the assets; no parallel index is needed. W3C [image alternatives](https://www.w3.org/WAI/tutorials/images/) distinguish informative vs decorative content. Never infer that colors or pictures improve memory without evidence.
+Store new educational pictures and icons here in clearly named subfolders for their roles. Provide meaningful `alt_fi`/`alt_uk` when informative; mark purely decorative images as decorative. For each third-party image verify creator/source, redistribution rights, changes/derivatives and output size. [Design research](../../research/design/README.md) is separate from image binaries.

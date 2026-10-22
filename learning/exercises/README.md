@@ -1,16 +1,16 @@
-# Практичні вправи — одна фізична структура
+# Learning exercises — B1 and video tasks
 
-Навчальні завдання зберігаються безпосередньо в `b1/`, а не в окремому реєстрі. Кожна категорія має свій каталог, вміст файлів залишається тим самим.
+These are real authoring files consumed by the Web MVP and validators, not catalog pointers.
 
-| Категорія | Папка |
+| Learning content | Folder |
 | --- | --- |
-| Тематичні ситуації | [b1/themes](b1/themes/) |
-| Діалоги, читання | [b1/contextual](b1/contextual/) |
-| Граматика та cloze | [b1/grammar](b1/grammar/) |
-| Paraphrase, реакції, аргументація | [b1/high-yield](b1/high-yield/) |
-| Майстер-класи | [b1/masterclasses](b1/masterclasses/) |
-| Аудіоуроки та тренування | [b1/audio-long](b1/audio-long/), [b1/audio-training](b1/audio-training/) |
-| Пробні іспити / діагностика | [b1/exam-patterns](b1/exam-patterns/), [b1/diagnostics](b1/diagnostics/) |
-| Завдання за відео | [video/exercises.json](video/exercises.json) |
+| Practical B1 situations across four skills | [themes](b1/themes/) |
+| Dialogues and contextual reading | [contextual](b1/contextual/README.md) |
+| Grammar, rektio practice and cloze | [grammar](b1/grammar/README.md) |
+| Paraphrasing, speaking reactions, writing repair | [high-yield](b1/high-yield/README.md) |
+| Guided lessons and masterclasses | [masterclasses](b1/masterclasses/README.md) |
+| Human/synthetic listening and B1 recordings | [audio-training](b1/audio-training/README.md), [audio-long](b1/audio-long/README.md) |
+| Mock exam practice and diagnostics | [exam-patterns](b1/exam-patterns/README.md), [diagnostics](b1/diagnostics/) |
+| Video-based comprehension prompts | [video exercises](video/exercises.json) |
 
-Словники й chunks живуть у [knowledge/dictionaries](../../knowledge/dictionaries/README.md), самі аудіозаписи — в [assets/audio](../../assets/audio/README.md). Стабільні `itemId`, версії, джерела й ключі не змінюються під час переміщення папок. Відповіді writing/speaking без підтвердженого оцінювання залишаються `ungraded`. [Правила авторства](../CONTRIBUTING.md) · [Контракти спроб](../../docs/CONTRACTS.md).
+The binary media files are physically under [assets](../../assets/README.md), not inside these lesson folders. IDs and versions are independent of file paths. Exams reveal no answers before finish; production speaking/writing remain ungraded without appropriate calibrated review. [Contribution policy](../CONTRIBUTING.md) · [contracts](../../docs/CONTRACTS.md).
