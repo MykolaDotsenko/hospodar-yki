@@ -1,61 +1,72 @@
 <p align="center">
-  <img src="assets/images/brand/hospodar-yki-lockup.svg" alt="Hospodar YKI — логотип" width="640" />
+  <img src="assets/images/brand/hospodar-yki-lockup.svg" alt="Hospodar YKI" width="560" />
 </p>
 
 # Hospodar YKI
 
-**Фінська для життя. Впевненість для YKI.** Навчальний застосунок для україномовних дорослих: від A2.2 до B1/B1+ через практичні ситуації, активне пригадування й тренувальні завдання YKI.
+**Фінська для життя. Впевненість для YKI.** Навчальний застосунок для дорослих українців, які прагнуть перейти від **A2.2 до B1/B1+** і підготуватися до **YKI keskitaso**.
 
-> **Поточний стан:** робочий браузерний MVP на JavaScript із режимами **LEARN** і **EXAM**. Прогрес LEARN поки в `localStorage`; чернетки EXAM — в IndexedDB. React, Phaser, Android/Room, Play Asset Delivery і 2–3 GB офлайн-медіа залишаються планами або прототипами, **не готовими релізами**. Це не офіційний тест YKI.
+Є два режими: **LEARN** (практика з поясненнями й виправленнями) та **EXAM** (самостійна репетиція без підказок до завершення). Обидва охоплюють читання, аудіювання, письмо й говоріння. Цей проєкт **не є офіційним застосунком YKI**.
 
-## 🚀 Запустити Web MVP
+## 🚀 Запуск локального Web MVP
 
-Від кореня репозиторію:
+Потрібні Python 3.12+ та Node.js 22 (для тестів). Із кореня репозиторію:
 
 ```sh
 python3 -m http.server 8080
-# http://localhost:8080/app/      — навчання
-# http://localhost:8080/app/exam.html — тренувальний іспит
 ```
 
-Тести і перевірка розташування файлів:
+Відкрити **[LEARN](http://localhost:8080/app/)** або **[EXAM](http://localhost:8080/app/exam.html)** у браузері. В іншому терміналі:
 
 ```sh
 node --test app/tests/*.test.mjs
 node --test packages/contracts/tests/*.test.mjs
 python3 scripts/validate_folder_layout.py
+python3 scripts/validate_ai_docs.py
 ```
 
-Повний порядок розробки — у [DEVELOPMENT](docs/DEVELOPMENT.md), тестові докази — у [TESTING](docs/TESTING.md).
+Деталі: [запуск і внесення змін](docs/DEVELOPMENT.md), [тести та перевірки](docs/TESTING.md), [контракти збереження](docs/CONTRACTS.md).
 
-## 🗂️ Де лежать **самі матеріали**
+## 🗂️ Де лежать справжні файли
 
-| Що потрібно | Фізична папка |
+| Папка | Що знайдете |
 | --- | --- |
-| 🖼️ Ілюстрації, фірмові SVG | [`assets/images/`](assets/images/README.md) |
-| 🎧 Реальні й синтетичні аудіофайли, транскрипти, субтитри | [`assets/audio/`](assets/audio/README.md) |
-| 🎬 Збережені ліцензовані відео | [`assets/video/`](assets/video/README.md) |
-| ▶️ Посилання YouTube (без копіювання роликів) | [`sources/youtube/`](sources/youtube/README.md) |
-| 🔗 Зовнішні аудіоджерела, видавці, офіційні демо | [`sources/`](sources/README.md) |
-| 📚 Словники, chunks, граматичне керування | [`knowledge/dictionaries/`](knowledge/dictionaries/README.md) |
-| 📖 Книги, курси, корпуси, зовнішні знання | [`knowledge/`](knowledge/README.md) |
-| ✍️ Тематичні вправи, діалоги, YKI-практика | [`learning/exercises/`](learning/exercises/README.md) |
-| 🗓️ Навчальні плани | [`learning/plans/`](learning/plans/README.md) |
-| 🔬 Педагогіка, дизайн, UX, gameplay, user cases | [`research/`](research/README.md) |
-| 🎨 Дизайн-токени, бренд і візуальні вимоги | [`brand/`](brand/README.md) |
-| 💻 Вебзастосунок, Android-прототип, спільні контракти | [`app/`](app/README.md), [`native/`](native/android/prototype/README.md), [`packages/`](packages/contracts/package.json) |
-| 🛠️ Архітектура, продуктове ТЗ, правила розробки | [`docs/`](docs/INDEX.md) |
+| [`app/`](app/README.md) | Працюючий Web MVP і unit/browser-тести |
+| [`assets/images/`](assets/images/README.md) | SVG-логотипи; місце для майбутніх ілюстрацій |
+| [`assets/audio/`](assets/audio/README.md) | Фінське OGG/MP3, транскрипти й субтитри |
+| [`assets/video/`](assets/video/README.md) | Реально збережені ліцензовані WebM |
+| [`sources/youtube/`](sources/youtube/README.md) | YouTube-посилання й таймкоди, **без завантажених відео** |
+| [`sources/audio/`](sources/audio/README.md), [`sources/official/`](sources/official/README.md), [`sources/publishers/`](sources/publishers/README.md) | Зовнішні аудіо, офіційні демонстрації, видавці та права |
+| [`knowledge/dictionaries/`](knowledge/dictionaries/README.md) | Контекстні chunks, частотність слів, rektio |
+| [`knowledge/books/`](knowledge/books/README.md), [`knowledge/sources/`](knowledge/README.md) | Книжки/PDF і джерела знань |
+| [`learning/exercises/`](learning/exercises/README.md) | Теми, діалоги, граматика, чотири навички, іспитові репетиції |
+| [`learning/plans/`](learning/plans/README.md) | Навчальні послідовності, плани аудіювання |
+| [`research/`](research/README.md) | Дослідження педагогіки, дизайну, UX, геймплею, user cases, YKI й архітектури |
+| [`brand/`](brand/README.md) | Візуальні правила, тексти, токени та позиціонування |
+| [`docs/`](docs/INDEX.md) | Продуктові вимоги, технічні рішення, стандарти розробки |
+| [`scripts/`](scripts/validate_folder_layout.py) | Генератори, імпортери й валідатори |
+| [`native/android/prototype/`](native/android/prototype/README.md) | **Лише вихідні Kotlin-прототипи**, не зібраний APK/AAB |
 
-[Повне дерево та правила розміщення файлів](docs/FOLDER-STRUCTURE.md) · [архітектура контенту](docs/CONTENT-ARCHITECTURE.md). **Додаткових реєстрів матеріалів немає:** тематичні папки — основний спосіб навігації. Робочі JSON навчальних даних і маніфести доступності медіа залишаються там, де їх використовує застосунок.
+**[Повне дерево папок і правила розміщення](docs/FOLDER-STRUCTURE.md).** Кожен матеріал зберігається в одній тематичній папці. Додаткового глобального реєстру немає; JSON-файли поруч з уроками/аудіо — потрібні застосунку для завантаження матеріалів.
 
-## 🧪 Якість і джерела
+## 🔎 Реальний стан функціональності
 
-Оригінальні навчальні матеріали відрізняються від зовнішніх джерел. YouTube та офіційні приклади без окремих прав — **лише посилання**. Автоматично згенеровані фінські тексти й оцінювання вільного мовлення/письма потребують перевірки викладачем; тренувальні оцінки не рівнозначні офіційному результату YKI. Перевірки папок, контенту та медіа працюють у GitHub Actions, але не доводять Android production readiness.
+| Реалізовано частково | Ще не реалізовано / не підтверджено |
+| --- | --- |
+| Vanilla JavaScript Web LEARN/EXAM MVP | React/Vite/Phaser повноцінний клієнт |
+| EXAM IndexedDB checkpoints і тести браузерного збереження | Спільний production-ready Web/Android протокол першої спроби |
+| LEARN зі збереженням у `localStorage` | Durable Web LEARN storage та міграція |
+| Локальне фінське аудіо, окремі WebM і вправи | Готовий встановлюваний Android AAB, Play Asset Delivery, 2–3 GB офлайн |
+| Курований YouTube URL-каталог | Автоматична оцінка незрецензованих письмових/усних відповідей як офіційний YKI результат |
 
-[Як додавати уроки](learning/CONTRIBUTING.md) · [правила медіа](docs/SECURITY.md) · [джерела YKI](sources/official/README.md) · [дослідження методик](research/pedagogy/README.md).
+**Мовна якість та права:** частина вправ і відеозавдань потребує S2/редакторської перевірки. Джерело, доступність посилання та право на копіювання — різні речі. Зовнішні матеріали не включаємо в офлайн-пакети без права на поширення.
 
-## 🤖 Для розробників та AI-агентів
+## 🛠️ Документація для розробника й AI
 
-Спочатку [AGENTS.md](AGENTS.md), далі [карта документації](docs/INDEX.md), [архітектура](docs/ARCHITECTURE.md), [контракти](docs/CONTRACTS.md) і [тести](docs/TESTING.md). Для змін потрібні коректні шляхи, реальні тести, перевірка прав на медіа та PR-review; див. [CONTRIBUTING.md](CONTRIBUTING.md).
+[AGENTS.md](AGENTS.md) — головні правила роботи агентів · [внесення змін](CONTRIBUTING.md) · [документація](docs/INDEX.md) · [архітектура](docs/ARCHITECTURE.md) · [політика контенту й папок](docs/CONTENT-ARCHITECTURE.md) · [тести](docs/TESTING.md) · [privacy/security](docs/SECURITY.md) · [випуск і відкат](docs/RELEASE.md).
 
-Попередні детальні огляди й хронологія впровадження збережені в [історичному архіві](docs/PROJECT-HISTORY-2026-10.md). Для актуального стану **відкривайте файли у відповідних папках**, а не старі датовані повідомлення.
+Основні архітектурні рішення: [**Optimal stack / Architecture Decision Record**](docs/22-optimal-stack-and-architecture-adr-2026-10.md) ([`research/architecture/architecture-decision-v1.json`](research/architecture/architecture-decision-v1.json)); [**Android game with all offline multimedia**](docs/23-android-offline-game-and-3gb-media-architecture.md) ([`research/architecture/android-game-distribution-v1.json`](research/architecture/android-game-distribution-v1.json)); [**Reliability-first architecture ADR-024**](docs/24-reliability-hardened-architecture-web-android.md); [**Evidence-to-engineering**](research/pedagogy/19-learning-books-to-engineering-2026-10.md) ([`research/pedagogy/learning-blueprints-books-v1.json`](research/pedagogy/learning-blueprints-books-v1.json)); [**Повний офіційний аудит YKI**](research/yki/20-yki-official-complete-audit-2026-10.md).
+
+[Історія досліджень та оновлень за жовтень 2026](docs/history/2026-10-product-development-log.md) збережена окремо, щоб не перевантажувати головну сторінку.
+
+**Правило:** документація описує ціль, але готовність функції доводять тільки реальний код, тести, браузерні/Android-перевірки й ліцензійні дозволи.
