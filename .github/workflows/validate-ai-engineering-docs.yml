@@ -1,0 +1,49 @@
+name: Validate AI engineering documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'AGENTS.md'
+      - 'CONTRIBUTING.md'
+      - 'docs/**'
+      - '.github/copilot-instructions.md'
+      - '.github/pull_request_template.md'
+      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - 'scripts/validate_ai_docs.py'
+      - 'scripts/tests/test_validate_ai_docs.py'
+      - 'app/**'
+      - 'packages/contracts/**'
+      - 'native/android/prototype/**'
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'CONTRIBUTING.md'
+      - 'docs/**'
+      - '.github/copilot-instructions.md'
+      - '.github/pull_request_template.md'
+      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - 'scripts/validate_ai_docs.py'
+      - 'scripts/tests/test_validate_ai_docs.py'
+      - 'app/**'
+      - 'packages/contracts/**'
+      - 'native/android/prototype/**'
+
+permissions:
+  contents: read
+
+jobs:
+  docs-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax check validator and tests
+        run: python3 -m py_compile scripts/validate_ai_docs.py scripts/tests/test_validate_ai_docs.py
+      - name: Validate path safety and broken-link detection
+        run: python3 -m unittest discover -s scripts/tests -p 'test_validate_ai_docs.py' -v
+      - name: Check required docs, relative links and engineering truth
+        run: python3 scripts/validate_ai_docs.py

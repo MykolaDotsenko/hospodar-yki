@@ -4,6 +4,15 @@
 
 # Hospodar YKI
 
+## 🧭 Розробка з AI: перевірені правила та документація (22.10.2026)
+
+**[AGENTS.md](AGENTS.md)** — коротка інструкція для AI coding agents · **[Карта документів](docs/INDEX.md)** · **[Архітектура: факт vs план](docs/ARCHITECTURE.md)** · **[Запуск](docs/DEVELOPMENT.md)** · **[Тести](docs/TESTING.md)** · **[Контракти](docs/CONTRACTS.md)** · **[Робочий процес](docs/AI-WORKFLOW.md)** · **[Релізи](docs/RELEASE.md)**.
+
+Для software PR — [CONTRIBUTING.md](CONTRIBUTING.md) і [PR template](.github/pull_request_template.md). Для контенту фінською — [content/CONTRIBUTING.md](content/CONTRIBUTING.md). Внутрішні посилання, policy markers та повнота документації перевіряються командою `python3 scripts/validate_ai_docs.py` і окремим CI workflow.
+
+**Реальний статус:** Web `app/` — vanilla JS MVP; EXAM використовує IndexedDB, LEARN — localStorage. Android Kotlin, Phaser/React/Capacitor, Play Asset Delivery та 2–3GB офлайн-медіа **ще не підтверджені готовими продуктами**. Документація та її зелений CI **не означають готовність додатка до релізу**.
+
+
 ## 🎨 Впізнаваний і кольоровий Hospodar YKI v0.3 (21.10.2026)
 
 **[Фірмова композиційна система: «Поріг → Маршрут → Дія»](brand/identity-v03-screen-system.md)** · **[Логотип H-поріг](brand/logo/hospodar-yki-mark.svg)** · **[Дизайн-токени v0.3](brand/tokens.json)** · **[ТЗ DESIGN-01…16 та AC-25…32](docs/15-two-modes-skill-scopes.md)**.
