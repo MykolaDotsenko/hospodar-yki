@@ -3,7 +3,7 @@ import {
   remainingSeconds, writeAnswer, goToIndex, recordVoiceEvidence,
   finishSession, scoreSession
 } from "./exam-core.mjs";
-import {createIndexedDbExamRepository,newCommit} from "./attempt-storage.mjs";
+import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "./attempt-storage.mjs";
 
 const root=document.getElementById("exam-main");
 const notice=document.getElementById("exam-notice");
@@ -28,7 +28,7 @@ function failSave(error) {
 function queueSave(next,kind="answer"){
   const action=exam.saveQueue.then(async()=>{
     if(exam.storageBlocked)throw Object.assign(new Error("Save blocked"),{code:"SAVE_FAILED"});
-    const result=await exam.repository.commit(newCommit(next,exam.persistedRevision,kind));
+    const result=await commitWithRecovery(exam.repository,newCommit(next,exam.persistedRevision,kind));
     exam.persistedRevision=result.revision;
     return result;
   });
@@ -344,7 +344,7 @@ async function boot(){
       const legacy=getSaved();
       const migrated=loadSession(legacy,exam.blueprints.map(x=>x.id));
       if(legacy&&migrated.session){
-        const result=await exam.repository.commit(newCommit(migrated.session,0,"legacy-import"));
+        const result=await commitWithRecovery(exam.repository,newCommit(migrated.session,0,"legacy-import"));
         exam.persistedRevision=result.revision;
         saved={session:result.session,revision:result.revision};
         try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{}
