@@ -5,8 +5,8 @@
     {
       "id": "human-prinsessa-complete",
       "title_fi": "Todellinen prinsessa",
-      "audio_path": "audio/human/short-stories/todellinen-prinsessa-cygnaeus.mp3",
-      "transcript_path": "audio/human/short-stories/todellinen-prinsessa-original-text-fi.txt",
+      "audio_path": "assets/audio/human/short-stories/todellinen-prinsessa-cygnaeus.mp3",
+      "transcript_path": "assets/audio/human/short-stories/todellinen-prinsessa-original-text-fi.txt",
       "duration_seconds": 158.59,
       "bytes": 2542117,
       "sha256": "e88c9d72e34d687a5a47b90686438bf70ec9864f0a1250905794cef2538f1461",

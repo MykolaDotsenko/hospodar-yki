@@ -50,7 +50,7 @@
           "id": "01-mina-ja-taustani-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/01-mina-ja-taustani.json",
+      "original_content_path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -69,7 +69,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 28.46,
@@ -110,7 +110,7 @@
           "id": "01-mina-ja-taustani-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/01-mina-ja-taustani.json",
+      "original_content_path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -129,7 +129,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 34.59,
@@ -138,7 +138,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 39.74,
@@ -179,7 +179,7 @@
           "id": "02-koti-ja-asuminen-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/02-koti-ja-asuminen.json",
+      "original_content_path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -198,7 +198,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 23.0,
@@ -239,7 +239,7 @@
           "id": "02-koti-ja-asuminen-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/02-koti-ja-asuminen.json",
+      "original_content_path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -258,7 +258,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 35.45,
@@ -267,7 +267,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 40.72,
@@ -308,7 +308,7 @@
           "id": "03-kaupat-ja-palvelut-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/03-kaupat-ja-palvelut.json",
+      "original_content_path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -327,7 +327,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 26.1,
@@ -368,7 +368,7 @@
           "id": "03-kaupat-ja-palvelut-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/03-kaupat-ja-palvelut.json",
+      "original_content_path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -387,7 +387,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 35.13,
@@ -396,7 +396,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 40.36,
@@ -437,7 +437,7 @@
           "id": "04-kulttuuri-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/04-kulttuuri.json",
+      "original_content_path": "learning/exercises/b1/themes/04-kulttuuri.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -456,7 +456,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 21.1,
@@ -497,7 +497,7 @@
           "id": "04-kulttuuri-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/04-kulttuuri.json",
+      "original_content_path": "learning/exercises/b1/themes/04-kulttuuri.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -516,7 +516,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/04-kulttuuri-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/04-kulttuuri-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 35.61,
@@ -525,7 +525,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 40.92,
@@ -566,7 +566,7 @@
           "id": "05-matkustaminen-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/05-matkustaminen.json",
+      "original_content_path": "learning/exercises/b1/themes/05-matkustaminen.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -585,7 +585,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 21.21,
@@ -626,7 +626,7 @@
           "id": "05-matkustaminen-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/05-matkustaminen.json",
+      "original_content_path": "learning/exercises/b1/themes/05-matkustaminen.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -645,7 +645,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/05-matkustaminen-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/05-matkustaminen-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 34.77,
@@ -654,7 +654,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 39.95,
@@ -695,7 +695,7 @@
           "id": "06-terveys-ja-hyvinvointi-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "original_content_path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -714,7 +714,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 25.63,
@@ -755,7 +755,7 @@
           "id": "06-terveys-ja-hyvinvointi-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "original_content_path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -774,7 +774,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 37.33,
@@ -783,7 +783,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 42.89,
@@ -824,7 +824,7 @@
           "id": "07-tyo-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/07-tyo.json",
+      "original_content_path": "learning/exercises/b1/themes/07-tyo.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -843,7 +843,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/07-tyo-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/07-tyo-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 26.7,
@@ -884,7 +884,7 @@
           "id": "07-tyo-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/07-tyo.json",
+      "original_content_path": "learning/exercises/b1/themes/07-tyo.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -903,7 +903,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/07-tyo-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/07-tyo-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 35.42,
@@ -912,7 +912,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 40.7,
@@ -953,7 +953,7 @@
           "id": "08-ymparisto-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/08-ymparisto.json",
+      "original_content_path": "learning/exercises/b1/themes/08-ymparisto.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -972,7 +972,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 21.11,
@@ -1013,7 +1013,7 @@
           "id": "08-ymparisto-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/08-ymparisto.json",
+      "original_content_path": "learning/exercises/b1/themes/08-ymparisto.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1032,7 +1032,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/08-ymparisto-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/08-ymparisto-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 32.86,
@@ -1041,7 +1041,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 37.75,
@@ -1082,7 +1082,7 @@
           "id": "09-yhteiskunta-l-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/09-yhteiskunta.json",
+      "original_content_path": "learning/exercises/b1/themes/09-yhteiskunta.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1101,7 +1101,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
+          "path": "assets/audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 25.9,
@@ -1142,7 +1142,7 @@
           "id": "09-yhteiskunta-r-q2"
         }
       ],
-      "original_content_path": "content/b1/themes/09-yhteiskunta.json",
+      "original_content_path": "learning/exercises/b1/themes/09-yhteiskunta.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1161,7 +1161,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
+          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 38.12,
@@ -1170,7 +1170,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
+          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
           "duration_seconds": 43.8,
@@ -1225,7 +1225,7 @@
           "id": "b1-read-inference-001-q4"
         }
       ],
-      "original_content_path": "content/b1/high-yield/reading-inference-bank.json",
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1244,7 +1244,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 51.14,
@@ -1253,7 +1253,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
           "duration_seconds": 45.68,
@@ -1308,7 +1308,7 @@
           "id": "b1-read-inference-002-q4"
         }
       ],
-      "original_content_path": "content/b1/high-yield/reading-inference-bank.json",
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1327,7 +1327,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 50.04,
@@ -1336,7 +1336,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
           "duration_seconds": 44.68,
@@ -1391,7 +1391,7 @@
           "id": "b1-read-inference-003-q4"
         }
       ],
-      "original_content_path": "content/b1/high-yield/reading-inference-bank.json",
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1410,7 +1410,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 48.49,
@@ -1419,7 +1419,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
           "duration_seconds": 43.3,
@@ -1474,7 +1474,7 @@
           "id": "b1-read-inference-004-q4"
         }
       ],
-      "original_content_path": "content/b1/high-yield/reading-inference-bank.json",
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1493,7 +1493,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 53.66,
@@ -1502,7 +1502,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
           "duration_seconds": 47.92,
@@ -1557,7 +1557,7 @@
           "id": "b1-read-inference-005-q4"
         }
       ],
-      "original_content_path": "content/b1/high-yield/reading-inference-bank.json",
+      "original_content_path": "learning/exercises/b1/high-yield/reading-inference-bank.json",
       "created_in_project": true,
       "synthetic_audio": true,
       "speaker_model": "Piper fi_FI-harri-medium",
@@ -1576,7 +1576,7 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
           "duration_seconds": 51.83,
@@ -1585,7 +1585,7 @@
           "contains_human_voices": false
         },
         {
-          "path": "audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
+          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
           "duration_seconds": 46.28,
