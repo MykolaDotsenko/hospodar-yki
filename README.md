@@ -229,3 +229,11 @@ Android із 2–3GB встановленого ліцензованого ме�
 The working `app/exam.html` mini rehearsal now persists its answers and session in **transactional IndexedDB**; it blocks next/finish on failed writes, offers retry/export, handles legacy `localStorage` migration and detects stale or duplicate commands. Real Chromium IndexedDB integration and Node suites run in [CI](.github/workflows/validate-app-mvp.yml). `app/index.html` learning progress is still the original `localStorage` MVP.
 
 Native [Kotlin Room and Media3 prototype](native/android/prototype/README.md) is source only and has **not** been compiled into an Android app; full Phaser/React migration, Play-installed 2–3GB packs, video native surface and YKI 2027 exact fidelity remain work to do. This is **actual incremental code progress**, not a claim of 95+ measured production readiness.
+
+## 🧭 Stack × architecture integration plan — ADR-027 (22.10.2026)
+
+**[ADR-027: verified baseline, cross-platform contract unification, compatibility ratings and release gates](docs/27-stack-architecture-compatibility-and-implementation-gates.md)** · **[G0–G6 implementation roadmap](docs/25-implementation-vertical-slice-roadmap.md)** · **[actual browser checkpoint implementation](docs/26-atomic-exam-and-media-implementation-2026-10.md)**.
+
+**Target design-fit (editorial, not measured):** stack **95/100**, architecture **94/100**, compatibility **95/100**. Existing runnable UI is **vanilla JS**, not React/Phaser. Current exam drafts use IndexedDB; Learn still uses localStorage. Cross-platform Android Kotlin/Room and Media3 sources are **uncompiled prototypes**. The Android architecture uses **Room for valuable learner/exam data** (not the early Android Dexie choice in ADR-023); Web uses IndexedDB/Dexie. Distinguish `ExamCheckpoint` from immutable `FirstAttemptEvent` and prove parity via actual Android/Browser checks.
+
+**Documentation is not implementation.** The next milestones require shared serializable commands, safe failure/recovery, runnable Web+Android vertical slice, real Play install-time >1GB media tests, editorially licensed Finnish lessons, then measured release QA. No Android AAB, bundled 2–3GB offline course or official YKI grading is claimed by these documents.
