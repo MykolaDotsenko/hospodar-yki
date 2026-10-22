@@ -69,12 +69,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
+          "path": "audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 28.46,
-          "bytes": 170388,
-          "sha256": "6b8eea6f2c1c30e96999ac987324b9abc2189b11807c9618599dd7a7fbaa3a07",
+          "duration_seconds": 29.3,
+          "bytes": 172926,
+          "sha256": "33e495d495857ff151b7ecbb2b3a88585608f9d53b241d379b1c7ebb8a328181",
           "contains_human_voices": false
         }
       ]
@@ -129,21 +129,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
+          "path": "audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 34.59,
-          "bytes": 201602,
-          "sha256": "c1304cfcca69151c839c05dbac5810a7fc87f5022dc83669f1f2b1259c50b5e3",
+          "duration_seconds": 35.0,
+          "bytes": 206377,
+          "sha256": "98b0afabdb5a397c063fb234e8eb2a63a1e94078206ac8d57663fa65ac767ec5",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 39.74,
-          "bytes": 226544,
-          "sha256": "fe7e9bd85be0e4ba9382b4f0802838271a1e68369fbbf8e2d6630dc889eb79dc",
+          "duration_seconds": 40.22,
+          "bytes": 231794,
+          "sha256": "06b87d8cc8167089be4de90378bde6bd7a22a04c315b142ed9e99e0de81dda5c",
           "contains_human_voices": false
         }
       ]
@@ -198,12 +198,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
+          "path": "audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 23.0,
-          "bytes": 136326,
-          "sha256": "663291e31269ddf76d8bd84234a94ccfdd69e8dc91f8df7c8e3233f215d5bf6c",
+          "duration_seconds": 23.16,
+          "bytes": 136439,
+          "sha256": "94e64ba51498a76e38fd0f69d3d2f0fc0ea928d5310e78e96a9c565477b733e0",
           "contains_human_voices": false
         }
       ]
@@ -258,21 +258,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
+          "path": "audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 35.45,
-          "bytes": 211651,
-          "sha256": "2c9c3c42dc016755531785edc0c573b576734bc89e002f0d880435c2dbbb5d09",
+          "duration_seconds": 35.42,
+          "bytes": 212195,
+          "sha256": "38bdf2be416470d791a696975e7634956ad89b9839cb2ac56ce6696b8fdd1613",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 40.72,
-          "bytes": 238439,
-          "sha256": "6a22fef4bb1ac60f272870b798c6c5e70c23dd5f3d7e23461dc767fd6ad5d3e1",
+          "duration_seconds": 40.7,
+          "bytes": 238410,
+          "sha256": "d6e8351aa96d50dc8abf6f0be64973cd5afef7f3073eb9eb41f429820b0285dd",
           "contains_human_voices": false
         }
       ]
@@ -327,12 +327,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
+          "path": "audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 26.1,
-          "bytes": 156176,
-          "sha256": "cc049119a3980eba809506f7297fedc0af66dcb6740487122516ce177ee628fc",
+          "duration_seconds": 25.97,
+          "bytes": 156131,
+          "sha256": "2d875e5ceb18fd2bf02bb64d5612f3c31909b2bfbb021a0610880aedeeaab4e8",
           "contains_human_voices": false
         }
       ]
@@ -387,21 +387,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
+          "path": "audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 35.13,
-          "bytes": 215371,
-          "sha256": "6f8c9bcafe6782db8ec9a5cb1419eb13cceb419c0c2d046c7ae6fb58eef1ade1",
+          "duration_seconds": 35.55,
+          "bytes": 216495,
+          "sha256": "e5912de12f0d0eded4fb4a020e26bc290323ce5c27659793a2a6c907da385c74",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 40.36,
-          "bytes": 239241,
-          "sha256": "94a142f8ab5d9d3a0b44e62f6885d7ff43bfb70401f322927476495a78f24757",
+          "duration_seconds": 40.84,
+          "bytes": 245356,
+          "sha256": "b98fc3fc9e0196a39e189ef5d85f1e8647a249051aa8fac6c9c946355bb80aff",
           "contains_human_voices": false
         }
       ]
@@ -456,12 +456,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
+          "path": "audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 21.1,
-          "bytes": 127284,
-          "sha256": "33e1689467311aa67dbbd1e40a1e0582a3277564ae262fb4fc3d912fab3dfeab",
+          "duration_seconds": 21.37,
+          "bytes": 129778,
+          "sha256": "93391e37e9be2f2ca2460403964af0e679a54a326d5362f37c25c1ea3889fcd7",
           "contains_human_voices": false
         }
       ]
@@ -516,21 +516,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/04-kulttuuri-notice-normal.ogg",
+          "path": "audio/tts/harri/04-kulttuuri-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 35.61,
-          "bytes": 216400,
-          "sha256": "737cca32b008011657de6e0e36ddcb724aba86cd9b314705520c3764293bd249",
+          "duration_seconds": 36.35,
+          "bytes": 221366,
+          "sha256": "3ee241f7f16683057e2374268f73b7b1223e36c3b1ecc294bd3da6e3aa5085c3",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 40.92,
-          "bytes": 242454,
-          "sha256": "671e86a4a25d4d38a3d4d2371eaebfbe9d6d0f31188f420be928ec3d4acb8c1f",
+          "duration_seconds": 41.77,
+          "bytes": 246293,
+          "sha256": "88ace9cf04ed57517ff1ca02ded6244175d7c2981b309417ade2b8a39f179e0e",
           "contains_human_voices": false
         }
       ]
@@ -585,12 +585,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
+          "path": "audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 21.21,
-          "bytes": 128229,
-          "sha256": "4efb336f40735b1b9c4ddd6cabf9703d8e3980874f02350e45810d593a3a745f",
+          "duration_seconds": 21.35,
+          "bytes": 127942,
+          "sha256": "497971406682495224cf4d57f66f5b24b0e9572a61c8357e0ddcd82a8f712380",
           "contains_human_voices": false
         }
       ]
@@ -645,21 +645,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/05-matkustaminen-notice-normal.ogg",
+          "path": "audio/tts/harri/05-matkustaminen-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 34.77,
-          "bytes": 207359,
-          "sha256": "a72bc361d210b56ea516d27246bd0053bfba029c6add94e6ea9e2108ccd1f751",
+          "duration_seconds": 34.41,
+          "bytes": 206063,
+          "sha256": "909a7f375f198e5cafbe8a301c77df3c39eeff11cd3809050e784311f82f1435",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 39.95,
-          "bytes": 234423,
-          "sha256": "7d407ac9aadb3ec7208b6ecbf0f71e18ba2a4dd7090715b69319933650ec4efd",
+          "duration_seconds": 39.53,
+          "bytes": 234670,
+          "sha256": "32281a5681b1fb7138f640b55d6ed1bbc72f174f3d80f9830dec1d68d4f7e74c",
           "contains_human_voices": false
         }
       ]
@@ -714,12 +714,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
+          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 25.63,
-          "bytes": 152012,
-          "sha256": "c44851a1584a9efc4260d8a1944edfc2403db79b2d279fd72bbd102f3572eabb",
+          "duration_seconds": 25.05,
+          "bytes": 150334,
+          "sha256": "528db13765922cc046b4f252d793c01683c9e7d438d89d62fb13244148df10c0",
           "contains_human_voices": false
         }
       ]
@@ -774,21 +774,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
+          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 37.33,
-          "bytes": 221460,
-          "sha256": "21372cb1ede6bd7140c9f628f6ed2b46c2cae8e08e5795803552e74a84d2b428",
+          "duration_seconds": 37.54,
+          "bytes": 222578,
+          "sha256": "701ca13a221a6ee2ec6dbbc5ef57124fc61dd1be049295834923830d961b1164",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 42.89,
-          "bytes": 252279,
-          "sha256": "9316e5c9436c31d04c8db16c00fbb2b897d44e4a30a3861142cfcaac35efc6ff",
+          "duration_seconds": 43.13,
+          "bytes": 251016,
+          "sha256": "95d0ac553c56cdfaaecbe5d57508d578fdf9e7e4a979383a35a97c1b9ae97dfe",
           "contains_human_voices": false
         }
       ]
@@ -843,12 +843,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/07-tyo-dialogue-normal.ogg",
+          "path": "audio/tts/harri/07-tyo-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 26.7,
-          "bytes": 155610,
-          "sha256": "c7c7c1252a96c37bcf8bab614c3893342eab11a4353169b416836bd1763fbf75",
+          "duration_seconds": 25.89,
+          "bytes": 152324,
+          "sha256": "e323036ae3dadc8630e93b870c1b395120de06fdd447a26e43ca5ba621338f29",
           "contains_human_voices": false
         }
       ]
@@ -903,21 +903,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/07-tyo-notice-normal.ogg",
+          "path": "audio/tts/harri/07-tyo-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 35.42,
-          "bytes": 213000,
-          "sha256": "a9eea86b9661707d7d3de5c27ca588dbce1b4a8edadf7774dd105a29c23df0d1",
+          "duration_seconds": 35.12,
+          "bytes": 213236,
+          "sha256": "7e5fe47e6c3df93fdf1a16856a14c3cfd82ddc7a0d6284e8c4a3887c518b87b9",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 40.7,
-          "bytes": 244314,
-          "sha256": "64fa5c95197e02595b00cbc328ad10dc2b2f46d847268aca30472b38ff274721",
+          "duration_seconds": 40.35,
+          "bytes": 241222,
+          "sha256": "cf1ea83dfa393735c3c4510b49938ae79a06f1a9366b722bf9f7aa6617b0c795",
           "contains_human_voices": false
         }
       ]
@@ -972,12 +972,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
+          "path": "audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 21.11,
-          "bytes": 128173,
-          "sha256": "431dd1e7cad39477fb8bd18a11d3d99f8fb2c4835d12a21310de988c7b7d5777",
+          "duration_seconds": 21.68,
+          "bytes": 129186,
+          "sha256": "a40b3783a9c6c975e544f4a5158bac6e7f1373bd366dc92169b3c0c40af758e3",
           "contains_human_voices": false
         }
       ]
@@ -1032,21 +1032,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/08-ymparisto-notice-normal.ogg",
+          "path": "audio/tts/harri/08-ymparisto-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 32.86,
-          "bytes": 194887,
-          "sha256": "1899c8568be552680bfd12b6d2659f265fb2deb12403a4e609ad6276a0534ff4",
+          "duration_seconds": 32.97,
+          "bytes": 197009,
+          "sha256": "be3ba6207e4a7bdf588fc54595bbdf5419a5dea5125fb67d1fa429d84589641c",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 37.75,
-          "bytes": 217393,
-          "sha256": "c0490b9b8f1525017e2a89d586b3f17e5c68fd824dc29bd466f68268f3c64f9d",
+          "duration_seconds": 37.88,
+          "bytes": 220628,
+          "sha256": "edcbcee1ef02c16fac0c841ff946041dc41666587628578177644e37d7f70f4c",
           "contains_human_voices": false
         }
       ]
@@ -1101,12 +1101,12 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
+          "path": "audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 25.9,
-          "bytes": 158615,
-          "sha256": "eb6cb896d4fa057196b64ca31d09a04631244fe470cefa4a0eeb923d0ad9eaf0",
+          "duration_seconds": 25.74,
+          "bytes": 155239,
+          "sha256": "68d0f3f52981f249469051e2548c28918483005c686a764848b59d5671a8aaf5",
           "contains_human_voices": false
         }
       ]
@@ -1161,21 +1161,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
+          "path": "audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 38.12,
-          "bytes": 230319,
-          "sha256": "c0d3454fa894d7acc2fe5ac708fc0e846d7f2474bcc1d1cb765799c73cd3abbc",
+          "duration_seconds": 38.39,
+          "bytes": 230994,
+          "sha256": "9a4f429d6960bfb5a091d24626c4b9dd997ba41c83cae1f78a1dae326ac80119",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
+          "path": "audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
           "variant": "scaffold_slow",
           "tempo_multiplier": 0.87,
-          "duration_seconds": 43.8,
-          "bytes": 258697,
-          "sha256": "60a046732076347538db25c7fe3ae9da14b1e5816aa48994f9db8e715cb2ace9",
+          "duration_seconds": 44.11,
+          "bytes": 258468,
+          "sha256": "f2c406db68a2d6b10703912c519c75a66a8b66ac30b387b4f50cb5c220e9d594",
           "contains_human_voices": false
         }
       ]
@@ -1244,21 +1244,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
+          "path": "audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 51.14,
-          "bytes": 309690,
-          "sha256": "fe32244d6ca359769a58a753aba545a850e19954720804f6b1597db3bb7b6d72",
+          "duration_seconds": 50.92,
+          "bytes": 307163,
+          "sha256": "f8f1d6eb9a3b7b7933f06c6def3d9445f93427d2add094643758b09e8476eca1",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
+          "path": "audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
-          "duration_seconds": 45.68,
-          "bytes": 279337,
-          "sha256": "add48168907ed00bd2fbf57bce6c705c79bb69a7e005c28063b9be2a380291ab",
+          "duration_seconds": 45.48,
+          "bytes": 275817,
+          "sha256": "d93ab5485a5e5ca1f7b2083ec8b0a6edc4c3cfb32642ee4a041f3fb4d56d8a3d",
           "contains_human_voices": false
         }
       ]
@@ -1327,21 +1327,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
+          "path": "audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 50.04,
-          "bytes": 298696,
-          "sha256": "efa1a63dbffc50156c8779fe676c195bc34f829e080327180f09cd4447962eab",
+          "duration_seconds": 49.98,
+          "bytes": 296602,
+          "sha256": "8c79202508b5f6134b2a26fee0af04e6140df6aa1bbae1b75b27a9489c9620ee",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
+          "path": "audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
-          "duration_seconds": 44.68,
-          "bytes": 269196,
-          "sha256": "3278f9b0699466308943be7e703d1afc041a00400cecef6f3aaa57f3f5a4cac6",
+          "duration_seconds": 44.64,
+          "bytes": 270840,
+          "sha256": "2222413f0d644510507af8e6553f8481c86f7196b027ca37cda9fe10d3f04cb8",
           "contains_human_voices": false
         }
       ]
@@ -1410,21 +1410,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
+          "path": "audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 48.49,
-          "bytes": 295708,
-          "sha256": "fc5837c375198cd51a74a55b2c8036a01224014ec4da21116a6ccad734d7e439",
+          "duration_seconds": 48.65,
+          "bytes": 298014,
+          "sha256": "3ab38b92b44099f3a56c71c330db22e3b9c28bd2faefd79329423191d24ca566",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
+          "path": "audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
-          "duration_seconds": 43.3,
-          "bytes": 266201,
-          "sha256": "736790cf02634a99ceb9d0d6404627b9e354d840f1a54b3cd1ae8eec5709287e",
+          "duration_seconds": 43.44,
+          "bytes": 265481,
+          "sha256": "e228461abe413482614ed2f90ca6ae7b5f4f17131c483ad2bd186ad793c3d963",
           "contains_human_voices": false
         }
       ]
@@ -1493,21 +1493,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
+          "path": "audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 53.66,
-          "bytes": 321795,
-          "sha256": "e65e87caf8f228b6646e3a1f7ac1ad688040d781708fb3b8f99c3ed62e176929",
+          "duration_seconds": 53.39,
+          "bytes": 318994,
+          "sha256": "55d3787a91ce557015ef70eeda7ed71a6d433be7aafc25d7bc9df8cdbe6e63ca",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
+          "path": "audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
-          "duration_seconds": 47.92,
-          "bytes": 291991,
-          "sha256": "69adc79179b3f2aa9754cc5c66aa2d1cf9f46d1a8dc45355454ce3c45f66d1a4",
+          "duration_seconds": 47.69,
+          "bytes": 289760,
+          "sha256": "cc3080f9511359320c8e4bf70aa5b1d323657c5974be0fad2cb4bf56cbc202b7",
           "contains_human_voices": false
         }
       ]
@@ -1576,21 +1576,21 @@
       "disclaimer_uk": "Синтетичний голос (один диктор). Не відтворює автентичні акценти чи екзаменаційний формат YKI.",
       "audio_versions": [
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
+          "path": "audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
           "variant": "normal",
           "tempo_multiplier": 1.0,
-          "duration_seconds": 51.83,
-          "bytes": 311093,
-          "sha256": "642be549370238e5e83ce23ac13f413c12ceb0295a3c237115efd11e7ea7185e",
+          "duration_seconds": 52.16,
+          "bytes": 310800,
+          "sha256": "64de1022e0afd63adb30530db6eec319072c10eb5540b8b1318beafe85223a4a",
           "contains_human_voices": false
         },
         {
-          "path": "assets/audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
+          "path": "audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
           "variant": "challenge_fast",
           "tempo_multiplier": 1.12,
-          "duration_seconds": 46.28,
-          "bytes": 281083,
-          "sha256": "f1ba0ded82ec2ced8b3fa0bc6fce21ac1c4b13f88f7018f9e8a414ccedeb8fbc",
+          "duration_seconds": 46.58,
+          "bytes": 282148,
+          "sha256": "8d64b0449034febfc54172f368a00f5f8befa14bcd84f0706ec67a81400ec19f",
           "contains_human_voices": false
         }
       ]
