@@ -59,6 +59,7 @@ test("Android bridge has identical command/result semantics, no callback transac
   const store=createMemoryExamRepository();
   const native={
     readAttempt:async()=>store.readCurrent(),
+    readEvent:async({eventId})=>store.readEvent(eventId),
     commitAttempt:async c=>store.commit(c),
     deleteAttempt:async()=>store.deleteLocal()
   };
@@ -85,6 +86,7 @@ test("lost acknowledgement reconciles committed state, real failed write does no
   const repository=createMemoryExamRepository();
   const tricky={
     readCurrent:()=>repository.readCurrent(),
+    readEvent:id=>repository.readEvent(id),
     commit:async cmd=>{await repository.commit(cmd);throw Object.assign(new Error("Lost ACK"),{code:"SAVE_FAILED"});}
   };
   const c=newCommit(make("asunut"),0,"answer",uuid(11));
@@ -95,5 +97,40 @@ test("lost acknowledgement reconciles committed state, real failed write does no
     commit:async()=>{throw Object.assign(new Error("Disk full"),{code:"SAVE_FAILED"});}
   };
   await assert.rejects(()=>commitWithRecovery(impossible,newCommit(make(),0,"answer",uuid(12))),
+    e=>e.code==="SAVE_FAILED");
+});
+
+test("matching snapshot from another event is NEVER a lost-ACK receipt",async()=>{
+  const repo=createMemoryExamRepository();
+  const winner=newCommit(make("sama"),0,"answer",uuid(22));
+  await repo.commit(winner);
+  const failed=newCommit(make("sama"),0,"answer",uuid(23));
+  const collision={
+    readCurrent:()=>repo.readCurrent(),
+    readEvent:id=>repo.readEvent(id),
+    commit:async()=>{throw Object.assign(Error("ACK lost"),{code:"SAVE_FAILED"})}
+  };
+  await assert.rejects(commitWithRecovery(collision,failed),e=>e.code==="SAVE_FAILED");
+});
+test("tampered event fingerprint never reconciles",async()=>{
+  const repo=createMemoryExamRepository();
+  const cmd=newCommit(make("äiti"),0,"start",uuid(24));
+  await repo.commit(cmd);
+  const forged={
+    readCurrent:()=>repo.readCurrent(),
+    readEvent:async id=>({...await repo.readEvent(id),fingerprint:"wrong"}),
+    commit:async()=>{throw Object.assign(Error("ACK lost"),{code:"SAVE_FAILED"})}
+  };
+  await assert.rejects(commitWithRecovery(forged,cmd),e=>e.code==="SAVE_FAILED");
+});
+test("old native plugin without receipt API cannot claim recovered durable write",async()=>{
+  const r=createMemoryExamRepository();
+  const native={
+    readAttempt:()=>r.readCurrent(),
+    commitAttempt:async cmd=>{await r.commit(cmd);throw Object.assign(Error("ack lost"),{code:"SAVE_FAILED"})},
+    deleteAttempt:()=>r.deleteLocal()
+  };
+  const command=newCommit(make("yksi"),0,"start",uuid(25));
+  await assert.rejects(commitWithRecovery(createAndroidExamRepository(native),command),
     e=>e.code==="SAVE_FAILED");
 });

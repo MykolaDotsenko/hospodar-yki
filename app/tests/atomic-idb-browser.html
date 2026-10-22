@@ -31,10 +31,23 @@ const id=n=>"browser-test-"+String(n).padStart(8,"0");
          state.session.answers.reading01==="äiti ja isä","persisted snapshot");
    const uncertain={
      readCurrent:()=>repo.readCurrent(),
+     readEvent:eid=>repo.readEvent(eid),
      commit:async command=>{await repo.commit(command);throw Error("ACK lost");}
    };
    const recovered=await commitWithRecovery(uncertain,newCommit(s("uusi",2),2,"answer",id(4)));
    check(recovered.reconciled===true && recovered.revision===3,"lost ACK reconciliation");
+   // A different event may persist a text-identical snapshot at the expected
+   // revision. It does NOT prove the attempted event ID was committed.
+   const mistaken=newCommit(s("same-text",3),3,"answer",id(5));
+   await repo.commit(mistaken);
+   const phantom=newCommit(s("same-text",3),3,"answer",id(6));
+   const lost={
+     readCurrent:()=>repo.readCurrent(),
+     readEvent:eid=>repo.readEvent(eid),
+     commit:async()=>{throw Error("network ACK missing");}
+   };
+   try{await commitWithRecovery(lost,phantom);throw Error("false ACK for identical snapshot")}
+   catch(e){check(e.message==="network ACK missing","identical snapshot rejected without receipt")}
    await secondTab.close();
    await repo.deleteLocal();
    check((await repo.readCurrent())===null,"delete clears records");
