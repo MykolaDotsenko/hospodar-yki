@@ -19,6 +19,8 @@ REQUIRED = (
     "assets/audio/library.json",
     "sources/audio/recording-sources.json",
     "sources/audio/yki-targeted-sources-2026-10.json",
+    "sources/audio/YKI-LISTENING-RESEARCH-2026-10.md",
+    "learning/plans/listening-lesson-plan.json",
     "learning/plans/listening-4-weeks.json",
     "assets/video/open/available.json",
     "sources/youtube/youtube-catalog.json",
@@ -34,6 +36,10 @@ REQUIRED = (
     "research/user-cases/core-flows-v1.md",
 )
 NO_LONGER_CANONICAL = ("catalog/", "audio/", "video/", "content/", "brand/logo/")
+MISPLACED_CONTENT = ("assets/audio/catalog.json", "assets/audio/learning-plan.json",
+                     "assets/audio/program-4weeks.json",
+                     "assets/audio/yki-targeted-sources-2026-10.json",
+                     "assets/audio/YKI-LISTENING-RESEARCH-2026-10.md")
 MIME = ("audio/webm", "audio/ogg", "audio/mpeg", "video/webm", "image/svg+xml")
 MARKDOWN_FILES = (
     "README.md", "AGENTS.md", "docs/INDEX.md", "docs/FOLDER-STRUCTURE.md",
@@ -51,6 +57,9 @@ def check_tree(root: Path):
     for name in NO_LONGER_CANONICAL:
         if (root / name).exists():
             errors.append(f"old top-level category remains: {name}")
+    for name in MISPLACED_CONTENT:
+        if (root / name).exists():
+            errors.append(f"noncanonical duplicate research/plan in assets: {name}")
     if list(root.glob("catalog/**/registry*.json")):
         errors.append("machine registry still exists")
     # Essential binary payloads can never be silently dropped to appease checkers.
