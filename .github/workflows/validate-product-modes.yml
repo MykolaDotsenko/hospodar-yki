@@ -4,13 +4,13 @@ on:
     branches: [main, 'docs/**']
     paths:
       - 'docs/15-two-modes-skill-scopes.md'
-      - 'research/product-session-modes-v1.json'
+      - 'research/user-cases/product-session-modes-v1.json'
       - 'scripts/validate_product_modes.py'
       - '.github/workflows/validate-product-modes.yml'
   pull_request:
     paths:
       - 'docs/15-two-modes-skill-scopes.md'
-      - 'research/product-session-modes-v1.json'
+      - 'research/user-cases/product-session-modes-v1.json'
       - 'scripts/validate_product_modes.py'
       - '.github/workflows/validate-product-modes.yml'
 permissions:

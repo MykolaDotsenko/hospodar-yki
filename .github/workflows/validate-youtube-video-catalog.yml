@@ -2,27 +2,27 @@ name: Validate Finnish YouTube learning link catalog
 on:
   pull_request:
     paths:
-      - video/youtube-catalog.json
-      - video/yki-mock-simulation-sources.json
-      - video/YKI-MOCK-VIDEO-SOURCES-2026-10.md
-      - video/publisher-series-catalog.json
-      - video/publisher-episode-catalog.json
-      - video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
-      - video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
-      - video/YOUTUBE-LEARNING-CATALOG.md
+      - sources/youtube/youtube-catalog.json
+      - sources/official/yki-mock-simulation-sources.json
+      - sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md
+      - sources/publishers/publisher-series-catalog.json
+      - sources/publishers/publisher-episode-catalog.json
+      - sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
+      - sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
+      - sources/youtube/YOUTUBE-LEARNING-CATALOG.md
       - scripts/validate_youtube_video_catalog.py
       - .github/workflows/validate-youtube-video-catalog.yml
   push:
     branches: [main, research/yki-mock-video-classification-2026-10-21]
     paths:
-      - video/youtube-catalog.json
-      - video/yki-mock-simulation-sources.json
-      - video/YKI-MOCK-VIDEO-SOURCES-2026-10.md
-      - video/publisher-series-catalog.json
-      - video/publisher-episode-catalog.json
-      - video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
-      - video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
-      - video/YOUTUBE-LEARNING-CATALOG.md
+      - sources/youtube/youtube-catalog.json
+      - sources/official/yki-mock-simulation-sources.json
+      - sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md
+      - sources/publishers/publisher-series-catalog.json
+      - sources/publishers/publisher-episode-catalog.json
+      - sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md
+      - sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md
+      - sources/youtube/YOUTUBE-LEARNING-CATALOG.md
       - scripts/validate_youtube_video_catalog.py
       - .github/workflows/validate-youtube-video-catalog.yml
   workflow_dispatch:
@@ -36,13 +36,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate JSON catalog and preview ranges
         run: |
-          python3 -m json.tool video/youtube-catalog.json > /dev/null
-          python3 -m json.tool video/yki-mock-simulation-sources.json > /dev/null
-          python3 -m json.tool video/publisher-series-catalog.json > /dev/null
-          python3 -m json.tool video/publisher-episode-catalog.json > /dev/null
+          python3 -m json.tool sources/youtube/youtube-catalog.json > /dev/null
+          python3 -m json.tool sources/official/yki-mock-simulation-sources.json > /dev/null
+          python3 -m json.tool sources/publishers/publisher-series-catalog.json > /dev/null
+          python3 -m json.tool sources/publishers/publisher-episode-catalog.json > /dev/null
           python3 scripts/validate_youtube_video_catalog.py
       - name: Sanity check future-player requirements and rights statements
         run: |
-          grep -q 'YTP-14' video/YOUTUBE-LEARNING-CATALOG.md
-          grep -q 'IFrame Player API' video/YOUTUBE-LEARNING-CATALOG.md
-          grep -q 'Do not download' video/youtube-catalog.json
+          grep -q 'YTP-14' sources/youtube/YOUTUBE-LEARNING-CATALOG.md
+          grep -q 'IFrame Player API' sources/youtube/YOUTUBE-LEARNING-CATALOG.md
+          grep -q 'Do not download' sources/youtube/youtube-catalog.json

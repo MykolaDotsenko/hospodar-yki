@@ -3,25 +3,25 @@ on:
   push:
     branches: [main, 'research/**']
     paths:
-      - 'docs/20-yki-official-complete-audit-2026-10.md'
+      - 'research/yki/20-yki-official-complete-audit-2026-10.md'
       - 'docs/21-digital-yki-exam-simulator-executable-spec.md'
       - 'docs/14-digital-yki-fidelity-spec.md'
-      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
       - 'docs/15-two-modes-skill-scopes.md'
-      - 'research/official-yki-deep-audit-v2.json'
-      - 'research/yki-official-patterns-v2.json'
+      - 'research/yki/official-yki-deep-audit-v2.json'
+      - 'research/yki/yki-official-patterns-v2.json'
       - 'scripts/validate_yki_deep_fidelity.py'
       - 'README.md'
       - '.github/workflows/validate-yki-deep-fidelity.yml'
   pull_request:
     paths:
-      - 'docs/20-yki-official-complete-audit-2026-10.md'
+      - 'research/yki/20-yki-official-complete-audit-2026-10.md'
       - 'docs/21-digital-yki-exam-simulator-executable-spec.md'
       - 'docs/14-digital-yki-fidelity-spec.md'
-      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
       - 'docs/15-two-modes-skill-scopes.md'
-      - 'research/official-yki-deep-audit-v2.json'
-      - 'research/yki-official-patterns-v2.json'
+      - 'research/yki/official-yki-deep-audit-v2.json'
+      - 'research/yki/yki-official-patterns-v2.json'
       - 'scripts/validate_yki_deep_fidelity.py'
       - 'README.md'
       - '.github/workflows/validate-yki-deep-fidelity.yml'

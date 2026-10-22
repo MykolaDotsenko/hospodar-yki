@@ -3,22 +3,22 @@ on:
   push:
     branches: [main, 'research/**']
     paths:
-      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
-      - 'research/yki-exam-examples-2026-10.json'
+      - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki/yki-exam-examples-2026-10.json'
       - 'content/b1/exam-patterns/**'
-      - 'content/b1/audio-long/lessons.json'
-      - 'content/b1/contextual/reading-pack-v1.json'
-      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'learning/exercises/b1/audio-long/lessons.json'
+      - 'learning/exercises/b1/contextual/reading-pack-v1.json'
+      - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'scripts/validate_yki_exam_research.py'
       - '.github/workflows/validate-yki-exam-research.yml'
   pull_request:
     paths:
-      - 'docs/13-yki-exam-format-and-real-examples-2027.md'
-      - 'research/yki-exam-examples-2026-10.json'
+      - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
+      - 'research/yki/yki-exam-examples-2026-10.json'
       - 'content/b1/exam-patterns/**'
-      - 'content/b1/audio-long/lessons.json'
-      - 'content/b1/contextual/reading-pack-v1.json'
-      - 'content/b1/diagnostics/baseline-v1.json'
+      - 'learning/exercises/b1/audio-long/lessons.json'
+      - 'learning/exercises/b1/contextual/reading-pack-v1.json'
+      - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'scripts/validate_yki_exam_research.py'
       - '.github/workflows/validate-yki-exam-research.yml'
 permissions:

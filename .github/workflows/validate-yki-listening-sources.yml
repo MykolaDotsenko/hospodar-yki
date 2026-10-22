@@ -4,14 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - 'audio/yki-targeted-sources-2026-10.json'
-      - 'audio/YKI-LISTENING-RESEARCH-2026-10.md'
+      - 'assets/audio/yki-targeted-sources-2026-10.json'
+      - 'assets/audio/YKI-LISTENING-RESEARCH-2026-10.md'
       - 'scripts/validate_yki_listening_sources.py'
       - '.github/workflows/validate-yki-listening-sources.yml'
   pull_request:
     paths:
-      - 'audio/yki-targeted-sources-2026-10.json'
-      - 'audio/YKI-LISTENING-RESEARCH-2026-10.md'
+      - 'assets/audio/yki-targeted-sources-2026-10.json'
+      - 'assets/audio/YKI-LISTENING-RESEARCH-2026-10.md'
       - 'scripts/validate_yki_listening_sources.py'
       - '.github/workflows/validate-yki-listening-sources.yml'
 permissions:
