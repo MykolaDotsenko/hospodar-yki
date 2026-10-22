@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_folder_layout import check_links, check_local_media_ownership
+from validate_folder_layout import check_links, check_local_media_ownership, check_tree
 
 
 class MarkdownLinks(unittest.TestCase):
@@ -67,6 +67,12 @@ class LocalMediaOwnership(unittest.TestCase):
 
     def test_exact_membership_is_valid(self):
         self.assertEqual(check_local_media_ownership(self.root), [])
+
+    def test_old_source_catalog_location_is_rejected(self):
+        (self.root / "assets/audio/catalog.json").write_text("{}")
+        errors, _ = check_tree(self.root)
+        self.assertTrue(any("noncanonical duplicate research/plan" in e
+                            for e in errors))
 
     def test_orphan_audio_is_rejected(self):
         (self.root / "assets/audio/tts/harri/duplicate.ogg").write_bytes(b"two")
