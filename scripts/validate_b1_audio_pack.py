@@ -62,7 +62,7 @@ def main():
         for audio in versions:
             pstr=audio['path']; path=ROOT/pstr
             check(pstr not in paths,'Duplicate audio path '+pstr);paths.add(pstr)
-            check(pstr.startswith('audio/tts/harri/') and pstr.endswith('.ogg'),'Path invalid '+pstr)
+            check(pstr.startswith('assets/audio/tts/harri/') and pstr.endswith('.ogg'),'Path invalid '+pstr)
             check(path.exists() and path.is_file(),'Missing audio file '+pstr)
             body=path.read_bytes()
             check(len(body)>4000 and body.startswith(b'OggS'),'Invalid audio data '+pstr)
