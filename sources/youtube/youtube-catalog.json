@@ -3351,6 +3351,6 @@
   "round3_update": "8 added with publisher watch-page URLs; six/seven are publisher described A1-A2 slow scenario stories best used as bridging material, not substitute for B1+ naturally spoken exam prep. One authentic Kielibuusti working-life interview. All remain pending playback and S2 verification.",
   "round4_update": "Quality-gated +6 video URLs (44 total). B1/B2 explicit listening, 2 independent productive YKI-style lessons, native workplace coffee phrases, natural-speed KatChats and two news discussion examples; no generic A1/A2 video dumps. All checked against 38 unique previous IDs, no duplicate.",
   "round5_update": "Added 3 high-quality YouTube listening clips, excluding duplicates: two teacher-authored B1-B2 comprehension lesson videos (salary and illness) and one normal-speed B1+ two-speaker city interview. One editorial video title marked; claims remain publisher-metadata-only, no playback verified.",
-  "yki_mock_index": "video/yki-mock-simulation-sources.json",
+  "yki_mock_index": "sources/official/yki-mock-simulation-sources.json",
   "mock_classification_warning": "3 preexisting YouTube records tagged. Timed speaking mock is not complete official 4-skill YKI nor faithful digital 2027 UX. Video sample-answer leakage invalidates held-out exam scoring."
 }

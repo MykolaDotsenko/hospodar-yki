@@ -2,7 +2,7 @@
 
 Дата: **2026-10-21**. Статус: **посилання на зовнішні матеріали записані, навчальний контент і плеєр ще не реалізовані**.
 
-Додано **3 YouTube watch URLs**, **8 окремих Yle Areena episode URLs**, **2 професійні видавничі відеосерії**. Підсумок тепер: **47 унікальних YouTube URL** / **182 інформаційних часових сегменти** / **9 видавничих серій** / **8 безпосередніх посилань на Yle-епізоди**. YouTube: [catalog](youtube-catalog.json); серії: [publisher-series-catalog.json](publisher-series-catalog.json); епізоди: [publisher-episode-catalog.json](publisher-episode-catalog.json). Не рахувати серії і епізоди як додаткові унікальні YouTube video IDs.
+Додано **3 YouTube watch URLs**, **8 окремих Yle Areena episode URLs**, **2 професійні видавничі відеосерії**. Підсумок тепер: **47 унікальних YouTube URL** / **182 інформаційних часових сегменти** / **9 видавничих серій** / **8 безпосередніх посилань на Yle-епізоди**. YouTube: [catalog](youtube-catalog.json); серії: [publisher-series-catalog.json](../../publishers/publisher-series-catalog.json); епізоди: [publisher-episode-catalog.json](../../publishers/publisher-episode-catalog.json). Не рахувати серії і епізоди як додаткові унікальні YouTube video IDs.
 
 ## А. Найсильніші нові прямі YouTube відео (3 шт.)
 

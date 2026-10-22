@@ -1,6 +1,6 @@
 # Round 3 — Finnish video curation: verified publisher links and high-value practice (21.10.2026)
 
-**Status:** Source-link curation completed; playback/embedding/S2 human review pending. **New:** 8 specific YouTube video URLs taken from publishers' own outgoing "Watch on YouTube" links (now **38 YouTube IDs** total), **7 separately categorized publisher video series/page URLs** (not falsely labeled YouTube). Full source-of-truth: [video/youtube-catalog.json](youtube-catalog.json) and [video/publisher-series-catalog.json](publisher-series-catalog.json).
+**Status:** Source-link curation completed; playback/embedding/S2 human review pending. **New:** 8 specific YouTube video URLs taken from publishers' own outgoing "Watch on YouTube" links (now **38 YouTube IDs** total), **7 separately categorized publisher video series/page URLs** (not falsely labeled YouTube). Full source-of-truth: [sources/youtube/youtube-catalog.json](youtube-catalog.json) and [sources/publishers/publisher-series-catalog.json](../../publishers/publisher-series-catalog.json).
 
 **Quality policy:** A2.2→B1+ goal means that *slower A1–A2 scripted practice is only scaffolding*, not the same as spontaneous B1 speech or official YKI. We prioritize **actual B1 Yle learning materials**, **Kielibuusti professionally produced situational videos** and **short Puhekieli**; even practical beginner films must be paired with `uncued` B1 production. Scores 0–100 are expert product-fit priorities, *not measured improvements*, and vary with source difficulty.
 
@@ -23,7 +23,7 @@
 
 ## 2. Stronger video collections on original publisher sites — no invented YouTube IDs
 
-All are saved with honest `provider=publisher_page`, `has_youtube_id=false` in [external source index](publisher-series-catalog.json).
+All are saved with honest `provider=publisher_page`, `has_youtube_id=false` in [external source index](../../publishers/publisher-series-catalog.json).
 
 | Fit | Official resource | Why it deserves priority |
 |---:|---|---|
