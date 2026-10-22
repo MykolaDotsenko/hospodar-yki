@@ -1,6 +1,6 @@
 # Learning exercises — B1 and video tasks
 
-These are real authoring files consumed by the Web MVP and validators, not catalog pointers.
+These are real authoring files consumed by the Web MVP and validators, not catalog pointers. [Detailed historical content overview](CONTENT-OVERVIEW-2026-10.md) retains the 21 October inventory and editorial notes.
 
 | Learning content | Folder |
 | --- | --- |
