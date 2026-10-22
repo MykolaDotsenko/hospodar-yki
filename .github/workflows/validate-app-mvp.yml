@@ -5,6 +5,7 @@ on:
     paths:
       - 'app/**'
       - 'packages/contracts/**'
+      - 'scripts/run-chromium-idb.mjs'
       - 'learning/exercises/b1/grammar/contextual-cloze.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'learning/exercises/b1/audio-long/**'
@@ -14,6 +15,7 @@ on:
     paths:
       - 'app/**'
       - 'packages/contracts/**'
+      - 'scripts/run-chromium-idb.mjs'
       - 'learning/exercises/b1/grammar/contextual-cloze.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'learning/exercises/b1/audio-long/**'
