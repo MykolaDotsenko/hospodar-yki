@@ -30,7 +30,7 @@ A single versioned, JSON-serializable `commitAttempt(command)` invocation goes t
 3. Idempotency: exact command retry returns original receipt; same ID with changed body returns `IDEMPOTENCY_CONFLICT`.
 4. CAS: one winner per expected revision; stale writer → `REVISION_CONFLICT`; no lost update.
 5. Crash atomicity: event, snapshot and derived progress/outbox committed together **or not at all**.
-6. Ambiguous ACK recovery: read committed `commandId`, fingerprint and revision; a matching snapshot alone is **not sufficient**.
+6. Ambiguous ACK recovery: read committed `commandId` (**event ID**), fingerprint and revision; a matching snapshot alone is **not sufficient**.
 7. Portable errors (`INVALID_COMMAND`, `PROTOCOL_MISMATCH`, `IDEMPOTENCY_CONFLICT`, `REVISION_CONFLICT`, `QUOTA_OR_DISK_FULL`, `READ_FAILED`, `SAVE_FAILED`, `ASSET_UNAVAILABLE`, `HASH_MISMATCH`) must not be flattened by Kotlin bridge.
 8. Persist before navigation/success. On failure, show retry/export and preserve in-memory draft without claiming durable save.
 9. Versioned migrations need backup/export, forward/rollback path, repeatable restart semantics, content pinning and test fixtures.
