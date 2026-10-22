@@ -17,11 +17,13 @@ const taskNames={reading:"Tekstin ymmärtäminen · Читання",
   writing:"Kirjoittaminen · Письмо",speaking:"Puhuminen · Говоріння"};
 const exam={blueprints:null,content:null,session:null,items:null,storageBlocked:false,
   url:null,recorder:null,stream:null,stage:"welcome",now:Date.now(),
-  repository:null,persistedRevision:0,saveQueue:Promise.resolve(),transitioning:false};
+  repository:null,persistedRevision:0,saveQueue:Promise.resolve(),transitioning:false,
+  draftTimer:null,pendingDraft:null};
 function failSave(error) {
   exam.storageBlocked=true;
   alertUser("⚠️ Відповідь НЕ збережена ("+(error?.code||"SAVE_FAILED")+
     "). Перехід і завершення заблоковано. Експортуй відповідь у JSON або спробуй ще раз.");
+  if(exam.blueprints)draw();
 }
 function queueSave(next,kind="answer"){
   const action=exam.saveQueue.then(async()=>{
@@ -33,11 +35,28 @@ function queueSave(next,kind="answer"){
   exam.saveQueue=action.catch(failSave);
   return action;
 }
+function queueDraftSave(next){
+  exam.pendingDraft=next;
+  if(exam.draftTimer)clearTimeout(exam.draftTimer);
+  exam.draftTimer=setTimeout(()=>{
+    const latest=exam.pendingDraft;
+    exam.pendingDraft=null;exam.draftTimer=null;
+    if(latest&&!exam.storageBlocked)queueSave(latest,"answer").catch(()=>{});
+  },250);
+}
+async function flushDraft(){
+  if(exam.draftTimer)clearTimeout(exam.draftTimer);
+  exam.draftTimer=null;
+  const pending=exam.pendingDraft;
+  exam.pendingDraft=null;
+  if(pending&&!exam.storageBlocked)await queueSave(pending,"answer");
+  await exam.saveQueue;
+}
 async function transition(kind,createNext,after){
   if(exam.transitioning)return;
   exam.transitioning=true;
   try{
-    await exam.saveQueue;
+    await flushDraft();
     if(exam.storageBlocked)return;
     const next=createNext();
     await queueSave(next,kind); // commit BEFORE unlocking navigation/results
@@ -50,7 +69,7 @@ async function transition(kind,createNext,after){
 }
 async function deleteSaved(){
   try{
-    await exam.saveQueue;
+    await flushDraft();
     if(exam.storageBlocked)return false;
     await exam.repository.deleteLocal();
     try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{}
@@ -60,7 +79,7 @@ async function deleteSaved(){
 
 function getSaved(){
   try{return localStorage.getItem(EXAM_STORAGE_KEY);}
-  catch{exam.storageBlocked=true;return null;}
+  catch{return null;} // Legacy storage can be blocked while IndexedDB works.
 }
 
 function progress(){
@@ -214,14 +233,19 @@ async function record(){
     const rec=new MediaRecorder(stream),chunks=[];
     exam.recorder=rec;
     rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
-    rec.onstop=()=>{
+    rec.onstop=async()=>{
       stream.getTracks().forEach(t=>t.stop());
       exam.stream=null;exam.recorder=null;
       if(exam.url)URL.revokeObjectURL(exam.url);
       exam.url=chunks.length?URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"})):null;
       if(!exam.session.finishedAt){
-        exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
-        queueSave(exam.session,"answer").catch(()=>{});
+        try{
+          await flushDraft();
+          if(!exam.storageBlocked){
+            exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
+            await queueSave(exam.session,"answer");
+          }
+        }catch(err){failSave(err);}
       }
       draw();
       alertUser(exam.url?"Можна прослухати свою відповідь. Голосовий файл не зберігається після перезавантаження.":"Не вдалося створити запис.");
@@ -253,7 +277,7 @@ root.addEventListener("input",e=>{
   const input=e.target;if(input.name!=="exam-answer")return;
   const task=exam.items[exam.session.index];
   exam.session=writeAnswer(exam.session,task.id,input.value);
-  if(!exam.storageBlocked)queueSave(exam.session,"answer").catch(()=>{});
+  if(!exam.storageBlocked)queueDraftSave(exam.session);
   const count=root.querySelector("[data-count]");if(count)count.textContent=String(input.value.length);
 });
 root.addEventListener("click",e=>{
@@ -275,6 +299,8 @@ root.addEventListener("click",e=>{
   }
   if(act==="export"){exported();return;}
   if(act==="retry-save"){
+    if(exam.draftTimer)clearTimeout(exam.draftTimer);
+    exam.draftTimer=null;exam.pendingDraft=null;
     exam.storageBlocked=false;
     queueSave(exam.session,"answer").then(()=>{
       alertUser("Збереження підтверджено.");draw();
@@ -293,6 +319,10 @@ function clock(){
 }
 window.setInterval(clock,1000);
 window.addEventListener("beforeunload",stopAudio);
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState==="hidden"&&exam.pendingDraft&&!exam.storageBlocked)
+    flushDraft().catch(failSave); // best effort; transition always waits for commit
+});
 async function boot(){
   try{
     const paths=[
