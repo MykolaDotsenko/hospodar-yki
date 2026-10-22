@@ -47,6 +47,7 @@ export class PersistenceError extends Error {
   constructor(code: string, message: string);
 }
 export function assertCommit(command: unknown): ExamCommitCommand;
+export function commitWithRecovery(repository:ExamRepository,command:ExamCommitCommand):Promise<ExamCommitResult & {reconciled?:boolean}>;
 export function newCommit(session: ExamSessionV1,expectedRevision:number,kind:ExamCommitKind,uuid?:string):ExamCommitCommand;
 export function createMemoryExamRepository(options?:{failWrite?:(cmd:ExamCommitCommand)=>boolean}):ExamRepository;
 export function createIndexedDbExamRepository(options?:{indexedDB?:IDBFactory,dbName?:string}):ExamRepository;
