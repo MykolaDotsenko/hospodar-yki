@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><title>Real IndexedDB transaction test</title></head>
+<body>
+<output id="result" data-result="RUNNING">RUNNING</output>
+<script type="module">
+import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "../attempt-storage.mjs";
+const out=document.getElementById("result");
+const check=(condition,message)=>{if(!condition)throw Error(message);};
+const s=(answer="",index=0)=>({version:1,blueprintId:"yki-mini-idb",startedAt:"2026-10-22T09:00:00Z",
+  finishedAt:null,index,answers:{reading01:answer},voiceRecorded:{}});
+const id=n=>"browser-test-"+String(n).padStart(8,"0");
+(async()=>{
+ const name="yki-integration-"+Date.now()+"-"+Math.random();
+ const repo=createIndexedDbExamRepository({dbName:name});
+ const secondTab=createIndexedDbExamRepository({dbName:name});
+ try{
+   const first=newCommit(s("äiti"),0,"start",id(1));
+   const a=await repo.commit(first);
+   check(a.applied===true && a.revision===1,"first atomic commit");
+   const duplicate=await secondTab.commit(first);
+   check(duplicate.applied===false && duplicate.revision===1,"idempotent retry");
+   try{await secondTab.commit({...first,session:s("toinen")});throw Error("did not reject collision")}
+   catch(e){check(e.code==="IDEMPOTENCY_CONFLICT","reject divergent duplicate")}
+   const answer=newCommit(s("äiti ja isä",1),1,"navigate",id(2));
+   const b=await secondTab.commit(answer);
+   check(b.revision===2,"second atomic commit");
+   try{await repo.commit(newCommit(s("stale",1),1,"answer",id(3)));throw Error("did not reject stale commit")}
+   catch(e){check(e.code==="REVISION_CONFLICT","reject stale revision")}
+   const state=await repo.readCurrent();
+   check(state.revision===2 && state.session.index===1 &&
+         state.session.answers.reading01==="äiti ja isä","persisted snapshot");
+   const uncertain={
+     readCurrent:()=>repo.readCurrent(),
+     commit:async command=>{await repo.commit(command);throw Error("ACK lost");}
+   };
+   const recovered=await commitWithRecovery(uncertain,newCommit(s("uusi",2),2,"answer",id(4)));
+   check(recovered.reconciled===true && recovered.revision===3,"lost ACK reconciliation");
+   await secondTab.close();
+   await repo.deleteLocal();
+   check((await repo.readCurrent())===null,"delete clears records");
+   await repo.close();
+   const drop=indexedDB.deleteDatabase(name);
+   drop.onerror=()=>console.warn("Could not clean test database");
+   out.textContent="PASS: real Chromium IndexedDB atomic, duplicate, collision, retry, conflict, restore and clear";
+   out.dataset.result="PASS";
+ }catch(error){
+   out.textContent="FAIL: "+error.message;
+   out.dataset.result="FAIL";
+   console.error(error);
+   await secondTab.close().catch(()=>{});
+   await repo.close().catch(()=>{});
+ }
+})().catch(error=>{out.textContent="FAIL: "+error.message;out.dataset.result="FAIL";});
+</script>
+</body></html>
