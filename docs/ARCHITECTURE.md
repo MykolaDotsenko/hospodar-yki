@@ -4,6 +4,8 @@
 
 See the [ADR lifecycle and current decision map](architecture/README.md) for explicit precedence, and the [Web/Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) for implementation sequencing. These navigation pages do not replace the canonical contracts in [CONTRACTS](CONTRACTS.md).
 
+**Module boundaries are actively checked:** [independent domain and contracts rule](architecture/MODULE-BOUNDARIES.md) runs in CI. React/Phaser/Dexie/Room are platform-specific TARGET choices, not dependencies of pure domain logic.
+
 ## Implemented now (source exists)
 
 ```text

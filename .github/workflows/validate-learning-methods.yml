@@ -10,6 +10,7 @@ on:
       - 'research/pedagogy/11-advanced-yki-learning-methods-2026-10.md'
       - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
       - 'scripts/validate_learning_methods.py'
+      - 'scripts/tests/test_validate_learning_methods_growth.py'
       - '.github/workflows/validate-learning-methods.yml'
   pull_request:
     paths:
@@ -20,6 +21,7 @@ on:
       - 'research/pedagogy/11-advanced-yki-learning-methods-2026-10.md'
       - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
       - 'scripts/validate_learning_methods.py'
+      - 'scripts/tests/test_validate_learning_methods_growth.py'
       - '.github/workflows/validate-learning-methods.yml'
 permissions:
   contents: read
@@ -32,4 +34,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate scoring rubric, references, rankings and metadata
-        run: python3 scripts/validate_learning_methods.py
+        run: |
+          python3 scripts/validate_learning_methods.py
+          python3 scripts/validate_learning_books_bridge.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_learning_methods_growth.py' -v

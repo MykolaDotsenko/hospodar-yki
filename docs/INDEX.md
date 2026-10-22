@@ -50,7 +50,7 @@ The [research program](../research/RESEARCH-PROGRAM.md) owns methodology and tax
 
 | Task | Read |
 | --- | --- |
-| Navigate code and module boundaries | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| Navigate code and module boundaries | [ARCHITECTURE.md](ARCHITECTURE.md) + [executable module boundaries](architecture/MODULE-BOUNDARIES.md) |
 | Launch / modify / debug | [DEVELOPMENT.md](DEVELOPMENT.md) |
 | Run QA and qualify evidence | [TESTING.md](TESTING.md) |
 | Change event/schema/migrations | [CONTRACTS.md](CONTRACTS.md) |

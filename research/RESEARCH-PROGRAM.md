@@ -83,3 +83,9 @@ Link to relevant UX study/PR/actual test when available:
 - **Outcome gate:** human-reviewed Finnish accuracy, timed and delayed unseen tasks with active comparator, attrition/ceiling effects, and trust/comfort trade-offs. Progress metrics cannot be manufactured.
 
 **Starting evidence:** [initial sensory/cognitive critical synthesis](pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md), [evaluation protocol](ux/learning-impact-evaluation-protocol.md). These are initial research documents, **not** a systematic review or data proving Hospodar is better than competitors.
+
+## 7. Evolution without frozen counts
+
+The current 67 reviewed methods and 69 cited sources are **a historical minimum, not a lifetime upper bound**. When a genuinely distinct, source-backed method is added, update the existing [canonical method records](pedagogy/learning-methods-v1.json), [one-to-one effectiveness ratings](pedagogy/learning-effectiveness-ratings-v1.json), [method cards](pedagogy/08-learning-methods-evidence-2026-10.md), [analysis report](pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md) and any affected blueprint. All references must resolve, priority/rating model remain explicit and review/unknown efficacy must not be invented. The [validator](../scripts/validate_learning_methods.py) permits growth while failing on dropped IDs below the baseline, missing citations, unsorted ratings or mismatched counts; historical summaries may retain dated counts when clearly labeled. No new central method registry is created.
+
+**Architecture gate:** [cross-platform pure-domain boundaries](../docs/architecture/MODULE-BOUNDARIES.md) protect implementation from coupling to the visual/auditory technology under study.
