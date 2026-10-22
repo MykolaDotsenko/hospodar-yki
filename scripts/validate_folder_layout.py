@@ -76,18 +76,19 @@ def check_json(root: Path):
 
 
 def check_links(root: Path):
+    """Check every Markdown navigation link, excluding fenced code examples."""
+    from validate_ai_docs import markdown_without_fences
     errors = []
-    re_link = re.compile(r"!?\[[^\]\n]+\]\(([^)\n]+)\)")
-    for name in MARKDOWN_FILES:
-        file = root / name
-        if not file.is_file():
+    re_link = re.compile(r"!?\\[[^\\]\\n]+\\]\\(([^)\\n]+)\\)")
+    markdown_files = sorted(root.rglob("*.md"))
+    for file in markdown_files:
+        if ".git" in file.parts or "node_modules" in file.parts:
             continue
-        body = file.read_text(encoding="utf-8")
+        name = file.relative_to(root).as_posix()
+        body = markdown_without_fences(file.read_text(encoding="utf-8"))
         for raw in re_link.findall(body):
             link = raw.split("#", 1)[0].split("?", 1)[0]
-            if not link or link.startswith(("https:", "http:", "mailto:")):
-                continue
-            if " " in link and not (file.parent / link).exists():
+            if not link or link.startswith(("https:", "http:", "mailto:", "tel:", "#")):
                 continue
             target = (file.parent / unquote(link)).resolve()
             if not target.is_relative_to(root.resolve()):
