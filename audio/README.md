@@ -108,3 +108,8 @@ https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartam
 https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/
 
 Наша аудіотека — **навчальний ресурс**, а не копія нового цифрового іспиту 2027 року.
+
+
+## Canonical ownership and provenance (22.10.2026)
+
+[Audio discoverability](../assets/audio/README.md) · [Source rights rules](../docs/CONTENT-ARCHITECTURE.md) · [Binary SHA inventory](../catalog/media-inventory-v1.json). The real recordings and current manifests remain under `audio/`; a recorded Git blob is not independent copyright authorization. Do not silently move files referenced by lessons/import scripts.

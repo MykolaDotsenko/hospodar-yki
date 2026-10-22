@@ -3,6 +3,8 @@
 You are working on a **local-first Finnish/YKI learning application**: Ukrainian-language explanations; Finnish-language practice; LEARN and EXAM modes with reading, listening, writing and speaking. Optimize for reliable learning outcomes, privacy, accessibility, and verified tests—not for new frameworks or large diffs.
 
 ## First read (progressive disclosure)
+> **Content ownership:** before touching files in `audio/`, `video/`, `content/`, `brand/logo/`, `docs/` research or external resource links, read [content architecture](docs/CONTENT-ARCHITECTURE.md), the [canonical collection registry](catalog/registry.v1.json), and the appropriate [research](research/README.md)/[sources](sources/README.md)/[learning](learning/README.md)/[assets](assets/README.md) index. Keep legacy runtime paths stable until consumers/CI migrate together; never duplicate payloads or convert YouTube links into offline media.
+
 
 1. [docs/INDEX.md](docs/INDEX.md) — which document owns which decision, and its status.
 2. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — **real code** versus planned Web/Android stack.

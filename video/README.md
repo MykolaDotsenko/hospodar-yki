@@ -38,3 +38,8 @@ YouTube content is **NOT downloaded or copied** into this repository. Catalog en
 Run locally from repository root: `python3 scripts/import_open_finnish_videos.py` with `ffprobe` installed and network access. This script **does not modify** `app/**` or official exam item banks. Manually inspect source and verify rights before adding any future titles.
 
 **Frontend lesson policy:** A natural first hearing without transcripts/embedded text when possible → question on gist → details → only then optional transcript/captions verified by S2 → different audio-only unseen transfer. If subtitles are hardcoded, note that listening-only assessment is compromised; use as learning scaffold, not the holdout.
+
+
+## Canonical ownership and external-link separation (22.10.2026)
+
+[Licensed local WebM binaries](../assets/video/README.md) · [YouTube link-only sources](../sources/youtube/README.md) · [Publisher links](../sources/publishers/README.md) · [Rights and catalog structure](../docs/CONTENT-ARCHITECTURE.md). Existing `video/*.json` remain at stable paths for validators and app consumers; URL-only entries are NOT local downloadable videos.
