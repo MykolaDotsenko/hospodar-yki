@@ -17,7 +17,7 @@ export function assertCommit(command) {
       !EVENT_KINDS.has(command.kind) ||
       !Number.isSafeInteger(command.expectedRevision) || command.expectedRevision<0 ||
       !command.session || command.session.version!==1 ||
-      !Array.isArray([]) || typeof command.session.answers!=="object" ||
+      typeof command.session.answers!=="object" ||
       !command.session.answers || Array.isArray(command.session.answers) ||
       typeof command.session.blueprintId!=="string" ||
       typeof command.session.startedAt!=="string") {
@@ -27,6 +27,9 @@ export function assertCommit(command) {
     throw new PersistenceError("TOO_LARGE","Exam state exceeds permitted size");
   }
   return command;
+}
+function fingerprint(cmd) {
+  return JSON.stringify([cmd.kind,cmd.expectedRevision,cmd.session]);
 }
 function result(row, applied) {
   return {applied, revision:row.revision, session:structuredClone(row.session)};
@@ -44,11 +47,15 @@ export function createMemoryExamRepository({failWrite=()=>false}={}) {
     async readCurrent(){return current?structuredClone(current):null;},
     async commit(command){
       const cmd=assertCommit(command);
-      if(events.has(cmd.eventId))return result(current,false);
+      if(events.has(cmd.eventId)){
+        if(events.get(cmd.eventId).fingerprint!==fingerprint(cmd))
+          throw new PersistenceError("IDEMPOTENCY_CONFLICT","Event ID reused with different data");
+        return result(current,false);
+      }
       const next=applyCommit(current||{revision:0},cmd);
       if(failWrite(cmd))throw new PersistenceError("SAVE_FAILED","Simulated storage failure");
       current=next;
-      events.set(cmd.eventId,{eventId:cmd.eventId,kind:cmd.kind,revision:next.revision});
+      events.set(cmd.eventId,{eventId:cmd.eventId,kind:cmd.kind,revision:next.revision,fingerprint:fingerprint(cmd)});
       return result(next,true);
     },
     async deleteLocal(){current=null;events.clear();},
@@ -93,6 +100,10 @@ export function createIndexedDbExamRepository({indexedDB=globalThis.indexedDB,db
         const dup=events.get(cmd.eventId);
         dup.onsuccess=()=>{
           const existing=Boolean(dup.result);
+          if(existing&&dup.result.fingerprint!==fingerprint(cmd)){
+            error=new PersistenceError("IDEMPOTENCY_CONFLICT","Event ID reused with different data");
+            tx.abort();return;
+          }
           const get=sessions.get(EXAM_RECORD_KEY);
           get.onsuccess=()=>{
             const row=get.result||{key:EXAM_RECORD_KEY,revision:0,session:null};
@@ -102,7 +113,7 @@ export function createIndexedDbExamRepository({indexedDB=globalThis.indexedDB,db
               } else {
                 const next=applyCommit(row,cmd);
                 sessions.put(next);
-                events.add({eventId:cmd.eventId,kind:cmd.kind,revision:next.revision});
+                events.add({eventId:cmd.eventId,kind:cmd.kind,revision:next.revision,fingerprint:fingerprint(cmd)});
                 output=result(next,true);
               }
             } catch(e){error=e;tx.abort();}
