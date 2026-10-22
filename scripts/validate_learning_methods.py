@@ -95,8 +95,8 @@ def main():
         require(exp["source_methods"] and set(exp["source_methods"]) <= known_method_ids, "Unknown experiment methods " + exp["id"])
         require(all(exp.get(k) for k in ("treatment","control","primary_outcome","guardrail")), "Incomplete A/B hypothesis " + exp["id"])
     require(len({e["id"] for e in blueprint["experiment_backlog"]}) == 4, "Duplicate experiment ID")
-    legacy_docs = (ROOT / "docs" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
-    new_docs = (ROOT / "docs" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
+    legacy_docs = (ROOT / "research" / "pedagogy" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
+    new_docs = (ROOT / "research" / "pedagogy" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
     require("## Повний рейтинг (Product-fit, 67 методик)" in legacy_docs, "Main method ranking stale")
     for method in methods:
         require("(`" + method["id"] + "`)" in legacy_docs, "Missing detailed method card " + method["id"])
@@ -126,7 +126,7 @@ def main():
         require(rating["not_yki_pass_probability"] is True, "Unvalidated YKI score misrepresented: " + ident)
         require(rating["confidence_in_score"] in {"high", "moderate", "low"}, "Unknown evidence confidence")
         require(rating["role"] in {"learning_intervention", "assessment_or_infrastructure", "technology_conditional", "not_recommended_standalone"}, "Unknown method role")
-    effectiveness_report = (ROOT / "docs" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
+    effectiveness_report = (ROOT / "research" / "pedagogy" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
     require("67" in effectiveness_report and "69" in effectiveness_report and "g=0,18" in effectiveness_report, "Research findings summary incomplete")
     require(effectiveness_report.count("| **") >= 67, "Not all 67 rated methods shown in table")
 
