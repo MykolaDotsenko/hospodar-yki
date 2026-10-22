@@ -1,14 +1,11 @@
-# External knowledge and media sources — URL-only and provenance
+# Sources — зовнішні матеріали, а не локальні медіафайли
 
-External references are **not shipped media** and do not become licensed files merely by being listed. Local owned media and curricula are indexed in [catalog](../docs/FOLDER-STRUCTURE.md); cross-cutting rules in [content architecture](../docs/CONTENT-ARCHITECTURE.md).
+Зовнішні посилання згруповані за джерелом. Аудіо й відео, які **дійсно збережені в Git**, знаходяться в [assets/](../assets/README.md), а оригінальні вправи — в [learning/](../learning/README.md).
 
-| Kind | Discover | Existing source of truth |
+| Джерело | Папка | Що там є |
 | --- | --- | --- |
-| YouTube (watch URLs, timestamps) | [YouTube](youtube/README.md) | `sources/youtube/youtube-catalog.json` |
-| External creators/publishers | [Publishers](publishers/README.md) | `sources/publishers/publisher-series-catalog.json`, `sources/publishers/publisher-episode-catalog.json` |
-| Official YKI/demo sources | [Official](official/README.md) | `sources/official/yki-mock-simulation-sources.json`, `research/yki-*.json` |
-| Books, courses, webpages, corpora | [Knowledge](../knowledge/README.md) | `docs/03…`, `knowledge/sources/10-yki-resources-machine-index.json`, `research/yki/yki-content-sources-2026-10.json` |
+| YouTube | [youtube/](youtube/README.md) | URL, автори, часові позначки, тематичні добірки; **без завантажених роликів** |
+| Видавці та медіа | [publishers/](publishers/README.md) | Зовнішні відеосерії, епізоди й посилання на авторів |
+| Офіційні приклади | [official/](official/README.md) | Посилання на офіційні YKI/SOLKI-демонстрації та їхню класифікацію |
 
-A new link/source entry records creator, original URL, source type, date checked, level/skill/tags, verification status, whether official, rights/embedding restrictions, planned exercise linkage and review status. Do not confuse existence of a URL with verified playback or instructor-reviewed pedagogy.
-
-**Policy:** YouTube watch/embed only under applicable platform rules; publisher/official educational snippets remain link-only without separate explicit distribution license. Don't fetch YouTube videos/captions into `assets/`, `audio/`, `video/` or Play packs.
+Кожне нове посилання має містити автора/власника, URL, дату й статус перевірки, відомості про права, навички/теми та рівень із позначенням припущень. **Посилання ≠ дозвіл завантажувати чи розповсюджувати контент.** YouTube, захищені видавничі матеріали та офіційні записи без окремих прав залишаються *link-only*. Інструкції: [структура репозиторію](../docs/FOLDER-STRUCTURE.md).

@@ -1,7 +1,11 @@
-# Dictionaries and Finnish chunks
+# Dictionaries — фінська лексика та сталі конструкції
 
-- [B1 contextual chunks](b1/contextual-chunks-v1.json): Finnish expressions used in practical situations.
-- [B1 verb rektio](b1/rektio-v1.json): verb government and cases.
-- [Finnish frequency source](b1/frequency/README.md): corpus frequency words, provenance and limitations.
+Словникові набори зберігаються **безпосередньо в цій папці**, а не в окремому реєстрі.
 
-The dictionaries are real files in this directory. Grammar **exercises** live separately in [learning/exercises/b1/grammar](../../learning/exercises/b1/grammar/README.md). Do not store private learner vocabulary statistics in Git; future review state belongs in the device-local learner database. Every published lexical item needs source/license, Finnish example, meaning, and editorial quality check.
+- [b1/contextual-chunks-v1.json](b1/contextual-chunks-v1.json) — мовні конструкції та приклади для реальних ситуацій;
+- [b1/rektio-v1.json](b1/rektio-v1.json) — керування фінських дієслів (rektion);
+- [b1/frequency/](b1/frequency/README.md) — частотність і корпусні джерела.
+
+Новий запис: базова форма (lemma), граматичні форми й керування за потреби, chunk, пояснення українською, природний приклад фінською, джерело, рівень CEFR (орієнтовний), ліцензія та редакторська перевірка. Не копіювати цілі словники видавців без дозволу.
+
+**Власна історія повторень користувача не належить до репозиторію.** Вона живе в локальному сховищі застосунку відповідно до [контрактів](../../docs/CONTRACTS.md). Навчальні вправи з цією лексикою — у [learning/exercises/](../../learning/exercises/README.md).
