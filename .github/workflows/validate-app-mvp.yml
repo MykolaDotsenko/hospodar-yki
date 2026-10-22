@@ -34,3 +34,23 @@ jobs:
           node --check app/app.mjs
       - name: Unit and real-content integration tests
         run: node --test app/tests/*.test.mjs
+      - name: Real Chromium IndexedDB durability and concurrency test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/yki-browser-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..25}; do
+            if curl -fsS http://127.0.0.1:8765/app/tests/atomic-idb-browser.html >/dev/null 2>&1; then break; fi
+            sleep 0.2
+          done
+          if command -v google-chrome >/dev/null; then
+            export CHROME_BINARY=google-chrome
+          elif command -v chromium >/dev/null; then
+            export CHROME_BINARY=chromium
+          else
+            echo "Chromium is required to test real IndexedDB"
+            exit 1
+          fi
+          node scripts/run-chromium-idb.mjs

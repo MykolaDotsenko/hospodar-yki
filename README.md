@@ -221,3 +221,11 @@ Android із 2–3GB встановленого ліцензованого ме�
 ### 🔐 Reliability-first architecture ADR-024
 
 [Production-ready target design: Room on Android, Dexie on Web, immutable exam attempts, crash recovery, native Play Asset Delivery, strict media rights](docs/24-reliability-hardened-architecture-web-android.md). **Це цільовий ADR, не готовий продукт**. Для критичних відповідей Android рекомендована Room/SQLite із Kotlin bridge; Web використовує IndexedDB/Dexie. Обидва мають один TypeScript event/content contract. Медіа 2–3GB не дублювати у БД, а Google Play може вимагати щонайменше подвійний запас місця для install-time packs.
+
+## ✅ First implemented reliability slice — 22.10.2026
+
+**[Implementation report: durable browser exam, typed storage/media contracts, Android Kotlin prototypes](docs/26-atomic-exam-and-media-implementation-2026-10.md)**
+
+The working `app/exam.html` mini rehearsal now persists its answers and session in **transactional IndexedDB**; it blocks next/finish on failed writes, offers retry/export, handles legacy `localStorage` migration and detects stale or duplicate commands. Real Chromium IndexedDB integration and Node suites run in [CI](.github/workflows/validate-app-mvp.yml). `app/index.html` learning progress is still the original `localStorage` MVP.
+
+Native [Kotlin Room and Media3 prototype](native/android/prototype/README.md) is source only and has **not** been compiled into an Android app; full Phaser/React migration, Play-installed 2–3GB packs, video native surface and YKI 2027 exact fidelity remain work to do. This is **actual incremental code progress**, not a claim of 95+ measured production readiness.

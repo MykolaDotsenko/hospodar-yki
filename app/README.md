@@ -80,3 +80,17 @@ Specs: [product requirements](../docs/11-mvp-product-requirements.md) · [archit
 - Verify exact digital-YKI user experience from OPH before shipping exam-like timers and instruction claims.
 
 **Official 2027 dates source:** https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat — 10.04.2027 intermediate full Finnish digital test; registration 08–25.03.2027, subject to changes.
+
+## ✅ Transactional browser exam checkpoint (22.10.2026, implemented slice)
+
+`exam.html` now uses **IndexedDB**, not `localStorage`, for active exam answers/session snapshots. The *learning mission page* `index.html` **still uses `localStorage`** and is not yet migrated. The exam imports its previous `localStorage` session once after a successful IndexedDB commit.
+
+- Every autosave appends a unique event and updates the current snapshot in **one IDB readwrite transaction**. Revision checks prevent stale-tab overwrites; exact event-ID retry is idempotent and divergent reuse is rejected.
+- Short input bursts are coalesced. Navigation and report reveal **wait for a durable write**; after a save failure, the user stays on the question and can use **JSON export + Retry saving**.
+- A completed commit with a lost acknowledgment is reconciled against the saved snapshot, not a guess.
+- `app/tests/atomic-idb-browser.html` + `scripts/run-chromium-idb.mjs` provide the real Chromium IndexedDB integration check.
+- `app/attempt-storage.d.ts` and `app/media-platform.d.ts` define platform protocols. `native/android/prototype` contains Kotlin/Room and Media3 sources **not yet compiled**. No Android release or 2–3GB media packs exist yet.
+
+**Privacy:** text and metadata remain local to the browser profile; IndexedDB is not encrypted by this application and can be evicted. Voice recordings stay ephemeral and are not claimed to survive reload. Export important writing before relying on browser storage alone.
+
+[Implementation record](../docs/26-atomic-exam-and-media-implementation-2026-10.md).

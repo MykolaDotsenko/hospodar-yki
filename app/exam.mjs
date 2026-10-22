@@ -3,6 +3,7 @@ import {
   remainingSeconds, writeAnswer, goToIndex, recordVoiceEvidence,
   finishSession, scoreSession
 } from "./exam-core.mjs";
+import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "./attempt-storage.mjs";
 
 const root=document.getElementById("exam-main");
 const notice=document.getElementById("exam-notice");
@@ -15,18 +16,70 @@ const taskNames={reading:"Tekstin ymmärtäminen · Читання",
   listening:"Puheen ymmärtäminen · Аудіювання",
   writing:"Kirjoittaminen · Письмо",speaking:"Puhuminen · Говоріння"};
 const exam={blueprints:null,content:null,session:null,items:null,storageBlocked:false,
-  url:null,recorder:null,stream:null,stage:"welcome",now:Date.now()};
-function persist(){
-  if(!exam.session)return;
-  try{localStorage.setItem(EXAM_STORAGE_KEY,JSON.stringify(exam.session));}
-  catch{exam.storageBlocked=true;alertUser("Браузер не дозволяє зберегти прогрес. Дані можуть зникнути під час закриття вкладки.");}
+  url:null,recorder:null,stream:null,stage:"welcome",now:Date.now(),
+  repository:null,persistedRevision:0,saveQueue:Promise.resolve(),transitioning:false,
+  draftTimer:null,pendingDraft:null};
+function failSave(error) {
+  exam.storageBlocked=true;
+  alertUser("⚠️ Відповідь НЕ збережена ("+(error?.code||"SAVE_FAILED")+
+    "). Перехід і завершення заблоковано. Експортуй відповідь у JSON або спробуй ще раз.");
+  if(exam.blueprints)draw();
 }
-function deleteSaved(){
-  try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{exam.storageBlocked=true;}
+function queueSave(next,kind="answer"){
+  const action=exam.saveQueue.then(async()=>{
+    if(exam.storageBlocked)throw Object.assign(new Error("Save blocked"),{code:"SAVE_FAILED"});
+    const result=await commitWithRecovery(exam.repository,newCommit(next,exam.persistedRevision,kind));
+    exam.persistedRevision=result.revision;
+    return result;
+  });
+  exam.saveQueue=action.catch(failSave);
+  return action;
 }
+function queueDraftSave(next){
+  exam.pendingDraft=next;
+  if(exam.draftTimer)clearTimeout(exam.draftTimer);
+  exam.draftTimer=setTimeout(()=>{
+    const latest=exam.pendingDraft;
+    exam.pendingDraft=null;exam.draftTimer=null;
+    if(latest&&!exam.storageBlocked)queueSave(latest,"answer").catch(()=>{});
+  },250);
+}
+async function flushDraft(){
+  if(exam.draftTimer)clearTimeout(exam.draftTimer);
+  exam.draftTimer=null;
+  const pending=exam.pendingDraft;
+  exam.pendingDraft=null;
+  if(pending&&!exam.storageBlocked)await queueSave(pending,"answer");
+  await exam.saveQueue;
+}
+async function transition(kind,createNext,after){
+  if(exam.transitioning)return;
+  exam.transitioning=true;
+  try{
+    await flushDraft();
+    if(exam.storageBlocked)return;
+    const next=createNext();
+    await queueSave(next,kind); // commit BEFORE unlocking navigation/results
+    exam.session=next;
+    after?.();
+    draw();
+    root.focus({preventScroll:true});
+  }catch(err){failSave(err);}
+  finally{exam.transitioning=false;}
+}
+async function deleteSaved(){
+  try{
+    await flushDraft();
+    if(exam.storageBlocked)return false;
+    await exam.repository.deleteLocal();
+    try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{}
+    exam.persistedRevision=0;return true;
+  }catch(err){failSave(err);return false;}
+}
+
 function getSaved(){
   try{return localStorage.getItem(EXAM_STORAGE_KEY);}
-  catch{exam.storageBlocked=true;return null;}
+  catch{return null;} // Legacy storage can be blocked while IndexedDB works.
 }
 
 function progress(){
@@ -107,7 +160,9 @@ function renderExam(){
     ${actions("← Попереднє","previous","secondary")}
     ${s.index<exam.items.length-1?actions("Наступне →","next",""):actions("Завершити репетицію","finish","")}
   </div><div class="actions">${actions("Завершити достроково","finish-early","quiet")}</div></div>
-  <p class="audiowarn">Не знаєш відповідь? Можна залишити порожньою. Прогрес цієї спроби зберігається тільки в браузері.</p>`;
+  <div class="actions">${actions("Експортувати поточну спробу","export","quiet")}
+  ${exam.storageBlocked?actions("Спробувати зберегти ще раз","retry-save","secondary"):""}</div>
+  <p class="audiowarn">Можна залишити відповідь порожньою. Перехід і завершення доступні лише після успішного збереження в IndexedDB.</p>`;
   return section(body+policy());
 }
 function renderFinished(){
@@ -147,20 +202,17 @@ function draw(){
   if(legend)legend.hidden=Boolean(exam.session && !exam.session.finishedAt);
   root.innerHTML=!exam.session?renderWelcome():exam.session.finishedAt?renderFinished():renderExam();
 }
-function start(id,minutes){
+async function start(id,minutes){
   const b=exam.blueprints.find(x=>x.id===id);
   if(!b)throw new Error("Unknown blueprint");
-  stopAudio();
-  exam.items=buildItems(b,exam.content);
-  exam.session=createSession(b.id,minutes);
-  exam.stage="exam";persist();draw();
-  root.focus({preventScroll:true});
+  const newItems=buildItems(b,exam.content);
+  await transition("start",()=>createSession(b.id,minutes),()=>{
+    stopAudio();exam.items=newItems;exam.stage="exam";
+  });
 }
 function selectItem(index){
   if(exam.session.finishedAt)return;
-  stopAudio();
-  exam.session=goToIndex(exam.session,index,exam.items.length);
-  persist();draw();root.focus({preventScroll:true});
+  return transition("navigate",()=>goToIndex(exam.session,index,exam.items.length),stopAudio);
 }
 function stopAudio(){
   if(exam.recorder?.state==="recording"){exam.recorder.onstop=null;exam.recorder.stop();}
@@ -181,22 +233,29 @@ async function record(){
     const rec=new MediaRecorder(stream),chunks=[];
     exam.recorder=rec;
     rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
-    rec.onstop=()=>{
+    rec.onstop=async()=>{
       stream.getTracks().forEach(t=>t.stop());
       exam.stream=null;exam.recorder=null;
       if(exam.url)URL.revokeObjectURL(exam.url);
       exam.url=chunks.length?URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"})):null;
-      if(!exam.session.finishedAt)exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
-      persist();draw();
+      if(!exam.session.finishedAt){
+        try{
+          await flushDraft();
+          if(!exam.storageBlocked){
+            exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
+            await queueSave(exam.session,"answer");
+          }
+        }catch(err){failSave(err);}
+      }
+      draw();
       alertUser(exam.url?"Можна прослухати свою відповідь. Голосовий файл не зберігається після перезавантаження.":"Не вдалося створити запис.");
     };
     rec.start();draw();alertUser("Запис іде локально. Зупини вручну, щоб прослухати.");
   }catch{alertUser("Немає дозволу на мікрофон. Для альтернативи введи відповідь у текстове поле.");}
 }
 function conclude(){
-  stopAudio();
-  exam.session=finishSession(exam.session);
-  persist();draw();root.focus({preventScroll:true});
+  if(!exam.session || exam.session.finishedAt)return;
+  return transition("finish",()=>finishSession(exam.session),stopAudio);
 }
 function exported(){
   const payload={warning:"Personal answers. Not official YKI scores. Raw voice recordings not exported.",
@@ -214,11 +273,11 @@ root.addEventListener("submit",e=>{
   catch(err){alertUser(String(err.message||err));}
 });
 root.addEventListener("input",e=>{
-  if(!exam.session || exam.session.finishedAt)return;
+  if(!exam.session || exam.session.finishedAt || exam.transitioning)return;
   const input=e.target;if(input.name!=="exam-answer")return;
   const task=exam.items[exam.session.index];
   exam.session=writeAnswer(exam.session,task.id,input.value);
-  persist();
+  if(!exam.storageBlocked)queueDraftSave(exam.session);
   const count=root.querySelector("[data-count]");if(count)count.textContent=String(input.value.length);
 });
 root.addEventListener("click",e=>{
@@ -236,9 +295,18 @@ root.addEventListener("click",e=>{
   }
   if(act==="restart"){
     if(!confirm("Почати нову репетицію? Поточну спробу можна експортувати перед очищенням."))return;
-    stopAudio();deleteSaved();exam.session=null;exam.items=null;draw();return;
+    deleteSaved().then(ok=>{if(ok){stopAudio();exam.session=null;exam.items=null;draw();}});return;
   }
   if(act==="export"){exported();return;}
+  if(act==="retry-save"){
+    if(exam.draftTimer)clearTimeout(exam.draftTimer);
+    exam.draftTimer=null;exam.pendingDraft=null;
+    exam.storageBlocked=false;
+    queueSave(exam.session,"answer").then(()=>{
+      alertUser("Збереження підтверджено.");draw();
+    }).catch(()=>{draw();});
+    return;
+  }
 });
 function clock(){
   if(!exam.session||exam.session.finishedAt)return;
@@ -251,6 +319,10 @@ function clock(){
 }
 window.setInterval(clock,1000);
 window.addEventListener("beforeunload",stopAudio);
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState==="hidden"&&exam.pendingDraft&&!exam.storageBlocked)
+    flushDraft().catch(failSave); // best effort; transition always waits for commit
+});
 async function boot(){
   try{
     const paths=[
@@ -266,8 +338,21 @@ async function boot(){
     }));
     exam.blueprints=docs[0].blueprints;
     exam.content={reading:docs[1],listening:docs[2],baseline:docs[3]};
-    const {session,recovered}=loadSession(getSaved(),exam.blueprints.map(x=>x.id));
-    if(recovered)alertUser("Збереження попередньої сесії пошкоджено чи несумісне. Можна почати нову.");
+    exam.repository=createIndexedDbExamRepository();
+    let saved=await exam.repository.readCurrent();
+    if(!saved){
+      const legacy=getSaved();
+      const migrated=loadSession(legacy,exam.blueprints.map(x=>x.id));
+      if(legacy&&migrated.session){
+        const result=await commitWithRecovery(exam.repository,newCommit(migrated.session,0,"legacy-import"));
+        exam.persistedRevision=result.revision;
+        saved={session:result.session,revision:result.revision};
+        try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{}
+      }else if(migrated.recovered)alertUser("Старе збереження пошкоджене або несумісне.");
+    }
+    if(saved)exam.persistedRevision=saved.revision;
+    const {session,recovered}=loadSession(saved?.session?JSON.stringify(saved.session):null,exam.blueprints.map(x=>x.id));
+    if(recovered)alertUser("Збережена сесія пошкоджена або несумісна.");
     if(session){
       const b=exam.blueprints.find(x=>x.id===session.blueprintId);
       const items=buildItems(b,exam.content);
@@ -277,6 +362,7 @@ async function boot(){
     }
     draw();
   }catch(err){
+    exam.storageBlocked=true;
     root.innerHTML=section(`<h1>Не вдалося завантажити тренажер</h1><p>${esc(err.message)}</p>
       <p>Запустіть із кореня репозиторію <code>python3 -m http.server 8080</code> і відкрийте <code>http://localhost:8080/app/exam.html</code>.</p>`);
   }
