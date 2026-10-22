@@ -3,8 +3,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'content/b1/lexicon/**'
-      - 'content/b1/contextual/**'
+      - 'knowledge/dictionaries/b1/**'
+      - 'learning/exercises/b1/contextual/**'
       - 'knowledge/dictionaries/b1/rektio-v1.json'
       - 'learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json'
       - 'scripts/validate_ftb_corpus_bank.py'
@@ -13,8 +13,8 @@ on:
       - '.github/workflows/validate-contextual-content.yml'
   pull_request:
     paths:
-      - 'content/b1/lexicon/**'
-      - 'content/b1/contextual/**'
+      - 'knowledge/dictionaries/b1/**'
+      - 'learning/exercises/b1/contextual/**'
       - 'knowledge/dictionaries/b1/rektio-v1.json'
       - 'learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json'
       - 'scripts/validate_ftb_corpus_bank.py'

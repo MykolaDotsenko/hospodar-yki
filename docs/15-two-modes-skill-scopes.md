@@ -283,7 +283,7 @@ type Session = {
 
 ### 6.2. Шари
 
-1. **Content registry:** `content/b1/**`, four-skill normalized tasks, verified source/rights, item version.
+1. **Content registry:** `learning/exercises/b1/**`, four-skill normalized tasks, verified source/rights, item version.
 2. **Session planner:** створити валідний skill-filtered план, coverage, anti-repetition, seedable practice selection, blueprints for exam.
 3. **Learning engine:** adaptive diagnostics, SRS, feedback, self-repair, transfer.
 4. **Exam engine:** policy-driven test assembly, exam UI, delayed per-skill result, verified fidelity flags, no intervention.

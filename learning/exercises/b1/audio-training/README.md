@@ -15,7 +15,7 @@
 
 ## Походження і ліцензія
 
-- **Оригінальні тексти і запитання:** Hospodar YKI `content/b1/themes/*.json` та `learning/exercises/b1/high-yield/reading-inference-bank.json` (створені в межах проєкту).
+- **Оригінальні тексти і запитання:** Hospodar YKI `learning/exercises/b1/themes/*.json` та `learning/exercises/b1/high-yield/reading-inference-bank.json` (створені в межах проєкту).
 - **Синтез:** Piper `fi_FI-harri-medium`, 22 050 Гц, один штучний голос. [MODEL_CARD](https://huggingface.co/rhasspy/piper-voices/blob/main/fi/fi_FI/harri/medium/MODEL_CARD): навчальні записи для моделі — CC0; [Piper MIT](https://github.com/rhasspy/piper/blob/master/LICENSE.md), ліцензійна інформація моделі окрема. Файл моделі **не записується в git**.
 - Платні книги, Yle чи офіційне YKI-аудіо не копіюємо.
 

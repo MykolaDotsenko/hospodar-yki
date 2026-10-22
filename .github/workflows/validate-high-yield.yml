@@ -3,12 +3,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'content/b1/high-yield/**'
+      - 'learning/exercises/b1/high-yield/**'
       - 'scripts/validate_high_yield.mjs'
       - '.github/workflows/validate-high-yield.yml'
   pull_request:
     paths:
-      - 'content/b1/high-yield/**'
+      - 'learning/exercises/b1/high-yield/**'
       - 'scripts/validate_high_yield.mjs'
 permissions:
   contents: read

@@ -3,12 +3,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'content/**'
+      - 'learning/exercises/**'
       - 'scripts/validate_training_content.mjs'
       - '.github/workflows/validate-training-content.yml'
   pull_request:
     paths:
-      - 'content/**'
+      - 'learning/exercises/**'
       - 'scripts/validate_training_content.mjs'
 permissions:
   contents: read

@@ -6,7 +6,7 @@ on:
       - 'app/**'
       - 'learning/exercises/b1/grammar/contextual-cloze.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
-      - 'content/b1/audio-long/**'
+      - 'learning/exercises/b1/audio-long/**'
       - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - '.github/workflows/validate-app-mvp.yml'
   pull_request:
@@ -14,7 +14,7 @@ on:
       - 'app/**'
       - 'learning/exercises/b1/grammar/contextual-cloze.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
-      - 'content/b1/audio-long/**'
+      - 'learning/exercises/b1/audio-long/**'
       - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - '.github/workflows/validate-app-mvp.yml'
 permissions:

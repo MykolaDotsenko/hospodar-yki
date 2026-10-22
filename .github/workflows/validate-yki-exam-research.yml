@@ -5,7 +5,7 @@ on:
     paths:
       - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
       - 'research/yki/yki-exam-examples-2026-10.json'
-      - 'content/b1/exam-patterns/**'
+      - 'learning/exercises/b1/exam-patterns/**'
       - 'learning/exercises/b1/audio-long/lessons.json'
       - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
@@ -15,7 +15,7 @@ on:
     paths:
       - 'research/yki/13-yki-exam-format-and-real-examples-2027.md'
       - 'research/yki/yki-exam-examples-2026-10.json'
-      - 'content/b1/exam-patterns/**'
+      - 'learning/exercises/b1/exam-patterns/**'
       - 'learning/exercises/b1/audio-long/lessons.json'
       - 'learning/exercises/b1/contextual/reading-pack-v1.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'

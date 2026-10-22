@@ -113,7 +113,7 @@
 | Digital 2027 rehearsal | independent training approximation; **not official replica** |
 | Server accounts, cloud sync, production deployment | not delivered |
 
-**Контентне джерело:** `content/b1/**` і `assets/audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
+**Контентне джерело:** `learning/exercises/b1/**` і `assets/audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
 
 ## 7. INTERACTIVE-VISUAL — науково обґрунтовані інтерактивні вправи та візуальний UX (P0→P2)
 
