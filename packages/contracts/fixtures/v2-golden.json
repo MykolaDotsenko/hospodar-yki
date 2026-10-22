@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "scope": "Cross-language portable JSON UTF-8 values; V2 JS only verified, Kotlin parity NOT RUN",
+  "valid": [
+    {
+      "id": "first-attempt",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-001",
+        "sessionId": "session-001",
+        "expectedRevision": 0,
+        "event": {
+          "type": "first-attempt",
+          "itemId": "fin-001",
+          "itemVersion": 1,
+          "contentHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "hintUsed": false,
+          "outcome": "answered",
+          "response": "tuli"
+        },
+        "nextSnapshot": {
+          "progress": 1,
+          "assessmentStatus": "ungraded"
+        }
+      },
+      "canonical": "{\"commandId\":\"cmd-001\",\"event\":{\"contentHash\":\"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"hintUsed\":false,\"itemId\":\"fin-001\",\"itemVersion\":1,\"outcome\":\"answered\",\"response\":\"tuli\",\"type\":\"first-attempt\"},\"expectedRevision\":0,\"nextSnapshot\":{\"assessmentStatus\":\"ungraded\",\"progress\":1},\"protocolVersion\":2,\"sessionId\":\"session-001\"}"
+    },
+    {
+      "id": "checkpoint-utf8",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-002",
+        "sessionId": "session-001",
+        "expectedRevision": 1,
+        "event": {
+          "type": "checkpoint",
+          "index": 2
+        },
+        "nextSnapshot": {
+          "progress": 2,
+          "answers": {
+            "fin-001": "äiti",
+            "fin-002": "tulli"
+          }
+        }
+      },
+      "canonical": "{\"commandId\":\"cmd-002\",\"event\":{\"index\":2,\"type\":\"checkpoint\"},\"expectedRevision\":1,\"nextSnapshot\":{\"answers\":{\"fin-001\":\"äiti\",\"fin-002\":\"tulli\"},\"progress\":2},\"protocolVersion\":2,\"sessionId\":\"session-001\"}"
+    },
+    {
+      "id": "transfer",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-003",
+        "sessionId": "session-001",
+        "expectedRevision": 2,
+        "event": {
+          "type": "transfer",
+          "itemId": "fin-001",
+          "sourceAttemptId": "cmd-001",
+          "assessmentStatus": "ungraded",
+          "response": "Minä tulin kotiin."
+        },
+        "nextSnapshot": {
+          "progress": 3
+        }
+      },
+      "canonical": "{\"commandId\":\"cmd-003\",\"event\":{\"assessmentStatus\":\"ungraded\",\"itemId\":\"fin-001\",\"response\":\"Minä tulin kotiin.\",\"sourceAttemptId\":\"cmd-001\",\"type\":\"transfer\"},\"expectedRevision\":2,\"nextSnapshot\":{\"progress\":3},\"protocolVersion\":2,\"sessionId\":\"session-001\"}"
+    }
+  ],
+  "invalid": [
+    {
+      "id": "wrong-protocol",
+      "command": {
+        "protocolVersion": 1,
+        "commandId": "cmd-001",
+        "sessionId": "session-001",
+        "expectedRevision": 0,
+        "event": {
+          "type": "first-attempt",
+          "itemId": "fin-001",
+          "itemVersion": 1,
+          "contentHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "hintUsed": false,
+          "outcome": "answered",
+          "response": "tuli"
+        },
+        "nextSnapshot": {
+          "progress": 1,
+          "assessmentStatus": "ungraded"
+        }
+      }
+    },
+    {
+      "id": "assisted-first",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-001",
+        "sessionId": "session-001",
+        "expectedRevision": 0,
+        "event": {
+          "type": "first-attempt",
+          "itemId": "fin-001",
+          "itemVersion": 1,
+          "contentHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "hintUsed": true,
+          "outcome": "answered",
+          "response": "tuli"
+        },
+        "nextSnapshot": {
+          "progress": 1,
+          "assessmentStatus": "ungraded"
+        }
+      }
+    },
+    {
+      "id": "checkpoint-claims-grade",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-002",
+        "sessionId": "session-001",
+        "expectedRevision": 1,
+        "event": {
+          "type": "checkpoint",
+          "assessmentStatus": "B1"
+        },
+        "nextSnapshot": {
+          "progress": 2,
+          "answers": {
+            "fin-001": "äiti",
+            "fin-002": "tulli"
+          }
+        }
+      }
+    },
+    {
+      "id": "no-source-repair",
+      "command": {
+        "protocolVersion": 2,
+        "commandId": "cmd-003",
+        "sessionId": "session-001",
+        "expectedRevision": 2,
+        "event": {
+          "type": "repair",
+          "itemId": "fin-001",
+          "assessmentStatus": "ungraded"
+        },
+        "nextSnapshot": {
+          "progress": 3
+        }
+      }
+    }
+  ]
+}
