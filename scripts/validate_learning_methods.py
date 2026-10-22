@@ -27,13 +27,29 @@ def require(test, message):
         raise AssertionError(message)
 
 
+
+def validate_research_counts(method_count, source_count, rating_count, stated_count):
+    """Permit adding rigorously reviewed methods, never silently shrinking or desyncing.
+
+    New method additions still require source-backed details, ranked documentation,
+    and one-to-one effectiveness ratings validated in main().
+    """
+    errors = []
+    if method_count < 67:
+        errors.append("Method baseline shrank below 67")
+    if source_count < 69:
+        errors.append("Source baseline shrank below 69")
+    if rating_count != method_count or stated_count != rating_count:
+        errors.append("Method and effectiveness counts differ")
+    return errors
+
+
 def main():
     data = json.loads(CATALOG.read_text(encoding="utf-8"))
     sources, methods = data["source_register"], data["methods"]
     require(data["schema_version"] == "1.2.0", "Unexpected schema")
     require(data["score_component_limits"] == LIMITS, "Rubric changed without updating validator")
-    require(len(methods) == 67, "Expected 67 reviewed methods")
-    require(len(sources) == 69, "Expected 69 references")
+    require(not validate_research_counts(len(methods), len(sources), len(methods), len(methods)), "Reviewed evidence baseline unexpectedly shrank")
     require(len({m["id"] for m in methods}) == len(methods), "Duplicate method IDs")
 
     for ref_id, entry in sources.items():
@@ -74,9 +90,9 @@ def main():
     blueprint_file = ROOT / "research" / "pedagogy" / "yki-methodology-implementation-v1.json"
     blueprint = json.loads(blueprint_file.read_text(encoding="utf-8"))
     require(blueprint["status"] == "implementation_design_not_implemented", "Blueprint cannot claim implementation")
-    require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
-    require(len(blueprint["experiment_backlog"]) == 4, "Expected 4 explicit experiments")
-    require(len(blueprint.get("new_evidence_workstreams", [])) == 5, "Expected five extensions from fresh effectiveness review")
+    require(len(blueprint["modules"]) >= 11, "Implementation blueprint unexpectedly shrank")
+    require(len(blueprint["experiment_backlog"]) >= 4, "Experiment backlog unexpectedly shrank")
+    require(len(blueprint.get("new_evidence_workstreams", [])) >= 5, "Evidence workstreams unexpectedly shrank")
     require(blueprint.get("evidence_effectiveness_registry") == "research/pedagogy/learning-effectiveness-ratings-v1.json", "Missing efficacy link")
 
     known_method_ids = {m["id"] for m in methods}
@@ -86,7 +102,7 @@ def main():
         require(mod.get("methods") and set(mod["methods"]) <= known_method_ids, "Unknown method in module: " + mod["id"])
         require(mod.get("steps") and mod.get("acceptance") and mod.get("risks"), "Module missing concrete protocol: " + mod["id"])
         require(mod["priority"] in {"P0","P1","P2"}, "Module priority invalid: " + mod["id"])
-    require(len({w["id"] for w in blueprint["new_evidence_workstreams"]}) == 5, "Duplicate evidence workstream")
+    require(len({w["id"] for w in blueprint["new_evidence_workstreams"]}) == len(blueprint["new_evidence_workstreams"]), "Duplicate evidence workstream")
     for w in blueprint["new_evidence_workstreams"]:
         require(set(w["research_method_ids"]) <= known_method_ids, "Unknown methodology for workstream " + w["id"])
         require(w["done_when"] and w["assets"] and w["flow"], "Workstream acceptance/provenance missing " + w["id"])
@@ -94,18 +110,18 @@ def main():
     for exp in blueprint["experiment_backlog"]:
         require(exp["source_methods"] and set(exp["source_methods"]) <= known_method_ids, "Unknown experiment methods " + exp["id"])
         require(all(exp.get(k) for k in ("treatment","control","primary_outcome","guardrail")), "Incomplete A/B hypothesis " + exp["id"])
-    require(len({e["id"] for e in blueprint["experiment_backlog"]}) == 4, "Duplicate experiment ID")
+    require(len({e["id"] for e in blueprint["experiment_backlog"]}) == len(blueprint["experiment_backlog"]), "Duplicate experiment ID")
     legacy_docs = (ROOT / "research" / "pedagogy" / "08-learning-methods-evidence-2026-10.md").read_text(encoding="utf-8")
     new_docs = (ROOT / "research" / "pedagogy" / "11-advanced-yki-learning-methods-2026-10.md").read_text(encoding="utf-8")
-    require("## Повний рейтинг (Product-fit, 67 методик)" in legacy_docs, "Main method ranking stale")
+    require(f"## Повний рейтинг (Product-fit, {len(methods)} методик)" in legacy_docs, "Main method ranking count stale")
     for method in methods:
         require("(`" + method["id"] + "`)" in legacy_docs, "Missing detailed method card " + method["id"])
-    require("11 модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
+    require(f"{len(modules)} модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
 
 
     effectiveness = json.loads((ROOT / "research" / "pedagogy" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
-    require(effectiveness["count"] == len(effectiveness["ratings"]) == 67, "Expected 67 effectiveness ratings")
-    require(len({r["id"] for r in effectiveness["ratings"]}) == 67, "Duplicate effectiveness rating IDs")
+    require(not validate_research_counts(len(methods), len(sources), len(effectiveness["ratings"]), effectiveness["count"]), "Effectiveness and research counts drifted")
+    require(len({r["id"] for r in effectiveness["ratings"]}) == len(methods), "Duplicate effectiveness rating IDs")
     require({r["id"] for r in effectiveness["ratings"]} == known_method_ids, "Effectiveness index not a one-to-one match with methods")
     require(effectiveness["scoring_methodology"]["model"] == "EXPERT_JUDGMENT_ORDINAL", "Method effectiveness cannot be claimed as empirical outcome")
     previous_effectiveness = 101
@@ -127,8 +143,8 @@ def main():
         require(rating["confidence_in_score"] in {"high", "moderate", "low"}, "Unknown evidence confidence")
         require(rating["role"] in {"learning_intervention", "assessment_or_infrastructure", "technology_conditional", "not_recommended_standalone"}, "Unknown method role")
     effectiveness_report = (ROOT / "research" / "pedagogy" / "12-finnish-yki-learning-effectiveness-2026-10.md").read_text(encoding="utf-8")
-    require("67" in effectiveness_report and "69" in effectiveness_report and "g=0,18" in effectiveness_report, "Research findings summary incomplete")
-    require(effectiveness_report.count("| **") >= 67, "Not all 67 rated methods shown in table")
+    require(str(len(methods)) in effectiveness_report and str(len(sources)) in effectiveness_report and "g=0,18" in effectiveness_report, "Research findings summary count incomplete")
+    require(effectiveness_report.count("| **") >= len(methods), "Not all rated methods shown in table")
 
     print(json.dumps({
         "result": "PASS",
