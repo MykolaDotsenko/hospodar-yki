@@ -1,11 +1,11 @@
 # 14 — Специфікація достовірної симуляції YKI keskitaso / Digitesti 2027
 
 **Дата вивчення першоджерел:** 21.10.2026. **Стан:** reference-driven training simulator, **not official 2027 digital UI**.  
-**Пов'язано:** [13 — приклади](13-yki-exam-format-and-real-examples-2027.md) · [33 доказові твердження (JSON)](../research/yki-digital-fidelity-evidence-2026-10.json) · [дві міні-сесії](../content/b1/exam-patterns/mini-rehearsals-v1.json) · [вебтренажер](../app/exam.html).
+**Пов'язано:** [13 — приклади](../research/yki/13-yki-exam-format-and-real-examples-2027.md) · [33 доказові твердження (JSON)](../research/yki/yki-digital-fidelity-evidence-2026-10.json) · [дві міні-сесії](../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json) · [вебтренажер](../app/exam.html).
 
 ## Обов'язкові сценарії симуляції: Full YKI і кожен модуль окремо
 
-**Нова продуктова вимога (P0):** [два режими та повна матриця навичок](15-two-modes-skill-scopes.md), JSON-контракт: [product-session-modes-v1.json](../research/product-session-modes-v1.json).
+**Нова продуктова вимога (P0):** [два режими та повна матриця навичок](15-two-modes-skill-scopes.md), JSON-контракт: [product-session-modes-v1.json](../research/user-cases/product-session-modes-v1.json).
 
 - **EXAM-FULL:** повна самостійна симуляція всіх 4 модулів у підтвердженій OPH структурі, з незалежними результатами та відкладеним feedback. **У поточному застосунку є лише коротка 9-item репетиція**, не повний іспит.
 - **EXAM-READING / EXAM-LISTENING / EXAM-WRITING / EXAM-SPEAKING:** **кожна частина запускається й завершується окремо**, із завданнями лише відповідної навички, власною історією та результатом. Для speaking/writing без каліброваної людської перевірки `ungraded`.
@@ -43,7 +43,7 @@
 - Інтерв'ю з вибором A/B/C, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy083.mp3).
 - Тема подорожей й екології, oikein/väärin, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy069.mp3).
 - Коротка реклама туристичної поїздки, відкриті відповіді, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskitaso_avoimet_kysymykset_2-1.mp3).
-- [13 SOLKI MP3 URL (11 listening + 2 speaking) уже індексовані тут](../audio/catalog.json); це **не** локальні мультимедійні файли й ліцензія на редистрибуцію не підтверджена.
+- [13 SOLKI MP3 URL (11 listening + 2 speaking) уже індексовані тут](../assets/audio/catalog.json); це **не** локальні мультимедійні файли й ліцензія на редистрибуцію не підтверджена.
 
 **Говоріння** ([офіційні демо](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/)):
 - `kertominen`: 1 хв на підготовку + 1,5 хв відповіді у конкретному старому прикладі; говорити по суті весь час.
@@ -66,8 +66,8 @@
 
 **[app/exam.html](../app/exam.html)** — окрема комп'ютерна репетиція:
 
-- 2 незалежні оригінальні набори з `content/b1/exam-patterns/mini-rehearsals-v1.json` (кожен **9 завдань**: reading 3, listening 4, writing 1, speaking 1).
-- Реалізовані **MCQ, O/V, open short, письмова відповідь, усна відповідь за бажанням**. Усі дані беруться з уже наявного `content/b1`, не дублюються й не беруться з захищених SOLKI тестів.
+- 2 незалежні оригінальні набори з `learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json` (кожен **9 завдань**: reading 3, listening 4, writing 1, speaking 1).
+- Реалізовані **MCQ, O/V, open short, письмова відповідь, усна відповідь за бажанням**. Усі дані беруться з уже наявного `learning/exercises/b1`, не дублюються й не беруться з захищених SOLKI тестів.
 - Навігація між завданнями (практичне UI-рішення, не офіційна специфікація); автоматичне локальне збереження відповідей, відновлення при повторному відкритті сторінки.
 - **Opt-in** 15/30/60 хв — добровільні особисті ліміти, не офіційні; завершення при вичерпанні. Перший запуск за замовчуванням без таймера.
 - Ключі й фідбек приховані до завершення **всієї** сесії; після — 4 окремі картки навичок з objective accuracy та чесними `ungraded`.
@@ -89,7 +89,7 @@
 
 ## Офіційний комплексний аудит v2 (21.10.2026) — канонічне доповнення
 
-**Вивчено:** [20 — норма/правила/SOLKI зразки/рубрики](20-yki-official-complete-audit-2026-10.md); **нове інженерне ТЗ:** [21 — шість fidelity axes, state machine, 20 тести](21-digital-yki-exam-simulator-executable-spec.md); **40 source-linked claims і 15 невідомих**: [research/official-yki-deep-audit-v2.json](../research/official-yki-deep-audit-v2.json); **13 families × 12 demo specimens**: [research/yki-official-patterns-v2.json](../research/yki-official-patterns-v2.json).
+**Вивчено:** [20 — норма/правила/SOLKI зразки/рубрики](../research/yki/20-yki-official-complete-audit-2026-10.md); **нове інженерне ТЗ:** [21 — шість fidelity axes, state machine, 20 тести](21-digital-yki-exam-simulator-executable-spec.md); **40 source-linked claims і 15 невідомих**: [research/yki/official-yki-deep-audit-v2.json](../research/yki/official-yki-deep-audit-v2.json); **13 families × 12 demo specimens**: [research/yki/yki-official-patterns-v2.json](../research/yki/yki-official-patterns-v2.json).
 
 **Важливе уточнення:** OPH сторінка підписує PDF як `perusteet 2026`, але пряме посилання фактично веде до наказу **30.11.2011**; підтвердження — Finlex. Усі paper-sheet/legacy timers з SOLKI є **лише historical samples**; заборонено вважати їх точними правилами computer-based 2027. Actual `official_2027_exact` = **false** до OPH/JYU post-pilot підтвердження.
 

@@ -2,7 +2,7 @@
 
 > **Тип:** RECOMMENDATION. Мета — вимірювана комунікативна компетентність, а не лише streaks чи повторення зразків. **Версія:** 2026-10-21.
 
-**Новий evidence-based технічний додаток (21.10.2026):** [67 методик та 69 джерел](08-learning-methods-evidence-2026-10.md) · [окремий рейтинг ефективності 0–100](12-finnish-yki-learning-effectiveness-2026-10.md) · [критичний аналіз AI, ASR і Finnish quantity](11-advanced-yki-learning-methods-2026-10.md) · [план 11 модулів і 4 A/B-гіпотези](../research/yki-methodology-implementation-v1.json). Це **архітектурний план, не готові фічі**. Іспитові оцінки OPH оцінюють чотири модулі окремо.
+**Новий evidence-based технічний додаток (21.10.2026):** [67 методик та 69 джерел](../research/pedagogy/08-learning-methods-evidence-2026-10.md) · [окремий рейтинг ефективності 0–100](../research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md) · [критичний аналіз AI, ASR і Finnish quantity](../research/pedagogy/11-advanced-yki-learning-methods-2026-10.md) · [план 11 модулів і 4 A/B-гіпотези](../research/pedagogy/yki-methodology-implementation-v1.json). Це **архітектурний план, не готові фічі**. Іспитові оцінки OPH оцінюють чотири модулі окремо.
 
 ## Ціль, старт, обмеження
 

@@ -2,8 +2,8 @@
 
 **Версія:** 1.0.0 • **Дата:** 2026-10-21 • **Статус:** затверджена цільова поведінка продукту, **не** твердження про вже реалізовані функції.  
 **Пріоритет:** P0 (основна концепція, навігація, вибір навичок, ізоляція поведінки режимів).  
-**Пов'язані документи:** [продуктове ТЗ MVP](11-mvp-product-requirements.md) · [архітектура](12-mvp-architecture.md) · [доказові методики](08-learning-methods-evidence-2026-10.md) · [digital exam fidelity](14-digital-yki-fidelity-spec.md) · [офіційні приклади](13-yki-exam-format-and-real-examples-2027.md).  
-**Контракт конфігурації:** [research/product-session-modes-v1.json](../research/product-session-modes-v1.json).
+**Пов'язані документи:** [продуктове ТЗ MVP](11-mvp-product-requirements.md) · [архітектура](12-mvp-architecture.md) · [доказові методики](../research/pedagogy/08-learning-methods-evidence-2026-10.md) · [digital exam fidelity](14-digital-yki-fidelity-spec.md) · [офіційні приклади](../research/yki/13-yki-exam-format-and-real-examples-2027.md).  
+**Контракт конфігурації:** [research/user-cases/product-session-modes-v1.json](../research/user-cases/product-session-modes-v1.json).
 
 ## 0. Одне речення про продукт
 
@@ -200,7 +200,7 @@ OPH дозволяє записуватися на **конкретні** мод
 
 ## 5.3. Доказовий колір і довготривале запам'ятовування — P0/P1
 
-**Вивчені наукові статті й перевірені ефекти:** [16 — колір, пам'ять і сигналізація](16-color-attention-memory-research-2026-10.md) та [реєстр 15 джерел, JSON](../research/color-memory-evidence-v1.json).
+**Вивчені наукові статті й перевірені ефекти:** [16 — колір, пам'ять і сигналізація](../research/design/16-color-attention-memory-research-2026-10.md) та [реєстр 15 джерел, JSON](../research/design/color-memory-evidence-v1.json).
 
 - **COLOR-01 P0:** смислові акценти чотирьох навичок використовуються **для орієнтації**, а не обіцяють підвищити довготривале запам'ятовування; не плутати їх із кольорами морфем.
 - **COLOR-02 P0:** `first_attempt` без кольорових сигналів, які розкривають правильну відповідь. Лише **після незалежної відповіді** у `feedback` — одна доступна `color+underline` підказка, пов'язана з реальним мовним target. `repair` не видає еталон до самовиправлення.
@@ -226,7 +226,7 @@ OPH дозволяє записуватися на **конкретні** мод
 
 ## 5.4. Наукова корекція: увага до форми НЕ повинна заважати розумінню — P0
 
-**Поглиблений науковий аналіз:** [17 — Колір, увага та пам'ять (L2 + 2026 meta)](17-color-attention-l2-deep-dive.md) і [policy v2](../research/color-attention-design-policy-v2.json).
+**Поглиблений науковий аналіз:** [17 — Колір, увага та пам'ять (L2 + 2026 meta)](../research/design/17-color-attention-l2-deep-dive.md) і [policy v2](../research/design/color-attention-design-policy-v2.json).
 
 - **COLOR-11 / P0:** при навчанні граматики спочатку **сенс висловлювання**, потім виділена правильна форма. Показувати `meaning_uk` **лише після незалежної відповіді**, за наявності редакційно підготовленого контенту. Якщо розмітки немає — без вигаданого значення.
 - **COLOR-12 / P0:** guardrail comprehension: кольорова «форма» не повинна помітно погіршувати розуміння ситуації, навіть якщо збільшується успішність граматичних завдань. Lee & Huang (2008) `d≈+0.22` для форми та `d≈−0.26` для змісту; це **не** прямі ефекти кольору Hospodar.
@@ -330,7 +330,7 @@ type Session = {
 
 ## 9. INTERACTIVE-VISUAL: науково обґрунтований інтерактивний шар
 
-**Новий обов'язковий додаток до головного ТЗ:** [18 — Interactive & Visual Evidence](18-interactive-visual-learning-evidence-2026-10.md) · [14 перевірюваних UI-патернів / 14 джерел у JSON](../research/interactive-visual-learning-v1.json). Методики, кольори та навчальні цілі в розділах 3, 5.3 і 5.4 **залишаються чинними**. Розділ 9 перетворює їх на сценарії взаємодії та критерії інкрементальної розробки.
+**Новий обов'язковий додаток до головного ТЗ:** [18 — Interactive & Visual Evidence](../research/ux/18-interactive-visual-learning-evidence-2026-10.md) · [14 перевірюваних UI-патернів / 14 джерел у JSON](../research/ux/interactive-visual-learning-v1.json). Методики, кольори та навчальні цілі в розділах 3, 5.3 і 5.4 **залишаються чинними**. Розділ 9 перетворює їх на сценарії взаємодії та критерії інкрементальної розробки.
 
 ### 9.1 Стан та пріоритет
 
@@ -353,7 +353,7 @@ type Session = {
 
 ### 9.3 Acceptance і докази готовності
 
-**Нові IV-AC-01…15 є обов'язковими** для релізу інтерактивного модуля; детальні відтворювані сценарії в [§7 нового документа](18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned). Покрити unit/integration/e2e: pre-answer key leaks, feedback gating, `hint_used`, teacher-approved `evidence_span`, accessibility, screen reader/keyboard, reduced motion, exam policy, independent 7/14-day holdout, чесне `ungraded`.
+**Нові IV-AC-01…15 є обов'язковими** для релізу інтерактивного модуля; детальні відтворювані сценарії в [§7 нового документа](../research/ux/18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned). Покрити unit/integration/e2e: pre-answer key leaks, feedback gating, `hint_used`, teacher-approved `evidence_span`, accessibility, screen reader/keyboard, reduced motion, exam policy, independent 7/14-day holdout, чесне `ungraded`.
 
 **Success metric:** `day_7_first_attempt_unseen_uncued` (та `day_14`), контроль збереження змісту `listening_gist_without_captions`. `streak`, taps, time in app, immediate MCQ score — діагностичні вторинні сигнали, не доказ B1.
 
@@ -361,7 +361,7 @@ type Session = {
 
 ## 9. BOOKS-TO-ENGINE: доказові принципи → конкретні правила навчання (P0/P1)
 
-**Канонічне поглиблене дослідження:** [19 — 11 книжок + 13 наукових джерел](19-learning-books-to-engineering-2026-10.md). **Машинозчитувана трасованість:** [learning-blueprints-books-v1.json](../research/learning-blueprints-books-v1.json). **Не дублювати наявні** [67 методик](08-learning-methods-evidence-2026-10.md); кожна нова вимога посилається на існуючий `method_id` і окремий DOI або офіційний авторський опис. **Книга не є причинним експериментом із результатом YKI.**
+**Канонічне поглиблене дослідження:** [19 — 11 книжок + 13 наукових джерел](../research/pedagogy/19-learning-books-to-engineering-2026-10.md). **Машинозчитувана трасованість:** [learning-blueprints-books-v1.json](../research/pedagogy/learning-blueprints-books-v1.json). **Не дублювати наявні** [67 методик](../research/pedagogy/08-learning-methods-evidence-2026-10.md); кожна нова вимога посилається на існуючий `method_id` і окремий DOI або офіційний авторський опис. **Книга не є причинним експериментом із результатом YKI.**
 
 | ID | Вимога | Priority | Acceptance |
 |---|---|---|---|
@@ -401,7 +401,7 @@ type Session = {
 
 ## 10. MULTIMODAL INTERACTION — новий шар керованої мультимодальності (P0→P2)
 
-**Джерело:** [20 — новий науковий огляд, 14 додаткових робіт і UX-специфікація](20-multimodal-interactive-learning-2026-10.md) · [машинозчитуваний контракт](../research/multimodal-interaction-evidence-v2.json). Цей блок **доповнює**, а не скасовує §9, 4-skill режими чи правила кольору.
+**Джерело:** [20 — новий науковий огляд, 14 додаткових робіт і UX-специфікація](../research/ux/20-multimodal-interactive-learning-2026-10.md) · [машинозчитуваний контракт](../research/ux/multimodal-interaction-evidence-v2.json). Цей блок **доповнює**, а не скасовує §9, 4-skill режими чи правила кольору.
 
 ### Вимоги MULTI-01…10
 
@@ -418,13 +418,13 @@ type Session = {
 
 ### Quality gate і незалежна валідація
 
-Обов'язкові **IV2-AC-01…IV2-AC-18** у [§6 документа 20](20-multimodal-interactive-learning-2026-10.md#6-нові-критерії-приймання--iv2-ac-0118-planned); release тільки після технічних/ручних тестів, перевірених прав на кожний media asset, S2-редагування сценаріїв, неконфліктного no-hint exam policy. **Наразі planned/unverified**, наявний MVP може мати суміжний код, але новий набір acceptance не засвідчений.
+Обов'язкові **IV2-AC-01…IV2-AC-18** у [§6 документа 20](../research/ux/20-multimodal-interactive-learning-2026-10.md#6-нові-критерії-приймання--iv2-ac-0118-planned); release тільки після технічних/ручних тестів, перевірених прав на кожний media asset, S2-редагування сценаріїв, неконфліктного no-hint exam policy. **Наразі planned/unverified**, наявний MVP може мати суміжний код, але новий набір acceptance не засвідчений.
 
 **Наукові guardrails:** 7-/14-day unseen uncued production та audio-only gist — ключова мета; cognitive load, invalid AI correction, accessibility errors і abandonment — обмежувачі. За даними нового огляду **video prompts можуть підвищувати навантаження без приросту навчання**, тому не запускати video overlays без learning-outcome перевірки.
 
 ## 10. DIGITAL YKI fidelity v2 — зафіксовані та нез'ясовані правила (P0)
 
-**Новий канонічний аудит:** [20](20-yki-official-complete-audit-2026-10.md) і [21](21-digital-yki-exam-simulator-executable-spec.md). Тести evidence: [40 claims + 15 unknown](../research/official-yki-deep-audit-v2.json), [13 patterns + 12 historical examples](../research/yki-official-patterns-v2.json).
+**Новий канонічний аудит:** [20](../research/yki/20-yki-official-complete-audit-2026-10.md) і [21](21-digital-yki-exam-simulator-executable-spec.md). Тести evidence: [40 claims + 15 unknown](../research/yki/official-yki-deep-audit-v2.json), [13 patterns + 12 historical examples](../research/yki/yki-official-patterns-v2.json).
 
 - **YKI-FID-01:** simulacrum має 6 окремих статусів `construct / task type / materials / timings / UI / scoring`; без одного фальшивого відсотка fidelity.
 - **YKI-FID-02:** історичні паперові правила 2011/SOLKI **не** стають строгими правилами digital-2027; кожне `null` блокує `strict_verified=true`.
@@ -441,7 +441,7 @@ type Session = {
 
 ## Video-based YKI mock rehearsal — historical video vs verified digital exam (P0/P1)
 
-**Джерела:** [класифікація 3 YKI-імітацій та 5 SOLKI official sample pages](../video/yki-mock-simulation-sources.json) · [8 MOCK-VID acceptance](../video/YKI-MOCK-VIDEO-SOURCES-2026-10.md). Підтверджені YouTube `mock` — **лише speaking-subtest**; ні старі відео, ні SOLKI paper-era демонстрації не підтверджують UX/timer/audio нового цифрового YKI у 2027 році.
+**Джерела:** [класифікація 3 YKI-імітацій та 5 SOLKI official sample pages](../sources/official/yki-mock-simulation-sources.json) · [8 MOCK-VID acceptance](../sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md). Підтверджені YouTube `mock` — **лише speaking-subtest**; ні старі відео, ні SOLKI paper-era демонстрації не підтверджують UX/timer/audio нового цифрового YKI у 2027 році.
 
 - **MOCK-VID / P0:** кожне джерело має тип `timed_speaking_subtest_mock`, `task_demo`, `format_explainer`, `organizer_sample`, `story_about_exam`; змішування із `full_official_2027_mock` заборонено.
 - **MOCK-VID / P0:** обов'язково `answer_leakage_start` там, де зразок відповіді в тому самому відео (`htrQhR-HGM4=16:22`, `EcIuejiFLZo=0:40`, `GDsP04gyZv8=3:22`); завдання позначати `seen` після exposure.
@@ -450,7 +450,7 @@ type Session = {
 
 ## YouTube video library — навчальний каталог + майбутній compliant плеєр (P1)
 
-**Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`video/youtube-catalog.json`](../video/youtube-catalog.json) (**47 прямих YouTube-посилань, 182 часові сегменти**, включно з [16 із раунду 2](../video/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md) та [8 із раунду 3](../video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md), і [6 більш цільових B1/B2-відео із раунду 4](../video/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md) + [3 B1/B2 і natural-speed ролики із раунду 5](../video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)); **окремо** 9 [серій офіційних видавців](../video/publisher-series-catalog.json) і 8 [окремих епізодів Yle Areena](../video/publisher-episode-catalog.json) **без підтверджених YouTube ID**) і [добірка та product requirements YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**
+**Новий каталог із перевіреними за заголовками/описами YouTube watch URLs:** [`sources/youtube/youtube-catalog.json`](../sources/youtube/youtube-catalog.json) (**47 прямих YouTube-посилань, 182 часові сегменти**, включно з [16 із раунду 2](../sources/youtube/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md) та [8 із раунду 3](../sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md), і [6 більш цільових B1/B2-відео із раунду 4](../sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md) + [3 B1/B2 і natural-speed ролики із раунду 5](../sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md)); **окремо** 9 [серій офіційних видавців](../sources/publishers/publisher-series-catalog.json) і 8 [окремих епізодів Yle Areena](../sources/publishers/publisher-episode-catalog.json) **без підтверджених YouTube ID**) і [добірка та product requirements YTP-01…14](../sources/youtube/YOUTUBE-LEARNING-CATALOG.md). Джерела охоплюють B1 listening, A2→B1 work/health stories, puhekieli/kirjakieli, YKI-like speaking і writing samples, illatiivi/partitiivi. **Ні exact transcript, ні доступність embeddings, ні навчальна якість усіх сегментів наразі незалежно не перевірені.**
 
 - **YTP-P0:** schema `provider=youtube`, `youtube_video_id`, `watch_url`, `chapters`, `learning_mode_only`, `teacher_review=pending`; metadata-based source verification **не дорівнює** перевіреному playback.
 - **YTP-P1:** official YouTube IFrame Player API/embedded player with explicit user interaction, metadata and appropriate privacy notice, source link fallback, user-visible title + creator, official playback controls, preserved advertising/branding. Respect current YouTube terms, embed restrictions and client identity/`Referer` policy.
@@ -464,15 +464,15 @@ type Session = {
 - **YTP-P0 rights:** Haaga-Helia/Kielibuusti позначає серію `CC BY-ND 4.0`: відкривати оригінал через YouTube, коректно кредитувати, **не** публікувати похідні змонтовані файли або перепаковану/перекладену медіадоріжку без окремої згоди.
 - **YTP-P1 multi-speaker:** приймання вбудованого learning flow потребує independent `gist`, `detail`, `repair` і transfer у новій рольовій розмові; перевіряти 7/14-day uncued результат, а не лише watch complete.
 
-**Нова вимога YTP-SOURCE-CALIBRATION:** джерела з підтвердженим рівнем **A1–A2** не допускати як B1 exam-like evidence. Вони підтримують `discover/practice`, але `prove` потребує B1-сумісної нової ситуації та калібрування S2. Для Yle B1 / Kielibuusti publisher-hosted video series не вигадувати прямі YouTube IDs і не копіювати вміст. Контракт та 10 тестів: [video round 3](../video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md#4-video-acceptance-and-next-implementer-tickets).
+**Нова вимога YTP-SOURCE-CALIBRATION:** джерела з підтвердженим рівнем **A1–A2** не допускати як B1 exam-like evidence. Вони підтримують `discover/practice`, але `prove` потребує B1-сумісної нової ситуації та калібрування S2. Для Yle B1 / Kielibuusti publisher-hosted video series не вигадувати прямі YouTube IDs і не копіювати вміст. Контракт та 10 тестів: [video round 3](../sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md#4-video-acceptance-and-next-implementer-tickets).
 
-**YTP-CONTENT-PRIORITY-V4:** за наявності вибору віддавати перевагу виданим викладачами `B1/B2 listening + questions`, сценаріям YKI `speaking + writing` із відкладеним зразком і коротким вправам професійної `puhekieli`, перед scripted A1–A2 або загальними long compilations. Нові learning flows `HOUSING-B1-01`, `CONTACT-B1-01`, `COFFEE-ROOM-PUHEKIELI-01`, `SOCIETY-B1-01` (описані в [round 4](../video/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)) реалізуються лише після teacher review та підтвердження прав на показ/субтитри. `YT source video with model answers` ніколи не є exam holdout.
+**YTP-CONTENT-PRIORITY-V4:** за наявності вибору віддавати перевагу виданим викладачами `B1/B2 listening + questions`, сценаріям YKI `speaking + writing` із відкладеним зразком і коротким вправам професійної `puhekieli`, перед scripted A1–A2 або загальними long compilations. Нові learning flows `HOUSING-B1-01`, `CONTACT-B1-01`, `COFFEE-ROOM-PUHEKIELI-01`, `SOCIETY-B1-01` (описані в [round 4](../sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md)) реалізуються лише після teacher review та підтвердження прав на показ/субтитри. `YT source video with model answers` ніколи не є exam holdout.
 
-**Acceptance contract**: [YTP-01…14](../video/YOUTUBE-LEARNING-CATALOG.md#future-youtube-player--acceptance-specification-ytp-0114); work is **requirements and content catalogue only**, the integrated player is **not implemented**. Existing two high-level modes remain LEARN and EXAM.
+**Acceptance contract**: [YTP-01…14](../sources/youtube/YOUTUBE-LEARNING-CATALOG.md#future-youtube-player--acceptance-specification-ytp-0114); work is **requirements and content catalogue only**, the integrated player is **not implemented**. Existing two high-level modes remain LEARN and EXAM.
 
 ## 11. Архітектурні вимоги ARCH-01…14 (ADR-022)
 
-Канонічне рішення [22 — TypeScript local-first PWA architecture](22-optimal-stack-and-architecture-adr-2026-10.md) та [machine-readable ADR](../research/architecture-decision-v1.json). Це **target**: чинний `app/` і `exam.html` поки vanilla JS MVP.
+Канонічне рішення [22 — TypeScript local-first PWA architecture](22-optimal-stack-and-architecture-adr-2026-10.md) та [machine-readable ADR](../research/architecture/architecture-decision-v1.json). Це **target**: чинний `app/` і `exam.html` поки vanilla JS MVP.
 
 - **ARCH-01/P0:** React+Vite+strict TypeScript модульний моноліт, типізований `Task` та schema-validated `ContentPack`; pure domain code без import React/Supabase.
 - **ARCH-02/P0:** головні Learn і Exam використовують **спільні джерела контенту**, але ізольовані `feedback/hints/timers/scoring` policies.
@@ -489,11 +489,11 @@ type Session = {
 - **ARCH-13/P0:** QA (Vitest + Playwright Chromium/Firefox/WebKit + physical mobile mic), no answer leak, restore, DST/clock drift, offline & migration.
 - **ARCH-14/P0:** без big-bang rewrite: регресійні тести, parity, export/rollback, content review gates перед переключенням.
 
-**Acceptance:** `ARC-01..ARC-14` як machine checks у [ADR JSON](../research/architecture-decision-v1.json) і майбутніх Playwright suites. Рекомендовані **95/100** — експертна fit оцінка цільового дизайну, **не** оцінка вже реалізованої архітектури/production readiness.
+**Acceptance:** `ARC-01..ARC-14` як machine checks у [ADR JSON](../research/architecture/architecture-decision-v1.json) і майбутніх Playwright suites. Рекомендовані **95/100** — експертна fit оцінка цільового дизайну, **не** оцінка вже реалізованої архітектури/production readiness.
 
 ## 12. Android-game + усі дозволені мультимедіа до першого запуску — ADR-023 / P0
 
-[Документ 23 — Android 2D game & 2–3 GB offline assets](23-android-offline-game-and-3gb-media-architecture.md) · [machine contract](../research/android-game-distribution-v1.json).
+[Документ 23 — Android 2D game & 2–3 GB offline assets](23-android-offline-game-and-3gb-media-architecture.md) · [machine contract](../research/architecture/android-game-distribution-v1.json).
 
 **Оновлення ARCH-01…14:** React/Vite/TypeScript + XState + Dexie залишається **shared application/domain**; Phaser малює лише ігровий світ, Android Capacitor+Kotlin відкриває native audio/video й install-time packs. **Для Web** — PWA/stream+offline packs; **для Android** — увесь схвалений/ліцензований контент має бути встановлений **до першого запуску**. Іспит YKI — без анімацій/світових підказок.
 
@@ -503,4 +503,4 @@ type Session = {
 
 ## 13. Повноцінна вебверсія Hospodar YKI (WEB-01…10)
 
-[ADR-023](23-android-offline-game-and-3gb-media-architecture.md#9-повний-вебзастосунок--та-сама-гра-а-не-скорочена-demo-версія-web-0110) · [machine contract](../research/android-game-distribution-v1.json). Платформи **Web/PWA та Android — рівноправні.** Різниця лише у `MediaProvider`, native permissions/updates і offline delivery: Android AAB з усіма легально вбудованими ~2–3GB медіа, Web без примусового 3GB завантаження, з CDN streaming та явним вибором offline packs. React+Phaser UI, 4 skills, game NPC, learning SRS, exam, speaking/writing, task/content/version hashes — **одна кодова база**. `WEB-01..WEB-10` включають parity, installable PWA, desktop/mobile/a11y, voice/mic, офлайн-обране та versioned updates без втрати активного іспиту. Це вимоги на майбутню реалізацію, не виконана міграція.
+[ADR-023](23-android-offline-game-and-3gb-media-architecture.md#9-повний-вебзастосунок--та-сама-гра-а-не-скорочена-demo-версія-web-0110) · [machine contract](../research/architecture/android-game-distribution-v1.json). Платформи **Web/PWA та Android — рівноправні.** Різниця лише у `MediaProvider`, native permissions/updates і offline delivery: Android AAB з усіма легально вбудованими ~2–3GB медіа, Web без примусового 3GB завантаження, з CDN streaming та явним вибором offline packs. React+Phaser UI, 4 skills, game NPC, learning SRS, exam, speaking/writing, task/content/version hashes — **одна кодова база**. `WEB-01..WEB-10` включають parity, installable PWA, desktop/mobile/a11y, voice/mic, офлайн-обране та versioned updates без втрати активного іспиту. Це вимоги на майбутню реалізацію, не виконана міграція.

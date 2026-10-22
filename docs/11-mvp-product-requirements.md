@@ -5,7 +5,7 @@
 
 ## 0. Ключова обов'язкова продуктова вимога: ДВА режими × ЧОТИРИ навички — P0
 
-**Канонічне детальне ТЗ:** [15 — два режими й усі варіанти модулів](15-two-modes-skill-scopes.md). **Машинозчитуваний контракт:** [product-session-modes-v1.json](../research/product-session-modes-v1.json).
+**Канонічне детальне ТЗ:** [15 — два режими й усі варіанти модулів](15-two-modes-skill-scopes.md). **Машинозчитуваний контракт:** [product-session-modes-v1.json](../research/user-cases/product-session-modes-v1.json).
 
 - **MODE-01:** рівно **два зрозумілих верхньорівневих режими**: `learn` — суперефективна персоналізована підготовка; `exam` — максимально правдоподібна самостійна репетиція YKI. Їхню поведінку й індикатори режиму не плутати.
 - **MODE-02:** **learn** пропонує `adaptive_mix` (усі чотири навички вперемішку з педагогічно обґрунтованим чергуванням, рекомендований), `structured_all` (усі чотири за планом), **кожну з 4 окремо** (`single_skill`) і, як додаткову опцію, користувацький `custom_mix`.
@@ -27,11 +27,11 @@
 
 ### COLOR-MEMORY — evidence-based увага та пам'ять
 
-**Нове наукове підґрунтя:** [docs/16-color-attention-memory-research-2026-10.md](16-color-attention-memory-research-2026-10.md) і [15 джерел у реєстрі](../research/color-memory-evidence-v1.json). Підкреслення ключа допускається **лише після першої незалежної відповіді** у навчальному feedback. У фазах `answer`, `repair`, `transfer`, unseen SRS і digital `exam` ніяких підказок правильної форми. На сильні механізми color-coded signaling можна спиратися, але ефекти досліджень мультимедійної сигналізації **не можна приписувати кольору самому по собі**. Див. [COLOR-01…10, AC-33…38](15-two-modes-skill-scopes.md).
+**Нове наукове підґрунтя:** [research/design/16-color-attention-memory-research-2026-10.md](../research/design/16-color-attention-memory-research-2026-10.md) і [15 джерел у реєстрі](../research/design/color-memory-evidence-v1.json). Підкреслення ключа допускається **лише після першої незалежної відповіді** у навчальному feedback. У фазах `answer`, `repair`, `transfer`, unseen SRS і digital `exam` ніяких підказок правильної форми. На сильні механізми color-coded signaling можна спиратися, але ефекти досліджень мультимедійної сигналізації **не можна приписувати кольору самому по собі**. Див. [COLOR-01…10, AC-33…38](15-two-modes-skill-scopes.md).
 
 ### COLOR-ATTENTION-L2 — пріоритет розуміння над граматичним підсвічуванням
 
-[Дослідження №17](17-color-attention-l2-deep-dive.md) і [policy v2](../research/color-attention-design-policy-v2.json). Нове P0: **допомагати помітити мовну форму, не втрачаючи змісту висловлювання**. У feedback за наявності ручного `meaning_uk` показувати сенс перед кольоровим граматичним cue. `repair`, `answer`, `transfer`, `exam` — без граматичного ключа до відповіді. Перевіряти comprehension як окрему метрику: метааналіз L2 повідомив `d=+0.22` grammar і `d=−0.26` meaning при visual input enhancement. Без заяв про percent boost від барв. [COLOR-11…20, AC-39…46](15-two-modes-skill-scopes.md).
+[Дослідження №17](../research/design/17-color-attention-l2-deep-dive.md) і [policy v2](../research/design/color-attention-design-policy-v2.json). Нове P0: **допомагати помітити мовну форму, не втрачаючи змісту висловлювання**. У feedback за наявності ручного `meaning_uk` показувати сенс перед кольоровим граматичним cue. `repair`, `answer`, `transfer`, `exam` — без граматичного ключа до відповіді. Перевіряти comprehension як окрему метрику: метааналіз L2 повідомив `d=+0.22` grammar і `d=−0.26` meaning при visual input enhancement. Без заяв про percent boost від барв. [COLOR-11…20, AC-39…46](15-two-modes-skill-scopes.md).
 
 ## 1. Вертикальний MVP — P0
 
@@ -39,7 +39,7 @@
 
 ### Функціональні вимоги
 
-- **MVP-01:** вибір реального завдання зі збережених `content/b1/grammar/contextual-cloze.json`; стабільний ID, походження, граматичний тег, рівень та пояснення.
+- **MVP-01:** вибір реального завдання зі збережених `learning/exercises/b1/grammar/contextual-cloze.json`; стабільний ID, походження, граматичний тег, рівень та пояснення.
 - **MVP-02:** до першої відповіді неможливо побачити еталон / ключ; порожню відповідь не приймати.
 - **MVP-03:** детермінована перевірка структурованих cloze-форм, з нормалізацією регістру та пробілів; альтернативи використовувати лише явно прийняті контентом. Відкриті продуктивні відповіді **не** оцінювати простим exact match.
 - **MVP-04:** після помилки спершу запропонувати одну контрольовану самокорекцію **без розкриття ключа**; після другої спроби показати еталон і пояснення.
@@ -58,7 +58,7 @@
 ## 2. Персоналізація — P0 → P1
 
 - **PER-01:** базова діагностика **чотирьох навичок окремо**: `tekstin ymmärtäminen`, `puheen ymmärtäminen`, `kirjoittaminen`, `puhuminen`. Не зводити до однієї гарантованої CEFR оцінки.
-- **PER-02:** reading/listening scored **лише якщо існує перевірений текст/аудіо і однозначні ключі**. Зокрема, `content/b1/diagnostics/baseline-v1.json` містить `script_only` listening: **заборонено** зараховувати це як аудіодіагностику.
+- **PER-02:** reading/listening scored **лише якщо існує перевірений текст/аудіо і однозначні ключі**. Зокрема, `learning/exercises/b1/diagnostics/baseline-v1.json` містить `script_only` listening: **заборонено** зараховувати це як аудіодіагностику.
 - **PER-03:** продуктивні writing/speaking у першій версії — чернетка або запис + rubric/self-check, статус `ungraded` до людської/контрольованої перевірки; не оцінювати вимову з транскрипту ASR.
 - **PER-04:** адаптивний початковий SRS за поведінкою першої незалежної спроби та часом відкладеного пригадування; початкова шкала 1/3/7/14/30 днів — **евристика**, не FSRS і не оптимальний науковий календар.
 - **PER-05:** журнал повторних помилок: grammar tag, input, первинний результат, guided repair, наступна дата; only confirmed errors enter active weakness queue.
@@ -113,11 +113,11 @@
 | Digital 2027 rehearsal | independent training approximation; **not official replica** |
 | Server accounts, cloud sync, production deployment | not delivered |
 
-**Контентне джерело:** `content/b1/**` і `audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
+**Контентне джерело:** `content/b1/**` і `assets/audio/library.json`. Заплановане розширення не повинне видавати незавершені можливості за готові.
 
 ## 7. INTERACTIVE-VISUAL — науково обґрунтовані інтерактивні вправи та візуальний UX (P0→P2)
 
-**Розгорнута специфікація:** [18 — інтерактивні вправи, візуальні сигнали, докази та acceptance criteria](18-interactive-visual-learning-evidence-2026-10.md). **Реєстр реалізації:** [research/interactive-visual-learning-v1.json](../research/interactive-visual-learning-v1.json). **Сполучення з двома режимами:** [15 — §9](15-two-modes-skill-scopes.md#9-interactive-visual-науково-обґрунтований-інтерактивний-шар).
+**Розгорнута специфікація:** [18 — інтерактивні вправи, візуальні сигнали, докази та acceptance criteria](../research/ux/18-interactive-visual-learning-evidence-2026-10.md). **Реєстр реалізації:** [research/ux/interactive-visual-learning-v1.json](../research/ux/interactive-visual-learning-v1.json). **Сполучення з двома режимами:** [15 — §9](15-two-modes-skill-scopes.md#9-interactive-visual-науково-обґрунтований-інтерактивний-шар).
 
 - **IV-REQ-01 / P0 — generate before reveal:** пріоритет самостійної `typed/open/voice` відповіді. Лише вибір із варіантів, перетягування чи повторне читання не мають монополізувати навчання. Ключ не відображати до відповіді.
 - **IV-REQ-02 / P0 — feedback+repair:** змістовий результат → обмежені навідні підказки → власне виправлення → короткий feedback з однією смисловою підсвіткою; не зараховувати assisted success як незалежне знання.
@@ -132,13 +132,13 @@
 - **IV-REQ-11 / P1–P2 — optional gamification:** короткі місії, добровільні неманіпулятивні винагороди; маскот і випадкові звуки — opt-in експеримент, вимкнути одним натисканням. Не використовувати під час навчальної відповіді й симуляції.
 - **IV-REQ-12 / P0 — evidence audit:** дата/тип дослідження, прямий L2 vs transfer із загальної психології, обмеження й data version в документації. Оцінка /100 — лише експертний product-fit, не величина навчального приросту.
 
-**Критерій готовності:** виконані [IV-AC-01…15](18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned), є автоматичні + мобільні/accessibility тести й S2 перевірка завдань. **Наразі це формалізовані вимоги; не стверджувати, що всі 14 патернів реалізовані.**
+**Критерій готовності:** виконані [IV-AC-01…15](../research/ux/18-interactive-visual-learning-evidence-2026-10.md#7-критерії-приймання-нові-iv-ac-0115-planned), є автоматичні + мобільні/accessibility тести й S2 перевірка завдань. **Наразі це формалізовані вимоги; не стверджувати, що всі 14 патернів реалізовані.**
 
 **План доказової перевірки:** A/B `text-based retrieval+feedback+SRS` проти `same + meaningful multimedia cues`, збалансовані завдання; primary = перша незалежна відповідь на unseen task через 7 днів, secondary = 14 днів, comprehension gist без VTT, коректність і доступність. Жодних причинних висновків без належного експерименту.
 
 ## Новий фундамент навчального двигуна — LE-01…13 (21.10.2026)
 
-**Детальне ТЗ / технічна придатність книг:** [19 — science books → engineering](19-learning-books-to-engineering-2026-10.md); [машинозчитувана черга](../research/learning-blueprints-books-v1.json); [AC-47…59](15-two-modes-skill-scopes.md).
+**Детальне ТЗ / технічна придатність книг:** [19 — science books → engineering](../research/pedagogy/19-learning-books-to-engineering-2026-10.md); [машинозчитувана черга](../research/pedagogy/learning-blueprints-books-v1.json); [AC-47…59](15-two-modes-skill-scopes.md).
 
 Ціль **не** «пройти 100 карток», а повернути користувача до фінської в новій ситуації через 7–14 днів: `retrieval → meaning-first input → independent task → informative feedback → self-repair → unseen transfer → next SRS`.
 
@@ -150,7 +150,7 @@
 
 ## 8. SECOND-WAVE MULTIMODAL EVIDENCE → build requirements
 
-**Research:** [20 — 14 нових статей, реальні фінські сценарії](20-multimodal-interactive-learning-2026-10.md) · [14 evidence sources, 12 patterns, 18 IV2-AC у JSON](../research/multimodal-interaction-evidence-v2.json) · [головне ТЗ §10](15-two-modes-skill-scopes.md#10-multimodal-interaction--новий-шар-керованої-мультимодальності-p0p2).
+**Research:** [20 — 14 нових статей, реальні фінські сценарії](../research/ux/20-multimodal-interactive-learning-2026-10.md) · [14 evidence sources, 12 patterns, 18 IV2-AC у JSON](../research/ux/multimodal-interaction-evidence-v2.json) · [головне ТЗ §10](15-two-modes-skill-scopes.md#10-multimodal-interaction--новий-шар-керованої-мультимодальності-p0p2).
 
 **P0 (backlog):** додаємо ступінчастий gloss без зайвих медіа, `discover` vs `first_uncued` gating, аудіо/відео caption-after-submit only, `calm/rich` media policy, доступну proximity text+diagram, held-out audio-only та unseen production. Перевіряти 18 IV2-AC, правовий статус усіх media, verified timestamps та S2 review.
 
