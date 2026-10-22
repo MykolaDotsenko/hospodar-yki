@@ -326,10 +326,10 @@ document.addEventListener("visibilitychange",()=>{
 async function boot(){
   try{
     const paths=[
-      "content/b1/exam-patterns/mini-rehearsals-v1.json",
-      "content/b1/contextual/reading-pack-v1.json",
-      "content/b1/audio-long/lessons.json",
-      "content/b1/diagnostics/baseline-v1.json"
+      "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json",
+      "learning/exercises/b1/contextual/reading-pack-v1.json",
+      "learning/exercises/b1/audio-long/lessons.json",
+      "learning/exercises/b1/diagnostics/baseline-v1.json"
     ];
     const docs=await Promise.all(paths.map(async path=>{
       const r=await fetch(urlFor(path),{cache:"no-cache"});
