@@ -38,12 +38,14 @@ function requireEntry(entries,id){
 export function createWebMediaProvider(manifest,baseUrl){
   const entries=validateMediaManifest(manifest);
   const base=new URL(baseUrl);
-  if(!["https:","http:"].includes(base.protocol))throw new MediaError("BAD_ORIGIN","Web media requires HTTP(S)");
+  if(!["https:","http:"].includes(base.protocol)||!base.pathname.endsWith("/"))
+    throw new MediaError("BAD_ORIGIN","Web media requires HTTP(S) folder origin");
   return {
     async resolve(id){
       const e=requireEntry(entries,id);
       const url=new URL(e.path,base);
-      if(url.origin!==base.origin)throw new MediaError("BAD_ORIGIN","Unsafe media origin");
+      if(url.origin!==base.origin||!url.pathname.startsWith(base.pathname))
+        throw new MediaError("BAD_ORIGIN","Media escaped permitted folder");
       return {mediaId:id,kind:e.kind,src:url.href,sha256:e.sha256,
         verifiedHash:false,available:true};
     }
