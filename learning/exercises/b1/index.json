@@ -21,7 +21,7 @@
       "id": "01-mina-ja-taustani",
       "title_fi": "Minä ja taustani",
       "title_uk": "Я і моє життя",
-      "path": "content/b1/themes/01-mina-ja-taustani.json",
+      "path": "learning/exercises/b1/themes/01-mina-ja-taustani.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -36,7 +36,7 @@
       "id": "02-koti-ja-asuminen",
       "title_fi": "Koti ja asuminen",
       "title_uk": "Житло та побут",
-      "path": "content/b1/themes/02-koti-ja-asuminen.json",
+      "path": "learning/exercises/b1/themes/02-koti-ja-asuminen.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -51,7 +51,7 @@
       "id": "03-kaupat-ja-palvelut",
       "title_fi": "Kaupat ja palvelut",
       "title_uk": "Магазини та послуги",
-      "path": "content/b1/themes/03-kaupat-ja-palvelut.json",
+      "path": "learning/exercises/b1/themes/03-kaupat-ja-palvelut.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -66,7 +66,7 @@
       "id": "04-kulttuuri",
       "title_fi": "Kulttuuri",
       "title_uk": "Культура та дозвілля",
-      "path": "content/b1/themes/04-kulttuuri.json",
+      "path": "learning/exercises/b1/themes/04-kulttuuri.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -81,7 +81,7 @@
       "id": "05-matkustaminen",
       "title_fi": "Matkustaminen",
       "title_uk": "Подорожі й транспорт",
-      "path": "content/b1/themes/05-matkustaminen.json",
+      "path": "learning/exercises/b1/themes/05-matkustaminen.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -96,7 +96,7 @@
       "id": "06-terveys-ja-hyvinvointi",
       "title_fi": "Terveys ja hyvinvointi",
       "title_uk": "Здоров'я та самопочуття",
-      "path": "content/b1/themes/06-terveys-ja-hyvinvointi.json",
+      "path": "learning/exercises/b1/themes/06-terveys-ja-hyvinvointi.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -111,7 +111,7 @@
       "id": "07-tyo",
       "title_fi": "Työ",
       "title_uk": "Робота та навчання",
-      "path": "content/b1/themes/07-tyo.json",
+      "path": "learning/exercises/b1/themes/07-tyo.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -126,7 +126,7 @@
       "id": "08-ymparisto",
       "title_fi": "Ympäristö",
       "title_uk": "Довкілля та сортування",
-      "path": "content/b1/themes/08-ymparisto.json",
+      "path": "learning/exercises/b1/themes/08-ymparisto.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
@@ -141,7 +141,7 @@
       "id": "09-yhteiskunta",
       "title_fi": "Yhteiskunta",
       "title_uk": "Суспільство та міські послуги",
-      "path": "content/b1/themes/09-yhteiskunta.json",
+      "path": "learning/exercises/b1/themes/09-yhteiskunta.json",
       "level": "A2.2-B1",
       "activity_counts": {
         "reading": 1,
