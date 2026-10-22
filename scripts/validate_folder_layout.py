@@ -66,6 +66,67 @@ def check_tree(root: Path):
     return errors, counts
 
 
+
+def check_local_media_ownership(root: Path):
+    """Every local OGG/MP3/WebM must have exactly one player entry.
+
+    These existing player manifests are not extra catalogs/registries.
+    This prevents duplicate bot-generated audio and unreferenced orphan files.
+    It checks file ownership, not copyright permissions or transcription QA.
+    """
+    problems = []
+    specs = (
+        ("assets/audio/library.json", "entries", "assets/audio", {".ogg", ".mp3"}),
+        ("assets/video/open/available.json", "assets", "assets/video/open", {".webm"}),
+    )
+    for manifest, collection, folder, extensions in specs:
+        path = root / manifest
+        if not path.is_file():
+            problems.append(f"media manifest missing: {manifest}")
+            continue
+        try:
+            rows = json.loads(path.read_text(encoding="utf-8"))[collection]
+        except (ValueError, KeyError, UnicodeError) as exc:
+            problems.append(f"invalid media manifest: {manifest}: {exc}")
+            continue
+        if not isinstance(rows, list):
+            problems.append(f"media manifest entries must be a list: {manifest}")
+            continue
+        listed = set()
+        ids = set()
+        for row in rows:
+            if not isinstance(row, dict):
+                problems.append(f"invalid media row: {manifest}: {row!r}")
+                continue
+            identifier, value = row.get("id"), row.get("path")
+            if not isinstance(identifier, str) or not identifier:
+                problems.append(f"missing media ID in {manifest}")
+            elif identifier in ids:
+                problems.append(f"duplicate media ID in {manifest}: {identifier}")
+            ids.add(identifier)
+            if not isinstance(value, str) or not value:
+                problems.append(f"missing media path in {manifest}: {identifier}")
+                continue
+            reference = Path(value)
+            if (reference.is_absolute() or ".." in reference.parts
+                    or not value.startswith(folder + "/")
+                    or reference.suffix.lower() not in extensions):
+                problems.append(f"unsafe/wrong-root media path in {manifest}: {value}")
+                continue
+            if value in listed:
+                problems.append(f"duplicate media path in {manifest}: {value}")
+            listed.add(value)
+        folder_path = root / folder
+        actual = {
+            p.relative_to(root).as_posix()
+            for p in folder_path.rglob("*")
+            if p.is_file() and p.suffix.lower() in extensions
+        } if folder_path.is_dir() else set()
+        problems.extend(f"unreferenced media file: {p}" for p in sorted(actual - listed))
+        problems.extend(f"manifest points to missing media file: {p}" for p in sorted(listed - actual))
+    return problems
+
+
 def check_json(root: Path):
     errors = []
     count = 0
@@ -226,7 +287,7 @@ def validate(root: Path):
     tree_errors, counts = check_tree(root)
     json_errors, num_json = check_json(root)
     manifest_errors, references = check_manifest_file_references(root)
-    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root)
+    problems = tree_errors + json_errors + check_links(root) + check_mvp(root) + manifest_errors + check_import_workflows(root) + check_local_media_ownership(root)
     return problems, counts, num_json
 
 
