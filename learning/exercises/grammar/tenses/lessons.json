@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0.0",
+  "language": "fi",
+  "audience": "adult_ukrainian_speaking_A1.3_to_B2.1",
+  "status": "original_draft_pending_S2_Finnish_teacher_review",
+  "license": "project_original",
+  "mode": "LEARN_only_until_review",
+  "note": "Finnish uses four commonly taught finite tenses; future time is often expressed with present + time adverbial. Imperatiivi/conditional are moods, not tenses.",
+  "source_links": [
+    "https://kielitoimistonohjepankki.fi/ohje/aikamuotoja-aloita-tasta/",
+    "https://www.oph.fi/fi/koulutus-ja-tutkinnot/kielitiedon-opettamisesta",
+    "https://openlearning.aalto.fi/course/view.php?id=158"
+  ],
+  "lessons": [
+    {
+      "id": "tenses-preesens",
+      "tense": "preesens",
+      "label_uk": "Теперішній час / майбутнє через контекст",
+      "levels": [
+        "A1.3",
+        "A2.1"
+      ],
+      "goal": "Explain what happens now, usually or tomorrow using present tense with time cue",
+      "form": "opiskella → opiskelen; en opiskele",
+      "examples": [
+        {
+          "fi": "Opiskelen suomea joka päivä.",
+          "uk": "Я вивчаю фінську щодня."
+        },
+        {
+          "fi": "Huomenna menen kurssille.",
+          "uk": "Завтра піду на курс."
+        }
+      ],
+      "contrast": "There is no separate mandatory morphological future tense in Finnish"
+    },
+    {
+      "id": "tenses-imperfekti",
+      "tense": "imperfekti",
+      "label_uk": "Простий минулий час",
+      "levels": [
+        "A2.1",
+        "A2.2"
+      ],
+      "goal": "Narrate completed events with a past-time context",
+      "form": "opiskella → opiskelin; en opiskellut",
+      "examples": [
+        {
+          "fi": "Eilen opiskelin kotona.",
+          "uk": "Учора я навчався вдома."
+        },
+        {
+          "fi": "Viime viikolla kävin lääkärissä.",
+          "uk": "Минулого тижня я був у лікаря."
+        }
+      ],
+      "contrast": "Differentiate a completed past narration from a past experience relevant to the present"
+    },
+    {
+      "id": "tenses-perfekti",
+      "tense": "perfekti",
+      "label_uk": "Минулий із зв'язком із теперішнім",
+      "levels": [
+        "A2.2",
+        "B1.1"
+      ],
+      "goal": "Speak about accumulated experience, results and ongoing relevance",
+      "form": "olla (present) + participle: olen opiskellut; en ole opiskellut",
+      "examples": [
+        {
+          "fi": "Olen opiskellut suomea kaksi vuotta.",
+          "uk": "Я вивчаю фінську вже два роки."
+        },
+        {
+          "fi": "Oletko jo lähettänyt viestin?",
+          "uk": "Ти вже надіслав повідомлення?"
+        }
+      ],
+      "contrast": "The aspect depends on context; do not oversimplify all imperfect/perfect cases to one Ukrainian equivalent"
+    },
+    {
+      "id": "tenses-pluskvamperfekti",
+      "tense": "pluskvamperfekti",
+      "label_uk": "Передминулий час",
+      "levels": [
+        "B1.2",
+        "B2.1"
+      ],
+      "goal": "Explain an event that happened before another past reference point",
+      "form": "olla (imperfect) + participle: olin opiskellut; en ollut opiskellut",
+      "examples": [
+        {
+          "fi": "Olin jo lähtenyt, kun bussi tuli.",
+          "uk": "Я вже пішов, коли прийшов автобус."
+        },
+        {
+          "fi": "Hän oli saanut vastauksen ennen kokousta.",
+          "uk": "Він/вона отримав(-ла) відповідь до наради."
+        }
+      ],
+      "contrast": "Anchor two events relative to each other in the past"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "time-ex-001",
+      "level": "A1.3",
+      "type": "controlled_choice",
+      "prompt_fi": "Minä ___ suomea joka päivä.",
+      "choices": [
+        "opiskelen",
+        "opiskelin",
+        "olen opiskellut"
+      ],
+      "answer": "opiskelen",
+      "tense": "preesens",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-002",
+      "level": "A1.3",
+      "type": "controlled_choice",
+      "prompt_fi": "Huomenna minä ___ kotiin aikaisin.",
+      "choices": [
+        "menen",
+        "menin",
+        "olin mennyt"
+      ],
+      "answer": "menen",
+      "tense": "preesens",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-003",
+      "level": "A2.1",
+      "type": "controlled_choice",
+      "prompt_fi": "Eilen minä ___ kirjastossa.",
+      "choices": [
+        "käyn",
+        "kävin",
+        "olen käynyt"
+      ],
+      "answer": "kävin",
+      "tense": "imperfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-004",
+      "level": "A2.2",
+      "type": "controlled_choice",
+      "prompt_fi": "Viime viikolla hän ___ auton.",
+      "choices": [
+        "osti",
+        "ostaa",
+        "on ostanut"
+      ],
+      "answer": "osti",
+      "tense": "imperfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-005",
+      "level": "B1.1",
+      "type": "controlled_choice",
+      "prompt_fi": "Minä ___ Suomessa jo kolme vuotta, ja asun täällä edelleen.",
+      "choices": [
+        "asuin",
+        "olen asunut",
+        "olin asunut"
+      ],
+      "answer": "olen asunut",
+      "tense": "perfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-006",
+      "level": "B1.1",
+      "type": "controlled_choice",
+      "prompt_fi": "Oletko ___ laskun jo?",
+      "choices": [
+        "maksanut",
+        "maksoit",
+        "maksaa"
+      ],
+      "answer": "maksanut",
+      "tense": "perfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-007",
+      "level": "B1.2",
+      "type": "controlled_choice",
+      "prompt_fi": "Kun saavuin asemalle, juna ___ jo lähtenyt.",
+      "choices": [
+        "oli",
+        "on",
+        "oli ollut"
+      ],
+      "answer": "oli",
+      "tense": "pluskvamperfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-008",
+      "level": "B2.1",
+      "type": "controlled_choice",
+      "prompt_fi": "Ennen kuin kokous alkoi, me ___ jo sopineet asiasta.",
+      "choices": [
+        "olimme",
+        "olemme",
+        "olimme olleet"
+      ],
+      "answer": "olimme",
+      "tense": "pluskvamperfekti",
+      "learning_only": true
+    },
+    {
+      "id": "time-ex-009",
+      "level": "B1.2",
+      "type": "open_transfer",
+      "prompt_fi": "Kerro kahdesta menneestä tapahtumasta: mitä oli tapahtunut ennen toista?",
+      "answer": null,
+      "assessment_status": "ungraded",
+      "tense": "pluskvamperfekti",
+      "learning_only": true
+    }
+  ]
+}
