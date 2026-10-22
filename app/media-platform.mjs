@@ -10,7 +10,7 @@ const HASH=/^[a-f0-9]{64}$/;
 function safePath(s){
   return typeof s==="string" && s.length<400 && s[0]!=="/" &&
     !s.startsWith("//") && !s.includes("\\") && !s.includes("?") &&
-    !s.includes("#") && !s.includes(":") &&
+    !s.includes("#") && !s.includes(":") && !s.includes("%") &&
     s.split("/").every(x=>x!=="" && x!=="." && x!=="..");
 }
 export function validateMediaManifest(manifest){
