@@ -56,7 +56,7 @@ React/Vite Web UI       XState exam policy     Phaser 2D scenes
 | Immutable attempts | `packages/contracts/src/index.mjs` | [CONTRACTS](CONTRACTS.md), `packages/contracts/tests/` |
 | Media/rights | `app/media-platform.mjs`, `packages/contracts/src/media.mjs` | [SECURITY](SECURITY.md), media tests |
 | Kotlin source prototype | `native/android/prototype/` | [native README](../native/android/prototype/README.md); compile gate still absent |
-| Curriculum and audio | `content/`, `audio/`, `video/` | [content authoring](../content/CONTRIBUTING.md) |
+| Curriculum and audio | `content/`, `audio/`, `video/` | [content authoring](../learning/CONTRIBUTING.md) |
 
 ## Change protocol
 

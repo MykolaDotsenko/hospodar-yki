@@ -7,21 +7,21 @@
 | What | Discovery entrypoint | Current canonical files | Future output |
 | --- | --- | --- | --- |
 | Image files, illustrations, sprites, brand logos | [assets/images](../assets/images/README.md) | `brand/logo/*.svg` (three real SVGs), no verified learning illustration bank yet | `apps/web/src/assets/` imported assets, or `public/` when stable filenames are required; Phaser game pack |
-| Audio / transcripts / captions | [assets/audio](../assets/audio/README.md) | `audio/`, `audio/library.json`, `audio/available.json` | rights-checked bundles/streaming or PAD packs |
-| Videos and subtitles | [assets/video](../assets/video/README.md) | `video/open/*.webm`, `video/open/available.json` | licensed streaming/Web, Play install-time pack |
-| YouTube URLs, chapters | [sources/youtube](../sources/youtube/README.md) | `video/youtube-catalog.json` | **link-only** YouTube watch/embed; **never** copy streams into offline media |
-| Other external providers / official examples | [sources](../sources/README.md) | `video/publisher-*.json`, `video/yki-mock-simulation-sources.json`, `research/yki-content-sources-2026-10.json` | link-only until explicit redistribution permission |
-| Finnish vocabulary, chunks, frequency | [knowledge/dictionaries](../knowledge/dictionaries/README.md) | `content/b1/lexicon/`, `content/b1/grammar/rektio-v1.json` | stable lemma/chunk IDs and learner evidence |
-| Exercises, lessons, dialogues, rubrics | [learning/exercises](../learning/exercises/README.md) | `content/b1/`, `video/exercises.json` | validated item schemas, versions, 4 skill paths |
+| Audio / transcripts / captions | [assets/audio](../assets/audio/README.md) | `audio/`, `assets/audio/library.json`, `assets/audio/available.json` | rights-checked bundles/streaming or PAD packs |
+| Videos and subtitles | [assets/video](../assets/video/README.md) | `video/open/*.webm`, `assets/video/open/available.json` | licensed streaming/Web, Play install-time pack |
+| YouTube URLs, chapters | [sources/youtube](../sources/youtube/README.md) | `sources/youtube/youtube-catalog.json` | **link-only** YouTube watch/embed; **never** copy streams into offline media |
+| Other external providers / official examples | [sources](../sources/README.md) | `video/publisher-*.json`, `sources/official/yki-mock-simulation-sources.json`, `research/yki/yki-content-sources-2026-10.json` | link-only until explicit redistribution permission |
+| Finnish vocabulary, chunks, frequency | [knowledge/dictionaries](FOLDER-STRUCTURE.md) | `content/b1/lexicon/`, `knowledge/dictionaries/b1/rektio-v1.json` | stable lemma/chunk IDs and learner evidence |
+| Exercises, lessons, dialogues, rubrics | [learning/exercises](../learning/exercises/README.md) | `content/b1/`, `learning/exercises/video/exercises.json` | validated item schemas, versions, 4 skill paths |
 | Teaching methods, science and books | [research/pedagogy](../research/pedagogy/README.md) | `research/learning-*.json`, `docs/04…`, `docs/08…` | prioritized experiments, not fabricated effectiveness |
 | Visual design / color theory | [research/design](../research/design/README.md) | `research/color-*.json`, `docs/16…`, `brand/` | design tokens / hypotheses |
-| UX/accessibility/interactions | [research/ux](../research/ux/README.md) | `research/interactive-visual-learning-v1.json`, `docs/18…` | a11y, journeys, usability tasks |
-| Game mechanics / NPC / transfer | [research/gameplay](../research/gameplay/README.md) | `docs/23…`, `research/product-session-modes-v1.json` | design/test hypotheses, no claimed Phaser implementation |
+| UX/accessibility/interactions | [research/ux](../research/ux/README.md) | `research/ux/interactive-visual-learning-v1.json`, `docs/18…` | a11y, journeys, usability tasks |
+| Game mechanics / NPC / transfer | [research/gameplay](../research/gameplay/README.md) | `docs/23…`, `research/user-cases/product-session-modes-v1.json` | design/test hypotheses, no claimed Phaser implementation |
 | User cases, journeys and acceptance | [research/user-cases](../research/user-cases/README.md) | `docs/11…`, `docs/15…`, `docs/21…` | Gherkin/acceptance fixtures after implementation |
 | Research and architectural evidence generally | [research](../research/README.md) | `research/*.json`, `docs/01…27` | no unnecessary re-copying |
 | Third-party PDF books / sources | [knowledge](../knowledge/README.md) | `content/third-party/` | protected original files; no unlicensed redistribution |
 
-The **machine-readable ownership map** is [catalog/registry.v1.json](../catalog/registry.v1.json). It records pointers, not duplicate copies of media/learning objects. [catalog/README](../catalog/README.md) explains provenance statuses and versioning. `catalog/media-inventory-v1.json` is a **point-in-time Git blob inventory** for existing binaries; it is not a redistribution license or automatically updated release manifest.
+The **machine-readable ownership map** is [docs/FOLDER-STRUCTURE.md](FOLDER-STRUCTURE.md). It records pointers, not duplicate copies of media/learning objects. [catalog/README](FOLDER-STRUCTURE.md) explains provenance statuses and versioning. `docs/FOLDER-STRUCTURE.md` is a **point-in-time Git blob inventory** for existing binaries; it is not a redistribution license or automatically updated release manifest.
 
 ## Why existing binary/content files stay in place
 
@@ -31,7 +31,7 @@ Paths like `audio/long/b1/…`, `video/open/…` and `content/b1/themes/…` are
 
 ## Metadata contract and licensing
 
-A new or changed resource record MUST have: stable opaque `id`, `kind`, `status`, title/locale, `source` and `rights` (copyright holder, license/SPDX or explicit unknown and review state), version/hash when bundled, accessibility information (transcript/captions/alt when pertinent), human pedagogical review, and delivery eligibility. [JSON Schema](../catalog/schemas/resource.v1.schema.json) defines the draft contract; `target_only` means it is **not** enforced over all legacy curricula today.
+A new or changed resource record MUST have: stable opaque `id`, `kind`, `status`, title/locale, `source` and `rights` (copyright holder, license/SPDX or explicit unknown and review state), version/hash when bundled, accessibility information (transcript/captions/alt when pertinent), human pedagogical review, and delivery eligibility. [JSON Schema](FOLDER-STRUCTURE.md) defines the draft contract; `target_only` means it is **not** enforced over all legacy curricula today.
 
 **Licensing rule:** `link_only`, `unknown` and `review_required` MUST NOT enter a distributable asset bundle. CC attribution and derivatives/ND restrictions must be preserved. Do not assume GitHub-public means licensed. YouTube catalog is a URL index, not downloadable audio/video; follow YouTube API Services Policies. For file-level license attribution consider SPDX+REUSE (including `.license` sidecars for binaries) after auditing all actual rights; **do not assign generic licenses to legacy binaries by assumption**.
 
@@ -63,4 +63,4 @@ A new or changed resource record MUST have: stable opaque `id`, `kind`, `status`
 - [1EdTech QTI v3](https://www.1edtech.org/standards/qti) provides **future interoperability inspiration**, not current QTI conformance.
 - [YouTube API Services Policies](https://developers.google.com/youtube/terms/developer-policies).
 
-**Read next:** [AGENTS](../AGENTS.md) → [catalog](../catalog/README.md) → source/collection README → [content authoring](../content/CONTRIBUTING.md) or [research method](../research/README.md).
+**Read next:** [AGENTS](../AGENTS.md) → [catalog](FOLDER-STRUCTURE.md) → source/collection README → [content authoring](../learning/CONTRIBUTING.md) or [research method](../research/README.md).

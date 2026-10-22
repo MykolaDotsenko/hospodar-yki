@@ -16,7 +16,7 @@
 | Android packaging/2D media? | [23 — distribution/game ADR](23-android-offline-game-and-3gb-media-architecture.md) | **TARGET** install-time PAD, licensed media only |
 | Which work next? | [25 — G0–G6 roadmap](25-implementation-vertical-slice-roadmap.md) | **PARTIAL** G0; G1–G6 not complete |
 | Exam and official YKI fidelity? | [14 — digital fidelity](14-digital-yki-fidelity-spec.md) + [21 — executable exam spec](21-digital-yki-exam-simulator-executable-spec.md) | **TARGET**, 2027 unknowns explicit |
-| Content and rights? | [../content/CONTRIBUTING.md](../content/CONTRIBUTING.md) + [06 — verification](06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
+| Content and rights? | [../learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) + [06 — verification](../knowledge/sources/06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
 
 For **present code facts**, inspect the actual files/tests and CI, not an old roadmap snapshot. For **what should be built**, use current product spec/ADR. When they differ, record the gap; don't describe the feature as implemented.
 
@@ -24,10 +24,10 @@ For **present code facts**, inspect the actual files/tests and CI, not an old ro
 ### Media, content, knowledge and research
 
 - [Content Architecture](CONTENT-ARCHITECTURE.md) — accepted semantic storage plan, migration rules and verified vs link-only sources.
-- [Catalog](../catalog/README.md) — registry of owners, binary SHA inventory, new resource metadata schema and CI.
+- [Catalog](FOLDER-STRUCTURE.md) — registry of owners, binary SHA inventory, new resource metadata schema and CI.
 - [Assets](../assets/README.md) — images, local audio, licensed video; Web/Android delivery boundaries.
 - [Sources](../sources/README.md) — YouTube/link-only, publishers and official YKI demonstrations.
-- [Dictionaries](../knowledge/dictionaries/README.md) · [Exercises](../learning/exercises/README.md) — actual existing data owners.
+- [Dictionaries](FOLDER-STRUCTURE.md) · [Exercises](../learning/exercises/README.md) — actual existing data owners.
 - [Research](../research/README.md) — pedagogy, design, UX, gameplay, user cases. Existing research files stay at their original paths until tested migration.
 
 
@@ -46,9 +46,9 @@ For **present code facts**, inspect the actual files/tests and CI, not an old ro
 ## Existing specification / science library
 
 - [12 — original MVP architecture](12-mvp-architecture.md) and ADR-022/023/024/027 record historical choices. **Superseding rule:** ADR-024 replaces the old Android IndexedDB proposal; ADR-027 clarifies integration/contracts. Do **not** blindly combine old diagrams.
-- [02 — B1 competencies](02-b1-competencies.md), [05 — study system](05-study-system.md), [04 — learning science](04-evidence-and-learning-science.md), [08 — methods](08-learning-methods-evidence-2026-10.md) are source material for pedagogy, not evidence that engines are built.
-- [13 — YKI examples](13-yki-exam-format-and-real-examples-2027.md) and [20 — official audit](20-yki-official-complete-audit-2026-10.md) support calibration. Unsupported 2027 digital details must stay uncertain.
-- [../research/](../research/) and [../content/](../content/) contain machine-readable decisions/evidence and licensed or original learning material; see their readmes where present.
+- [02 — B1 competencies](02-b1-competencies.md), [05 — study system](05-study-system.md), [04 — learning science](../research/pedagogy/04-evidence-and-learning-science.md), [08 — methods](../research/pedagogy/08-learning-methods-evidence-2026-10.md) are source material for pedagogy, not evidence that engines are built.
+- [13 — YKI examples](../research/yki/13-yki-exam-format-and-real-examples-2027.md) and [20 — official audit](../research/yki/20-yki-official-complete-audit-2026-10.md) support calibration. Unsupported 2027 digital details must stay uncertain.
+- [../research/](../research/) and [../learning](../learning) contain machine-readable decisions/evidence and licensed or original learning material; see their readmes where present.
 
 ## Maintenance rule
 
