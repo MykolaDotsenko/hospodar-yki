@@ -1,0 +1,39 @@
+name: Validate real folder migration
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  source-tree:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate physical files JSON and important relative links
+        run: python3 scripts/validate_folder_layout.py
+      - name: Python syntax all scripts
+        run: python3 -m compileall -q scripts
+      - name: JavaScript syntax and unit tests
+        run: |
+          for x in app/*.mjs; do node --check "$x"; done
+          node --test app/tests/*.test.mjs
+          node --test packages/contracts/tests/*.test.mjs
+      - name: Architecture and app content checks
+        run: |
+          python3 scripts/validate_architecture_decision.py
+          python3 scripts/validate_android_game_architecture.py
+          python3 scripts/validate_reliability_architecture.py
+          python3 scripts/validate_ai_docs.py
+          python3 scripts/validate_audio_assets.py
+          python3 scripts/validate_youtube_video_catalog.py
