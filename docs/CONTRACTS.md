@@ -1,6 +1,6 @@
 # Cross-platform contracts — truth, invariants, migration boundaries
 
-**State:** V2 portable event commands and JSON fixtures exist in JavaScript, while real Web persistence remains V1. G1 is PARTIAL, not complete. [ADR-027 §3](27-stack-architecture-compatibility-and-implementation-gates.md) owns canonical target semantics. Do not mistake examples here for published V2 runtime types.
+**State:** V2 portable event commands and JSON fixtures exist in JavaScript, and a **separate experimental V2 IndexedDB adapter** is integration-tested. The live EXAM UI still persists V1. G1 is PARTIAL, not complete. [ADR-027 §3](27-stack-architecture-compatibility-and-implementation-gates.md) owns canonical target semantics. Do not mistake examples here for published V2 runtime types.
 
 ## Existing sources and honest boundaries
 
@@ -38,7 +38,7 @@ A single versioned, JSON-serializable `commitAttempt(command)` invocation goes t
 
 **Production V2 adapters are not implemented yet.** Kotlin/Room parity is not implemented until Gradle/device tests succeed.
 
-**Actual progress:** V2 event validation, deterministic key ordering, exact retry receipts, first-attempt uniqueness and JS regression tests are implemented as an in-memory reference. The Web V1 exam now requires persisted matching eventId and fingerprint before claiming a recovered lost-ACK write; matching snapshots alone are insufficient. **Remaining:** durable V2 in IndexedDB and Room, V1-to-V2 migration, Kotlin golden-fixture parity, Android compilation. The native prototype cannot yet prove an ambiguous ACK and fails closed. See [G1 implementation evidence](architecture/G1-IMPLEMENTATION.md).
+**Actual progress:** V2 event validation, deterministic key ordering, exact retry receipts, first-attempt uniqueness and JS regression tests exist in a pure reference; a separate V2 Web IndexedDB adapter now has real Chromium tests for atomic events/receipts/uniqueness. The Web V1 exam now requires persisted matching eventId and fingerprint before claiming a recovered lost-ACK write; matching snapshots alone are insufficient. **Remaining:** integration of durable V2 with actual LEARN/EXAM workflows, Kotlin Room V2 adapter, V1-to-V2 migration, Kotlin golden-fixture parity and Android compilation. The native prototype cannot yet prove an ambiguous ACK and fails closed. See [G1 implementation evidence](architecture/G1-IMPLEMENTATION.md).
 
 ## Evidence to accept G1
 

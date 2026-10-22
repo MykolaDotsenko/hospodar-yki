@@ -36,3 +36,5 @@ TARGET: apps/web (React/Vite) ── use cases/domain ── repository interfac
 - Keep Android-specific Room and Media3 native, Web Dexie/IndexedDB browser-specific. Avoid client-side Supabase SDK or license-gated media in the shared domain.
 
 **Official design support:** [Android architecture separation of concerns, UDF and SSOT](https://developer.android.com/topic/architecture), [Android recommended data layer](https://developer.android.com/topic/architecture/recommendations), [TypeScript project references](https://www.typescriptlang.org/docs/handbook/project-references.html).
+
+**Experimental V2 storage:** [app/session-v2-idb.mjs](../../app/session-v2-idb.mjs) is an adapter, **not** a pure domain import target. It may import `packages/contracts/src/session-v2.mjs`; the shared contract may never import the adapter. The browser test uses a separate database name and does not migrate real exam V1 data.

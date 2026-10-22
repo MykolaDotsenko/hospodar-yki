@@ -72,4 +72,4 @@ The Web migration adds a lockfile, strict TypeScript, scripts, package boundarie
 
 ## G1 contract and AST architecture checks
 
-See [precise G1 implementation state](architecture/G1-IMPLEMENTATION.md). Run `node --test app/tests/attempt-storage.test.mjs packages/contracts/tests/*.test.mjs`; for architecture run `npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund && npm test --prefix tools/architecture`. Current Web exam uses legacy V1, portable V2 code has no durable platform adapter; Android compile and cross-language parity are NOT RUN.
+See [precise G1 implementation state](architecture/G1-IMPLEMENTATION.md). Run `node --test app/tests/attempt-storage.test.mjs packages/contracts/tests/*.test.mjs`; for architecture run `npm ci --prefix tools/architecture --ignore-scripts --no-audit --no-fund && npm test --prefix tools/architecture`. Current Web exam uses legacy V1, portable V2 has a **separate tested experimental Web IndexedDB adapter**, not yet integrated with active LEARN/EXAM; Android compile and cross-language parity are NOT RUN.

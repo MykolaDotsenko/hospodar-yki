@@ -9,4 +9,4 @@ Follow [root AGENTS](../../AGENTS.md), [canonical contracts](../../docs/CONTRACT
 
 ## Portable V2 code
 
-The file `src/session-v2.mjs` and [golden fixtures](fixtures/v2-golden.json) define the current portable JS V2 model. The real Web exam still persists V1 snapshots in IndexedDB. Keep FirstAttemptEvent distinct from mutable checkpoints. Do not silently migrate legacy data or claim Kotlin parity; see [G1 reality](../../docs/architecture/G1-IMPLEMENTATION.md).
+The file `src/session-v2.mjs` and [golden fixtures](fixtures/v2-golden.json) define the current portable JS V2 model. The real Web exam still persists V1 snapshots in IndexedDB, while a separate experimental V2 Web IndexedDB adapter now exists. Keep FirstAttemptEvent distinct from mutable checkpoints. Do not silently migrate legacy data or claim Kotlin parity; see [G1 reality](../../docs/architecture/G1-IMPLEMENTATION.md).

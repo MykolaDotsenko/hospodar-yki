@@ -5,7 +5,7 @@
 | ID | Risk / concrete known gap | Priority | Acceptance evidence | State |
 | --- | --- | --- | --- | --- |
 | Q-01 | Browser LEARN still stores progress in `localStorage` | High | Versioned IDB migration, backup/export, idempotent tests | **OPEN** |
-| Q-02 | `ExamCheckpoint` and `FirstAttemptEvent` have separate JS models | High | One versioned schema/fixtures and cross-platform durable parity | **OPEN** |
+| Q-02 | Existing Web EXAM V1 and legacy first-attempt prototype not yet integrated with V2 | High | V2 discriminated commands, Web isolated IDB, golden fixtures exist; production migration + Kotlin Room V2 parity pending | **PARTIAL — WEB V2 ISOLATED** |
 | Q-03 | Browser V1 used a matching snapshot as lost-ACK confirmation; Android native still lacks verified receipt parity | High | Browser now verifies durable eventId + exact payload fingerprint; native protocol still needs compiled implementation | **PARTIAL — WEB MITIGATED** |
 | Q-04 | Native Room/Capacitor media are source-only Kotlin prototypes | High | Gradle build, emulator/device transactional tests | **OPEN** |
 | Q-05 | Native `packId` selection and full Media3 video surface unverified | High | Play-installed synthetic PAD, real path/seek/video + rights checks | **OPEN** |
