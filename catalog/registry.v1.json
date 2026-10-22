@@ -1,0 +1,282 @@
+{
+  "schema_version": "1.0.0",
+  "as_of": "2026-10-22",
+  "purpose": "One-source-of-truth discovery and semantic ownership; no payload copied or relocated",
+  "migration_status": "semantic_inventory_only_runtime_paths_unchanged",
+  "root_directories": {
+    "images": "assets/images",
+    "audio": "assets/audio",
+    "video": "assets/video",
+    "youtube": "sources/youtube",
+    "external_sources": "sources",
+    "knowledge": "knowledge",
+    "dictionaries": "knowledge/dictionaries",
+    "exercises": "learning/exercises",
+    "pedagogy": "research/pedagogy",
+    "design": "research/design",
+    "ux": "research/ux",
+    "gameplay": "research/gameplay",
+    "user_cases": "research/user-cases",
+    "architecture": "docs"
+  },
+  "rights_default": "unknown_not_redistributable_without_item_level_evidence",
+  "collections": [
+    {
+      "id": "brand.images",
+      "category": "images",
+      "status": "implemented_source",
+      "owner": "assets/images/README.md",
+      "canonical_paths": [
+        "brand/logo"
+      ],
+      "references": [
+        "brand/tokens.json",
+        "brand/identity-v03-screen-system.md"
+      ],
+      "description": "Existing 3 brand SVG marks; no learning image library verified"
+    },
+    {
+      "id": "media.audio",
+      "category": "audio",
+      "status": "implemented_source",
+      "owner": "assets/audio/README.md",
+      "canonical_paths": [
+        "audio/open",
+        "audio/human",
+        "audio/long",
+        "audio/catalog.json",
+        "audio/library.json",
+        "audio/available.json",
+        "audio/learning-plan.json"
+      ],
+      "references": [
+        "content/b1/audio-long",
+        "content/b1/audio-training"
+      ],
+      "description": "Legacy media: open human and synthetic, rights per record"
+    },
+    {
+      "id": "media.video",
+      "category": "video",
+      "status": "implemented_source",
+      "owner": "assets/video/README.md",
+      "canonical_paths": [
+        "video/open",
+        "video/catalog.json"
+      ],
+      "references": [
+        "video/README.md"
+      ],
+      "description": "Three local CC-attributed WebM binaries, review rights item-by-item"
+    },
+    {
+      "id": "sources.youtube",
+      "category": "youtube",
+      "status": "curated_link_only",
+      "owner": "sources/youtube/README.md",
+      "canonical_paths": [
+        "video/youtube-catalog.json",
+        "video/YOUTUBE-LEARNING-CATALOG.md",
+        "video/YOUTUBE-HIGH-VALUE-ROUND2-2026-10.md",
+        "video/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+        "video/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+        "video/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md"
+      ],
+      "references": [],
+      "description": "URL-only; no offline streams, availability verification not implied"
+    },
+    {
+      "id": "sources.publishers",
+      "category": "external_sources",
+      "status": "curated_link_only",
+      "owner": "sources/publishers/README.md",
+      "canonical_paths": [
+        "video/publisher-episode-catalog.json",
+        "video/publisher-series-catalog.json"
+      ],
+      "references": [
+        "audio/catalog.json"
+      ],
+      "description": "Publisher episodes link-only absent individual media rights"
+    },
+    {
+      "id": "sources.official",
+      "category": "external_sources",
+      "status": "curated_link_only",
+      "owner": "sources/official/README.md",
+      "canonical_paths": [
+        "video/yki-mock-simulation-sources.json",
+        "video/YKI-MOCK-VIDEO-SOURCES-2026-10.md"
+      ],
+      "references": [
+        "research/yki-content-sources-2026-10.json"
+      ],
+      "description": "Official examples distinguished from third party"
+    },
+    {
+      "id": "knowledge.thirdparty",
+      "category": "knowledge",
+      "status": "research_only",
+      "owner": "knowledge/README.md",
+      "canonical_paths": [
+        "content/third-party",
+        "docs/10-yki-resources-machine-index.json"
+      ],
+      "references": [
+        "docs/03-resources-books-courses.md",
+        "docs/06-sources-and-verification.md"
+      ],
+      "description": "PDF rights per original; research use doesn't imply packaging license"
+    },
+    {
+      "id": "knowledge.dictionaries",
+      "category": "dictionaries",
+      "status": "implemented_source",
+      "owner": "knowledge/dictionaries/README.md",
+      "canonical_paths": [
+        "content/b1/lexicon",
+        "content/b1/grammar/rektio-v1.json"
+      ],
+      "references": [
+        "content/b1/themes"
+      ],
+      "description": "Lemma/chunk/frequency/rektio lookup"
+    },
+    {
+      "id": "learning.exercises",
+      "category": "exercises",
+      "status": "implemented_source",
+      "owner": "learning/exercises/README.md",
+      "canonical_paths": [
+        "content/b1/themes",
+        "content/b1/contextual",
+        "content/b1/grammar/contextual-cloze.json",
+        "content/b1/grammar/ftb-frequency-cloze-v1.json",
+        "content/b1/high-yield",
+        "content/b1/masterclasses",
+        "content/b1/exam-patterns",
+        "content/b1/diagnostics",
+        "content/b1/feedback-rubrics.json",
+        "content/b1/audio-long",
+        "content/b1/audio-training",
+        "content/b1/index.json",
+        "video/exercises.json"
+      ],
+      "references": [
+        "docs/15-two-modes-skill-scopes.md"
+      ],
+      "description": "Original lessons and training; some teacher review pending"
+    },
+    {
+      "id": "research.pedagogy",
+      "category": "pedagogy",
+      "status": "research_only",
+      "owner": "research/pedagogy/README.md",
+      "canonical_paths": [
+        "research/learning-methods-v1.json",
+        "research/learning-effectiveness-ratings-v1.json",
+        "research/learning-blueprints-books-v1.json",
+        "research/yki-methodology-implementation-v1.json"
+      ],
+      "references": [
+        "docs/08-learning-methods-evidence-2026-10.md",
+        "docs/12-finnish-yki-learning-effectiveness-2026-10.md"
+      ],
+      "description": "Studies and editorial implementation priorities; scores not effects"
+    },
+    {
+      "id": "research.design",
+      "category": "design",
+      "status": "research_only",
+      "owner": "research/design/README.md",
+      "canonical_paths": [
+        "research/color-attention-design-policy-v2.json",
+        "research/color-memory-evidence-v1.json"
+      ],
+      "references": [
+        "brand/tokens.json",
+        "docs/16-color-attention-memory-research-2026-10.md",
+        "docs/17-color-attention-l2-deep-dive.md"
+      ],
+      "description": "Color attention evidence, not measured Hospodar outcomes"
+    },
+    {
+      "id": "research.ux",
+      "category": "ux",
+      "status": "research_only",
+      "owner": "research/ux/README.md",
+      "canonical_paths": [
+        "research/interactive-visual-learning-v1.json",
+        "research/multimodal-interaction-evidence-v2.json"
+      ],
+      "references": [
+        "docs/18-interactive-visual-learning-evidence-2026-10.md",
+        "docs/20-multimodal-interactive-learning-2026-10.md"
+      ],
+      "description": "UX and multimodal hypotheses"
+    },
+    {
+      "id": "research.gameplay",
+      "category": "gameplay",
+      "status": "target_only",
+      "owner": "research/gameplay/README.md",
+      "canonical_paths": [
+        "docs/23-android-offline-game-and-3gb-media-architecture.md"
+      ],
+      "references": [
+        "research/product-session-modes-v1.json"
+      ],
+      "description": "Phaser world design not coded"
+    },
+    {
+      "id": "research.user_cases",
+      "category": "user_cases",
+      "status": "research_only",
+      "owner": "research/user-cases/README.md",
+      "canonical_paths": [
+        "research/product-session-modes-v1.json",
+        "docs/11-mvp-product-requirements.md",
+        "docs/15-two-modes-skill-scopes.md",
+        "docs/21-digital-yki-exam-simulator-executable-spec.md"
+      ],
+      "references": [
+        "docs/25-implementation-vertical-slice-roadmap.md"
+      ],
+      "description": "Product tasks, navigation, outcome and acceptance"
+    },
+    {
+      "id": "research.yki",
+      "category": "knowledge",
+      "status": "research_only",
+      "owner": "sources/official/README.md",
+      "canonical_paths": [
+        "research/official-yki-deep-audit-v2.json",
+        "research/yki-digital-fidelity-evidence-2026-10.json",
+        "research/yki-exam-examples-2026-10.json",
+        "research/yki-official-patterns-v2.json",
+        "research/yki-content-sources-2026-10.json"
+      ],
+      "references": [
+        "docs/14-digital-yki-fidelity-spec.md"
+      ],
+      "description": "Verified/unverified provenance and official formats"
+    },
+    {
+      "id": "research.architecture",
+      "category": "architecture",
+      "status": "research_only",
+      "owner": "docs/INDEX.md",
+      "canonical_paths": [
+        "research/architecture-decision-v1.json",
+        "research/android-game-distribution-v1.json",
+        "research/reliability-architecture-adr-v1.json"
+      ],
+      "references": [
+        "docs/22-optimal-stack-and-architecture-adr-2026-10.md",
+        "docs/24-reliability-hardened-architecture-web-android.md",
+        "docs/27-stack-architecture-compatibility-and-implementation-gates.md"
+      ],
+      "description": "Architecture evidence, not Android binary"
+    }
+  ]
+}
