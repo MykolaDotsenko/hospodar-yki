@@ -13,7 +13,7 @@
       "title_fi": "Suomen kieli — johdanto",
       "title_uk": "1 хв 17 с читання про фінську мову — слухання на головну думку та деталі",
       "duration_seconds": 77.5,
-      "relative_path": "audio/open/monologues/suomen_kieli_johdanto.ogg",
+      "relative_path": "assets/audio/open/monologues/suomen_kieli_johdanto.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -36,7 +36,7 @@
       "title_fi": "Suomi — johdanto",
       "title_uk": "2 хв 09 с озвучена енциклопедична довідка про Фінляндію",
       "duration_seconds": 129.2,
-      "relative_path": "audio/open/monologues/suomi_johdanto.ogg",
+      "relative_path": "assets/audio/open/monologues/suomi_johdanto.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -59,7 +59,7 @@
       "title_fi": "Numerot 1–24",
       "title_uk": "Числа на слух: кількості, години, рейси, номери",
       "duration_seconds": 50.1,
-      "relative_path": "audio/open/listening/numerot_1_24.ogg",
+      "relative_path": "assets/audio/open/listening/numerot_1_24.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -82,7 +82,7 @@
       "title_fi": "En tiedä",
       "title_uk": "Репліка невпевненості, корисна для уточнення",
       "duration_seconds": 1,
-      "relative_path": "audio/open/phrases/en_tieda.ogg",
+      "relative_path": "assets/audio/open/phrases/en_tieda.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -174,7 +174,7 @@
       "title_fi": "Ei",
       "title_uk": "Заперечення",
       "duration_seconds": 0.9,
-      "relative_path": "audio/open/phrases/ei.ogg",
+      "relative_path": "assets/audio/open/phrases/ei.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -243,7 +243,7 @@
       "title_fi": "En ymmärrä",
       "title_uk": "Альтернативний голос для активного спілкування",
       "duration_seconds": 1.4,
-      "relative_path": "audio/open/phrases/en_ymmarra_alt.ogg",
+      "relative_path": "assets/audio/open/phrases/en_ymmarra_alt.ogg",
       "format": "ogg",
       "download": {
         "type": "commons",
@@ -357,7 +357,7 @@
       "title_fi": "Tapaaminen metroasemalla",
       "title_uk": "Зустріч біля метро",
       "duration_seconds": 51,
-      "relative_path": "audio/open/dialogues/tapaaminen_metroasemalla.ogg",
+      "relative_path": "assets/audio/open/dialogues/tapaaminen_metroasemalla.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -377,7 +377,7 @@
       "title_fi": "En ymmärrä",
       "title_uk": "Я не розумію",
       "duration_seconds": 1.83,
-      "relative_path": "audio/open/phrases/en_ymmarra.ogg",
+      "relative_path": "assets/audio/open/phrases/en_ymmarra.ogg",
       "format": "ogg",
       "provider": "Wikimedia Commons",
       "download": {
@@ -496,7 +496,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Rautu — puheenäyte",
       "title_uk": "Автентична діалектна фінська — Рау́ту",
-      "relative_path": "audio/open/dialects/skn_rautuu_0072.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_rautuu_0072.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
@@ -515,7 +515,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Ikaalinen — puheenäyte",
       "title_uk": "Діалектна фінська — Ікаалінен",
-      "relative_path": "audio/open/dialects/skn_ikaalinen_0245.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_ikaalinen_0245.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
@@ -534,7 +534,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Artjärvi — puheenäyte",
       "title_uk": "Діалектна фінська — Артярві",
-      "relative_path": "audio/open/dialects/skn_artjarvi_0081.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_artjarvi_0081.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
@@ -553,7 +553,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Alastaro — puheenäyte",
       "title_uk": "Автентична діалектна фінська — Alastaro",
-      "relative_path": "audio/open/dialects/skn_alastaro.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_alastaro.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
@@ -572,7 +572,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Heinola — puheenäyte",
       "title_uk": "Автентична діалектна фінська — Heinola",
-      "relative_path": "audio/open/dialects/skn_heinola.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_heinola.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
@@ -591,7 +591,7 @@
       "level": "B1+-B2",
       "title_fi": "SKN Eurajoki — puheenäyte",
       "title_uk": "Автентична діалектна фінська — Eurajoki",
-      "relative_path": "audio/open/dialects/skn_eurajoki.mp3",
+      "relative_path": "assets/audio/open/dialects/skn_eurajoki.mp3",
       "format": "mp3",
       "provider": "GAIK Project / Kotus / Kielipankki",
       "download": {
