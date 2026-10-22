@@ -39,5 +39,5 @@ export class InMemoryAttemptRepository {
 /** The platform implementation MUST perform the entire command in one DB transaction. */
 export function createRepository(adapter) {
   if (!adapter || typeof adapter.commitAttempt !== "function" || typeof adapter.readSession !== "function") throw new TypeError("Invalid repository adapter");
-  return Object.freeze({commitAttempt:(command)=>adapter.commitAttempt(validateAttempt(command)),readSession:(id)=>adapter.readSession(assertId(id))});
+  return Object.freeze({commitAttempt:async(command)=>adapter.commitAttempt(validateAttempt(command)),readSession:async(id)=>adapter.readSession(assertId(id))});
 }
