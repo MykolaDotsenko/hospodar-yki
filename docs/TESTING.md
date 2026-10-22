@@ -33,7 +33,7 @@ Replace `google-chrome` with an installed Chromium binary if necessary; test har
 | `app/` display or navigation | Syntax, `app/tests`, browser smoke/manual keyboard check where UI impact exists |
 | `app/attempt-storage*` | Unit + **real Chromium** IndexedDB concurrent writers, retry, duplicate IDs, quota/write failure |
 | `packages/contracts/` | Contract tests + fixture compatibility; Kotlin parity **blocked** until native build exists |
-| `content/`, `audio/`, `video/` | Relevant content/audio validators, human Finnish/rights sign-off; never import unknown rights |
+| `learning/`, `assets/audio/`, `assets/video/`, `sources/` | Relevant content/audio validators, human Finnish/rights sign-off; never import unknown rights |
 | `native/android/prototype/` | JS contract tests only are **insufficient**; compiled Android tests needed to claim implementation |
 | ADR, `AGENTS.md`, `docs/` | AI-doc validator + applicable architecture validators |
 | Platform/cloud/security | Secrets/privacy/RLS + threat model and actual integration/E2E checks before enabled release |

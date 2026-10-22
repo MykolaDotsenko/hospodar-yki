@@ -43,7 +43,7 @@
 - Інтерв'ю з вибором A/B/C, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy083.mp3).
 - Тема подорожей й екології, oikein/väärin, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/suktpy069.mp3).
 - Коротка реклама туристичної поїздки, відкриті відповіді, [MP3](https://ykitesti.solki.jyu.fi/wp-content/uploads/2016/06/Keskitaso_avoimet_kysymykset_2-1.mp3).
-- [13 SOLKI MP3 URL (11 listening + 2 speaking) уже індексовані тут](../assets/audio/catalog.json); це **не** локальні мультимедійні файли й ліцензія на редистрибуцію не підтверджена.
+- [13 SOLKI MP3 URL (11 listening + 2 speaking) уже індексовані тут](../sources/audio/recording-sources.json); це **не** локальні мультимедійні файли й ліцензія на редистрибуцію не підтверджена.
 
 **Говоріння** ([офіційні демо](https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/)):
 - `kertominen`: 1 хв на підготовку + 1,5 хв відповіді у конкретному старому прикладі; говорити по суті весь час.

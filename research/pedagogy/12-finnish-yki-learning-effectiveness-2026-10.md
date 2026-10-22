@@ -123,7 +123,7 @@
 
 ## 5. Використання в Hospodar YKI та юридичні межі
 
-Підхід → кодова фіча: [11 модулів і 4 A/B-протоколи](yki-methodology-implementation-v1.json). Нові кандидати для контенту: [корпусні приклади з дозволом](../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json), [оригінальні chunks](../../knowledge/dictionaries/b1/contextual-chunks-v1.json), [аудіокаталог](../../assets/audio/yki-targeted-sources-2026-10.json).
+Підхід → кодова фіча: [11 модулів і 4 A/B-протоколи](yki-methodology-implementation-v1.json). Нові кандидати для контенту: [корпусні приклади з дозволом](../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json), [оригінальні chunks](../../knowledge/dictionaries/b1/contextual-chunks-v1.json), [аудіокаталог](../../sources/audio/yki-targeted-sources-2026-10.json).
 
 **Матеріали третіх сторін:** зберігаємо лише бібліографію, короткі узагальнення, власні приклади й ліцензовані корпуси. Не копіюємо платні статті, YKI task audio або захищені медіа в GitHub. Без затвердження прав/викладача жодний захищений ресурс не включається в app content.
 
