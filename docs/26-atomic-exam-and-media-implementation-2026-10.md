@@ -13,10 +13,10 @@
 
 ## Deliberate boundary with concurrent shared domain work
 
-Another branch, `feat/typed-contracts-atomic-attempts-20261022`, defines `packages/contracts/` for **immutable per-question first-attempt events**. This slice introduces a **separate** local `exam snapshot checkpoint` protocol (draft autosave and UI session state). They complement rather than replace one another:
+Merged PR #26 (`feat/typed-contracts-atomic-attempts-20261022`) placed `packages/contracts/` on `main` for **immutable per-question first-attempt events**; PR #27 added the independent Web exam checkpoint store. This slice introduces a **separate** local `exam snapshot checkpoint` protocol (draft autosave and UI session state). They complement rather than replace one another:
 
 - `ExamCheckpoint` (`app/attempt-storage.mjs`): resumable drafting and navigation progress.
-- `FirstAttemptEvent` (`packages/contracts`, when merged): immutable response evidence and skill measurement.
+- `FirstAttemptEvent` (`packages/contracts`, already merged): immutable response evidence and skill measurement.
 
 **Do not assign official YKI grade or mark an answer independently recalled merely because it was autosaved as a draft.** Before full React/TS migration, unify serialization/IDs and publish a single canonical contract registry for the two event types; avoid duplicate scoring models.
 
@@ -24,10 +24,20 @@ Another branch, `feat/typed-contracts-atomic-attempts-20261022`, defines `packag
 
 - Android real Gradle app, Capacitor native bridge compilation and **Room device tests**.
 - Real Google Play AAB with large `install-time` packs, verified Media3 seek/subtitles/video render, memory/thermal/CPU/space metrics.
-- Web browser E2E tests on IndexedDB (including multiple tabs, browser kill, quota errors) and cross-platform tests with fixture parity; this PR's Node tests alone do not prove those.
+- **Broader** browser E2E tests (WebKit/Firefox/mobile, quota errors, browser kill, permissions) and Android/Web parity fixtures. The existing CI **does already include a real Chromium IndexedDB concurrency/lost-ACK/recovery test**; it does not cover every failure mode or Android.
 - React/Vite/Phaser frontend migration + shared domain integration; the playable MVP is still `app/` vanilla JavaScript.
 - Real authentic, redistributable offline Finnish recordings/videos, S2 human reviews, and reliable evaluated speaking/writing.
 - New official YKI 2027 digital pilot specs once OPH confirms them; avoid strict fidelity claims until then.
+
+## Integration risks found after merge (documentation, not fixes)
+
+- **Lost ACK:** `commitWithRecovery` accepts equal `revision + session` after a failed write; this cannot prove that the **same event ID** committed when an unrelated concurrent command wrote an identical snapshot. Future protocol must read back `eventId + payload fingerprint`.
+- **Duplicate receipt:** exact retry in current stores returns a snapshot of the current row; define whether duplicate acknowledgment must return the **original** commit receipt when subsequent commands advanced the session.
+- **Cross-language identity:** `app/attempt-storage.mjs` and `packages/contracts/src/index.mjs` validate different event envelopes; Kotlin serializes `sessionJson` differently from JS unless canonicalization is specified. Do not treat them as already unified.
+- **Native errors:** `HospodarExamStorePlugin.kt` explicitly preserves `REVISION_CONFLICT`, but other errors including divergent idempotency can currently surface as `SAVE_FAILED`.
+- **Media:** `HospodarMediaPlugin.kt` accepts `packId` without resolving a named pack; Kotlin path checks do not yet match the strict Web percent-encoding check. Native Android video `PlayerView` is not integrated.
+
+These issues are action items and **not claims of demonstrated production data loss**. Priority, proposed serializable command and acceptance cases are in [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md) and the [updated execution roadmap](25-implementation-vertical-slice-roadmap.md).
 
 ## Quick check
 
