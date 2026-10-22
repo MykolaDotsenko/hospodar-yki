@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from validate_doc_integrity import (
     workflow_paths, check_workflow_paths, check_active_content_paths,
-    ACTIVE_CONTENT_FILES,
+    ACTIVE_CONTENT_FILES, check_action_pins,
 )
 
 
@@ -52,6 +52,14 @@ class WorkflowPathTests(unittest.TestCase):
         self.workflow("on:\n  pull_request:\n    paths:\n"
                       "      - 'apps/web/**'\n")
         self.assertEqual(check_workflow_paths(self.root), [])
+
+    def test_unpinned_external_action_rejected(self):
+        self.workflow("jobs:\n  q:\n    steps:\n      - uses: actions/checkout@v4\n")
+        self.assertTrue(any("immutable" in e for e in check_action_pins(self.root)))
+
+    def test_pinned_external_action_accepted(self):
+        self.workflow("jobs:\n  q:\n    steps:\n      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n")
+        self.assertEqual(check_action_pins(self.root), [])
 
     def test_duplicate_patterns_fail_even_if_valid(self):
         self.workflow("on:\n  push:\n    paths:\n"

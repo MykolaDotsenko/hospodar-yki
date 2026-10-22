@@ -11,7 +11,7 @@ The repository currently ships a local Web MVP, not a production React app or An
 | EXAM persistence | Real Chromium IndexedDB concurrency/recovery smoke from [TESTING](../TESTING.md); fail-closed/no fake success |
 | Educational content / media | Specific Python/Node validators, per-asset rights and Finnish human review; no official YKI grade inference |
 
-**GitHub Actions filters must point to real tracked paths.** Changes in `learning/exercises/`, `assets/audio/`, `sources/` and contract packages must trigger the corresponding tests; [documentation integrity validator](../../scripts/validate_doc_integrity.py) checks path filters and rejects extinct content roots. The only explicit not-yet-present filter exception is `apps/web/**` for the approved future scaffold. Update this safeguard in the same PR if a new approved future build path is added.
+**GitHub Actions filters must point to real tracked paths.** Changes in `learning/exercises/`, `assets/audio/`, `sources/` and contract packages must trigger the corresponding tests; [documentation integrity validator](../../scripts/validate_doc_integrity.py) checks path filters and rejects extinct content roots, duplicate/nonmatching filters and unpinned external actions. The only explicit not-yet-present filter exception is `apps/web/**` for the approved future scaffold. Update this safeguard in the same PR if a new approved future build path is added.
 
 ## Future deployment and release — blocked until implemented
 

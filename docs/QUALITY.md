@@ -13,8 +13,7 @@
 | Q-07 | Browser E2E across Firefox/WebKit/mobile and quota cases incomplete | Medium | Playwright suite with CI evidence | **OPEN** |
 | Q-08 | No buildable Android AAB nor packaged 2–3 GB licensed content | High for release | Real Play internal testing, size/space/thermal proof | **OPEN** |
 | Q-09 | Production observability, privacy/retention and rollback not verified | High for release | Approved threat/release checklist with observable tests | **OPEN** |
-
-| Q-10 | CI path filters or active specifications reference removed content roots | Medium | `validate_doc_integrity.py` + regression tests + path-aware workflow on PR/main | **REMEDIATION IN REVIEW** |
+| Q-10 | CI path filters or active specifications reference removed content roots | Medium | [PR #37](https://github.com/MykolaDotsenko/hospodar-yki/pull/37), `validate_doc_integrity.py` + regression/CI evidence | **MITIGATED — docs/CI** |
 | Q-11 | No project-wide licensing grant; media rights still per source | High for release | Maintainer-approved code LICENSE plus verified asset-level permissions | **OPEN** |
 
 ## Maintenance
