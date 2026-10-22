@@ -56,3 +56,10 @@ Reproduce with a minimal browser/test fixture. For IndexedDB changes, first expo
 ## Future build-tool adoption (gated)
 
 The Web migration adds a lockfile, strict TypeScript, scripts, package boundaries and E2E test runner **in a dedicated PR**; update this guide only after successful CI proves exact commands. Android Gradle/Capacitor and Play internal testing similarly require a real scaffold and device logs, not a copied command snippet.
+
+## Practical guides for the next engineering steps
+
+- [Current architectural decisions](architecture/README.md), including Room replacing early Android WebView IndexedDB ideas.
+- [G1–G6 Web and native migration](guides/WEB-ANDROID-MIGRATION.md), with real test gates and no fake build commands.
+- [Add licensed Finnish source content](guides/CONTENT-AUTHORING.md), including required attribution and S2 review.
+- [CI path filter verification](operations/CI-QUALITY-GATES.md) and [licensing](../LICENSING.md).

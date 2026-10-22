@@ -26,6 +26,8 @@
 | YKI source research | [research/yki/](../research/yki/01-official-yki-2027.md) | Exam fidelity and evidence, not official 2027 implementation |
 | Architecture research | [research/architecture/](../research/architecture/architecture-decision-v1.json) | Technology decisions and platform investigations |
 
+For an actionable process rather than a second index, see [how to author new learning materials](guides/CONTENT-AUTHORING.md) and [code/media licensing boundaries](../LICENSING.md).
+
 ## Rules for adding or changing files
 
 1. **One physical home per file.** Place it directly in its subject folder. Do not create a second machine-generated registry or a mirror of its contents elsewhere.

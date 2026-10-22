@@ -69,7 +69,7 @@
         "yki-constructive-alignment"
       ],
       "reads": [
-        "content/b1/themes/",
+        "learning/exercises/b1/themes/",
         "learning/exercises/b1/high-yield/opinion-argumentation-v1.json",
         "learning/exercises/b1/contextual/dialogues-v1.json"
       ],
@@ -219,7 +219,7 @@
       ],
       "reads": [
         "audio/",
-        "content/b1/lexicon/"
+        "knowledge/dictionaries/b1/"
       ],
       "input": "teacher-checked minimal pairs from different licensed speakers",
       "outputs": [
@@ -254,7 +254,7 @@
       ],
       "reads": [
         "knowledge/dictionaries/b1/contextual-chunks-v1.json",
-        "content/b1/lexicon/frequency/"
+        "knowledge/dictionaries/b1/frequency/"
       ],
       "input": "explicit unknown or verified production error",
       "outputs": [
@@ -395,7 +395,7 @@
         "hybrid-ai-teacher-loop"
       ],
       "reads": [
-        "content/b1/",
+        "learning/exercises/b1/",
         "assets/audio/library.json"
       ],
       "input": "draft learning content + copyright notice + teacher-review checklist",

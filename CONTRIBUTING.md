@@ -9,3 +9,5 @@ This file describes **software contributions**. For Finnish lesson/audio/video a
 5. Use [.github/pull_request_template.md](.github/pull_request_template.md). No credentials, private learner answers/voice or unauthorized third-party assets in commits.
 
 AI-generated contributions must have the same human/accountable review and executable proof as hand-written code. See [AI workflow](docs/AI-WORKFLOW.md).
+
+For new integrations and content, follow the [Web/Android migration guide](docs/guides/WEB-ANDROID-MIGRATION.md) or [learning material how-to](docs/guides/CONTENT-AUTHORING.md). See [licensing boundaries](LICENSING.md); do not assume a single open-source license covers third-party media.

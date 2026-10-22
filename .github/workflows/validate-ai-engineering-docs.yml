@@ -9,9 +9,11 @@ on:
       - 'docs/**'
       - '.github/copilot-instructions.md'
       - '.github/pull_request_template.md'
-      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - '.github/workflows/**'
       - 'scripts/validate_ai_docs.py'
+      - 'scripts/validate_doc_integrity.py'
       - 'scripts/tests/test_validate_ai_docs.py'
+      - 'scripts/tests/test_validate_doc_integrity.py'
       - 'app/**'
       - 'packages/contracts/**'
       - 'native/android/prototype/**'
@@ -22,9 +24,11 @@ on:
       - 'docs/**'
       - '.github/copilot-instructions.md'
       - '.github/pull_request_template.md'
-      - '.github/workflows/validate-ai-engineering-docs.yml'
+      - '.github/workflows/**'
       - 'scripts/validate_ai_docs.py'
+      - 'scripts/validate_doc_integrity.py'
       - 'scripts/tests/test_validate_ai_docs.py'
+      - 'scripts/tests/test_validate_doc_integrity.py'
       - 'app/**'
       - 'packages/contracts/**'
       - 'native/android/prototype/**'
@@ -37,13 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
       - name: Syntax check validator and tests
         run: python3 -m py_compile scripts/validate_ai_docs.py scripts/tests/test_validate_ai_docs.py
       - name: Validate path safety and broken-link detection
         run: python3 -m unittest discover -s scripts/tests -p 'test_validate_ai_docs.py' -v
+      - name: Catch obsolete workflow filters and stale normative content paths
+        run: |
+          python3 scripts/validate_doc_integrity.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_doc_integrity.py' -v
       - name: Check required docs, relative links and engineering truth
         run: python3 scripts/validate_ai_docs.py

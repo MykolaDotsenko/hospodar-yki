@@ -2,6 +2,8 @@
 
 **Status:** verified repository map as of 2026-10-22, with planned boundaries separated from code. [Authority/index](INDEX.md) · [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md).
 
+See the [ADR lifecycle and current decision map](architecture/README.md) for explicit precedence, and the [Web/Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) for implementation sequencing. These navigation pages do not replace the canonical contracts in [CONTRACTS](CONTRACTS.md).
+
 ## Implemented now (source exists)
 
 ```text

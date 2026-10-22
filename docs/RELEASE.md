@@ -42,3 +42,5 @@ The runnable asset is `app/`, a browser-local prototype served with `python3 -m 
 Triage scope/severity; stop rollout without erasing user data; preserve sanitized logs; reproduce on pinned commit; determine if migrations/content hashes were affected; document recovery/export path and communicate user-impact truthfully; add a regression test and post-incident action. Do not promise availability/support SLOs until they are instrumented and owned.
 
 **Related:** [roadmap](25-implementation-vertical-slice-roadmap.md) · [security](SECURITY.md) · [architecture integration](27-stack-architecture-compatibility-and-implementation-gates.md).
+
+**Release handoff:** use the task-specific [CI and release evidence matrix](operations/CI-QUALITY-GATES.md), the [Web/Android G1–G6 migration guide](guides/WEB-ANDROID-MIGRATION.md) and [licensing boundaries](../LICENSING.md). A passed docs/path check is necessary hygiene, not permission to publish an Android binary or distribute third-party media.

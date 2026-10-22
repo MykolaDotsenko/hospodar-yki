@@ -14,6 +14,9 @@
 | Q-08 | No buildable Android AAB nor packaged 2–3 GB licensed content | High for release | Real Play internal testing, size/space/thermal proof | **OPEN** |
 | Q-09 | Production observability, privacy/retention and rollback not verified | High for release | Approved threat/release checklist with observable tests | **OPEN** |
 
+| Q-10 | CI path filters or active specifications reference removed content roots | Medium | `validate_doc_integrity.py` + regression tests + path-aware workflow on PR/main | **REMEDIATION IN REVIEW** |
+| Q-11 | No project-wide licensing grant; media rights still per source | High for release | Maintainer-approved code LICENSE plus verified asset-level permissions | **OPEN** |
+
 ## Maintenance
 
 One entry should name the risk, owning area, concrete next check, current status and evidence. Do not close a risk on an ADR paragraph or green static validator alone. Technical debt is addressed through small plans/PRs; link completed [execution plans](exec-plans/README.md). Product/architecture design-fit scores are not runtime SLIs.

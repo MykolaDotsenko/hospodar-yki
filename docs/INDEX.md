@@ -4,6 +4,18 @@
 
 > Start with [../AGENTS.md](../AGENTS.md). Read the narrowest relevant documents; the research library is reference material, not mandatory context for every coding task.
 
+## Pick the shortest guide for your task
+
+| Need | Read first | Why |
+| --- | --- | --- |
+| Understand what runs now, and why the target stack was chosen | [Architecture decisions](architecture/README.md) | Explicit historical/accepted target versus running source |
+| Implement React/TypeScript, Dexie, Android Room or PAD | [Web and Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) | Step-by-step safety gates and tests |
+| Add a YKI task, dictionary, image, audio, transcript or video URL | [Content authoring guide](guides/CONTENT-AUTHORING.md) | One physical owner, rights, review, validation |
+| Change GitHub Actions or qualify release | [CI and quality gates](operations/CI-QUALITY-GATES.md) | Exact triggers, evidence, planned versus runnable commands |
+| Choose code/media redistribution policy | [Licensing boundaries](../LICENSING.md) | Public repo does not automatically grant media rights |
+
+The core [ARCHITECTURE](ARCHITECTURE.md), [CONTRACTS](CONTRACTS.md), [TESTING](TESTING.md), [SECURITY](SECURITY.md), [RELEASE](RELEASE.md) and numbered ADRs keep their historical stable paths. This is deliberate: large file migrations would break existing deep links without improving code quality.
+
 ## Authority by question
 
 | Question | Canonical reference | Status / interpretation |
