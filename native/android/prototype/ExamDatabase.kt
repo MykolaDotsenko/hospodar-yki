@@ -22,7 +22,8 @@ data class ExamSessionRow(
 data class ExamEventRow(
     @PrimaryKey val eventId: String,
     val kind: String,
-    val revision: Long
+    val revision: Long,
+    val payloadFingerprint: String
 )
 
 data class NativeCommitCommand(
@@ -69,7 +70,13 @@ abstract class ExamDao {
         require(cmd.eventId.matches(Regex("[A-Za-z0-9_-]{8,128}")))
         require(cmd.sessionJson.length <= 250_000)
         val previous = read(cmd.key)
-        if (getEvent(cmd.eventId) != null) {
+        val signature = listOf(cmd.kind,cmd.expectedRevision.toString(),cmd.sessionJson)
+            .joinToString(separator = "\u001F")
+        val previousEvent = getEvent(cmd.eventId)
+        if (previousEvent != null) {
+            if (previousEvent.payloadFingerprint != signature) {
+                throw IllegalArgumentException("IDEMPOTENCY_CONFLICT")
+            }
             check(previous != null) { "Committed event without a session" }
             return NativeCommitResult(false, previous.revision, previous.sessionJson)
         }
@@ -77,7 +84,7 @@ abstract class ExamDao {
         if (revision != cmd.expectedRevision) throw ExamRevisionConflict()
         val next = ExamSessionRow(cmd.key, revision + 1, cmd.sessionJson)
         replaceSession(next)
-        addEvent(ExamEventRow(cmd.eventId, cmd.kind, next.revision))
+        addEvent(ExamEventRow(cmd.eventId, cmd.kind, next.revision, signature))
         return NativeCommitResult(true, next.revision, next.sessionJson)
     }
 
