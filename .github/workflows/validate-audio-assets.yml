@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - assets/audio/available.json
+      - sources/audio/recording-sources.json
       - audio/segments/**
       - audio/open/**
       - scripts/validate_audio_assets.py
@@ -11,6 +12,7 @@ on:
   pull_request:
     paths:
       - assets/audio/available.json
+      - sources/audio/recording-sources.json
       - audio/segments/**
       - audio/open/**
       - scripts/validate_audio_assets.py

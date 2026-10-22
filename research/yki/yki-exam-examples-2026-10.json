@@ -120,7 +120,7 @@
       "app_use": "gist/details/inference; keep MP3 URLs separate",
       "rights_status": "LINK_ONLY_NOT_2027_DIGITAL_UI",
       "last_checked": "2026-10-21",
-      "existing_audio_index": "assets/audio/catalog.json",
+      "existing_audio_index": "sources/audio/recording-sources.json",
       "existing_official_listening_links": 11
     },
     {
@@ -135,7 +135,7 @@
       "app_use": "monologue, simulated dialogue, situational response",
       "rights_status": "LINK_ONLY_NOT_2027_DIGITAL_UI",
       "last_checked": "2026-10-21",
-      "existing_audio_index": "assets/audio/catalog.json",
+      "existing_audio_index": "sources/audio/recording-sources.json",
       "existing_official_speaking_links_in_catalog": 2
     },
     {
@@ -310,7 +310,7 @@
     }
   ],
   "existing_official_audio_ref": {
-    "manifest": "assets/audio/catalog.json",
+    "manifest": "sources/audio/recording-sources.json",
     "listening_example_urls": 11,
     "speaking_example_urls": 2,
     "local_copy_permitted": false

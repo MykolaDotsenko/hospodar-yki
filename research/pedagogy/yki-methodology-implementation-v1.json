@@ -109,7 +109,7 @@
       "reads": [
         "assets/audio/library.json",
         "learning/exercises/b1/audio-long/lessons.json",
-        "assets/audio/yki-targeted-sources-2026-10.json"
+        "sources/audio/yki-targeted-sources-2026-10.json"
       ],
       "input": "licensed audio + aligned transcript + questions + speaker tags",
       "outputs": [

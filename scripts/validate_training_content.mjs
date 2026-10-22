@@ -70,5 +70,5 @@ for(const q of [...diagnostic.reading.questions,...diagnostic.listening.question
 for(const t of [...diagnostic.speaking,...diagnostic.writing]){claimID(t.id);verify(nonempty(t.prompt_fi)&&t.required_points_fi.length>=3,"Incomplete diagnostic task: "+t.id);}
 const rubric=get("learning/exercises/b1/feedback-rubrics.json");
 for(const mod of ["speaking","writing"])verify(rubric[mod].reduce((sum,x)=>sum+x.weight,0)===100,"Rubric sum must equal 100: "+mod);
-verify(fs.existsSync(path.join(root,"assets/audio/catalog.json")),"Previously imported audio catalog missing");
+verify(fs.existsSync(path.join(root,"sources/audio/recording-sources.json")),"Previously imported audio catalog missing");
 console.log(JSON.stringify({result:"PASS",themes:c.themes,activities:c.reading+c.listening+c.speaking+c.writing,objective_questions:c.objective_questions,grammar:grammar.count,chunks:c.chunks,diagnostic_tasks:diagnostic.reading.questions.length+diagnostic.listening.questions.length+diagnostic.speaking.length+diagnostic.writing.length},null,2));

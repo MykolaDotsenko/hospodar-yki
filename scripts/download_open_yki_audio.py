@@ -2,7 +2,7 @@
 """Import only explicitly open-licensed Finnish audio from the reviewed catalog.
 
 No scraping of official YKI audio, Yle audio, or paid materials.
-Check the item's provenance in assets/audio/catalog.json before adding new items.
+Check the item's provenance in sources/audio/recording-sources.json before adding new items.
 """
 from __future__ import annotations
 

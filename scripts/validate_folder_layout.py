@@ -17,6 +17,9 @@ REQUIRED = (
     "assets/images/brand/hospodar-yki-mark.svg",
     "assets/audio/available.json",
     "assets/audio/library.json",
+    "sources/audio/recording-sources.json",
+    "sources/audio/yki-targeted-sources-2026-10.json",
+    "learning/plans/listening-4-weeks.json",
     "assets/video/open/available.json",
     "sources/youtube/youtube-catalog.json",
     "sources/official/yki-mock-simulation-sources.json",
@@ -207,7 +210,7 @@ def check_import_workflows(root: Path):
                 for old in ("-- audio/", "-- video/", "-- content/"):
                     if old in line:
                         errors.append(f"old git add path in {name}: {line.strip()}")
-    path = root / "assets/audio/catalog.json"
+    path = root / "sources/audio/recording-sources.json"
     if path.is_file():
         data = json.loads(path.read_text(encoding="utf-8"))
         for record in data.get("open_licensed_downloads", []):
@@ -215,7 +218,7 @@ def check_import_workflows(root: Path):
             if not isinstance(relative, str) or not relative.startswith("assets/audio/open/"):
                 errors.append(f"open audio uses invalid source path: {record.get('id')}: {relative!r}")
     else:
-        errors.append("missing assets/audio/catalog.json")
+        errors.append("missing sources/audio/recording-sources.json")
     return errors
 
 
