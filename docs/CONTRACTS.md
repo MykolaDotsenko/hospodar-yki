@@ -36,6 +36,8 @@ A single versioned, JSON-serializable `commitAttempt(command)` invocation goes t
 9. Versioned migrations need backup/export, forward/rollback path, repeatable restart semantics, content pinning and test fixtures.
 10. Android Room/SQLite and Web Dexie/IndexedDB are separate adapters sharing one domain contract—not independent domain models.
 
+**Production V2 adapters are not implemented yet.** Kotlin/Room parity is not implemented until Gradle/device tests succeed.
+
 **Actual progress:** V2 event validation, deterministic key ordering, exact retry receipts, first-attempt uniqueness and JS regression tests are implemented as an in-memory reference. The Web V1 exam now requires persisted matching eventId and fingerprint before claiming a recovered lost-ACK write; matching snapshots alone are insufficient. **Remaining:** durable V2 in IndexedDB and Room, V1-to-V2 migration, Kotlin golden-fixture parity, Android compilation. The native prototype cannot yet prove an ambiguous ACK and fails closed. See [G1 implementation evidence](architecture/G1-IMPLEMENTATION.md).
 
 ## Evidence to accept G1
