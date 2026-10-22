@@ -63,3 +63,9 @@ The Web migration adds a lockfile, strict TypeScript, scripts, package boundarie
 - [G1–G6 Web and native migration](guides/WEB-ANDROID-MIGRATION.md), with real test gates and no fake build commands.
 - [Add licensed Finnish source content](guides/CONTENT-AUTHORING.md), including required attribution and S2 review.
 - [CI path filter verification](operations/CI-QUALITY-GATES.md) and [licensing](../LICENSING.md).
+
+## Add a new research-backed method or domain module
+
+- The reviewed methods catalog **may grow beyond its historic 67-method baseline**, but additions must update source citations, an effectiveness score (expert estimate, not an effect size), detailed method Markdown card and matching count. See [research program](../research/RESEARCH-PROGRAM.md) and [method validator](../scripts/validate_learning_methods.py).
+- Pure core and shared contract code must obey the [module dependency gate](architecture/MODULE-BOUNDARIES.md); run its Python regression suite before sending a PR.
+- Prefer a **scoped** [research/AGENTS.md](../research/AGENTS.md), [app/AGENTS.md](../app/AGENTS.md) or [packages/contracts/AGENTS.md](../packages/contracts/AGENTS.md) for the area being edited. These point at canonical policies, not duplicate architecture specifications.

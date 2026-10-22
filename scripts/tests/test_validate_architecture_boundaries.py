@@ -53,7 +53,7 @@ class ArchitectureBoundaryTests(unittest.TestCase):
         ui.write_text("export const side = 'UI';\n")
         self.assertTrue(any("imports UI" in e for e in check_source(
             self.root, "packages/contracts/src/index.mjs",
-            'import "../fake.mjs" from "../../../app/app.mjs";'
+            'import {side} from "../../../app/app.mjs";'
         )))
 
     def test_reject_path_escape(self):

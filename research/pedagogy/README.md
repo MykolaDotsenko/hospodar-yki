@@ -9,3 +9,5 @@ Separate established cognitive/L2 evidence from untested design extrapolation, n
 ## Ongoing evidence-to-UX research
 
 The [cross-disciplinary research program](../RESEARCH-PROGRAM.md) defines how future learning science is screened and connected to design without creating another registry. Start with [22 — critical synthesis of memory, focus, sound and visual learning](22-memory-attention-sensory-learning-evidence-2026-10.md). Preserve the existing 67-method baseline and its evidence IDs; add a new method only when it genuinely does not fit the current classifications. Next studies must include both null evidence and delayed independently-produced Finnish outcomes.
+
+**Catalog extension rule:** use the existing [learning-methods-v1.json](learning-methods-v1.json) and [effectiveness ratings](learning-effectiveness-ratings-v1.json), **not a second methods registry**. The original 67/69 are a documented starting cohort, not a cap. The [structural validator](../../scripts/validate_learning_methods.py) now accepts complete future extensions; update cited sources, ranking Markdown and cross-linked analyses together with every new method.

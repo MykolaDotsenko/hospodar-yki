@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate public-source book-science bridge to existing 67-method registry.
+"""Validate public-source book-science bridge to growing evidence-method catalog.
 
 Only checks internal consistency and honest provenance, NOT causal validity.
 """
@@ -15,7 +15,7 @@ def run():
     data=json.loads(CATALOG.read_text(encoding="utf-8"))
     old=json.loads((ROOT/"research/pedagogy/learning-methods-v1.json").read_text(encoding="utf-8"))
     existing={x["id"] for x in old["methods"]}
-    assert len(existing)==len(old["methods"])==67, "Original 67 methodological entries should not change"
+    assert len(existing)==len(old["methods"]) and len(existing)>=67, "Cannot silently remove or duplicate reviewed method IDs"
     assert data["schema_version"]=="1.0.0"
     assert data["existing_method_registry"]=="research/pedagogy/learning-methods-v1.json"
     books=data["books"]; studies=data["studies"]; actions=data["backlog"]
@@ -66,7 +66,7 @@ def run():
         content=(ROOT/path).read_text(encoding="utf-8")
         for phrase in phrases:
             assert phrase in content,(path,phrase)
-    print(f"PASS: {len(books)} authorized-preview books, {len(studies)} source records, {len(actions)} feature links, 67 existing method IDs preserved")
+    print(f"PASS: {len(books)} authorized-preview books, {len(studies)} source records, {len(actions)} feature links, {len(existing)} evidence methods cross-linked")
 
 if __name__=="__main__":
     run()

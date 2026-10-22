@@ -2,6 +2,8 @@
 
 This is a **human navigation guide**, not a second contract registry. Authoritative decisions remain in their existing ADR files; source code and real tests determine what runs. This avoids breaking historic deep links and evidence references when the documentation evolves.
 
+**Executable dependency rules:** [MODULE-BOUNDARIES](MODULE-BOUNDARIES.md) explains current reusable JavaScript domain and future TypeScript packages, enforced in CI without an unnecessary new application scaffold.
+
 ## Current implementation versus accepted target
 
 | Question | Running code (verified source, not a release claim) | Approved target | Authority |

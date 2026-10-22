@@ -671,7 +671,7 @@
       "level": "A2-C2",
       "rights": "IMPORT_CC_BY_4_WITH_CREDIT_AND_SOURCE_NOTICES",
       "app_use": "case_inflection_retrieval_and_syntax",
-      "description": "18,723 annotated sentence trees per upstream README, based on VISK grammar examples; 120 structurally selected morphology cloze prompts imported in content/b1/grammar/ftb-frequency-cloze-v1.json. Not CEFR rated.",
+      "description": "18,723 annotated sentence trees per upstream README, based on VISK grammar examples; 120 structurally selected morphology cloze prompts currently stored in learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json. Not CEFR rated.",
       "verification": "Confirmed upstream LICENSE.txt states CC BY 4.0 alternate license; pinned test corpus + branch commit verified 2026-10-21."
     },
     {
