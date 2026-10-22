@@ -100,7 +100,7 @@
 
 ## Deep official YKI audit — джерела, які потрібно регулярно переглядати (21.10.2026)
 
-Повна деталізація: [20 — official rules, rubric і SOLKI samples](20-yki-official-complete-audit-2026-10.md) · [21 — digital executable fidelity spec](21-digital-yki-exam-simulator-executable-spec.md) · [machine evidence/40 claims](../research/official-yki-deep-audit-v2.json).
+Повна деталізація: [20 — official rules, rubric і SOLKI samples](../../research/yki/20-yki-official-complete-audit-2026-10.md) · [21 — digital executable fidelity spec](../../docs/21-digital-yki-exam-simulator-executable-spec.md) · [machine evidence/40 claims](../../research/yki/official-yki-deep-audit-v2.json).
 
 Важлива перевірка посилання: OPH `Ennen YKI-testiä` підписує додаток `Yleisten kielitutkintojen perusteet 2026`, але URL веде на [оригінальний **2011** PDF](https://www.oph.fi/sites/default/files/documents/yleisten-kielitutkintojen-perusteet-2011.pdf); [Finlex 30.11.2011](https://www.finlex.fi/fi/viranomaiset/maarayskokoelmat/opetushallitus/2011/39607). Не трактувати як нову редакцію від 2026 або підтвердження 2027 user interface. Зберігати дату **документа** окремо від дати **верифікації**.
 

@@ -1,6 +1,6 @@
 # 09 — Джерела реальних матеріалів для YKI B1/B1+ і легальний імпорт у Hospodar YKI
 
-> **21.10.2026.** Усі оцінки — наш експертний вибір для навчання, не науковий рейтинг. Машинозчитуваний реєстр: [`research/yki-content-sources-2026-10.json`](../research/yki-content-sources-2026-10.json).
+> **21.10.2026.** Усі оцінки — наш експертний вибір для навчання, не науковий рейтинг. Машинозчитуваний реєстр: [`research/yki/yki-content-sources-2026-10.json`](../../research/yki/yki-content-sources-2026-10.json).
 
 ## Основна стратегія
 
@@ -61,10 +61,10 @@
 | 43 | [Tilanteet, teemat ja toimijuus (TTT-malli)](https://www.kielibuusti.fi/fi/suomenopettajat/pedagogiikkapankki/tilanteet-teemat-ja-toimijuus-opetuksen-lahtokohtina-ttt-malli) | 94 | A2-B2 | `LINK_ONLY_SITE_REUSE_UNCHECKED` |
 | 44 | [Turku Dependency Treebank (Universal Dependencies)](https://universaldependencies.org/treebanks/fi_tdt/index.html) | 94 | A2-C2 | `CC_BY_SA_4_REVIEW_ALL_SOURCE_NOTICES` |
 | 45 | [Uusi kielemme — grammar + vocabulary + exercises](https://uusikielemme.fi/) | 94 | A1-B2 | `LINK_ONLY_REUSE_PERMISSION_UNCONFIRMED` |
-| 46 | [VIERKO 2024 S2 (already in repository)](../content/third-party/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
+| 46 | [VIERKO 2024 S2 (already in repository)](../../books/VIERKO-2024/README.md) | 94 | A2-B2 | `LOCAL_CC_BY_SA_4_WITH_ATTRIBUTION` |
 | 47 | [Yle YKItreenit keskitaso](https://yle.fi/a/20-146216) | 94 | B1-B2 | `LINK_ONLY_YLE_RIGHTS` |
 | 48 | [Yle Selkouutiset](https://yle.fi/selkouutiset) | 93 | A2-B1 | `LINK_ONLY_YLE_RIGHTS` |
-| 49 | [Hospodar YKI licensed audio library (existing)](../audio/library.json) | 92 | A2-B2 | `LOCAL_MIXED_SEE_ITEM_LICENSE` |
+| 49 | [Hospodar YKI licensed audio library (existing)](../../assets/audio/library.json) | 92 | A2-B2 | `LOCAL_MIXED_SEE_ITEM_LICENSE` |
 | 50 | [Korp Finnish corpus API](https://www.kielipankki.fi/support/korpapi/) | 92 | B1-C2 | `API_PER_CORPUS_RIGHTS` |
 | 51 | [Omistusliitteet — text skills](https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/omistusliitteet-0) | 92 | B1-B2 | `CC_BY_4_PHOTOS_EXCLUDED` |
 | 52 | [Yle Asiointisuomea](https://yle.fi/a/20-10002426) | 92 | A2-B2 | `LINK_ONLY_YLE_RIGHTS` |
@@ -86,12 +86,12 @@
 
 | Матеріал | Файл | Кількість | Статус |
 |---|---|---:|---|
-| Частотний словник із новинного корпусу Yle, CC BY 4.0 | [`content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv`](../content/b1/lexicon/frequency/yle-news-top10000-v1.1.1.tsv) | 10 000 лемних записів | Реальні upstream-дані, НЕ B1-сертифіковані |
-| Власні конструкції з контекстними реченнями й українським перекладом | [`content/b1/lexicon/contextual-chunks-v1.json`](../content/b1/lexicon/contextual-chunks-v1.json) | 132 | Авторські, teacher review pending |
-| Дієслівне керування, приклади | [`content/b1/grammar/rektio-v1.json`](../content/b1/grammar/rektio-v1.json) | 40 | Авторські, teacher review pending |
-| Короткі оригінальні B1 тексти + перевірювані ключі | [`content/b1/contextual/reading-pack-v1.json`](../content/b1/contextual/reading-pack-v1.json) | 9 текстів / 27 питань | Авторські, teacher review pending; **не калібрований YKI mock** |
-| Сценарії діалогів із перевірюваними ключами | [`content/b1/contextual/dialogues-v1.json`](../content/b1/contextual/dialogues-v1.json) | 9 діалогів / 18 питань | **script-only**, НЕ scored listening |
-| Уже наявний контент попередніх ітерацій | [`content/README.md`](../content/README.md) | 9 тем, high-yield, B1 audio | Не дублювати, використовувати як окремий пакет |
+| Частотний словник із новинного корпусу Yle, CC BY 4.0 | [`knowledge/dictionaries/b1/frequency/yle-news-top10000-v1.1.1.tsv`](../../dictionaries/b1/frequency/yle-news-top10000-v1.1.1.tsv) | 10 000 лемних записів | Реальні upstream-дані, НЕ B1-сертифіковані |
+| Власні конструкції з контекстними реченнями й українським перекладом | [`knowledge/dictionaries/b1/contextual-chunks-v1.json`](../../dictionaries/b1/contextual-chunks-v1.json) | 132 | Авторські, teacher review pending |
+| Дієслівне керування, приклади | [`knowledge/dictionaries/b1/rektio-v1.json`](../../dictionaries/b1/rektio-v1.json) | 40 | Авторські, teacher review pending |
+| Короткі оригінальні B1 тексти + перевірювані ключі | [`learning/exercises/b1/contextual/reading-pack-v1.json`](../../learning/exercises/b1/contextual/reading-pack-v1.json) | 9 текстів / 27 питань | Авторські, teacher review pending; **не калібрований YKI mock** |
+| Сценарії діалогів із перевірюваними ключами | [`learning/exercises/b1/contextual/dialogues-v1.json`](../../learning/exercises/b1/contextual/dialogues-v1.json) | 9 діалогів / 18 питань | **script-only**, НЕ scored listening |
+| Уже наявний контент попередніх ітерацій | [`learning/README.md`](../../learning/README.md) | 9 тем, high-yield, B1 audio | Не дублювати, використовувати як окремий пакет |
 
 ## Найвища педагогічна цінність (наступні етапи)
 
@@ -141,4 +141,4 @@
 
 ## Подальше дослідження корпусів та прикладів (21.10.2026)
 
-[**Детальне дослідження 12 нових джерел та правила використання**](10-open-corpora-yki-2026-10.md). У репозиторій додано **120** прикладів із FinnTreeBank ([вправи](../content/b1/grammar/ftb-frequency-cloze-v1.json), [атрибуція](../content/b1/grammar/README.md)). Цей набір — зовнішній, ліцензований CC BY 4.0 corpus, **не** авторські YKI-завдання і **не** відредагований B1 банк. Офіційні екзаменаційні приклади зі speaking/writing додані окремими прямими посиланнями.
+[**Детальне дослідження 12 нових джерел та правила використання**](10-open-corpora-yki-2026-10.md). У репозиторій додано **120** прикладів із FinnTreeBank ([вправи](../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json), [атрибуція](../../learning/exercises/b1/grammar/README.md)). Цей набір — зовнішній, ліцензований CC BY 4.0 corpus, **не** авторські YKI-завдання і **не** відредагований B1 банк. Офіційні екзаменаційні приклади зі speaking/writing додані окремими прямими посиланнями.
