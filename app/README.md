@@ -94,3 +94,7 @@ Specs: [product requirements](../docs/11-mvp-product-requirements.md) · [archit
 **Privacy:** text and metadata remain local to the browser profile; IndexedDB is not encrypted by this application and can be evicted. Voice recordings stay ephemeral and are not claimed to survive reload. Export important writing before relying on browser storage alone.
 
 [Implementation record](../docs/26-atomic-exam-and-media-implementation-2026-10.md).
+
+## Architecture integration plan (22.10.2026)
+
+The current browser MVP remains the compatibility baseline. [ADR-027](../docs/27-stack-architecture-compatibility-and-implementation-gates.md) records the design-fit audit, unification requirements for exam checkpoints vs immutable first attempts, Android Room/PAD integration, and test cases C-01…C-10. [G0–G6 roadmap](../docs/25-implementation-vertical-slice-roadmap.md) distinguishes implemented behavior from target releases. The app is **not** a React/Phaser/Capacitor build; the learning page still uses `localStorage`, and an Android AAB has not been built.
