@@ -2,7 +2,7 @@
 """Import only explicitly open-licensed Finnish audio from the reviewed catalog.
 
 No scraping of official YKI audio, Yle audio, or paid materials.
-Check the item's provenance in audio/catalog.json before adding new items.
+Check the item's provenance in assets/audio/catalog.json before adding new items.
 """
 from __future__ import annotations
 
@@ -80,7 +80,7 @@ def main() -> int:
     for entry in catalog["open_licensed_downloads"]:
         path = ROOT / entry["relative_path"]
         if not path.resolve().is_relative_to((ROOT / "audio" / "open").resolve()):
-            raise ValueError("Path outside audio/open: " + str(path))
+            raise ValueError("Path outside assets/audio/open: " + str(path))
         try:
             if path.exists():
                 validate(path.read_bytes(), entry["format"])

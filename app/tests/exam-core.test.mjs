@@ -11,11 +11,11 @@ import {
 
 const BASE=resolve(dirname(fileURLToPath(import.meta.url)),"../..");
 const read=p=>JSON.parse(readFileSync(join(BASE,p),"utf8"));
-const manifest=read("content/b1/exam-patterns/mini-rehearsals-v1.json");
+const manifest=read("learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json");
 const data={
-  reading:read("content/b1/contextual/reading-pack-v1.json"),
-  listening:read("content/b1/audio-long/lessons.json"),
-  baseline:read("content/b1/diagnostics/baseline-v1.json")
+  reading:read("learning/exercises/b1/contextual/reading-pack-v1.json"),
+  listening:read("learning/exercises/b1/audio-long/lessons.json"),
+  baseline:read("learning/exercises/b1/diagnostics/baseline-v1.json")
 };
 const now=new Date("2026-10-21T13:00:00.000Z");
 const items=buildItems(manifest.blueprints[0],data);
@@ -110,7 +110,7 @@ test("navigation prevents negative, missing and out-of-range indexes",()=>{
   assert.throws(()=>goToIndex(s,9,9));
 });
 test("evidence ledger is explicit about unsupported 2027 digitesti assumptions",()=>{
-  const registry=read("research/yki-digital-fidelity-evidence-2026-10.json");
+  const registry=read("research/yki/yki-digital-fidelity-evidence-2026-10.json");
   const IDs=new Set(registry.evidence.map(x=>x.id));
   assert.equal(IDs.size,registry.evidence.length);
   assert.ok(registry.evidence.length>=30);

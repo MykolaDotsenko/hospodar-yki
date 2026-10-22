@@ -56,7 +56,7 @@ def collect():
     high=json.loads((SOURCES/"high-yield"/"reading-inference-bank.json").read_text(encoding="utf-8"))
     for item in high["items"]:
         lessons.append(make(item["id"]+"-audio","complex_notice","B1-B2",item["text_fi"],
-                        item["questions"],"content/b1/high-yield/reading-inference-bank.json"))
+                        item["questions"],"learning/exercises/b1/high-yield/reading-inference-bank.json"))
     if len(lessons)!=23 or len({x["id"] for x in lessons})!=23:
         raise ValueError("Expected 9 dialogue + 9 notice + 5 complex notice lessons")
     return lessons

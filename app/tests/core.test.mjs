@@ -11,7 +11,7 @@ import {
 const here=dirname(fileURLToPath(import.meta.url));
 const ROOT=resolve(here, "../..");
 const json=p=>JSON.parse(readFileSync(join(ROOT,p),"utf8"));
-const task=json("content/b1/grammar/contextual-cloze.json").exercises[0];
+const task=json("learning/exercises/b1/grammar/contextual-cloze.json").exercises[0];
 const at=new Date("2026-10-21T12:00:00+03:00");
 
 test("state is versioned and starts with no private learning data",()=>{
@@ -100,11 +100,11 @@ test("limits prevent unbounded private history growth",()=>{
   assert.equal(s.errors.length,130);
 });
 test("app exercises and audio paths come from actual repo manifests",()=>{
-  const grammar=json("content/b1/grammar/contextual-cloze.json");
-  const baseline=json("content/b1/diagnostics/baseline-v1.json");
-  const readings=json("content/b1/contextual/reading-pack-v1.json");
-  const audio=json("content/b1/audio-long/lessons.json");
-  const human=json("content/b1/audio-long/human-stories.json");
+  const grammar=json("learning/exercises/b1/grammar/contextual-cloze.json");
+  const baseline=json("learning/exercises/b1/diagnostics/baseline-v1.json");
+  const readings=json("learning/exercises/b1/contextual/reading-pack-v1.json");
+  const audio=json("learning/exercises/b1/audio-long/lessons.json");
+  const human=json("learning/exercises/b1/audio-long/human-stories.json");
   assert.ok(grammar.exercises.length>0);
   assert.ok(baseline.reading.questions.length>0);
   assert.ok(readings.items.length>=2);
