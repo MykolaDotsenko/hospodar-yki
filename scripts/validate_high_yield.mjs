@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 const load=p=>JSON.parse(fs.readFileSync(p,"utf8")).items;
-const root="content/b1/high-yield/";
+const root="learning/exercises/b1/high-yield/";
 const [p,s,w,r]=["paraphrase-drills.json","speaking-reaction-bank.json","writing-repair-clinic.json","reading-inference-bank.json"].map(x=>load(root+x));
 const ok=(value,msg)=>{if(!value)throw Error(msg)};
 const opinion=load(root+"opinion-argumentation-v1.json");

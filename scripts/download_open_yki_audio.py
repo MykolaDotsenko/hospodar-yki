@@ -16,7 +16,7 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "audio" / "catalog.json"
+CATALOG = ROOT / "assets" / "audio" / "catalog.json"
 MAX_BYTES = 5_000_000
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 GITHUB_RAW = "https://raw.githubusercontent.com/GAIK-project/finnish-asr/main/"
@@ -79,7 +79,7 @@ def main() -> int:
     errors = []
     for entry in catalog["open_licensed_downloads"]:
         path = ROOT / entry["relative_path"]
-        if not path.resolve().is_relative_to((ROOT / "audio" / "open").resolve()):
+        if not path.resolve().is_relative_to((ROOT / "assets" / "audio" / "open").resolve()):
             raise ValueError("Path outside assets/audio/open: " + str(path))
         try:
             if path.exists():

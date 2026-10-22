@@ -17,9 +17,9 @@ import time
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 VOICE=pathlib.Path("/tmp/hospodar-yki-piper/fi_FI-harri-medium.onnx")
-SOURCES=ROOT/"content"/"b1"
-DEST=ROOT/"audio"/"tts"/"harri"
-LESSONS=ROOT/"content"/"b1"/"audio-training"/"index.json"
+SOURCES=ROOT/"learning"/"exercises"/"b1"
+DEST=ROOT/"assets"/"audio"/"tts"/"harri"
+LESSONS=ROOT/"learning"/"exercises"/"b1"/"audio-training"/"index.json"
 MODEL_SHA="a44167faa34caed940e4fcad139fcc35922266b2593bcebe77701774c0fb2389"
 VOICE_URL="https://huggingface.co/rhasspy/piper-voices/tree/main/fi/fi_FI/harri/medium"
 LICENSE_URL="https://huggingface.co/rhasspy/piper-voices/blob/main/fi/fi_FI/harri/medium/MODEL_CARD"

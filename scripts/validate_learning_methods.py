@@ -11,7 +11,7 @@ import pathlib
 from urllib.parse import urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CATALOG = ROOT / "research" / "learning-methods-v1.json"
+CATALOG = ROOT / "research" / "pedagogy" / "learning-methods-v1.json"
 LIMITS = {
     "evidence": 30,
     "Finnish_YKI_fit": 30,
@@ -71,7 +71,7 @@ def main():
         counts[m["priority"]] += 1
 
     # Implementation blueprint must trace directly to researched method IDs.
-    blueprint_file = ROOT / "research" / "yki-methodology-implementation-v1.json"
+    blueprint_file = ROOT / "research" / "pedagogy" / "yki-methodology-implementation-v1.json"
     blueprint = json.loads(blueprint_file.read_text(encoding="utf-8"))
     require(blueprint["status"] == "implementation_design_not_implemented", "Blueprint cannot claim implementation")
     require(len(blueprint["modules"]) == 11, "Expected 11 implementation proposals")
@@ -103,7 +103,7 @@ def main():
     require("11 модулів" in new_docs and "16" in new_docs, "Implementation research summary stale")
 
 
-    effectiveness = json.loads((ROOT / "research" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
+    effectiveness = json.loads((ROOT / "research" / "pedagogy" / "learning-effectiveness-ratings-v1.json").read_text(encoding="utf-8"))
     require(effectiveness["count"] == len(effectiveness["ratings"]) == 67, "Expected 67 effectiveness ratings")
     require(len({r["id"] for r in effectiveness["ratings"]}) == 67, "Duplicate effectiveness rating IDs")
     require({r["id"] for r in effectiveness["ratings"]} == known_method_ids, "Effectiveness index not a one-to-one match with methods")

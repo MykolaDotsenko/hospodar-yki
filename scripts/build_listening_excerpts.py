@@ -12,7 +12,7 @@ import re
 import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUT = ROOT / 'audio' / 'segments'
+OUT = ROOT / 'assets' / 'audio' / 'segments'
 SOURCES = (
   ('suomen_kieli_johdanto', 'assets/audio/open/monologues/suomen_kieli_johdanto.ogg', 'Fi-Suomen kieli johdanto.ogg', 'Finnish language introduction'),
   ('suomi_johdanto', 'assets/audio/open/monologues/suomi_johdanto.ogg', 'Fi-Suomi johdanto.ogg', 'Introduction to Finland'),

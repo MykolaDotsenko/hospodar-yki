@@ -28,7 +28,7 @@ const verifyQs=(questions,prefix)=>{
 };
 const c={themes:0,reading:0,listening:0,speaking:0,writing:0,objective_questions:0,chunks:0};
 for(const row of themesIndex.themes){
- verify(row.path==="content/b1/themes/"+row.id+".json","Unexpected theme path");
+ verify(row.path==="learning/exercises/b1/themes/"+row.id+".json","Unexpected theme path");
  const m=get(row.path);
  claimID(m.id);
  verify(m.id===row.id&&m.level==="B1"&&m.is_official_exam_content===false,"Incorrect theme metadata: "+row.id);

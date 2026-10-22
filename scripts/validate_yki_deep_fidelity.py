@@ -9,8 +9,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BOOK = ROOT / "research" / "official-yki-deep-audit-v2.json"
-PATTERNS = ROOT / "research" / "yki-official-patterns-v2.json"
+BOOK = ROOT / "research" / "yki" / "official-yki-deep-audit-v2.json"
+PATTERNS = ROOT / "research" / "yki" / "yki-official-patterns-v2.json"
 SKILLS = {"reading", "listening", "writing", "speaking"}
 VALID_CLASSES = {
     "official_current", "official_current_mixed_legacy",
