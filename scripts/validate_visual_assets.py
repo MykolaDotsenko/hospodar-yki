@@ -37,7 +37,7 @@ def check(root:Path=ROOT,require_pictures:bool=False)->list[str]:
             ids_svg={e.attrib.get("id") for e in parsed.iter()}
             if not {"title","desc"}.issubset(ids_svg) or "aria-labelledby" not in parsed.attrib:
                 errors.append("SVG inaccessible "+p)
-            if "<script" in raw or "http://" in raw or "xlink:href" in raw or "<foreignObject" in raw:
+            if "<script" in raw or "xlink:href" in raw or "<foreignObject" in raw or "href=\"http" in raw or "href=\u0027http" in raw:
                 errors.append("Untrusted SVG active or remote content "+p)
         except (ET.ParseError,UnicodeError) as e:
             errors.append(f"Unparseable SVG {p}: {e}")

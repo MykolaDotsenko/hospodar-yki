@@ -64,3 +64,7 @@ Report `PASS`, `FAIL`, or `NOT RUN` **per command** with relevant logs/CI URL. T
 Reproduce before patching; preserve a minimized failing fixture, fix the cause, rerun the specific test and affected neighboring tests, report what remains unverified. Never lower acceptance criteria, skip checks, blanket-ignore exceptions or redefine the assertion to hide failures.
 
 **CI hardening:** [path-filter ownership and current release gates](operations/CI-QUALITY-GATES.md) explains which checks are real now; do not promote a future scaffold to a passing build. GitHub Action dependencies are pinned to upstream-verified commit SHAs and require reviewed upgrades.
+
+## Licensed visual-content gate
+
+Run `python3 scripts/validate_visual_assets.py` and `python3 -m unittest discover -s scripts/tests -p 'test_validate_visual_assets.py' -v`. SVG files must physically exist, parse as well-formed SVG, provide alt/aria and not contain scripts or remote dependencies. Four photo source records have verified attribution and CC BY-SA 4.0 but **do not count as binaries** until `assets/images/pictures/available.json` references real JPGs with matching byte lengths and SHA256. GitHub Action importer additionally uses Pillow, checks JPEG dimensions and commits licensed media into the review branch. `--require-pictures` is required for declaring all four offline-ready.

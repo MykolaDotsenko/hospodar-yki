@@ -14,3 +14,7 @@
 **Рекомендований UX:** спочатку незалежне заповнення/вибір → негайне пояснення різниці → власне речення → інший невідомий приклад через 7/14 днів. Для відкритого письма — статус `ungraded`, не офіційний B1.
 
 **Джерела для перевірки:** [Kielitoimiston ohjepankki](https://kielitoimistonohjepankki.fi/ohje/aikamuotoja-aloita-tasta/), [Aalto Finnish Online Grammar](https://openlearning.aalto.fi/course/view.php?id=158), [OPH](https://www.oph.fi/fi/koulutus-ja-tutkinnot/kielitiedon-opettamisesta).
+
+### Візуальна схема
+
+[Чотири часи — автономне SVG](../../../../assets/images/illustrations/tense-timeline.svg). Спершу показувати як пояснення **після** самостійної спроби; SVG містить приклади й не підходить як незалежний прихований тест.

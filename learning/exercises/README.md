@@ -6,6 +6,7 @@ These are real authoring files consumed by the Web MVP and validators, not catal
 
 | Learning content | Folder |
 | --- | --- |
+| 4 image-led A1.3–B1.1 practical missions | [A1.3 image-led lessons](a1/image-led/README.md) (draft, verified images required) |
 | Finnish tenses across A1.3–B2.1 | [tenses](grammar/tenses/README.md) |
 | Clock, schedules and time expressions from A1.3 | [time-and-clock](grammar/time-and-clock/README.md) |
 | Practical B1 situations across four skills | [themes](b1/themes/) |
