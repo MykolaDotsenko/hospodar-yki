@@ -7,8 +7,8 @@ hospodar-yki/
 ├── app/                         # Поточний працюючий Web MVP
 ├── assets/
 │   ├── images/brand/            # Справжні SVG логотипи
-│   ├── images/illustrations/    # Майбутні навчальні схеми / ілюстрації, README нині
-│   ├── images/pictures/         # Майбутні навчальні фотографії, README нині
+│   ├── images/illustrations/    # 5 справжніх навчальних SVG + маніфест
+│   ├── images/pictures/         # 8 ліцензованих JPEG + SHA256 маніфест
 │   ├── audio/{human,long,open,segments}/  # OGG/MP3, субтитри, записи
 │   └── video/open/              # Ліцензовані локальні WebM
 ├── learning/
