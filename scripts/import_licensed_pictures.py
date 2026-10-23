@@ -29,7 +29,10 @@ def download(item):
     filename=item["filename"]
     source=item["source_url"]
     assert source == COMMONS+filename.replace(" ","_"), "Unexpected source page: "+source
-    redirect="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(filename.replace(" ","_"),safe="")+"?width=960"
+    width=item.get("download_max_width",960)
+    if width not in (640,960):
+        raise ValueError("Unapproved thumbnail width")
+    redirect="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(filename.replace(" ","_"),safe="")+f"?width={width}"
     last=None
     for retry in range(3):
         try:
@@ -86,7 +89,7 @@ def main():
                 current_hash=hashlib.sha256(raw).hexdigest()
                 if earlier and earlier.get("sha256")!=current_hash:
                     raise ValueError("Existing image changed since verified manifest: "+item["id"])
-                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
+                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+f"?width={item.get('download_max_width',960)}"
             else:
                 raw,width,height,_=download(item)
                 download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
