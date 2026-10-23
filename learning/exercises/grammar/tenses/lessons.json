@@ -224,5 +224,12 @@
       "tense": "pluskvamperfekti",
       "learning_only": true
     }
-  ]
+  ],
+  "instructional_visual": {
+    "image_id": "tense-timeline",
+    "source": "assets/images/illustrations/tense-timeline.svg",
+    "use_stage": "LEARN_explanation_only_after_independent_attempt",
+    "answer_visible": true,
+    "teacher_review": "pending"
+  }
 }

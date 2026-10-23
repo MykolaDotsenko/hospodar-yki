@@ -61,5 +61,32 @@
       ],
       "answer": "varttia vaille kymmenen"
     }
-  ]
+  ],
+  "instructional_visuals": [
+    {
+      "image_id": "clock-08-00",
+      "path": "assets/images/illustrations/clock-08-00.svg",
+      "time": "08:00",
+      "answer_visible": true
+    },
+    {
+      "image_id": "clock-15-30",
+      "path": "assets/images/illustrations/clock-15-30.svg",
+      "time": "15:30",
+      "answer_visible": true
+    },
+    {
+      "image_id": "clock-16-15",
+      "path": "assets/images/illustrations/clock-16-15.svg",
+      "time": "16:15",
+      "answer_visible": true
+    },
+    {
+      "image_id": "clock-18-45",
+      "path": "assets/images/illustrations/clock-18-45.svg",
+      "time": "18:45",
+      "answer_visible": true
+    }
+  ],
+  "instructional_visual_policy": "SHOW_ONLY_AS_LEARN_SCAFFOLD_AFTER_INDEPENDENT_ATTEMPT; the SVG includes written time and is not an unseen EXAM question"
 }
