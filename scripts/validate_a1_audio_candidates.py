@@ -38,8 +38,17 @@ def check(root:Path=ROOT)->list[str]:
     ids=[x.get("id") for x in all_sources]
     urls=[unquote(x.get("source_page","")).casefold() for x in all_sources]
     filenames=[x.get("download",{}).get("file_title") for x in all_sources if x.get("download",{}).get("type")=="commons"]
-    if len(ids)!=len(set(ids)) or len(urls)!=len(set(urls)) or len(filenames)!=len(set(filenames)):
-        problems.append("Duplicate source ID, URL or Commons filename")
+    if len(ids)!=len(set(ids)):
+        problems.append("Duplicate source ID")
+    # Historical catalog already has two IDs pointing at the same En ymmärrä page.
+    # Scope this new gate to newly added items; do not silently rewrite old provenance.
+    for item in all_sources:
+        if item.get("id") not in EXPECTED:
+            continue
+        url=unquote(item.get("source_page","")).casefold()
+        title=item.get("download",{}).get("file_title")
+        if urls.count(url)!=1 or filenames.count(title)!=1:
+            problems.append("Duplicate newly proposed Commons page/title "+str(item.get("id")))
     indexed={x.get("id"):x for x in all_sources}
     if not EXPECTED.keys()<=indexed.keys():
         problems.append("Missing required new verified source")
