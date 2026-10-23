@@ -54,5 +54,19 @@ class VisualAssetTests(unittest.TestCase):
         p.write_text(text.replace("</svg>","<script>alert(1)</script></svg>"))
         self.assertTrue(any("Untrusted SVG" in e for e in check(self.root)))
 
+    def test_photo_license_cannot_be_silently_changed(self):
+        path=self.root/"assets/images/pictures/sources.json"
+        data=json.loads(path.read_text())
+        data["items"][4]["license"]="all-rights-reserved"
+        path.write_text(json.dumps(data))
+        self.assertTrue(any("license" in e.lower() for e in check(self.root)))
+
+    def test_image_missions_never_auto_grade_speaking(self):
+        path=self.root/"learning/exercises/a1/image-led/lessons.json"
+        data=json.loads(path.read_text())
+        data["items"][7]["response_status"]="official_YKI_B1"
+        path.write_text(json.dumps(data))
+        self.assertTrue(any("assessment" in e.lower() for e in check(self.root)))
+
 if __name__=="__main__":
     unittest.main()
