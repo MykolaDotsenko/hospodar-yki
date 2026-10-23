@@ -64,3 +64,7 @@ node --test packages/contracts/tests/*.test.mjs
 ```
 
 Окремі валідатори кожної навчальної категорії й браузерні тести запускаються в CI. Якщо десь залишився старий шлях, треба виправити *споживача*, а не повертати дублікати файлів або обходити помилку.
+
+## Навчальні зображення — фактичний стан 23.10.2026
+
+[5 оригінальних SVG](../assets/images/illustrations/library.json) (4 годинники + одна схема фінських часів) і [4 реально імпортовані Wikimedia Commons JPG](../assets/images/pictures/available.json) (ринок, магазин, житло, транспорт) лежать в окремих тематичних папках. **Джерело/ліцензію JPG** збережено у [sources.json](../assets/images/pictures/sources.json); [A1.3–B1.1 візуальні місії](../learning/exercises/a1/image-led/lessons.json) посилаються на ID, не дублюють картинки. Перевірка у `scripts/validate_visual_assets.py --require-pictures`. Педагогічний review ще очікується. Не рахувати зовнішні посилання за локальні медіафайли.

@@ -1,0 +1,45 @@
+name: Import license-verified Finnish lesson photos
+on:
+  pull_request:
+    paths:
+      - 'assets/images/pictures/sources.json'
+      - 'scripts/import_licensed_pictures.py'
+      - '.github/workflows/import-licensed-pictures.yml'
+permissions:
+  contents: write
+jobs:
+  verify-and-commit:
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'content/a1-b1-visual-library-wave1')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout review branch, never PR merge ref
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install pinned JPEG validator
+        run: python3 -m pip install 'Pillow==11.3.0'
+      - name: Download only allowlisted and attributed Commons thumbnails
+        run: python3 scripts/import_licensed_pictures.py
+      - name: Verify all four physical JPEGs and licenses
+        run: python3 scripts/validate_visual_assets.py --require-pictures
+      - name: Save only approved images and matching SHA-256 availability
+        shell: bash
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- assets/images/pictures/
+          if git diff --cached --quiet; then
+            echo "All 4 pictures already in Git"
+          else
+            git commit -m "content(pictures): import four attributed Wikimedia Commons JPEGs [skip ci]"
+            git pull --rebase origin "$HEAD_REF"
+            git push origin "HEAD:$HEAD_REF"
+          fi

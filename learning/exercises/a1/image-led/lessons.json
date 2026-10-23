@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "status": "original_visual_tasks_with_verified_local_photos_teacher_review_pending",
+  "goal": "Introduce and retrieve practical Finnish using real-life photographs, no answer-hint leakage",
+  "levels": [
+    "A1.3",
+    "A2.1",
+    "A2.2",
+    "B1.1"
+  ],
+  "mode": "LEARN",
+  "review": "pending",
+  "auto_official_yki_score": false,
+  "photo_library": "assets/images/pictures/available.json",
+  "visual_scaffold": "assets/images/illustrations/library.json",
+  "items": [
+    {
+      "lesson_id": "a1-picture-market",
+      "image_id": "kauppatori-turku",
+      "level": "A1.3",
+      "topic": "kauppatori",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Mitä näet kuvassa? Kerro kahdella lyhyellä lauseella.",
+      "scaffold_after_attempt_fi": [
+        "Tässä on tori.",
+        "Torilla voi ostaa ruokaa."
+      ],
+      "transfer_prompt_fi": "Olet torilla. Kysy, paljonko yksi omena maksaa.",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a1-picture-shop",
+      "image_id": "s-market-kauppa",
+      "level": "A1.3",
+      "topic": "kaupassa",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Missä olet? Mitä siellä voi ostaa?",
+      "scaffold_after_attempt_fi": [
+        "Olen kaupassa.",
+        "Haluan maksaa kassalla."
+      ],
+      "transfer_prompt_fi": "Pyydä myyjältä apua: missä maito on?",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a1-picture-housing",
+      "image_id": "kerava-kerrostalo",
+      "level": "A2.1",
+      "topic": "asuminen",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Kuvaile rakennusta. Onko se omakotitalo vai kerrostalo?",
+      "scaffold_after_attempt_fi": [
+        "Se on kerrostalo.",
+        "Talossa on monta asuntoa."
+      ],
+      "transfer_prompt_fi": "Kerro omasta asunnostasi tai unelma-asunnostasi.",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a1-picture-bus",
+      "image_id": "espoo-bussipysakki",
+      "level": "A2.1",
+      "topic": "matkustaminen",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Mitä näet kuvassa? Mitä teet bussipysäkillä?",
+      "scaffold_after_attempt_fi": [
+        "Odottelen bussia.",
+        "Tarkistan aikataulun."
+      ],
+      "transfer_prompt_fi": "Bussi on myöhässä. Soita ystävälle ja selitä tilanne.",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    }
+  ],
+  "method": {
+    "first_attempt": "unassisted response",
+    "feedback": "show source-aligned models after attempt; never present as caption in independent assessment",
+    "retention": "repeat with different unseen image/speaker in 7–14 days",
+    "test_policy": "editorial teacher review needed before use in scored assessments"
+  }
+}

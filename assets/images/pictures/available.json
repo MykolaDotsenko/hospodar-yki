@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "verified_count": 4,
+  "source_count": 4,
+  "assets": [
+    {
+      "id": "kauppatori-turku",
+      "path": "assets/images/pictures/kauppatori-turku.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Market_Square,_Turku.jpg",
+      "author": "Elias Ojala",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Turun kauppatori ulkona. Torilla voi käydä ostoksilla.",
+      "alt_uk": "Ринкова площа Турку: міський простір для вправ про покупки та місця.",
+      "levels": [
+        "A1.3",
+        "A2.1"
+      ],
+      "topics": [
+        "shopping",
+        "city",
+        "food",
+        "describe_picture"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 145301,
+      "sha256": "931b202d803945045b0836854b04aa9b740260860fd54ae8639945d8ecf20a85",
+      "width": 960,
+      "height": 720,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Market_Square%2C_Turku.jpg?width=960"
+    },
+    {
+      "id": "s-market-kauppa",
+      "path": "assets/images/pictures/s-market-kauppa.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cashes_in_S-market.jpg",
+      "author": "Abel111222",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Kaupan sisätila ja kassat suomalaisessa S-marketissa.",
+      "alt_uk": "Каси супермаркету S-market у Фінляндії.",
+      "levels": [
+        "A1.3",
+        "A2.1",
+        "A2.2"
+      ],
+      "topics": [
+        "shopping",
+        "services",
+        "store",
+        "asking_help"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 121205,
+      "sha256": "7f6e7fc487dea40b84be6af518225bc1ef3a71aca094a0d162954b101a8e9abd",
+      "width": 960,
+      "height": 720,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cashes_in_S-market.jpg?width=960"
+    },
+    {
+      "id": "kerava-kerrostalo",
+      "path": "assets/images/pictures/kerava-kerrostalo.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Apartment_building_by_Porvoonkatu_in_Kerava,_Finland,_2022_April.jpg",
+      "author": "Simo Räsänen (Ximonic)",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Kerrostalo Keravalla, Suomessa.",
+      "alt_uk": "Житловий багатоквартирний будинок у Керава, Фінляндія.",
+      "levels": [
+        "A1.3",
+        "A2.1",
+        "B1.1"
+      ],
+      "topics": [
+        "housing",
+        "neighbours",
+        "apartment",
+        "describe_picture"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 220639,
+      "sha256": "c7de4d1fd9c8ef541b39e296c1e958dc87d7700cdcbae350f749243a0b4c8f4b",
+      "width": 960,
+      "height": 660,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Apartment_building_by_Porvoonkatu_in_Kerava%2C_Finland%2C_2022_April.jpg?width=960"
+    },
+    {
+      "id": "espoo-bussipysakki",
+      "path": "assets/images/pictures/espoo-bussipysakki.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pohjantie_with_bus_stop_on_a_sunny_afternoon_in_August_2025.jpg",
+      "author": "JIP",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Bussipysäkki Pohjantiellä Espoossa.",
+      "alt_uk": "Автобусна зупинка на вулиці Pohjantie у Еспоо.",
+      "levels": [
+        "A1.3",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "travel",
+        "bus",
+        "timetable",
+        "asking_directions"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 239042,
+      "sha256": "a57ae7c257f70924a184a2e1ce00a7fa758ff9b7de5aababae5bba5f3c1da41d",
+      "width": 960,
+      "height": 720,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pohjantie_with_bus_stop_on_a_sunny_afternoon_in_August_2025.jpg?width=960"
+    }
+  ],
+  "failures": [],
+  "status": "binary_sha256_validated",
+  "imported_on": "2026-10-23",
+  "teacher_review": "pending"
+}

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="750" viewBox="0 0 1280 750" role="img" aria-labelledby="title desc">
+<title id="title">Suomen aikamuodot – neljä aikamuotoa</title>
+<desc id="desc">Four Finnish verb tenses with original example sentences and Ukrainian translations. Imperfekti tells about a past event. Perfekti connects a past action to the present. Pluskvamperfekti describes an event before another past reference. Preesens describes present or future with a time cue.</desc>
+<rect x="0" y="0" width="1280" height="750" rx="28" fill="#f3f8f8"/>
+<rect x="0" y="0" width="1280" height="94" rx="28" fill="#087f95"/>
+<text x="44" y="59" font-family="Arial,sans-serif" font-size="37" font-weight="700" fill="#fff">Aikamuodot · 4 часи фінської</text>
+<text x="42" y="138" font-family="Arial,sans-serif" font-size="21" fill="#355468">Минуле ←––––––––– Сьогодні –––––––––→ Майбутнє</text>
+<path d="M88 213H1186" stroke="#5c8c95" stroke-width="8" stroke-linecap="round"/>
+<path d="M1173 198L1201 213L1173 229Z" fill="#5c8c95"/>
+<rect x="724" y="185" width="210" height="56" rx="28" fill="#d1ebdf" stroke="#278665" stroke-width="2"/>
+<text x="829" y="221" font-family="Arial,sans-serif" font-size="23" font-weight="700" text-anchor="middle" fill="#24634b">NYT · зараз</text>
+<rect x="40" y="281" width="582" height="168" rx="18" fill="#fff" stroke="#b2d2d5" stroke-width="2"/>
+<rect x="655" y="281" width="585" height="168" rx="18" fill="#fff" stroke="#b2d2d5" stroke-width="2"/>
+<rect x="40" y="474" width="582" height="166" rx="18" fill="#fff" stroke="#b2d2d5" stroke-width="2"/>
+<rect x="655" y="474" width="585" height="166" rx="18" fill="#fff" stroke="#b2d2d5" stroke-width="2"/>
+<text x="64" y="322" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#087f95">PREESENS</text>
+<text x="64" y="359" font-family="Arial,sans-serif" font-size="23" fill="#173f51">Huomenna menen töihin.</text>
+<text x="64" y="393" font-family="Arial,sans-serif" font-size="21" fill="#5b6975">Завтра я піду на роботу.</text>
+<text x="64" y="425" font-family="Arial,sans-serif" font-size="18" fill="#576f71">Теперішній; майбутнє через контекст</text>
+<text x="679" y="322" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#cf6756">IMPERFEKTI</text>
+<text x="679" y="359" font-family="Arial,sans-serif" font-size="23" fill="#173f51">Eilen kävin lääkärissä.</text>
+<text x="679" y="393" font-family="Arial,sans-serif" font-size="21" fill="#5b6975">Учора я був(-ла) в лікаря.</text>
+<text x="679" y="425" font-family="Arial,sans-serif" font-size="18" fill="#576f71">Подія в минулому</text>
+<text x="64" y="513" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#9b653a">PERFEKTI</text>
+<text x="64" y="550" font-family="Arial,sans-serif" font-size="23" fill="#173f51">Olen opiskellut suomea kaksi vuotta.</text>
+<text x="64" y="585" font-family="Arial,sans-serif" font-size="21" fill="#5b6975">Я вивчаю фінську вже два роки.</text>
+<text x="64" y="614" font-family="Arial,sans-serif" font-size="18" fill="#576f71">Минуле пов'язане з теперішнім</text>
+<text x="679" y="513" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#6d58a4">PLUSKVAMPERFEKTI</text>
+<text x="679" y="550" font-family="Arial,sans-serif" font-size="23" fill="#173f51">Olin jo lähtenyt, kun bussi tuli.</text>
+<text x="679" y="585" font-family="Arial,sans-serif" font-size="21" fill="#5b6975">Я вже пішов(-ла), коли прийшов автобус.</text>
+<text x="679" y="614" font-family="Arial,sans-serif" font-size="18" fill="#576f71">Подія перед іншим моментом у минулому</text>
+<text x="40" y="700" font-family="Arial,sans-serif" font-size="19" fill="#51656d">Навчальна схема · не всі контексти вживання · Hospodar YKI</text>
+</svg>

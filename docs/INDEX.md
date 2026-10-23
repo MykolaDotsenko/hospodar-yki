@@ -9,6 +9,7 @@
 | Need | Read first | Why |
 | --- | --- | --- |
 | Plan lessons and media from A1.3 to B2.1 | [Curriculum](../learning/curriculum/README.md) → [Tenses](../learning/exercises/grammar/tenses/README.md) + [Clock/time](../learning/exercises/grammar/time-and-clock/README.md) | Explicit TARGET levels vs existing B1 exercises |
+| Visual library physically imported | [Illustrations](../assets/images/illustrations/library.json), [attributed photos](../assets/images/pictures/available.json), [image-led lessons](../learning/exercises/a1/image-led/lessons.json) | Actual offline files, hash/rights proof and teacher-review boundary |
 | Add visual assets | [Illustrations](../assets/images/illustrations/README.md) and [Pictures](../assets/images/pictures/README.md) | Separate visual purpose, alt, rights, review before ingestion |
 | Understand what runs now, and why the target stack was chosen | [Architecture decisions](architecture/README.md) | Explicit historical/accepted target versus running source |
 | Implement React/TypeScript, Dexie, Android Room or PAD | [Web and Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) | Step-by-step safety gates and tests |
