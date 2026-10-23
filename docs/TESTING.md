@@ -33,6 +33,10 @@ CHROME_BINARY=google-chrome node scripts/run-chromium-idb.mjs
 
 Replace `google-chrome` with an installed Chromium binary if necessary; test harness errors should remain failures, not be replaced with mocked browser success. See [browser fixture](../app/tests/atomic-idb-browser.html).
 
+## OPH adult Finnish source-linked content (24.10.2026)
+
+New six OPH *Päivää! / Palataan!* chapter references and twelve authored LEARN missions: `python3 scripts/validate_oph_spoken_finnish_sources.py`, `python3 -m unittest discover -s scripts/tests -p 'test_validate_oph_spoken_finnish_sources.py' -v`, `node --test app/tests/authentic-listening-core.test.mjs`. The new [CI workflow](../.github/workflows/validate-oph-spoken-finnish.yml) checks source IDs, OPH publisher URL allowlist, teacher-answer gating, no unlicensed local media or invented official YKI scores. **No acoustic quality test or in-browser source video/audio integration test; teacher review pending**.
+
 ## Minimum change-to-test mapping
 
 | Modified area | Mandatory checks for reviewers |

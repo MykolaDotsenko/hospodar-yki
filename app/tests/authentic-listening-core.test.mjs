@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {PHASES,newSession,nextSession,currentTask,safePublisherUrl,combineVerifiedExternalLessons} from "../authentic-listening-core.mjs";
+import {PHASES,newSession,nextSession,currentTask,safePublisherUrl,combineVerifiedExternalLessons,sourceUrlForStage} from "../authentic-listening-core.mjs";
 import {readFile} from "node:fs/promises";
 const lesson={mission:{independent_prompt_fi:"Mistä puhutaan?",reflection_uk:"Звірити розуміння",transfer_prompt_fi:"Kysy uudelleen",delayed_recall_prompt_fi:"Muista huomenna"}};
 test("three-stage progression preserves first independent answer and never grades",()=>{
@@ -51,4 +51,33 @@ test("vetted Eira and TasteOfFinnish publisher URLs allowed; spoofed/unsafe URLs
  for(const bad of ["https://tasteoffinnish.fi.evil.com/about-this-course/","https://login@tasteoffinnish.fi/","https://eira.clients.crasman.fi:8443/fi/","https://evil.example","http://tasteoffinnish.fi"]){
   assert.throws(()=>safePublisherUrl(bad));
  }
+});
+
+test("OPH chapter answer keys hidden until first independent answer",async()=>{
+ const old=JSON.parse(await readFile(new URL("../../sources/audio/authentic-dialogues-2026-10.json",import.meta.url),"utf8"));
+ const practical=JSON.parse(await readFile(new URL("../../sources/learning/practical-s2-resources-2026-10.json",import.meta.url),"utf8"));
+ const oph=JSON.parse(await readFile(new URL("../../sources/audio/oph-adult-spoken-finnish-2026-10.json",import.meta.url),"utf8"));
+ const combined=combineVerifiedExternalLessons(old.items,practical.items,oph.items);
+ assert.equal(combined.length,27);assert.equal(new Set(combined.map(x=>x.id)).size,27);
+ assert.equal(oph.items.length,12);
+ for(const item of oph.items){
+  assert.equal(item.access,"external_link_only");
+  assert.equal(item.reported_components.publisher_reported_count,null);
+  assert.equal(item.teacher_page_contains_answers,true);
+  assert.equal(item.graded,false);
+  assert.equal(sourceUrlForStage(item,newSession()),item.audio_index_url);
+  const after=nextSession(newSession(),"Kuuntelin ja kerroin omin sanoin.");
+  assert.equal(sourceUrlForStage(item,after),item.source_page);
+  assert.notEqual(item.source_page,item.audio_index_url);
+ }
+});
+test("OPH publisher domain whitelist and answer-gate misconfiguration rejection",()=>{
+ const url="https://www.oph.fi/fi/oppimateriaali/palataan/aanitteet";
+ assert.equal(safePublisherUrl(url),url);
+ for(const bad of ["https://www.oph.fi.attacker.example/fi/oppimateriaali/","http://www.oph.fi/fi/oppimateriaali/","https://hacker@www.oph.fi/fi/oppimateriaali/","javascript:alert(1)"])assert.throws(()=>safePublisherUrl(bad));
+ const valid={source_page:"https://www.oph.fi/fi/oppimateriaali/palataan/sisallys/2-uusi-naapuri",audio_index_url:url,teacher_page_contains_answers:true,first_attempt_url_policy:"audio_index_only_hide_teacher_answer_page_until_attempt"};
+ const notSafe={...valid,first_attempt_url_policy:"show_all"};
+ assert.throws(()=>sourceUrlForStage(notSafe,newSession()),/Відповіді/);
+ const corrupt=[{...valid,id:"bad",mission:{},reported_components:{type:"audio"},access:"external_link_only",graded:false,is_official_yki:false,media_binaries_imported:0}];
+ assert.throws(()=>combineVerifiedExternalLessons(Array(7).fill(corrupt[0]),Array(8).fill(corrupt[0]),Array(12).fill(notSafe)),/Повторні/);
 });
