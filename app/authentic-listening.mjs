@@ -1,4 +1,4 @@
-import {newSession,nextSession,currentTask,safePublisherUrl} from "./authentic-listening-core.mjs";
+import {newSession,nextSession,currentTask,safePublisherUrl,combineVerifiedExternalLessons} from "./authentic-listening-core.mjs";
 const root=document.getElementById("authentic-root");
 const status=document.getElementById("authentic-status");
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -12,12 +12,13 @@ function render(){
  const action=task.phase==="attempt"?"Я виконав першу спробу":task.phase==="repair"?"Перейти до нової ситуації":"Завершити вправу";
  const language=task.phase==="repair"?"uk":"fi";
  const form=task.phase==="done"?'<p>Виконано без автоматичної оцінки. За потреби повернися до оригіналу та повтори через 1, 7 і 14 днів самостійно — нагадувань поки немає.</p><button type="button" id="restart" class="btn">Почати знову</button>':
- '<form id="practice-form"><label for="answer" class="field">Твоя відповідь фінською / нотатки до слухання</label><textarea id="answer" name="answer" lang="fi" maxlength="4000" required spellcheck="true"></textarea><div class="actions"><button class="btn" type="submit">'+action+'</button></div></form>';
+ '<form id="practice-form"><label for="answer" class="field">Твоя відповідь фінською / нотатки до вправи</label><textarea id="answer" name="answer" lang="fi" maxlength="4000" required spellcheck="true"></textarea><div class="actions"><button class="btn" type="submit">'+action+'</button></div></form>';
  root.innerHTML='<section class="panel"><label class="field" for="authentic-lesson">Вибери ситуацію</label><select id="authentic-lesson" style="max-width:100%;padding:10px;margin-bottom:16px">'+options+'</select>'+
  '<h1>'+esc(item.title_fi)+'</h1><p>'+esc(item.cefr_suggested)+' · '+esc(label(item))+' · '+esc(item.material_kind)+'</p>'+
  '<p>Зовнішній матеріал: <strong>'+esc(item.publisher)+'</strong> · '+esc(item.license)+' · '+esc(item.author)+'</p>'+
  '<p><a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Відкрити джерело ↗</a></p>'+
- '<p class="qualification">Аудіо або відео відтворюються тільки на сайті правовласника. Ця сторінка не містить сторонніх файлів, не копіює субтитри й не гарантує офлайн-доступ. Для текстових діалогів — читання та рольова гра. Неофіційний YKI.</p>'+
+ (item.source_note_uk?'<p class="muted">'+esc(item.source_note_uk)+'</p>':'')+
+ '<p class="qualification">Джерело відкривається тільки на сайті видавця. У матеріалів різний формат: аудіо, відео, PDF або текстові вправи; PDF для аудіювання НЕ підтверджує наявності доступного звукового файлу. Ця сторінка не завантажує, не копіює й не змінює сторонні файли. Неофіційний YKI.</p>'+
  '<hr><p class="eyebrow">'+esc(phase)+'</p><h2 lang="'+language+'">'+esc(task.prompt)+'</h2>'+
  (task.phase!=="attempt"?'<p>Перша незалежна спроба збережена тільки в пам’яті вкладки; зразок відповіді з джерела не показується автоматично.</p>':"")+
  form+'<p class="muted">Teacher review pending. Ваші відповіді не оцінюються і не передаються на сервер.</p></section>';
@@ -27,12 +28,17 @@ function render(){
  const btn=document.getElementById("restart");if(btn)btn.addEventListener("click",()=>{session=newSession();status.textContent="Починаємо заново.";render();});
 }
 try{
- const response=await fetch(new URL("../sources/audio/authentic-dialogues-2026-10.json",import.meta.url),{cache:"no-cache"});
- if(!response.ok)throw new Error("Каталог недоступний: "+response.status);
- const catalog=await response.json();
- lessons=catalog.items;
- if(!Array.isArray(lessons)||lessons.length!==7)throw new Error("У каталозі немає семи перевірених джерел.");
- lessons.forEach(x=>safePublisherUrl(x.source_page));render();
+ async function load(path){
+  const response=await fetch(new URL("../"+path,import.meta.url),{cache:"no-cache"});
+  if(!response.ok)throw new Error("Каталог недоступний: "+path+" ("+response.status+")");
+  return response.json();
+ }
+ const [oldCatalog,newCatalog]=await Promise.all([
+  load("sources/audio/authentic-dialogues-2026-10.json"),
+  load("sources/learning/practical-s2-resources-2026-10.json")
+ ]);
+ lessons=combineVerifiedExternalLessons(oldCatalog.items,newCatalog.items);
+ render();
 }catch(error){
  status.textContent="Неможливо відкрити зовнішній каталог: "+error.message;
  root.innerHTML='<section class="panel"><h1>Не вдалося завантажити вправи</h1><p>Запустіть застосунок через HTTP-сервер з кореня репозиторію. Жодних відповідей не було надіслано.</p></section>';

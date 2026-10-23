@@ -1,0 +1,374 @@
+{
+  "schema_version": "1.0.0",
+  "curated_on": "2026-10-24",
+  "source_count": 4,
+  "exercise_count": 8,
+  "purpose": "Original source-linked Finnish practical LEARN activities complementing authentic dialogue audio; keep text-only, worksheet and actual dialogue audio distinct.",
+  "caution": "Publisher-listed PDF worksheets are NOT verified accompanying audio, 30 lessons are NOT 30 verified unique audio binaries, no external files imported, ND materials not modified. Teacher review pending. Nothing is an official YKI test.",
+  "imported_audio_files": 0,
+  "imported_video_files": 0,
+  "external_sources": [
+    {
+      "id": "eira-kiitajat-2026",
+      "publisher": "Eiran aikuislukio",
+      "author": "Eiran aikuislukio / OPH-funded Kiitäjät kotopolulla project (individual authors not verified)",
+      "url": "https://eira.clients.crasman.fi/fi/tietoa-koulusta/hankkeet-ja-yhteistyo/kiitajat-kotopolulla/",
+      "licence": "CC BY-NC-ND 4.0",
+      "level": "A2.2–B1.2",
+      "kind": "pdf_listening_worksheets",
+      "scope": "Five externally linked PDF listening exercise sheets; actual MP3 playback, transcript rights and licensing per recording are NOT verified.",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "worksheet_titles": [
+          "Vapaa-aikaa ja harrastuksia A2.2–B1.1",
+          "Keskustelut työpaikoilla A2.2–B1.1",
+          "Kotoutujana Suomessa B1.2",
+          "Suomen puolueet esittäytyvät B1.2",
+          "Yhteiskuntaluokat B1.2"
+        ],
+        "published_worksheet_count": 5,
+        "audio_file_presence_verified": false
+      }
+    },
+    {
+      "id": "taste-finnish-2026",
+      "publisher": "A Taste of Finnish",
+      "author": "A Taste of Finnish course (individual creators not established by checked page)",
+      "url": "https://tasteoffinnish.fi/about-this-course/",
+      "licence": "not_verified_for_republication",
+      "level": "A1–A2 (practice estimate; source does not publish an item-level CEFR certificate)",
+      "kind": "external_course_dialogues_with_audio",
+      "scope": "The site confirms 10 chapters, 3 lessons per chapter and dialogue recordings; rights to download, republish, transcribe or bundle are not verified.",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": null,
+        "chapter_count": 10,
+        "lesson_count": 30,
+        "individual_audio_files_not_counted": true,
+        "audio_file_presence_verified": false
+      }
+    },
+    {
+      "id": "kielibuusti-work-intro-2026",
+      "publisher": "Kielibuusti",
+      "author": "Maiju Mäkelä",
+      "url": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/tutustuminen-tyopaikalla",
+      "licence": "CC BY 4.0",
+      "level": "A1–A2",
+      "kind": "four_text_only_workplace_introductions",
+      "scope": "Four textual workplace introduction examples and speaking exercises; no publisher audio is claimed or copied.",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": 4,
+        "audio_file_presence_verified": false
+      }
+    },
+    {
+      "id": "kielibuusti-internship-2026",
+      "publisher": "Kielibuusti / Metropolia AMK",
+      "author": "Eveliina Korpela, Hanna Aho, Eevamaija Iso-Heiniemi",
+      "url": "https://www.kielibuusti.fi/fi/opinto-ja-uraohjaajat-ja-korkeakoulut/tyoharjoittelun-ohjaus/kielitehtavia-tyoharjoitteluun",
+      "licence": "CC BY 4.0",
+      "level": "B1–B2",
+      "kind": "external_workplace_language_reflection_tasks",
+      "scope": "Professional workplace language diary and reflection task materials; embedded illustrative photos may be all-rights-reserved; never copy the page or PDFs automatically.",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "photo_reuse_rights": "separate_all_rights_reserved",
+        "audio_file_presence_verified": false
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "eira-leisure-listening-a22",
+      "source_id": "eira-kiitajat-2026",
+      "title_fi": "Vapaa-aikaa ja harrastuksia",
+      "cefr_suggested": "A2.2–B1.1",
+      "material_kind": "pdf_listening_worksheet",
+      "publisher": "Eiran aikuislukio",
+      "source_page": "https://eira.clients.crasman.fi/fi/tietoa-koulusta/hankkeet-ja-yhteistyo/kiitajat-kotopolulla/",
+      "author": "Eiran aikuislukio / OPH-funded Kiitäjät kotopolulla project (individual authors not verified)",
+      "license": "CC BY-NC-ND 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "worksheet_titles": [
+          "Vapaa-aikaa ja harrastuksia A2.2–B1.1",
+          "Keskustelut työpaikoilla A2.2–B1.1",
+          "Kotoutujana Suomessa B1.2",
+          "Suomen puolueet esittäytyvät B1.2",
+          "Yhteiskuntaluokat B1.2"
+        ],
+        "published_worksheet_count": 5,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Відкрий на сторінці Eira PDF «Kuuntelu: Vapaa-aikaa ja harrastuksia». Це аркуш завдань; окремий звуковий файл наразі не підтверджений.",
+      "source_rights_note": "Five externally linked PDF listening exercise sheets; actual MP3 playback, transcript rights and licensing per recording are NOT verified.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Lue Vapaa-aikaa ja harrastuksia -harjoituksen ohjeet. Kerro ensin suomeksi kaksi omaa harrastustasi ja miksi pidät niistä.",
+        "reflection_uk": "Після першої відповіді перевір, чи ти назвав заняття та пояснив причину. PDF може містити інший стимул; не вигадуй, що чув аудіо.",
+        "transfer_prompt_fi": "Ystävä pyytää sinua mukaan uuteen harrastukseen sunnuntaina. Vastaa kohteliaasti ja ehdota sopivaa aikaa.",
+        "delayed_recall_prompt_fi": "Miten kerrot ensi viikolla yhdestä uudesta harrastuksestasi?"
+      }
+    },
+    {
+      "id": "eira-work-conversations-a22",
+      "source_id": "eira-kiitajat-2026",
+      "title_fi": "Keskustelut työpaikoilla",
+      "cefr_suggested": "A2.2–B1.1",
+      "material_kind": "pdf_listening_worksheet",
+      "publisher": "Eiran aikuislukio",
+      "source_page": "https://eira.clients.crasman.fi/fi/tietoa-koulusta/hankkeet-ja-yhteistyo/kiitajat-kotopolulla/",
+      "author": "Eiran aikuislukio / OPH-funded Kiitäjät kotopolulla project (individual authors not verified)",
+      "license": "CC BY-NC-ND 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "worksheet_titles": [
+          "Vapaa-aikaa ja harrastuksia A2.2–B1.1",
+          "Keskustelut työpaikoilla A2.2–B1.1",
+          "Kotoutujana Suomessa B1.2",
+          "Suomen puolueet esittäytyvät B1.2",
+          "Yhteiskuntaluokat B1.2"
+        ],
+        "published_worksheet_count": 5,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Відкрий PDF «Kuuntelu: Keskustelut työpaikoilla». На сторінці позначено PDF, не перевірений аудіофайл.",
+      "source_rights_note": "Five externally linked PDF listening exercise sheets; actual MP3 playback, transcript rights and licensing per recording are NOT verified.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Tutustu Keskustelut työpaikoilla -tehtävänantoon. Kirjoita kaksi kysymystä, jotka voisit esittää työkaverille työvuorosta.",
+        "reflection_uk": "Зверни увагу на ввічливу форму запитань і часові вирази. Якщо запис недоступний, виконай це як рольову гру, а не аудіодиктант.",
+        "transfer_prompt_fi": "Työvuorosi muuttuu ensi viikolla. Kysy esihenkilöltä syytä ja ehdota uutta aikaa.",
+        "delayed_recall_prompt_fi": "Kerro huomenna työvuoromuutoksesta omin sanoin ilman mallia."
+      }
+    },
+    {
+      "id": "taste-arrival-a13",
+      "source_id": "taste-finnish-2026",
+      "title_fi": "Uuteen ympäristöön tutustuminen",
+      "cefr_suggested": "A1.3–A2.1",
+      "material_kind": "beginner_external_dialogue",
+      "publisher": "A Taste of Finnish",
+      "source_page": "https://tasteoffinnish.fi/about-this-course/",
+      "author": "A Taste of Finnish course (individual creators not established by checked page)",
+      "license": "not_verified_for_republication",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": null,
+        "chapter_count": 10,
+        "lesson_count": 30,
+        "individual_audio_files_not_counted": true,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Вибери один діалог курсу A Taste of Finnish. Слухай на сайті курсу до читання тексту.",
+      "source_rights_note": "The site confirms 10 chapters, 3 lessons per chapter and dialogue recordings; rights to download, republish, transcribe or bundle are not verified.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Valitse yksi äänellinen oppitunti. Kuuntele ensin ja kirjoita kaksi asiaa, jotka ymmärsit varmasti. Älä arvaa henkilön nimeä tai paikkaa.",
+        "reflection_uk": "Тільки після першої спроби відкрий текст діалогу й познач два слова, яких не почув. Це не оцінювання на B1.",
+        "transfer_prompt_fi": "Saavut uuteen kaupunkiin. Kysy uudelta tuttavalta, missä lähin kirjasto on.",
+        "delayed_recall_prompt_fi": "Mitä kahta kysymystä voisit käyttää uudessa kaupungissa?"
+      }
+    },
+    {
+      "id": "taste-shopping-a21",
+      "source_id": "taste-finnish-2026",
+      "title_fi": "Asiointi arkielämässä",
+      "cefr_suggested": "A1.3–A2.2",
+      "material_kind": "beginner_external_dialogue",
+      "publisher": "A Taste of Finnish",
+      "source_page": "https://tasteoffinnish.fi/about-this-course/",
+      "author": "A Taste of Finnish course (individual creators not established by checked page)",
+      "license": "not_verified_for_republication",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": null,
+        "chapter_count": 10,
+        "lesson_count": 30,
+        "individual_audio_files_not_counted": true,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Вибери діалог про повсякденну ситуацію серед уроків курсу; якщо немає потрібної теми, використай будь-який доступний діалог.",
+      "source_rights_note": "The site confirms 10 chapters, 3 lessons per chapter and dialogue recordings; rights to download, republish, transcribe or bundle are not verified.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele yksi kurssin arkitilanteen dialogi. Mitä puhujat haluavat tehdä? Kirjoita vain asiat, joista olet varma.",
+        "reflection_uk": "Зістав власний зміст із текстом лише після відповіді. Не приписуй курсу задану тему чи конкретні репліки без прослуховування.",
+        "transfer_prompt_fi": "Ostat kaupasta jotakin, mutta tuote on loppu. Kysy kohteliaasti, milloin sitä tulee lisää.",
+        "delayed_recall_prompt_fi": "Kerro ensi viikolla, miten pyytäisit myyjältä apua."
+      }
+    },
+    {
+      "id": "work-intro-questions-a13",
+      "source_id": "kielibuusti-work-intro-2026",
+      "title_fi": "Uusi työkaveri – kysymykset",
+      "cefr_suggested": "A1–A2",
+      "material_kind": "text_roleplay",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/tutustuminen-tyopaikalla",
+      "author": "Maiju Mäkelä",
+      "license": "CC BY 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": 4,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Прочитай один із чотирьох текстових прикладів знайомства на роботі та створи власні запитання.",
+      "source_rights_note": "Four textual workplace introduction examples and speaking exercises; no publisher audio is claimed or copied.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Lue yksi tutustumisesimerkki. Kirjoita omin sanoin kolme kohteliasta kysymystä uudelle työkaverille. Älä kopioi esimerkkilauseita.",
+        "reflection_uk": "Після відповіді перевір, чи кожне запитання зрозуміле і чи не вимагає особистих даних, які співрозмовник не хоче повідомляти.",
+        "transfer_prompt_fi": "Tapaat uuden työkaverin lounastauolla. Kysy hänen työtehtävistään ja kerro lyhyesti itsestäsi.",
+        "delayed_recall_prompt_fi": "Muodosta huomenna kolme erilaista tutustumiskysymystä."
+      }
+    },
+    {
+      "id": "work-intro-smalltalk-a21",
+      "source_id": "kielibuusti-work-intro-2026",
+      "title_fi": "Taukokahvit – lyhyt keskustelu",
+      "cefr_suggested": "A1–A2",
+      "material_kind": "text_roleplay",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/tutustuminen-tyopaikalla",
+      "author": "Maiju Mäkelä",
+      "license": "CC BY 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": 4,
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Вибери інший приклад із чотирьох текстових сцен знайомства.",
+      "source_rights_note": "Four textual workplace introduction examples and speaking exercises; no publisher audio is claimed or copied.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Tutustu toiseen työpaikan esimerkkiin. Kirjoita neljän repliikin lyhyt oma keskustelu: tervehdys, kysymys, vastaus ja lopetus.",
+        "reflection_uk": "Порівняй, чи ти справді дав відповідь на запитання і завершив розмову природно. Матеріал не містить аудіотреку.",
+        "transfer_prompt_fi": "Työkaveri on kiireinen. Pyydä häneltä kohteliaasti sopivaa hetkeä jutella myöhemmin.",
+        "delayed_recall_prompt_fi": "Miten aloitat pienen keskustelun toisena päivänä?"
+      }
+    },
+    {
+      "id": "internship-clarify-b11",
+      "source_id": "kielibuusti-internship-2026",
+      "title_fi": "Työohjeen tarkentaminen",
+      "cefr_suggested": "B1.1–B1.2",
+      "material_kind": "workplace_written_reflection",
+      "publisher": "Kielibuusti / Metropolia AMK",
+      "source_page": "https://www.kielibuusti.fi/fi/opinto-ja-uraohjaajat-ja-korkeakoulut/tyoharjoittelun-ohjaus/kielitehtavia-tyoharjoitteluun",
+      "author": "Eveliina Korpela, Hanna Aho, Eevamaija Iso-Heiniemi",
+      "license": "CC BY 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "photo_reuse_rights": "separate_all_rights_reserved",
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Вивчи на сторінці Kielibuusti завдання до мовного щоденника. Склади власну реакцію на незрозумілу робочу інструкцію.",
+      "source_rights_note": "Professional workplace language diary and reflection task materials; embedded illustrative photos may be all-rights-reserved; never copy the page or PDFs automatically.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuvittele, että et ymmärrä uutta työohjetta. Kirjoita selkeä pyyntö: mitä haluat selvennettävän ja miksi?",
+        "reflection_uk": "Перевір, чи у відповіді є конкретне уточнення, а не лише «En ymmärrä». Запис чи голосовий файл не передбачений.",
+        "transfer_prompt_fi": "Saat kaksi ristiriitaista ohjetta eri henkilöiltä. Kysy, mitä tehdään ensin, ja varmista yhteinen sopimus.",
+        "delayed_recall_prompt_fi": "Miten pyytäisit huomenna työohjeen toistamista ilman mallia?"
+      }
+    },
+    {
+      "id": "internship-language-diary-b12",
+      "source_id": "kielibuusti-internship-2026",
+      "title_fi": "Kielipäiväkirja – työpäivän pohdinta",
+      "cefr_suggested": "B1.1–B2.1",
+      "material_kind": "workplace_written_reflection",
+      "publisher": "Kielibuusti / Metropolia AMK",
+      "source_page": "https://www.kielibuusti.fi/fi/opinto-ja-uraohjaajat-ja-korkeakoulut/tyoharjoittelun-ohjaus/kielitehtavia-tyoharjoitteluun",
+      "author": "Eveliina Korpela, Hanna Aho, Eevamaija Iso-Heiniemi",
+      "license": "CC BY 4.0",
+      "label_level_basis": "derived_curriculum_practice_approximation",
+      "source_page_checked_on": "2026-10-24",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "photo_reuse_rights": "separate_all_rights_reserved",
+        "audio_file_presence_verified": false
+      },
+      "source_note_uk": "Використай метод мовного щоденника з Kielibuusti; не додавай у публічний файл жодних особистих даних колег.",
+      "source_rights_note": "Professional workplace language diary and reflection task materials; embedded illustrative photos may be all-rights-reserved; never copy the page or PDFs automatically.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kirjoita lyhyt kielipäiväkirja kuvitteellisesta työpäivästä: mikä sujui, mikä oli vaikeaa ja mitä aiot harjoitella seuraavaksi?",
+        "reflection_uk": "Виділи одну справжню комунікативну мету й одну дію, яку можна перевірити завтра; не оцінюй себе за кількістю рядків.",
+        "transfer_prompt_fi": "Työpalaverissa sinulle annetaan uusi tehtävä. Tiivistä ohje omin sanoin ja varmista aikataulu.",
+        "delayed_recall_prompt_fi": "Kerro viikon kuluttua yhdestä taidosta, jota olet harjoitellut."
+      }
+    }
+  ]
+}

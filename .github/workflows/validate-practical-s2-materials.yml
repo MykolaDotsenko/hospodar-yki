@@ -1,0 +1,44 @@
+name: Validate practical Finnish S2 source missions
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sources/learning/practical-s2-resources-2026-10.json'
+      - 'scripts/validate_practical_s2_sources.py'
+      - 'scripts/tests/test_validate_practical_s2_sources.py'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/authentic-listening.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-practical-s2-materials.yml'
+  pull_request:
+    paths:
+      - 'sources/learning/practical-s2-resources-2026-10.json'
+      - 'scripts/validate_practical_s2_sources.py'
+      - 'scripts/tests/test_validate_practical_s2_sources.py'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/authentic-listening.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-practical-s2-materials.yml'
+permissions:
+  contents: read
+jobs:
+  practical-s2-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Verify new resources, rights and pedagogical provenance
+        run: |
+          python3 scripts/validate_practical_s2_sources.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_practical_s2_sources.py' -v
+      - name: Test fifteen external LEARN lessons and web controller syntax
+        run: |
+          node --test app/tests/authentic-listening-core.test.mjs
+          node --check app/authentic-listening.mjs
+          node --check app/authentic-listening-core.mjs
