@@ -94,9 +94,34 @@ try{
   console.error("FAIL Chromium IndexedDB:",error.message);
   process.exitCode=1;
 }finally{
-  session?.ws.close();
-  proc.kill("SIGTERM");
-  await delay(100);
-  try{proc.kill("SIGKILL")}catch{}
-  await rm(dir,{recursive:true,force:true});
+  // Chrome writes asynchronously to its profile, including after DevTools
+  // reports a passing IndexedDB test. Deleting the profile while Chrome is
+  // still exiting intermittently fails with ENOTEMPTY on Linux CI runners.
+  try{session?.ws.close()}catch{}
+  const exited=()=>proc.exitCode!==null||proc.signalCode!==null;
+  async function waitForExit(timeoutMs){
+    if(exited())return true;
+    return Promise.race([
+      new Promise(resolve=>proc.once("exit",()=>resolve(true))),
+      delay(timeoutMs).then(()=>exited())
+    ]);
+  }
+  if(!exited()){
+    proc.kill("SIGTERM");
+    if(!await waitForExit(1500)){
+      proc.kill("SIGKILL");
+      if(!await waitForExit(1500)){
+        console.error("FAIL cleanup: Chromium did not exit after SIGKILL");
+        process.exitCode=1;
+      }
+    }
+  }
+  // Node's built-in ENOTEMPTY/EBUSY retry handles late OS profile writes
+  // without hiding genuine cleanup failures.
+  try{
+    await rm(dir,{recursive:true,force:true,maxRetries:12,retryDelay:150});
+  }catch(error){
+    console.error("FAIL cleanup of Chromium temporary profile:",error.message);
+    process.exitCode=1;
+  }
 }
