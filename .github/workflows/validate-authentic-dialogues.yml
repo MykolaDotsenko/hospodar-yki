@@ -1,0 +1,46 @@
+name: Validate publisher-linked Finnish dialogue lessons
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sources/audio/authentic-dialogues-2026-10.json'
+      - 'scripts/validate_authentic_dialogue_sources.py'
+      - 'scripts/tests/test_validate_authentic_dialogue_sources.py'
+      - 'app/authentic-listening.html'
+      - 'app/authentic-listening.mjs'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-authentic-dialogues.yml'
+  pull_request:
+    paths:
+      - 'sources/audio/authentic-dialogues-2026-10.json'
+      - 'scripts/validate_authentic_dialogue_sources.py'
+      - 'scripts/tests/test_validate_authentic_dialogue_sources.py'
+      - 'app/authentic-listening.html'
+      - 'app/authentic-listening.mjs'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-authentic-dialogues.yml'
+permissions:
+  contents: read
+jobs:
+  source-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Verify publisher source counts, license scope and no fictional media
+        run: |
+          python3 scripts/validate_authentic_dialogue_sources.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_authentic_dialogue_sources.py' -v
+      - name: Validate stateless staged learning and safety of external links
+        run: |
+          node --test app/tests/authentic-listening-core.test.mjs
+          node --check app/authentic-listening.mjs
+          node --check app/authentic-listening-core.mjs
