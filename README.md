@@ -8,7 +8,7 @@
 
 Є два режими: **LEARN** (практика з поясненнями й виправленнями) та **EXAM** (самостійна репетиція без підказок до завершення). Обидва охоплюють читання, аудіювання, письмо й говоріння. Цей проєкт **не є офіційним застосунком YKI**.
 
-[🎧🖼️ Інтерактивні аудіо+фото A1.3–A2.2](app/real-life.html) · [🧭 Рівні A1.3–B2.1](learning/curriculum/README.md) · [📘 Граматичні часи](learning/exercises/grammar/tenses/README.md) · [🕒 Час і годинник](learning/exercises/grammar/time-and-clock/README.md) · [🎨 Ілюстрації](assets/images/illustrations/README.md) · [🖼️ Фотографії](assets/images/pictures/README.md)
+[🎧🖼️ Інтерактивні аудіо+фото A1.3–A2.2](app/real-life.html) · [🗣️ 15 живих діалогів і практичних місій A1.3–B2.1](app/authentic-listening.html) · [🧭 Рівні A1.3–B2.1](learning/curriculum/README.md) · [📘 Граматичні часи](learning/exercises/grammar/tenses/README.md) · [🕒 Час і годинник](learning/exercises/grammar/time-and-clock/README.md) · [🎨 Ілюстрації](assets/images/illustrations/README.md) · [🖼️ Фотографії](assets/images/pictures/README.md)
 
 ## 🚀 Запуск локального Web MVP
 
