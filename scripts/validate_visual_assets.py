@@ -64,6 +64,18 @@ def check(root:Path=ROOT,require_pictures:bool=False)->list[str]:
             errors.append("Missing photo attribution/alt "+p)
         if source.get("offline_ready") is not False:
             errors.append("Sources are not a readiness record "+p)
+    lessons=load("learning/exercises/a1/image-led/lessons.json").get("items",[])
+    if len(lessons)!=4:
+        errors.append("Expected exactly four image-driven independent Finnish missions")
+    seen_lessons=set()
+    for lesson in lessons:
+        lid=lesson.get("lesson_id")
+        if lid in seen_lessons:errors.append("Repeated image lesson "+str(lid))
+        seen_lessons.add(lid)
+        if lesson.get("image_id") not in source_by_id:
+            errors.append("Image lesson has unknown source ID "+str(lid))
+        if lesson.get("response_status")!="ungraded" or not lesson.get("initial_prompt_fi") or not lesson.get("transfer_prompt_fi"):
+            errors.append("Unsafe unreviewed image lesson assessment "+str(lid))
     availability=root/"assets/images/pictures/available.json"
     ready=[]
     if availability.exists():

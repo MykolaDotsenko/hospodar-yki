@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "status": "original_visual_task_drafts_pending_teacher_review_and_verified_photo",
+  "status": "original_visual_tasks_with_verified_local_photos_teacher_review_pending",
   "goal": "Introduce and retrieve practical Finnish using real-life photographs, no answer-hint leakage",
   "levels": [
     "A1.3",
@@ -30,7 +30,7 @@
       ],
       "transfer_prompt_fi": "Olet torilla. Kysy, paljonko yksi omena maksaa.",
       "response_status": "ungraded",
-      "image_status": "requires_verified_binary"
+      "availability_source": "assets/images/pictures/available.json"
     },
     {
       "lesson_id": "a1-picture-shop",
@@ -48,7 +48,7 @@
       ],
       "transfer_prompt_fi": "Pyydä myyjältä apua: missä maito on?",
       "response_status": "ungraded",
-      "image_status": "requires_verified_binary"
+      "availability_source": "assets/images/pictures/available.json"
     },
     {
       "lesson_id": "a1-picture-housing",
@@ -66,7 +66,7 @@
       ],
       "transfer_prompt_fi": "Kerro omasta asunnostasi tai unelma-asunnostasi.",
       "response_status": "ungraded",
-      "image_status": "requires_verified_binary"
+      "availability_source": "assets/images/pictures/available.json"
     },
     {
       "lesson_id": "a1-picture-bus",
@@ -84,7 +84,7 @@
       ],
       "transfer_prompt_fi": "Bussi on myöhässä. Soita ystävälle ja selitä tilanne.",
       "response_status": "ungraded",
-      "image_status": "requires_verified_binary"
+      "availability_source": "assets/images/pictures/available.json"
     }
   ],
   "method": {

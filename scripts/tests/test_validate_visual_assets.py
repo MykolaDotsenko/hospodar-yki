@@ -13,7 +13,7 @@ class VisualAssetTests(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name)
-        for globpath in ("assets/images/illustrations/*.svg","assets/images/illustrations/library.json","assets/images/pictures/sources.json"):
+        for globpath in ("assets/images/illustrations/*.svg","assets/images/illustrations/library.json","assets/images/pictures/sources.json","learning/exercises/a1/image-led/lessons.json"):
             for p in ROOT.glob(globpath):
                 target=self.root/p.relative_to(ROOT)
                 target.parent.mkdir(parents=True,exist_ok=True)
@@ -33,6 +33,12 @@ class VisualAssetTests(unittest.TestCase):
         x["items"][0]["alt_fi"]=""
         p.write_text(json.dumps(x))
         self.assertTrue(any("description" in e for e in check(self.root)))
+    def test_ungraded_picture_mission_cannot_reference_unknown_image(self):
+        p=self.root/"learning/exercises/a1/image-led/lessons.json"
+        data=json.loads(p.read_text())
+        data["items"][0]["image_id"]="not-existing"
+        p.write_text(json.dumps(data))
+        self.assertTrue(any("unknown source ID" in e for e in check(self.root)))
     def test_svg_script_is_rejected(self):
         p=self.root/"assets/images/illustrations/clock-15-30.svg"
         text=p.read_text()
