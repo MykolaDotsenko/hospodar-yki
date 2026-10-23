@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "reviewed_on": "2026-10-23",
-  "rights_policy": "Only 4 publisher-verified Wikimedia Commons files with explicit CC BY-SA 4.0. Download source thumbnail under attribution and ShareAlike; all educational question seeds are original.",
+  "rights_policy": "Eight specifically reviewed Wikimedia Commons files all CC BY-SA 4.0; verified publisher description, photographer and reuse license. New source record ≠ physical import.",
   "status": "source_allowlist_not_binary_proof",
   "import_instructions": "Run scripts/import_licensed_pictures.py; local readiness is exclusively assets/images/pictures/available.json plus a committed matching JPG and SHA256. Never count source URLs as local pictures.",
   "items": [
@@ -119,6 +119,130 @@
       "alt_fi": "Bussipysäkki Pohjantiellä Espoossa.",
       "alt_uk": "Автобусна зупинка на вулиці Pohjantie у Еспоо.",
       "prompt_fi": "Mistä bussi lähtee? Mitä kysyt, jos et löydä pysäkkiä?",
+      "source_page_checked": true,
+      "source_page_attribution_verified": true,
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_medium": "photo",
+      "download_max_width": 960,
+      "teacher_review": "pending",
+      "playback_status": "not_applicable",
+      "offline_ready": false
+    },
+    {
+      "id": "turku-paakirjasto",
+      "title": "Turku main library interior",
+      "filename": "Turun kaupunginkirjasto sisältä 2018.jpg",
+      "author": "Vilho Verkkotoimitus",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "library",
+        "borrowing",
+        "study",
+        "help_request"
+      ],
+      "alt_fi": "Turun pääkirjaston sisätila, jossa voi lukea ja lainata kirjoja.",
+      "alt_uk": "Внутрішній простір головної бібліотеки Турку.",
+      "prompt_fi": "Mitä voit tehdä kirjastossa? Miten kysyt kirjastokorttia?",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Turun_kaupunginkirjasto_sisältä_2018.jpg",
+      "path": "assets/images/pictures/turku-paakirjasto.jpg",
+      "source_page_checked": true,
+      "source_page_attribution_verified": true,
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_medium": "photo",
+      "download_max_width": 960,
+      "teacher_review": "pending",
+      "playback_status": "not_applicable",
+      "offline_ready": false
+    },
+    {
+      "id": "intercity-junassa",
+      "title": "Inside Finnish InterCity train from Helsinki",
+      "filename": "Interior of InterCity train from Helsinki to Hämeenlinna.jpg",
+      "author": "JIP",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "train",
+        "travel",
+        "ticket",
+        "seat"
+      ],
+      "alt_fi": "Suomalaisen InterCity-junan matkustamo, jossa on istuimia ja käytävä.",
+      "alt_uk": "Пасажирський салон фінського поїзда InterCity, сидіння та прохід.",
+      "prompt_fi": "Miten ostaisit junalipun? Miten kysyisit vapaan istumapaikan?",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Interior_of_InterCity_train_from_Helsinki_to_Hämeenlinna.jpg",
+      "path": "assets/images/pictures/intercity-junassa.jpg",
+      "source_page_checked": true,
+      "source_page_attribution_verified": true,
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_medium": "photo",
+      "download_max_width": 960,
+      "teacher_review": "pending",
+      "playback_status": "not_applicable",
+      "offline_ready": false
+    },
+    {
+      "id": "maunula-terveysasema",
+      "title": "Health centre in Maunula, Helsinki",
+      "filename": "Maunulan terveysasema.jpg",
+      "author": "Ppntori",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "health",
+        "health_centre",
+        "appointment",
+        "symptoms"
+      ],
+      "alt_fi": "Helsingin Maunulan terveysaseman rakennus ulkoa.",
+      "alt_uk": "Будівля медичного центру Maunula в Гельсінкі.",
+      "prompt_fi": "Miten varaat ajan terveysasemalle? Miten kerrot oireistasi?",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Maunulan_terveysasema.jpg",
+      "path": "assets/images/pictures/maunula-terveysasema.jpg",
+      "source_page_checked": true,
+      "source_page_attribution_verified": true,
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_medium": "photo",
+      "download_max_width": 960,
+      "teacher_review": "pending",
+      "playback_status": "not_applicable",
+      "offline_ready": false
+    },
+    {
+      "id": "qwensel-kahvila-turku",
+      "title": "Café Qwensel, courtyard café in Turku",
+      "filename": "Qwenselin kahvila.jpg",
+      "author": "Vilho Verkkotoimitus",
+      "levels": [
+        "A1.3",
+        "A2.1",
+        "B1.1"
+      ],
+      "topics": [
+        "cafe",
+        "food",
+        "ordering",
+        "polite_request"
+      ],
+      "alt_fi": "Qwenselin kahvila Turun Apteekkimuseon sisäpihalla.",
+      "alt_uk": "Кафе Qwensel у внутрішньому дворі Аптечного музею в Турку.",
+      "prompt_fi": "Mitä tilaisit kahvilassa? Miten pyydät laskun kohteliaasti?",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Qwenselin_kahvila.jpg",
+      "path": "assets/images/pictures/qwensel-kahvila-turku.jpg",
       "source_page_checked": true,
       "source_page_attribution_verified": true,
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",

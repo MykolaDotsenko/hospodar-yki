@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict Wikimedia Commons allowlist import for 4 Finnish A1.3–B1 photos.
+"""Strict Wikimedia Commons allowlist import for 8 Finnish A1.3–B1.1 photos.
 
 DO NOT copy arbitrary YouTube/Yle image assets. Offline manifest is generated
 only for JPEGs whose bytes and dimensions were genuinely inspected.
@@ -20,8 +20,8 @@ SOURCES=ROOT/"assets/images/pictures/sources.json"
 AVAILABLE=ROOT/"assets/images/pictures/available.json"
 COMMONS="https://commons.wikimedia.org/wiki/File:"
 MAX_BYTES=2_500_000
-MAX_IMAGES=4
-EXPECTED_IDS={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki"}
+MAX_IMAGES=8
+EXPECTED_IDS={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki","turku-paakirjasto","intercity-junassa","maunula-terveysasema","qwensel-kahvila-turku"}
 ALLOWED_LICENSE="CC BY-SA 4.0"
 UA="HospodarYKI-educational-media-import/1.0 (https://github.com/MykolaDotsenko/hospodar-yki; Wikimedia Commons licensed thumbnail)";
 

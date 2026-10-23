@@ -48,8 +48,8 @@ def check(root:Path=ROOT,require_pictures:bool=False)->list[str]:
     for f in (root/"assets/images/illustrations").glob("*.svg"):
         if f not in files:errors.append("Unlisted learning illustration "+str(f))
     sources=load("assets/images/pictures/sources.json").get("items",[])
-    expected_ids={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki"}
-    if {x.get("id") for x in sources}!=expected_ids or len(sources)!=4:
+    expected_ids={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki","turku-paakirjasto","intercity-junassa","maunula-terveysasema","qwensel-kahvila-turku"}
+    if {x.get("id") for x in sources}!=expected_ids or len(sources)!=8:
         errors.append("Picture source allowlist drift")
     source_by_id={x.get("id"):x for x in sources}
     by_path=set()
@@ -65,8 +65,8 @@ def check(root:Path=ROOT,require_pictures:bool=False)->list[str]:
         if source.get("offline_ready") is not False:
             errors.append("Sources are not a readiness record "+p)
     lessons=load("learning/exercises/a1/image-led/lessons.json").get("items",[])
-    if len(lessons)!=4:
-        errors.append("Expected exactly four image-driven independent Finnish missions")
+    if len(lessons)!=8:
+        errors.append("Expected exactly eight image-driven independent Finnish missions")
     seen_lessons=set()
     for lesson in lessons:
         lid=lesson.get("lesson_id")
@@ -103,8 +103,8 @@ def check(root:Path=ROOT,require_pictures:bool=False)->list[str]:
                 errors.append("JPEG byte count/hash mismatch "+path)
             if row.get("state")!="verified_binary" or row.get("license")!=LICENSE or not row.get("alt_fi") or not row.get("alt_uk"):
                 errors.append("Picture rights/QA incomplete "+path)
-        if require_pictures and (len(ready)!=4 or data.get("status")!="binary_sha256_validated"):
-            errors.append("Not all four photo binaries committed")
+        if require_pictures and (len(ready)!=8 or data.get("status")!="binary_sha256_validated"):
+            errors.append("Not all eight photo binaries committed")
     elif require_pictures:
         errors.append("Photo availability missing: no verified pictures")
     actual={p.relative_to(root).as_posix() for p in (root/"assets/images/pictures").glob("*.jpg")}
