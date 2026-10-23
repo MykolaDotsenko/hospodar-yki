@@ -1,0 +1,44 @@
+name: Validate OPH adult Finnish source-linked listening missions
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sources/audio/oph-adult-spoken-finnish-2026-10.json'
+      - 'scripts/validate_oph_spoken_finnish_sources.py'
+      - 'scripts/tests/test_validate_oph_spoken_finnish_sources.py'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/authentic-listening.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-oph-spoken-finnish.yml'
+  pull_request:
+    paths:
+      - 'sources/audio/oph-adult-spoken-finnish-2026-10.json'
+      - 'scripts/validate_oph_spoken_finnish_sources.py'
+      - 'scripts/tests/test_validate_oph_spoken_finnish_sources.py'
+      - 'app/authentic-listening-core.mjs'
+      - 'app/authentic-listening.mjs'
+      - 'app/tests/authentic-listening-core.test.mjs'
+      - '.github/workflows/validate-oph-spoken-finnish.yml'
+permissions:
+  contents: read
+jobs:
+  publisher-source-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Protect publisher IP and prevent answer keys before independent response
+        run: |
+          python3 scripts/validate_oph_spoken_finnish_sources.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_oph_spoken_finnish_sources.py' -v
+      - name: Test all 27 source-linked staged missions in pure JS domain
+        run: |
+          node --test app/tests/authentic-listening-core.test.mjs
+          node --check app/authentic-listening.mjs
+          node --check app/authentic-listening-core.mjs
