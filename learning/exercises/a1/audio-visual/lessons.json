@@ -149,5 +149,123 @@
       "teacher_review": "pending",
       "response_status": "ungraded"
     }
-  ]
+  ],
+  "source_only_practice_drafts": [
+    {
+      "exercise_id": "av-src-a13-ole-hyva",
+      "level": "A1.3",
+      "audio_candidate_id": "ole_hyva_2026",
+      "photo_id": "qwensel-kahvila-turku",
+      "title_uk": "Магазин / кафе: ввічлива відповідь",
+      "independent_listening_prompt_fi": "Kuuntele ilmaus. Missä palvelutilanteessa voit käyttää sitä? Kirjoita esimerkki omin sanoin.",
+      "independent_task_uk": "Прослухай фразу і самостійно наведи доречний приклад із кафе.",
+      "repair_prompt_fi": "Vertaa omaa vastaustasi. Tarkista, sanotaanko ilmaus annettaessa jotakin vai kiitokseen vastattaessa.",
+      "models_after_first_attempt_fi": [
+        "Ole hyvä!",
+        "Kiitos! — Ole hyvä!"
+      ],
+      "transfer_prompt_fi": "Olet kirjastossa ja ojennat kirjan ystävälle. Mitä sanot?",
+      "transfer_prompt_uk": "Без підказки передай книгу другові в бібліотеці.",
+      "delayed_selftest_fi": "Keksi viikon päästä uusi tilanne, jossa sanot tämän ilmauksen.",
+      "asset_status": "source_link_only_not_in_web_player",
+      "mode": "LEARN_draft_not_shipped",
+      "response_status": "ungraded",
+      "teacher_review": "pending",
+      "auto_feedback": false,
+      "delayed_review_automation": false
+    },
+    {
+      "exercise_id": "av-src-a13-hyvaa-paivaa",
+      "level": "A1.3",
+      "audio_candidate_id": "hyvaa_paivaa_2026",
+      "photo_id": "turku-paakirjasto",
+      "title_uk": "Офіційніше привітання",
+      "independent_listening_prompt_fi": "Kuuntele tervehdys. Mihin aikaan päivästä sitä voi käyttää? Kirjoita oma vastaus.",
+      "independent_task_uk": "Послухай привітання і сформулюй відповідь.",
+      "repair_prompt_fi": "Mieti, onko ilmaus luonteva aamulla, päivällä vai myöhään illalla.",
+      "models_after_first_attempt_fi": [
+        "Hyvää päivää!",
+        "Päivää!"
+      ],
+      "transfer_prompt_fi": "Tulet ensimmäistä kertaa terveysasemalle. Tervehdi vastaanottovirkailijaa ja kysy, mistä löydät ilmoittautumisen.",
+      "transfer_prompt_uk": "Перенесення: вітаєш реєстратуру медичного центру.",
+      "delayed_selftest_fi": "Keksi eri tapa tervehtiä kirjastossa huomenna.",
+      "asset_status": "source_link_only_not_in_web_player",
+      "mode": "LEARN_draft_not_shipped",
+      "response_status": "ungraded",
+      "teacher_review": "pending",
+      "auto_feedback": false,
+      "delayed_review_automation": false
+    },
+    {
+      "exercise_id": "av-src-a13-hyvaa-huomenta",
+      "level": "A1.3",
+      "audio_candidate_id": "hyvaa_huomenta_2026",
+      "photo_id": "s-market-kauppa",
+      "title_uk": "Вітання зранку",
+      "independent_listening_prompt_fi": "Kuuntele tervehdys. Milloin kuulet sitä? Vastaa suomeksi omin sanoin.",
+      "independent_task_uk": "Прослухай фразу та самостійно поясни, коли її використовують.",
+      "repair_prompt_fi": "Tarkista, sopiiko ilmaus aamuvuoron alkuun.",
+      "models_after_first_attempt_fi": [
+        "Hyvää huomenta!",
+        "Huomenta!"
+      ],
+      "transfer_prompt_fi": "Saavut aamulla työpaikalle. Tervehdi työkaveria ja kysy, miten hän voi.",
+      "transfer_prompt_uk": "Ситуація на роботі: привітай колегу та спитай як справи.",
+      "delayed_selftest_fi": "Seuraavana päivänä käytä ilmaisua eri aamutilanteessa.",
+      "asset_status": "source_link_only_not_in_web_player",
+      "mode": "LEARN_draft_not_shipped",
+      "response_status": "ungraded",
+      "teacher_review": "pending",
+      "auto_feedback": false,
+      "delayed_review_automation": false
+    },
+    {
+      "exercise_id": "av-src-a22-food-restriction",
+      "level": "A2.2",
+      "audio_candidate_id": "en_syo_elaimesta_2026",
+      "photo_id": "qwensel-kahvila-turku",
+      "title_uk": "Харчові обмеження",
+      "independent_listening_prompt_fi": "Kuuntele lause kerran. Mitä puhuja ei syö? Vastaa omin sanoin ilman mallia.",
+      "independent_task_uk": "Прослухай речення: які продукти мовець виключає? Спочатку власна відповідь.",
+      "repair_prompt_fi": "Tarkista merkitys: puhuja välttää eläinperäisiä tuotteita. Miten kerrot oman ruokavaliosi?",
+      "models_after_first_attempt_fi": [
+        "En syö eläinperäisiä tuotteita.",
+        "Onko tässä annoksessa maitoa tai kananmunaa?"
+      ],
+      "transfer_prompt_fi": "Kahvilan ruokalista ei kerro allergeeneista. Kysy, sisältääkö annos maitoa. Älä väitä allergiaa, jos kyseessä on vain mieltymys.",
+      "transfer_prompt_uk": "У новому кафе уточни склад страви без вигадування алергії.",
+      "delayed_selftest_fi": "Selitä viikon kuluttua omin sanoin jokin ruokavalioon liittyvä toive.",
+      "asset_status": "source_link_only_not_in_web_player",
+      "mode": "LEARN_draft_not_shipped",
+      "response_status": "ungraded",
+      "teacher_review": "pending",
+      "auto_feedback": false,
+      "delayed_review_automation": false
+    },
+    {
+      "exercise_id": "av-src-a22-strong-refusal",
+      "level": "A2.2",
+      "audio_candidate_id": "ei_missaan_tapauksessa_2026",
+      "photo_id": "kerava-kerrostalo",
+      "title_uk": "Категорична відмова й регістр",
+      "independent_listening_prompt_fi": "Kuuntele ilmaus. Onko kieltäytyminen lievä vai voimakas? Vastaa suomeksi.",
+      "independent_task_uk": "Яка сила відмови: нейтральна чи різка? Поясни.",
+      "repair_prompt_fi": "Vertaa sävyä: Ei missään tapauksessa on hyvin vahva; Valitettavasti se ei sovi on usein kohteliaampi.",
+      "models_after_first_attempt_fi": [
+        "Ei missään tapauksessa!",
+        "Valitettavasti se ei sovi minulle."
+      ],
+      "transfer_prompt_fi": "Naapuri ehdottaa myöhäisillan kovaa meteliä. Kieltäydy asiallisesti, selitä lyhyesti ja ehdota hiljaisempaa vaihtoehtoa.",
+      "transfer_prompt_uk": "Перенесення: сусід пропонує галас увечері — відмов ввічливо.",
+      "delayed_selftest_fi": "Viikon kuluttua ilmaise voimakas kielto ja kohtelias vaihtoehto.",
+      "asset_status": "source_link_only_not_in_web_player",
+      "mode": "LEARN_draft_not_shipped",
+      "response_status": "ungraded",
+      "teacher_review": "pending",
+      "auto_feedback": false,
+      "delayed_review_automation": false
+    }
+  ],
+  "source_only_disclosure": "Five source-page-verified external audio candidates have independent, ungraded draft exercises; no local files, no new player entries, no audio download or offline functionality until separately verified import."
 }
