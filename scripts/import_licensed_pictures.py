@@ -62,6 +62,10 @@ def main():
     items=data["items"]
     if len(items)!=MAX_IMAGES or {x["id"] for x in items}!=EXPECTED_IDS:
         raise ValueError("Import allowlist changed; require human review")
+    previous={}
+    if AVAILABLE.exists():
+        old=json.loads(AVAILABLE.read_text(encoding="utf-8"))
+        previous={record["id"]:record for record in old.get("assets",[])}
     ready=[];errors=[]
     for item in items:
         if item["license"]!=ALLOWED_LICENSE or not item.get("source_page_attribution_verified"):
@@ -78,9 +82,14 @@ def main():
                     width,height=im.size
                 if len(raw)>MAX_BYTES or not (400<=width<=1200 and 250<=height<=1200):
                     raise ValueError("Existing photo outside quality boundaries")
-                download_url="previously_verified_commons_thumbnail_reuse"
+                earlier=previous.get(item["id"])
+                current_hash=hashlib.sha256(raw).hexdigest()
+                if earlier and earlier.get("sha256")!=current_hash:
+                    raise ValueError("Existing image changed since verified manifest: "+item["id"])
+                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
             else:
-                raw,width,height,download_url=download(item)
+                raw,width,height,_=download(item)
+                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
                 path.write_bytes(raw)
             ready.append({**{k:item[k] for k in ("id","path","source_url","author","license","license_url","alt_fi","alt_uk","levels","topics","teacher_review")},
                           "state":"verified_binary","bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
