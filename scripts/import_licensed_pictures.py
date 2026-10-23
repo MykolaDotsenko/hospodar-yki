@@ -50,9 +50,23 @@ def download(item):
             with Image.open(io.BytesIO(raw)) as im:
                 im.verify()
             with Image.open(io.BytesIO(raw)) as im:
-                width,height=im.size
-                if im.format!="JPEG" or not (400<=width<=1200 and 250<=height<=1200):
-                    raise ValueError(f"Unsupported image format/size: {im.format} {im.size}")
+                if im.format!="JPEG":
+                    raise ValueError("Unexpected image format")
+                # Commons Redirect can serve a cached larger thumbnail even when a
+                # smaller width was requested. Reduce *proportionally*, preserving
+                # the real licensed pixels and without hiding a corrupt download.
+                if im.width > 2400 or im.height > 2400:
+                    raise ValueError("Unexpectedly oversized Commons thumbnail")
+                if im.width > 1200 or im.height > 1200:
+                    im.thumbnail((1200,1200), Image.Resampling.LANCZOS)
+                    dest=io.BytesIO()
+                    im.convert("RGB").save(dest,format="JPEG",quality=87,optimize=True)
+                    raw=dest.getvalue()
+                    width,height=im.size
+                else:
+                    width,height=im.size
+                if not (400<=width<=1200 and 250<=height<=1200):
+                    raise ValueError(f"Unsupported image dimensions after safe resize: {width}x{height}")
             return raw,width,height,response.geturl()
         except Exception as exc:
             last=exc
@@ -97,7 +111,7 @@ def main():
             ready.append({**{k:item[k] for k in ("id","path","source_url","author","license","license_url","alt_fi","alt_uk","levels","topics","teacher_review")},
                           "state":"verified_binary","bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
                           "width":width,"height":height,"download_method":"Wikimedia Commons JPEG 960px thumbnail",
-                          "derivative_note":"Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+                          "derivative_note":"Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
                           "download_url":download_url})
             print("VERIFIED",item["id"],width,height,len(raw))
         except Exception as exc:
