@@ -76,7 +76,7 @@ def issues(root:Path=ROOT)->list[str]:
             if forbidden in x:
                 problems.append("Unreviewed media/download/key in task: "+ident)
         for k in ("title_fi","cefr_suggested","material_kind","source_note_uk","source_rights_note"):
-            if not isinstance(x.get(k),str) or len(x[k].strip())<10:
+            if not isinstance(x.get(k),str) or len(x[k].strip())<(3 if k=="cefr_suggested" else 10):
                 problems.append("Missing description or rights disclosure: "+ident+"."+k)
         mission=x.get("mission",{})
         for k in ("independent_prompt_fi","reflection_uk","transfer_prompt_fi","delayed_recall_prompt_fi"):
