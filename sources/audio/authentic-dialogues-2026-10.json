@@ -1,0 +1,265 @@
+{
+  "schema_version": "1.0.0",
+  "curated_on": "2026-10-23",
+  "purpose": "Real publisher-listed multi-speaker or situation-based Finnish speech for external LEARN missions A2.1–B2.1, with supplementary text-only roleplays",
+  "source_scope": "Kielibuusti publisher landing pages",
+  "editorial_integrity": "Source metadata and course descriptions verified on publisher pages; media bytes/durations, individual transcripts, speaker acoustics, per-asset redistribution permissions NOT verified. No embedded or offline audio. Prompts do not presume particular utterances.",
+  "counts": {
+    "sources": 7,
+    "publisher_reported_mp3_transport": 6,
+    "publisher_reported_dentist_dialogues": 4,
+    "publisher_reported_hotel_videos": 8,
+    "publisher_reported_literature_podcast_episodes": 9,
+    "publisher_reported_text_only_care_dialogues": 8,
+    "imported_binaries": 0,
+    "exam_items": 0,
+    "graded_items": 0
+  },
+  "items": [
+    {
+      "id": "kielibuusti-public-transport-2024",
+      "title_fi": "Suomea julkisissa",
+      "cefr_suggested": "A2.1–A2.2",
+      "material_kind": "publisher_mp3_collection",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/suomea-julkisissa",
+      "author": "Emmi Pollari",
+      "license": "CC BY 4.0",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": 6,
+        "filenames": [
+          "kuuntelu-1.mp3",
+          "kuuntelu-2.mp3",
+          "kuuntelu-3.mp3",
+          "kuuntelu-4.mp3",
+          "kuuntelu-5.mp3",
+          "kuuntelu-6.mp3"
+        ],
+        "publisher_page_has_transcript": true
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele yksi kuudesta äänitteestä julkisesta liikenteestä. Kerro kahdella lauseella, mistä siinä puhutaan. Mainitse vain kuulemasi tiedot.",
+        "reflection_uk": "Знайди у почутому одну корисну фразу та поясни, у якому контексті її використають. Порівняй із текстом викладача тільки після власної спроби.",
+        "transfer_prompt_fi": "Bussi on myöhässä ja et tiedä, kelpaako lippusi. Kysy kuljettajalta kohteliaasti.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-dentist-dialogues-2023",
+      "title_fi": "Hammaslääkäriin – kuuntele dialogeja",
+      "cefr_suggested": "A2–B1",
+      "material_kind": "embedded_audio_dialogues",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/hammaslaakariin-kuuntele-dialogeja",
+      "author": "Emmi Pollari ja Anniina Sandström",
+      "license": "CC BY 4.0",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": 4,
+        "hosts": [
+          "Thinglink"
+        ],
+        "publisher_page_has_transcript": true
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele yksi neljästä hammaslääkäridialogista. Mitä potilas tai hoitaja yrittää selvittää? Vastaa omin sanoin.",
+        "reflection_uk": "Перевір після відповіді, хто говорить і з якою метою. У Thinglink текст доступний окремо; не дивись його перед прослуховуванням.",
+        "transfer_prompt_fi": "Soitat hammashoitolaan ja pyydät uutta aikaa, koska et pääse sovittuna päivänä.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-hotel-reception-2026",
+      "title_fi": "Asiakaspalvelutilanteita hotellin vastaanotossa",
+      "cefr_suggested": "A2–B1",
+      "material_kind": "externally_hosted_video_dialogues",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/asiakaspalvelutilanteita-hotellin-vastaanotossa",
+      "author": "Tuula Jäppinen, Päivi Peltonen ja Laura Uusitalo / Haaga-Helia",
+      "license": "CC BY-ND 4.0",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "video",
+        "publisher_reported_count": 8,
+        "hosts": [
+          "YouTube",
+          "Kielibuusti learner page"
+        ],
+        "publisher_page_has_transcript": false
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Katso yksi hotellin vastaanoton video ilman tekstityksiä, jos se on mahdollista. Mitä asiakas pyytää? Mitä työntekijä vastaa?",
+        "reflection_uk": "Після власної спроби переглянь ще раз і порівняй не окремі слова, а зміст прохання та відповіді. Відео CC BY-ND — не обрізай і не перевидавай.",
+        "transfer_prompt_fi": "Saavut hotelliin ja huoneesi varaus ei näy. Selitä tilanne kohteliaasti ja kysy ratkaisua.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-puhutsa-2026",
+      "title_fi": "Puhutsä suomee?",
+      "cefr_suggested": "A2–B1",
+      "material_kind": "external_colloquial_video_course",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/puhutsa-suomee",
+      "author": "Helsingin yliopisto, Centria, Haaga-Helia / DIGIJOUJOU",
+      "license": "not_explicitly_verified_on_listing",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "video",
+        "publisher_reported_count": null,
+        "hosts": [
+          "linked course"
+        ],
+        "publisher_page_has_transcript": null
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Katso yksi puhekielen video. Poimi kaksi eroa yleiskielen ja puhekielen välillä. Kerro erot itse.",
+        "reflection_uk": "Запиши два помічені скорочення чи розмовні конструкції. Не вигадуй прикладів зі звуку; якщо незрозуміло — переглянь повторно.",
+        "transfer_prompt_fi": "Selitä kaverille puhekielellä, miksi myöhästyit tapaamisesta, ja sano sama asia yleiskielellä.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-fiilis-2025",
+      "title_fi": "Mikä fiilis?",
+      "cefr_suggested": "A2–B2",
+      "material_kind": "written_colloquial_dialogues_not_audio",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/mika-fiilis",
+      "author": "Taija Udd",
+      "license": "CC BY (version not specified on page)",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "hosts": [
+          "Kielibuusti PDF/DOCX"
+        ],
+        "publisher_page_has_transcript": false
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Lue yksi puhekielinen dialogi ääneen. Mitä tunnetta puhuja ilmaisee? Vastaa ilman valmista mallia.",
+        "reflection_uk": "Це письмовий сценарій для рольової гри, не аудіозапис; спочатку відреагуй на репліку партнера, потім перечитай.",
+        "transfer_prompt_fi": "Ystäväsi on pettynyt työpäivään. Kysy, mikä fiilis hänellä on, ja vastaa myötätuntoisesti.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-care-dialogues-2026",
+      "title_fi": "Hoitajan ja potilaan vuorovaikutusta perushoitotilanteissa",
+      "cefr_suggested": "B1–B2",
+      "material_kind": "written_dialogues_not_audio",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/hoitajan-ja-potilaan-vuorovaikutusta-perushoitotilanteissa",
+      "author": "Hanna Aho / Metropolia AMK",
+      "license": "CC BY 4.0",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": 8,
+        "hosts": [
+          "Kielibuusti learner page"
+        ],
+        "publisher_page_has_transcript": false
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Valitse yksi kahdeksasta hoitotilanteen tekstidialogista. Lue ääneen roolissa ja kerro, mitä apua henkilö tarvitsee.",
+        "reflection_uk": "Це 8 текстових діалогів із словничками, а не 8 аудіотреків. Працюй із партнером або озвуч ролі самостійно.",
+        "transfer_prompt_fi": "Potilas ei ymmärrä ohjetta. Kerro se uudelleen selkeällä suomella ja kysy, ymmärsikö hän.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    },
+    {
+      "id": "kielibuusti-literature-podcast-2026",
+      "title_fi": "Kirjallisuuspodcast suomenoppijoille",
+      "cefr_suggested": "B1–B2.1",
+      "material_kind": "external_spoken_discussion_podcast",
+      "publisher": "Kielibuusti",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/opetusmateriaalipankki/kirjallisuuspodcast-suomenoppijoille",
+      "author": "Saija Pyhäniemi, Sari Päivärinne / Helsingin yliopisto; theme music Lauri Piiparinen",
+      "license": "CC BY-ND 4.0",
+      "label_level_basis": "publisher_page",
+      "source_page_checked_on": "2026-10-23",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": 9,
+        "hosts": [
+          "Spotify",
+          "Kielibuusti learner page"
+        ],
+        "publisher_page_has_transcript": true
+      },
+      "license_scope": "Publisher-labelled resource; verify individual media, text, music and downstream host rights before repackaging.",
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele yhden kirjallisuuspodcastin jakson alku. Mikä on keskustelun teema? Mitä kahta asiaa puhujat vertailevat, jos vertailevat?",
+        "reflection_uk": "Не обов'язково слухати довгий епізод повністю; B1 достатньо спершу визначити тему та один аргумент. Тексти епізодів відкривай після першої спроби.",
+        "transfer_prompt_fi": "Kerro ystävälle, mistä kuuntelemasi kulttuurikeskustelu kertoo, ja kerro myös oma mielipiteesi.",
+        "delayed_recall_prompt_fi": "Muistele huomenna kolmea hyödyllistä ilmaisua ja tee niillä uusi lyhyt dialogi."
+      }
+    }
+  ]
+}
