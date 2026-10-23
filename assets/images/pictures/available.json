@@ -240,7 +240,7 @@
       "height": 1200,
       "download_method": "Wikimedia Commons JPEG 960px thumbnail",
       "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
-      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Qwenselin_kahvila.jpg?width=960"
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Qwenselin_kahvila.jpg?width=640"
     }
   ],
   "failures": [],
