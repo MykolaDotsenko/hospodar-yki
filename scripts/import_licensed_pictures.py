@@ -36,7 +36,7 @@ def download(item):
             request=Request(redirect,headers={"User-Agent":UA,"Accept":"image/jpeg"})
             with urlopen(request,timeout=60) as response:
                 actual=urlparse(response.geturl())
-                if actual.scheme!="https" or actual.hostname!="upload.wikimedia.org":
+                if actual.scheme!="https" or actual.hostname not in {"upload.wikimedia.org","thumb.wikimedia.org"}:
                     raise ValueError("Untrusted image redirect to "+str(actual.hostname))
                 mime=response.headers.get("Content-Type","")
                 if "image/jpeg" not in mime:
