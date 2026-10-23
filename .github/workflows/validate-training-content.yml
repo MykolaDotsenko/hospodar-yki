@@ -4,11 +4,23 @@ on:
     branches: [main]
     paths:
       - 'learning/exercises/**'
+      - 'assets/audio/library.json'
+      - 'assets/audio/available.json'
+      - 'assets/images/pictures/available.json'
+      - 'assets/images/illustrations/library.json'
+      - 'scripts/validate_a1_audio_visual.py'
+      - 'scripts/tests/test_validate_a1_audio_visual.py'
       - 'scripts/validate_training_content.mjs'
       - '.github/workflows/validate-training-content.yml'
   pull_request:
     paths:
       - 'learning/exercises/**'
+      - 'assets/audio/library.json'
+      - 'assets/audio/available.json'
+      - 'assets/images/pictures/available.json'
+      - 'assets/images/illustrations/library.json'
+      - 'scripts/validate_a1_audio_visual.py'
+      - 'scripts/tests/test_validate_a1_audio_visual.py'
       - 'scripts/validate_training_content.mjs'
 permissions:
   contents: read
@@ -22,3 +34,7 @@ jobs:
           node-version: '22'
       - name: Validate machine-readable B1 material and scoring constraints
         run: node scripts/validate_training_content.mjs
+      - name: Validate natural audio plus photo A1.3–A2.2 lesson integrity
+        run: |
+          python3 scripts/validate_a1_audio_visual.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_a1_audio_visual.py' -v
