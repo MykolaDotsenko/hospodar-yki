@@ -6,6 +6,9 @@ on:
     paths:
       - 'sources/audio/yki-targeted-sources-2026-10.json'
       - 'sources/audio/recording-sources.json'
+      - 'learning/exercises/a1/audio-visual/lessons.json'
+      - 'scripts/validate_a1_audio_candidates.py'
+      - 'scripts/tests/test_validate_a1_audio_candidates.py'
       - 'sources/audio/YKI-LISTENING-RESEARCH-2026-10.md'
       - 'scripts/validate_yki_listening_sources.py'
       - '.github/workflows/validate-yki-listening-sources.yml'
@@ -13,6 +16,9 @@ on:
     paths:
       - 'sources/audio/yki-targeted-sources-2026-10.json'
       - 'sources/audio/recording-sources.json'
+      - 'learning/exercises/a1/audio-visual/lessons.json'
+      - 'scripts/validate_a1_audio_candidates.py'
+      - 'scripts/tests/test_validate_a1_audio_candidates.py'
       - 'sources/audio/YKI-LISTENING-RESEARCH-2026-10.md'
       - 'scripts/validate_yki_listening_sources.py'
       - '.github/workflows/validate-yki-listening-sources.yml'
@@ -28,3 +34,7 @@ jobs:
           python-version: '3.12'
       - name: Check external audio links, source types and attribution metadata
         run: python3 scripts/validate_yki_listening_sources.py
+      - name: Reject false local audio and unsafe unreviewed candidate exercises
+        run: |
+          python3 scripts/validate_a1_audio_candidates.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_a1_audio_candidates.py' -v
