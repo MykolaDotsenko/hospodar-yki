@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "status": "original_visual_tasks_with_verified_local_photos_teacher_review_pending",
-  "goal": "Introduce and retrieve practical Finnish using real-life photographs, no answer-hint leakage",
+  "status": "original_visual_tasks_with_verified_local_photos_teacher_review_pending_after_import",
+  "goal": "Progressive real-life image-led Finnish missions, A1.3 to B1.1; unreviewed learner production is always ungraded",
   "levels": [
     "A1.3",
     "A2.1",
@@ -83,6 +83,78 @@
         "Tarkistan aikataulun."
       ],
       "transfer_prompt_fi": "Bussi on myöhässä. Soita ystävälle ja selitä tilanne.",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a2-picture-library",
+      "level": "A2.1",
+      "topic": "kirjasto",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Kuvaile kirjastoa. Miksi ihmiset käyvät kirjastossa?",
+      "scaffold_after_attempt_fi": [
+        "Kirjastossa voi lukea ja lainata kirjoja.",
+        "Voisitteko auttaa minua löytämään suomenkielisen kirjan?"
+      ],
+      "transfer_prompt_fi": "Kirjaston kirja on myöhässä. Kysy ystävällisesti, voiko laina-aikaa jatkaa.",
+      "image_id": "turku-paakirjasto",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a2-picture-train",
+      "level": "A2.2",
+      "topic": "juna",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Mitä näet kuvassa? Millainen junamatka olisi mukava?",
+      "scaffold_after_attempt_fi": [
+        "Tämä on junan matkustamo.",
+        "Anteeksi, onko tämä paikka vapaa?"
+      ],
+      "transfer_prompt_fi": "Juna on myöhässä 20 minuuttia. Kirjoita lyhyt viesti henkilölle, joka odottaa sinua asemalla.",
+      "image_id": "intercity-junassa",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a2-picture-health-centre",
+      "level": "B1.1",
+      "topic": "terveysasema",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Mitä rakennusta kuvassa esitetään? Miksi sinne mennään?",
+      "scaffold_after_attempt_fi": [
+        "Tämä on terveysasema.",
+        "Minulla on ollut kuumetta kolme päivää. Haluaisin varata ajan."
+      ],
+      "transfer_prompt_fi": "Sinun täytyy siirtää lääkäriaika. Jätä ystävällinen puhelinviesti ja ehdota uutta aikaa.",
+      "image_id": "maunula-terveysasema",
+      "response_status": "ungraded",
+      "availability_source": "assets/images/pictures/available.json"
+    },
+    {
+      "lesson_id": "a1-picture-cafe",
+      "level": "A1.3",
+      "topic": "kahvila",
+      "skills": [
+        "speaking",
+        "writing"
+      ],
+      "initial_prompt_fi": "Missä ihmiset voivat juoda kahvia? Mitä itse tilaisit?",
+      "scaffold_after_attempt_fi": [
+        "Haluaisin kupin kahvia, kiitos.",
+        "Paljonko pulla maksaa?"
+      ],
+      "transfer_prompt_fi": "Tilauksesta puuttuu tee. Kerro siitä kohteliaasti kahvilan työntekijälle.",
+      "image_id": "qwensel-kahvila-turku",
       "response_status": "ungraded",
       "availability_source": "assets/images/pictures/available.json"
     }

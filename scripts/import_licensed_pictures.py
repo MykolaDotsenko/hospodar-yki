@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict Wikimedia Commons allowlist import for 4 Finnish A1.3–B1 photos.
+"""Strict Wikimedia Commons allowlist import for 8 Finnish A1.3–B1.1 photos.
 
 DO NOT copy arbitrary YouTube/Yle image assets. Offline manifest is generated
 only for JPEGs whose bytes and dimensions were genuinely inspected.
@@ -20,8 +20,8 @@ SOURCES=ROOT/"assets/images/pictures/sources.json"
 AVAILABLE=ROOT/"assets/images/pictures/available.json"
 COMMONS="https://commons.wikimedia.org/wiki/File:"
 MAX_BYTES=2_500_000
-MAX_IMAGES=4
-EXPECTED_IDS={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki"}
+MAX_IMAGES=8
+EXPECTED_IDS={"kauppatori-turku","s-market-kauppa","kerava-kerrostalo","espoo-bussipysakki","turku-paakirjasto","intercity-junassa","maunula-terveysasema","qwensel-kahvila-turku"}
 ALLOWED_LICENSE="CC BY-SA 4.0"
 UA="HospodarYKI-educational-media-import/1.0 (https://github.com/MykolaDotsenko/hospodar-yki; Wikimedia Commons licensed thumbnail)";
 
@@ -29,7 +29,10 @@ def download(item):
     filename=item["filename"]
     source=item["source_url"]
     assert source == COMMONS+filename.replace(" ","_"), "Unexpected source page: "+source
-    redirect="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(filename.replace(" ","_"),safe="")+"?width=960"
+    width=item.get("download_max_width",960)
+    if width not in (640,960):
+        raise ValueError("Unapproved thumbnail width")
+    redirect="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(filename.replace(" ","_"),safe="")+f"?width={width}"
     last=None
     for retry in range(3):
         try:
@@ -47,9 +50,23 @@ def download(item):
             with Image.open(io.BytesIO(raw)) as im:
                 im.verify()
             with Image.open(io.BytesIO(raw)) as im:
-                width,height=im.size
-                if im.format!="JPEG" or not (400<=width<=1200 and 250<=height<=1200):
-                    raise ValueError(f"Unsupported image format/size: {im.format} {im.size}")
+                if im.format!="JPEG":
+                    raise ValueError("Unexpected image format")
+                # Commons Redirect can serve a cached larger thumbnail even when a
+                # smaller width was requested. Reduce *proportionally*, preserving
+                # the real licensed pixels and without hiding a corrupt download.
+                if im.width > 2400 or im.height > 2400:
+                    raise ValueError("Unexpectedly oversized Commons thumbnail")
+                if im.width > 1200 or im.height > 1200:
+                    im.thumbnail((1200,1200), Image.Resampling.LANCZOS)
+                    dest=io.BytesIO()
+                    im.convert("RGB").save(dest,format="JPEG",quality=87,optimize=True)
+                    raw=dest.getvalue()
+                    width,height=im.size
+                else:
+                    width,height=im.size
+                if not (400<=width<=1200 and 250<=height<=1200):
+                    raise ValueError(f"Unsupported image dimensions after safe resize: {width}x{height}")
             return raw,width,height,response.geturl()
         except Exception as exc:
             last=exc
@@ -86,7 +103,7 @@ def main():
                 current_hash=hashlib.sha256(raw).hexdigest()
                 if earlier and earlier.get("sha256")!=current_hash:
                     raise ValueError("Existing image changed since verified manifest: "+item["id"])
-                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
+                download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+f"?width={item.get('download_max_width',960)}"
             else:
                 raw,width,height,_=download(item)
                 download_url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+quote(item["filename"].replace(" ","_"),safe="")+"?width=960"
@@ -94,7 +111,7 @@ def main():
             ready.append({**{k:item[k] for k in ("id","path","source_url","author","license","license_url","alt_fi","alt_uk","levels","topics","teacher_review")},
                           "state":"verified_binary","bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
                           "width":width,"height":height,"download_method":"Wikimedia Commons JPEG 960px thumbnail",
-                          "derivative_note":"Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+                          "derivative_note":"Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
                           "download_url":download_url})
             print("VERIFIED",item["id"],width,height,len(raw))
         except Exception as exc:

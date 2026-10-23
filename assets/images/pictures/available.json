@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "verified_count": 4,
-  "source_count": 4,
+  "verified_count": 8,
+  "source_count": 8,
   "assets": [
     {
       "id": "kauppatori-turku",
@@ -29,7 +29,7 @@
       "width": 960,
       "height": 720,
       "download_method": "Wikimedia Commons JPEG 960px thumbnail",
-      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
       "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Market_Square%2C_Turku.jpg?width=960"
     },
     {
@@ -59,7 +59,7 @@
       "width": 960,
       "height": 720,
       "download_method": "Wikimedia Commons JPEG 960px thumbnail",
-      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
       "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cashes_in_S-market.jpg?width=960"
     },
     {
@@ -89,7 +89,7 @@
       "width": 960,
       "height": 660,
       "download_method": "Wikimedia Commons JPEG 960px thumbnail",
-      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
       "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Apartment_building_by_Porvoonkatu_in_Kerava%2C_Finland%2C_2022_April.jpg?width=960"
     },
     {
@@ -119,8 +119,128 @@
       "width": 960,
       "height": 720,
       "download_method": "Wikimedia Commons JPEG 960px thumbnail",
-      "derivative_note": "Thumbnail resized by Wikimedia; CC BY-SA 4.0 applies; no other edits",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
       "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pohjantie_with_bus_stop_on_a_sunny_afternoon_in_August_2025.jpg?width=960"
+    },
+    {
+      "id": "turku-paakirjasto",
+      "path": "assets/images/pictures/turku-paakirjasto.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Turun_kaupunginkirjasto_sisältä_2018.jpg",
+      "author": "Vilho Verkkotoimitus",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Turun pääkirjaston sisätila, jossa voi lukea ja lainata kirjoja.",
+      "alt_uk": "Внутрішній простір головної бібліотеки Турку.",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "library",
+        "borrowing",
+        "study",
+        "help_request"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 158675,
+      "sha256": "381f91cb538e0dee715c1296ac43c222579112552ecd75b62197f42ddbdfec7d",
+      "width": 960,
+      "height": 540,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Turun_kaupunginkirjasto_sis%C3%A4lt%C3%A4_2018.jpg?width=960"
+    },
+    {
+      "id": "intercity-junassa",
+      "path": "assets/images/pictures/intercity-junassa.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Interior_of_InterCity_train_from_Helsinki_to_Hämeenlinna.jpg",
+      "author": "JIP",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Suomalaisen InterCity-junan matkustamo, jossa on istuimia ja käytävä.",
+      "alt_uk": "Пасажирський салон фінського поїзда InterCity, сидіння та прохід.",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "train",
+        "travel",
+        "ticket",
+        "seat"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 151183,
+      "sha256": "c97b762a5a9de8a4b44934d95ed56db2d44c9bf2261add419b3144bb9588d685",
+      "width": 960,
+      "height": 720,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Interior_of_InterCity_train_from_Helsinki_to_H%C3%A4meenlinna.jpg?width=960"
+    },
+    {
+      "id": "maunula-terveysasema",
+      "path": "assets/images/pictures/maunula-terveysasema.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Maunulan_terveysasema.jpg",
+      "author": "Ppntori",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Helsingin Maunulan terveysaseman rakennus ulkoa.",
+      "alt_uk": "Будівля медичного центру Maunula в Гельсінкі.",
+      "levels": [
+        "A2.1",
+        "A2.2",
+        "B1.1"
+      ],
+      "topics": [
+        "health",
+        "health_centre",
+        "appointment",
+        "symptoms"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 108817,
+      "sha256": "ecdc142fb4e25923950c965016bd948752ae836be7b3626e251ffcde76d5d772",
+      "width": 960,
+      "height": 540,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Maunulan_terveysasema.jpg?width=960"
+    },
+    {
+      "id": "qwensel-kahvila-turku",
+      "path": "assets/images/pictures/qwensel-kahvila-turku.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Qwenselin_kahvila.jpg",
+      "author": "Vilho Verkkotoimitus",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt_fi": "Qwenselin kahvila Turun Apteekkimuseon sisäpihalla.",
+      "alt_uk": "Кафе Qwensel у внутрішньому дворі Аптечного музею в Турку.",
+      "levels": [
+        "A1.3",
+        "A2.1",
+        "B1.1"
+      ],
+      "topics": [
+        "cafe",
+        "food",
+        "ordering",
+        "polite_request"
+      ],
+      "teacher_review": "pending",
+      "state": "verified_binary",
+      "bytes": 419518,
+      "sha256": "d7193b2d5d13d2f443ae34dff16bce146642765ad81fc15ed60b92d8cfc72e5e",
+      "width": 800,
+      "height": 1200,
+      "download_method": "Wikimedia Commons JPEG 960px thumbnail",
+      "derivative_note": "Commons JPEG thumbnail; portrait files may be proportionally downsampled with Pillow to <=1200px; CC BY-SA 4.0 applies; no other edits",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Qwenselin_kahvila.jpg?width=640"
     }
   ],
   "failures": [],

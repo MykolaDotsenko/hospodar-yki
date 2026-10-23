@@ -18,7 +18,7 @@ class VisualAssetTests(unittest.TestCase):
                 target=self.root/p.relative_to(ROOT)
                 target.parent.mkdir(parents=True,exist_ok=True)
                 shutil.copy2(p,target)
-    def test_five_real_svg_and_allowlist_valid(self):
+    def test_real_svg_and_eight_photo_sources_valid(self):
         self.assertEqual(check(self.root),[])
     def test_photo_source_is_not_photo_binary(self):
         self.assertTrue(any("not all" in e.lower() or "missing" in e.lower()
@@ -33,6 +33,15 @@ class VisualAssetTests(unittest.TestCase):
         x["items"][0]["alt_fi"]=""
         p.write_text(json.dumps(x))
         self.assertTrue(any("description" in e for e in check(self.root)))
+    def test_all_new_photo_ids_have_ungraded_lessons(self):
+        data=json.loads((self.root/"assets/images/pictures/sources.json").read_text())
+        lessons=json.loads((self.root/"learning/exercises/a1/image-led/lessons.json").read_text())
+        self.assertEqual(len(data["items"]),8)
+        self.assertEqual(len(lessons["items"]),8)
+        self.assertEqual(set(x["id"] for x in data["items"]),
+                         set(x["image_id"] for x in lessons["items"]))
+        self.assertTrue(all(x["response_status"]=="ungraded" for x in lessons["items"]))
+
     def test_ungraded_picture_mission_cannot_reference_unknown_image(self):
         p=self.root/"learning/exercises/a1/image-led/lessons.json"
         data=json.loads(p.read_text())
@@ -44,6 +53,20 @@ class VisualAssetTests(unittest.TestCase):
         text=p.read_text()
         p.write_text(text.replace("</svg>","<script>alert(1)</script></svg>"))
         self.assertTrue(any("Untrusted SVG" in e for e in check(self.root)))
+
+    def test_photo_license_cannot_be_silently_changed(self):
+        path=self.root/"assets/images/pictures/sources.json"
+        data=json.loads(path.read_text())
+        data["items"][4]["license"]="all-rights-reserved"
+        path.write_text(json.dumps(data))
+        self.assertTrue(any("license" in e.lower() for e in check(self.root)))
+
+    def test_image_missions_never_auto_grade_speaking(self):
+        path=self.root/"learning/exercises/a1/image-led/lessons.json"
+        data=json.loads(path.read_text())
+        data["items"][7]["response_status"]="official_YKI_B1"
+        path.write_text(json.dumps(data))
+        self.assertTrue(any("assessment" in e.lower() for e in check(self.root)))
 
 if __name__=="__main__":
     unittest.main()

@@ -9,7 +9,7 @@ permissions:
   contents: write
 jobs:
   verify-and-commit:
-    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'content/a1-b1-visual-library-wave1')
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'content/a1-b2-visual-library-wave2-2026-10-23')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -25,7 +25,7 @@ jobs:
         run: python3 -m pip install 'Pillow==11.3.0'
       - name: Download only allowlisted and attributed Commons thumbnails
         run: python3 scripts/import_licensed_pictures.py
-      - name: Verify all four physical JPEGs and licenses
+      - name: Verify all eight physical JPEGs and licenses
         run: python3 scripts/validate_visual_assets.py --require-pictures
       - name: Save only approved images and matching SHA-256 availability
         shell: bash
@@ -37,9 +37,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- assets/images/pictures/
           if git diff --cached --quiet; then
-            echo "All 4 pictures already in Git"
+            echo "All 8 pictures already in Git"
           else
-            git commit -m "content(pictures): import four attributed Wikimedia Commons JPEGs [skip ci]"
+            git commit -m "content(pictures): import wave2 eight attributed Wikimedia Commons JPEGs [skip ci]"
             git pull --rebase origin "$HEAD_REF"
             git push origin "HEAD:$HEAD_REF"
           fi
