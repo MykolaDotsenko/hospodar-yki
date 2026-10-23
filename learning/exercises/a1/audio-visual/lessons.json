@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "LEARN_only",
+  "status": "original_drafts_teacher_review_pending",
+  "grading": "ungraded",
+  "automatic_srs": "not_implemented",
+  "audio_manifest": "assets/audio/library.json",
+  "audio_availability": "assets/audio/available.json",
+  "photo_availability": "assets/images/pictures/available.json",
+  "illustration_manifest": "assets/images/illustrations/library.json",
+  "items": [
+    {
+      "lesson_id": "av-a13-market-numbers",
+      "level": "A1.3",
+      "title_uk": "Ринок: числа й ціни",
+      "image_id": "kauppatori-turku",
+      "audio_id": "numbers_1_24",
+      "audio_relation": "Numbers 1–24 are a pronunciation sequence, NOT a market negotiation",
+      "listen_fi": "Kuuntele numerot 1–24. Mitkä kolme lukua tunnistit?",
+      "first_task_fi": "Olet torilla. Kirjoita kolme kuulemaasi lukua ja kysy yhden tuotteen hintaa.",
+      "first_task_uk": "Запиши три почуті числа та самостійно спитай ціну товару.",
+      "repair_task_fi": "Tarkista oma kysymyksesi. Muotoile se kohteliaasti uudelleen.",
+      "model_after_attempt_fi": [
+        "Paljonko tämä maksaa?",
+        "Se maksaa viisi euroa."
+      ],
+      "transfer_task_fi": "Olet nyt toisessa kaupassa. Kysy kahden tuotteen hinnat ja vastaa käyttäen kahta eri lukua.",
+      "transfer_task_uk": "Інший магазин: дві ціни й два різні числа.",
+      "delayed_prompt_fi": "Keksi huomenna uusi ostostilanne ilman mallilausetta.",
+      "scaffold_illustration_id": null,
+      "review_days": [
+        1,
+        7,
+        14
+      ],
+      "review_status": "suggested_only",
+      "teacher_review": "pending",
+      "response_status": "ungraded"
+    },
+    {
+      "lesson_id": "av-a13-shop-repair",
+      "level": "A1.3",
+      "title_uk": "Магазин: попросити повторити",
+      "image_id": "s-market-kauppa",
+      "audio_id": "en_ymmarra",
+      "audio_relation": "Exact human-recorded phrase 'En ymmärrä', NOT a supermarket dialogue",
+      "listen_fi": "Kuuntele ilmaus kahdesti. Mitä puhuja sanoo?",
+      "first_task_fi": "Myyjä sanoo jotakin, mutta et ymmärrä. Miten vastaat kohteliaasti?",
+      "first_task_uk": "Продавця не зрозуміло: спочатку самостійно відповідай.",
+      "repair_task_fi": "Käytä kuulemaasi ilmausta ja pyydä myyjää sanomaan asia uudelleen.",
+      "model_after_attempt_fi": [
+        "En ymmärrä.",
+        "Voisitko sanoa uudelleen, kiitos?"
+      ],
+      "transfer_task_fi": "Olet bussissa etkä kuule pysäkin nimeä. Miten pyydät kuljettajaa toistamaan sen?",
+      "transfer_task_uk": "Тепер автобус: попроси повторити назву зупинки.",
+      "delayed_prompt_fi": "Kerro viikon päästä ilman mallia, miten pyydät puhumaan hitaammin.",
+      "scaffold_illustration_id": "communication-repair-ladder",
+      "review_days": [
+        1,
+        7,
+        14
+      ],
+      "review_status": "suggested_only",
+      "teacher_review": "pending",
+      "response_status": "ungraded"
+    },
+    {
+      "lesson_id": "av-a21-bus-metro-transfer",
+      "level": "A2.1",
+      "title_uk": "Зустріч і транспорт",
+      "image_id": "espoo-bussipysakki",
+      "audio_id": "metro_dialogue",
+      "audio_relation": "Actual metro-meeting dialogue; bus image is a DIFFERENT transfer setting",
+      "listen_fi": "Kuuntele keskustelu tapaamisesta metroasemalla. Mikä on keskustelun aihe?",
+      "first_task_fi": "Kirjoita omin sanoin, mistä keskustelussa on kyse.",
+      "first_task_uk": "Передай головну думку справжнього діалогу біля метро.",
+      "repair_task_fi": "Muotoile yksi selkeä lause siitä, mistä keskustelussa sovitaan.",
+      "model_after_attempt_fi": [
+        "He puhuvat tapaamisesta.",
+        "Missä me tapaamme?"
+      ],
+      "transfer_task_fi": "Bussi myöhästyy. Lähetä ystävälle viesti ja ehdota uutta tapaamisaikaa.",
+      "transfer_task_uk": "Автобус запізнюється: запропонуй інший час зустрічі.",
+      "delayed_prompt_fi": "Kerro myöhemmin, mitä sanot, kun et löydä sovittua tapaamispaikkaa.",
+      "scaffold_illustration_id": null,
+      "review_days": [
+        1,
+        7,
+        14
+      ],
+      "review_status": "suggested_only",
+      "teacher_review": "pending",
+      "response_status": "ungraded"
+    },
+    {
+      "lesson_id": "av-a21-library-clarify",
+      "level": "A2.1",
+      "title_uk": "Бібліотека: ще не знаю",
+      "image_id": "turku-paakirjasto",
+      "audio_id": "en_tieda",
+      "audio_relation": "Exact human-recorded 'En tiedä', NOT a library conversation",
+      "listen_fi": "Kuuntele ilmaus. Milloin sitä voi käyttää?",
+      "first_task_fi": "Kirjaston työntekijä kysyy, mikä kirja sinua kiinnostaa. Et vielä tiedä. Miten vastaat?",
+      "first_task_uk": "Ти поки не знаєш, яка книга потрібна. Відповідай ввічливо.",
+      "repair_task_fi": "Vastaa uudelleen ja lisää ystävällinen lisäkysymys.",
+      "model_after_attempt_fi": [
+        "En vielä tiedä.",
+        "Voisitko suositella helppoa kirjaa?"
+      ],
+      "transfer_task_fi": "Työpaikalla kysytään sopivaa kokousaikaa. Et tiedä vielä. Miten vastaat ja lupaat tarkistaa?",
+      "transfer_task_uk": "Нова ситуація: робочий графік і ввічлива невизначеність.",
+      "delayed_prompt_fi": "Keksi uusi tilanne, jossa kysyt lisätietoa, kun et tiedä vastausta.",
+      "scaffold_illustration_id": null,
+      "review_days": [
+        1,
+        7,
+        14
+      ],
+      "review_status": "suggested_only",
+      "teacher_review": "pending",
+      "response_status": "ungraded"
+    },
+    {
+      "lesson_id": "av-a22-train-new-plan",
+      "level": "A2.2",
+      "title_uk": "Потяг: змінити план",
+      "image_id": "intercity-junassa",
+      "audio_id": "metro_dialogue",
+      "audio_relation": "Metro dialogue intentionally REUSED to transfer meeting language to train travel",
+      "listen_fi": "Kuuntele tapaamisdialogi. Mitä ilmaisua voit käyttää myös junamatkalla?",
+      "first_task_fi": "Olet junassa matkalla tapaamiseen. Kirjoita viesti: missä olet ja milloin saavut?",
+      "first_task_uk": "Напиши власне повідомлення з потяга: місце й час прибуття.",
+      "repair_task_fi": "Paranna viestiä lisäämällä syy ja uusi tapaamisaika.",
+      "model_after_attempt_fi": [
+        "Olen vielä junassa.",
+        "Juna on myöhässä, joten tapaammeko kello kuusi?"
+      ],
+      "transfer_task_fi": "Juna on peruttu. Soita ystävälle ja ehdota toista tapaamistapaa.",
+      "transfer_task_uk": "Потяг скасували: домовся про альтернативу.",
+      "delayed_prompt_fi": "Kirjoita ilman mallia viikon kuluttua viesti aikaisemmasta saapumisesta.",
+      "scaffold_illustration_id": null,
+      "review_days": [
+        1,
+        7,
+        14
+      ],
+      "review_status": "suggested_only",
+      "teacher_review": "pending",
+      "response_status": "ungraded"
+    }
+  ]
+}

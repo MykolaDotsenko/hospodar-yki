@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "updated_at": "2026-10-23",
   "status": "real_svg_assets_original_teacher_review_pending",
-  "summary": "Five actual self-contained, offline-capable original vector learning diagrams. Teachers should review Finnish linguistic examples before EXAM.",
+  "summary": "Six actual, offline-capable original learning SVG diagrams; teacher review pending.",
   "items": [
     {
       "id": "clock-15-30",
@@ -71,6 +71,21 @@
       "alt_fi": "Kaavio suomen neljästä aikamuodosta ja esimerkeistä.",
       "alt_uk": "Навчальна схема чотирьох часів фінської мови з прикладами.",
       "topic": "tenses",
+      "media_type": "image/svg+xml",
+      "creator": "Hospodar YKI project",
+      "license": "project_original",
+      "source": "original_vector_asset",
+      "teacher_review": "pending",
+      "has_visible_solution": true,
+      "mode": "LEARN_only"
+    },
+    {
+      "id": "communication-repair-ladder",
+      "path": "assets/images/illustrations/communication-repair-ladder.svg",
+      "level": "A1.3–A2.1",
+      "alt_fi": "Kolme tapaa pyytää tarkennusta: En ymmärrä, voisitko sanoa uudelleen ja voisitko puhua hitaammin.",
+      "alt_uk": "Три фрази для уточнення: не розумію, повторіть і говоріть повільніше.",
+      "topic": "communication_repair",
       "media_type": "image/svg+xml",
       "creator": "Hospodar YKI project",
       "license": "project_original",

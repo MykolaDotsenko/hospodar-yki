@@ -98,3 +98,7 @@ Specs: [product requirements](../docs/11-mvp-product-requirements.md) · [archit
 ## Architecture integration plan (22.10.2026)
 
 The current browser MVP remains the compatibility baseline. [ADR-027](../docs/27-stack-architecture-compatibility-and-implementation-gates.md) records the design-fit audit, unification requirements for exam checkpoints vs immutable first attempts, Android Room/PAD integration, and test cases C-01…C-10. [G0–G6 roadmap](../docs/25-implementation-vertical-slice-roadmap.md) distinguishes implemented behavior from target releases. The app is **not** a React/Phaser/Capacitor build; the learning page still uses `localStorage`, and an Android AAB has not been built.
+
+## Нові A1.3–A2.2 аудіо+фото (чернетка)
+
+[Реальні інтерактивні ситуації](real-life.html) використовують 4 існуючі живі аудіозаписи, 5 атрибутованих фото й 1 оригінальну SVG-підказку, яку показано лише після першої відповіді. На новій сторінці три етапи відповіді, без оцінювання/мікрофона/постійного збереження та без автоматичного SRS; [джерела й перевірки](../learning/exercises/a1/audio-visual/README.md).
