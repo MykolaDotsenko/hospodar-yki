@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-21",
+  "updated_at": "2026-10-24",
   "project": "Hospodar YKI",
   "target": "Ukrainian-speaking adult learner from A2.2 to B1/B1+, four official YKI skills",
   "source_catalog": "research/pedagogy/learning-methods-v1.json",
@@ -33,7 +33,8 @@
     "No third-party article text copied; links and high-level paraphrases only.",
     "All research scores use source abstract/available public publisher text; full systematic quality audits and risk-of-bias appraisals have not been completed.",
     "No method by itself guarantees YKI grade 3, and each of the four skills needs independent unseen tasks.",
-    "Role=assessment_or_infrastructure is necessary for validity or privacy but not a direct training effect."
+    "Role=assessment_or_infrastructure is necessary for validity or privacy but not a direct training effect.",
+    "2026-10-24: Sangers et al. 2025 extensive-reading meta adds convergent cross-domain L2 evidence; extensive-reading method score remains an uncalibrated expert estimate (91/100), not an observed effect size."
   ],
   "ratings": [
     {
@@ -330,7 +331,8 @@
       "basis_uk": "Регулярне об'ємне читання покращує навичку читання та мовний досвід.",
       "study_caveat_uk": "Саме по собі не замінює розмову.",
       "source_ids": [
-        "reading"
+        "reading",
+        "extensive2025"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
