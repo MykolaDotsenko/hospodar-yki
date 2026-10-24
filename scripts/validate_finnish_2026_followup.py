@@ -37,8 +37,15 @@ def audit(root=ROOT):
     refs=m.get("source_register",{})
     if len(methods)!=70 or len(ratings)!=70 or len(refs)!=80 or e.get("count")!=70 or methods.keys()!=ratings.keys():
         problems.append("Canonical 70 method / 80 distinct sources / 70 unchanged ratings count mismatch")
-    if len({x.get("url") for x in refs.values()})!=len(refs):
-        problems.append("Scholarly source duplicate URL")
+    # Two pre-existing legacy aliases point to the same works; preserve their IDs
+    # for backward compatibility but reject any additional duplicates.
+    by_url={}
+    for name,source in refs.items():
+        by_url.setdefault(source.get("url"),set()).add(name)
+    allowed_aliases={frozenset(("writingcf","surface-deep24")),frozenset(("hvpt","hvptmeta25"))}
+    aliases={frozenset(v) for v in by_url.values() if len(v)>1}
+    if aliases != allowed_aliases or len(by_url)!=78:
+        problems.append("Scholarly source duplicate URL outside two documented legacy aliases")
     for key,(url,typ,method_id) in SOURCES.items():
         src=refs.get(key,{})
         if src.get("url")!=url or src.get("type")!=typ or not src.get("title"):
