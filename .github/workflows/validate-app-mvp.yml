@@ -7,6 +7,7 @@ on:
       - 'packages/contracts/**'
       - 'scripts/run-chromium-idb.mjs'
       - 'learning/exercises/b1/grammar/contextual-cloze.json'
+      - 'learning/exercises/b1/grammar/delayed-transfer-v1.json'
       - 'learning/exercises/b1/diagnostics/baseline-v1.json'
       - 'learning/exercises/b1/audio-long/**'
       - 'learning/exercises/b1/contextual/reading-pack-v1.json'
