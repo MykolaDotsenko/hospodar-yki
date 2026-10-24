@@ -1,5 +1,7 @@
 # Hospodar YKI — evidence-to-learning research program
 
+> **Оновлено 24.10.2026:** [глибинний аудит 3 нових доказових підходів](pedagogy/25-pragmatics-processing-notes-finnish-2026-10.md); актуальні канонічні **70 методик і 77 джерел** (не другий реєстр). Продуктові бали ≠ measured outcomes, перевірка unseen через 7/14/30 днів — майбутній експеримент.
+
 **Статус:** ACTIVE RESEARCH PROCESS / NOT AN IMPLEMENTED FEATURE. **Започатковано:** 2026-10-22.
 **Мета:** підвищувати **самостійну комунікативну компетентність фінською** у дорослих україномовних учнів від ~A2.2 до стабільного B1/B1+, окремо у 4 навичках YKI. Ми не маємо доказів, що Hospodar уже є «найефективнішим застосунком світу».
 
@@ -24,7 +26,7 @@
 | Approved app requirements, ADR, accepted UI/UX implementation contracts | [../docs/](../docs/INDEX.md) | [research-to-product handoff](../docs/guides/EVIDENCE-TO-UX.md); no second research registry |
 | Actual exercises, local media, sources | [../learning/](../learning/README.md), [../assets/](../assets/README.md), [../sources/](../sources/README.md) | Do not copy externally protected media; content ownership and attribution remain there |
 
-**Останнє доповнення (24.10.2026):** [світова порівняльна синтеза ефективності фінської A2.2→B1+](pedagogy/24-global-best-methods-finnish-2026-10.md). Канонічний source count тепер **70**, methods count **67**; додано новий extensive-reading L2 meta до існуючого методу, без створення дубльованого реєстру чи нових вигаданих балів.
+**Останнє доповнення (24.10.2026):** [світова порівняльна синтеза ефективності фінської A2.2→B1+](pedagogy/24-global-best-methods-finnish-2026-10.md). Історичний source count того огляду був **70**, methods count **67**; актуально **77/70**; додано новий extensive-reading L2 meta до існуючого методу, без створення дубльованого реєстру чи нових вигаданих балів.
 
 **Не робити:** нового \`research/catalog\`, загального \`evidence-registry\`, копій наявних JSON, другого «рейтингу методів» або кількох файлів для однієї й тієї самої знахідки. Нова стаття → доповнення тематичного огляду; нова самостійна тема → один тематичний Markdown із посиланням у відповідному README. Старі огляди не переписувати без traceable correction.
 
