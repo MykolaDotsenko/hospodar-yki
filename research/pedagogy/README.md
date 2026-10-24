@@ -1,6 +1,6 @@
 # Pedagogy and learning-method evidence
 
-**Latest update 24.10.2026: 70 rated methods / 77 cited sources**, of which **3 newly distinguished methods** (Finnish-appropriate pragmatics 94/91, form-meaning processing 92/88, strategic input notes 89/85) plus seven independently verified papers. [Read the new critical review, implementation plan and counterevidence](25-pragmatics-processing-notes-finnish-2026-10.md). Canonical JSON rankings have been extended in place; no second registry, no measured YKI uplift.
+**Latest follow-up 24.10.2026: 70 rated methods / 80 cited sources**, including [2026 controlled Processing Instruction and AI-feedback evidence (section 8)](25-pragmatics-processing-notes-finnish-2026-10.md#8-доказовий-follow-up-24102026-контрольоване-граматичне-навчання-та-ai-feedback). **Prior update:** 70 rated methods / 77 cited sources, of which **3 newly distinguished methods** (Finnish-appropriate pragmatics 94/91, form-meaning processing 92/88, strategic input notes 89/85) plus seven independently verified papers. [Read the new critical review, implementation plan and counterevidence](25-pragmatics-processing-notes-finnish-2026-10.md). Canonical JSON rankings have been extended in place; no second registry, no measured YKI uplift.
 
 Canonical datasets: [learning methods](learning-methods-v1.json), [method rankings](learning-effectiveness-ratings-v1.json), [book blueprints](learning-blueprints-books-v1.json), [implementation proposals](yki-methodology-implementation-v1.json).
 
