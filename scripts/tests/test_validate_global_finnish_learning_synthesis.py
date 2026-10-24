@@ -28,14 +28,14 @@ class RatingAndScienceSynthesis(unittest.TestCase):
         f=self.root/path
         c=f.read_text(encoding="utf-8")
         self.assertIn(find,c)
-        f.write_text(c.replace(find,replace,1),encoding="utf-8")
+        f.write_text(c.replace(find,replace),encoding="utf-8")
     def must_fail(self,needle):
         result=audit(self.root)
         self.assertTrue(any(needle in x for x in result),result)
     def test_synthesis_is_consistent(self):
         self.assertEqual(audit(self.root),[])
     def test_cannot_invent_scientific_95_100_ranking(self):
-        self.mutate_md(REPORT,"| \`task-based\` | **97** | **93** |","| \`task-based\` | **99** | **99** |")
+        self.mutate_md(REPORT,"| `task-based` | **97** | **93** |","| `task-based` | **99** | **99** |")
         self.must_fail("mismatches canonical")
     def test_new_l2_meta_source_cannot_disappear(self):
         self.mutate_json(METHODS,lambda d:d["source_register"].pop("extensive2025"))
@@ -44,7 +44,7 @@ class RatingAndScienceSynthesis(unittest.TestCase):
         self.mutate_json(RATINGS,lambda d:next(x for x in d["ratings"] if x["id"]=="extensive-reading")["source_ids"].remove("extensive2025"))
         self.must_fail("BOTH canonical")
     def test_misinformation_in_negative_table_fails(self):
-        self.mutate_md(REPORT,"| \`instant-answer\` —", "| \`instant-answer-fake\` —")
+        self.mutate_md(REPORT,"| `instant-answer` —", "| `instant-answer-fake` —")
         self.must_fail("Invented second-registry")
     def test_study_link_must_be_indexed(self):
         self.mutate_md(INDEX,"24-global-best-methods-finnish-2026-10.md","lost-research-2026.md")
