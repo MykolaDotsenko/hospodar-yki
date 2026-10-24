@@ -391,6 +391,21 @@
       "title": "Chang (2024), L2 listening instruction meta, 32 studies N=2797, d=0.25; important small-effect counterpoint",
       "url": "https://eric.ed.gov/?id=EJ1423906",
       "type": "L2-listening-meta-counterevidence"
+    },
+    "pi-online-rct26": {
+      "title": "Pouresmaeil, Wang & Benati (18 Sep 2026), randomized ESL passive comprehension PI vs SI vs no treatment, N=70, delayed three weeks; no significant PI-vs-SI difference",
+      "url": "https://doi.org/10.1177/13621688261480080",
+      "type": "L2-processing-instruction-randomized-three-arm-study"
+    },
+    "ai-aif-writing26": {
+      "title": "Liu & Liang (2026), three-level L2 writing AI-assisted feedback meta, 19 studies (60 effect sizes after outlier removal), N=11875; pooled d=0.271 including affective outcomes",
+      "url": "https://doi.org/10.1016/j.system.2026.104018",
+      "type": "L2-AI-feedback-three-level-meta"
+    },
+    "ai-human-comparison25": {
+      "title": "Kaliisa, Misiejuk, López-Pernas & Saqr (2025 online; 2026 issue), AI-generated vs human-provided feedback meta, 41 studies N=4813; no statistically significant learning-performance difference",
+      "url": "https://doi.org/10.1080/01443410.2025.2553639",
+      "type": "cross-domain-AI-vs-human-feedback-meta"
     }
   },
   "methods": [
@@ -455,7 +470,8 @@
       "sources": [
         "ophgrade",
         "genaitblt25",
-        "genaiwrite79"
+        "genaiwrite79",
+        "ai-human-comparison25"
       ],
       "reason_uk": "Для відкритих відповідей автоматичні оцінки не можна прирівнювати до офіційного YKI; еталонні роботи оцінює S2-викладач.",
       "example_fi": "Puhu 90 sekuntia työmatkastasi; arvioi ymmärrettävyys ja tehtävän toteutuminen.",
@@ -844,7 +860,9 @@
       "sources": [
         "genaitblt25",
         "genai51_2026",
-        "genaireview144"
+        "genaireview144",
+        "ai-aif-writing26",
+        "ai-human-comparison25"
       ],
       "reason_uk": "AI масштабує кількість спроб; викладач валідовує складні зворотні зв'язки, моделі та пограничні випадки.",
       "example_fi": "Soita terveyskeskukseen, kerro este ja pyydä uusi aika.",
@@ -1147,7 +1165,8 @@
       "sources": [
         "pi-review26",
         "pi-efl26",
-        "explicit"
+        "explicit",
+        "pi-online-rct26"
       ],
       "reason_uk": "Вивчати, як відмінкова форма змінює значення речення, через структуровані завдання інтерпретації; після цього говорити/писати самостійно. У 23 EFL PI-дослідженнях прийомніше зростає розуміння, ніж спонтанна продукція.",
       "example_fi": "Hän menee kauppaan / Hän on kaupassa / Hän tulee kaupasta. Valitse: mihin, missä vai mistä?",
@@ -2178,6 +2197,7 @@
     "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain.",
     "Oct 2026: 16 new methods added; effectiveness_preestimate is a tentative expert judgment to be transparently scored in a separate effectiveness registry, not study effect size.",
     "2026-10-24 targeted research update: added Sangers et al. 2025 extensive-reading meta-analysis to existing source register and existing extensive-reading method, without inventing an additional method, changing the 67 expert scores, or claiming empirical YKI success.",
-    "2026-10-24 incremental evidence: 3 genuinely distinct skills (Finnish social pragmatics, structured input processing of case meaning, strategic listening note-taking); 7 new independent scientific sources; existing Finnish quantity, HVPT and metacognitive strategies cross-checked for negative/transfer findings."
+    "2026-10-24 incremental evidence: 3 genuinely distinct skills (Finnish social pragmatics, structured input processing of case meaning, strategic listening note-taking); 7 new independent scientific sources; existing Finnish quantity, HVPT and metacognitive strategies cross-checked for negative/transfer findings.",
+    "2026-10-24 follow-up: 3 new publisher-verified scholarly sources on PI/SI randomized auditory-vs-written form-meaning outcomes and limited AI feedback cognitive effects. Existing 70 method scores unchanged: scientific standardized effects are not product /100 scores."
   ]
 }
