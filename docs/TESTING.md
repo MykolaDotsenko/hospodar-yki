@@ -37,6 +37,10 @@ Replace `google-chrome` with an installed Chromium binary if necessary; test har
 
 New six OPH *Päivää! / Palataan!* chapter references and twelve authored LEARN missions: `python3 scripts/validate_oph_spoken_finnish_sources.py`, `python3 -m unittest discover -s scripts/tests -p 'test_validate_oph_spoken_finnish_sources.py' -v`, `node --test app/tests/authentic-listening-core.test.mjs`. The new [CI workflow](../.github/workflows/validate-oph-spoken-finnish.yml) checks source IDs, OPH publisher URL allowlist, teacher-answer gating, no unlicensed local media or invented official YKI scores. **No acoustic quality test or in-browser source video/audio integration test; teacher review pending**.
 
+## Додаткові 8 місій A1.3–B1.2: OPH / VIERKO 2 / Kielibuusti (24.10.2026)
+
+Новий [каталог джерел](../sources/learning/a2-b1-verified-source-missions-2026-10.json) перевіряється через `python3 scripts/validate_a2_b1_open_sources.py` та `python3 -m unittest discover -s scripts/tests -p 'test_validate_a2_b1_open_sources.py' -v`. Новий [CI](../.github/workflows/validate-a2-b1-open-sources.yml) також запускає `node --test app/tests/authentic-listening-core.test.mjs` для 35 Web-місій. Ніяких медіабайтів або PDF немає: ці тести не підтверджують аудіоякості, доступності чужих плеєрів, ліцензії окремих файлів чи S2-рецензування.
+
 ## Minimum change-to-test mapping
 
 | Modified area | Mandatory checks for reviewers |
