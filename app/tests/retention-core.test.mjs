@@ -35,6 +35,8 @@ test("accept first independent day-7 response but never auto-grades Finnish writ
   const result=recordDelayedTransfer(start,bank,{taskId:"b1-g-001",day:7,response:"Menen huomenna museoon."},at(28));
   assert.equal(result.retention[0].status,"ungraded");
   assert.equal(result.retention[0].independent,true);
+  assert.equal(result.retention[0].actualAgeDays,7);
+  assert.equal(result.retention[0].lateByDays,0);
   assert.equal(readState(JSON.stringify(result)).state.retention.length,1);
   assert.equal(start.retention.length,0);
   assert.equal(delayedTransferQueue(result,bank,at(28))[0].due,null);
@@ -44,6 +46,9 @@ test("missed day 7 cannot be passed as day 7 on day 14",()=>{
   const q=delayedTransferQueue(seed(),bank,new Date("2026-11-04T12:00:00+02:00"))[0];
   assert.equal(q.due.day,14);
   assert.deepEqual(q.missed,[7]);
+  const late=recordDelayedTransfer(seed(),bank,{taskId:"b1-g-001",day:14,response:"Menen kirjastoon."},new Date("2026-11-06T12:00:00+02:00"));
+  assert.equal(late.retention[0].actualAgeDays,16);
+  assert.equal(late.retention[0].lateByDays,2);
   assert.throws(()=>recordDelayedTransfer(seed(),bank,{taskId:"b1-g-001",day:7,response:"Menen kirjastoon."},new Date("2026-11-04T12:00:00+02:00")));
 });
 test("day 30 is a new distinct prompt; duplicate and future submission fail",()=>{
