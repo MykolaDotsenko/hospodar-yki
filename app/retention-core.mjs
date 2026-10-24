@@ -60,12 +60,14 @@ export function recordDelayedTransfer(state, bank, {taskId,day,response}={}, now
       typeof response!=="string" || !response.trim() || response.trim().length>1600) {
     throw new Error("Invalid independent response");
   }
-  const eligible=delayedTransferQueue(state,bank,now).find(x=>x.taskId===taskId)?.due;
+  const checkpoint=delayedTransferQueue(state,bank,now).find(x=>x.taskId===taskId);
+  const eligible=checkpoint?.due;
   if (!eligible || eligible.day!==day) throw new Error("Transfer not due or already submitted");
   const next=structuredClone(state);
   next.retention=[...(next.retention||[]),{
     taskId,day,response:response.trim(),status:"ungraded",independent:true,
-    promptVersion:bank.schema_version,submittedAt:now.toISOString()
+    promptVersion:bank.schema_version,actualAgeDays:checkpoint.ageDays,
+    lateByDays:checkpoint.ageDays-day,submittedAt:now.toISOString()
   }].slice(-120);
   return next;
 }
