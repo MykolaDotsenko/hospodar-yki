@@ -2,6 +2,8 @@
 
 > **Тип:** RECOMMENDATION. Мета — вимірювана комунікативна компетентність, а не лише streaks чи повторення зразків. **Версія:** 2026-10-21.
 
+**Новий критичний світовий аудит (24.10.2026):** [порівняння світових методик для фінської з двома оцінками /100 та планом впровадження](../research/pedagogy/24-global-best-methods-finnish-2026-10.md), канонічні **67 методик / 70 джерел**. Найкорисніший продуктовий висновок: **unseen independent response → meaningful feedback → self-repair → altered transfer → day-7/14 test**; для фінської обов'язково окремо тренувати KPT/rektio, `kirjakieli↔puhekieli` і слухове розпізнавання vs власну вимову довготи. Ніяких офіційних YKI балів від невалідованих інструментів.
+
 **Новий evidence-based технічний додаток (21.10.2026):** [67 методик та 69 джерел](../research/pedagogy/08-learning-methods-evidence-2026-10.md) · [окремий рейтинг ефективності 0–100](../research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md) · [критичний аналіз AI, ASR і Finnish quantity](../research/pedagogy/11-advanced-yki-learning-methods-2026-10.md) · [план 11 модулів і 4 A/B-гіпотези](../research/pedagogy/yki-methodology-implementation-v1.json). Це **архітектурний план, не готові фічі**. Іспитові оцінки OPH оцінюють чотири модулі окремо.
 
 ## Ціль, старт, обмеження

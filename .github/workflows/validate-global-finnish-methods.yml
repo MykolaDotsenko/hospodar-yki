@@ -1,0 +1,45 @@
+name: Validate global Finnish learning-method evidence synthesis
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/pedagogy/24-global-best-methods-finnish-2026-10.md'
+      - 'research/pedagogy/08-learning-methods-evidence-2026-10.md'
+      - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
+      - 'research/pedagogy/learning-methods-v1.json'
+      - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
+      - 'research/pedagogy/README.md'
+      - 'scripts/validate_global_finnish_learning_synthesis.py'
+      - 'scripts/tests/test_validate_global_finnish_learning_synthesis.py'
+      - '.github/workflows/validate-global-finnish-methods.yml'
+  pull_request:
+    paths:
+      - 'research/pedagogy/24-global-best-methods-finnish-2026-10.md'
+      - 'research/pedagogy/08-learning-methods-evidence-2026-10.md'
+      - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
+      - 'research/pedagogy/learning-methods-v1.json'
+      - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
+      - 'research/pedagogy/README.md'
+      - 'scripts/validate_global_finnish_learning_synthesis.py'
+      - 'scripts/tests/test_validate_global_finnish_learning_synthesis.py'
+      - '.github/workflows/validate-global-finnish-methods.yml'
+permissions:
+  contents: read
+jobs:
+  evidence-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Check existing 67-method two-score evidence registry
+        run: |
+          python3 scripts/validate_learning_methods.py
+          python3 scripts/validate_global_finnish_learning_synthesis.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_global_finnish_learning_synthesis.py' -v
+      - name: Check historical research documents and links
+        run: |
+          python3 scripts/validate_doc_integrity.py
+          python3 scripts/validate_ai_docs.py

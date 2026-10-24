@@ -1,6 +1,6 @@
 {
   "schema_version": "1.2.0",
-  "date": "2026-10-21",
+  "date": "2026-10-24",
   "name": "Hospodar YKI evidence-informed Finnish methods (67 approaches)",
   "purpose": "Future implementation planning. Not implemented in app.",
   "target": "Adult Ukrainian-speaking A2.2 → B1/B1+ YKI keskitaso",
@@ -351,6 +351,11 @@
       "title": "Kielibuusti Finnish S2 pathway, learner plans and level progression",
       "url": "https://www.kielibuusti.fi/en/career-and-study-advisors-and-heis/support-functions-in-higher-education/s2-language-learning-path-for-international-students",
       "type": "Finnish-S2-framework"
+    },
+    "extensive2025": {
+      "title": "Sangers et al. (2025), extensive reading L2/FL meta-analysis, cross-skill small-to-medium gains",
+      "url": "https://doi.org/10.1007/s10648-025-10068-6",
+      "type": "L2-extensive-reading-meta"
     }
   },
   "methods": [
@@ -1081,7 +1086,8 @@
       "evidence_confidence": "HIGH_L2_READING",
       "priority": "P0",
       "sources": [
-        "reading"
+        "reading",
+        "extensive2025"
       ],
       "reason_uk": "Регулярне об'ємне читання покращує навичку читання та мовний досвід.",
       "example_fi": "Lue selkouutinen; kerro tärkein ajatus.",
@@ -2057,6 +2063,7 @@
     "2026-10-21: Extended 35-method baseline with 16 distinct methods/technology safeguards; also refreshed evidence on 9 legacy methods. No methods were removed or existing scores silently changed.",
     "Finnish quantity studies show perception and production must be evaluated separately; ASR English effect sizes are not Finnish results.",
     "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain.",
-    "Oct 2026: 16 new methods added; effectiveness_preestimate is a tentative expert judgment to be transparently scored in a separate effectiveness registry, not study effect size."
+    "Oct 2026: 16 new methods added; effectiveness_preestimate is a tentative expert judgment to be transparently scored in a separate effectiveness registry, not study effect size.",
+    "2026-10-24 targeted research update: added Sangers et al. 2025 extensive-reading meta-analysis to existing source register and existing extensive-reading method, without inventing an additional method, changing the 67 expert scores, or claiming empirical YKI success."
   ]
 }
