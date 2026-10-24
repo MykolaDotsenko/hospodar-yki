@@ -4,7 +4,7 @@
   "project": "Hospodar YKI",
   "target": "Ukrainian-speaking adult learner from A2.2 to B1/B1+, four official YKI skills",
   "source_catalog": "research/pedagogy/learning-methods-v1.json",
-  "count": 67,
+  "count": 70,
   "scoring_methodology": {
     "model": "EXPERT_JUDGMENT_ORDINAL",
     "scale": "0–100 relative expert judgment of expected real learning/skill contribution if properly implemented for A2.2→B1+ Finnish YKI; not measured percentages, g, d, CEFR grade or YKI probability",
@@ -34,7 +34,8 @@
     "All research scores use source abstract/available public publisher text; full systematic quality audits and risk-of-bias appraisals have not been completed.",
     "No method by itself guarantees YKI grade 3, and each of the four skills needs independent unseen tasks.",
     "Role=assessment_or_infrastructure is necessary for validity or privacy but not a direct training effect.",
-    "2026-10-24: Sangers et al. 2025 extensive-reading meta adds convergent cross-domain L2 evidence; extensive-reading method score remains an uncalibrated expert estimate (91/100), not an observed effect size."
+    "2026-10-24: Sangers et al. 2025 extensive-reading meta adds convergent cross-domain L2 evidence; extensive-reading method score remains an uncalibrated expert estimate (91/100), not an observed effect size.",
+    "2026-10-24: 3 additional expert ratings with uncertainty, scientific 2026 PI review (23 EFL studies), 2023 L2 pragmatics meta (29 studies), 2024 note-taking meta (21 studies); scores are not claimed causal gains or YKI pass rates."
   ],
   "ratings": [
     {
@@ -126,7 +127,8 @@
       "source_ids": [
         "metacog",
         "kieliaudio",
-        "listenmeta45"
+        "listenmeta45",
+        "listeningmeta24"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
@@ -242,7 +244,8 @@
       "study_caveat_uk": "Перцептивний прогрес ≠ гарантована правильна вимова.",
       "source_ids": [
         "hvpt",
-        "hvptprod"
+        "hvptprod",
+        "hvptmeta25"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
@@ -398,6 +401,28 @@
       "source_ids": [
         "kieliaudio",
         "kielitips"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "pragmatic-speech-acts",
+      "name_uk": "Прагматика мовленнєвих дій: прохання, відмова, уточнення з урахуванням адресата",
+      "learning_effectiveness_0_to_100": 91,
+      "previous_product_fit_0_to_100": 94,
+      "interpretation": "expert judgment of expected benefit in targeted Finnish competence, not measured",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        78,
+        97
+      ],
+      "benefit_domain": "Незалежна оцінка S2-викладачем доречності нового усного прохання та його комунікативного успіху через 14 днів.",
+      "basis_uk": "Метааналіз L2 прагматичного навчання підтримує цілеспрямоване опрацювання прохань/відмов; у фінській ввічливість і регістр відрізняються за адресатом, тож граматично правильні слова ще не гарантують доречної комунікації.",
+      "study_caveat_uk": "Метааналіз переважно інших L2; великий g залежить від типів тестів (письмові discourse completion мали найбільші ефекти). Фінське дослідження pliis описове, не доказ ефективності тренування.",
+      "source_ids": [
+        "pragmeta23",
+        "finnpliis22"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
@@ -652,6 +677,29 @@
       "not_yki_pass_probability": true
     },
     {
+      "id": "structured-input-grammar",
+      "name_uk": "Processing Instruction: спершу граматичне значення на слух/у тексті, потім продукція",
+      "learning_effectiveness_0_to_100": 88,
+      "previous_product_fit_0_to_100": 92,
+      "interpretation": "expert judgment of expected benefit in targeted Finnish competence, not measured",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        75,
+        96
+      ],
+      "benefit_domain": "Невідомі завдання form–meaning interpretation та окремо нові усні/письмові продуктивні конструкції на 7/14-й день.",
+      "basis_uk": "Вивчати, як відмінкова форма змінює значення речення, через структуровані завдання інтерпретації; після цього говорити/писати самостійно. У 23 EFL PI-дослідженнях прийомніше зростає розуміння, ніж спонтанна продукція.",
+      "study_caveat_uk": "Нові systematic reviews в основному EFL (23 дослідження), мала кількість delayed outcomes, виражене рецептивне зміщення; не стверджувати доведеної фінської граматичної автоматизації.",
+      "source_ids": [
+        "pi-review26",
+        "pi-efl26",
+        "explicit"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
       "id": "interleaving-grammar",
       "name_uk": "Interleaving: перемішування близьких форм",
       "learning_effectiveness_0_to_100": 87,
@@ -864,6 +912,28 @@
       "source_ids": [
         "selfassess",
         "cefr"
+      ],
+      "actual_research_effect_size_not_this_score": true,
+      "not_yki_pass_probability": true
+    },
+    {
+      "id": "strategic-audio-notes",
+      "name_uk": "Стратегічні короткі нотатки після слухання: факти, зв'язки, запитання",
+      "learning_effectiveness_0_to_100": 85,
+      "previous_product_fit_0_to_100": 89,
+      "interpretation": "expert judgment of expected benefit in targeted Finnish competence, not measured",
+      "role": "learning_intervention",
+      "confidence_in_score": "moderate",
+      "plausible_expert_band": [
+        70,
+        92
+      ],
+      "benefit_domain": "Unseen listening gist/detail на 7-й і 14-й день, зіставлення audio-notes vs no-notes з однаковим часом; відслідковувати missed details.",
+      "basis_uk": "Нотатки про ключові факти вивільняють пам'ять для розуміння складних розмов, але надмірне переписування конкурує з увагою. Meta: 21 L2 studies g=0.56, сильна залежність від умов.",
+      "study_caveat_uk": "Під час окремих типів тестів YKI нотатки можуть бути недоступні; не стверджувати дозволу офіційного іспиту без нормативної перевірки; загальний listening instruction ефект d≈0.25, метод-специфічність важлива.",
+      "source_ids": [
+        "notesmeta24",
+        "listeningmeta24"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true

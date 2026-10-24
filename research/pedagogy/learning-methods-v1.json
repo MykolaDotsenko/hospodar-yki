@@ -1,8 +1,8 @@
 {
   "schema_version": "1.2.0",
   "date": "2026-10-24",
-  "name": "Hospodar YKI evidence-informed Finnish methods (67 approaches)",
-  "purpose": "Future implementation planning. Not implemented in app.",
+  "name": "Hospodar YKI evidence-informed Finnish methods (70 approaches)",
+  "purpose": "Research and product-method proposal; NOT implemented by changing this registry.",
   "target": "Adult Ukrainian-speaking A2.2 → B1/B1+ YKI keskitaso",
   "score_definition": "Expert priority 0-100: evidence strength 0-30, Finnish/YKI fit 0-30, A2.2→B1 suitability 0-20, engineering feasibility 0-10, agency and sustainable motivation 0-10. These are expert judgments, not measured effect sizes.",
   "source_limitations": "Many studies focus on languages other than Finnish. No method has been demonstrated here to cause a specific YKI pass probability.",
@@ -356,6 +356,41 @@
       "title": "Sangers et al. (2025), extensive reading L2/FL meta-analysis, cross-skill small-to-medium gains",
       "url": "https://doi.org/10.1007/s10648-025-10068-6",
       "type": "L2-extensive-reading-meta"
+    },
+    "pi-review26": {
+      "title": "Pouresmaeil & Wang (2026), 30-year Processing Instruction and structured input review, Education Sciences 16(2):295",
+      "url": "https://doi.org/10.3390/educsci16020295",
+      "type": "L2-grammar-processing-narrative-review"
+    },
+    "pi-efl26": {
+      "title": "Mauludin & Stefano (5 Oct 2026), systematic review of 23 EFL Processing Instruction studies",
+      "url": "https://doi.org/10.1007/s43545-026-01787-w",
+      "type": "EFL-processing-instruction-systematic-review"
+    },
+    "pragmeta23": {
+      "title": "Ren, Li & Lü (2023), L2 pragmatic instruction, 29 studies, N=1898, g=1.656 for sampled outcomes",
+      "url": "https://doi.org/10.1093/applin/amac055",
+      "type": "L2-pragmatics-meta"
+    },
+    "finnpliis22": {
+      "title": "Peterson, Hiltunen & Vaattovaara (2022), Finnish request politeness marker pliis sociolinguistic variation; observational, NOT an educational intervention",
+      "url": "https://doi.org/10.1017/9781108864183.015",
+      "type": "Finnish-pragmatics-observational"
+    },
+    "notesmeta24": {
+      "title": "L2 input note-taking meta-analysis (2024), 21 studies N=1992, g=0.56 CI 0.24–0.88",
+      "url": "https://doi.org/10.1017/S0272263123000529",
+      "type": "L2-note-taking-meta"
+    },
+    "hvptmeta25": {
+      "title": "Uchihara, Karas & Thomson (2025), HVPT perception meta, 79 studies, controlled g=0.67",
+      "url": "https://doi.org/10.1017/S0272263125100879",
+      "type": "L2-phonetic-HVPT-meta"
+    },
+    "listeningmeta24": {
+      "title": "Chang (2024), L2 listening instruction meta, 32 studies N=2797, d=0.25; important small-effect counterpoint",
+      "url": "https://eric.ed.gov/?id=EJ1423906",
+      "type": "L2-listening-meta-counterevidence"
     }
   },
   "methods": [
@@ -652,7 +687,8 @@
       "sources": [
         "metacog",
         "kieliaudio",
-        "listenmeta45"
+        "listenmeta45",
+        "listeningmeta24"
       ],
       "reason_uk": "Вчить усвідомлено перевіряти розуміння, а не просто перезапускати трек.",
       "example_fi": "Mikä viestin aihe on? Mikä muuttui? Miksi?",
@@ -746,6 +782,31 @@
         "implementation": 9,
         "learner_agency": 9
       }
+    },
+    {
+      "id": "pragmatic-speech-acts",
+      "name_uk": "Прагматика мовленнєвих дій: прохання, відмова, уточнення з урахуванням адресата",
+      "score": 94,
+      "sources": [
+        "pragmeta23",
+        "finnpliis22"
+      ],
+      "reason_uk": "Метааналіз L2 прагматичного навчання підтримує цілеспрямоване опрацювання прохань/відмов; у фінській ввічливість і регістр відрізняються за адресатом, тож граматично правильні слова ще не гарантують доречної комунікації.",
+      "example_fi": "Voisitko auttaa minua? / Olisiko mahdollista siirtää aikaa? / Kiitos, mutta en valitettavasti pääse.",
+      "app_feature_uk": "Зміна співрозмовника (друг → сусід → роботодавець), усні прохання/відмови й feedback за доречністю окремо від граматики, потім незнайомий transfer.",
+      "measurement_uk": "Незалежна оцінка S2-викладачем доречності нового усного прохання та його комунікативного успіху через 14 днів.",
+      "limitation_uk": "Метааналіз переважно інших L2; великий g залежить від типів тестів (письмові discourse completion мали найбільші ефекти). Фінське дослідження pliis описове, не доказ ефективності тренування.",
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "HIGH_L2_PRAGMATICS_META_FINNISH_TRANSFER_UNTESTED",
+      "priority": "P0",
+      "score_components": {
+        "evidence": 28,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-24"
     },
     {
       "id": "guided-corpus-discovery",
@@ -1037,7 +1098,8 @@
       "priority": "P0",
       "sources": [
         "hvpt",
-        "hvptprod"
+        "hvptprod",
+        "hvptmeta25"
       ],
       "reason_uk": "Різні голоси тренують сприймання фонем, з обмеженим автоматичним переносом на вимову.",
       "example_fi": "tuli / tuuli, muta / mutta, kuka / kukka.",
@@ -1077,6 +1139,32 @@
       },
       "added_at": "2026-10-21",
       "effectiveness_preestimate": 87
+    },
+    {
+      "id": "structured-input-grammar",
+      "name_uk": "Processing Instruction: спершу граматичне значення на слух/у тексті, потім продукція",
+      "score": 92,
+      "sources": [
+        "pi-review26",
+        "pi-efl26",
+        "explicit"
+      ],
+      "reason_uk": "Вивчати, як відмінкова форма змінює значення речення, через структуровані завдання інтерпретації; після цього говорити/писати самостійно. У 23 EFL PI-дослідженнях прийомніше зростає розуміння, ніж спонтанна продукція.",
+      "example_fi": "Hän menee kauppaan / Hän on kaupassa / Hän tulee kaupasta. Valitse: mihin, missä vai mistä?",
+      "app_feature_uk": "Серія form→meaning з відволікаючими лексичними сигналами для illatiivi/inessiivi/elatiivi → другий крок без підказок у новому діалозі; KPT/rektio залежно від рівня.",
+      "measurement_uk": "Невідомі завдання form–meaning interpretation та окремо нові усні/письмові продуктивні конструкції на 7/14-й день.",
+      "limitation_uk": "Нові systematic reviews в основному EFL (23 дослідження), мала кількість delayed outcomes, виражене рецептивне зміщення; не стверджувати доведеної фінської граматичної автоматизації.",
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_EFL_SYSTEMATIC_FINNISH_TRANSFER_HYPOTHESIS",
+      "priority": "P0",
+      "score_components": {
+        "evidence": 27,
+        "Finnish_YKI_fit": 29,
+        "A2_to_B1_fit": 19,
+        "implementation": 9,
+        "learner_agency": 8
+      },
+      "added_at": "2026-10-24"
     },
     {
       "id": "extensive-reading",
@@ -1376,6 +1464,31 @@
         "learner_agency": 9
       },
       "added_at": "2026-10-21"
+    },
+    {
+      "id": "strategic-audio-notes",
+      "name_uk": "Стратегічні короткі нотатки після слухання: факти, зв'язки, запитання",
+      "score": 89,
+      "sources": [
+        "notesmeta24",
+        "listeningmeta24"
+      ],
+      "reason_uk": "Нотатки про ключові факти вивільняють пам'ять для розуміння складних розмов, але надмірне переписування конкурує з увагою. Meta: 21 L2 studies g=0.56, сильна залежність від умов.",
+      "example_fi": "Vastaanotto: maanantai 14.30; uusi aika?; vahvista puhelimessa.",
+      "app_feature_uk": "Опційні 2–3 поля час/місце/дія після першого прослуховування, повторне слухання та резюме; режим without-notes для переносних нових аудіо, альтернативи без друку.",
+      "measurement_uk": "Unseen listening gist/detail на 7-й і 14-й день, зіставлення audio-notes vs no-notes з однаковим часом; відслідковувати missed details.",
+      "limitation_uk": "Під час окремих типів тестів YKI нотатки можуть бути недоступні; не стверджувати дозволу офіційного іспиту без нормативної перевірки; загальний listening instruction ефект d≈0.25, метод-специфічність важлива.",
+      "score_type": "expert_product_fit_0_to_100",
+      "evidence_confidence": "MODERATE_L2_META_TASK_DEPENDENT",
+      "priority": "P1",
+      "score_components": {
+        "evidence": 26,
+        "Finnish_YKI_fit": 27,
+        "A2_to_B1_fit": 18,
+        "implementation": 9,
+        "learner_agency": 9
+      },
+      "added_at": "2026-10-24"
     },
     {
       "id": "autonomy-support-and-choice",
@@ -2064,6 +2177,7 @@
     "Finnish quantity studies show perception and production must be evaluated separately; ASR English effect sizes are not Finnish results.",
     "Constructive alignment, privacy, score calibration and digital readiness are product requirements/frameworks; evidence score reflects justification strength and must NOT be interpreted as measured learning gain.",
     "Oct 2026: 16 new methods added; effectiveness_preestimate is a tentative expert judgment to be transparently scored in a separate effectiveness registry, not study effect size.",
-    "2026-10-24 targeted research update: added Sangers et al. 2025 extensive-reading meta-analysis to existing source register and existing extensive-reading method, without inventing an additional method, changing the 67 expert scores, or claiming empirical YKI success."
+    "2026-10-24 targeted research update: added Sangers et al. 2025 extensive-reading meta-analysis to existing source register and existing extensive-reading method, without inventing an additional method, changing the 67 expert scores, or claiming empirical YKI success.",
+    "2026-10-24 incremental evidence: 3 genuinely distinct skills (Finnish social pragmatics, structured input processing of case meaning, strategic listening note-taking); 7 new independent scientific sources; existing Finnish quantity, HVPT and metacognitive strategies cross-checked for negative/transfer findings."
   ]
 }

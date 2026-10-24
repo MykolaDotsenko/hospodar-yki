@@ -30,8 +30,8 @@ def audit(root: Path = ROOT) -> list[str]:
     sources = catalog.get("source_register", {})
     methods = {m.get("id"): m for m in catalog.get("methods", [])}
     ratings = {m.get("id"): m for m in impact.get("ratings", [])}
-    if len(methods) != 67 or len(sources) != 70 or impact.get("count") != 67 or set(methods) != set(ratings):
-        problems.append("67-method/70-source authoritative baseline drifted")
+    if len(methods) < 70 or len(sources) < 77 or impact.get("count") != len(methods) or set(methods) != set(ratings):
+        problems.append("70-method/77-source authoritative baseline drifted")
     novel = sources.get("extensive2025", {})
     if novel.get("url") != "https://doi.org/10.1007/s10648-025-10068-6" or novel.get("type") != "L2-extensive-reading-meta":
         problems.append("Missing 2025 reading meta-analysis citation and evidence class")
@@ -90,4 +90,4 @@ if __name__ == "__main__":
     problems = audit()
     for p in problems: print("FAIL:", p)
     if problems: raise SystemExit(1)
-    print("PASS: 67 canonical /100 methods; 70 sources; 24 priority dual-score rows, 6 anti-pattern rows, 2025 extensive-reading meta, methodological safety and research links")
+    print("PASS: >=70 canonical /100 methods; >=77 sources; 24 priority dual-score rows, 6 anti-pattern rows, 2025 extensive-reading meta, methodological safety and research links")
