@@ -16,13 +16,13 @@ export function currentTask(item,session){
 export function safePublisherUrl(url){
  if(typeof url!=="string")throw new Error("Некоректний URL.");
  const parsed=new URL(url);
- if(parsed.protocol!=="https:"||!["www.kielibuusti.fi","eira.clients.crasman.fi","tasteoffinnish.fi","www.oph.fi"].includes(parsed.hostname)||parsed.username||parsed.password||parsed.port||parsed.hash)throw new Error("Недозволене посилання на джерело.");
+ if(parsed.protocol!=="https:"||!["www.kielibuusti.fi","eira.clients.crasman.fi","tasteoffinnish.fi","www.oph.fi","aoe.fi"].includes(parsed.hostname)||parsed.username||parsed.password||parsed.port||parsed.hash)throw new Error("Недозволене посилання на джерело.");
  return parsed.href;
 }
 
-export function combineVerifiedExternalLessons(original,additional,oph=[]){
- if(!Array.isArray(original)||original.length!==7||!Array.isArray(additional)||additional.length!==8||!Array.isArray(oph)||![0,12].includes(oph.length))throw new Error("Неповний список перевірених джерел.");
- const combined=[...original,...additional,...oph];
+export function combineVerifiedExternalLessons(original,additional,oph=[],newSources=[]){
+ if(!Array.isArray(original)||original.length!==7||!Array.isArray(additional)||additional.length!==8||!Array.isArray(oph)||![0,12].includes(oph.length)||!Array.isArray(newSources)||![0,8].includes(newSources.length))throw new Error("Неповний список перевірених джерел.");
+ const combined=[...original,...additional,...oph,...newSources];
  if(new Set(combined.map(x=>x.id)).size!==combined.length)throw new Error("Повторні ідентифікатори уроків.");
  for(const x of combined){
   safePublisherUrl(x.source_page);
