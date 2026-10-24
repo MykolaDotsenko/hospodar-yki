@@ -1,0 +1,318 @@
+{
+  "schema_version": "1.0.0",
+  "checked_on": "2026-10-24",
+  "sources_count": 4,
+  "missions_count": 8,
+  "source_only": true,
+  "local_media_added": 0,
+  "license_caveat": "VIERKO 2 aoe.5839 previous 2026-05 metadata shows CC BY-NC-SA 4.0, latest October version CC BY-SA 4.0; preserve original rights ambiguity, no copying. Other sources have their own rights and no binary downloads.",
+  "editorial_caveat": "All independent prompts are original, not text or audio transcriptions. Teacher review, real-audio listening, browser UI E2E, and each individual downloadable item license review remain pending.",
+  "sources": [
+    {
+      "id": "oph-helppoa-audio-2026",
+      "title": "Helppoa suomea — äänitteet",
+      "url": "https://www.oph.fi/fi/oppimateriaali/helppoa-suomea/aanitteet",
+      "publisher": "Opetushallitus",
+      "author": "Anni Piikki; Mirja Välkesalmi",
+      "year": 2016,
+      "level": "A1.3–A2.1",
+      "format": "external_audio_playlist",
+      "license": "publisher_copyright_no_redistribution_verified",
+      "rights_note": "OPH website allows online playback but no permission to republish MP3 or textbook excerpts has been verified; companion printed textbook is commercially sold.",
+      "media_claim": "OPH confirms MP3-formatted textbook audio in a playlist; individual tracks, dialogue content and audio quality were not inspected.",
+      "review": "publisher page checked; per-asset audio verification pending"
+    },
+    {
+      "id": "vierko2-s2-2026",
+      "title": "Suomi toisena kielenä 4 osp, selkokielellä, perusteet 2026",
+      "url": "https://aoe.fi/materiaali/5839",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Kaisa Riihimäki; Tuija Takala; Meiju Kankainen; Kirsi Kannas; Essi Puumalainen",
+      "year": 2026,
+      "level": "A2.2–B1.1",
+      "format": "three_pdf_modules_and_linked_practice",
+      "license": "conflicting_historical_records_CC_BY_NC_SA_4_0_vs_latest_CC_BY_SA_4_0",
+      "rights_note": "Current 2026-10 Finna version reports CC BY-SA 4.0; earlier 2026-05 index reports CC BY-NC-SA 4.0. Specific PDF version and per-file licenses must be reconciled before any binary copy or derivative redistribution.",
+      "media_claim": "Three core PDF parts: Erilaiset vuorovaikutuksen tilanteet; Tekstit ja lähteet; Teet tekstejä. Optional games links; not audio.",
+      "review": "latest and historical Finna metadata discrepancy recorded; no PDF local copy"
+    },
+    {
+      "id": "kielibuusti-health-verbs-2026",
+      "title": "Verbejä hoitotyöhön",
+      "url": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/verbeja-hoitotyohon",
+      "publisher": "Kielibuusti / Metropolia",
+      "author": "Hanna Aho; Tiia Ylhäinen-Holstila",
+      "year": 2023,
+      "level": "B1–B2",
+      "format": "three_slide_decks_two_exercise_docx",
+      "license": "CC BY 4.0 publisher-listed; individual attachments review pending",
+      "rights_note": "Publisher declares CC BY 4.0 on learning material; linked slides/docs may contain distinct third-party illustration or image rights. No files copied.",
+      "media_claim": "Three slide decks on necessity verbs, transitivity, frequentative/momentaneous verbs, and two written exercise attachments. NOT audio or video.",
+      "review": "publisher page checked; slide/docx body and S2 teaching accuracy not inspected"
+    },
+    {
+      "id": "vierko2-society-2026",
+      "title": "Yhteiskunnassa ja kansalaisena toimiminen, 2 osp, perusteet 2026",
+      "url": "https://aoe.fi/materiaali/6019",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Pauli Raivio (publisher index)",
+      "year": 2026,
+      "level": "A2.2–B1.2 estimated",
+      "format": "plain_Finnish_civic_vocational_slides",
+      "license": "item_license_unconfirmed_link_only",
+      "rights_note": "AOE publisher collection has CC licenses, but precise license for this individual item and embedded illustrations was not independently verified; do not copy or adapt the slide deck.",
+      "media_claim": "Plain-Finnish vocational societal participation/consumer and everyday services learning slides; specific slides/file contents not independently reviewed.",
+      "review": "publisher listing checked; file-level licensing and exact contents pending"
+    }
+  ],
+  "items": [
+    {
+      "id": "helppoa-listen-main",
+      "source_id": "oph-helppoa-audio-2026",
+      "title_fi": "Arkisen äänitteen pääajatus",
+      "cefr_suggested": "A1.3–A2.1",
+      "material_kind": "external_audio_playlist",
+      "publisher": "Opetushallitus",
+      "author": "Anni Piikki; Mirja Välkesalmi",
+      "source_page": "https://www.oph.fi/fi/oppimateriaali/helppoa-suomea/aanitteet",
+      "source_note_uk": "Вибери один доступний MP3 у плейлисті Helppoa suomea. Не припускай наперед його тему; підручник може знадобитися для повного контексту.",
+      "source_rights_note": "OPH website allows online playback but no permission to republish MP3 or textbook excerpts has been verified; companion printed textbook is commercially sold.",
+      "license": "publisher_copyright_no_redistribution_verified",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele yksi äänite alusta loppuun. Kerro omin sanoin yksi asia, jonka ymmärsit varmasti. Jos et ymmärrä, kerro sekin suomeksi.",
+        "reflection_uk": "Перевір самостійно, що ти назвав лише справді почуту інформацію, а не вгадав зміст. Спробуй переслухати ще раз.",
+        "transfer_prompt_fi": "Olet palvelutiskillä. Pyydä työntekijää toistamaan yksi ohje hitaammin ja varmista, että ymmärsit oikein.",
+        "delayed_recall_prompt_fi": "Kysy viikon kuluttua samasta asiasta eri sanoin ilman mallia."
+      }
+    },
+    {
+      "id": "helppoa-simple-question",
+      "source_id": "oph-helppoa-audio-2026",
+      "title_fi": "Kysy tarkennusta kuulemastasi",
+      "cefr_suggested": "A1.3–A2.2",
+      "material_kind": "external_audio_playlist",
+      "publisher": "Opetushallitus",
+      "author": "Anni Piikki; Mirja Välkesalmi",
+      "source_page": "https://www.oph.fi/fi/oppimateriaali/helppoa-suomea/aanitteet",
+      "source_note_uk": "Візьми інший запис із Helppoa suomea; назви й тривалість окремих записів не перевірено.",
+      "source_rights_note": "OPH website allows online playback but no permission to republish MP3 or textbook excerpts has been verified; companion printed textbook is commercially sold.",
+      "license": "publisher_copyright_no_redistribution_verified",
+      "reported_components": {
+        "type": "audio",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuuntele uusi äänite ja kirjoita kaksi yksinkertaista kysymystä, joilla voisit tarkistaa kuulemasi tiedon.",
+        "reflection_uk": "Перевір, чи твої запитання природні, чи мають конкретну мету й чи не включають вигаданих фактів про запис.",
+        "transfer_prompt_fi": "Saat uuden ohjeen bussipysäkillä. Kysy, mitä sinun pitää tehdä seuraavaksi ja mihin aikaan.",
+        "delayed_recall_prompt_fi": "Laadi kahden päivän päästä vastaava kysymys eri tilanteeseen."
+      }
+    },
+    {
+      "id": "vierko2-interaction-fix",
+      "source_id": "vierko2-s2-2026",
+      "title_fi": "Erilaiset vuorovaikutuksen tilanteet",
+      "cefr_suggested": "A2.2–B1.1",
+      "material_kind": "three_pdf_modules_and_linked_practice",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Kaisa Riihimäki; Tuija Takala; Meiju Kankainen; Kirsi Kannas; Essi Puumalainen",
+      "source_page": "https://aoe.fi/materiaali/5839",
+      "source_note_uk": "Відкрий у VIERKO 2 частину 1 про різні комунікативні ситуації. Оригінальний текст авторський і тут не копіюється.",
+      "source_rights_note": "Current 2026-10 Finna version reports CC BY-SA 4.0; earlier 2026-05 index reports CC BY-NC-SA 4.0. Specific PDF version and per-file licenses must be reconciled before any binary copy or derivative redistribution.",
+      "license": "conflicting_historical_records_CC_BY_NC_SA_4_0_vs_latest_CC_BY_SA_4_0",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Valitse yksi vuorovaikutustilanne. Kirjoita oma lyhyt vastaus, jossa selität ongelman, esität tarkentavan kysymyksen ja ehdotat ratkaisua.",
+        "reflection_uk": "Після відповіді самостійно перевір комунікативну мету: проблема, уточнення, пропозиція. Порівняй із матеріалом тільки зараз.",
+        "transfer_prompt_fi": "Naapuri ilmoittaa, että pesutupa ei ole käytettävissä. Pyydä lisätietoa ja ehdota toista aikaa.",
+        "delayed_recall_prompt_fi": "Kerro viikon kuluttua uudesta naapuruston tilanteesta ilman mallilauseita."
+      }
+    },
+    {
+      "id": "vierko2-write-email",
+      "source_id": "vierko2-s2-2026",
+      "title_fi": "Teet tekstejä – asiallinen sähköposti",
+      "cefr_suggested": "B1.1",
+      "material_kind": "three_pdf_modules_and_linked_practice",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Kaisa Riihimäki; Tuija Takala; Meiju Kankainen; Kirsi Kannas; Essi Puumalainen",
+      "source_page": "https://aoe.fi/materiaali/5839",
+      "source_note_uk": "У VIERKO 2 відкрий частину 3 «Teet tekstejä». Напиши власного листа, не копіюючи приклади з PDF.",
+      "source_rights_note": "Current 2026-10 Finna version reports CC BY-SA 4.0; earlier 2026-05 index reports CC BY-NC-SA 4.0. Specific PDF version and per-file licenses must be reconciled before any binary copy or derivative redistribution.",
+      "license": "conflicting_historical_records_CC_BY_NC_SA_4_0_vs_latest_CC_BY_SA_4_0",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kirjoita noin 80 sanan sähköposti taloyhtiölle. Selitä häiritsevä ääni, kerro milloin se kuuluu ja pyydä ystävällisesti apua.",
+        "reflection_uk": "Після першої спроби перевір: тема, чіткі факти, прохання, ввічливе завершення. Не використовуй справжню домашню адресу чи персональні дані.",
+        "transfer_prompt_fi": "Taloyhtiö vastaa, mutta asia ei ratkea. Kirjoita uusi ystävällinen viesti, jossa ehdotat ratkaisua.",
+        "delayed_recall_prompt_fi": "Kirjoita viikon päästä lyhyt viesti toisesta asumiseen liittyvästä ongelmasta."
+      }
+    },
+    {
+      "id": "health-need-verbs",
+      "source_id": "kielibuusti-health-verbs-2026",
+      "title_fi": "Nesessiivirakenteet ohjeissa",
+      "cefr_suggested": "B1.1",
+      "material_kind": "three_slide_decks_two_exercise_docx",
+      "publisher": "Kielibuusti / Metropolia",
+      "author": "Hanna Aho; Tiia Ylhäinen-Holstila",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/verbeja-hoitotyohon",
+      "source_note_uk": "Відкрий блок про необхідність / nesessiiviverbit. Цю граматику тренуємо на нейтральних ситуаціях, не на медичних рекомендаціях.",
+      "source_rights_note": "Publisher declares CC BY 4.0 on learning material; linked slides/docs may contain distinct third-party illustration or image rights. No files copied.",
+      "license": "CC BY 4.0 publisher-listed; individual attachments review pending",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Työpaikan uusi työntekijä ei ymmärrä turvallisuusohjetta. Kirjoita kolme omaa lausetta siitä, mitä hänen täytyy tehdä ja mitä ei saa tehdä.",
+        "reflection_uk": "Перевір граматичну конструкцію з матеріалом, але не перетворюй власні речення на реальні медичні інструкції.",
+        "transfer_prompt_fi": "Sinun pitää soittaa työpaikalle, koska et pääse sovittuun tapaamiseen. Selitä, mitä sinun täytyy muuttaa.",
+        "delayed_recall_prompt_fi": "Laadi viikon kuluttua kolme uutta pakkoa tai tarvetta kuvaavaa lausetta."
+      }
+    },
+    {
+      "id": "health-transitivity",
+      "source_id": "kielibuusti-health-verbs-2026",
+      "title_fi": "Transitiiviset ja intransitiiviset verbit",
+      "cefr_suggested": "B1.1–B1.2",
+      "material_kind": "three_slide_decks_two_exercise_docx",
+      "publisher": "Kielibuusti / Metropolia",
+      "author": "Hanna Aho; Tiia Ylhäinen-Holstila",
+      "source_page": "https://www.kielibuusti.fi/fi/suomenopettajat/s2-opetusmateriaalipankki/verbeja-hoitotyohon",
+      "source_note_uk": "У матеріалі Kielibuusti знайди презентацію про transitiivi- та intransitiiviverbit. Це текстова граматична практика, не аудіозапис.",
+      "source_rights_note": "Publisher declares CC BY 4.0 on learning material; linked slides/docs may contain distinct third-party illustration or image rights. No files copied.",
+      "license": "CC BY 4.0 publisher-listed; individual attachments review pending",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kirjoita kaksi omaa lauseparia, joissa kuvaat tapahtumaa ja sitä, että joku aiheuttaa muutoksen. Valitse itse arkiset verbit.",
+        "reflection_uk": "Перевір керування дієслів і змістову різницю між тим, що відбувається, та тим, що хтось робить; не додавай клінічних деталей.",
+        "transfer_prompt_fi": "Kerro taloyhtiölle, että oven lukko ei toimi. Kuvaile ensin ongelma ja sitten, mitä korjaaja teki.",
+        "delayed_recall_prompt_fi": "Selitä viikon päästä toinen muutos käyttäen eri verbejä."
+      }
+    },
+    {
+      "id": "civic-service-question",
+      "source_id": "vierko2-society-2026",
+      "title_fi": "Yhteiskunnan palvelut – selkeät kysymykset",
+      "cefr_suggested": "A2.2–B1.1",
+      "material_kind": "plain_Finnish_civic_vocational_slides",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Pauli Raivio (publisher index)",
+      "source_page": "https://aoe.fi/materiaali/6019",
+      "source_note_uk": "Відкрий VIERKO 2 суспільний модуль. Зосередься на мові звернення по послуги; конкретні правила державних послуг перевіряй у відповідному відомстві.",
+      "source_rights_note": "AOE publisher collection has CC licenses, but precise license for this individual item and embedded illustrations was not independently verified; do not copy or adapt the slide deck.",
+      "license": "item_license_unconfirmed_link_only",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Kuvittele, että tarvitset tietoa kaupungin palvelusta. Kirjoita kolme kohteliasta kysymystä: missä, milloin ja mitä asiakirjoja tarvitaan.",
+        "reflection_uk": "Перевір, чи запитання короткі й чіткі. Не стверджуй неперевірених правил або юридичних вимог.",
+        "transfer_prompt_fi": "Kaupungin neuvonta vastaa epäselvästi. Pyydä kirjoittamaan ohje selkeällä suomella ja kysy, mistä se löytyy verkossa.",
+        "delayed_recall_prompt_fi": "Kysy viikon kuluttua kahdesta muusta kaupungin palvelusta."
+      }
+    },
+    {
+      "id": "civic-consumer-return",
+      "source_id": "vierko2-society-2026",
+      "title_fi": "Kuluttajan arki – reklamaatio",
+      "cefr_suggested": "B1.1–B1.2",
+      "material_kind": "plain_Finnish_civic_vocational_slides",
+      "publisher": "VIERKO 2 / Avointen oppimateriaalien kirjasto",
+      "author": "Pauli Raivio (publisher index)",
+      "source_page": "https://aoe.fi/materiaali/6019",
+      "source_note_uk": "Використай загальну тематику матеріалу VIERKO 2 про суспільство та побут. Завдання оригінальне; конкретних юридичних строків у ньому немає.",
+      "source_rights_note": "AOE publisher collection has CC licenses, but precise license for this individual item and embedded illustrations was not independently verified; do not copy or adapt the slide deck.",
+      "license": "item_license_unconfirmed_link_only",
+      "reported_components": {
+        "type": "text",
+        "publisher_reported_count": null,
+        "exact_track_binary_verified": false
+      },
+      "access": "external_link_only",
+      "media_binaries_imported": 0,
+      "acoustic_review": "not_performed",
+      "teaching_review": "pending",
+      "is_official_yki": false,
+      "graded": false,
+      "ui_status": "external_task_usable_now",
+      "mission": {
+        "independent_prompt_fi": "Ostit kodinkoneen, mutta se ei toimi normaalisti. Kirjoita lyhyt asiallinen reklamaatio: mitä tapahtui, milloin ongelma alkoi ja mitä ratkaisua pyydät.",
+        "reflection_uk": "Після власної спроби перевір наявність фактів і прохання. Не вигадуй гарантованих законом строків чи прав без першоджерела.",
+        "transfer_prompt_fi": "Myyjä pyytää lisätietoja. Kerro ongelmasta uudelleen kahdella tavalla ja ehdota kohtuullista jatkotoimea.",
+        "delayed_recall_prompt_fi": "Kirjoita viikon päästä uusi valitus erilaisesta palvelusta."
+      }
+    }
+  ]
+}
