@@ -1,6 +1,6 @@
 # Hospodar YKI — Documentation index and source-of-truth map
 
-**Owner:** repository maintainers. **Updated:** 2026-10-22. **Scope:** engineering navigation; does **not** certify production readiness.
+**Owner:** repository maintainers. **Updated:** 2026-10-24. **Scope:** engineering navigation; does **not** certify production readiness.
 
 > Start with [../AGENTS.md](../AGENTS.md). Read the narrowest relevant documents; the research library is reference material, not mandatory context for every coding task.
 
@@ -9,6 +9,7 @@
 | Need | Read first | Why |
 | --- | --- | --- |
 | Confirm product strategy (non-AI learner runtime, curated science-led material) | [Canonical CURATED-01…08 requirements](15-two-modes-skill-scopes.md#продуктовий-принцип-2026-10-24-кураторський-контент-замість-ai-репетитора) | TARGET decisions; no claim that content, gameplay and Android are complete |
+| Deliver equal exam pillar, confirm digital YKI fidelity | [EXAM-PILLAR-01…08](15-two-modes-skill-scopes.md#два-рівноцінні-стовпи-продукту-2026-10-24) → [OPH digital demo evidence + unknowns](14-digital-yki-fidelity-spec.md#нова-вимога-2026-10-24-другий-рівноцінний-стовп-hospodar-yki) → [Executable simulator spec](21-digital-yki-exam-simulator-executable-spec.md) | TARGET: four official OPH demo *links* available; UI not yet manually verified or live-2027 certified |
 | Plan lessons and media from A1.3 to B2.1 | [Curriculum](../learning/curriculum/README.md) → [Tenses](../learning/exercises/grammar/tenses/README.md) + [Clock/time](../learning/exercises/grammar/time-and-clock/README.md) | Explicit TARGET levels vs existing B1 exercises |
 | Visual library physically imported | [Illustrations](../assets/images/illustrations/library.json), [attributed photos](../assets/images/pictures/available.json), [image-led lessons](../learning/exercises/a1/image-led/lessons.json) | Actual offline files, hash/rights proof and teacher-review boundary |
 | Add visual assets | [Illustrations](../assets/images/illustrations/README.md) and [Pictures](../assets/images/pictures/README.md) | Separate visual purpose, alt, rights, review before ingestion |

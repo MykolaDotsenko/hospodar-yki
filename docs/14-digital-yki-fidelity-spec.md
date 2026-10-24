@@ -16,6 +16,40 @@
 
 Це **цільовий функціонал і критерії реалізації**, а не твердження, що всі перелічені варіанти вже реалізовані.
 
+## Нова вимога 2026-10-24: другий рівноцінний стовп Hospodar YKI
+
+**APPROVED TARGET / НЕ ГОТОВИЙ ЕКЗАМЕНАЦІЙНИЙ РЕЛІЗ.** Поряд з відібраним evidence-based LEARN продукт має **максимально точний YKI digital simulator**. Єдина чесна мета — відтворити **тільки незалежно підтверджені** мовні вимоги, цифрову взаємодію, час, навігацію, аудіо, запис та правила завершення. Точне наслідування не є копіюванням захищених матеріалів або бренду офіційної системи.
+
+### Нове першоджерело: офіційні демонстрації цифрових YKI-тестів
+
+**OPH, перевірено 24.10.2026:** [Ennen YKI-testiä → Harjoittele digitaalista YKI-testiä](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) тепер містить **чотири** офіційні зовнішні посилання на демонстраційні сесії в `yki-uat.inspera.com` (не реальний іспит, відповіді не оцінюються):
+
+| Модуль | Прямий демонстраційний URL, опублікований OPH | Що саме підтверджено |
+| --- | --- | --- |
+| Tekstin ymmärtäminen (reading) | [OPH official digital reading demo](https://yki-uat.inspera.com/player/?assessmentRunId=556943021&context=exam) | Існування зовнішньої демонстрації, **не** точні UI/правила |
+| Puheen ymmärtäminen (listening) | [OPH official digital listening demo](https://yki-uat.inspera.com/player/?assessmentRunId=562180026&context=exam) | Існування зовнішньої демонстрації, **не** кількість повторів |
+| Kirjoittaminen (writing) | [OPH official digital writing demo](https://yki-uat.inspera.com/player/?assessmentRunId=561868854&context=exam) | Існування зовнішньої демонстрації, **не** ліміт часу або редактор |
+| Puhuminen (speaking) | [OPH official digital speaking demo](https://yki-uat.inspera.com/player/?assessmentRunId=562180811&context=exam) | Існування зовнішньої демонстрації, **не** механіка мікрофона |
+
+**Перевірка обмежена:** автоматичний web-доступ до Inspera повернув `403 Forbidden`; жоден із чотирьох інтерфейсів **не був пройдений вручну або функціонально протестований** у межах цього аудиту. URL із підтвердженої OPH-сторінки — evidence of a demo link, **не** evidence точного UI. Перед копіюванням поведінки потрібні законний ручний огляд усіх 4 демо, датований протокол взаємодії, порівняння із production-настановами після пілоту та дозвільна перевірка щодо зображень/медіа.
+
+**Офіційні факти 24.10.2026:** [OPH календар](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat) позначає **усі фінські тести весни 2027 як digitesti**; **10.04.2027** — full four-subtest day, реєстрація **08–25.03.2027**. Є 4 окремі результати, кожний keskitaso має рівні `alle 3`, `3`, `4` ([OPH пояснення оцінок](https://www.oph.fi/fi/koulutus-ja-tutkinnot/tietoa-yki-todistuksen-tarkastamisesta)). Ці факти не визначають точні секундні таймери, playback control, переходи або формат редактора.
+
+### Обов'язкова evidence-first матриця (fidelity, не маркетинг)
+
+| Сфера | Джерело й статус 24.10.2026 | Gate до імітації «official 2027 exact» |
+| --- | --- | --- |
+| 4 модулі та шкала окремих результатів | OPH current **VERIFIED** | Зберігати чотири різні результати; no aggregate grade |
+| Цифрова сесія на комп'ютері у testipaikka | OPH digitesti news/calendar **VERIFIED** | Не називати домашню імітацію «офіційним складанням» |
+| Тематика та базові типи завдань | OPH вимоги + SOLKI historical **PARTIAL** | S2 item writer, sampling, licensed original bank |
+| Демо reading/listening/writing/speaking | OPH посилання **LINK VERIFIED / UX UNINSPECTED** | Людина проходить демо; фіксує допустимі спостереження й дату |
+| Послідовність, ліміти, паузи, аудіоповтори, seek, back/next | **UNKNOWN for 2027** | Окремі OPH/jyu first-party докази кожного параметра |
+| Ввід, автозбереження, mic/recording, помилки мережі | **UNKNOWN for 2027** | Цифрове демо + дозвільне перехресне підтвердження production |
+| Оцінки письма й усного мовлення як YKI 3/4 | **NOT CALIBRATED** | Людські S2-рецензенти + дослідницька калібровка; до того `ungraded` |
+| Повна UI точність | **NOT VERIFIED** | Permission-safe UX diff, E2E/а11y і відповідність правилам |
+
+**Протокол ручного огляду:** для кожного з 4 OPH demo зайти через OPH, зафіксувати назву/дату/пристрій/мовний рівень; пройти всі етапи без обходу доступу; записати лише власні спостереження про start/instructions/timer/Next-Back/edit/seek/replay/audio/mic/submit/recovery. Кожний параметр маркувати окремо `digital_demo_observed`, `live_2027_first_party_confirmed` або `unknown`. Demo-спостереження **не прирівнювати автоматично** до офіційних правил 2027. Не витягувати медіа, не знімати чужі завдання/екрани на поширення без дозволу. Тільки після цього імплементувати відповідну версіоновану поведінку і регресійні тести.
+
 ## A. Рівні достовірності
 
 1. **Чинні офіційні факти:** 4 незалежні модулі, цифровий тест у testipaikka (не вдома), всі фінські навесні 2027 digital; кваліфіковане критерійне оцінювання без єдиного підсумкового бала. Джерела: [OPH календар](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat), [OPH digitesti pilot 18.09.2026](https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026), [OPH оцінювання](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen).

@@ -1,7 +1,20 @@
 # 21 — Hospodar YKI Digital Exam Emulator: executable fidelity specification v2
 
-**21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не опублікувала точне UI/playback/timing.  
+**21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не підтвердить відповідність цифрових демонстрацій фактичним правилам UI/playback/timing живого іспиту 2027 та це не буде перевірено.  
 **Джерела:** [20 — детальний фактчек](../research/yki/20-yki-official-complete-audit-2026-10.md), [official evidence JSON](../research/yki/official-yki-deep-audit-v2.json), [task patterns](../research/yki/yki-official-patterns-v2.json), [попередня v1](14-digital-yki-fidelity-spec.md). Відповідає [15 — режимам](15-two-modes-skill-scopes.md).
+
+## Продуктова директива 24.10.2026 — EXAM як другий рівноцінний продукт
+
+**APPROVED TARGET.** Hospodar YKI = **(A) відбірне, науково обґрунтоване LEARN без AI-залежності + (B) високодостовірний самостійний YKI suomi keskitaso DIGITAL EXAM SIMULATOR**. Для EXAM точність важливіша за художні елементи, інтерактивні навчальні підказки та будь-яку генеративну оцінку. Головний статус продукту залишається `practice_only`, доки всі обов'язкові gates не закрито.
+
+**НОВІ ОФІЦІЙНІ ДАНІ:** OPH нині надає зовнішні [4 Inspera digital practice demos](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) для читання, аудіювання, письма та говоріння. Це нове джерело **для ручного дослідження цифрових інтеракцій**, але саме посилання не доводить конкретні controls або тотожність до реального 2027 production. Докладні URL, статуси та протокол: [14 — digital fidelity evidence update, 24.10.2026](14-digital-yki-fidelity-spec.md#нова-вимога-2026-10-24-другий-рівноцінний-стовп-hospodar-yki).
+
+**Обов'язковий engineering gate для всіх F1–F6:**
+1. На кожен critical exam параметр створити itemized evidence record з `parameter`, `observed_value|null`, `source_url`, `observed_on`, `applies_to` (`legacy`/`OPH official digital demo`/`live 2027`), `confidence`, `licensing_status`, `reviewed_by`; unknown = `null`, не довільне значення.
+2. Спеціальний `PRACTICE`-профіль дозволяє користувачу свідомо задати навчальний таймер/аудіоповтор; ці налаштування **завжди** візуально відрізняються від `OFFICIALLY_VERIFIED`. Обрати режим «exact live 2027» можна тільки з підтвердженим джерелом та E2E доказом на кожен critical field.
+3. Зіставляти ручні спостереження OPH demo та текстові OPH/JYU правила, з датами/версіями. Якщо відрізняються — не підвищувати статус до exact, залишати `unknown/conflict`, збирати докази. Жодного screen scraping/copyright material extraction.
+4. Acceptance: full 4 skills + standalone subtests + OPH date-verified partial days; attempt integrity; keyboard/screen reader; mic denied; audio interruption; atomic save/refresh/retry/failure; no leakage of feedback; writing/speaking `ungraded` unless human calibrated.
+5. Виводити шість роздільних доказових статусів і coverage (verified critical / total critical) з **переліком gaps**, а не число «95% точно», засноване на дизайні. Всі заяви про готовність підтверджують runnable browser/Android tests, а не лише контракт.
 
 ## 0. Визначення «точної» імітації: шість незалежних вимірів
 
