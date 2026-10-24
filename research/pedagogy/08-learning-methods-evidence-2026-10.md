@@ -1,6 +1,6 @@
 # 08 — Світові методики ефективного вивчення фінської: Hospodar YKI
 
-> Стан на **21.10.2026**. Evidence-informed research shortlist, НЕ реліз застосунку. Оновлено з 35 до **67** методик і до **69** джерел. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/pedagogy/learning-methods-v1.json`](learning-methods-v1.json).
+> Історичний зріз на **21.10.2026**: 67 методик / 69 джерел. **Поточне доповнення 24.10.2026:** **67 методик / 70 джерел**, додано метааналіз extensive reading 2025 без зміни 100-бальних оцінок. [Новий критичний світовий огляд, методика /100, фінські B1-цикли й протоколи вимірювання](24-global-best-methods-finnish-2026-10.md). Evidence-informed shortlist, НЕ реліз застосунку. Оновлено з 35 до **67** методик і до **69** джерел у попередній історичній хвилі. [Нові дослідження 2025–2026 та архітектура](11-advanced-yki-learning-methods-2026-10.md). Машинозчитувані дані: [`research/pedagogy/learning-methods-v1.json`](learning-methods-v1.json).
 
 ## Методологія рейтингу
 
@@ -1133,5 +1133,7 @@
 - **motivation25** — [Self-determination and L2 achievement meta-analysis (2025), largely correlational](https://doi.org/10.1007/s10648-025-10038-y) — `L2-correlational-meta`.
 - **srltech25** — [Pan, Lai & Guo (2025), technology-enhanced L2 self-regulation review, 57 studies](https://doi.org/10.1016/j.system.2025.103675) — `L2-self-regulation-review`.
 - **kielibuusti_path** — [Kielibuusti Finnish S2 pathway, learner plans and level progression](https://www.kielibuusti.fi/en/career-and-study-advisors-and-heis/support-functions-in-higher-education/s2-language-learning-path-for-international-students) — `Finnish-S2-framework`.
+
+- **extensive2025** — [Sangers et al. (2025), L2 extensive reading, cross-skill small–medium gains](https://doi.org/10.1007/s10648-025-10068-6) — `L2-extensive-reading-meta`, додано 24.10.2026; це 70-те незалежне посилання, пов'язане з наявним `extensive-reading`.
 
 **Нова оцінка навчальної ефективності:** [джерела, 67 рейтингів та їх обмеження](12-finnish-yki-learning-effectiveness-2026-10.md). Product-fit та learning-effectiveness мають різні значення й методологію.
