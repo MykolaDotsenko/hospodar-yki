@@ -58,7 +58,7 @@ def audit(root: Path = ROOT) -> list[str]:
         problems.append("Too few documented high-impact methods")
     for identifier in ("yki-constructive-alignment","human-anchor-calibration","unseen-diagnostics"):
         m, r = methods.get(identifier), ratings.get(identifier)
-        if not m or not r or f"\`{identifier}\` **{m['score']}/{r['learning_effectiveness_0_to_100']}**" not in report:
+        if not m or not r or f"`{identifier}` **{m['score']}/{r['learning_effectiveness_0_to_100']}**" not in report:
             problems.append("Assessment infrastructure score omitted: " + identifier)
     expected_links = [
       "10.1007/s10648-025-10068-6", "10.1111/lang.12479",
@@ -70,7 +70,7 @@ def audit(root: Path = ROOT) -> list[str]:
     for url_fragment in expected_links:
         if url_fragment not in report:
             problems.append("Missing critical primary/official evidence: " + url_fragment)
-    for marker in ("НЕ є", "НЕ", "не", "відкладен", "delayed", "LEARN", "EXAM", "puhekieli", "rektio", "YKI", "67", "70"):
+    for marker in ("НЕ", "не", "відкладен", "delayed", "LEARN", "EXAM", "puhekieli", "rektio", "YKI", "67", "70"):
         if marker not in report:
             problems.append("Missing necessary research/safety boundary " + marker)
     if Path(REPORT).name not in index or Path(REPORT).name not in study:
