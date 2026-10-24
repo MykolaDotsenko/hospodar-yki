@@ -1,6 +1,6 @@
 # 21 — Hospodar YKI Digital Exam Emulator: executable fidelity specification v2
 
-**21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не опублікувала точне UI/playback/timing.  
+**21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не підтвердить відповідність цифрових демонстрацій фактичним правилам UI/playback/timing живого іспиту 2027 та це не буде перевірено.  
 **Джерела:** [20 — детальний фактчек](../research/yki/20-yki-official-complete-audit-2026-10.md), [official evidence JSON](../research/yki/official-yki-deep-audit-v2.json), [task patterns](../research/yki/yki-official-patterns-v2.json), [попередня v1](14-digital-yki-fidelity-spec.md). Відповідає [15 — режимам](15-two-modes-skill-scopes.md).
 
 ## Продуктова директива 24.10.2026 — EXAM як другий рівноцінний продукт
