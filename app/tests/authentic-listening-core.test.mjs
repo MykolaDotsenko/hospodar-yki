@@ -81,3 +81,32 @@ test("OPH publisher domain whitelist and answer-gate misconfiguration rejection"
  const corrupt=[{...valid,id:"bad",mission:{},reported_components:{type:"audio"},access:"external_link_only",graded:false,is_official_yki:false,media_binaries_imported:0}];
  assert.throws(()=>combineVerifiedExternalLessons(Array(7).fill(corrupt[0]),Array(8).fill(corrupt[0]),Array(12).fill(notSafe)),/Повторні/);
 });
+
+test("new A1–B1 open source pack extends browser LEARN to 35 safe, ungraded tasks",async()=>{
+ const read=async path=>JSON.parse(await readFile(new URL("../../"+path,import.meta.url),"utf8"));
+ const [a,b,d,newer]=await Promise.all([
+   read("sources/audio/authentic-dialogues-2026-10.json"),
+   read("sources/learning/practical-s2-resources-2026-10.json"),
+   read("sources/audio/oph-adult-spoken-finnish-2026-10.json"),
+   read("sources/learning/a2-b1-verified-source-missions-2026-10.json")
+ ]);
+ const all=combineVerifiedExternalLessons(a.items,b.items,d.items,newer.items);
+ assert.equal(all.length,35);
+ assert.equal(new Set(all.map(x=>x.id)).size,35);
+ assert.equal(all.every(x=>x.access==="external_link_only"&&x.media_binaries_imported===0&&x.graded===false),true);
+ assert.equal(newer.items.length,8);
+ for(const item of newer.items){
+  assert.equal(sourceUrlForStage(item,newSession()),item.source_page);
+  assert.equal(item.reported_components.publisher_reported_count,null);
+  assert.equal(item.is_official_yki,false);
+ }
+ const forged=newer.items.map((x,i)=>i===0?{...x,media_binaries_imported:1}:x);
+ assert.throws(()=>combineVerifiedExternalLessons(a.items,b.items,d.items,forged),/Неперевірений/);
+ const clone=newer.items.map((x,i)=>i===0?{...x,id:d.items[0].id}:x);
+ assert.throws(()=>combineVerifiedExternalLessons(a.items,b.items,d.items,clone),/Повторні/);
+});
+test("AOE whitelist allows only publisher HTTPS host without URL impersonation",()=>{
+ const valid="https://aoe.fi/materiaali/5839";
+ assert.equal(safePublisherUrl(valid),valid);
+ for(const bad of ["https://aoe.fi.attacker.example/materiaali/5839","https://user@aoe.fi/materiaali/5839","https://aoe.fi:443/materiaali/5839#leak","http://aoe.fi/materiaali/5839"])assert.throws(()=>safePublisherUrl(bad));
+});
