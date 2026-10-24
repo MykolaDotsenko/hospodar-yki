@@ -22,7 +22,7 @@ class ResearchIntegrity(unittest.TestCase):
         target=self.root/path
         s=target.read_text(encoding="utf8")
         self.assertIn(old,s)
-        target.write_text(s.replace(old,new,1),encoding="utf8")
+        target.write_text(s.replace(old,new),encoding="utf8")
     def fail(self,keyword):
         problems=verify(self.root)
         self.assertTrue(any(keyword in x for x in problems),problems)
