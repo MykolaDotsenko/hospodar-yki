@@ -35,7 +35,8 @@
     "No method by itself guarantees YKI grade 3, and each of the four skills needs independent unseen tasks.",
     "Role=assessment_or_infrastructure is necessary for validity or privacy but not a direct training effect.",
     "2026-10-24: Sangers et al. 2025 extensive-reading meta adds convergent cross-domain L2 evidence; extensive-reading method score remains an uncalibrated expert estimate (91/100), not an observed effect size.",
-    "2026-10-24: 3 additional expert ratings with uncertainty, scientific 2026 PI review (23 EFL studies), 2023 L2 pragmatics meta (29 studies), 2024 note-taking meta (21 studies); scores are not claimed causal gains or YKI pass rates."
+    "2026-10-24: 3 additional expert ratings with uncertainty, scientific 2026 PI review (23 EFL studies), 2023 L2 pragmatics meta (29 studies), 2024 note-taking meta (21 studies); scores are not claimed causal gains or YKI pass rates.",
+    "2026-10-24 research follow-up: L2 structured-input randomized N=70 and two AI feedback meta-analyses constrain pedagogical claims. Expert /100 scores unchanged; empirical d/g are independent units. An AI-human no-difference meta is NOT proof of equality or Finnish-grade validity."
   ],
   "ratings": [
     {
@@ -694,7 +695,8 @@
       "source_ids": [
         "pi-review26",
         "pi-efl26",
-        "explicit"
+        "explicit",
+        "pi-online-rct26"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
@@ -1138,7 +1140,9 @@
       "source_ids": [
         "genaitblt25",
         "genai51_2026",
-        "genaireview144"
+        "genaireview144",
+        "ai-aif-writing26",
+        "ai-human-comparison25"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
@@ -1344,7 +1348,8 @@
       "source_ids": [
         "ophgrade",
         "genaitblt25",
-        "genaiwrite79"
+        "genaiwrite79",
+        "ai-human-comparison25"
       ],
       "actual_research_effect_size_not_this_score": true,
       "not_yki_pass_probability": true
