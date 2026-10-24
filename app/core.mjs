@@ -39,7 +39,10 @@ export function readState(raw) {
       retention: (Array.isArray(s.retention) ? s.retention : []).filter(x =>
         x && /^[a-z\d_-]{1,100}$/i.test(x.taskId || "") &&
         [7,14,30].includes(x.day) && x.status === "ungraded" &&
-        x.independent === true && typeof x.response === "string" &&
+        x.independent === true &&
+        (x.actualAgeDays === undefined || (Number.isInteger(x.actualAgeDays) && x.actualAgeDays >= x.day)) &&
+        (x.lateByDays === undefined || (Number.isInteger(x.lateByDays) && x.lateByDays >= 0)) &&
+        typeof x.response === "string" &&
         x.response.trim().length > 0 && x.response.length <= 1600 &&
         typeof x.submittedAt === "string" && !Number.isNaN(Date.parse(x.submittedAt))
       ).slice(-HISTORY_LIMIT),
