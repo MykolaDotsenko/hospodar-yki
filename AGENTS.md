@@ -2,6 +2,8 @@
 
 You are working on a **local-first Finnish/YKI learning application**: Ukrainian-language explanations; Finnish-language practice; LEARN and EXAM modes with reading, listening, writing and speaking. Optimize for reliable learning outcomes, privacy, accessibility, and verified tests—not for new frameworks or large diffs.
 
+**Product direction (2026-10-24):** Hospodar YKI is a **human-curated, evidence-informed, offline-first Finnish learning product**, not an AI tutor. The learner's path must work without any generative AI or network model: selected/licensed/S2-reviewed content; deterministic first-attempt/feedback and spaced retrieval; meaningful multimedia, accessible cues, optional sound and intrinsic-motivation gameplay. A generative model may assist content research or drafting **outside** learner-facing runtime, but is never a required teaching dependency or a source of unreviewed answer keys/YKI grades. Target requirements and evidence limits: [canonical product direction](docs/15-two-modes-skill-scopes.md#продуктовий-принцип-2026-10-24-кураторський-контент-замість-ai-репетитора). Do not conflate UI beauty/engagement with delayed language learning gains.
+
 **Product scope update:** design new LEARN content for **A1.3 → B2.1** with differentiated levels; do not mislabel the working B1 MVP as six-level-ready. Images have distinct [illustration](assets/images/illustrations/README.md)/[picture](assets/images/pictures/README.md) homes; grammar tenses live in [learning/exercises/grammar/tenses](learning/exercises/grammar/tenses/README.md). EXAM remains evidence-based YKI keskitaso, not invented A1.3 exam certification.
 
 ## First read (progressive disclosure)
