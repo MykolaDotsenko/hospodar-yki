@@ -9,6 +9,8 @@ on:
       - 'research/pedagogy/learning-methods-v1.json'
       - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
       - 'scripts/validate_finnish_method_extension.py'
+      - 'scripts/validate_finnish_2026_followup.py'
+      - 'scripts/tests/test_validate_finnish_2026_followup.py'
       - 'scripts/tests/test_validate_finnish_method_extension.py'
       - 'scripts/validate_global_finnish_learning_synthesis.py'
       - '.github/workflows/validate-finnish-method-extension.yml'
@@ -20,6 +22,8 @@ on:
       - 'research/pedagogy/learning-methods-v1.json'
       - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
       - 'scripts/validate_finnish_method_extension.py'
+      - 'scripts/validate_finnish_2026_followup.py'
+      - 'scripts/tests/test_validate_finnish_2026_followup.py'
       - 'scripts/tests/test_validate_finnish_method_extension.py'
       - 'scripts/validate_global_finnish_learning_synthesis.py'
       - '.github/workflows/validate-finnish-method-extension.yml'
@@ -39,6 +43,8 @@ jobs:
           python3 scripts/validate_learning_methods.py
           python3 scripts/validate_global_finnish_learning_synthesis.py
           python3 scripts/validate_finnish_method_extension.py
+          python3 scripts/validate_finnish_2026_followup.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_finnish_2026_followup.py' -v
           python3 -m unittest discover -s scripts/tests -p 'test_validate_finnish_method_extension.py' -v
           python3 -m unittest discover -s scripts/tests -p 'test_validate_global_finnish_learning_synthesis.py' -v
       - name: Validate discoverability, references, and AI docs
