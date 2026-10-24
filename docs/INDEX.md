@@ -8,6 +8,7 @@
 
 | Need | Read first | Why |
 | --- | --- | --- |
+| Make Hospodar demonstrably best for learners in its niche | [28 — Quality & niche leadership strategy](28-product-quality-niche-leadership-strategy.md) → [Canonical product requirements](15-two-modes-skill-scopes.md) | TARGET differentiation; QL-01…09, measured U14/U30, F1–F6, release gates and 6-step execution priorities, not a measured product win |
 | Confirm product strategy (non-AI learner runtime, curated science-led material) | [Canonical CURATED-01…08 requirements](15-two-modes-skill-scopes.md#продуктовий-принцип-2026-10-24-кураторський-контент-замість-ai-репетитора) | TARGET decisions; no claim that content, gameplay and Android are complete |
 | Deliver equal exam pillar, confirm digital YKI fidelity | [EXAM-PILLAR-01…08](15-two-modes-skill-scopes.md#два-рівноцінні-стовпи-продукту-2026-10-24) → [OPH digital demo evidence + unknowns](14-digital-yki-fidelity-spec.md#нова-вимога-2026-10-24-другий-рівноцінний-стовп-hospodar-yki) → [Executable simulator spec](21-digital-yki-exam-simulator-executable-spec.md) | TARGET: four official OPH demo *links* available; UI not yet manually verified or live-2027 certified |
 | Plan lessons and media from A1.3 to B2.1 | [Curriculum](../learning/curriculum/README.md) → [Tenses](../learning/exercises/grammar/tenses/README.md) + [Clock/time](../learning/exercises/grammar/time-and-clock/README.md) | Explicit TARGET levels vs existing B1 exercises |
