@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Research-only integrity: two canonical 70-method /100 rankings and 77 sources."""
+"""Research-only integrity: two canonical 70-method /100 rankings and at least 80 sources."""
 import json
 import re
 from pathlib import Path
@@ -38,8 +38,8 @@ def verify(root=ROOT):
     refs=m.get("source_register",{})
     mm={x.get("id"):x for x in ms}
     ee={x.get("id"):x for x in es}
-    if len(ms)!=70 or len(es)!=70 or len(refs)!=77 or e.get("count")!=70 or len(mm)!=70 or len(ee)!=70 or set(mm)!=set(ee):
-        errors.append("Canonical 70 scored methods and 77 sources invalid")
+    if len(ms)!=70 or len(es)!=70 or len(refs)<80 or e.get("count")!=70 or len(mm)!=70 or len(ee)!=70 or set(mm)!=set(ee):
+        errors.append("Canonical 70 scored methods and at least 80 sources invalid")
     for k,url in SOURCES.items():
         if refs.get(k,{}).get("url")!=url:errors.append("Scholarly source changed: "+k)
         if url not in report:errors.append("Scientific source omitted from report: "+k)
@@ -78,4 +78,4 @@ if __name__=="__main__":
     problems=verify()
     for p in problems:print("FAIL:",p)
     if problems:raise SystemExit(1)
-    print("PASS: 70 methods, 77 source links, three new scored methods and complete dual /100 rankings")
+    print("PASS: 70 methods, >=80 source links, three new scored methods and complete dual /100 rankings")
