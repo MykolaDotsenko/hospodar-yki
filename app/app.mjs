@@ -246,7 +246,8 @@ function renderDelayedTransfer() {
   }
   const task=pending[0];
   return panel(intro+summary+
-    '<p>Контроль <strong>день '+task.day+'</strong> · '+h(task.grammarTag)+
+    '<p>Контроль <strong>день '+task.day+'</strong> · фактично день '+
+    queue.find(x=>x.taskId===task.taskId).ageDays+' · '+h(task.grammarTag)+
     '. Напиши власну відповідь фінською. Немає автоматичного бала за письмо, зразка або підказок до відправлення.</p>'+
     '<div class="prompt" lang="fi">'+h(task.prompt_fi)+'</div>'+
     form("Зберегти незалежну відповідь",
@@ -328,8 +329,8 @@ function handleMission(form,fields) {
     app.state=completeMission(app.state,{taskId:t.id,grammarTag:t.grammar_tag,
       firstAnswer:m.firstAnswer,firstCorrect:m.firstCorrect,
       secondAnswer:m.secondAnswer,repairCorrect:m.repairCorrect,transferText});
-    save();m.phase="done";
-    info("Місію завершено. Результат збережено локально.");
+    const persisted=save();m.phase="done";
+    if(persisted) info("Місію завершено. Результат збережено локально.");
   }render();
 }
 function handleDiagnostic(form,fields) {
