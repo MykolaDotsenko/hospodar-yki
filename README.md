@@ -14,6 +14,10 @@
 
 [🎧🖼️ Інтерактивні аудіо+фото A1.3–A2.2](app/real-life.html) · [🗣️ 35 зовнішніх діалогів і практичних місій A1.3–B2.1](app/authentic-listening.html) · [🧭 Рівні A1.3–B2.1](learning/curriculum/README.md) · [📘 Граматичні часи](learning/exercises/grammar/tenses/README.md) · [🕒 Час і годинник](learning/exercises/grammar/time-and-clock/README.md) · [🎨 Ілюстрації](assets/images/illustrations/README.md) · [🖼️ Фотографії](assets/images/pictures/README.md)
 
+## 💎 Стратегія якості: як стати найкращими для учнів
+
+**Не кількість вправ або AI, а реальний результат.** [Практична стратегія №28](docs/28-product-quality-niche-leadership-strategy.md) містить чесне порівняння альтернатив, **9 перевірюваних переваг QL-01…09**, вимоги до S2/ліцензій/аудіо/дизайну/гейміфікації, **результат на 14/30 день**, незалежну якість 4 skill, точність цифрового YKI **F1…F6**, критерії release/no-go та наступні 6 задач. Це **план розвитку**, а не заява про продемонстровану ефективність або production-ready симуляцію.
+
 ## 🚀 Запуск локального Web MVP
 
 Потрібні Python 3.12+ та Node.js 22 (для тестів). Із кореня репозиторію:

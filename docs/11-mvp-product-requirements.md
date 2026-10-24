@@ -7,6 +7,8 @@
 
 **Друга рівноцінна основа продукту (24.10.2026):** **надзвичайно точний цифровий симулятор YKI keskitaso** для чотирьох навичок, окремо від CURATED LEARN. [EXAM-PILLAR-01…08](15-two-modes-skill-scopes.md#два-рівноцінні-стовпи-продукту-2026-10-24) і [джерельна матриця OPH/Inspera](14-digital-yki-fidelity-spec.md#нова-вимога-2026-10-24-другий-рівноцінний-стовп-hospodar-yki) мають пріоритет у плануванні: усі налаштування лише за офіційним підтвердженням, зручний full/subtest practice, надійні 1st attempts, `ungraded` письмо/говоріння без людської калібровки. **TARGET, не вже випущена ідентична копія YKI.**
 
+**Якість для людей замість порожньої функціональності (24.10.2026):** [стратегія лідерства №28](28-product-quality-niche-leadership-strategy.md) обов'язкова як **product prioritization / measurable acceptance** для нових LEARN/EXAM задач: S2 та ліцензія, незалежна delayed retention, природне audio, meaningful game/visuals, verified digital YKI F1–F6, a11y/reliability, жодного fake B1 score. Відмінності від конкурентів — лише гіпотези до чесного дослідження. Технічні контракти залишаються власністю цього документа й [№15](15-two-modes-skill-scopes.md).
+
 ## Scope change — A1.3…B2.1 + illustration and tense libraries
 
 - **RANGE-01:** навчальний маршрут від A1.3, можливість перейти вище після діагностики, верхня ціль B2.1. Покриття всіх рівнів **заплановане**, не реалізоване повністю.
