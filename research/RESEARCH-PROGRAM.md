@@ -1,5 +1,7 @@
 # Hospodar YKI — evidence-to-learning research program
 
+> **Follow-up 24.10.2026:** [controlled form-meaning grammar practice and AI-feedback syntheses](pedagogy/25-pragmatics-processing-notes-finnish-2026-10.md#8-доказовий-follow-up-24102026-контрольоване-граматичне-навчання-та-ai-feedback), now **70 canonical methods / 80 bibliography IDs (78 unique scientific/official URLs; 2 historical aliases retained)**, expert /100 values unchanged; implementation still unvalidated.
+
 > **Оновлено 24.10.2026:** [глибинний аудит 3 нових доказових підходів](pedagogy/25-pragmatics-processing-notes-finnish-2026-10.md); актуальні канонічні **70 методик і 77 джерел** (не другий реєстр). Продуктові бали ≠ measured outcomes, перевірка unseen через 7/14/30 днів — майбутній експеримент.
 
 **Статус:** ACTIVE RESEARCH PROCESS / NOT AN IMPLEMENTED FEATURE. **Започатковано:** 2026-10-22.

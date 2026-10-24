@@ -1,6 +1,6 @@
 # 25 — Нові світові методи для фінської A2.2 → B1+: граматичне сприйняття, прагматика, нотатки
 
-**Дата аудиту:** 24.10.2026 · **Статус:** RESEARCH_ONLY / ніякого нового AI-scoring або готових аудіо-уроків. **Канонічний каталог:** [70 методик](learning-methods-v1.json), [70 навчальних рейтингів](learning-effectiveness-ratings-v1.json), [77 наукових/офіційних першоджерел](learning-methods-v1.json). Дві експертні шкали **0–100**: (а) product-fit для Hospodar YKI, (б) припущення про навчальну користь. **Не % покращення, не Hedges g/d, не гарантія YKI grade 3.** Різниця в 1–5 балів умовна. Попередня [світова синтеза 24](24-global-best-methods-finnish-2026-10.md) з історичним зрізом 67/70 лишається доступною; нові 3 методи додані саме до канонічного реєстру, не у дубльований список.
+**Дата аудиту:** 24.10.2026 · **Статус:** RESEARCH_ONLY / ніякого нового AI-scoring або готових аудіо-уроків. **Канонічний каталог:** [70 методик](learning-methods-v1.json), [70 навчальних рейтингів](learning-effectiveness-ratings-v1.json), [80 наукових/офіційних першоджерел](learning-methods-v1.json). Дві експертні шкали **0–100**: (а) product-fit для Hospodar YKI, (б) припущення про навчальну користь. **Не % покращення, не Hedges g/d, не гарантія YKI grade 3.** Різниця в 1–5 балів умовна. Попередня [світова синтеза 24](24-global-best-methods-finnish-2026-10.md) з історичним зрізом 67/70 лишається доступною; нові 3 методи додані саме до канонічного реєстру, не у дубльований список.
 
 ## Нові методи — експертні оцінки /100
 
@@ -112,10 +112,51 @@
 | `hvptmeta25` | [Uchihara et al. (2025)](https://doi.org/10.1017/S0272263125100879), 79 studies | perception g=0.67 controlled | perception ≠ speaking |
 | `listeningmeta24` | [Chang (2024)](https://eric.ed.gov/?id=EJ1423906), 32 studies | d=0.25 для broad listening instruction | not head-to-head vs notes |
 
-**Всі 7 — нові джерела до наявних 70 (разом 77)**; міжнародна evidence base, індивідуальні вправи фінською авторські, не захищені тексти. Деякі наукові джерела переглянуті на рівні abstracts/official publisher abstracts, не всі full-text critical-bias tools; це critical targeted evidence synthesis, **не повний PRISMA review**. Немає доказів, що саме Hospodar уже створив приріст цих розмірів.
+**Історія цієї хвилі:** перші 7 нових джерел збільшили реєстр 70→77; подальша перевірка додала ще 3 (разом **80 ID (78 унікальних URL)**).; міжнародна evidence base, індивідуальні вправи фінською авторські, не захищені тексти. Деякі наукові джерела переглянуті на рівні abstracts/official publisher abstracts, не всі full-text critical-bias tools; це critical targeted evidence synthesis, **не повний PRISMA review**. Немає доказів, що саме Hospodar уже створив приріст цих розмірів.
 
 ### References / handoff
 
 [Canonical method registry](learning-methods-v1.json) · [Canonical effectiveness ratings](learning-effectiveness-ratings-v1.json) · [Full 70-method rankings](08-learning-methods-evidence-2026-10.md) · [Learning-impact rankings](12-finnish-yki-learning-effectiveness-2026-10.md) · [Latest global overview](24-global-best-methods-finnish-2026-10.md) · [Research program](../RESEARCH-PROGRAM.md) · [Operational study protocol](../../docs/05-study-system.md).
 
 **Не було реалізовано:** нових інтерактивних граматичних сцен, нотаток у Web, AI прагматичного evaluator, Android, уроків із чужими аудіофайлами чи безпечних записів голосу. Статус — **сфера дослідження й технічне ТЗ**, а не готова функція.
+
+
+## 8. Доказовий follow-up 24.10.2026: контрольоване граматичне навчання та AI-feedback
+
+> Статус: **RESEARCH_ONLY / 3 нові джерела**, канонічний реєстр тепер **70 методів / 80 ID джерел (78 унікальних посилань)**. Існуючі дві оцінки /100 **не підвищувалися**. Ніякого навчального приросту Hospodar YKI не було виміряно. Систематичний огляд і RCT дають різні питання: не замінювати форму навчання лише тому, що у статті велике стандартизоване `d`.
+
+### 8.1 Randomized PI vs SI: що реально доведено 18.09.2026
+
+**Pouresmaeil, Wang & Benati** — [The Online Effects of Processing Instruction and Structured Input](https://doi.org/10.1177/13621688261480080), *Language Teaching Research*, опубліковано онлайн **18 вересня 2026 року**. Англійська пасивна конструкція, **N=70** випадково розподілених ESL-учнів: Processing Instruction (PI) **n=24**, Structured Input (SI) **n=25**, untreated control **n=21**. Два експериментальні варіанти — **1 година** комп'ютерної практики. Заміри: self-paced reading / self-paced listening, точність інтерпретації, вибір ілюстрації, час реакції, до навчання, одразу та **через 3 тижні**.
+
+**Знайдено:** PI і SI покращили точність письмової та звукової інтерпретації на immediate й delayed порівняно з untreated group; **загальна PI-vs-SI відмінність не була статистично значущою**. Час читання статистично суттєво не скоротився. В auditory mode PI мала стійкі переваги у власній зміні listening time / response time; SI response-time improvement було переважно immediate. **Це не порівняння з рівночасовою активною граматичною практикою**, бо контроль не отримував альтернативного навчання; не стверджувати переваги PI над усіма іншими методами.
+
+**Канонічна оцінка (без зміни):** `structured-input-grammar` **Product-fit 92/100 / Learning-impact 88/100**. **Практика для фінської:** коротке аудіо *Hän on kaupassa / Hän tulee kaupasta / Hän menee kauppaan* → учень спершу самостійно обирає `missä/mistä/mihin` та відповідне місце на ілюстрації → отримує evidence-based feedback → **власноруч говорить** про маршрут у незнайомому сценарії; після 7/14/21 дня нові речення, інший диктор. **Окремі outcomes**: case interpretation, reaction time, spontaneous production. Невідомо, чи ефект ESL-пасиву перенесеться на фінські відмінки. Для складнішого PI проти простішого SI у нас **немає підстав вимагати дорожчу реалізацію до A/B**.
+
+### 8.2 AI-assisted writing feedback: метааналіз зі значним обмеженням когнітивного ефекту
+
+**Liu & Liang, 2026, System 139, 104018** — [The effects of AI-assisted feedback ... in L2 writing](https://doi.org/10.1016/j.system.2026.104018). Трирівневий meta: спочатку **19 досліджень, 66 effect sizes, N=11 875**; після видалення **6 extreme outliers** в основному підсумковому аналізі залишилися **16 досліджень / 60 ефектів**. Сумарний `d=0.271`, 95% CI **[0.185, 0.358]**; **emotional outcomes d=0.628**, тоді як власне cognitive gains обмежені. Пілотні дослідження дають більші оцінки, ніж інші дизайни; гетерогенність істотна. **Не описувати загальне N початкового відбору як окремо перевірений N final cleaned meta**. Ці `d` не є прибавкою 27.1% або 62.8%.
+
+**Канонічна оцінка (без зміни):** `hybrid-ai-teacher-loop` **Product-fit 93/100 / Learning-impact 80/100**. AI може дати швидку мовну підказку або зменшити бар'єр письма, але **не повинна** видавати polished rewrite за власну навичку учня. LEARN: `first_attempt` → коротка feedback-підказка до 3 помилок (спочатку самовиправлення) → second_attempt → новий лист без підказки через 7/14 днів; feedback порівнювати з **time-matched baseline**, teacher-reviewed і blind-scored `unseen writing`.
+
+### 8.3 AI vs human: «немає значущої різниці» НЕ означає еквівалентність або валідований YKI score
+
+**Kaliisa, Misiejuk, López-Pernas & Saqr**, [How does artificial intelligence compare to human feedback?](https://doi.org/10.1080/01443410.2025.2553639), опубліковано онлайн **24.09.2025** (том 46, 2026): **41 дослідження, N=4 813**; метааналіз **не виявив статистично значущої різниці** в learning performance між AI-generated і human-provided feedback. Він охоплює різні освітні контексти, **не перевіряє** валідність автоматичного оцінювання розмовної фінської чи YKI B1. `No significant difference` ≠ equivalence/noninferiority (для цього потрібні попередньо встановлені межі та спеціальний тест).
+
+**Канонічна оцінка (без зміни):** `human-anchor-calibration` **Product-fit 97/100 / Learning-impact 73/100**. Цей високий *product-fit* — обов'язковий компонент **assessment reliability**, а не твердження, що людина завжди навчає ефективніше за AI. Для реальних YKI-like оцінок: 2 незалежні S2 викладачі, adjudication, disagreement/abstention rate, перевірка акцентів; `AI estimated performance` ніколи не є офіційним `YKI grade`.
+
+### 8.4 Рейтинг високопріоритетних циклів — методи /100, без додаткової вигаданої шкали
+
+| Складова | Product-fit /100 | Learning-impact /100 | Рішення |
+|---|---:|---:|---|
+| `spaced-retrieval` | **98** | **96** | 1/3/7/14/30 лише initial defaults; скоригувати після справжнього recall |
+| `task-based` | **97** | **93** | Реальна Finnish-speaking задача + вимір комунікативної мети |
+| `human-anchor-calibration` | **97** | **73** | Оцінювання потребує доказу узгодженості з S2 anchors |
+| `metacognitive-listening` | **94** | **94** | Gist → details → reflection → novel human audio |
+| `structured-input-grammar` | **92** | **88** | Form–meaning understanding → нова самостійна продукція |
+| `hybrid-ai-teacher-loop` | **93** | **80** | AI лише як недосконалий помічник; human-anchored writing |
+
+**Рейтинг не є емпіричною 100-бальною шкалою успіху.** Нові докази можуть змінювати *confidence in future prioritization* і тестові плани без механічної зміни score. 3 джерела мають повні DOI, authorship, population, comparator, measured outcome й важливі **null findings** у [канонічному реєстрі](learning-methods-v1.json). *Research added* не дорівнює *feature implemented*; голосові записи, приватні листи, учнівські тексти не публікувати в репозиторії.
+
+
+**Аудит дедуплікації 24.10.2026:** два історичні дублікати мають різні ID, але одну DOI-адресу: `writingcf` = `surface-deep24` ([writing feedback meta](https://doi.org/10.1016/j.learninstruc.2024.101961)); `hvpt` = `hvptmeta25` ([HVPT meta](https://doi.org/10.1017/S0272263125100879)). Їх поки не зливають, щоб не зламати вже збережені міжфайлові посилання й рейтинги. **80 source IDs ≠ 80 незалежних публікацій**: зараз це **78 унікальних URL**. Жодна з 3 нових DOI не повторює інших джерел; наукова достовірність рейтингів не виводиться з сирої кількості ID.

@@ -39,7 +39,7 @@ class RatingAndScienceSynthesis(unittest.TestCase):
         self.must_fail("mismatches canonical")
     def test_new_l2_meta_source_cannot_disappear(self):
         self.mutate_json(METHODS,lambda d:d["source_register"].pop("extensive2025"))
-        self.must_fail("baseline drifted")
+        self.must_fail("Missing 2025 reading meta-analysis citation")
     def test_method_and_effectiveness_citations_must_agree(self):
         self.mutate_json(RATINGS,lambda d:next(x for x in d["ratings"] if x["id"]=="extensive-reading")["source_ids"].remove("extensive2025"))
         self.must_fail("BOTH canonical")
