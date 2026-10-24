@@ -1,0 +1,47 @@
+name: Validate Finnish learning methods update
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/pedagogy/25-pragmatics-processing-notes-finnish-2026-10.md'
+      - 'research/pedagogy/08-learning-methods-evidence-2026-10.md'
+      - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
+      - 'research/pedagogy/learning-methods-v1.json'
+      - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
+      - 'scripts/validate_finnish_method_extension.py'
+      - 'scripts/tests/test_validate_finnish_method_extension.py'
+      - 'scripts/validate_global_finnish_learning_synthesis.py'
+      - '.github/workflows/validate-finnish-method-extension.yml'
+  pull_request:
+    paths:
+      - 'research/pedagogy/25-pragmatics-processing-notes-finnish-2026-10.md'
+      - 'research/pedagogy/08-learning-methods-evidence-2026-10.md'
+      - 'research/pedagogy/12-finnish-yki-learning-effectiveness-2026-10.md'
+      - 'research/pedagogy/learning-methods-v1.json'
+      - 'research/pedagogy/learning-effectiveness-ratings-v1.json'
+      - 'scripts/validate_finnish_method_extension.py'
+      - 'scripts/tests/test_validate_finnish_method_extension.py'
+      - 'scripts/validate_global_finnish_learning_synthesis.py'
+      - '.github/workflows/validate-finnish-method-extension.yml'
+permissions:
+  contents: read
+jobs:
+  method-evidence-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Validate canonical ratings, historical snapshots and new evidence
+        run: |
+          python3 scripts/validate_learning_methods.py
+          python3 scripts/validate_global_finnish_learning_synthesis.py
+          python3 scripts/validate_finnish_method_extension.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_finnish_method_extension.py' -v
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_global_finnish_learning_synthesis.py' -v
+      - name: Validate discoverability, references, and AI docs
+        run: |
+          python3 scripts/validate_doc_integrity.py
+          python3 scripts/validate_ai_docs.py
