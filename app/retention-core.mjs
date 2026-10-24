@@ -1,13 +1,13 @@
 /** Pure delayed independent Finnish transfer prompts. Separate from SRS and EXAM. */
 export const TRANSFER_DAYS = Object.freeze([7,14,30]);
-const idValid = value => typeof value === "string" && /^[a-z\\d_-]{1,100}$/i.test(value);
+const idValid = value => typeof value === "string" && /^[a-z\d_-]{1,100}$/i.test(value);
 const calendarDay = date => {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) throw new Error("Invalid date");
   const p = value => String(value).padStart(2,"0");
   return date.getFullYear()+"-"+p(date.getMonth()+1)+"-"+p(date.getDate());
 };
 const ordinalDay = value => {
-  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return null;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const [y,m,d] = value.split("-").map(Number);
   const t=Date.UTC(y,m-1,d);
   const check=new Date(t);
