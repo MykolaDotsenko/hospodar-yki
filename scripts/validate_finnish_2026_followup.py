@@ -67,7 +67,7 @@ def audit(root=ROOT):
             problems.append("False YKI grade or causal score claim: "+identifier)
         if ("**Product-fit "+str(p)+"/100 / Learning-impact "+str(impact)+"/100**") not in report:
             problems.append("Missing explicit /100 rating in critical addendum: "+identifier)
-    for label in ("## 8. Доказовий follow-up","через 3 тижні","PI-vs-SI","не була статистично значущою","16 досліджень / 60 ефектів","41 дослідження, N=4 813","No significant difference","RESEARCH_ONLY","не","70 методів / 80 джерел"):
+    for label in ("## 8. Доказовий follow-up","через 3 тижні","PI-vs-SI","не була статистично значущою","16 досліджень / 60 ефектів","41 дослідження, N=4 813","No significant difference","RESEARCH_ONLY","не","70 методів / 80 ID"):
         if label not in report:
             problems.append("Missing null result, control or epistemic caution: "+label)
     if "25-pragmatics-processing-notes-finnish-2026-10.md" not in index or "25-pragmatics-processing-notes-finnish-2026-10.md" not in learner:
