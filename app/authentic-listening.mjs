@@ -33,12 +33,13 @@ try{
   if(!response.ok)throw new Error("Каталог недоступний: "+path+" ("+response.status+")");
   return response.json();
  }
- const [oldCatalog,newCatalog,ophCatalog]=await Promise.all([
+ const [oldCatalog,newCatalog,ophCatalog,openS2Catalog]=await Promise.all([
   load("sources/audio/authentic-dialogues-2026-10.json"),
   load("sources/learning/practical-s2-resources-2026-10.json"),
-  load("sources/audio/oph-adult-spoken-finnish-2026-10.json")
+  load("sources/audio/oph-adult-spoken-finnish-2026-10.json"),
+  load("sources/learning/a2-b1-verified-source-missions-2026-10.json")
  ]);
- lessons=combineVerifiedExternalLessons(oldCatalog.items,newCatalog.items,ophCatalog.items);
+ lessons=combineVerifiedExternalLessons(oldCatalog.items,newCatalog.items,ophCatalog.items,openS2Catalog.items);
  render();
 }catch(error){
  status.textContent="Неможливо відкрити зовнішній каталог: "+error.message;
