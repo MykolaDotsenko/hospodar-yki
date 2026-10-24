@@ -7,7 +7,7 @@ const ERROR_LIMIT = 160;
 const MAX_TEXT = 1600;
 
 export function blankState() {
-  return {version: VERSION, attempts: [], cards: {}, diagnostics: [], errors: []};
+  return {version: VERSION, attempts: [], cards: {}, diagnostics: [], errors: [], retention: []};
 }
 export function readState(raw) {
   if (!raw) return {state: blankState(), recovered: false};
@@ -35,6 +35,17 @@ export function readState(raw) {
       version: VERSION,
       attempts: s.attempts.filter(x => x && typeof x.taskId === "string").slice(-HISTORY_LIMIT),
       cards,
+      // V1 stored profiles do not have this optional new field; never delete their attempts.
+      retention: (Array.isArray(s.retention) ? s.retention : []).filter(x =>
+        x && /^[a-z\d_-]{1,100}$/i.test(x.taskId || "") &&
+        [7,14,30].includes(x.day) && x.status === "ungraded" &&
+        x.independent === true &&
+        (x.actualAgeDays === undefined || (Number.isInteger(x.actualAgeDays) && x.actualAgeDays >= x.day)) &&
+        (x.lateByDays === undefined || (Number.isInteger(x.lateByDays) && x.lateByDays >= 0)) &&
+        typeof x.response === "string" &&
+        x.response.trim().length > 0 && x.response.length <= 1600 &&
+        typeof x.submittedAt === "string" && !Number.isNaN(Date.parse(x.submittedAt))
+      ).slice(-HISTORY_LIMIT),
       diagnostics: s.diagnostics.filter(x => x && typeof x.skill === "string").slice(-HISTORY_LIMIT),
       errors: s.errors.filter(x => x && typeof x.taskId === "string").slice(-ERROR_LIMIT)
     }, recovered: false};

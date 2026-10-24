@@ -2,6 +2,7 @@ import {
   STORAGE_KEY, blankState, readState, checkCloze, dueCards, localDate,
   completeMission, addDiagnostic, skillSummary
 } from "./core.mjs";
+import {delayedTransferQueue, recordDelayedTransfer} from "./retention-core.mjs";
 
 const root = document.getElementById("main");
 const notice = document.getElementById("notice");
@@ -19,8 +20,8 @@ const app = {view:"mission", sources:null, mission:null, diag:{index:0,played:fa
   state:blankState(), volatile:false, voiceURL:null, recorded:false, recorder:null, stream:null};
 
 function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(app.state)); }
-  catch { app.volatile = true; info("Збереження браузера недоступне. Дані діятимуть лише до закриття сторінки; скористайтеся експортом."); }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(app.state)); app.volatile=false; return true; }
+  catch { app.volatile = true; info("Збереження браузера недоступне. Дані діятимуть лише до закриття сторінки; скористайтеся експортом."); return false; }
 }
 function useState() {
   try {
@@ -224,6 +225,39 @@ function renderProgress() {
     <div class="actions">${btn("Експорт JSON","export","secondary")}${btn("Видалити весь локальний прогрес","erase","danger")}</div>
     <p class="qualification">Увага: localStorage доступний лише в конкретному браузері/профілі. Експорт містить ваші письмові відповіді. Не публікуйте його в GitHub. Для персонального використання на чужому пристрої видаліть дані.</p>`);
 }
+function renderDelayedTransfer() {
+  const queue=delayedTransferQueue(app.state,app.sources.delayed);
+  const pending=queue.map(x=>x.due).filter(Boolean);
+  const done=queue.reduce((sum,x)=>sum+x.completed.length,0);
+  const missed=queue.reduce((sum,x)=>sum+x.missed.length,0);
+  const summary='<div class="kpi-grid"><div class="kpi"><strong>'+done+
+    '</strong><span>Самостійних відповідей без оцінки</span></div><div class="kpi"><strong>'+
+    pending.length+'</strong><span>Нових ситуацій сьогодні</span></div><div class="kpi"><strong>'+
+    missed+'</strong><span>Пропущених контрольних вікон</span></div></div>';
+  const intro=panelTitle("Відкладена практика · LEARN","7 / 14 / 30 днів",
+    "Нове завдання без підказки; збережена відповідь не дорівнює перевіреній мовній навичці.");
+  if (!pending.length) {
+    const next=queue.flatMap(x=>x.nextDay===null?[]:[{name:x.grammarTag,days:x.nextDay-x.ageDays}])
+      .sort((a,b)=>a.days-b.days);
+    const future=next.length?'<p>Наступне контрольне вікно: через <strong>'+next[0].days+
+      ' дн.</strong> · '+h(next[0].name)+'</p>':'<p>Сьогодні немає нових завдань для відкладеної практики.</p>';
+    return panel(intro+summary+future+
+      '<p class="muted">Пілот охоплює 4 граматичні теми: illatiivi, elatiivi, inessiivi та soittaa jollekulle. Починається після завершення відповідної граматичної місії.</p>'+note);
+  }
+  const task=pending[0];
+  return panel(intro+summary+
+    '<p>Контроль <strong>день '+task.day+'</strong> · фактично день '+
+    queue.find(x=>x.taskId===task.taskId).ageDays+' · '+h(task.grammarTag)+
+    '. Напиши власну відповідь фінською. Немає автоматичного бала за письмо, зразка або підказок до відправлення.</p>'+
+    '<div class="prompt" lang="fi">'+h(task.prompt_fi)+'</div>'+
+    form("Зберегти незалежну відповідь",
+      '<label class="field" for="delayed-response">Моя відповідь фінською</label>'+
+      '<textarea id="delayed-response" name="response" lang="fi" required maxlength="1600" placeholder="Kirjoita tähän…"></textarea>'+
+      '<input type="hidden" name="taskId" value="'+h(task.taskId)+'">'+
+      '<input type="hidden" name="day" value="'+task.day+'">',"delayed-transfer")+
+    '<p class="muted">Перевірка іншою людиною/S2-викладачем поки не підключена. Пропущені дні не позначаються успішно виконаними заднім числом.</p>'+note);
+}
+
 function render() {
   nav.querySelectorAll("[data-view]").forEach(b=>{
     b.classList.toggle("active",b.dataset.view===app.view);
@@ -234,9 +268,10 @@ function render() {
   root.innerHTML = app.view==="mission"?renderMission():
     app.view==="diagnostic"?renderDiagnostic():
     app.view==="audio"?renderAudio():
-    app.view==="sim"?renderSim():renderProgress();
+    app.view==="sim"?renderSim():
+    app.view==="retention"?renderDelayedTransfer():renderProgress();
 }
-function setView(view) { if(!["mission","diagnostic","audio","sim","progress"].includes(view)) return;
+function setView(view) { if(!["mission","diagnostic","audio","sim","retention","progress"].includes(view)) return;
   if(app.recorder?.state==="recording") app.recorder.stop();
   app.view=view; render(); root.focus({preventScroll:true});
 }
@@ -294,8 +329,8 @@ function handleMission(form,fields) {
     app.state=completeMission(app.state,{taskId:t.id,grammarTag:t.grammar_tag,
       firstAnswer:m.firstAnswer,firstCorrect:m.firstCorrect,
       secondAnswer:m.secondAnswer,repairCorrect:m.repairCorrect,transferText});
-    save();m.phase="done";
-    info("Місію завершено. Результат збережено локально.");
+    const persisted=save();m.phase="done";
+    if(persisted) info("Місію завершено. Результат збережено локально.");
   }render();
 }
 function handleDiagnostic(form,fields) {
@@ -342,6 +377,15 @@ root.addEventListener("submit",e=>{
       if(!app.audio.played){info("Спочатку прослухайте фрагмент.");return;}
       app.audio.answer=Number(fields.get("choice"));render();
     }else if(form.dataset.form==="sim-step")handleSim(fields);
+    else if(form.dataset.form==="delayed-transfer"){
+      app.state=recordDelayedTransfer(app.state,app.sources.delayed,{
+        taskId:String(fields.get("taskId")||""),
+        day:Number(fields.get("day")),
+        response:String(fields.get("response")||"")
+      });
+      const persisted=save();render();
+      if(persisted) info("Незалежну відповідь збережено локально без автоматичного бала.");
+    }
   }catch(error){info("Не вдалося завершити дію: "+String(error.message||error));}
 });
 root.addEventListener("play",e=>{
@@ -379,7 +423,8 @@ async function init(){
     "learning/exercises/b1/diagnostics/baseline-v1.json",
     "learning/exercises/b1/audio-long/lessons.json",
     "learning/exercises/b1/audio-long/human-stories.json",
-    "learning/exercises/b1/contextual/reading-pack-v1.json"
+    "learning/exercises/b1/contextual/reading-pack-v1.json",
+    "learning/exercises/b1/grammar/delayed-transfer-v1.json"
   ];
   try{
     const values=await Promise.all(sources.map(async path=>{
@@ -387,12 +432,13 @@ async function init(){
       if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);
       return r.json();
     }));
-    const [grammar,baseline,long,human,reading]=values;
+    const [grammar,baseline,long,human,reading,delayed]=values;
     if(!Array.isArray(grammar.exercises)||!grammar.exercises.length ||
        !Array.isArray(long.lessons)||!long.lessons.length||
        !Array.isArray(reading.items)||reading.items.length<2||
        !Array.isArray(human.items)||!human.items.length)throw new Error("Incomplete learning content");
-    app.sources={grammar,baseline,long,human,reading};render();
+    if(!Array.isArray(delayed.items) || !delayed.items.length)throw new Error("Incomplete transfer content");
+    app.sources={grammar,baseline,long,human,reading,delayed};render();
   }catch(e){
     root.innerHTML=panel(panelTitle("Помилка завантаження","Не вдалося відкрити контент")+
       `<p>Запустіть HTTP-сервер із кореня репозиторію: <code>python3 -m http.server 8080</code> і перейдіть на <code>http://localhost:8080/app/</code>.</p><p class="muted">${h(e.message)}</p>`);

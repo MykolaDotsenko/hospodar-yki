@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "level": "A2.2-B1",
+  "origin": "original_hospodar_yki_authoring",
+  "is_official_exam_content": false,
+  "review_status": "editorial_draft_pending_S2_review",
+  "licensing": "Project-authored original prompts, not copied from any external YKI or textbook materials; rights review pending",
+  "rationale_uk": "Окремі нові ситуації для незалежної письмової відповіді на 7/14/30 добу від першої місії. Автоматичної мовної оцінки немає. Пропущені вікна не зараховуються заднім числом.",
+  "items": [
+    {
+      "task_id": "b1-g-001",
+      "skill": "writing",
+      "grammar_tag": "illatiivi",
+      "checkpoints": [
+        {
+          "day": 7,
+          "prompt_fi": "Ystäväsi kysyy, minne menet huomenna vapaa-ajalla. Vastaa kokonaisella lauseella."
+        },
+        {
+          "day": 14,
+          "prompt_fi": "Kirjoita kaksi lausetta: minne menet viikonloppuna ja miksi juuri sinne."
+        },
+        {
+          "day": 30,
+          "prompt_fi": "Kerro uudelle ystävälle, minne menet harrastamaan ja miten pääset perille."
+        }
+      ]
+    },
+    {
+      "task_id": "b1-g-002",
+      "skill": "writing",
+      "grammar_tag": "elatiivi",
+      "checkpoints": [
+        {
+          "day": 7,
+          "prompt_fi": "Ystävä kysyy, mistä tulit juuri nyt. Vastaa kokonaisella lauseella."
+        },
+        {
+          "day": 14,
+          "prompt_fi": "Kirjoita kaksi lausetta siitä, mistä tulit tänään ja mitä teit siellä."
+        },
+        {
+          "day": 30,
+          "prompt_fi": "Naapuri kysyy, mistä haet yleensä ruokaa. Kerro, mistä tulet usein ostosten jälkeen."
+        }
+      ]
+    },
+    {
+      "task_id": "b1-g-003",
+      "skill": "writing",
+      "grammar_tag": "inessiivi",
+      "checkpoints": [
+        {
+          "day": 7,
+          "prompt_fi": "Ystävä kysyy, missä tapaatte huomenna. Vastaa kokonaisella lauseella."
+        },
+        {
+          "day": 14,
+          "prompt_fi": "Kerro kahdella lauseella, missä olet aamuisin ja mitä teet siellä."
+        },
+        {
+          "day": 30,
+          "prompt_fi": "Kirjoita lyhyt viesti: missä olet nyt ja milloin palaat kotiin."
+        }
+      ]
+    },
+    {
+      "task_id": "b1-g-004",
+      "skill": "writing",
+      "grammar_tag": "allatiivi_ja_rektio",
+      "checkpoints": [
+        {
+          "day": 7,
+          "prompt_fi": "Sinun täytyy kysyä neuvoa. Kerro, kenelle soitat ja miksi."
+        },
+        {
+          "day": 14,
+          "prompt_fi": "Sinun pitää varata aika. Kenelle soitat ja mitä kysyt? Kirjoita kaksi lausetta."
+        },
+        {
+          "day": 30,
+          "prompt_fi": "Ystävä tarvitsee apua uudessa kaupungissa. Kirjoita, kenelle hän voisi soittaa ja miksi."
+        }
+      ]
+    }
+  ]
+}
