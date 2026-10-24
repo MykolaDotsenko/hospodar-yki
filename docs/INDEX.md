@@ -8,6 +8,7 @@
 
 | Need | Read first | Why |
 | --- | --- | --- |
+| Confirm product strategy (non-AI learner runtime, curated science-led material) | [Canonical CURATED-01…08 requirements](15-two-modes-skill-scopes.md#продуктовий-принцип-2026-10-24-кураторський-контент-замість-ai-репетитора) | TARGET decisions; no claim that content, gameplay and Android are complete |
 | Plan lessons and media from A1.3 to B2.1 | [Curriculum](../learning/curriculum/README.md) → [Tenses](../learning/exercises/grammar/tenses/README.md) + [Clock/time](../learning/exercises/grammar/time-and-clock/README.md) | Explicit TARGET levels vs existing B1 exercises |
 | Visual library physically imported | [Illustrations](../assets/images/illustrations/library.json), [attributed photos](../assets/images/pictures/available.json), [image-led lessons](../learning/exercises/a1/image-led/lessons.json) | Actual offline files, hash/rights proof and teacher-review boundary |
 | Add visual assets | [Illustrations](../assets/images/illustrations/README.md) and [Pictures](../assets/images/pictures/README.md) | Separate visual purpose, alt, rights, review before ingestion |
