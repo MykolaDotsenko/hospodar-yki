@@ -2,6 +2,8 @@
 
 **[Evaluation plan: evidence, accessibility, real usability tests](design-evaluation-plan-v1.md)** — hypotheses, not fabricated effectiveness.
 
+**New targeted critical synthesis (25.10.2026):** [18 — Evidence-based multimodal UI: design, color, audio, captions, music, animation and gamification](18-multisensory-learning-interface-evidence-2026-10.md). Includes 15 original/review sources, **contradictory music/caption findings**, 12 expert-ranked intervention designs (not a new method registry), skill×mode UI safeguards, WCAG 2.2 acceptance, four pre-registered study proposals and six scoped engineering cuts. **Research and specifications only: no measured Hospodar learning gains.**
+
 Research datasets: [color memory](color-memory-evidence-v1.json), [attention policy](color-attention-design-policy-v2.json). Studies: [color evidence](16-color-attention-memory-research-2026-10.md), [deep color/L2 review](17-color-attention-l2-deep-dive.md).
 
 Production-facing tokens and identity: [brand tokens](../../brand/tokens.json), [brand platform](../../brand/README.md), [screen identity system](../../brand/identity-v03-screen-system.md), [brand logos](../../assets/images/brand/).

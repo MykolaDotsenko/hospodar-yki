@@ -4,6 +4,8 @@
 **Population target:** дорослі україномовні A2.2→B1+, фінська мова/YKI, Web/Android.
 **Діє в межах:** [research program](../RESEARCH-PROGRAM.md); продовжує [67 методик](08-learning-methods-evidence-2026-10.md), [діючий learning-engine design](yki-methodology-implementation-v1.json), [visual L2 review](../design/17-color-attention-l2-deep-dive.md) і [multimodal UX review](../ux/20-multimodal-interactive-learning-2026-10.md). **Нічого не дублює в їхніх машинних даних.**
 
+**Новий critical design/audio follow-up (25.10.2026):** [18 — L2 captions, music contradictions, emotional design, visual signaling and sound/motion safeguards](../design/18-multisensory-learning-interface-evidence-2026-10.md). Огляд продовжує MEM/ATT/AUD, не додає нові learning methods або другий бібліографічний JSON. Спеціально враховано 2025 L2-captioning meta-analysis, 2026 audiovisual L2 study, 2026 seductive-details meta-analysis і конфлікт 2022/2023 background-music reviews. `SENS`/UX tests — **design interventions/targets, not measured outcomes**.
+
 ## Еvidence-to-product: сім перевірених напрямків
 
 ### MEM-01 — Retrieval + spaced repetition: пріоритет P0

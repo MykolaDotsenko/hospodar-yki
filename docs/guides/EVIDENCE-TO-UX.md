@@ -14,6 +14,19 @@ Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [sta
 6. **Acceptance (concrete):** unit/contract tests, meaning-first teacher-reviewed items, no first-try leakage, recovery/idempotency, accessible usable controls, media rights; baseline and 7/14-day independent transfer study design **before** an effectiveness claim.
 7. **Release decision:** feature can be shipped as explicitly experimental/optional on usability evidence while pedagogy efficacy is uncertain; marketing "best/most effective" requires credible fair comparative outcomes. Do not call a feature scientifically proven because it appears in an ADR.
 
+## Evidence-based visual/audio UX gate (25.10.2026)
+
+**Read [the updated critical multimodal synthesis #18](../../research/design/18-multisensory-learning-interface-evidence-2026-10.md)** whenever changing semantic color, captions, speed, background music, motion, game SFX or interactive grammar diagrams. Its `SENS-01…12` are **expert implementation priorities**, not new canonical learning methods or empirical effectiveness percentages.
+
+1. **One meaning-bearing cue:** distinguish functional accent colors for skills from grammatical signals; do not expose correct morphology before the first independent attempt. Test form mastery **and meaning comprehension**; L2 visual enhancement may trade the latter for the former.
+2. **Audio is user-controlled:** no background music/SFX by default; independent controls for speech, music, and effects; transcript/caption accommodation without accidentally granting an assessment answer. Real human voices, S2 transcript/rights review, offline fallback and microphone denied scenario.
+3. **Motion serves explanation:** opt-in animation for real spatial/temporal contrast only; every action has a readable static version, `prefers-reduced-motion` and low-stimulation alternative. Compare against an equally informative static version.
+4. **First-party WCAG 2.2 gates:** test audio control SC 1.4.2, prerecorded video captions SC 1.2.2, automatically moving content SC 2.2.2, reduced-motion preference (SC 2.3.3 is **AAA**, not part of AA). Screen reader, keyboard, 200% zoom, contrast and no color-only statuses.
+5. **Preserve EXAM fidelity:** no LEARN colors, sounds, game cues, transcripts, answer highlighting, guessed audio-repeat or fake timers while independent YKI practice runs; an official 2027 accommodation/rule remains `UNKNOWN` until documented by OPH.
+6. **Pre-register a causal comparison:** same Finnish item/teacher input/time/exposure; record burden/dropout; primary independent, unseen Finnish comprehension and functional production 7/14/30 days later (separate skill outcomes). Neither click-through nor subjective liking establishes learning gains.
+
+**Current state:** the app has partial feedback color and audio examples; SENS implementation acceptance must come from future code/CI plus teacher and participant evaluation, not from this handoff text.
+
 ## Example: Finnish vowel/consonant quantity training (proposal, not built)
 
 | Layer | Precise decision |
