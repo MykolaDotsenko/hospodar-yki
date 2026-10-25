@@ -4,6 +4,8 @@
 
 Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [starting critical evidence](../../research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md), and [evaluation protocol](../../research/ux/learning-impact-evaluation-protocol.md) before implementing a learning feature.
 
+**Recent world L2 method evidence:** [№26, 25.10.2026](../../research/pedagogy/26-global-effective-language-learning-2026-10.md) уточнює «сильний контроль» для усіх педагогічних A/B: meaningful elaboration + feedback (не лише слабке rereading), окремі phonetic perception/production outcomes, writing/speaking repeated-task transfer, graded reading і delayed true held-outs. Це **RESEARCH**: release gate — S2-verified original content, runnable tests, no fake YKI results/AI dependency, відкладена незалежна перевірка. Зберігати 70 методів у єдиному канонічному каталозі.
+
 ## Learning-first handoff: one concrete proposal at a time
 
 1. **Cite:** stable evidence ID and direct DOI/official source, source design/effect/limitations and applicability. Do not invent transfer to Finnish or use method-fit /100 as experimental effect.
