@@ -18,6 +18,7 @@
 | Implement React/TypeScript, Dexie, Android Room or PAD | [Web and Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) | Step-by-step safety gates and tests |
 | Add a YKI task, dictionary, image, audio, transcript or video URL | [Content authoring guide](guides/CONTENT-AUTHORING.md) | One physical owner, rights, review, validation |
 | Change GitHub Actions or qualify release | [CI and quality gates](operations/CI-QUALITY-GATES.md) | Exact triggers, evidence, planned versus runnable commands |
+| Design semantic colors, learning audio, captions, motion or sound effects with evidence | [18 — Critical multimodal/UI synthesis](../research/design/18-multisensory-learning-interface-evidence-2026-10.md) → [Evidence-to-UX implementation gate](guides/EVIDENCE-TO-UX.md) | **RESEARCH + TARGET**; 15 sources, mixed/negative evidence, SENS-01…12 expert design priorities and controlled trials, not observed gains |
 | Research memory, attention, audio/visual learning effects or competitive learning outcomes | [Evidence-based research program](../research/RESEARCH-PROGRAM.md) → [research-to-UX handoff](guides/EVIDENCE-TO-UX.md) | Scientific evidence, accessibility, experiment protocols and implementation gates |
 | Choose code/media redistribution policy | [Licensing boundaries](../LICENSING.md) | Public repo does not automatically grant media rights |
 
