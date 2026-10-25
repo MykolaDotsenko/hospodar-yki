@@ -67,6 +67,8 @@
 
 **UX/мультимедійна конкретизація (25.10.2026):** [дослідження №18 — як кольори, сигнали, субтитри, природні голоси, фоновий звук та анімації впливають на навчання](../research/design/18-multisensory-learning-interface-evidence-2026-10.md). Обов'язкові gates для QL-02, QL-05, QL-06: відсутність зайвих сенсорних деталей; real Finnish voice; captions з контролем першої незалежної спроби та accommodations; music/SFX off-by-default; motion/static parity; no fake memory effect. Чотири контрольовані досліди UX-S01…04 поки що **не проведено**; ефективність Hospodar не виміряна.
 
+**Глобальний method update (25.10.2026):** [критичний огляд №26 найкращих міжнародних L2-методів](../research/pedagogy/26-global-effective-language-learning-2026-10.md). Для QL-01…04 це P0 зміни: combine **spaced independent recall + feedback + meaningful elaboration**, не просто SRS; human-reviewed різноголосе фонетичне training і окреме speaking; повторне письмо з novel transfer; graded extensive reading; нові фідбек-рубрики змісту/форми. Це **гіпотези/технічні вимоги**, не виміряний результат нашого продукту. Усі 70 канонічних методів/оцінок залишаються незмінними, 5 нових R-L01…05 експериментів — `NOT RUN`.
+
 ## 5. Наукова база й межі застосування
 
 | Знахідка | Надійний першоджерело | Реалізація | Межа доказу |
