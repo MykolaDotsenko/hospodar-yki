@@ -69,6 +69,8 @@
 
 **Глобальний method update (25.10.2026):** [критичний огляд №26 найкращих міжнародних L2-методів](../research/pedagogy/26-global-effective-language-learning-2026-10.md). Для QL-01…04 це P0 зміни: combine **spaced independent recall + feedback + meaningful elaboration**, не просто SRS; human-reviewed різноголосе фонетичне training і окреме speaking; повторне письмо з novel transfer; graded extensive reading; нові фідбек-рубрики змісту/форми. Це **гіпотези/технічні вимоги**, не виміряний результат нашого продукту. Усі 70 канонічних методів/оцінок залишаються незмінними, 5 нових R-L01…05 експериментів — `NOT RUN`.
 
+**Увага та довготривала пам'ять (26.10.2026):** [огляд №27](../research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md) доповнює QL-03/04/05/06 psychological UX criteria: короткий змістовий input + independent question, timely feedback/self-repair, distractor-free reading/writing, opt-in breaks без примусових таймерів та покарань, honest 7/14/30 outcomes. Бібліографія COG-01…16; заплановані `PSY-E01…05` порівняння з **сильним active+feedback** time-matched контролем. Не створювати фіктивний «boost пам'яті» на основі sleep/mindfulness/brainwave. **RESEARCH ONLY / NOT RUN.**
+
 ## 5. Наукова база й межі застосування
 
 | Знахідка | Надійний першоджерело | Реалізація | Межа доказу |
