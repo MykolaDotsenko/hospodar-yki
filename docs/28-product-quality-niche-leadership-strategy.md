@@ -71,6 +71,8 @@
 
 **Увага та довготривала пам'ять (26.10.2026):** [огляд №27](../research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md) доповнює QL-03/04/05/06 psychological UX criteria: короткий змістовий input + independent question, timely feedback/self-repair, distractor-free reading/writing, opt-in breaks без примусових таймерів та покарань, honest 7/14/30 outcomes. Бібліографія COG-01…16; заплановані `PSY-E01…05` порівняння з **сильним active+feedback** time-matched контролем. Не створювати фіктивний «boost пам'яті» на основі sleep/mindfulness/brainwave. **RESEARCH ONLY / NOT RUN.**
 
+**Інтерактивний UX на підставі outcome evidence (26.10.2026):** [UX №20 §9](../research/ux/20-multimodal-interactive-learning-2026-10.md#9-прикладний-аудит-uiux--реальний-результат-навчання-26102026) — `UIO-01…10` і `UX-I01…04`: поєднати paused voice/video зі змістовою відповіддю, teacher-reviewed process feedback, meaningful visuals and local durable first answer. Не вкладати P0 бюджет у декоративні dashboards/streak/large Phaser світи до proven 14/30-day unseen Finnish gain; 2026 meta dashboard effects **small and inconsistent**, а 2024 field comparison не знайшов зміни grades. **No observed Hospodar outcome / no invented 2027 digital YKI UI.**
+
 ## 5. Наукова база й межі застосування
 
 | Знахідка | Надійний першоджерело | Реалізація | Межа доказу |
