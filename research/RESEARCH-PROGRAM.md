@@ -7,6 +7,24 @@
 **Статус:** ACTIVE RESEARCH PROCESS / NOT AN IMPLEMENTED FEATURE. **Започатковано:** 2026-10-22.
 **Мета:** підвищувати **самостійну комунікативну компетентність фінською** у дорослих україномовних учнів від ~A2.2 до стабільного B1/B1+, окремо у 4 навичках YKI. Ми не маємо доказів, що Hospodar уже є «найефективнішим застосунком світу».
 
+## Обов'язковий прикладний висновок із КОЖНОГО дослідження — Research → Hospodar YKI (26.10.2026)
+
+**Завжди застосовувати:** незалежно від теми пошуку (когнітивна психологія, лінгводидактика, кольори, звук, увага, мотивація, gamification, YKI, доступність, нові технології), **не зупинятися на переказі джерел**. Для кожного нового огляду та кожної суттєвої знахідки **явно обміркувати, що саме і як покращить Hospodar YKI**. Якщо релевантного застосування немає — **пояснити чому** й обрати `REJECT`/`RECHECK`, а не створювати декоративну або небезпечну функцію.
+
+### Обов'язковий research-to-product блок
+
+1. **Що встановлено?** Точне джерело, дата, population, intervention/comparator, outcome, limitations, contradictory/null evidence, causality status; не трактувати `g/d` як %.
+2. **Наскільки це переноситься на Hospodar?** Україномовні дорослі A1.3–B2.1, контекст фінської, `kirjakieli/puhekieli`, чотири навички, телефон/offline та LEARN vs EXAM. Окремо позначити `DIRECT_FINNISH` / `L2_GENERAL` / `INDIRECT` / `HYPOTHESIS`.
+3. **Яке рішення?** Назвати конкретну **навчальну проблему** (наприклад, плутання `-ssa/-sta/-Vn`, недостатнє слухання іншого мовця), запропонувати **мінімальний** lesson/mechanic/UI/content change, показати один фінський приклад та learner action.
+4. **Що зберігаємо й чим ризикуємо?** Чітка first-independent-answer/fidelity межа; S2-редактура й права; доступність, user choice, low distraction, privacy; жодних витоків EXAM-підказок або фіктивних YKI grade.
+5. **Як зрозуміємо, що стало краще?** Сильний time/content-matched control, видима версія функції й тест/QA, **новий** independent communicative task через 7/14/30 днів (за придатності), baseline та чотири навички окремо. Для exam fidelity — джерела OPH + відтворювані E2E-умови; не вимірювати YKI схожість retention metric.
+6. **Що робимо далі?** `ADOPT`, `ADAPT`, `EXPERIMENT`, `REJECT` або `RECHECK`; пріоритет P0/P1/P2 (лише обґрунтований), фізичний owner (`learning/`, `app/`, `assets/`, `brand/`, `docs/`), залежності, acceptance criterion і посилання на task/PR після появи. **Результат research може бути "не впроваджувати".**
+
+**Короткий формат для кожного відкриття:**
+`Finding + source → applicability/uncertainty → learner problem → Hospodar implementation/example → LEARN/EXAM & safety → testable outcome → decision/owner/priority`.
+
+**Принцип вибору:** користь користувачеві (самостійне розуміння, говоріння, письмо, читання, запам'ятовування, довіра), а не кількість фіч/балів/кольорів. Дотримуватися [гейта реалізації](../docs/guides/EVIDENCE-TO-UX.md) і [UX-протоколу](ux/learning-impact-evaluation-protocol.md). Огляд → специфікація → код → доказ на учнях **мають різні статуси**; research-PR сам по собі не впроваджує або не доводить ефекту.
+
 ## 1. Три незалежні перевірки кожної ідеї
 
 1. **Science / істинність:** що точно виміряно, з яким контролем, для кого, протягом якого терміну? Чи це causal L2/Finnish evidence, інша мова/вік, загальна психологія або припущення?
@@ -61,6 +79,11 @@ Accessibility, autonomy, reduced-motion/sound-off/captions and privacy:
 Implementation owner / minimal experiment scope:
 Primary delayed unseen language outcome, guardrails and failure criteria:
 Decision and status: EXPERIMENT / ADOPT / REJECT / RECHECK; never invented outcome
+Hospodar YKI practical benefit OR explicit reason to reject application:
+Evidence applicability: DIRECT_FINNISH / L2_GENERAL / INDIRECT / HYPOTHESIS
+Example Finnish learner action, before/after and target skill:
+Concrete change proposal, physical owner, P0/P1/P2 + dependencies:
+Strong comparator / independent deferred measure / acceptance criteria:
 Link to relevant UX study/PR/actual test when available:
 \`\`\`
 
