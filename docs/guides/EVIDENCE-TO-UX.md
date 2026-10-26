@@ -20,6 +20,8 @@ Apply the [mandatory research-to-Hospodar rule](../../research/RESEARCH-PROGRAM.
 
 Research can correctly recommend **building nothing** when the evidence is irrelevant, uncertain, harmful or the app already has a better grounded mechanism. Do not duplicate canonical method registries.
 
+**Interactive UI vs actual learning outcomes (26.10.2026):** Read the canonical [UX #20 §9](../../research/ux/20-multimodal-interactive-learning-2026-10.md#9-прикладний-аудит-uiux--реальний-результат-навчання-26102026) for `UIO-01…10` acceptance and `UX-I01…04` protocols. Specific mechanism: audio/video **pauses when an independent meaningful question appears**; first attempt recorded atomically; feedback explicitly helps self-repair; a progress visualization must lead to one true Finnish next step, not only engagement/streak. Test against an equally meaningful active control (same content/time/feedback), 14/30-day new-context comprehension/production, a11y/voice/privacy and EXAM isolation. Current studies report meaningful heterogeneity, publication bias and many non-Finnish participants, so an intuitive UX, a green static docs CI, or immediate MCQ cannot establish superior learning.
+
 ## Learning-first handoff: one concrete proposal at a time
 
 1. **Cite:** stable evidence ID and direct DOI/official source, source design/effect/limitations and applicability. Do not invent transfer to Finnish or use method-fit /100 as experimental effect.
