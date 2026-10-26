@@ -8,6 +8,18 @@ Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [sta
 
 **Cognitive attention and memory gate (26.10.2026):** consult [research #27](../../research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md) for COG-01…16 and `PSY-01…09` whenever changing task length, attention prompts, spaced-retrieval scheduling, optional breaks, interleaving, attention UX or progress widgets. Mind wandering and time-on-task are **secondary** to independent unseen Finnish 7/14/30-day competence; task-specific prompt/feedback must not turn into popup spam. A 25/5 Pomodoro interval is **not** experimentally universal; mindfulness/sleep knowledge is no diagnostic or app-treatment promise. Five studies PSY-E01…05 are **unrun**; no eye-tracking/camera/protected data without separate legal ethical review. EXAM unaffected except verified OPH rules.
 
+## Required output for all research: "What will Hospodar YKI actually gain?" (26.10.2026)
+
+Apply the [mandatory research-to-Hospodar rule](../../research/RESEARCH-PROGRAM.md#обовязковий-прикладний-висновок-із-кожного-дослідження--research--hospodar-yki-26102026) even for psychology, sound, colors, gamification, competitor UX or learning-science searches. Every substantial source finding must lead to a **specific, bounded product recommendation OR documented no-adoption judgment**:
+
+- **Evidence:** source and real measured result, scientific uncertainty/negative findings.
+- **Learner benefit:** named Finnish problem for A1.3–B2.1 and target skill(s); don't conflate motivation/time-on-app with actual language gains.
+- **Implementation:** one Finnish scenario plus interaction sequence, correct repository owner and limits of LEARN vs verified EXAM; human S2 and rights.
+- **Quality gate:** relevant independent first attempt, exact UX/data test, informed consent/accessibility; an appropriate delayed unseen task or OPH fidelity audit.
+- **Decision:** `ADOPT`/`ADAPT`/`EXPERIMENT`/`REJECT`/`RECHECK`, justified P0–P2 and dependencies; no claim of existing runtime/effect until code/results are verified.
+
+Research can correctly recommend **building nothing** when the evidence is irrelevant, uncertain, harmful or the app already has a better grounded mechanism. Do not duplicate canonical method registries.
+
 ## Learning-first handoff: one concrete proposal at a time
 
 1. **Cite:** stable evidence ID and direct DOI/official source, source design/effect/limitations and applicability. Do not invent transfer to Finnish or use method-fit /100 as experimental effect.
