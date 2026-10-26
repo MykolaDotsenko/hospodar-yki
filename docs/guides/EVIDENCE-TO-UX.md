@@ -6,6 +6,8 @@ Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [sta
 
 **Recent world L2 method evidence:** [№26, 25.10.2026](../../research/pedagogy/26-global-effective-language-learning-2026-10.md) уточнює «сильний контроль» для усіх педагогічних A/B: meaningful elaboration + feedback (не лише слабке rereading), окремі phonetic perception/production outcomes, writing/speaking repeated-task transfer, graded reading і delayed true held-outs. Це **RESEARCH**: release gate — S2-verified original content, runnable tests, no fake YKI results/AI dependency, відкладена незалежна перевірка. Зберігати 70 методів у єдиному канонічному каталозі.
 
+**Cognitive attention and memory gate (26.10.2026):** consult [research #27](../../research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md) for COG-01…16 and `PSY-01…09` whenever changing task length, attention prompts, spaced-retrieval scheduling, optional breaks, interleaving, attention UX or progress widgets. Mind wandering and time-on-task are **secondary** to independent unseen Finnish 7/14/30-day competence; task-specific prompt/feedback must not turn into popup spam. A 25/5 Pomodoro interval is **not** experimentally universal; mindfulness/sleep knowledge is no diagnostic or app-treatment promise. Five studies PSY-E01…05 are **unrun**; no eye-tracking/camera/protected data without separate legal ethical review. EXAM unaffected except verified OPH rules.
+
 ## Learning-first handoff: one concrete proposal at a time
 
 1. **Cite:** stable evidence ID and direct DOI/official source, source design/effect/limitations and applicability. Do not invent transfer to Finnish or use method-fit /100 as experimental effect.
