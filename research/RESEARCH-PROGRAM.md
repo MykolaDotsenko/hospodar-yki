@@ -25,6 +25,12 @@
 
 **Принцип вибору:** користь користувачеві (самостійне розуміння, говоріння, письмо, читання, запам'ятовування, довіра), а не кількість фіч/балів/кольорів. Дотримуватися [гейта реалізації](../docs/guides/EVIDENCE-TO-UX.md) і [UX-протоколу](ux/learning-impact-evaluation-protocol.md). Огляд → специфікація → код → доказ на учнях **мають різні статуси**; research-PR сам по собі не впроваджує або не доводить ефекту.
 
+## 12 напрямів у затвердженому порядку (28.10.2026)
+
+**Єдина програмна черга для реалізації [29 — 12 дослідницьких напрямів: джерела, Finnish/YKI реалізація, завершення і контроль](29-twelve-product-research-studies-execution-2026-10.md)**: **R01 реальні delayed LEARN outcomes → R02 official digital YKI fidelity → R03 Finnish L2 morphology → R04 human-calibrated speaking/writing → R05 multi-talker audio → R06 transparent adaptation → R07 meaningful interactive UX → R08 case/stem/feedback transfer → R09 intrinsic motivation → R10 accessibility → R11 offline/durable state → R12 fair competitor evaluation**. Всі 12 **desk reviews/source synthesis documented**, учасницькі дослідження **0/12 NOT RUN**, manual OPH digital demo та pilot 7.11/14.11 **не верифіковані**. Це один **план координації** існуючих власників, не другий методичний каталог; зберегти 70 canonical methods/ratings.
+
+**Не переходити від літератури до фрази «функція працює» без коду/CI/S2 та реальної participant-validation.** Для R01 протокол готовності деталізовано в [існуючому UX evaluation owner](ux/learning-impact-evaluation-protocol.md); для R02 першоджерела мають вищий пріоритет, ніж наші mock screenshots.
+
 ## 1. Три незалежні перевірки кожної ідеї
 
 1. **Science / істинність:** що точно виміряно, з яким контролем, для кого, протягом якого терміну? Чи це causal L2/Finnish evidence, інша мова/вік, загальна психологія або припущення?

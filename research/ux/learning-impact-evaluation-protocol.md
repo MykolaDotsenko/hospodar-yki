@@ -4,6 +4,19 @@
 **Owner:** UX evaluation; collaborate with pedagogy/S2 reviewer, design, accessibility and engineering.
 **Scope:** approved improvements to LEARN; EXAM remains a protected assessment and requires confirmed official fidelity policy.
 
+## R01 primary pilot dossier — implementation-ready *draft*, NOT REGISTERED/NOT RUN (28.10.2026)
+
+Related [12-workstream evidence and scope](../29-twelve-product-research-studies-execution-2026-10.md#r01--виміряти-реальну-ефективність-learn-а-не-швидкість-натискань). **Do not recruit people or claim registration** until data controller, privacy owner, S2 panel and a competent study reviewer approve the actual protocol.
+
+- **Population:** adults learning Finnish, initially UA-speaking A2–B1; independently assessed baseline, learner recruitment not yet started. Avoid claims that 50 or 100 participants provides power without planning.
+- **Hypothesis:** Hospodar contextual `retrieval→feedback→repair→new-context→spaced` yields higher **day-14 uncued new-context writing communicative success** than a strong `elaboration→feedback` programme with matched duration, Finnish item objectives, S2 review and exposure. This comparison isolates the integrated pedagogy only imperfectly: **explicitly describe changed components**.
+- **Assignment:** randomized and baseline-stratified groups; freeze content versions, comparable prompts and independent held-out variants; no hidden correct-answer leakage. No crossover until carryover analysis establishes validity.
+- **Primary endpoint:** one **pre-defined** functional writing rubric (whether recipient can understand/use the request), with separate grammar/form subscore; independent blinded Finnish S2 evaluation. Formal scoring scale, minimum meaningful difference, assignment scheme, sampling/power, primary analysis and missingness strategy **must be settled before enrolment**.
+- **Secondary:** day-30 writing, day-14/30 unseen reading, listening with new voice, and speaking only if consented voice + calibrated humans. Do not treat 4 skills as one uncorrected primary family.
+- **Telemetry:** minimal opt-in `participant_pseudonym`, `study_arm`, `assignment_version`, `content_version`, `attempt_event_id`, `first_response_at`, `feedback_exposure_at`, `due_at`, `actual_attempt_at`, `valid_independent_answer`, `missing_or_late_reason`; keep privacy/voice separate, no names or raw responses in public Git, data deletion documented. Existing 120-record localStorage cap risks deleting baselines; must be fixed before launch.
+- **Reporting:** participant flow, observed outcomes **including null/negative**, attrition, 95% CI, prespecified ITT with sensitivity, rater agreement and adverse burden; score each skill, not a fake official CEFR level. Gate: second human reviewer and S2 licensed/verified prompts.
+- **Required acceptance before a single trial participant:** tested first attempt durability across reload/offline; sealed new items; anonymization & withdrawal; calibrated rating rubric; ethics/privacy sign-off; documented versioned study protocol. **Current: NONE of these readiness gates verified as a set; R01 status NOT RUN.**
+
 ## 1. Study question and research ethics
 
 Pre-register a **specific falsifiable hypothesis**: e.g. "Optional focused visual cue during explanation improves 14-day unaided use of Finnish inessive/illative in *new* contexts, compared with time/content-equivalent plain explanation." A preference for animation is **not** this outcome.

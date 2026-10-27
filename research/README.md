@@ -1,4 +1,5 @@
 # Research — методики, дизайн, UX, геймплей, сценарії
+**Programme update 28.10.2026:** [№29 — 12 sequential applied research tracks for Hospodar YKI](29-twelve-product-research-studies-execution-2026-10.md), `R01…R12`: 12 completed literature/data-source assessments, concrete LEARN/EXAM product decisions, quality gates and human study/official YKI verification protocols. **0 actual user trials performed; no app efficacy measured.** More detailed R01 [UX protocol](ux/learning-impact-evaluation-protocol.md); authoritative existing registries unchanged.
 
 **[🔬 Дослідницька програма: наука → механіка → UI/UX → виміряний результат](RESEARCH-PROGRAM.md)** — єдиний процес роботи з доказами, гіпотезами й перенесенням до продукту. Перші питання, шаблон картки та P0–P2-порядок розташовані там, **без нового реєстру**.
 
