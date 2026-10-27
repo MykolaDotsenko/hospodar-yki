@@ -4,6 +4,8 @@
 
 > Start with [../AGENTS.md](../AGENTS.md). Read the narrowest relevant documents; the research library is reference material, not mandatory context for every coding task.
 
+**New 28.10.2026 research execution overview:** [12 sequenced research tracks, evidence, implementation and trial readiness R01–R12](../research/29-twelve-product-research-studies-execution-2026-10.md). **12/12 source reviews completed; 0/12 actual user studies performed**; includes R01 pre-registration draft and current OPH digital YKI official facts (not unofficial interface claims). Existing canonical 70-method library retained.
+
 ## Pick the shortest guide for your task
 
 | Need | Read first | Why |
