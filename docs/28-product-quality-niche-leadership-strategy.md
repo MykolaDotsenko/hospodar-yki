@@ -73,6 +73,8 @@
 
 **Інтерактивний UX на підставі outcome evidence (26.10.2026):** [UX №20 §9](../research/ux/20-multimodal-interactive-learning-2026-10.md#9-прикладний-аудит-uiux--реальний-результат-навчання-26102026) — `UIO-01…10` і `UX-I01…04`: поєднати paused voice/video зі змістовою відповіддю, teacher-reviewed process feedback, meaningful visuals and local durable first answer. Не вкладати P0 бюджет у декоративні dashboards/streak/large Phaser світи до proven 14/30-day unseen Finnish gain; 2026 meta dashboard effects **small and inconsistent**, а 2024 field comparison не знайшов зміни grades. **No observed Hospodar outcome / no invented 2027 digital YKI UI.**
 
+**Результат 12-напрямного дослідницького огляду (28.10.2026):** [№29 — повна послідовність R01…R12](../research/29-twelve-product-research-studies-execution-2026-10.md). Обов'язкові direct Finnish L2 RCT morphology + stem allomorphy, **human-machine spoken score `r=.654` ≠ score agreement**, confirmed OPH 7.11 digital pilot / spring 2027 digital dates with unknown production controls, 2026 small dashboard effects; outcome-first `LEARN` and fidelity-first `EXAM`. Усі 12 **desk source reviews**, **0 real-user trials**; допуск експериментів лише після prereg, consent/privacy/S2/material QA. Не витрачати основний бюджет на бейджі, animated screens і marketing score замість першої повної навчальної місії та валідного R01 outcome.
+
 ## 5. Наукова база й межі застосування
 
 | Знахідка | Надійний першоджерело | Реалізація | Межа доказу |
