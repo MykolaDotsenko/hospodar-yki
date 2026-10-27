@@ -3,6 +3,12 @@
 **Дата вивчення першоджерел:** 21.10.2026. **Стан:** reference-driven training simulator, **not official 2027 digital UI**.  
 **Пов'язано:** [13 — приклади](../research/yki/13-yki-exam-format-and-real-examples-2027.md) · [33 доказові твердження (JSON)](../research/yki/yki-digital-fidelity-evidence-2026-10.json) · [дві міні-сесії](../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json) · [вебтренажер](../app/exam.html).
 
+## Official 2027 digital exam update and audit gate (28.10.2026)
+
+[OPH digital pilot news, 18.09.2026](https://www.oph.fi/en/news/2026/digital-yki-tests-will-be-piloted-november-2026): Finnish keskitaso digitesti **07.11.2026**, Swedish **14.11.2026**; пілоти ще не відбулися станом на 28.10.2026. [OPH published spring-2027 Finnish dates](https://www.oph.fi/en/education-and-qualifications/selecting-right-yki-test-test-days): **всі весняні 2027 YKI suomi цифрові**, **10.04.2027 all four**, **12.05.2027 writing+listening**, **02.06.2027 reading+speaking**. Ці факти підтверджують **формат і розклад**, але **не** кількість digital завдань, navigation, Back/Next, time limits, replay/seek, mic event sequencing чи exact screen appearance.
+
+Обов'язковий крок у [cross-workstream R02 protocol](../research/29-twelve-product-research-studies-execution-2026-10.md#r02--достовірність-цифрового-yki-2027-не-припускати-невідомі-правила): ручний правомірний review чотирьох OPH demos + date/level/device profile + parameter-by-parameter evidence; demo observed **не** live-2027 confirmed, до after-pilot first-party news не привласнювати статус підтвердженого. До того: `unknown`, original S2 practice-only tasks, `ungraded` production, fail-closed strict fidelity. **No first-party demo behaviour was reviewed in this documentation update.**
+
 ## Обов'язкові сценарії симуляції: Full YKI і кожен модуль окремо
 
 **Нова продуктова вимога (P0):** [два режими та повна матриця навичок](15-two-modes-skill-scopes.md), JSON-контракт: [product-session-modes-v1.json](../research/user-cases/product-session-modes-v1.json).
