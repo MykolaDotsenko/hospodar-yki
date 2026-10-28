@@ -16,6 +16,24 @@ export function inspectLearnBackup(raw) {
     status:"blocked",reason:checked.reason,counts:checked.counts,
     safeToOverwrite:false,requiresConfirmation:true
   });
+  // Legacy readState accepts some malformed history records that later
+  // renderers expect to have dates/skills. Reject instead of crashing after a
+  // confirmed restore. Preserve valid existing V1 records unchanged.
+  const parsed=JSON.parse(raw);
+  const validDate=x=>typeof x==="string"&&!Number.isNaN(Date.parse(x));
+  if(parsed.errors.some(e=>!validDate(e.at)) ||
+     parsed.attempts.some(e=>typeof e.firstAnswer!=="string"||
+       typeof e.firstCorrect!=="boolean"||
+       typeof e.transferText!=="string"||!validDate(e.completedAt)) ||
+     parsed.diagnostics.some(e=>!["reading","listening","writing","speaking"].includes(e.skill)||
+       !["scored","ungraded"].includes(e.status)||
+       !validDate(e.completedAt)||
+       (e.status==="scored"&&(!["reading","listening"].includes(e.skill)||
+       typeof e.correct!=="boolean"))||
+       (e.status==="ungraded"&&e.correct!==undefined))) {
+    return Object.freeze({status:"blocked",reason:"INVALID_HISTORY_FOR_ACTIVE_UI",
+      counts:checked.counts,safeToOverwrite:false,requiresConfirmation:true});
+  }
   return Object.freeze({
     status:"ready",reason:"READY_FOR_EXPLICIT_RESTORE",
     counts:checked.counts,safeToOverwrite:false,requiresConfirmation:true
