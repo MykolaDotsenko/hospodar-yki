@@ -73,7 +73,7 @@
 
 ## 6. Engineering prototype — intentionally not an active UI, and what it proves
 
-Reference [app/r07-interaction-core.mjs](../../app/r07-interaction-core.mjs) (pure deterministic event state machine) + [14 direct tests](../../app/tests/r07-interaction-core.test.mjs). Transitions:
+Reference [app/r07-interaction-core.mjs](../../app/r07-interaction-core.mjs) (pure deterministic event state machine) + [15 direct tests](../../app/tests/r07-interaction-core.test.mjs). Transitions:
 - ready → independent via explicit START; audio never autoplays, and must be explicitly PLAY_FINNISH_AUDIO or user requests an accessible transcript before a listening answer.
 - support request (transcript/meaning/slow audio/visual cue) marks answer as **assisted/ungraded**, without denying access or penalizing learning.
 - first response → feedback; only S2-approved objective reading/listening answer keys generate binary correctness. Speaking/writing never machine-grade.
