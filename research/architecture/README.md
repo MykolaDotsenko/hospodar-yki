@@ -1,5 +1,7 @@
 # Architecture research — рішення й технічні обмеження
 
+**R11 offline data integrity (28.10.2026):** [full 15-source critically bounded official technical review, real LEARN/EXAM storage audit, 27 proposed failure cases and 20 acceptance gates](r11-offline-integrity-resilience-2026-10.md). [No-write V1 LEARN migration preflight](../../app/r11-legacy-migration-preflight.mjs) + [22 Node tests](../../app/tests/r11-legacy-migration-preflight.test.mjs). Tests detect current readState filter/truncation risks and protect backup, but **NO V1→V2 migration, no Android binary, no complete offline 4GB assets, no physical power-loss testing or Finnish language outcomes**.
+
 Файли в цій папці містять **машинозчитувані архітектурні дослідження**, які відповідають нормативним ADR:
 
 - [architecture-decision-v1.json](architecture-decision-v1.json) — оптимальний Web-стек і модульна архітектура;
