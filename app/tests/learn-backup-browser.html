@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><title>LEARN restore: actual Web UI and localStorage test</title></head>
+<body><output id="result" data-result="RUNNING">RUNNING</output><div id="fixtures"></div>
+<script type="module">
+import {STORAGE_KEY,blankState,completeMission} from "../core.mjs";
+const out=document.querySelector("#result");
+const assert=(condition,msg)=>{if(!condition)throw Error(msg);};
+const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function until(fn,label){
+ for(let i=0;i<150;i++){if(fn())return;await pause(30);}
+ throw Error("Timed out waiting for "+label);
+}
+async function frameLoad(frame){
+ await new Promise((resolve,reject)=>{
+  const timeout=setTimeout(()=>reject(Error("LEARN iframe did not load")),8000);
+  frame.addEventListener("load",()=>{clearTimeout(timeout);resolve();},{once:true});
+ });
+}
+function progress(frame){
+ const b=frame.contentDocument.querySelector('[data-view="progress"]');
+ assert(Boolean(b),"progress tab present");
+ b.click();
+ return frame.contentDocument.querySelector("#main");
+}
+function chooseFile(frame,raw,name="my-backup.json"){
+ const input=frame.contentDocument.querySelector("#learn-restore-file");
+ assert(Boolean(input)&&input.type==="file","visible actual restore file input");
+ const dt=new DataTransfer();
+ dt.items.add(new File([raw],name,{type:"application/json"}));
+ input.files=dt.files;
+ input.dispatchEvent(new Event("change",{bubbles:true}));
+}
+function notice(frame){return frame.contentDocument.querySelector("#notice")?.textContent||"";}
+(async()=>{
+ const old=blankState();
+ const now=new Date("2026-10-28T10:00:00Z");
+ const previous=completeMission(old,{
+  taskId:"b1-g-001",grammarTag:"illatiivi",
+  firstAnswer:"kirjasto",firstCorrect:false,
+  secondAnswer:"kirjastoon",repairCorrect:true,
+  transferText:"Menen kirjastoon."
+ },now);
+ const oldRaw=JSON.stringify(previous);
+ const restored=completeMission(blankState(),{
+  taskId:"b1-g-002",grammarTag:"partitiivi",
+  firstAnswer:"vettä",firstCorrect:true,
+  secondAnswer:"",repairCorrect:null,
+  transferText:"Haluan vettä."
+ },now);
+ const restoredRaw=JSON.stringify(restored);
+ const examKey="hospodar-yki:exam-test-untouched";
+ localStorage.setItem(STORAGE_KEY,oldRaw);
+ localStorage.setItem(examKey,"EXAM_SECRET");
+ const frame=document.createElement("iframe");
+ frame.title="Integration test for LEARN";
+ frame.src="../index.html";
+ frame.style.width="390px";frame.style.height="660px";
+ document.querySelector("#fixtures").appendChild(frame);
+ await frameLoad(frame);
+ await until(()=>frame.contentDocument.querySelector('[data-view="progress"]'),"application nav");
+ let root=progress(frame);
+ assert(root.textContent.includes("1")&&root.textContent.includes("Відновлення з резервної копії"),
+   "actual progress UI contains restore control");
+ assert(Boolean(root.querySelector('label[for="learn-restore-file"]')),"restore field labeled");
+ // Invalid file fails before confirm and does not overwrite.
+ frame.contentWindow.confirm=()=>{throw Error("Invalid files cannot ask confirmation");};
+ chooseFile(frame,"{invalid");
+ await until(()=>notice(frame).includes("не проходить перевірку"),"invalid file explanation");
+ assert(localStorage.getItem(STORAGE_KEY)===oldRaw,"invalid JSON did not overwrite");
+ // Cancelled confirmation does not overwrite or reset live progress.
+ frame.contentWindow.confirm=()=>false;
+ chooseFile(frame,restoredRaw);
+ await until(()=>notice(frame).includes("скасовано"),"user cancel message");
+ assert(localStorage.getItem(STORAGE_KEY)===oldRaw,"cancel preserved previous raw JSON");
+ // Real confirmation, exact bytes, and ungraded/failed independent answer.
+ let confirmationText="";
+ frame.contentWindow.confirm=msg=>{confirmationText=msg;return true;};
+ chooseFile(frame,restoredRaw);
+ await until(()=>notice(frame).includes("Прогрес LEARN відновлено"),"successful restore message");
+ assert(confirmationText.includes("1 місій")&&confirmationText.includes("ЗАМІНИТЬ"),"honest counts and overwrite warning");
+ assert(localStorage.getItem(STORAGE_KEY)===restoredRaw,"exact backup bytes persisted");
+ assert(localStorage.getItem(examKey)==="EXAM_SECRET","not touched other local storage");
+ root=frame.contentDocument.querySelector("#main");
+ assert(root.textContent.includes("Відновлення з резервної копії"),"progress view visible after restore");
+ // Reload app entirely (cold read) to prove current V1 reader sees restored work.
+ await new Promise(resolve=>{
+  frame.addEventListener("load",resolve,{once:true});
+  frame.contentWindow.location.reload();
+ });
+ await until(()=>frame.contentDocument.querySelector('[data-view="progress"]'),"reload application");
+ root=progress(frame);
+ assert(root.textContent.includes("1")&&root.textContent.includes("Правильні перші спроби"),
+   "restored report loads after browser reload");
+ // Simulate another tab updating progress DURING native user confirmation.
+ frame.contentWindow.confirm=()=>{
+  localStorage.setItem(STORAGE_KEY,oldRaw);
+  return true;
+ };
+ chooseFile(frame,restoredRaw);
+ await until(()=>notice(frame).includes("Сховище змінилося"),"concurrent write rejection");
+ assert(localStorage.getItem(STORAGE_KEY)===oldRaw,"other tab state not overwritten by stale preview");
+ assert(localStorage.getItem(examKey)==="EXAM_SECRET","EXAM data still untouched");
+ out.textContent="PASS actual LEARN UI: invalid file, cancel, verified JSON restore, reload persistence, stale-tab conflict, EXAM isolation";
+ out.dataset.result="PASS";
+ frame.remove();
+ localStorage.removeItem(STORAGE_KEY);
+ localStorage.removeItem(examKey);
+})().catch(error=>{
+ out.textContent="FAIL: "+error.message;
+ out.dataset.result="FAIL";
+ console.error(error);
+});
+</script></body></html>
