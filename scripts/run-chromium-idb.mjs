@@ -11,7 +11,10 @@ import {join} from "node:path";
 import {setTimeout as delay} from "node:timers/promises";
 
 const chrome=process.env.CHROME_BINARY||"google-chrome";
-const url="http://127.0.0.1:8765/app/tests/atomic-idb-browser.html";
+const page=process.argv[2]||"atomic-idb-browser.html";
+if(!/^[a-z0-9-]+-browser\\.html$/.test(page))
+  throw Error("Only local test-browser HTML harnesses may be opened");
+const url="http://127.0.0.1:8765/app/tests/"+page;
 const dir=await mkdtemp(join(tmpdir(),"yki-idb-chrome-"));
 const proc=spawn(chrome,[
   "--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",
@@ -40,7 +43,7 @@ async function getPage(p){
     try{
       const res=await fetch(`http://127.0.0.1:${p}/json/list`);
       const tabs=await res.json();
-      const found=tabs.find(t=>t.type==="page"&&t.url.includes("atomic-idb-browser.html"));
+      const found=tabs.find(t=>t.type==="page"&&t.url.includes(page));
       if(found)return found;
     }catch{}
     await delay(200);
@@ -82,16 +85,16 @@ try{
     const response=await session.evaluate("({status:document.querySelector('#result')?.dataset.result,info:document.querySelector('#result')?.textContent})");
     const value=response?.result?.value;
     if(value?.status==="PASS"){
-      console.log("PASS real Chromium IndexedDB:",value.info);
+      console.log("PASS real Chromium "+page+":",value.info);
       process.exitCode=0;break;
     }
     if(value?.status==="FAIL")throw Error("Browser test: "+value.info);
     if(value?.status)last=JSON.stringify(value);
     await delay(100);
-    if(attempt===199)throw Error("Browser IDB test timed out; last="+last);
+    if(attempt===199)throw Error("Browser "+page+" test timed out; last="+last);
   }
 }catch(error){
-  console.error("FAIL Chromium IndexedDB:",error.message);
+  console.error("FAIL Chromium "+page+":",error.message);
   process.exitCode=1;
 }finally{
   // Chrome writes asynchronously to its profile, including after DevTools
