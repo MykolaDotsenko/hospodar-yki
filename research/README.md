@@ -1,4 +1,6 @@
 # Research — методики, дизайн, UX, геймплей, сценарії
+**R12 completed dated source analysis (28.10.2026):** [fair competitive learning/EXAM study and verified source comparisons](benchmark/r12-fair-finnish-yki-comparative-study-2026-10.md), [machine-readable Hospodar + eight alternatives + OPH reference](benchmark/r12-competitor-evidence-snapshot-2026-10.json) with [21 evidence-honesty unit tests](../app/tests/r12-benchmark-evidence.test.mjs). No active competitor login, full mobile QA, trial or ranked outcome; product strategy remains docs/28.
+
 **Programme update 28.10.2026:** [№29 — 12 sequential applied research tracks for Hospodar YKI](29-twelve-product-research-studies-execution-2026-10.md), `R01…R12`: 12 completed literature/data-source assessments, concrete LEARN/EXAM product decisions, quality gates and human study/official YKI verification protocols. **0 actual user trials performed; no app efficacy measured.** More detailed R01 [UX protocol](ux/learning-impact-evaluation-protocol.md); authoritative existing registries unchanged.
 
 **[🔬 Дослідницька програма: наука → механіка → UI/UX → виміряний результат](RESEARCH-PROGRAM.md)** — єдиний процес роботи з доказами, гіпотезами й перенесенням до продукту. Перші питання, шаблон картки та P0–P2-порядок розташовані там, **без нового реєстру**.
