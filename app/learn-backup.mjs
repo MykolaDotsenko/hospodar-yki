@@ -31,8 +31,7 @@ function fail(status,reason,rollbackVerified=null){
 export function restoreLearnBackup({storage,raw,expectedStoredRaw}={}) {
   if(!storage||typeof storage.getItem!=="function"||
      typeof storage.setItem!=="function"||
-     !Object.hasOwn({expectedStoredRaw},"expectedStoredRaw") ||
-     !["string","object"].includes(typeof expectedStoredRaw)||
+     expectedStoredRaw===undefined ||
      (expectedStoredRaw!==null&&typeof expectedStoredRaw!=="string"))
     return fail("blocked","INVALID_STORAGE_OR_CONCURRENCY_TOKEN");
   const preview=inspectLearnBackup(raw);
