@@ -1,3 +1,5 @@
+**R07 UX science-to-stage contract (28.10.2026):** [critical source review and 18 proposed gates](../../research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md), [isolated pure state-machine prototype](../../app/r07-interaction-core.mjs) and [14 tests](../../app/tests/r07-interaction-core.test.mjs). For future user-facing Web/Android PRs: preserve FIRST independent answer → meaning-first feedback → optional repair → unseen transfer; user-controlled Finnish audio/captions, assistive support labeled ungraded, no music/SFX competing with speech, EXAM isolation, S2/licensing gate and manual a11y. The state machine is NOT imported into current app; no R07 studies run. Keep UX #20 and R01 protocols as source owners for previous results.
+
 # From learning research to product UX — implementation handoff
 
 **Status: PROCESS FOR FUTURE FEATURE PRs.** Nothing in a research paper, UI mock, design system or feature contract is proof that the method improves actual Finnish/YKI outcomes.
