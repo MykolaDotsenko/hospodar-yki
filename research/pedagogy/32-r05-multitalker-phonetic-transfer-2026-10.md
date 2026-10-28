@@ -122,3 +122,5 @@ For every real, distributable asset: **unique ID, first-party URL, publisher/aut
 - **Calm listening visualization/sound and modality sequencing:** [design follow-up №19](../design/19-r05-sound-visual-design-transfer-2026-10.md).
 - **Storage/packaging:** [ADR-023](../../docs/23-android-offline-game-and-3gb-media-architecture.md) + [ADR-027](../../docs/27-stack-architecture-compatibility-and-implementation-gates.md); no core-stack rewrite.
 - **R01/R04** human-outcome calibration and no fake YKI level; study effects must be independently observed on product users.
+
+**Content-production attachment (28.10.2026):** [12 original two-speaker-role Finnish practice scripts, answer and transfer prompts](../../learning/exercises/b1/audio-training/R05-ORIGINAL-MULTITALKER-SCRIPT-DRAFTS-2026-10.md). Not voiced, S2 checked, playable or graded; originals must be human reviewed before recordings. This is concrete *candidate material*, not 12 shipped lessons.
