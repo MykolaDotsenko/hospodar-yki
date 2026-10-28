@@ -21,18 +21,19 @@ function clamped(value,lo,hi){return Math.min(hi,Math.max(lo,value));}
 function observedFirstIndependentFailure(event) {
   if (!event || typeof event !== "object") return false;
   // Existing completeMission records firstAnswer + firstCorrect from an unassisted attempt.
-  if (typeof event.firstAnswer === "string" && event.firstAnswer.trim() &&
-      event.firstCorrect === false) return true;
+  if (event.skill === "grammar" && typeof event.firstAnswer === "string" &&
+      event.firstAnswer.trim() && event.firstCorrect === false) return true;
   // Future typed events: fail only on an explicitly independent objective response.
-  return event.evidenceKind === "objective_scored" &&
+  return ["reading","listening"].includes(event.skill) &&
+    event.evidenceKind === "objective_scored" &&
     event.independent === true && event.firstAttempt === true && event.correct === false;
 }
 function observedFirstIndependentSuccess(event) {
   return Boolean(event && (
-    (typeof event.firstAnswer === "string" && event.firstAnswer.trim() &&
-      event.firstCorrect === true) ||
-    (event.evidenceKind === "objective_scored" && event.independent === true &&
-      event.firstAttempt === true && event.correct === true)
+    (event.skill === "grammar" && typeof event.firstAnswer === "string" &&
+      event.firstAnswer.trim() && event.firstCorrect === true) ||
+    (["reading","listening"].includes(event.skill) && event.evidenceKind === "objective_scored" &&
+      event.independent === true && event.firstAttempt === true && event.correct === true)
   ));
 }
 function validTask(task,{availableMinutes,level,offlineIds,completedIds}) {
@@ -83,7 +84,17 @@ export function rankR06Tasks(params={}) {
     seenIds.add(task.id);
     const related=attempts.filter(a=>a && a.taskId===task.id);
     const diag=diagnostics.filter(a=>a && a.taskId===task.id);
-    const confirmedFailure=[...related,...diag].some(observedFirstIndependentFailure);
+    const evidence=[...related,...diag].filter(a=>
+      observedFirstIndependentFailure(a) || observedFirstIndependentSuccess(a));
+    // Most recent independently assessed result wins; stale failures never persist
+    // after a later successful independent answer. Stable array order for undated mocks.
+    evidence.sort((a,b)=>{
+      const ai=Date.parse(a.completedAt || a.at || "");
+      const bi=Date.parse(b.completedAt || b.at || "");
+      return (Number.isFinite(ai)?ai:0)-(Number.isFinite(bi)?bi:0);
+    });
+    const latest=evidence.at(-1);
+    const confirmedFailure=observedFirstIndependentFailure(latest);
     const seen=[...related,...diag].length>0;
     const dueDay=dayIndex(cards[task.id]?.due);
     const daysLate=dueDay===null ? null : todayIndex-dueDay;
