@@ -1,5 +1,7 @@
 # Visual design, brand and color evidence
 
+**R07 design→interaction boundary 28.10.2026:** see canonical **UX owner** [research/ux/№21](../ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md) and [pure response-first interaction reference](../../app/r07-interaction-core.mjs). This does not replace warm Nordic identity, tokens or R05 task×audio rules: audio is user-started, sound effects off, motion optional and semantic cues appear without leaking answer. Research and reference tests only, NOT a shipped screen or evidence of Finnish outcome gain.
+
 **R05 sound/visual follow-up 28.10.2026:** [№19 — task×sound mixing, quiet study mode, 2024 vs 2026 music counterevidence, 2026 visual load and 12 proposed accessibility/effectiveness gates](19-r05-sound-visual-design-transfer-2026-10.md). Existing brand v0.3 palette preserved; sound effects not proven to improve Finnish; no app/SFX implementation or human A/B trial yet. Audio first, meaningful optional media rather than storage-filling decoration.
 
 **[Evaluation plan: evidence, accessibility, real usability tests](design-evaluation-plan-v1.md)** — hypotheses, not fabricated effectiveness.
