@@ -6,6 +6,7 @@
 
 | Scope | Exact command | What it proves / does not prove |
 | --- | --- | --- |
+| R07 isolated reference interaction state machine | `node --check app/r07-interaction-core.mjs && node --test app/tests/r07-interaction-core.test.mjs` | Deterministic answer-first/assisted-audio/EXAM exclusion in Node; **not** evidence of interactive rendered UI, speaking score, Android a11y or human learning gain. |
 | Browser JS syntax | `node --check app/core.mjs && node --check app/app.mjs && node --check app/exam-core.mjs && node --check app/exam.mjs && node --check app/attempt-storage.mjs` | Syntax, not user journeys |
 | App unit/integration | `node --test app/tests/*.test.mjs` | Present unit/content and in-memory storage behavior, not all browsers |
 | Portable V2 commands and golden fixtures | `node --test packages/contracts/tests/session-v2.test.mjs` | In-memory portable JS commands and fixtures; separate real Chromium IndexedDB V2 integration. NOT Kotlin parity |
