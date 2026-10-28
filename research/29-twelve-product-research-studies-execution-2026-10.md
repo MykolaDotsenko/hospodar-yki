@@ -66,6 +66,8 @@
 
 **Study plan:** same talker vs multi-talker, content/time matched; independent listening gist/detail on **unseen voice and sentences** after 14 days, separate human-reviewed oral output. Аудіо S2+voice rights, captions/a11y/mic-denied handling. `assets/`, `learning/`, `research/pedagogy/` own; **human recordings + participant trials NOT RUN**.
 
+**R05 deep follow-up (28.10.2026):** [№32 — multi-talker Finnish HVPT, distinct perception/production, subtitle/caption controls, natural voices, 16 proposed gates](pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md) + [design #19 — audio-first calm UI, semantic effects, visual load, music counterevidence](design/19-r05-sound-visual-design-transfer-2026-10.md) + [licensed/blocked material intake](../sources/audio/R05-MULTITALKER-MATERIAL-INTAKE-2026-10.md). 85 existing binaries unchanged; 0 newly imported. Full-offline install-time Android target allows up to ~3–4GB Play compressed but no AAB QA or S2 voice pack built. Human experiments **NOT_RUN**. Next source track R06.
+
 ## R06 — Адаптація: «найкраще наступне завдання», а не магічний AI
 
 **Evidence:** [Kim & Webb spaced L2 meta](https://doi.org/10.1111/lang.12479) підтримує spacing, **не** один найкращий scheduler. [Finnish morphology FMA 2024 controlled pilot](https://doi.org/10.1080/09588221.2024.2365664) показує можливість адаптивної мобільної практики фінської морфології, але змішує schedule/content/type of task, **не ізолює** ефект персоналізації. [Learning dashboards meta 07.10.2026](https://doi.org/10.1016/j.iheduc.2026.101119), 21 controlled / student-facing `g=.287`, prediction interval encompasses zero — **dashboards не дорівнюють adaptive interventions**.
