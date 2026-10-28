@@ -12,7 +12,7 @@ import {setTimeout as delay} from "node:timers/promises";
 
 const chrome=process.env.CHROME_BINARY||"google-chrome";
 const page=process.argv[2]||"atomic-idb-browser.html";
-if(!/^[a-z0-9-]+-browser\\.html$/.test(page))
+if(!/^[a-z0-9-]+-browser\.html$/.test(page))
   throw Error("Only local test-browser HTML harnesses may be opened");
 const url="http://127.0.0.1:8765/app/tests/"+page;
 const dir=await mkdtemp(join(tmpdir(),"yki-idb-chrome-"));
