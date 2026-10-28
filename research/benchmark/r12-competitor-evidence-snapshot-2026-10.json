@@ -1,0 +1,953 @@
+{
+  "schemaVersion": "1.0.0",
+  "researchId": "R12",
+  "owner": "research/benchmark",
+  "evidenceAsOf": "2026-10-28",
+  "purpose": "Dated public feature/pricing snapshot, NOT a verified product comparison test or learning-outcome ranking",
+  "conflictsOfInterest": "Hospodar team authored this benchmark; independently checked source vs self-report and equal-task experiment needed",
+  "scope": {
+    "population": "Adult Ukrainian L1 learning Finnish A2.2 to B1+, eventually A1.3–B2.1",
+    "primaryOutcome": "day14 human-blind-rated independent unseen functional Finnish writing",
+    "secondaryOutcomes": [
+      "day30 blinded writing",
+      "day14/30 unseen-speaker listening",
+      "independent reading",
+      "consented human-rated speaking",
+      "task usability",
+      "a11y/real offline",
+      "cost at purchase date"
+    ],
+    "officialExamBaseline": "OPH digital demos are system reference, NOT commercial competitor or graded practice"
+  },
+  "verification": {
+    "headToHeadTrialsRun": 0,
+    "realDeviceCompetitorInstallAuditsRun": 0,
+    "official2027UiControlsVerified": false,
+    "originalS2ReviewOfR08Drafts": 0,
+    "rankingsAuthorized": false,
+    "officialSources": [
+      "oph-yki",
+      "oph-pilot"
+    ],
+    "priceVolatile": true,
+    "unknownIsNotNo": true,
+    "numericScorePolicy": "Do not output 0–100 rank or passing predictions until matched outcomes and calibrated, complete feature tests."
+  },
+  "evidenceSources": [
+    {
+      "id": "oph-yki",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "type": "official_standard",
+      "note": "four digital demos (ungraded); independent digital system reference"
+    },
+    {
+      "id": "oph-pilot",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "type": "official_standard",
+      "note": "7 Nov 2026 pilot and phased 2027 rollout, not finalized observed UI"
+    },
+    {
+      "id": "kielibuusti-finnishit",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials/finnish-it",
+      "type": "independent_catalog_review",
+      "note": "all four skills; critical AI audio and language reliability caveats"
+    },
+    {
+      "id": "appstore-finnishit",
+      "url": "https://apps.apple.com/fi/app/finnish-it-yki-test-practice/id6742380858",
+      "type": "developer_listing",
+      "note": "4 skills, Ukrainian UI and Finnish iOS purchase options; pricing may change"
+    },
+    {
+      "id": "ykitrainer",
+      "url": "https://ykitrainer.fi/en",
+      "type": "vendor_claim",
+      "note": "4 skills, AI training and simulation; free limits, paid price not exposed in indexed source"
+    },
+    {
+      "id": "worddive",
+      "url": "https://www.worddive.com/fi/opi-suomea/",
+      "type": "vendor_claim",
+      "note": "Finnish beginner-to-advanced courses and published EUR monthly pricing; course counts vary across cached versions"
+    },
+    {
+      "id": "kielibuusti-yle",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials/ykitreenit",
+      "type": "independent_catalog_review",
+      "note": "authentic spoken Finnish listening/reading, free; no speaking/writing practice on source page"
+    },
+    {
+      "id": "kielibuusti-lukla",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials/lukla",
+      "type": "independent_catalog_review",
+      "note": "four skills, AI feedback and text-register caveat; limited free tier"
+    },
+    {
+      "id": "play-finnly",
+      "url": "https://play.google.com/store/apps/details?id=com.havilahworks.finn",
+      "type": "developer_listing",
+      "note": "4 skills, SRS, AI feedback, streak and readiness developer claims, price not publicly fixed"
+    },
+    {
+      "id": "kielibuusti-catalog",
+      "url": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials",
+      "type": "independent_catalog_review",
+      "note": "Speakly: useful vocabulary, native recordings, paid; not a YKI simulator equivalence claim"
+    },
+    {
+      "id": "kielibuusti-duo",
+      "url": "https://www.kielibuusti.fi/en/front-page/learn-finnish/self-study/duolingo",
+      "type": "independent_catalog_review",
+      "note": "Finnish 0-A2 limitation; not productive YKI B1 or comparable all-four-skill"
+    },
+    {
+      "id": "science-dashboards",
+      "url": "https://doi.org/10.1016/j.iheduc.2026.101119",
+      "type": "scientific_synthesis",
+      "note": "Oct 2026 21 controlled isolated-dashboard studies; learning impacts heterogeneous and certainty limitations"
+    },
+    {
+      "id": "science-mobile",
+      "url": "https://doi.org/10.1080/09588221.2025.2528786",
+      "type": "scientific_synthesis",
+      "note": "38 mobile language-game studies; Finnish writing/speaking transfer unknown"
+    }
+  ],
+  "products": [
+    {
+      "id": "hospodar-yki",
+      "name": "Hospodar YKI",
+      "category": "first_party_prototype",
+      "primaryUrl": "https://github.com/MykolaDotsenko/hospodar-yki",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "repo_source_audit_no_end_user_install",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "9-item independent exam mock: structured reading"
+        },
+        "listening": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "Controlled audio exercises, many synthetic"
+        },
+        "writing": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "Text drafting ungraded"
+        },
+        "speaking": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "Mic practice available; ungraded"
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "Web EXAM V1 is a 9-item practice simulator with four sections; NOT official/2027 verified"
+        },
+        "originalReviewedFinnish": {
+          "status": "partial_and_unverified",
+          "sourceIds": [],
+          "note": "14 R08 original grammar draft tasks explicitly S2-PENDING; do not call teacher-reviewed"
+        },
+        "completeOfflineAtInstall": {
+          "status": "not_implemented",
+          "sourceIds": [],
+          "note": "3–4GB install-time Android PAD in architecture only; no buildable APK/AAB"
+        },
+        "faithful2027DigitalExam": {
+          "status": "not_verified",
+          "sourceIds": [],
+          "note": "OPH digital four demos linked but UI controls not manually examined; R02 fidelity strict OFF"
+        },
+        "UkrainianInterface": {
+          "status": "repo_source_present",
+          "sourceIds": [],
+          "note": "Four Web HTML pages lang=uk; no released Android app"
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "R01 randomized blind day14/30 trial not run"
+        }
+      },
+      "price": {
+        "status": "not_for_sale",
+        "sourceIds": [],
+        "note": "Prototype, no commercial user price"
+      },
+      "claimedStrength": "Ukrainian first, S2-gated source ethics, independent first answer protected in references, strict study/exam separation plan",
+      "criticalLimit": "Limited active Web scope; R05/R06/R07/R08/R08-MOT/R11 largely reference-only, 14/14 draft forms S2-pending, full Android/offline and human outcomes not delivered",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "finnish-it",
+      "name": "Finnish it!",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://apps.apple.com/fi/app/finnish-it-yki-test-practice/id6742380858",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-finnishit",
+            "appstore-finnishit"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-finnishit",
+            "appstore-finnishit"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-finnishit",
+            "appstore-finnishit"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-finnishit",
+            "appstore-finnishit"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-finnishit",
+            "appstore-finnishit"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "source_claimed",
+          "sourceIds": [
+            "appstore-finnishit"
+          ],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "platform_listing",
+        "currency": "EUR",
+        "market": "FI App Store",
+        "options": [
+          {
+            "name": "Monthly Premium",
+            "amount": 7.99,
+            "period": "month"
+          },
+          {
+            "name": "Monthly Access",
+            "amount": 5.99,
+            "period": "month"
+          }
+        ],
+        "sourceIds": [
+          "appstore-finnishit"
+        ],
+        "note": "Multiple purchase tiers shown; not a single universal subscription price"
+      },
+      "claimedStrength": "Mobile 4-skill AI scenarios, grammar, Ukrainian listed among languages",
+      "criticalLimit": "Kielibuusti flags synthetic standard-register audio and imperfect grammatical reliability; head-to-head not performed",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "yki-trainer",
+      "name": "YKI Trainer",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://ykitrainer.fi/en",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "ykitrainer"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "ykitrainer"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "ykitrainer"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "ykitrainer"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "ykitrainer"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "free_limited_and_paid_amount_unknown",
+        "sourceIds": [
+          "ykitrainer"
+        ],
+        "note": "Free daily/monthly limits and paid monthly/lifetime advertised, precise price not visible in indexed source"
+      },
+      "claimedStrength": "Customized AI exercises, four skills, AI tutor and full mock exam (developer claims)",
+      "criticalLimit": "AI level/percentage claims are not human-calibrated YKI grades; 2027 exam fidelity not independently verified",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "worddive",
+      "name": "WordDive",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://www.worddive.com/fi/opi-suomea/",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "unknown",
+          "sourceIds": [
+            "worddive"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "worddive"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "unknown",
+          "sourceIds": [
+            "worddive"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "unknown",
+          "sourceIds": [
+            "worddive"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "unknown",
+          "sourceIds": [
+            "worddive"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "public_numeric",
+        "currency": "EUR",
+        "amount": 10.99,
+        "period": "month",
+        "sourceIds": [
+          "worddive"
+        ],
+        "note": "Advertised ongoing Finnish subscription on 28 Oct 2026; price can change"
+      },
+      "claimedStrength": "Structured Finnish beginner–advanced grammar, cases, life contexts, listening; established breadth",
+      "criticalLimit": "Not presented as a current official digital YKI simulator; no matched 4-skill outcome trial",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "yle-ykitreenit",
+      "name": "Yle YKItreenit",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials/ykitreenit",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "independent_reviewed",
+          "sourceIds": [
+            "kielibuusti-yle"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "independent_reviewed",
+          "sourceIds": [
+            "kielibuusti-yle"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "limited",
+          "sourceIds": [
+            "kielibuusti-yle"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "limited",
+          "sourceIds": [
+            "kielibuusti-yle"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "unknown",
+          "sourceIds": [
+            "kielibuusti-yle"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "free",
+        "currency": "EUR",
+        "amount": 0,
+        "sourceIds": [
+          "kielibuusti-yle"
+        ]
+      },
+      "claimedStrength": "Free authentic colloquial audio and reading at B1",
+      "criticalLimit": "Independent catalog says no independent writing/speaking training and some materials dated 2015",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "lukla",
+      "name": "Lukla",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials/lukla",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-lukla"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-lukla"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-lukla"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-lukla"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "kielibuusti-lukla"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "limited_free_paid_amount_unknown",
+        "sourceIds": [
+          "kielibuusti-lukla"
+        ],
+        "note": "Kielibuusti: free limited, paid full; current amount unknown"
+      },
+      "claimedStrength": "Four AI-generated task types and varied individualized feedback",
+      "criticalLimit": "Independent catalog flags written-register audio and English prerequisite",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "finnly",
+      "name": "Finnly",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://play.google.com/store/apps/details?id=com.havilahworks.finn",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "play-finnly"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "play-finnly"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "play-finnly"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "play-finnly"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "advertised_or_independent_review",
+          "sourceIds": [
+            "play-finnly"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "paid_amount_only_in_app",
+        "sourceIds": [
+          "play-finnly"
+        ],
+        "note": "Developer says Pro subscription price inside app"
+      },
+      "claimedStrength": "New Android YKI-targeted four-skill, SRS, AI feedback and exam-date planning claims",
+      "criticalLimit": "Readiness scores and streaks are vendor claims, not official exam calibration or established Finnish outcome lift",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "speakly",
+      "name": "Speakly",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://www.kielibuusti.fi/en/learn-finnish/learning-materials-and-courses/find-online-learning-materials",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "unknown",
+          "sourceIds": [
+            "kielibuusti-catalog"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "independent_reviewed",
+          "sourceIds": [
+            "kielibuusti-catalog"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "unknown",
+          "sourceIds": [
+            "kielibuusti-catalog"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "independent_reviewed",
+          "sourceIds": [
+            "kielibuusti-catalog"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "unknown",
+          "sourceIds": [
+            "kielibuusti-catalog"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "paid_amount_unknown",
+        "sourceIds": [
+          "kielibuusti-catalog"
+        ]
+      },
+      "claimedStrength": "Useful practical Finnish phrases, recorded native speakers and chatbot as reviewed by Kielibuusti",
+      "criticalLimit": "Not evidence of comprehensive independently verified digital-YKI simulation or measured comparative B1 success",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    },
+    {
+      "id": "duolingo-finnish",
+      "name": "Duolingo Finnish",
+      "category": "commercial_or_public_learning_tool",
+      "primaryUrl": "https://www.kielibuusti.fi/en/front-page/learn-finnish/self-study/duolingo",
+      "reviewedDate": "2026-10-28",
+      "productEvidence": "public_source_review_only",
+      "verifiedInstalledApp": false,
+      "skills": {
+        "reading": {
+          "status": "limited",
+          "sourceIds": [
+            "kielibuusti-duo"
+          ],
+          "note": ""
+        },
+        "listening": {
+          "status": "independent_reviewed",
+          "sourceIds": [
+            "kielibuusti-duo"
+          ],
+          "note": ""
+        },
+        "writing": {
+          "status": "limited",
+          "sourceIds": [
+            "kielibuusti-duo"
+          ],
+          "note": ""
+        },
+        "speaking": {
+          "status": "limited",
+          "sourceIds": [
+            "kielibuusti-duo"
+          ],
+          "note": ""
+        }
+      },
+      "featureClaims": {
+        "fourSkillYkiB1": {
+          "status": "unknown",
+          "sourceIds": [
+            "kielibuusti-duo"
+          ],
+          "note": ""
+        },
+        "originalReviewedFinnish": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "No content-quality audit by Hospodar; do not infer from AI/voice statements"
+        },
+        "completeOfflineAtInstall": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Web/App store listing is not a real airplane-mode installed-pack test"
+        },
+        "faithful2027DigitalExam": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": "Official OPH 2027 digital UI/controls NOT fully audited for anyone"
+        },
+        "UkrainianInterface": {
+          "status": "unknown",
+          "sourceIds": [],
+          "note": ""
+        },
+        "delayedIndependentLearningGain": {
+          "status": "unmeasured",
+          "sourceIds": [],
+          "note": "No matched Hospodar-vs-product blinded cohort trial"
+        }
+      },
+      "price": {
+        "status": "free_and_paid_amount_unknown",
+        "sourceIds": [
+          "kielibuusti-duo"
+        ]
+      },
+      "claimedStrength": "Accessible short gamified beginner Finnish learning",
+      "criticalLimit": "Kielibuusti rates Finnish path beginner 0–A2 and insufficient for B1 YKI speaking",
+      "independentTrialStatus": "NOT_RUN",
+      "scoreOutOf100": null,
+      "headToHeadWinner": null
+    }
+  ],
+  "officialAnchor": {
+    "name": "OPH Digital YKI practice demos",
+    "productType": "official_ungraded_system_reference_not_competitor",
+    "sourceIds": [
+      "oph-yki",
+      "oph-pilot"
+    ],
+    "skills": [
+      "reading",
+      "listening",
+      "writing",
+      "speaking"
+    ],
+    "officialDigitalPilot": "7 November 2026 pilot (future as of 28 October), four demo sections ungraded",
+    "fidelityInstructions": "No Hospodar or competitor demo is certified identical to finalized 2027 exam UI."
+  },
+  "rubric": {
+    "maximumPoints": 100,
+    "dimensions": [
+      {
+        "id": "delayed_finnish_transfer",
+        "weight": 35,
+        "method": "blind independent S2 task scoring at day14/30 after matched study time"
+      },
+      {
+        "id": "four_skill_quality",
+        "weight": 20,
+        "method": "S2 content/voice quality and legitimate task success across all four skills"
+      },
+      {
+        "id": "oph_digitesti_fidelity",
+        "weight": 15,
+        "method": "human-verified accessible OPH demo task/UI feature correspondence, never fake official certification"
+      },
+      {
+        "id": "offline_reliability",
+        "weight": 10,
+        "method": "installed app and airplane + crash + export/restore tests under matched device conditions"
+      },
+      {
+        "id": "accessibility_usability",
+        "weight": 10,
+        "method": "real keyboard/mobile/TalkBack and consenting representative adult task success"
+      },
+      {
+        "id": "transparent_value",
+        "weight": 10,
+        "method": "region-specific exact price/access/consent/privacy information per current store"
+      }
+    ],
+    "scoreNow": null,
+    "reason": "Every product has missing direct-comparability evidence; no unbiased total rank until trial and platform verification."
+  },
+  "competitiveAdvantagesOnlyIfDelivered": [
+    "Reviewed verified-rights authentic multi-speaker Finnish with matched transcripts",
+    "Real day14/30 independently assessed transfer with ungraded writing/speaking until expert",
+    "Reliable complete Android install-time offline 3–4GB under Google Play and physical device proofs",
+    "Authentic OPH digital test demo verified by legal, UI, and item-type audit rather than marketing promises"
+  ]
+}
