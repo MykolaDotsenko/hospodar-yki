@@ -63,7 +63,7 @@ def validate() -> dict:
         "2027-04-24", "2027-05-12", "2027-05-22", "2027-06-02"
     }
     assert catalog["spring_2027_suomi_keskitaso"]["checked_at"] == "2026-10-28"
-    assert len({d["date"] for d in dates}) == 6
+    assert len({d["date"] for d in dates}) == 8
     for d in dates:
         day = date.fromisoformat(d["date"])
         start, end = map(date.fromisoformat, (d["registration_open"], d["registration_close"]))
