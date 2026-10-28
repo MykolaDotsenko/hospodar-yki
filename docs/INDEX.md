@@ -1,5 +1,7 @@
 # Hospodar YKI — Documentation index and source-of-truth map
 
+**R05 researched 28.10.2026:** [human multi-talker phonetic training and full offline 3–4GB content plan](../research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md); [sensory/sound design research update](../research/design/19-r05-sound-visual-design-transfer-2026-10.md); [real material source-rights intake](../sources/audio/R05-MULTITALKER-MATERIAL-INTAKE-2026-10.md). No newly bundled recordings, SFX, UI redesign, Android installation or participant learning effects; all pending separate QA/feature work.
+
 **Owner:** repository maintainers. **Updated:** 2026-10-24. **Scope:** engineering navigation; does **not** certify production readiness.
 
 > Start with [../AGENTS.md](../AGENTS.md). Read the narrowest relevant documents; the research library is reference material, not mandatory context for every coding task.

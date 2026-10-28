@@ -1,5 +1,7 @@
 # 🎧 Hospodar YKI: 23 цілісні завдання з аудіювання (B1)
 
+**R05 28.10.2026 — [12 new original two-role Finnish everyday dialogue SCRIPT DRAFTS](R05-ORIGINAL-MULTITALKER-SCRIPT-DRAFTS-2026-10.md)**. These are text-only future recording candidates, **ZERO audio files, ZERO approved S2 lessons, not part of the active 23 tasks and not official YKI**. Separate [R05 evidence/voice protocol](../../../../research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md).
+
 **Content-first:** це саме аудіоуроки з оригінальними фінськими текстами й тестовими запитаннями, не каталог посилань. Скрипт [build_b1_synthetic_audio.py](../../../../scripts/build_b1_synthetic_audio.py) озвучує вже наявні тексти нашої бази та створює [index.json](index.json) з усіма контрольними відповідями.
 
 ## Що створюється
