@@ -24,6 +24,10 @@ export function validateR08Task(task,{requireApproved=false}={}){
     !task.semantic_options.every(x=>CHOICES.includes(x))||
     !task.semantic_options.includes(task.semantic_relation)||
     typeof task.answer_fi!=="string"||!str(task.answer_fi)||
+    !Array.isArray(task.accepted_alternatives_fi)||
+    !task.accepted_alternatives_fi.every(x=>typeof x==="string"&&
+      !!str(x)&&norm(x)!==norm(task.answer_fi))||
+    new Set(task.accepted_alternatives_fi.map(norm)).size!==task.accepted_alternatives_fi.length||
     typeof task.transfer_prompt_fi!=="string"||!str(task.transfer_prompt_fi)||
     task.transfer_prompt_fi===task.prompt_fi||
     typeof task.explanation_uk!=="string"||!str(task.explanation_uk)||
