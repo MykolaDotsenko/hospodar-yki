@@ -116,7 +116,9 @@
 
 **Study plan:** consenting diverse users (visual/hearing/motor/cognitive and mobile constraints) complete **actual** tasks without coaching; log severity and task success, audio caption sync, speech input failure, paper fallback or accommodation needs; never force disclosure of diagnosis or record health attributes unnecessarily. Owner `app/` QA + `docs/`; **real user accessibility sessions NOT RUN**.
 
-## R11 — Offline/reliability performance: pedagogical dose only counts when saved
+## R11 —**R10 deep execution 28.10.2026 (actual narrow CSS fixes, not real mobile certification):** [UX №22 verified WCAG 2.2, Android, Finnish Traficom standard/legal scope, 15 carefully bounded references and 20 proposed gates](ux/22-r10-accessibility-mobile-qa-2026-10.md); [12 source-level tests](../app/tests/r10-accessibility-contract.test.mjs) and updated styles.css/exam.css improve visible keyboard focus (navy vs gold), 320px threshold route readability, touch targets and overflow. **Real 320/360/390 rendered E2E, TalkBack/VoiceOver, android offline 3–4GB AAB, legal certification and user study still NOT RUN.** Next R11.
+
+ Offline/reliability performance: pedagogical dose only counts when saved
 
 **Product evidence:** [MVP README](../app/README.md) reports exam IndexedDB while **LEARN remains localStorage**; [ADR-025](../docs/25-implementation-vertical-slice-roadmap.md) documents G1 blockers including idempotent event recovery. [WCAG 2.2](https://www.w3.org/TR/WCAG22/) supports accessible robustness but is not evidence of memory uplift. App data consistency and offline retrieval are **engineering validation**, not RCT research.
 

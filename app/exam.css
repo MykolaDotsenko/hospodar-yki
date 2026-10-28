@@ -28,3 +28,11 @@
 .audiowarn{font-size:.85rem;color:var(--muted)}
 .exam-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0 15px}
 @media(max-width:580px){.exam-head{flex-direction:column}.exam-actions .btn{flex:1}.module-grid{grid-template-columns:1fr 1fr}}
+
+/* R10: keep simulated exam navigation operable with keyboard/touch. */
+.back{display:inline-flex;align-items:center;min-height:44px}
+.exam-result-row,.exam-result-row>*{min-width:0;overflow-wrap:anywhere}
+@media(max-width:380px){
+  .module-grid{grid-template-columns:1fr}
+  .exam-bar{min-width:0}
+}

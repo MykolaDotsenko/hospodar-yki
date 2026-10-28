@@ -1,5 +1,7 @@
 # UX / accessibility / interaction evidence
 
+**R10 28.10.2026: [№22 official WCAG 2.2, Android and Finland Traficom research + current HTML/CSS source audit, 20 acceptance gates, real-device QA matrix](22-r10-accessibility-mobile-qa-2026-10.md).** Added [real CSS contrast/mobile usability adjustments](../../app/styles.css) and [EXAM narrow layout](../../app/exam.css), with [12 source-level Node regression checks](../../app/tests/r10-accessibility-contract.test.mjs). **Real TalkBack/VoiceOver/360px render, user sessions and complete WCAG/EN 301 549 compliance NOT TESTED/CERTIFIED**; no scientifically measured Finnish gain.
+
 **R07 28.10.2026 — [№21: active Finnish meaning-first UI, controlled source review, sound/video/gamification counterevidence, seven proposed experiments and 18 acceptance gates](21-r07-meaningful-interactive-finnish-ux-2026-10.md).** [Isolated user-driven multimodal interaction state machine](../../app/r07-interaction-core.mjs) and [15 Node tests](../../app/tests/r07-interaction-core.test.mjs) protect independent answers, transcript access, ungraded speaking/writing and EXAM exclusion. **NOT an active UI, not human-tested, no new media.** Reuses existing UX #18/#20, R05 palette/audio and R06 ranking. Full Android offline 3–4GB stays a planning cap, not an asset target.
 
 **[UX research backlog and study protocol](ux-research-backlog-v1.md)** — no invented participant results.
