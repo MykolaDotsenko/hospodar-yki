@@ -1,5 +1,7 @@
 # Browser MVP — task-scoped agent instructions
 
+**R07 independent answer-first interaction guard (28.10.2026):** [isolated r07-interaction-core.mjs](r07-interaction-core.mjs) + [tests](tests/r07-interaction-core.test.mjs), UX [#21 evidence and test plan](../research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md). Prototype forbids premature answer/caption, forced audio, fake speaking/writing grading or EXAM import. Not active in app.mjs; production UI integration needs S2-reviewed content/rights, durable state, W3C and Android tests. Keep current SRS and R06 reference separate.
+
 **R06 isolated reference-only scorer:** [adaptation-core.mjs](adaptation-core.mjs) + [tests](tests/adaptation-core.test.mjs) provide pure deterministic local LEARN *ranking* with no cloud/DOM/storage and strict S2/offline/EXAM/ungraded guards. **Not used by app.mjs**; never swap it in without dedicated S2, persistence migration, focus/choice UI, fairness, delay-14 human trial and E2E. See [research №33](../research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md).
 
 Read [root policy](../AGENTS.md), [actual architecture](../docs/ARCHITECTURE.md), and [tests](../docs/TESTING.md) before touching working browser code. These short notes do **not** replace the canonical documents.
