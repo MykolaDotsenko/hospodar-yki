@@ -98,7 +98,9 @@ test("a malformed file cannot overwrite existing progress",()=>{
 });
 test("failed browser localStorage.setItem leaves previous progress unchanged",()=>{
   const prev=old(),s=mem(prev);
-  s.setItem=()=>{throw Error("quota");};
+  const originalSet=s.setItem.bind(s);
+  let writes=0;
+  s.setItem=(key,val)=>{if(++writes===1)throw Error("quota");originalSet(key,val);};
   const o=restoreLearnBackup({storage:s,raw:backup(),expectedStoredRaw:prev});
   assert.equal(o.status,"failed");
   assert.equal(o.rollbackVerified,true);
