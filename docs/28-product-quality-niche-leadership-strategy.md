@@ -75,6 +75,8 @@
 
 **Результат 12-напрямного дослідницького огляду (28.10.2026):** [№29 — повна послідовність R01…R12](../research/29-twelve-product-research-studies-execution-2026-10.md). Обов'язкові direct Finnish L2 RCT morphology + stem allomorphy, **human-machine spoken score `r=.654` ≠ score agreement**, confirmed OPH 7.11 digital pilot / spring 2027 digital dates with unknown production controls, 2026 small dashboard effects; outcome-first `LEARN` and fidelity-first `EXAM`. Усі 12 **desk source reviews**, **0 real-user trials**; допуск експериментів лише після prereg, consent/privacy/S2/material QA. Не витрачати основний бюджет на бейджі, animated screens і marketing score замість першої повної навчальної місії та валідного R01 outcome.
 
+**R03 Finnish morphosyntax and honest Ukrainian learner validation (28.10.2026):** [№30](../research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md) turns real Finnish L2 RCT (33 targeted vs 38 active general app), 2025 stem allomorphy and 2026 Russian-L1 proficiency contrasts into explicit `meaning vs stem vs rektio` diagnostics and teacher-reviewed transfer: **M01…09** testable families, 12 future acceptance criteria, 14/30-day held-out human study plan. No corpus/learner frequency for Ukrainian L1 verified; privacy-restricted ICLFI/Topling NOT accessed. **P0** targeted reliable learning content > decorative grammar games and error-count vanity; no claimed measured Hospodar outcomes.
+
 ## 5. Наукова база й межі застосування
 
 | Знахідка | Надійний першоджерело | Реалізація | Межа доказу |
