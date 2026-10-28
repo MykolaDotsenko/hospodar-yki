@@ -38,6 +38,7 @@ jobs:
         run: |
           node --check app/core.mjs
           node --check app/app.mjs
+          node --check app/learn-backup.mjs
       - name: Unit and real-content integration tests
         run: node --test app/tests/*.test.mjs
       - name: Real Chromium IndexedDB durability and concurrency test
@@ -60,3 +61,4 @@ jobs:
             exit 1
           fi
           node scripts/run-chromium-idb.mjs
+          node scripts/run-chromium-idb.mjs learn-backup-browser.html

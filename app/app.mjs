@@ -3,6 +3,7 @@ import {
   completeMission, addDiagnostic, skillSummary
 } from "./core.mjs";
 import {delayedTransferQueue, recordDelayedTransfer} from "./retention-core.mjs";
+import {inspectLearnBackup,restoreLearnBackup,LEARN_BACKUP_MAX_FILE_BYTES} from "./learn-backup.mjs";
 
 const root = document.getElementById("main");
 const notice = document.getElementById("notice");
@@ -223,6 +224,10 @@ function renderProgress() {
     <h2 style="margin-top:22px">Останні помилки</h2>${s.errors.length?s.errors.slice(-8).reverse().map(e=>
       `<div class="rowline"><span>${h(e.grammarTag || e.taskId)}</span><small>${h(e.at.slice(0,10))}</small></div>`).join(""):"<p class='muted'>Поки немає зафіксованих помилок.</p>"}
     <div class="actions">${btn("Експорт JSON","export","secondary")}${btn("Видалити весь локальний прогрес","erase","danger")}</div>
+    <h2 style="margin-top:22px">Відновлення з резервної копії · LEARN</h2>
+    <label class="field" for="learn-restore-file">Обрати раніше експортований файл JSON</label>
+    <input id="learn-restore-file" class="answer" type="file" accept=".json,application/json" aria-describedby="learn-restore-help">
+    <p id="learn-restore-help" class="muted">Файл перевіряється лише на цьому пристрої. Перед заміною буде показано кількість записів та запитано підтвердження. Спочатку збережи поточний прогрес через «Експорт JSON». Відновлення не змішує профілі та не змінює режим EXAM.</p>
     <p class="qualification">Увага: localStorage доступний лише в конкретному браузері/профілі. Експорт містить ваші письмові відповіді. Не публікуйте його в GitHub. Для персонального використання на чужому пристрої видаліть дані.</p>`);
 }
 function renderDelayedTransfer() {
@@ -301,10 +306,71 @@ function voiceReset() {
   app.recorded=false;
 }
 function exportState(){
-  const json=JSON.stringify(app.state,null,2);
+  // Prefer the exact V1 localStorage bytes, so extra legacy information is not
+  // silently filtered by readState(). If writes failed, export in-memory work.
+  let raw=null;
+  try{if(!app.volatile)raw=localStorage.getItem(STORAGE_KEY);}catch{}
+  const json=raw??JSON.stringify(app.state,null,2);
   const url=URL.createObjectURL(new Blob([json],{type:"application/json;charset=utf-8"}));
-  const a=document.createElement("a");a.href=url;a.download="hospodar-yki-progress-"+localDate()+".json";a.click();
+  const a=document.createElement("a");
+  a.href=url;a.download="hospodar-yki-progress-"+localDate()+".json";a.click();
   setTimeout(()=>URL.revokeObjectURL(url),1000);
+  info("Резервний JSON підготовлено для завантаження. Він містить особисті відповіді: зберігай приватно.");
+}
+let restorePending=false;
+async function restoreFromFile(input){
+  if(restorePending)return;
+  const file=input.files?.[0];
+  input.value=""; // allow retry of the same file after cancellation/error
+  if(!file)return;
+  if(file.size>LEARN_BACKUP_MAX_FILE_BYTES){
+    info("Резервна копія перевищує дозволений розмір. Поточні дані не змінено.");return;
+  }
+  restorePending=true;
+  try{
+    const raw=await file.text();
+    const inspected=inspectLearnBackup(raw);
+    if(inspected.status!=="ready"){
+      info("Відновлення зупинено: файл не проходить перевірку без втрати записів ("+
+        h(inspected.reason)+"). Поточні дані не змінено.");return;
+    }
+    let expectedStoredRaw;
+    try{expectedStoredRaw=localStorage.getItem(STORAGE_KEY);}
+    catch{
+      info("Сховище браузера недоступне. Файл не імпортовано.");return;
+    }
+    const c=inspected.counts;
+    const summary="У файлі "+c.attempts+" місій, "+c.diagnostics+
+      " діагностик, "+c.retention+" відкладених відповідей, "+c.cards+" карток повторення.";
+    const notice="Увага: відновлення повністю ЗАМІНИТЬ теперішній прогрес LEARN у цьому браузері. "+
+      summary+" Перш ніж продовжити, натисни «Експорт JSON» і збережи копію поточних відповідей. "+
+      (app.volatile?"Увага: є незбережені локально зміни — обов'язково експортуй їх. ":"")+
+      "Ти підтверджуєш, що резервну копію поточного прогресу вже збережено?";
+    if(!window.confirm(notice)){
+      info("Відновлення скасовано; поточні відповіді не змінено.");return;
+    }
+    const restored=restoreLearnBackup({storage:localStorage,raw,expectedStoredRaw});
+    if(restored.status==="restored"){
+      app.state=restored.state;
+      app.volatile=false;
+      app.mission=null;app.diag={index:0,played:false};
+      app.sim={index:0,answers:[],played:false,finished:false};
+      voiceReset();
+      app.view="progress";
+      render();root.focus({preventScroll:true});
+      info("Прогрес LEARN відновлено з локального файлу та перевірено читання запису. "+
+        "EXAM не змінено. Перші відповіді й неперевірене письмо не переоцінювалися.");
+    }else{
+      const why=restored.status==="conflict"?
+        "Сховище змінилося в іншій вкладці після попередньої перевірки.":
+        restored.status==="uncertain"?
+          "Не вдалося підтвердити попередні дані після помилки запису. Збережи свою резервну копію.":
+          "Дані не замінено; запис або перевірка сховища не вдалися.";
+      info("Відновлення не підтверджено. "+why+" Код: "+h(restored.reason)+".");
+    }
+  }catch{
+    info("Не вдалося прочитати файл. Поточні дані не змінено.");
+  }finally{restorePending=false;}
 }
 function eraseState() {
   if(!confirm("Назавжди видалити всі локальні відповіді, помилки та прогрес у цьому браузері?"))return;
@@ -387,6 +453,9 @@ root.addEventListener("submit",e=>{
       if(persisted) info("Незалежну відповідь збережено локально без автоматичного бала.");
     }
   }catch(error){info("Не вдалося завершити дію: "+String(error.message||error));}
+});
+root.addEventListener("change",e=>{
+  if(e.target?.id==="learn-restore-file")restoreFromFile(e.target);
 });
 root.addEventListener("play",e=>{
   if(e.target.tagName!=="AUDIO")return;

@@ -1,5 +1,7 @@
 # G1 implementation evidence — source of truth
 
+**Post-R12 new live LEARN vertical slice (28.10.2026):** [Web progress UI](../../app/app.mjs), [safe V1 JSON restore](../../app/learn-backup.mjs), [19 unit regressions](../../app/tests/learn-backup.test.mjs), [real Chromium UI test](../../app/tests/learn-backup-browser.html). User selects a V1 export, confirms a current backup, and the existing localStorage key is replaced only after validation, optimistic concurrency and readback. **G1 remains PARTIAL**: no V1→V2 transactional import, no compiled Android Room, no offline 3–4GB asset packs and no OS-level saved-backup guarantee.
+
 **R11 integrity audit 28.10.2026:** [research and required 27 real failure scenarios](../../research/architecture/r11-offline-integrity-resilience-2026-10.md); isolated [read-only LEARN V1 preflight](../../app/r11-legacy-migration-preflight.mjs) and [22 Node tests](../../app/tests/r11-legacy-migration-preflight.test.mjs) flag existing readState silent filters/limits before *future* migration. **G1 remains PARTIAL**: preflight does not import, export, create atomic IndexedDB V2 learner events or compile Android Room. Future byte-perfect backup, consent, exact receipt and rollback required. No 3–4GB AAB installed.
 
 **Status:** PARTIAL — working portable V2 JavaScript reference, **isolated durable V2 Web IndexedDB adapter**, plus hardened Web V1. **NOT** native parity or production migration.
