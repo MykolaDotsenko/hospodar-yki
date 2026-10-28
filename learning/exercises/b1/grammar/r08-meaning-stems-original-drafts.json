@@ -1,0 +1,488 @@
+{
+  "schema_version": "1.0.0",
+  "id": "r08-meaning-stem-transfer-drafts-2026-10",
+  "mode": "LEARN",
+  "research_track": "R08_CANONICAL_GRAMMAR",
+  "origin": "original_hospodar_editorial_drafts",
+  "rights_status": "original_source_text_draft_pending_editorial_approval",
+  "is_official_exam_content": false,
+  "review_status": "editorial_draft_pending_S2_review",
+  "status": "DRAFT_NEVER_AUTOSHIP",
+  "count": 14,
+  "held_out_testing": "NO_PREDEFINED_14_DAY_ANSWER_KEYS_IN_THIS_TRAINING_BANK",
+  "notes_uk": "14 оригінальних граматичних чернеток. Немає human S2-рецензії; ключі/альтернативи/природність сценаріїв потрібно вручну підтвердити перед runtime. Ці поля — гіпотези для редактора, не валідовані навчальні чи YKI оцінки. Діагностичні held-out тексти мають бути окремо створені й заморожені до експерименту.",
+  "exercises": [
+    {
+      "id": "r08-g-001",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "toward",
+        "negated_object"
+      ],
+      "prompt_fi": "Olen ___ (kauppa).",
+      "lemma_fi": "kauppa",
+      "answer_fi": "kaupassa",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "location",
+      "semantic_question_uk": "Де перебуває людина?",
+      "explanation_uk": "Перебування всередині магазину → missä? → inessiivi.",
+      "learning_focus": "case_choice",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Напиши, де ти зараз чекаєш друга, використай слово asema.",
+      "known_wrong_forms": [
+        {
+          "form": "kaupasta",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": "kauppa → kaupassa"
+    },
+    {
+      "id": "r08-g-002",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "toward",
+        "from",
+        "completed_object"
+      ],
+      "prompt_fi": "Menen ___ (kauppa).",
+      "lemma_fi": "kauppa",
+      "answer_fi": "kauppaan",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "toward",
+      "semantic_question_uk": "Людина рухається куди?",
+      "explanation_uk": "Рух до магазину → mihin? → illatiivi.",
+      "learning_focus": "case_choice",
+      "stem_transparency": "transparent",
+      "transfer_prompt_fi": "Скажи, куди підеш після роботи, використай інший пункт призначення.",
+      "known_wrong_forms": [
+        {
+          "form": "kaupassa",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": null
+    },
+    {
+      "id": "r08-g-003",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "from",
+        "negated_object",
+        "valency"
+      ],
+      "prompt_fi": "Tulen ___ (kauppa).",
+      "lemma_fi": "kauppa",
+      "answer_fi": "kaupasta",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "from",
+      "semantic_question_uk": "Звідки повертається людина?",
+      "explanation_uk": "Рух із магазину → mistä? → elatiivi; основа kaupa-.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Поясни, звідки ти повертаєшся сьогодні, використай інше місце.",
+      "known_wrong_forms": [
+        {
+          "form": "kauppasta",
+          "error_family": "stem_allomorphy"
+        },
+        {
+          "form": "kauppaan",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": "kauppa → kaupasta"
+    },
+    {
+      "id": "r08-g-004",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "completed_object",
+        "change_state"
+      ],
+      "prompt_fi": "Puhelin on ___ (käsi).",
+      "lemma_fi": "käsi",
+      "answer_fi": "kädessä",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "location",
+      "semantic_question_uk": "Де зараз телефон?",
+      "explanation_uk": "Місце у руці → missä?; käsi змінює основу на käde- у формі kädessä.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Скажи, де зараз твій квиток, використавши інше слово для місця.",
+      "known_wrong_forms": [
+        {
+          "form": "käsessä",
+          "error_family": "stem_allomorphy"
+        }
+      ],
+      "stem_visual_after_answer": "käsi → kädessä"
+    },
+    {
+      "id": "r08-g-005",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "valency"
+      ],
+      "prompt_fi": "Kivi on ___ (vesi).",
+      "lemma_fi": "vesi",
+      "answer_fi": "vedessä",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "location",
+      "semantic_question_uk": "Де знаходиться камінь?",
+      "explanation_uk": "Місце у воді → missä?; vesi → vede- → vedessä.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Опиши, де є монета, використай слово tasku.",
+      "known_wrong_forms": [
+        {
+          "form": "vesessä",
+          "error_family": "stem_allomorphy"
+        }
+      ],
+      "stem_visual_after_answer": "vesi → vedessä"
+    },
+    {
+      "id": "r08-g-006",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "toward",
+        "change_state"
+      ],
+      "prompt_fi": "Kirja on ___ (laukku).",
+      "lemma_fi": "laukku",
+      "answer_fi": "laukussa",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "location",
+      "semantic_question_uk": "Де зараз книга?",
+      "explanation_uk": "Laukku → laukussa: слабка основа k, коли йдеться про перебування в сумці.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Опиши, де лежать ключі, використай слово laatikko.",
+      "known_wrong_forms": [
+        {
+          "form": "laukkuessa",
+          "error_family": "stem_allomorphy"
+        },
+        {
+          "form": "laukusta",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": "laukku → laukussa"
+    },
+    {
+      "id": "r08-g-007",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "toward",
+        "from"
+      ],
+      "prompt_fi": "Laitan kirjan ___ (laukku).",
+      "lemma_fi": "laukku",
+      "answer_fi": "laukkuun",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "toward",
+      "semantic_question_uk": "Куди кладу книгу?",
+      "explanation_uk": "Напрямок усередину → illatiivi: laukkuun.",
+      "learning_focus": "case_choice",
+      "stem_transparency": "transparent",
+      "transfer_prompt_fi": "Поясни, куди покладеш телефон, використай інший предмет меблів.",
+      "known_wrong_forms": [
+        {
+          "form": "laukussa",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": null
+    },
+    {
+      "id": "r08-g-008",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "toward",
+        "from",
+        "negated_object"
+      ],
+      "prompt_fi": "Otan kirjan ___ (laukku).",
+      "lemma_fi": "laukku",
+      "answer_fi": "laukusta",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "from",
+      "semantic_question_uk": "Звідки забираю книгу?",
+      "explanation_uk": "Джерело руху → elatiivi: laukusta; kk → k.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Скажи, звідки візьмеш окуляри; вибери інше місце.",
+      "known_wrong_forms": [
+        {
+          "form": "laukkuista",
+          "error_family": "stem_allomorphy"
+        },
+        {
+          "form": "laukkuun",
+          "error_family": "case_selection"
+        }
+      ],
+      "stem_visual_after_answer": "laukku → laukusta"
+    },
+    {
+      "id": "r08-g-009",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "from",
+        "negated_object",
+        "completed_object"
+      ],
+      "prompt_fi": "En avaa ___ (ovi).",
+      "lemma_fi": "ovi",
+      "answer_fi": "ovea",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "negated_object",
+      "semantic_question_uk": "Що відбувається з об’єктом запереченої дії?",
+      "explanation_uk": "Після en avaa заперечений об'єкт у partitiivi: ovea; ovi → ove-.",
+      "learning_focus": "object_case",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Склади інше заперечне речення про предмет, який ти не відкриваєш.",
+      "known_wrong_forms": [
+        {
+          "form": "oven",
+          "error_family": "object_boundedness"
+        }
+      ],
+      "stem_visual_after_answer": "ovi → ovea"
+    },
+    {
+      "id": "r08-g-010",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "negated_object",
+        "completed_object",
+        "valency"
+      ],
+      "prompt_fi": "Avasin ___ (ovi) kokonaan.",
+      "lemma_fi": "ovi",
+      "answer_fi": "oven",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "completed_object",
+      "semantic_question_uk": "Чи дію завершено стосовно цілого об'єкта?",
+      "explanation_uk": "Avasin ... kokonaan: завершена дія над дверима → total object: oven.",
+      "learning_focus": "object_case",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Скажи одним реченням про завершену дію з іншим предметом.",
+      "known_wrong_forms": [
+        {
+          "form": "ovea",
+          "error_family": "object_boundedness"
+        }
+      ],
+      "stem_visual_after_answer": "ovi → oven"
+    },
+    {
+      "id": "r08-g-011",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "completed_object",
+        "valency",
+        "change_state"
+      ],
+      "prompt_fi": "Odotan ___ (bussi).",
+      "lemma_fi": "bussi",
+      "answer_fi": "bussia",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "valency",
+      "semantic_question_uk": "Яку форму вимагає дієслово odottaa?",
+      "explanation_uk": "Odott aa (odotan) вимагає partitiivi: odotan bussia.",
+      "learning_focus": "valency",
+      "stem_transparency": "transparent",
+      "transfer_prompt_fi": "Склади речення з odotan та іншою істотою або річчю.",
+      "known_wrong_forms": [
+        {
+          "form": "bussin",
+          "error_family": "valency"
+        }
+      ],
+      "stem_visual_after_answer": null
+    },
+    {
+      "id": "r08-g-012",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "valency"
+      ],
+      "prompt_fi": "Pidän ___ (kahvi).",
+      "lemma_fi": "kahvi",
+      "answer_fi": "kahvista",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "valency",
+      "semantic_question_uk": "Яку форму вимагає конструкція pitää jostakin?",
+      "explanation_uk": "Pidän kahvista: у значенні 'подобається' pitää + elatiivi.",
+      "learning_focus": "valency",
+      "stem_transparency": "transparent",
+      "transfer_prompt_fi": "Скажи, що тобі подобається, використавши інше слово.",
+      "known_wrong_forms": [
+        {
+          "form": "kahvia",
+          "error_family": "valency"
+        }
+      ],
+      "stem_visual_after_answer": null
+    },
+    {
+      "id": "r08-g-013",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "toward",
+        "valency",
+        "change_state"
+      ],
+      "prompt_fi": "Tutustun ___ (naapuri).",
+      "lemma_fi": "naapuri",
+      "answer_fi": "naapuriin",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "valency",
+      "semantic_question_uk": "Яку форму вимагає tutustua?",
+      "explanation_uk": "Tutustua johonkuhun → illatiivi; tutustun naapuriin.",
+      "learning_focus": "valency",
+      "stem_transparency": "transparent",
+      "transfer_prompt_fi": "Скажи, з ким ти хочеш познайомитися на новому місці.",
+      "known_wrong_forms": [
+        {
+          "form": "naapurille",
+          "error_family": "valency"
+        }
+      ],
+      "stem_visual_after_answer": null
+    },
+    {
+      "id": "r08-g-014",
+      "mode": "LEARN",
+      "level": "A2.2-B1",
+      "origin": "original_draft",
+      "is_official_exam_content": false,
+      "examOnly": false,
+      "heldOut": false,
+      "review_status": "editorial_draft_pending_S2_review",
+      "answerKeyReviewed": false,
+      "semantic_options": [
+        "location",
+        "from",
+        "change_state"
+      ],
+      "prompt_fi": "Jää muuttuu ___ (vesi).",
+      "lemma_fi": "vesi",
+      "answer_fi": "vedeksi",
+      "accepted_alternatives_fi": [],
+      "semantic_relation": "change_state",
+      "semantic_question_uk": "На що перетворюється лід?",
+      "explanation_uk": "Трансформація → translatiivi -ksi; vesi → vede- → vedeksi.",
+      "learning_focus": "stem_change",
+      "stem_transparency": "semitransparent",
+      "transfer_prompt_fi": "Опиши іншу зміну стану предмета або матеріалу.",
+      "known_wrong_forms": [
+        {
+          "form": "vesiksi",
+          "error_family": "stem_allomorphy"
+        }
+      ],
+      "stem_visual_after_answer": "vesi → vedeksi"
+    }
+  ]
+}
