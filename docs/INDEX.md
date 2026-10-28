@@ -8,6 +8,8 @@
 
 **R02 researched 28.10.2026:** [digital YKI 2027 official-source deep follow-up](../research/yki/20-yki-official-complete-audit-2026-10.md#r02-deep-follow-up--28102026-oph-digital-yki-2027-eight-dates-demos-and-fail-closed-quality-gate). Source-verified all **8 Finnish spring 2027 dates** (including missing 24.04 and 22.05), official links to four Inspera demos, *crawler* access 403 and no verified demo UI controls. JSON source ledgers and regression checks updated; strict digital-2027 exact still BLOCKED. R01 pilot remains future.
 
+**R03 Finnish morphology, 28.10.2026:** [research №30 — language-specific Finnish L2 studies, no invented Ukrainian-L1 error rankings](../research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md). Nine proposed difficulty families, four meaningful lesson loops, 12 acceptance criteria, consented learner-corpus/error study plan. Human S2 content, independent tasks and users **NOT RUN / NOT YET RELEASED**. Next R04 speaking/writing assessment.
+
 ## Pick the shortest guide for your task
 
 | Need | Read first | Why |
