@@ -1,5 +1,7 @@
 # G1 implementation evidence — source of truth
 
+**R11 integrity audit 28.10.2026:** [research and required 27 real failure scenarios](../../research/architecture/r11-offline-integrity-resilience-2026-10.md); isolated [read-only LEARN V1 preflight](../../app/r11-legacy-migration-preflight.mjs) and [22 Node tests](../../app/tests/r11-legacy-migration-preflight.test.mjs) flag existing readState silent filters/limits before *future* migration. **G1 remains PARTIAL**: preflight does not import, export, create atomic IndexedDB V2 learner events or compile Android Room. Future byte-perfect backup, consent, exact receipt and rollback required. No 3–4GB AAB installed.
+
 **Status:** PARTIAL — working portable V2 JavaScript reference, **isolated durable V2 Web IndexedDB adapter**, plus hardened Web V1. **NOT** native parity or production migration.
 **Date:** 2026-10-23. Architecture authority: [CONTRACTS](../CONTRACTS.md), [ADR-027](../27-stack-architecture-compatibility-and-implementation-gates.md).
 
