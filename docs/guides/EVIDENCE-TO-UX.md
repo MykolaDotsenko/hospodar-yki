@@ -2,6 +2,8 @@
 
 # From learning research to product UX — implementation handoff
 
+**R08 meaning vs stem gate (28.10.2026):** [scientific comparison/design №34](../../research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md), [14 original editor-pending tasks](../../learning/exercises/b1/grammar/r08-meaning-stems-original-drafts.json) and [reference core](../../app/r08-grammar-core.mjs). In future LEARN implementation show meaning decision then independently produced Finnish stem/case, hidden key until response, editor-only error subtype (case choice vs changed stem vs rektio vs object boundedness), accessible on-demand help as assisted/ungraded, then new lexeme/context without keys; S2 vet all 14 first. No rule-generated unverified Finnish, no sound overlap, no EXAM exposure, no fake scored writing/speaking. Day14/30 blind new-task user trial pending. **This is a research reference, not a deployed learner feature.**
+
 **Status: PROCESS FOR FUTURE FEATURE PRs.** Nothing in a research paper, UI mock, design system or feature contract is proof that the method improves actual Finnish/YKI outcomes.
 
 Read [the canonical research protocol](../../research/RESEARCH-PROGRAM.md), [starting critical evidence](../../research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md), and [evaluation protocol](../../research/ux/learning-impact-evaluation-protocol.md) before implementing a learning feature.
