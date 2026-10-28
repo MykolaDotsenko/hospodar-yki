@@ -28,7 +28,7 @@ test("user preference skill and topic help, but not hidden guessed ability",()=>
 });
 test("due review and true first independent error take priority",()=>{
   const state={cards:{"reading-notice":{due:"2026-10-26"}},attempts:[
-    {taskId:"reading-notice",skill:"reading",firstAnswer:"väärin",firstCorrect:false}
+    {taskId:"reading-notice",skill:"reading",firstAttempt:true,independent:true,evidenceKind:"objective_scored",correct:false,completedAt:"2026-10-27T10:00:00Z"}
   ],diagnostics:[]};
   const ranked=rankR06Tasks(ctx({state}));
   assert.equal(ranked[0].taskId,"reading-notice");
@@ -71,7 +71,7 @@ test("filter nonapproved, rights-blocked, exam and held-out tasks, unavailable o
 });
 test("successful independently logged prerequisite unlocks dependent task",()=>{
   const dependent=task("partitive","reading",{prerequisiteIds:["entry"]});
-  const state={attempts:[{taskId:"entry",skill:"reading",firstAnswer:"yes",firstCorrect:true}]};
+  const state={attempts:[{taskId:"entry",skill:"reading",firstAttempt:true,independent:true,evidenceKind:"objective_scored",correct:true}]};
   assert.deepEqual(rankR06Tasks(ctx({tasks:[dependent],state})).map(x=>x.taskId),["partitive"]);
 });
 test("EXAM mode never receives personalization or keys",()=>{
@@ -97,4 +97,19 @@ test("duplicated IDs cannot inflate rankings; no mutation of supplied inputs",()
   const before=JSON.stringify({tasks,state});
   assert.equal(rankR06Tasks(ctx({tasks,state})).length,1);
   assert.equal(JSON.stringify({tasks,state}),before);
+});
+
+test("old error is superseded by later independently observed success",()=>{
+  const state={attempts:[
+    {taskId:"reading-notice",skill:"reading",evidenceKind:"objective_scored",independent:true,firstAttempt:true,correct:false,completedAt:"2026-10-22T10:00:00Z"},
+    {taskId:"reading-notice",skill:"reading",evidenceKind:"objective_scored",independent:true,firstAttempt:true,correct:true,completedAt:"2026-10-27T10:00:00Z"}
+  ]};
+  const result=rankR06Tasks(ctx({state})).find(x=>x.taskId==="reading-notice");
+  assert.equal(result.breakdown.confirmedError,0);
+});
+test("even forged objective result on speaking is not reliable for machine scoring",()=>{
+  const state={attempts:[
+    {taskId:"speaking-call",skill:"speaking",evidenceKind:"objective_scored",independent:true,firstAttempt:true,correct:false}
+  ]};
+  assert.equal(rankR06Tasks(ctx({state})).find(x=>x.taskId==="speaking-call").breakdown.confirmedError,0);
 });
