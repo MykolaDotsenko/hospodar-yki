@@ -4,6 +4,8 @@
 
 > Start with [../AGENTS.md](../AGENTS.md). Read the narrowest relevant documents; the research library is reference material, not mandatory context for every coding task.
 
+**R04 deep research 28.10.2026:** [human-calibrated speaking/writing assessment dossier №31](../research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md): OPH public 3/4 criteria (both PDF tables visually checked); Finnish L2 human/ASR studies; distinct learning vs official grading, two formative rubric proposals, self-repair and delayed unseen speaking/writing evaluation with 14 proposed release gates. **Research/spec only; no app grading feature or human calibration completed.**
+
 **New 28.10.2026 research execution overview:** [12 sequenced research tracks, evidence, implementation and trial readiness R01–R12](../research/29-twelve-product-research-studies-execution-2026-10.md). **12/12 source reviews completed; 0/12 actual user studies performed**; includes R01 pre-registration draft and current OPH digital YKI official facts (not unofficial interface claims). Existing canonical 70-method library retained.
 
 **R02 researched 28.10.2026:** [digital YKI 2027 official-source deep follow-up](../research/yki/20-yki-official-complete-audit-2026-10.md#r02-deep-follow-up--28102026-oph-digital-yki-2027-eight-dates-demos-and-fail-closed-quality-gate). Source-verified all **8 Finnish spring 2027 dates** (including missing 24.04 and 22.05), official links to four Inspera demos, *crawler* access 403 and no verified demo UI controls. JSON source ledgers and regression checks updated; strict digital-2027 exact still BLOCKED. R01 pilot remains future.
