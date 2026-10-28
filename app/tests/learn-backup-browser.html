@@ -57,7 +57,7 @@ function notice(frame){return frame.contentDocument.querySelector("#notice")?.te
  frame.style.width="390px";frame.style.height="660px";
  document.querySelector("#fixtures").appendChild(frame);
  await frameLoad(frame);
- await until(()=>frame.contentDocument.querySelector('[data-view="progress"]'),"application nav");
+ await until(()=>frame.contentDocument.querySelector("#main")?.textContent.includes("Скажи правильно у справжній ситуації"),"LEARN lesson loaded");
  let root=progress(frame);
  assert(root.textContent.includes("1")&&root.textContent.includes("Відновлення з резервної копії"),
    "actual progress UI contains restore control");
@@ -87,7 +87,7 @@ function notice(frame){return frame.contentDocument.querySelector("#notice")?.te
   frame.addEventListener("load",resolve,{once:true});
   frame.contentWindow.location.reload();
  });
- await until(()=>frame.contentDocument.querySelector('[data-view="progress"]'),"reload application");
+ await until(()=>frame.contentDocument.querySelector("#main")?.textContent.includes("Скажи правильно у справжній ситуації"),"reloaded LEARN lesson");
  root=progress(frame);
  assert(root.textContent.includes("1")&&root.textContent.includes("Правильні перші спроби"),
    "restored report loads after browser reload");
