@@ -106,7 +106,9 @@ export function r07View(session,task){
     visibleMeaningHint:phase==="independent" &&
       session.requestedSupports.includes("meaning") ? (task.meaning_uk || null):null,
     feedback_uk:phase==="feedback"||phase==="repair"?task.feedback_uk||null:null,
-    answer_fi:phase==="feedback"||phase==="repair"?task.answer_fi||null:null,
+    answer_fi:(phase==="feedback"||phase==="repair") &&
+      ["reading","listening"].includes(task.skill) && task.answerKeyApproved===true ?
+      (task.answer_fi||null):null,
     firstEvidenceKind:post?session.firstResponse?.evidenceKind||null:null,
     soundEffectsEnabled:false,reducedMotion:session.reducedMotion
   };
