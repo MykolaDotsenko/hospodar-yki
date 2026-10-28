@@ -54,6 +54,7 @@ test("writing and speaking are always ungraded even if a fake answer key is supp
     const t=task(skill),s=start(t),answer=act(s,t,"SUBMIT_FIRST",{answer:"torstaina"});
     assert.equal(answer.firstResponse.correct,null);
     assert.equal(answer.firstResponse.evidenceKind,"ungraded");
+    assert.equal(r07View(answer,t).answer_fi,null);
   }
 });
 test("reading answer comparison preserves Finnish diacritics",()=>{
@@ -110,4 +111,11 @@ test("you cannot render a different task through an existing session",()=>{
 test("deterministic response handling with no DOM/browser/storage",()=>{
   const t=task("reading"),s=start(t);
   assert.deepEqual(act(s,t,"SUBMIT_FIRST",{answer:"Torstaina"}),act(s,t,"SUBMIT_FIRST",{answer:"Torstaina"}));
+});
+
+test("unapproved reading answer key never leaks and does not score",()=>{
+  const t=task("reading",{answerKeyApproved:false});
+  const s=act(start(t),t,"SUBMIT_FIRST",{answer:"torstaina"});
+  assert.equal(s.firstResponse.evidenceKind,"ungraded");
+  assert.equal(r07View(s,t).answer_fi,null);
 });
