@@ -1,5 +1,7 @@
 # Visual design, brand and color evidence
 
+**R05 sound/visual follow-up 28.10.2026:** [№19 — task×sound mixing, quiet study mode, 2024 vs 2026 music counterevidence, 2026 visual load and 12 proposed accessibility/effectiveness gates](19-r05-sound-visual-design-transfer-2026-10.md). Existing brand v0.3 palette preserved; sound effects not proven to improve Finnish; no app/SFX implementation or human A/B trial yet. Audio first, meaningful optional media rather than storage-filling decoration.
+
 **[Evaluation plan: evidence, accessibility, real usability tests](design-evaluation-plan-v1.md)** — hypotheses, not fabricated effectiveness.
 
 **New targeted critical synthesis (25.10.2026):** [18 — Evidence-based multimodal UI: design, color, audio, captions, music, animation and gamification](18-multisensory-learning-interface-evidence-2026-10.md). Includes 15 original/review sources, **contradictory music/caption findings**, 12 expert-ranked intervention designs (not a new method registry), skill×mode UI safeguards, WCAG 2.2 acceptance, four pre-registered study proposals and six scoped engineering cuts. **Research and specifications only: no measured Hospodar learning gains.**
