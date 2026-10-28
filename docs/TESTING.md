@@ -1,5 +1,7 @@
 # Testing and evidence policy — Hospodar YKI
 
+**R10 static accessibility contracts (28.10.2026):** `node --test app/tests/r10-accessibility-contract.test.mjs` runs 12 source-level checks of four HTML pages, viewport/skip/announcement primitives, token contrast, improved focus CSS, 320px breakpoint, touch targets, audio non-autoplay and reduced motion. This **does NOT render actual screens, invoke TalkBack/VoiceOver, certify WCAG 2.2 AA or execute physical Android tests**. [Research R10 audited evidence and still-NOT-RUN matrix](../research/ux/22-r10-accessibility-mobile-qa-2026-10.md). Browser-core CI already checks IndexedDB in real Chromium, **not** 320px UI, screenreader or Android. Follow manual matrix and record versions/failures before accessibility release claim.
+
 **Principle:** tests are evidence only for scenarios they actually execute. A green Markdown validator is **not** proof that an Android app builds, Finnish content is correct or a digital YKI exam is official.
 
 ## Runnable commands (from repository root)
