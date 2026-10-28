@@ -1,5 +1,7 @@
 # Guide — migrating Web and Android without data loss
 
+**R11 preflight refinement 28.10.2026:** Before attempting any V1→V2 conversion, [run the no-write old LEARN preflight](../../app/r11-legacy-migration-preflight.mjs) (22 tests in [R11 Node suite](../../app/tests/r11-legacy-migration-preflight.test.mjs)); a ready result **does NOT import anything**. Keep byte-for-byte original JSON user backup; reject unknown root/card fields, silent 120/160 record truncation, invalid retention and corrupt JSON rather than resetting to blank; require a separate atomic import/receipt/rollback implementation PR with real Chromium/Firefox/WebKit and physical Android instrumented migration tests. [Research and official source limits](../../research/architecture/r11-offline-integrity-resilience-2026-10.md); Android Play pack base+install-time 4GB compressed max and 1.5GB/asset pack must be measured from an actual build, not README estimates.
+
 **Status: HOW-TO FOR FUTURE GATES, NOT EXECUTED.** The working reference remains `app/` until parity is demonstrated. Do not execute `pnpm build` or `./gradlew` yet: these project scaffolds are absent from the committed baseline.
 
 ## G0 / G1: baseline and shared contracts
