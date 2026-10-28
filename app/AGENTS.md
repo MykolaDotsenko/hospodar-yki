@@ -1,5 +1,7 @@
 # Browser MVP — task-scoped agent instructions
 
+**R06 isolated reference-only scorer:** [adaptation-core.mjs](adaptation-core.mjs) + [tests](tests/adaptation-core.test.mjs) provide pure deterministic local LEARN *ranking* with no cloud/DOM/storage and strict S2/offline/EXAM/ungraded guards. **Not used by app.mjs**; never swap it in without dedicated S2, persistence migration, focus/choice UI, fairness, delay-14 human trial and E2E. See [research №33](../research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md).
+
 Read [root policy](../AGENTS.md), [actual architecture](../docs/ARCHITECTURE.md), and [tests](../docs/TESTING.md) before touching working browser code. These short notes do **not** replace the canonical documents.
 
 - **Present state:** \`app/app.mjs\` and \`app/exam.mjs\` are the plain-JavaScript user interface. \`core.mjs\` and \`exam-core.mjs\` are pure domain; \`attempt-storage.mjs\` is a browser IndexedDB adapter. LEARN still uses localStorage and EXAM uses checkpoint events; React/Vite/Phaser/Capacitor are target, not shipped.

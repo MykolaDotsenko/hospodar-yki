@@ -76,6 +76,8 @@
 
 **Study plan:** same content bank/time/exposure: personalized **error-targeted scheduler** vs fixed spaced **strong schedule**, 14/30-day unseen task success + missed-review burden/attrition, four skills. Не оптимізувати по click streak. Owner `learning/`, `app/` domain; acceptance includes deterministic tests and rollback. **Not implemented/tested as a completed adaptive experiment**.
 
+**R06 deep follow-up (28.10.2026):** [№33 — 15 carefully bounded sources, cold-start and 4-skill ranker design, 18 proposed gates and 5 controlled studies](pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md). [Pure JS independent reference prototype](../app/adaptation-core.mjs) + [negative-case unit tests](../app/tests/adaptation-core.test.mjs) added without wiring into current LEARN missionSelection; existing SRS and content bank unchanged. Human study R06-H01…H05 **NOT RUN**; no claim personalized scheduling is better than a strong fixed spaced curriculum. NEXT R07.
+
 ## R07 — Які UI взаємодії справді поліпшують пам'ять і мовлення?
 
 **Evidence:** [2025 L2 TELL cognitive-load meta, 35 studies](https://doi.org/10.1016/j.system.2026.104068) reports achievement `g=.69`, cognitive load `g=-.20`, але bundles technology/content, не доводить конкретний screen design. [Student-facing dashboards 2026](https://doi.org/10.1016/j.iheduc.2026.101119) малий неоднорідний ефект. [Mobile language games meta 2025, 38 studies/4102 participants](https://doi.org/10.1080/09588221.2025.2528786): `g=.962`, але великі відмінності між settings, для writing/speaking/grammar і Finnish недостатньо доказів.
