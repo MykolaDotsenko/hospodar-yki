@@ -79,6 +79,14 @@ def validate():
                d["registration_open"] == "2027-03-08" and
                d["registration_close"] == "2027-03-25" for d in dates)
     assert len({d["date"] for d in dates}) == len(dates)
+    # Current OPH spring 2027 schedule, checked 2026-10-28: eight digital Finnish dates.
+    expected = {"2027-01-16", "2027-02-13", "2027-03-10", "2027-04-10",
+                "2027-04-24", "2027-05-12", "2027-05-22", "2027-06-02"}
+    assert {d["date"] for d in dates} == expected, "Incomplete OPH 2027 schedule"
+    assert j["calendar_last_verified_at"] == "2026-10-28"
+    for date_id in ("2027-04-24", "2027-05-22"):
+        day = next(d for d in dates if d["date"] == date_id)
+        assert set(day["skills"]) == SKILLS
     assert all(d["mode"] == "digital" and set(d["skills"]) <= SKILLS for d in dates)
 
     assert len(p["topic_taxonomy"]) == 9
