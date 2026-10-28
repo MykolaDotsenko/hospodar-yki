@@ -172,3 +172,82 @@
 ### Висновок
 
 **У нас є підтверджений предмет іспиту, типи завдань, історичні зразки та критерії рівнів 3/4, але немає відкритої точної інструкції керування цифровим ПЗ після ще майбутнього листопадового пілоту.** Побудувати **достовірний за навичками/жанрами** симулятор можливо зараз; назвати його **ідентичним official 2027 digital YKI** поки неможливо, і це має контролювати код, а не маркетинг.
+
+
+---
+
+## R02 deep follow-up — 28.10.2026: OPH digital YKI 2027, eight dates, demos and fail-closed quality gate
+
+**Scope and status:** **FIRST-PARTY WEB RESEARCH COMPLETED; FOUR INS PERA DEMO LINKS VERIFIED ON OPH; DEMO UI NOT OBSERVED; PILOT NOT YET OCCURRED; LIVE 2027 F4/F5/F6 NOT VERIFIED.** Це предметна робота з [послідовної програми R01→R12](../29-twelve-product-research-studies-execution-2026-10.md), а не створення нового набору методів чи затвердження сертифікації. Дата фактичної перевірки офіційних джерел: **28 жовтня 2026**. Тексти/медіа реальних демозавдань не копіювались.
+
+### R02-01 — Чітко підтверджені факти OPH
+
+| Факт | Що саме підтверджує першоджерело | Що це дозволяє впровадити |
+| --- | --- | --- |
+| [OPH — пілот 18.09.2026](https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026) | **07.11.2026** — цифровий *suomi keskitaso* у 4 центрах (Helsinki / Rovaniemi / Pori / Espoo); **14.11.2026** — *ruotsi keskitaso* у 3 центрах. Комп'ютер **в тестовому центрі**, власний не потрібен. Завдання за типом **подібні** до паперового формату, але **не** тотожний екран. Можна просити спеціальні умови. | Підтвердити комп'ютерну платформу й комунікативні task families, **не** точний UI/таймер. Зберегти доступність, окремі модулі. |
+| [OPH — календар suomi весна 2027](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat) | **Всі весняні фінські YKI цифрові. Вісім дат**, із них **5 повних та 3 дати часткових модулів** (10.03, 12.05, 02.06). Реєстрація починається **о 10:00** за часом Фінляндії. | Full + module-only training, коректний календар у двох JSON файлах з regression gate. Не переносити аудіо- або UI-правила. |
+| [OPH — digital practice demos](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) | Відкрито перелік **4 зовнішніх Inspera тренувальних демо**: reading, listening, writing, speaking. OPH прямо попереджає: **це не справжній екзамен; відповіді не оцінюють**. | Користувачеві давати **зовнішні посилання** для звикання до digital інструмента. Не писати `official mock grade`/не дублювати контент. |
+| [OPH — результат після YKI](https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen) | Кожна навичка має **власний результат** `alle 3 / 3 / 4` на keskitaso; це **не** одна офіційна сума /100. | 4 окремі підсистеми оцінювання; якщо немає human-validated rubric — `ungraded`. |
+
+**Критичне виправлення календаря:** попередні [`official-yki-deep-audit-v2.json`](official-yki-deep-audit-v2.json) та [`yki-exam-examples-2026-10.json`](yki-exam-examples-2026-10.json) містили **шість** замість **восьми** дат. R02 додає **24.04.2027 і 22.05.2027** та перевіряє повний перелік тестами. Не перезаписувати історичні `checked_at` на рівні всього каталогу: дослідницька версія 21.10 збережена, нова перевірка дат позначена явно 28.10. Календар OPH може змінитися: перед бронюванням перевірити саму OPH сторінку.
+
+| Тестова дата 2027 | Реєстрація | Модулі | Джерело |
+| --- | --- | --- | --- |
+| **16.01** | 04–07.01 | 4 модулі | OPH |
+| **13.02** | 18–28.01 | 4 модулі | OPH |
+| **10.03** | 08–22.02 | **читання + говоріння** | OPH |
+| **10.04** | 08–25.03 | **усі 4**, основна ціль користувача | OPH |
+| **24.04** | 22.03–08.04 | 4 модулі | OPH |
+| **12.05** | 12–26.04 | **аудіювання + письмо** | OPH |
+| **22.05** | 20.04–06.05 | 4 модулі | OPH |
+| **02.06** | 03–17.05 | **читання + говоріння** | OPH |
+
+**Застереження:** це календар **офіційних тестів**, не гарантія конкретного місця, оплаченого бронювання чи однакового екзаменаційного досвіду в кожному місті.
+
+### R02-02 — Знайдені чотири точні демопосилання
+
+Усі наведені URL походять **із чинного OPH розділу «Harjoittele digitaalista YKI-testiä»**. При автоматичному переході до `yki-uat.inspera.com/player/` дослідницький текстовий доступ 28.10.2026 повернув **HTTP 403 Forbidden для всіх 4**, тому **не спостережено** реальну сесію, кнопки чи поведінку запису. Помилка автоматизованого клієнта **не доводить**, що демо не відкриється у браузері звичайного користувача.
+
+| Навичка | Пряма зовнішня демосторінка (OPH → Inspera) | Перевірено фактично |
+| --- | --- | --- |
+| Reading — текст | [Tekstin ymmärtäminen](https://yki-uat.inspera.com/player/?assessmentRunId=556943021&context=exam) | OPH посилається ✅; автоматичний 403; **UI UNOBSERVED** |
+| Listening — аудіо | [Puheen ymmärtäminen](https://yki-uat.inspera.com/player/?assessmentRunId=562180026&context=exam) | OPH посилається ✅; автоматичний 403; **UI UNOBSERVED** |
+| Writing — письмо | [Kirjoittaminen](https://yki-uat.inspera.com/player/?assessmentRunId=561868854&context=exam) | OPH посилається ✅; автоматичний 403; **UI UNOBSERVED** |
+| Speaking — говоріння | [Puhuminen](https://yki-uat.inspera.com/player/?assessmentRunId=562180811&context=exam) | OPH посилається ✅; автоматичний 403; **UI UNOBSERVED** |
+
+**Що ще треба дослідити власноруч у дозволеному веббраузері:** (1) start/instructions & device permissions, (2) media controls, autoplay, seek/replay, (3) Back/Next та irreversible transitions, (4) spellcheck/copy-paste/text autosave, (5) mic permission/recording duration/stop flow, (6) break timers, timeouts, submit/finish, (7) keyboard/focus/contrast/accessibility accommodations. Для кожного тесту — skill, date, browser/device, **дослівно тільки назви дозволених UI controls**, короткі власні спостереження без копіювання чужого контенту, `digital_demo_observed` статус. І навіть це **не** є підтвердженням ідентичності live 2027. Перевірені production-правила потребують **окремого OPH/JYU підтвердження**.
+
+### R02-03 — Найнебезпечніша суперечність: на OPH-сайті є старі паперові інструкції
+
+На нинішній [«Ennen YKI-testiä»](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) поруч із цифровими demo все ще є загальні вказівки про **олівець/гумку, мовну студію, заповнення паперового бланка**, загальний день «5 годин». Не переносити ці рядки у новий digital UI без нового first-party підтвердження: сторінка змішує історичну процедуру з новою цифровою.
+
+Додаток, який на сторінці OPH позначено `Yleisten kielitutkintojen perusteet 2026`, **фактично відкриває PDF `yleisten-kielitutkintojen-perusteet-2011.pdf`**. Перевірено сторінки **3 і 6** PDF через скриншоти: важливі для **конструкту** функціональна комунікація/4 модулі/середній рівень 3–4; на стор. 6 наведено **історичні** правила «аудіо 1–2 рази», «писати 3 різні тексти» та studio. **Не** робити з цього автоматичне правило для software 2027. Як і раніше: документаційний клас `LEGAL_FOUNDATION_2011`, не `LIVE_DIGITAL_2027_UI`.
+
+### R02-04 — F1–F6: які завдання це створює для Hospodar
+
+| Код | Що вже можна розробляти | Що ще закрито / acceptance |
+| --- | --- | --- |
+| **F1 Construct** | Чотири незалежні мовні навички, дев'ять тем, комунікативні цілі B1/B2 | Рецензування S2, змістові outcome не дорівнюють формату UI |
+| **F2 Item families** | Оригінальні MCQ/T-F/open, листи/скарги, діалоги, реакції та монологи за історичним JYU/SOLKI | Не перепубліковувати захищені task stimuli; 2027 exact item count `unknown` |
+| **F3 Prompt realism** | Живі людські голоси, оригінальний сучасний Finnish, puhekieli, справжні комунікативні ролі | Ліцензії, аудіозвіряння, naturalness та independent S2 review |
+| **F4 Timing** | Лише чесний `practice_timer` або вимкнений таймер з попередженням | `official_2027_timing = null`; потрібен датований OPH доказ + E2E |
+| **F5 Interaction** | Доступний original exam-like UI з durable recording; link to external OPH demos | `replay, seek, back, mic, autosave, spellcheck, breaks = null` як **офіційний профіль**, доки не підтверджено |
+| **F6 Scoring** | Змістові відповіді з author-verified answer variants; продукція з `ungraded` + human S2 rubric pilot | Без калібрування та documented agreement немає автоматичної оцінки 3/4 або офіційної еквівалентності |
+
+**Policy:** ніякого «1:1 exact digital YKI 2027» до закриття всіх критичних `unknowns` та підтвердженого release testing. **Ігровий LEARN** і **тихий EXAM** не змішуються: навчальні кольори, підказки, повтори, rewards не проникають в екзаменаційну спробу. Продуктна цінність сьогодні — чесне digital keyboard/mic readiness training і 4 skills без фальшивої екзаменаційної точності.
+
+### R02-05 — Ready-to-run validation і наступні точки оновлення
+
+**Канонічні доказові дані без другого registry:**
+- [33 original claim records + dated R02 follow-up](yki-digital-fidelity-evidence-2026-10.json); `r02_2026_10_28_official_update` фіксує 4 Inspera URL, HTTP 403 тільки для crawler, `ui_observed=false`, 15 незмінних unknowns і blocked status.
+- [40 classified claims + 15 fail-closed digital unknowns](official-yki-deep-audit-v2.json) тепер містить **усі 8 дат**.
+- [historical samples + YKI dates](yki-exam-examples-2026-10.json) теж містить **усі 8 дат**, з тим самим регистраційним вікном й набором навичок.
+- [source and calendar cross validator](../../scripts/validate_yki_deep_fidelity.py) та [exam research validator](../../scripts/validate_yki_exam_research.py) повинні пройти CI. Заборонено додавати `ui_observed=true` без підтвердженого ручного дослідження.
+
+**План перевірок за тригером подій, не фіктивний background-run:**
+1. **Вже зараз:** дати можливість учневі перейти з Hospodar до кожного з 4 офіційних зовнішніх демо за прямим посиланням; позначити їх як `practice demo, ungraded`. Фактичне додавання кнопок — **окремий code PR**, цього тут не реалізовано.
+2. **07–14.11.2026 і пізніше:** перевірити лише нові повідомлення OPH/JYU після пілотів; **не** вважати пілотний день автоматичним оприлюдненням UI специфікації.
+3. **Перед кожним strict release:** independent source reviewer має вручну підтвердити F4/F5/F6 з OPH/JYU; тільки тоді оновити canonical versioned profile, юніт+E2E та status. Якщо параметр не встановлено — `UNKNOWN`, no release as exact.
+4. **2027 exam scheduling:** повторно перевірити OPH календар безпосередньо перед реєстрацією; цей snapshot має дату, не live availability.
+
+**Критерій завершення R02:** нині **source audit / calendar reconciliation / regression contracts COMPLETED IN PR**; **manual demo session & real 2027 production rules remain NOT VERIFIED**. Дослідження продовжується тільки на основі нової першоджерельної інформації; не виводити її зі скриншотів третіх осіб, старих паперових інструкцій чи рекламних копій.

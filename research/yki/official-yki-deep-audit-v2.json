@@ -837,6 +837,20 @@
       "as_of": "2026-10-21"
     },
     {
+      "date": "2027-04-24",
+      "registration_open": "2027-03-22",
+      "registration_close": "2027-04-08",
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-28"
+    },
+    {
       "date": "2027-05-12",
       "registration_open": "2027-04-12",
       "registration_close": "2027-04-26",
@@ -847,6 +861,20 @@
       "mode": "digital",
       "source_id": "oph_schedule",
       "as_of": "2026-10-21"
+    },
+    {
+      "date": "2027-05-22",
+      "registration_open": "2027-04-20",
+      "registration_close": "2027-05-06",
+      "skills": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "mode": "digital",
+      "source_id": "oph_schedule",
+      "as_of": "2026-10-28"
     },
     {
       "date": "2027-06-02",
@@ -921,5 +949,6 @@
     "store_candidate_answers_in_repo": false,
     "no_external_voice_upload_without_consent": true
   },
-  "repeat_legacy_not_equal_digital": true
+  "repeat_legacy_not_equal_digital": true,
+  "calendar_last_verified_at": "2026-10-28"
 }

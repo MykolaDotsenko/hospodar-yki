@@ -11,6 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BOOK = ROOT / "research" / "yki" / "official-yki-deep-audit-v2.json"
 PATTERNS = ROOT / "research" / "yki" / "yki-official-patterns-v2.json"
+DIGITAL_LEDGER = ROOT / "research" / "yki" / "yki-digital-fidelity-evidence-2026-10.json"
+EXAMPLE_CALENDAR = ROOT / "research" / "yki" / "yki-exam-examples-2026-10.json"
 SKILLS = {"reading", "listening", "writing", "speaking"}
 VALID_CLASSES = {
     "official_current", "official_current_mixed_legacy",
@@ -79,7 +81,40 @@ def validate():
                d["registration_open"] == "2027-03-08" and
                d["registration_close"] == "2027-03-25" for d in dates)
     assert len({d["date"] for d in dates}) == len(dates)
+    # Current OPH spring 2027 schedule, checked 2026-10-28: eight digital Finnish dates.
+    expected = {"2027-01-16", "2027-02-13", "2027-03-10", "2027-04-10",
+                "2027-04-24", "2027-05-12", "2027-05-22", "2027-06-02"}
+    assert {d["date"] for d in dates} == expected, "Incomplete OPH 2027 schedule"
+    assert j["calendar_last_verified_at"] == "2026-10-28"
+    for date_id in ("2027-04-24", "2027-05-22"):
+        day = next(d for d in dates if d["date"] == date_id)
+        assert set(day["skills"]) == SKILLS
     assert all(d["mode"] == "digital" and set(d["skills"]) <= SKILLS for d in dates)
+    # R02: do not confuse public links with verified Inspera digital UI behavior.
+    evidence = load(DIGITAL_LEDGER)
+    r02 = evidence["r02_2026_10_28_official_update"]
+    assert r02["status"] == "FIRST_PARTY_WEB_SOURCE_AUDIT_COMPLETE_DEMO_UI_NOT_OBSERVED"
+    assert r02["checked_at"] == "2026-10-28"
+    assert len(r02["digital_demo_links"]) == 4
+    assert {d["skill"] for d in r02["digital_demo_links"]} == SKILLS
+    for demo in r02["digital_demo_links"]:
+        assert demo["url"].startswith("https://yki-uat.inspera.com/player/?assessmentRunId=")
+        assert demo["oph_links_to_demo"] is True
+        assert demo["automatic_text_fetch"] == "HTTP_403"
+        assert demo["ui_observed"] is False
+        assert demo["live_2027_equivalence_verified"] is False
+    assert r02["verified_calendar_dates"] == sorted(expected)
+    assert set(r02["still_unknown_for_live_2027"]) == {u["id"] for u in unknown}
+    assert r02["simulator_policy"]["exact_digital_profile_status"] == "BLOCKED"
+    assert r02["simulator_policy"]["unverified_controls"] == "NULL_NOT_DEFAULT_VALUES"
+    assert r02["simulator_policy"]["media_reuse"] == "EXTERNAL_LINK_ONLY_UNLESS_LICENSED"
+    exams = load(EXAMPLE_CALENDAR)["spring_2027_suomi_keskitaso"]["dates"]
+    assert {x["date"] for x in exams} == expected
+    for d in dates:
+        pair = next(x for x in exams if x["date"] == d["date"])
+        assert pair["registration_open"] == d["registration_open"]
+        assert pair["registration_close"] == d["registration_close"]
+        assert set(pair["components"]) == set(d["skills"])
 
     assert len(p["topic_taxonomy"]) == 9
     assert len(p["communication_functions"]) == 6
@@ -118,7 +153,7 @@ def validate():
         t=(ROOT / name).read_text(encoding="utf-8")
         for part in parts:
             assert part in t, (name, part)
-    print("PASS: official YKI provenance and unknowns; 40 verified-classified claims, 13 task families, 12 historic specimens, 2027 strict mode blocked")
+    print("PASS: official YKI evidence, all 8 spring-2027 dates, 4 unobserved digital demos, 15 blocked unknowns, 2027 strict mode OFF")
 
 if __name__ == "__main__":
     validate()

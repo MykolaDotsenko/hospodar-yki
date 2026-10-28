@@ -445,5 +445,101 @@
       "jyu_overview": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki"
     },
     "original_internal_blueprints": "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json"
+  },
+  "r02_2026_10_28_official_update": {
+    "status": "FIRST_PARTY_WEB_SOURCE_AUDIT_COMPLETE_DEMO_UI_NOT_OBSERVED",
+    "checked_at": "2026-10-28",
+    "authority": "Finnish National Agency for Education (OPH)",
+    "verified_source_urls": [
+      "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+      "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "https://www.oph.fi/sites/default/files/documents/yleisten-kielitutkintojen-perusteet-2011.pdf"
+    ],
+    "digital_demo_links": [
+      {
+        "skill": "reading",
+        "name_fi": "Tekstin ymmärtäminen",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=556943021&context=exam",
+        "oph_links_to_demo": true,
+        "automatic_text_fetch": "HTTP_403",
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false
+      },
+      {
+        "skill": "listening",
+        "name_fi": "Puheen ymmärtäminen",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=562180026&context=exam",
+        "oph_links_to_demo": true,
+        "automatic_text_fetch": "HTTP_403",
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false
+      },
+      {
+        "skill": "writing",
+        "name_fi": "Kirjoittaminen",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=561868854&context=exam",
+        "oph_links_to_demo": true,
+        "automatic_text_fetch": "HTTP_403",
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false
+      },
+      {
+        "skill": "speaking",
+        "name_fi": "Puhuminen",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=562180811&context=exam",
+        "oph_links_to_demo": true,
+        "automatic_text_fetch": "HTTP_403",
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false
+      }
+    ],
+    "demo_access_note": "HTTP 403 is the automated crawler outcome only; it is not evidence that the demo is unavailable to a normal user's browser.",
+    "confirmed_scope": {
+      "onsite_computer_at_test_center": true,
+      "pilot_finnish_intermediate_date": "2026-11-07",
+      "pilot_swedish_intermediate_date": "2026-11-14",
+      "all_finnish_spring_2027_digital": true,
+      "separate_subtest_results": true,
+      "digital_demo_links_are_practice_ungraded": true,
+      "preexisting_paper_descriptions_are_not_digital_ui_specs": true
+    },
+    "still_unknown_for_live_2027": [
+      "module_order",
+      "module_durations_seconds",
+      "question_counts",
+      "back_navigation",
+      "listening_replays",
+      "audio_seek",
+      "automatic_audio_start",
+      "speaking_input",
+      "speaking_beeps",
+      "writing_spellcheck",
+      "writing_word_limit",
+      "writing_autosave",
+      "breaks_and_locking",
+      "assessment_cutoffs",
+      "accommodations_ui"
+    ],
+    "verified_calendar_dates": [
+      "2027-01-16",
+      "2027-02-13",
+      "2027-03-10",
+      "2027-04-10",
+      "2027-04-24",
+      "2027-05-12",
+      "2027-05-22",
+      "2027-06-02"
+    ],
+    "legal_basis_year": 2011,
+    "official_page_appendix_label_mentions_2026": true,
+    "simulator_policy": {
+      "exact_digital_profile_status": "BLOCKED",
+      "training_content": "S2-authored original practice tasks only",
+      "productive_skill_score": "UN_GRADED_UNTIL_HUMAN_CALIBRATED",
+      "unverified_controls": "NULL_NOT_DEFAULT_VALUES",
+      "media_reuse": "EXTERNAL_LINK_ONLY_UNLESS_LICENSED"
+    }
   }
 }

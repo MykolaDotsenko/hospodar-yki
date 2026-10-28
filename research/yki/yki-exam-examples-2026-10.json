@@ -379,6 +379,21 @@
         ]
       },
       {
+        "date": "2027-04-24",
+        "components": [
+          "reading",
+          "listening",
+          "writing",
+          "speaking"
+        ],
+        "registration_open": "2027-03-22",
+        "registration_close": "2027-04-08",
+        "mode": "digital",
+        "levels": [
+          "B1/B2"
+        ]
+      },
+      {
         "date": "2027-05-12",
         "components": [
           "listening",
@@ -386,6 +401,21 @@
         ],
         "registration_open": "2027-04-12",
         "registration_close": "2027-04-26",
+        "mode": "digital",
+        "levels": [
+          "B1/B2"
+        ]
+      },
+      {
+        "date": "2027-05-22",
+        "components": [
+          "reading",
+          "listening",
+          "writing",
+          "speaking"
+        ],
+        "registration_open": "2027-04-20",
+        "registration_close": "2027-05-06",
         "mode": "digital",
         "levels": [
           "B1/B2"
@@ -404,7 +434,9 @@
           "B1/B2"
         ]
       }
-    ]
+    ],
+    "checked_at": "2026-10-28",
+    "source_page": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat"
   },
   "known_task_families": {
     "reading": [

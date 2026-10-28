@@ -9,6 +9,8 @@
 - [yki-exam-examples-2026-10.json](yki-exam-examples-2026-10.json), [yki-official-patterns-v2.json](yki-official-patterns-v2.json) — приклади та класифікація;
 - [official-yki-deep-audit-v2.json](official-yki-deep-audit-v2.json), [yki-content-sources-2026-10.json](yki-content-sources-2026-10.json) — аудити та метадані.
 
+**R02 official digital 2027 investigation, 28.10.2026:** [розділ R02](20-yki-official-complete-audit-2026-10.md#r02-deep-follow-up--28102026-oph-digital-yki-2027-eight-dates-demos-and-fail-closed-quality-gate) перевіряє 4 прямі Inspera demo URL з OPH, доступність з автоматизованого клієнта (403; **не** доказ реальної недоступності), змішані paper/digital інструкції й повний **8-денний** весняний календар 2027. Реальні поведінка демо/точні digital UI, replay, timer — **не спостережені/не підтверджені**. Датований audit та 15 `unknown` у [канонічному ledger](yki-digital-fidelity-evidence-2026-10.json), перехресні regression checks у [validator](../../scripts/validate_yki_deep_fidelity.py). Жоден JSON-ключ не є доказом відвідування демо; strict 2027 mode лишається blocked.
+
 Реальні зовнішні сторінки/відео YKI/SOLKI знаходяться як **посилання**, не завантажені ролики, у [sources/official/](../../sources/official/README.md). Тренувальні вправи — у [learning/exercises/](../../learning/exercises/README.md).
 
 **Правило:** без офіційного підтвердження не видавати тренувальний симулятор за точну цифрову версію YKI 2027; не оголошувати оцінку B1 офіційною без каліброваного оцінювання.

@@ -3,6 +3,12 @@
 **Дата вивчення першоджерел:** 21.10.2026. **Стан:** reference-driven training simulator, **not official 2027 digital UI**.  
 **Пов'язано:** [13 — приклади](../research/yki/13-yki-exam-format-and-real-examples-2027.md) · [33 доказові твердження (JSON)](../research/yki/yki-digital-fidelity-evidence-2026-10.json) · [дві міні-сесії](../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json) · [вебтренажер](../app/exam.html).
 
+## Результат предметного R02-аудиту (28.10.2026)
+
+**SOURCE AUDIT, NOT MANUAL DEMO/UI CERTIFICATION.** [Канонічний R02 §](../research/yki/20-yki-official-complete-audit-2026-10.md#r02-deep-follow-up--28102026-oph-digital-yki-2027-eight-dates-demos-and-fail-closed-quality-gate) фіксує 4 зовнішні Inspera демо, на які прямо посилається OPH; 28.10 автоматизований web text fetch повертав 403, отже **кнопки/звукові повтори/таймер/поле письма/мікрофон не перевірено**. Це не доказ недоступності для користувача браузера. Різниця між 2011 PDF і mixed legacy day instructions та цифровими 2027 правилами **обов'язково** зберігається: `demo_observed != official_live_confirmed` і `2011_rules != digital_UI`.
+
+**Виправлено пропуск у календарі:** OPH має 8 дат (раніше два JSON мали 6), включно з **24.04 і 22.05** (повні чотири модулі), а **10.03, 12.05, 02.06** — часткові модульні дати. Реєстрація на **10.04 — 08–25.03**, початок за OPH **10:00** за часом Фінляндії. Оновлені [два джерельні календарі](../research/yki/official-yki-deep-audit-v2.json) й [source examples](../research/yki/yki-exam-examples-2026-10.json), а валідатори тепер захищають усі 8. `official_2027_strict_ui` залишається **OFF**, `F4/F5/F6` — `UNKNOWN/NOT CALIBRATED` до ручної/першоджерельної перевірки.
+
 ## Official 2027 digital exam update and audit gate (28.10.2026)
 
 [OPH digital pilot news, 18.09.2026](https://www.oph.fi/en/news/2026/digital-yki-tests-will-be-piloted-november-2026): Finnish keskitaso digitesti **07.11.2026**, Swedish **14.11.2026**; пілоти ще не відбулися станом на 28.10.2026. [OPH published spring-2027 Finnish dates](https://www.oph.fi/en/education-and-qualifications/selecting-right-yki-test-test-days): **всі весняні 2027 YKI suomi цифрові**, **10.04.2027 all four**, **12.05.2027 writing+listening**, **02.06.2027 reading+speaking**. Ці факти підтверджують **формат і розклад**, але **не** кількість digital завдань, navigation, Back/Next, time limits, replay/seek, mic event sequencing чи exact screen appearance.
