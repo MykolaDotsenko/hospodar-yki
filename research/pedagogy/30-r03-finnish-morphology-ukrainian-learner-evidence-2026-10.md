@@ -71,7 +71,7 @@
 
 1. **Meaning-first:** простий план будівлі з трьома діями `Olen kotona / Tulen kotoa / Menen kotiin` (не підмішувати `talossa` без пояснення місцевих форм), далі `talossa/talosta/taloon`; один зрозумілий сюжет.
 2. **First answer:** `Mistä asiakas tulee?` → учень пише `Hän tulee talosta`, без кольорової готової закінцівки.
-3. **Feedback:** якщо вибрано `taloon`, тип `M01 semantic source/destination` (виправити значення); якщо `*talosta` з помилковою основою — `M02 stem`. Для кожного слова S2-approved variants.
+3. **Feedback:** якщо вибрано `taloon`, тип `M01 semantic source/destination` (виправити значення); якщо вибрано правильний відмінок, але написано `*tallosta` замість `talosta`, це окрема орфографічна/основна помилка для S2 review, **не автоматично** allomorphy. Для кожного слова S2-approved variants.
 4. **Self-repair:** учень заново формулює `Hän tulee talosta`; перший запис збережений, другий окремий.
 5. **Novel context:** `Lähden työpaikalta ja menen kauppaan` (також внутрішні/зовнішні локальні форми; не удавати той самий case).
 6. **Delayed 14/30:** нова карта/адресат, не показувати оригінальне правило, здійснити практичну комунікативну дію.
@@ -116,7 +116,7 @@
 
 **Мінімальні original prompts:** 4 × короткий contextual case task; 4 × transparent/changed-stem inflections; 4 × different-partitive situations (negation/aspect/quantity); 4 × real rektio chunks; 2 × 60–100-word short practical messages (housing/work/doctor); optional oral turn із дозволом запису. Тестові одиниці S2-reviewed до підключення учасників. **Ці кількості — первинна пропозиція протоколу, не статистично обґрунтована дозована норма.**
 
-**Annotation schema (опис, не окремий центральний реєстр):** `consented_pseudonym, baseline_level, L1_self_report, prompt_id, prompt_version, situation, goal, first_answer, corrected_answer_optional, case_choice{correct/incorrect/ambiguous}, stem_form{correct/incorrect/ambiguous}, rektio{correct/incorrect/ambiguous}, partitive_semantics{correct/incorrect/ambiguous}, communicative_success{yes/partial/no/ungraded}, correct_variant_ids, register, rater_1, rater_2, adjudication, exposure_history, due_at, observed_at, response_mode, data_deletion_status`. **Не писати ім'я, IP, медичні дані, громадянство чи діагноз у навчальний record**; reidentification key поза дослідницькими response data, якщо взагалі потрібен.
+**Annotation schema (опис, не окремий центральний реєстр):** `consented_pseudonym, baseline_level, L1_self_report, prompt_id, prompt_version, situation, goal, first_answer, corrected_answer_optional, case_choice{correct/incorrect/ambiguous/ungraded}, stem_form{correct/incorrect/ambiguous}, rektio{correct/incorrect/ambiguous}, partitive_semantics{correct/incorrect/ambiguous}, communicative_success{yes/partial/no/ungraded}, correct_variant_ids, register, rater_1, rater_2, adjudication, exposure_history, due_at, observed_at, response_mode, data_deletion_status`. **Не писати ім'я, IP, медичні дані, громадянство чи діагноз у навчальний record**; reidentification key поза дослідницькими response data, якщо взагалі потрібен.
 
 **Кодування:** 2 незалежні S2 reviewers на перекритій підвибірці; training calibration, agreement (nominal `Cohen κ` або multi-label per-category metrics), reconcile disagreements, `uncertain/ungradable` допустимі; рівень помилки вказується лише де вправді був контекст **для її появи** (denominator = genuine opportunities, не кількість усіх слів). Multiple independent observations per learner => cluster-aware uncertainty. Правильність граматики не замінює `task success`.
 
