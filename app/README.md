@@ -1,5 +1,7 @@
 # Hospodar YKI — runnable browser MVP
 
+**R06 RESEARCH PROTOTYPE (28.10.2026):** [adaptation-core.mjs](adaptation-core.mjs) + [isolated deterministic/negative-case tests](tests/adaptation-core.test.mjs). Ranks already human-approved local LEARN tasks by due review, first independent verified error, four-skill exposure and explicit preferences; **NOT imported into current app.mjs or active mission selection**, not a calibrated recommendation engine, not validated with real Finnish learners. See [research dossier №33](../research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md). Run node --test app/tests/adaptation-core.test.mjs. Existing SRS/progress state unchanged.
+
 **Status:** independently runnable local prototype, not deployed, not officially calibrated. Built on the project's existing Finnish JSON content and OGG/MP3 files.
 
 ## Start
