@@ -541,5 +541,91 @@
       "unverified_controls": "NULL_NOT_DEFAULT_VALUES",
       "media_reuse": "EXTERNAL_LINK_ONLY_UNLESS_LICENSED"
     }
+  },
+  "e01_e02_2026_10_29_recheck": {
+    "checked_at": "2026-10-29",
+    "scope": "E01 first-party public-source follow-up; E02 automated access attempt, not manual UI audit",
+    "evidence_type": "FIRST_PARTY_OPH_PAGE_REVIEW_WITH_EXTERNAL_DEMO_FETCH_FAILURE",
+    "rechecked_official_pages": [
+      "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat",
+      "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia"
+    ],
+    "newly_confirmed_digital_ui_parameters": [],
+    "official_unchanged_facts": {
+      "computer_at_test_center": true,
+      "finnish_intermediate_pilot_future_date": "2026-11-07",
+      "spring_2027_finnish_digital": true,
+      "full_april_2027_date": "2027-04-10",
+      "four_ungraded_official_demos_linked": true,
+      "legacy_paper_instructions_coexist_on_oph_page": true
+    },
+    "inspera_demo_recheck": [
+      {
+        "skill": "reading",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=556943021&context=exam",
+        "result": "HTTP_403_AUTOMATED_WEB_CLIENT",
+        "manual_browser_walkthrough_completed": false,
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false,
+        "no_inference_from_403": "HTTP 403 does not imply normal users cannot open the demo"
+      },
+      {
+        "skill": "listening",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=562180026&context=exam",
+        "result": "HTTP_403_AUTOMATED_WEB_CLIENT",
+        "manual_browser_walkthrough_completed": false,
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false,
+        "no_inference_from_403": "HTTP 403 does not imply normal users cannot open the demo"
+      },
+      {
+        "skill": "writing",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=561868854&context=exam",
+        "result": "HTTP_403_AUTOMATED_WEB_CLIENT",
+        "manual_browser_walkthrough_completed": false,
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false,
+        "no_inference_from_403": "HTTP 403 does not imply normal users cannot open the demo"
+      },
+      {
+        "skill": "speaking",
+        "url": "https://yki-uat.inspera.com/player/?assessmentRunId=562180811&context=exam",
+        "result": "HTTP_403_AUTOMATED_WEB_CLIENT",
+        "manual_browser_walkthrough_completed": false,
+        "ui_observed": false,
+        "live_2027_equivalence_verified": false,
+        "no_inference_from_403": "HTTP 403 does not imply normal users cannot open the demo"
+      }
+    ],
+    "still_unknown_for_live_2027": [
+      "module_order",
+      "module_durations_seconds",
+      "question_counts",
+      "back_navigation",
+      "listening_replays",
+      "audio_seek",
+      "automatic_audio_start",
+      "speaking_input",
+      "speaking_beeps",
+      "writing_spellcheck",
+      "writing_word_limit",
+      "writing_autosave",
+      "breaks_and_locking",
+      "assessment_cutoffs",
+      "accommodations_ui"
+    ],
+    "strict_exact_2027_enabled": false,
+    "activity_completed": {
+      "source_recheck": true,
+      "automated_demo_fetch": true,
+      "live_manual_demo_walkthrough": false,
+      "latest_official_post_pilot_confirmation": false,
+      "human_s2_review": false,
+      "user_study": false,
+      "running_browser_e2e": false
+    },
+    "next_manual_audit": "Use a permitted real browser for each OPH demo; compare with current code via research/yki/20-yki-official-complete-audit-2026-10.md E01/E02 delta table; do not collect protected test content.",
+    "code_hand_off": "App welcome-only hyperlinks to four ungraded OPH Inspera demos; never show as verified live exam replica."
   }
 }
