@@ -1,0 +1,334 @@
+{
+  "schema_version": "1.0.0",
+  "research_id": "E06",
+  "checked_at": "2026-10-29",
+  "status": "SOURCES_AND_EXISTING_APP_CODE_AUDITED_REFERENCE_POLICY_ONLY_NO_HUMAN_STUDY",
+  "existing_science": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+  "canonical_patterns_path": "research/yki/yki-official-patterns-v2.json",
+  "speaking_families": [
+    "SPEAKING_NARRATIVE",
+    "SPEAKING_DIALOGUE",
+    "SPEAKING_SITUATIONS",
+    "SPEAKING_OPINION"
+  ],
+  "source_evidence": [
+    {
+      "tier": "OFFICIAL_CURRENT",
+      "label": "OPH scoring process",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "claim": "Experts trained by SOLKI assess separate speaking result; no evidence that generated machine score is official."
+    },
+    {
+      "tier": "OFFICIAL_YKI_RUBRIC",
+      "label": "JYU published spoken assessment criteria page 2",
+      "url": "https://www.jyu.fi/fi/file-download/download/public/14098",
+      "claim": "Holistic levels 3 and 4; fluency, flexibility, coherence, lexical specificity, pronunciation intelligibility, grammar."
+    },
+    {
+      "tier": "JYU_CONSTRUCT",
+      "label": "JYU SOLKI general YKI task description",
+      "url": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki",
+      "claim": "Historically speaking uses studio-recorded replies to simulated dialogue, reaction, narrative and questions; not a verified 2027 digital control."
+    },
+    {
+      "tier": "HISTORICAL_SAMPLE",
+      "label": "SOLKI intermediate speaking examples",
+      "url": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "claim": "Four exemplar families including kertominen/keskustelu/tilanteita/mielipide, timing applies only to historical examples."
+    },
+    {
+      "tier": "OFFICIAL_CURRENT",
+      "label": "OPH November digital pilot",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "claim": "Finnish intermediate computer pilot planned 2026-11-07, no confirmed digital mic phases/audio UI."
+    },
+    {
+      "tier": "META_L2_GENERAL",
+      "label": "Wang & Min 2026 automated speaking agreement",
+      "url": "https://doi.org/10.1177/02655322251387816",
+      "claim": "Meta 67 studies/392 effects, r=.654 overall human-machine correlation; no absolute official YKI agreement or cutoffs."
+    },
+    {
+      "tier": "META_L2_GENERAL",
+      "label": "ASR pronunciation pedagogy 2023",
+      "url": "https://www.cambridge.org/core/journals/recall/article/effectiveness-of-automatic-speech-recognition-in-eslefl-pronunciation-a-metaanalysis/A915444CF252B61D14961D2FE733822D",
+      "claim": "15-study English learning meta reports g=.69 pronunciation gains; not Finnish speaking ability or official level prediction."
+    },
+    {
+      "tier": "FAIRNESS_ASR",
+      "label": "Towards inclusive ASR 2024",
+      "url": "https://doi.org/10.1016/j.csl.2023.101567",
+      "claim": "Accent, age and other speaker characteristics can change ASR recognition bias; depends on language and architecture."
+    },
+    {
+      "tier": "FAIRNESS_ASR",
+      "label": "Nelson & Cardoso 2025 English L2 age bias",
+      "url": "https://doi.org/10.37213/cjal.2025.35706",
+      "claim": "1000 English test responses, three ASR systems showed age-related transcription effects; cannot transfer quantitative bias into Finnish."
+    },
+    {
+      "tier": "RESEARCH_TECH",
+      "label": "Finnish assessment prototype Hilden et al 2025 (reused R04)",
+      "url": "https://doi.org/10.58379/ROXO3257",
+      "claim": "Finnish/Swedish low-resource ASR fluency features are emerging, not proof of official YKI automated scorer."
+    },
+    {
+      "tier": "TECHNICAL_STANDARD",
+      "label": "MDN MediaRecorder API",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder",
+      "claim": "Recording chunks and lifecycle must be handled reliably, not only object URL."
+    },
+    {
+      "tier": "TECHNICAL_STANDARD",
+      "label": "MDN getUserMedia",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia",
+      "claim": "Permission, unsupported device and secure context constraints need explicit fault handling."
+    }
+  ],
+  "live_web_exam_baseline": {
+    "mini_blueprints": 2,
+    "per_mini_speaking_tasks": 1,
+    "spoken_task_ids": [
+      "d-s1",
+      "d-s2"
+    ],
+    "speaking_family_coverage": {
+      "SPEAKING_NARRATIVE": "MISSING",
+      "SPEAKING_DIALOGUE": "MISSING",
+      "SPEAKING_SITUATIONS": "PARTIAL",
+      "SPEAKING_OPINION": "STRUCTURAL_ONLY_UNCALIBRATED"
+    },
+    "media_api": "getUserMedia + MediaRecorder",
+    "capture_storage": "Only transient Blob/ObjectURL in browser memory, no durable media persisted",
+    "typed_plan": "May substitute for task input, explicitly not scored as speaking",
+    "voiceRecorded_on_reload": "Cleared to {} by loadSession, avoiding false restoration of audio",
+    "audio_chunks_on_navigation": "stopAudio sets onstop=null, cancels async audio creation before navigation",
+    "voice_scoring": "UNGRADED; no official YKI score",
+    "digitesti_2027_voice_interface": "UNKNOWN",
+    "prompt_timing_2027": "UNKNOWN",
+    "human_review_run": false,
+    "learning_effects_verified": false
+  },
+  "rubric_levels": {
+    "B1_level3": "Generally intelligible, communicative success in everyday situations, errors/hesitation permissible",
+    "B2_level4": "More flexible and fluent, coherent, suited register and audience, clearer sustained expression",
+    "automatic_cutoffs": null,
+    "official_score_machine": null,
+    "meaning": "Holistic official rubric, not our numeric arithmetic"
+  },
+  "design_consequences": [
+    "Original S2-reviewed narrative, original multi-turn recorded partner dialogue, multi-situation reactions and reasoned opinion as four families, no copyright reuse.",
+    "Record true spoken response; typed plan never constitutes audio evidence for YKI speaking readiness.",
+    "Microphone preflight before sealing EXAM; separate optional familiarization outside active test.",
+    "Prep, cue, answer windows are versioned practice-policy fields until 2027 digital OPH evidence; no fake 60/90 production rule.",
+    "Start/stop/bytes/readback/hash/receipt recorded atomically and idempotently before navigation/reveal; no audio or zero bytes means UNGRADED.",
+    "During EXAM no ASR live transcript, hints, confetti or correction; after sealed durable finish separate LEARN meaningful self-repair.",
+    "Human Finnish S2 rater calibration and adjudication of task goal, intelligibility, fluency, coherence, lexical range, accuracy, register, and pronunciation; no native-accent penalty.",
+    "Optional ASR after exam can propose uncertain hypotheses, never official level 3/4 or pronunciation truth.",
+    "Original audio and user voice privacy: rights, consent, retention, delete/export and no hidden network upload.",
+    "Novel delayed day14/30 spoken responses assessed by blinded human raters and distinct task content."
+  ],
+  "example_studies": [
+    {
+      "id": "E06-SC1",
+      "pattern": "SPEAKING_SITUATIONS",
+      "theme": "housing maintenance request",
+      "target_functions": [
+        "F01",
+        "F04",
+        "F05"
+      ],
+      "content_status": "ORIGINAL_SCENARIO_BRIEF_ONLY_NOT_S2_APPROVED",
+      "media_status": "NOT_RECORDED"
+    },
+    {
+      "id": "E06-SC2",
+      "pattern": "SPEAKING_DIALOGUE",
+      "theme": "phone reschedule with recorded interlocutor prompts",
+      "target_functions": [
+        "F01",
+        "F04",
+        "F06"
+      ],
+      "content_status": "ORIGINAL_SCENARIO_BRIEF_ONLY_NOT_S2_APPROVED",
+      "media_status": "NOT_RECORDED"
+    },
+    {
+      "id": "E06-SC3",
+      "pattern": "SPEAKING_NARRATIVE",
+      "theme": "describe recent challenge, what changed and why",
+      "target_functions": [
+        "F01",
+        "F03"
+      ],
+      "content_status": "ORIGINAL_SCENARIO_BRIEF_ONLY_NOT_S2_APPROVED",
+      "media_status": "NOT_RECORDED"
+    },
+    {
+      "id": "E06-SC4",
+      "pattern": "SPEAKING_OPINION",
+      "theme": "compare public service options with reasons",
+      "target_functions": [
+        "F02",
+        "F05"
+      ],
+      "content_status": "ORIGINAL_SCENARIO_BRIEF_ONLY_NOT_S2_APPROVED",
+      "media_status": "NOT_RECORDED"
+    }
+  ],
+  "risks": [
+    {
+      "id": "E06-R01",
+      "severity": "P0",
+      "risk": "Voice lost after refresh or navigation: MediaRecorder Blob is only an object URL",
+      "mitigation": "Persist actual bytes in same logical attempt transaction; verify blob readback, hash, version and receipt before claiming reviewed speaking",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R02",
+      "severity": "P0",
+      "risk": "Recorder is stopped on navigation but onstop handler is explicitly nulled; final chunks may not be processed",
+      "mitigation": "Serialize stop->dataavailable->blob finalized->store ack before any navigation/finish; handle 0-byte and stream interrupted",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R03",
+      "severity": "P0",
+      "risk": "Microphone denied, unavailable, silent, silent-device or unexpected permission changes",
+      "mitigation": "Preflight permission and playback test, fail clearly without manufacturing speaking success",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R04",
+      "severity": "P0",
+      "risk": "One short situation and one opinion mini do not exercise narrative + multi-turn dialogue construct",
+      "mitigation": "Build original S2-reviewed recorded partner-turn and narrative tasks linked to canonical four speaking families",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R05",
+      "severity": "P0",
+      "risk": "Exact 2027 speaking prep/cues/recording windows/input unknown; archive is legacy studio",
+      "mitigation": "No official timing/audio UI claims before authorized demo walkthrough and OPH live equivalence confirmation",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R06",
+      "severity": "P0",
+      "risk": "ASR transcripts/typing plans cannot establish communicative intelligibility or official YKI 3/4",
+      "mitigation": "Human-calibrated audio review; machine provides qualified formative hints only after finish",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R07",
+      "severity": "P0",
+      "risk": "Voice data are sensitive personal communication and local storage is clearable",
+      "mitigation": "Consent and transparent retention; privacy-first local lifecycle, user-managed delete and export, no undeclared remote upload",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R08",
+      "severity": "P1",
+      "risk": "After submit/expiry, race between async onstop and durable finish receipt",
+      "mitigation": "Transactional event schema, idempotent stop, no feedback before audio and finish readback",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R09",
+      "severity": "P1",
+      "risk": "Signal quality and browser incompatibilities can destroy intelligibility",
+      "mitigation": "Device/browser headset+mic test, codec sniff, silence/clip detection, desktop/mobile failure injection",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R10",
+      "severity": "P1",
+      "risk": "Pronunciation metrics conflate accent with intelligibility; classifier bias by age/voice/L1",
+      "mitigation": "Blind Finnish S2 adjudication and subgroup fairness; never gate B1/B2 on native-accent imitation",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R11",
+      "severity": "P1",
+      "risk": "Spontaneous speaking and pragmatics not measured by word count or recording duration",
+      "mitigation": "Task-specific communicative success rubric, discourse management, register and follow-up responsiveness",
+      "current_state": "OPEN"
+    },
+    {
+      "id": "E06-R12",
+      "severity": "P1",
+      "risk": "Feedback leaks inside sealed exam and repeats exposed items as 'independent' retest",
+      "mitigation": "EXAM silent until durable finish, LEARN separate self-correction, novel unseen delayed day14/day30 task bank",
+      "current_state": "OPEN"
+    }
+  ],
+  "gates": [
+    {
+      "id": "E06-G01",
+      "description": "Source-backed original four family item bank reviewed by two independent S2 teachers",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G02",
+      "description": "Authorized production voice and interlocutor rights/consent",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G03",
+      "description": "Durable byte-backed audio capture with readback/hash and idempotent receipts",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G04",
+      "description": "Mic denial, silence, recorder.stop, codec, reload, background and concurrent-tab browser E2E",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G05",
+      "description": "No feedback before sealed persistent finish; no typed plan counted as spoken evidence",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G06",
+      "description": "Independent calibrated Finnish S2 raters with adjudication and no auto-grade substitution",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G07",
+      "description": "Voice privacy/retention/deletion/export and no undisclosed upload",
+      "status": "OPEN"
+    },
+    {
+      "id": "E06-G08",
+      "description": "Verified OPH 2027 mic/cue/prep windows and E2E or practice-only disclaimer",
+      "status": "BLOCKED_E02_E04"
+    },
+    {
+      "id": "E06-G09",
+      "description": "Day 14/30 unseen speaking transfer outcome compared fairly with human blind assessment",
+      "status": "NOT_RUN"
+    }
+  ],
+  "reference_module": "app/e06-speaking-evidence-policy.mjs",
+  "reference_only_not_live": true,
+  "user_trials_run": 0,
+  "independent_s2_reviewers_confirmed": 0,
+  "live_audio_persistence_implemented": false,
+  "official_2027_mic_timing_verified": false,
+  "official_yki_grade_prediction_allowed": false,
+  "rights_policy": "Link historical official examples only. New scripts/media must be originally authored and licensed; no transcription or republishing of SOLKI audio.",
+  "user_data_policy": "User voice is identifiable and potentially sensitive; default device-local handling, no undeclared third-party API, meaningful explicit retention and deletion controls.",
+  "test_plan": [
+    "0-byte/undefined recording denied",
+    "permission and local storage denied",
+    "wrong session/task receipt rejected",
+    "hash/codec/duration/revision/consent invalid",
+    "no physical bytes after metadata receipt",
+    "checksum mismatch",
+    "finished=false means no feedback",
+    "typed text plan cannot satisfy voice evidence",
+    "only durable byte+hash receipt can be reviewed, but remains ungraded",
+    "official grade always null",
+    "two-tabs, tab closed while finalizing, suspended page, interrupted mic, device switch, stale callbacks browser E2E"
+  ]
+}
