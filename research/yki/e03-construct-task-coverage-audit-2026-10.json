@@ -1,0 +1,301 @@
+{
+  "schema_version": "1.0.0",
+  "research_id": "E03",
+  "checked_at": "2026-10-29",
+  "status": "SOURCE_AND_INTERNAL_CONTENT_COVERAGE_AUDIT_COMPLETE_HUMAN_CALIBRATION_NOT_RUN",
+  "purpose": "Derived, non-authoritative coverage audit linked by IDs to existing canonical 13 YKI patterns, NOT a duplicate task taxonomy or a claim of exact 2027 coverage.",
+  "authoritative_pattern_path": "research/yki/yki-official-patterns-v2.json",
+  "original_current_mini_path": "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json",
+  "original_internal_sources": [
+    "learning/exercises/b1/contextual/reading-pack-v1.json",
+    "learning/exercises/b1/audio-long/lessons.json",
+    "learning/exercises/b1/diagnostics/baseline-v1.json"
+  ],
+  "external_primary_sources": [
+    {
+      "type": "OPH_2026",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "supports": "Digital computer pilot, similar task constructs; no live 2027 item quota or timer."
+    },
+    {
+      "type": "JYU_SOLKI_GENERAL",
+      "url": "https://www.jyu.fi/fi/hytk/solki/tutkimus/yleiset-kielitutkinnot-yki",
+      "supports": "Four communicative constructs, genres, task descriptions, 3-writing-task historical/general model."
+    },
+    {
+      "type": "SOLKI_READING_HISTORICAL",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-tekstin-ymmartaminen/",
+      "supports": "Reading multiple-choice, true/false, and open response example types."
+    },
+    {
+      "type": "SOLKI_LISTENING_HISTORICAL",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "supports": "Listening choice, true/false and open response; historical repeats/paper instructions are NOT digital."
+    },
+    {
+      "type": "SOLKI_WRITING_HISTORICAL",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "supports": "Guided email and opinion writing; historical instructions do NOT verify 2027 editor/count."
+    },
+    {
+      "type": "SOLKI_SPEAKING_HISTORICAL",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "supports": "Sustained talk, dialogue, situational reactions, opinion in examples; historical timings not 2027 rules."
+    },
+    {
+      "type": "CEFR_COUNCIL_OF_EUROPE",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors",
+      "supports": "Communicative reception, production, interaction can-do descriptors; not YKI item counts."
+    },
+    {
+      "type": "ILTA_GUIDELINES_2024",
+      "url": "https://www.iltaonline.com/page/ILTAGuidelinesforPractice2024",
+      "supports": "Construct validity, representative sampling, avoiding construct-irrelevant variance, human rating."
+    }
+  ],
+  "reference_family_count": 13,
+  "mini_blueprints_count": 2,
+  "current_mini_each": {
+    "reading": 3,
+    "listening": 4,
+    "writing": 1,
+    "speaking": 1,
+    "total": 9
+  },
+  "family_status_counts": {
+    "STRUCTURAL_PRESENT_UNREVIEWED": 6,
+    "NOT_REPRESENTED": 5,
+    "PARTIAL_UNREVIEWED": 2
+  },
+  "family_mapping": [
+    {
+      "pattern_id": "READING_MCQ",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "ctx-reading-02-housing-q1",
+        "ctx-reading-03-services-q1"
+      ],
+      "observation": "3-option keyed choice; both minis contain it. Need genre and distractor S2 review.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "READING_TF",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "ctx-reading-02-housing-q2",
+        "ctx-reading-03-services-q2"
+      ],
+      "observation": "True/false in both reading mini blocks; fairness and context checks pending.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "READING_OPEN",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "ctx-reading-02-housing-q3",
+        "ctx-reading-03-services-q3"
+      ],
+      "observation": "Open reading response is ungraded; no calibrated semantic-answer matching.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "LISTENING_MCQ",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "b1long-01-vesikatko-ja-huoltokaynti",
+        "b1long-02-kurssi-ja-tyovuorot"
+      ],
+      "observation": "Four choice questions per mini listening block; synthetic single-voice recordings.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "LISTENING_TF",
+      "status": "NOT_REPRESENTED",
+      "example_internal_ids": [],
+      "observation": "Historical SOLKI listening example family missing from mini examination.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "LISTENING_OPEN",
+      "status": "NOT_REPRESENTED",
+      "example_internal_ids": [],
+      "observation": "Historical SOLKI listening short answer family missing from mini examination.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "WRITING_MESSAGE",
+      "status": "NOT_REPRESENTED",
+      "example_internal_ids": [],
+      "observation": "No separate casual-friendly message exemplar; existing d-w1 is a formal request.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "WRITING_FORMAL",
+      "status": "PARTIAL_UNREVIEWED",
+      "example_internal_ids": [
+        "d-w1"
+      ],
+      "observation": "One course-organizer enquiry; broader administrative complaint, request and application variants absent.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "WRITING_OPINION",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "d-w2"
+      ],
+      "observation": "One guided opinion prompt; not independently CEFR-calibrated.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "SPEAKING_NARRATIVE",
+      "status": "NOT_REPRESENTED",
+      "example_internal_ids": [],
+      "observation": "No standalone sustained narrative prompt in two current mini sets.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "SPEAKING_DIALOGUE",
+      "status": "NOT_REPRESENTED",
+      "example_internal_ids": [],
+      "observation": "No genuine recorded multi-turn interlocutor dialogue/task sequence.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "SPEAKING_SITUATIONS",
+      "status": "PARTIAL_UNREVIEWED",
+      "example_internal_ids": [
+        "d-s1"
+      ],
+      "observation": "Single situation response, not historically demonstrated multi-situation sequence.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    },
+    {
+      "pattern_id": "SPEAKING_OPINION",
+      "status": "STRUCTURAL_PRESENT_UNREVIEWED",
+      "example_internal_ids": [
+        "d-s2"
+      ],
+      "observation": "One opinion prompt; not measured as intelligible audio by human rater.",
+      "human_s2_approved": false,
+      "live_2027_equivalence_verified": false
+    }
+  ],
+  "official_2027_live_profile": {
+    "reading_item_count": null,
+    "listening_item_count": null,
+    "writing_item_count": null,
+    "speaking_item_count": null,
+    "module_order": null,
+    "task_family_quotas": null,
+    "timing_seconds": null,
+    "score_thresholds": null,
+    "verified_for_live_2027": false
+  },
+  "intended_planning_coverage": {
+    "topic_ids_canonical": "T01-T09",
+    "communication_function_ids_canonical": "F01-F06",
+    "skill_focus": {
+      "reading": [
+        "message",
+        "notice_or_ad",
+        "news",
+        "factual_or_opinion_text",
+        "gist",
+        "detail",
+        "inference"
+      ],
+      "listening": [
+        "announcement",
+        "conversation",
+        "interview",
+        "information_message",
+        "gist",
+        "detail",
+        "inference",
+        "multi_talker_variation"
+      ],
+      "writing": [
+        "personal_message",
+        "functional_or_formal_enquiry",
+        "opinion_with_reasons",
+        "audience",
+        "task_completion",
+        "coherence"
+      ],
+      "speaking": [
+        "personal_account",
+        "situational_reaction",
+        "recorded_multi_turn_roleplay",
+        "reasoned_opinion",
+        "intelligibility",
+        "register"
+      ]
+    },
+    "quota_policy": "DIVERSITY_SAMPLING_TARGETS_ONLY; NEVER_OFFICIAL_ITEM_COUNTS",
+    "sampling_method": "For each candidate complete form, select disjoint unseen item sources across all four skills, at least two text/audio genres across receptive blocks where corpus allows, more than one communication function per module, varied speakers, and meaningful B1/B2 language demand; subject to independent S2 test specification review and future first-party digital corroboration.",
+    "closed_form_policy": "Do not score or expose a full-exam claim until all mandatory S2/license/format/reliability gates are satisfied."
+  },
+  "quality_gates": [
+    {
+      "id": "E03-G01",
+      "criterion": "13/13 canonical families mapped exactly once with honest historical-vs-live provenance",
+      "status": "SOURCE_VERIFIED_ONLY"
+    },
+    {
+      "id": "E03-G02",
+      "criterion": "Per-genre/functions and B1/B2 demand annotated on each original task with source/rights",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E03-G03",
+      "criterion": "Two independent Finnish S2 reviewers on released original task prompts, keys, alternatives; conflicts adjudicated",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E03-G04",
+      "criterion": "Listening open/T-F and speaking multi-turn + narrative implemented after S2/audio licensing",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E03-G05",
+      "criterion": "Distractors require understanding intent/gist/detail/inference not keyword spotting; review alternative correct interpretations",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E03-G06",
+      "criterion": "Held-out independent forms remain unseen; post-exam LEARN cannot contaminate later EXAM scores",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E03-G07",
+      "criterion": "No official digital length/count, timer or form-quota asserted until OPH first-party evidence and E2E",
+      "status": "BLOCKED_BY_E01_E02"
+    },
+    {
+      "id": "E03-G08",
+      "criterion": "User outcomes for E03 item diversity validated in distinct pilot, discrimination and fairness checked with adequate samples",
+      "status": "NOT_DONE"
+    }
+  ],
+  "non_accomplishments": [
+    "No manual Inspera digital UI observation",
+    "No original Finnish task added or S2-approved",
+    "No complete calibrated test form published",
+    "No learner or psychometric experiment",
+    "No official grade prediction"
+  ],
+  "rights_policy": "Original independently authorized content only; official questions, audio and answer keys remain links/descriptive sources unless explicitly licensed."
+}

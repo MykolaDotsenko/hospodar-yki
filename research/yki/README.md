@@ -2,6 +2,8 @@
 
 Ця папка містить **доказові дослідження YKI**, а не несанкціоновану копію офіційного іспиту.
 
+**E03 source-backed construct audit (29.10.2026):** [Research report on YKI item families and communicative validity](21-e03-construct-task-blueprint-2026-10.md) + [13-family derived content gap matrix](e03-construct-task-coverage-audit-2026-10.json). Measured **catalog structure only**: 6 present, 2 partial, 5 absent from current 2×9 minis; NO independent S2 approvals, full 2027 digital item count, human study or official grade. Reuses canonical [13 patterns](yki-official-patterns-v2.json), 9 themes and 6 functions; [Node audit regression](../../app/tests/e03-construct-task-coverage.test.mjs).
+
 **Новий план реалізації EXAM (29.10.2026):** [E01–E16 — дослідження цифрової достовірності, оцінювання та навчального ефекту](exam-e01-e16-research-validation-plan-2026-10.md). Це 16 запланованих work packages із власниками, deliverables та release gates; **не 16 виконаних досліджень, не ручний Inspera-аудит і не готовий full YKI**. Використовує існуючі R01–R12 та F1–F6, не створює паралельного реєстру.
 
 - [01-official-yki-2027.md](01-official-yki-2027.md) — перевірені офіційні анонси й невизначеність формату;
