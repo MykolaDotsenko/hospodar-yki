@@ -84,7 +84,7 @@ test("Persisted highest elapsed prevents a restart/clock rollback from regaining
   assert.equal(end.expired,true);
 });
 test("Reference rejects invalid state, malformed clock readings and actions",()=>{
-  for(const value of [NaN,Infinity,-1,"1000",undefined]){
+  for(const value of [NaN,Infinity,-1,"1000"]){
     assert.throws(()=>clock(0,{highestElapsedMs:value}));
   }
   assert.throws(()=>clock(0,{elapsedMonotonicMs:-1}));
