@@ -123,6 +123,15 @@ function renderWelcome(){
     </select>
     <div class="actions"><button class="btn" type="submit">Почати репетицію</button></div></form>
     <p class="muted">Кожен набір містить 3 запитання до тексту, 4 до аудіо, 1 письмо й 1 говоріння. Це ${3+4+1+1} коротких завдань, <strong>не</strong> повний YKI.</p>
+    <details><summary>Офіційні цифрові демоверсії OPH — 4 навички (зовнішні посилання)</summary>
+    <p>Ці навчальні демонстрації відкриваються на сайті Inspera у новій вкладці. OPH не оцінює відповіді в демоверсіях; це не завдання Hospodar і не гарантія тотожного інтерфейсу іспиту 2027.</p>
+    <ul>
+      <li><a href="https://yki-uat.inspera.com/player/?assessmentRunId=556943021&amp;context=exam" target="_blank" rel="noopener noreferrer">📖 Tekstin ymmärtäminen — читання</a></li>
+      <li><a href="https://yki-uat.inspera.com/player/?assessmentRunId=562180026&amp;context=exam" target="_blank" rel="noopener noreferrer">🎧 Puheen ymmärtäminen — аудіювання</a></li>
+      <li><a href="https://yki-uat.inspera.com/player/?assessmentRunId=561868854&amp;context=exam" target="_blank" rel="noopener noreferrer">✍️ Kirjoittaminen — письмо</a></li>
+      <li><a href="https://yki-uat.inspera.com/player/?assessmentRunId=562180811&amp;context=exam" target="_blank" rel="noopener noreferrer">🗣️ Puhuminen — говоріння</a></li>
+    </ul>
+    <p><a href="https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia" target="_blank" rel="noopener noreferrer">Першоджерело OPH</a>. Доступність кожного демо залежить від зовнішнього сервісу; автоматизована перевірка 29.10.2026 повернула 403 і не підтвердила поведінку інтерфейсу.</p></details>
     <details><summary>Які правила підтверджені?</summary><p>OPH підтверджує іспит на комп'ютері в центрі та відповідність загального типу завдань; повний цифровий інтерфейс і точні таймінги 2027 поки не підтверджені.</p>
     <p><a href="https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026" target="_blank" rel="noopener noreferrer">OPH — цифровий пілот</a> · <a href="https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/" target="_blank" rel="noopener noreferrer">SOLKI — офіційні приклади</a></p></details>`+policy());
 }
