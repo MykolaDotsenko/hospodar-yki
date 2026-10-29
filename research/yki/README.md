@@ -2,6 +2,8 @@
 
 Ця папка містить **доказові дослідження YKI**, а не несанкціоновану копію офіційного іспиту.
 
+**E04 timing/source audit (29.10.2026):** [research on historic SOLKI timings vs unknown digital 2027 rules, code risk analysis and required timing state machine](22-e04-digital-timing-session-policy-2026-10.md), [evidence/risk ledger (10 gaps; 15 canonical unknowns)](e04-timing-evidence-2026-10.json), [reference-only pure timing policy](../../app/e04-timing-policy.mjs) and [12 unit tests](../../app/tests/e04-timing-policy.test.mjs). **No active EXAM runtime integration, browser E2E, official 2027 seconds or Inspera observation.** Exact mode remains blocked.
+
 **E03 source-backed construct audit (29.10.2026):** [Research report on YKI item families and communicative validity](21-e03-construct-task-blueprint-2026-10.md) + [13-family derived content gap matrix](e03-construct-task-coverage-audit-2026-10.json). Measured **catalog structure only**: 6 present, 2 partial, 5 absent from current 2×9 minis; NO independent S2 approvals, full 2027 digital item count, human study or official grade. Reuses canonical [13 patterns](yki-official-patterns-v2.json), 9 themes and 6 functions; [Node audit regression](../../app/tests/e03-construct-task-coverage.test.mjs).
 
 **Новий план реалізації EXAM (29.10.2026):** [E01–E16 — дослідження цифрової достовірності, оцінювання та навчального ефекту](exam-e01-e16-research-validation-plan-2026-10.md). Це 16 запланованих work packages із власниками, deliverables та release gates; **не 16 виконаних досліджень, не ручний Inspera-аудит і не готовий full YKI**. Використовує існуючі R01–R12 та F1–F6, не створює паралельного реєстру.
