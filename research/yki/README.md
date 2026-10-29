@@ -1,5 +1,7 @@
 # YKI — офіційні відомості, джерела й дослідження формату
 
+**E07 writing genre and editor research (29.10.2026):** [source-grounded B1/B2 OPH writing rubric, 3 historically described text families, two real mini prompts and editor failure modes](25-e07-writing-genre-editor-evidence-2026-10.md), [ledger with 12 risks and 10 unpassed release gates](e07-writing-editor-evidence-2026-10.json), [reference-only writing/IME/durable receipt policy](../../app/e07-writing-evidence-policy.mjs) and [12 Node tests](../../app/tests/e07-writing-evidence-policy.test.mjs). **No new S2-approved Finnish task, live editor integration, Inspera UI observation or official grade.**
+
 Ця папка містить **доказові дослідження YKI**, а не несанкціоновану копію офіційного іспиту.
 
 **E06 speaking fidelity research (29.10.2026):** [historical SOLKI speaking families, official OPH/JYU level 3/4, real Web EXAM microphone/durability code risks, human-calibrated feedback and privacy gates](24-e06-speaking-recording-assessment-2026-10.md), [E06 dated evidence with 12 risks / 9 release gates](e06-speaking-evidence-audit-2026-10.json), [reference-only receipt gate](../../app/e06-speaking-evidence-policy.mjs), [12 Node unit cases](../../app/tests/e06-speaking-evidence-policy.test.mjs). **Not wired into live EXAM**: no durable audio file, Inspera UI inspection, original partner voice or human-rated YKI scores. E05 is separately merged.
