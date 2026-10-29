@@ -18,7 +18,7 @@ export function createTimingProfile({kind,minutes=null,verification=null}={}){
   if(verification && verification.claimsOfficial===true)
     throw new Error("Practice duration is not official YKI evidence");
   return Object.freeze({kind:"practice",durationMs:minutes*60_000,official2027:false,
-    provenance:"HOSPodAR_PRACTICE_ONLY"});
+    provenance:"HOSPODAR_PRACTICE_ONLY"});
 }
 function nonnegative(value,label){
   if(typeof value!=="number" || !Number.isFinite(value) || value<0)
