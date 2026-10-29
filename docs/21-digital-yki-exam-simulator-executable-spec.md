@@ -3,7 +3,9 @@
 **21.10.2026** · Ціль: максимально достовірна **самостійна** цифрова симуляція `YKI suomi keskitaso` з чотирма незалежними модулями. Чесна межа: **strict exact-2027 OFF**, поки OPH не підтвердить відповідність цифрових демонстрацій фактичним правилам UI/playback/timing живого іспиту 2027 та це не буде перевірено.  
 **Джерела:** [20 — детальний фактчек](../research/yki/20-yki-official-complete-audit-2026-10.md), [official evidence JSON](../research/yki/official-yki-deep-audit-v2.json), [task patterns](../research/yki/yki-official-patterns-v2.json), [попередня v1](14-digital-yki-fidelity-spec.md). Відповідає [15 — режимам](15-two-modes-skill-scopes.md).
 
-**Execution handoff (29.10.2026):** [E01–E16 EXAM research/validation programme](../research/yki/exam-e01-e16-research-validation-plan-2026-10.md) assigns study questions, roles, explicit gates and EXAM → separate LEARN review → unseen delayed retest. It is a plan, not completed official UI observation or user study. This document remains the normative F1–F6 implementation specification; E01–E16 does not change official claims or activate strict exact-2027 mode.
+**Execution handoff (29.10.2026):****E04 follow-up (29.10.2026):** [evidence-first timer/transition study](../research/yki/22-e04-digital-timing-session-policy-2026-10.md) identifies live wall-clock and interval-only deadline risks; [reference-only policy](../app/e04-timing-policy.mjs) adds unit-tested high-water and fail-closed deadline/receipt contracts **without changing live EXAM**. No OPH-verified digital 2027 times, navigation or replay; exact mode disabled.
+
+ [E01–E16 EXAM research/validation programme](../research/yki/exam-e01-e16-research-validation-plan-2026-10.md) assigns study questions, roles, explicit gates and EXAM → separate LEARN review → unseen delayed retest. It is a plan, not completed official UI observation or user study. This document remains the normative F1–F6 implementation specification; E01–E16 does not change official claims or activate strict exact-2027 mode.
 
 ## R02 evidence-first changes: current digital YKI links vs 2027 production (28.10.2026)
 
