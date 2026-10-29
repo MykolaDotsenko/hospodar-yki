@@ -92,7 +92,7 @@ test("E03 cites meaningful first-party links and no copied OPH task content",()=
   assert.match(audit.rights_policy,/original/i);
   assert.match(audit.intended_planning_coverage.quota_policy,/NEVER_OFFICIAL_ITEM_COUNTS/);
   assert.ok(Object.values(audit.intended_planning_coverage.skill_focus).every(x=>x.length>=5));
-  assert.deepEqual(Object.keys(audit.intended_planning_coverage.skill_focus).sort(),SKILLS);
+  assert.deepEqual(Object.keys(audit.intended_planning_coverage.skill_focus).sort(),[...SKILLS].sort());
 });
 test("Eight acceptance gates require independently validated S2 and user outcomes",()=>{
   assert.equal(audit.quality_gates.length,8);
