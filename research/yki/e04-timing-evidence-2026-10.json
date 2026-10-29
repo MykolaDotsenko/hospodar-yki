@@ -1,0 +1,238 @@
+{
+  "schema_version": "1.0.0",
+  "research_id": "E04",
+  "checked_at": "2026-10-29",
+  "status": "OFFICIAL_AND_HISTORICAL_SOURCE_AUDIT_COMPLETE_REFERENCE_ONLY_NO_LIVE_EXAM_FIX",
+  "authority_policy": "Current OPH digital > first-party future pilot confirmations > historical SOLKI samples. Legacy times never enter official 2027 software.",
+  "canonical_unknown_registry": "research/yki/official-yki-deep-audit-v2.json",
+  "observed_live_digital_2027_ui": false,
+  "official_verified_2027_timing": null,
+  "official_verified_2027_module_order": null,
+  "official_verified_2027_replay_policy": null,
+  "official_verified_2027_navigation_policy": null,
+  "historic_examples_not_production_rules": [
+    {
+      "id": "H-SPEAK-NARRATIVE",
+      "source": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "example_type": "kertominen",
+      "prep_seconds": 60,
+      "answer_seconds": 90,
+      "context": "Historical studio narrative, NOT official digital 2027."
+    },
+    {
+      "id": "H-SPEAK-SITUATIONS",
+      "source": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "example_type": "tilanteita",
+      "prep_seconds": 20,
+      "answer_seconds": null,
+      "example_answer_seconds": [
+        20,
+        30,
+        30,
+        30,
+        30
+      ],
+      "context": "Historical example, not a live digital policy."
+    },
+    {
+      "id": "H-SPEAK-DIALOGUE",
+      "source": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "example_type": "keskustelu",
+      "prep_seconds": null,
+      "answer_seconds": null,
+      "example_answer_seconds": [
+        20,
+        20,
+        10,
+        15,
+        20,
+        10,
+        10
+      ],
+      "context": "Individual historical role-play turns only, not 2027."
+    },
+    {
+      "id": "H-LISTEN-LEGACY",
+      "source": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "example_type": "paper_studio_listening",
+      "legacy_repeat_count": 2,
+      "legacy_answer_transfer_minutes": 10,
+      "context": "2016-era paper/studio answer sheet, NOT 2027 Inspera controls."
+    }
+  ],
+  "current_practice_runtime": {
+    "paths": [
+      "app/exam-core.mjs",
+      "app/exam.mjs",
+      "app/attempt-storage.mjs"
+    ],
+    "time_options_minutes": [
+      0,
+      15,
+      30,
+      60
+    ],
+    "clock": "Date.parse(startedAt) + practice minutes compared to Date.now; Math.ceil seconds",
+    "tick_interval_ms": 1000,
+    "deadline_trigger": "setInterval calls conclude() at zero, boot also checks expired resumed sessions",
+    "clock_based_atomic_write_gate": false,
+    "clock_highwater_mark_persisted": false,
+    "audio_player": "HTML audio controls; repeat/seek available as practice",
+    "navigation": "Back and next allowed as training",
+    "voice_file": "Ephemeral object URL only",
+    "time_provenance": "PRACTICE_ONLY"
+  },
+  "gaps": [
+    {
+      "id": "E04-R01",
+      "severity": "P0",
+      "issue": "Wall clock adjustments can increase/decrease remaining time",
+      "mitigation": "Active monotonic elapsed plus persisted max-observed elapsed and warning; offline trusted clock impossible",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R02",
+      "severity": "P0",
+      "issue": "Interval-based timeout can be late after tab suspension and actions lack deadline enforcement",
+      "mitigation": "Deadline verification on each answer/navigation/finish command at atomic commit",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R03",
+      "severity": "P0",
+      "issue": "Result unlock must be coupled to verified durable finish, even on timer expiry",
+      "mitigation": "Atomic finish receipt, retry idempotence, no premature key reveal",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R04",
+      "severity": "P0",
+      "issue": "Voice recording stops on navigation/reload and raw audio is ephemeral",
+      "mitigation": "Persist consented audio or show no evidence and leave speaking UNGRADED",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R05",
+      "severity": "P0",
+      "issue": "Official 2027 times/replay/nav/breaks and item order unknown",
+      "mitigation": "Fail-closed exact profile, transparent user practice defaults",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R06",
+      "severity": "P1",
+      "issue": "HTML audio controls can seek/replay independent of future live rules",
+      "mitigation": "Clearly practice-only, verified playback policy before strict mode",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R07",
+      "severity": "P1",
+      "issue": "Typing IME/debounce/async IndexedDB can race expiration",
+      "mitigation": "Define deadline cutoff and event ordering; boundary E2E",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R08",
+      "severity": "P1",
+      "issue": "Visibility change, sleep, reload, DST and device time jumps distort display",
+      "mitigation": "Persist high-water evidence; test lifecycle and clock anomalies",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R09",
+      "severity": "P1",
+      "issue": "No verified digital speaking prep/response or audio cue lifecycle",
+      "mitigation": "Design original separately sourced phase machine; preserve UNKNOWN",
+      "status": "UNFIXED_IN_LIVE_APP"
+    },
+    {
+      "id": "E04-R10",
+      "severity": "P1",
+      "issue": "Offline client is not secure proctor clock",
+      "mitigation": "Do not claim exam-grade proctoring or authenticated time",
+      "status": "UNFIXED_IN_LIVE_APP"
+    }
+  ],
+  "official_2027_unknown_ids": [
+    "module_order",
+    "module_durations_seconds",
+    "question_counts",
+    "back_navigation",
+    "listening_replays",
+    "audio_seek",
+    "automatic_audio_start",
+    "speaking_input",
+    "speaking_beeps",
+    "writing_spellcheck",
+    "writing_word_limit",
+    "writing_autosave",
+    "breaks_and_locking",
+    "assessment_cutoffs",
+    "accommodations_ui"
+  ],
+  "decision_rules": [
+    "No official duration value until first-party confirmation",
+    "Historical sample time is example-only",
+    "Practice timer custom, not official",
+    "No answer/navigation after deadline in future runtime implementation",
+    "Only committed finish receipt unlocks feedback",
+    "No audio file means speaking UNGRADED",
+    "No tamper-resistant offline proctoring claims"
+  ],
+  "reference_module": "app/e04-timing-policy.mjs",
+  "reference_only_not_imported_in_live_app": true,
+  "implementation_status": {
+    "source_audit": "DONE",
+    "code_static_risk_review": "DONE",
+    "reference_policy_contract": "DRAFT_WITH_TESTS",
+    "live_timer_fixes": "NOT_DONE",
+    "manual_inspera": "NOT_DONE",
+    "exact_2027_fidelity": "BLOCKED",
+    "learner_validation": "NOT_DONE"
+  },
+  "test_plan": {
+    "reference_unit": [
+      "0-minute no timer",
+      "boundary t-minus-1ms at t t-plus-1ms",
+      "clock rollback",
+      "clock forward",
+      "monotonic max",
+      "persisted elapsed highwater",
+      "strict profile disabled",
+      "late navigation denied",
+      "results require durable finish receipt"
+    ],
+    "browser_e2e_not_run": [
+      "hidden/background tab",
+      "two-tab concurrency",
+      "IME/debounce at expiry",
+      "voice while finishing",
+      "DST and wall clock modification",
+      "failed storage transaction",
+      "screen reader clock/status"
+    ]
+  },
+  "sources": [
+    {
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "scope": "digital pilot future 2026-11-07 and venue"
+    },
+    {
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "scope": "digital demo links with paper/studio instruction ambiguity"
+    },
+    {
+      "url": "https://ykitesti.solki.jyu.fi/en/tutustu-testiin/testifin/keskitaso-puhuminen/",
+      "scope": "historical speaking examples only"
+    },
+    {
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "scope": "historical listening replay and answer-sheet only"
+    },
+    {
+      "url": "https://www.oph.fi/en/education-and-qualifications/selecting-right-yki-test-test-days",
+      "scope": "date profile, not timer"
+    }
+  ]
+}
