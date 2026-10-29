@@ -251,3 +251,64 @@
 4. **2027 exam scheduling:** повторно перевірити OPH календар безпосередньо перед реєстрацією; цей snapshot має дату, не live availability.
 
 **Критерій завершення R02:** нині **source audit / calendar reconciliation / regression contracts COMPLETED IN PR**; **manual demo session & real 2027 production rules remain NOT VERIFIED**. Дослідження продовжується тільки на основі нової першоджерельної інформації; не виводити її зі скриншотів третіх осіб, старих паперових інструкцій чи рекламних копій.
+
+
+---
+
+## E01/E02 execution cycle — 29.10.2026: official-source recheck and reproducible digital-demo audit
+
+**Report type:** first-party web source recheck + automated Inspera access attempt; **not a manual Inspera UI inspection**, not full E02 completion, not a 2027 production examination. Canonical machine record: [E01/E02 recheck in the existing digital ledger](yki-digital-fidelity-evidence-2026-10.json). Executed against OPH 29.10.2026; prior R02 28.10 evidence is preserved unchanged.
+
+### E01 — findings and implementation consequences
+
+| Parameter | First-party observation as of 29.10 | Confidence and classification | EXAM implementation implication |
+| --- | --- | --- | --- |
+| Digital venue | [OPH pilot announcement](https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026): test centre provides a computer; participant need not bring one | CONFIRMED / current OPH | Desktop keyboard/headphones/microphone readiness is more representative than smartphone layout; do not imply user-owned devices on exam day |
+| Finland pilot | OPH gives 7.11.2026 for Finnish intermediate pilot, with feedback to be collected afterwards | CONFIRMED scheduled, **still future on 29.10.2026** | Recheck after the pilot; event alone does not prove a 2027 production UI parameter |
+| Digital spring 2027 | [OPH exam schedule](https://www.oph.fi/fi/koulutus-ja-tutkinnot/sopivan-yki-testin-valinta-ja-testipaivat) confirms all advertised spring 2027 Finnish sittings are digital; 10.04 full four modules | CONFIRMED dated current OPH schedule, not live availability | Keep existing 8-date calendar, no change to module time/count/order |
+| Four ungraded demo links | [OPH before-test page](https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia) links four external Inspera demonstrations and says answers are **not assessed** | CONFIRMED links and non-scoring disclaimer only | Add four **welcome-only, external** links. No copying official content into Hospodar |
+| Paper/digital ambiguity | Same OPH before-test page also contains pencil, optical-form and language-studio procedural instructions | CONFIRMED mixed source; NOT evidence for 2027 controls | Do not implement paper-form transitions as mandatory digitesti features |
+| Exact 2027 UI: F4/F5 | No accessible OPH/JYU first-party documentation verifying module durations, counts, back/replay/seek, recorder workflow, writing editor, breaks or locking; all 4 automated Inspera page fetches responded HTTP 403 | **UNKNOWN**: no authorized manual observations; HTTP 403 applies only to our automated reader | Keep all 15 existing unknown fields NULL, strict exact-2027 BLOCKED. No invented times, screenshot claims, save/replay promises |
+| Assessment: F6 | Published official rubrics characterize human performance, not automated scoring equivalence | OFFICIAL RUBRIC, MODEL UNVALIDATED | Reading/listening keyed practice only; writing/speaking UNGRADED until human calibration |
+
+**Progress audit:** E01 public-source review **done this cycle, not permanently complete** (future official updates pending); E02 demo *link verification and fetch attempts* **done**, **manual walkthrough 0/4**, F4/F5 **not validated**, human outcome research **not done**. Do not mislabel this as a completed E02 study.
+
+### E02 — lawful manual four-demo walkthrough protocol (to run in a permitted browser)
+
+**Inputs:** the four unchanged links under the OPH before-test page. A tester may open them in an ordinary browser, without bypassing controls. No automated scraping, content redistribution, credentials, answer-key extraction or protected media collection. Avoid documenting copyrighted task sentences and examiner audio verbatim. Store only original **interaction observations** and identifiers in the existing evidence ledger.
+
+**Minimum protocol, repeated for each of reading, listening, writing and speaking:**
+
+1. **Reproducibility:** date and local timezone, browser/version, desktop OS, screen resolution, keyboard language, headset/mic, demo skill, official OPH referring page, external Inspera URL, exact access outcome.
+2. **Before start:** visible exam/demo branding and disclaimer, candidate identification/login if present, instructions, start/ready buttons, permission requests, keyboard focus order, accessibility affordances.
+3. **Task presentation:** number of visible items (only if observed), instruction placement, question-to-question navigation, whether an unanswered question can be skipped, whether backward navigation and editing appear possible.
+4. **Timing:** distinguish on-screen countdown from possible elapsed counter; per-skill and per-item timing, preparation and answer windows, breaks/locks; record what was **observed**, not a speculative timing rule.
+5. **Listening:** player/autoplay, exact ability to replay/seek/pause, audio startup after navigation, repeat count if *directly observed*, recovery when no audio; do not copy transcript or media.
+6. **Writing:** text field/editor, input of ä/ö, copy/paste behavior (where lawful), word/character counter, spell-check state, draft recovery, accidental reload and focus order.
+7. **Speaking:** headset and microphone check, permission prompt, recording indicator, preparation/answer stages, any signal before recording, response lock, consent/denied-mic/error behavior; avoid recording copyrighted demo audio and sharing user voice.
+8. **End:** submit confirmation, incomplete-answer handling, finish/restart policy, what if a tab closes or network fails; never treat a practice demo's behavior as live exam policy without OPH corroboration.
+9. **Evidence for each field:** \`observed_value|null\`, \`observation_method\`, \`source_url\`, \`observed_on\`, \`browser_version\`, \`applies_to=OPH_DEMO\`, \`live_2027_status=UNVERIFIED\`, \`confidence\`, \`reviewer\`, \`copyright_status\`, \`suggested_e2e_fixture\`.
+10. **Conflict handling:** if demo contradicts legacy OPH prose, write both observations and mark conflict. If the demo cannot be opened, record only access outcome and leave UI fields null; do not guess.
+
+**Module-specific acceptance checklist:**
+
+| Demo | Crucial interactive controls to observe | What is actually known now |
+| --- | --- | --- |
+| **Tekstin ymmärtäminen (reading)** | Navigation/back/edit, keyboard options, text scroll/viewport, answer state, timer, finish | **NOT OBSERVED**; OPH link only |
+| **Puheen ymmärtäminen (listening)** | Play/autoplay, repeat/seek/pause, prompt visibility, transitions, headphones/error paths | **NOT OBSERVED**; OPH link only |
+| **Kirjoittaminen (writing)** | Finnish diacritics, editor/word counter/spellcheck, save/back, time, finish | **NOT OBSERVED**; OPH link only |
+| **Puhuminen (speaking)** | Mic/permission/test, preparation, recording, audible cues, transitions, finish | **NOT OBSERVED**; OPH link only |
+
+**Suggested assessor-specific E2E cases once a field is verified:** Back allowed/forbidden, listen seek allowed/forbidden, timer deadline boundary, failed/denied microphone, autosave explicit/implicit, answer present before and after navigation, contrast/focus/keyboard, interrupted test. Keep existing EXAM practice defaults only where strict mode is explicitly disabled.
+
+### Hospodar code comparison — baseline 29.10
+
+- Existing [app/exam.mjs](../../app/exam.mjs) renders **two nine-question mini-rehearsals**, intentionally uses synthetic listening and practice-only 0/15/30/60-minute timers, provides own navigation, stores text locally, and does not durably retain spoken audio across reload. These are current **practice** affordances, **not** evidence of live YKI UX.
+- Existing [app/exam-core.mjs](../../app/exam-core.mjs) provides separate per-skill outcome data and explicitly declines to emit official B1/YKI grades. No full-length calibrated exam or sealed multi-form psychometrics.
+- E02 handoff adds four official **external** demo links in the **welcome state only**. Never include external demo links, sample solutions or OPH demo content inside active attempt UI (avoid testing contamination).
+
+### Next falsifiable decision gate
+
+**E02 cannot be marked REVIEWED** until at least one authorized observer supplies skill-by-skill real browser observations with date, browser and provenance. **F4/F5 strict mode cannot be enabled** until OPH confirms that each critical observed demo parameter applies to the actual 2027 test, and E2E tests reproduce it. If public guidance is still incomplete after the November pilot, remain PRACTICE_ONLY; report unknowns rather than pretending fidelity.
+
+No 2027 exam UI “replica” or performance uplift has been produced by this source-check cycle.
