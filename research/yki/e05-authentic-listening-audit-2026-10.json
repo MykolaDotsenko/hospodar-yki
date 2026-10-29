@@ -1,0 +1,265 @@
+{
+  "schema_version": "1.0.0",
+  "research_id": "E05",
+  "checked_at": "2026-10-29",
+  "status": "SOURCED_AUDIT_AND_REFERENCE_GATE_ONLY_NOT_LIVE_AUDIO_IMPLEMENTATION",
+  "mission": "Original, legally distributable, S2-validated natural Finnish listening for YKI-like EXAM without guessing digital 2027 playback controls; study multi-talker generalization after EXAM.",
+  "canonical_links": {
+    "existing_R05_science": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+    "existing_R05_design": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+    "official_patterns": "research/yki/yki-official-patterns-v2.json",
+    "existing_exam": "learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json",
+    "lessons": "learning/exercises/b1/audio-long/lessons.json",
+    "library": "assets/audio/library.json",
+    "official_unknowns": "research/yki/official-yki-deep-audit-v2.json"
+  },
+  "baseline": {
+    "repository_audio_physical_files_documented": 85,
+    "library_entry_count": 85,
+    "long_b1_lessons": 6,
+    "long_b1_synthetic_count": 6,
+    "long_b1_audio_voice_name": "Piper fi_FI-harri-medium",
+    "long_b1_distinct_voices": 1,
+    "long_b1_s2_reviewed": 0,
+    "long_b1_cefr_level_calibrated": 0,
+    "long_b1_seconds_approximately": 143,
+    "current_mini_exam_blueprints": 2,
+    "each_mini_listening_questions": 4,
+    "current_listening_task_family": "3-option multiple choice only",
+    "audio_player": "native HTML audio controls; exact 2027 play/seek/replay unknown",
+    "legitimate_existing_human_files": "Available elsewhere in the existing 85-file library (14 open originals, 12 excerpts, 15 LibriVox excerpts, 1 story); cannot promote to B1 live exam without individual rights/content/S2 checks.",
+    "exact_2027_audio_profile": "UNVERIFIED",
+    "user_outcome_comparison": "NOT_RUN"
+  },
+  "source_evidence": [
+    {
+      "id": "E05-P1",
+      "type": "OFFICIAL_HISTORICAL_EXAMPLES",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-puheen-ymmartaminen/",
+      "finding": "Historical Finnish middle-level samples include multiple choice, true-false and open responses; example genres include conversations, short situations, advertisements, report/news/story. Paper/studio instructions say twice played, which is NOT a live 2027 Inspera rule.",
+      "application": "Teach three task families and spoken genres using independent original stimuli; preserve playback UNKNOWN."
+    },
+    {
+      "id": "E05-P2",
+      "type": "OFFICIAL_CURRENT",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "finding": "Digital intermediate Finnish pilot planned 2026-11-07 on test-centre computer; OPH does not specify current live listening playback, seek or timer.",
+      "application": "Never import historical audio repeat/seek assumptions into strict exam."
+    },
+    {
+      "id": "E05-P3",
+      "type": "COE_CEFR_ASSESSMENT",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/listening-comprehension",
+      "finding": "Listening ability must be contextualized by input type, length, speed, accent, task and comprehension purpose; question difficulty varies independently of text.",
+      "application": "Tag source and task difficulty separately; avoid equating file length or TTS speed with YKI level."
+    },
+    {
+      "id": "E05-S1",
+      "type": "L2_META_ANALYSIS",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39937693/",
+      "finding": "Bayesian network meta-analysis 32 studies 998 participants: talker variability and presentation format affect nonnative phonetic learning; high ranking six talkers versus no training, but no universally optimal number for Finnish YKI listening.",
+      "application": "Experiment with diversity of human voices without assigning a fixed required number or % gain."
+    },
+    {
+      "id": "E05-S2",
+      "type": "L2_META_ANALYSIS",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34763529/",
+      "finding": "Systematic review/meta analysis of multi-talker phonetic learning shows speech perception evidence is heterogeneous and differs by conditions; not automatic transfer to Finnish oral exam performance.",
+      "application": "Evaluate unseen-voice comprehension, not number of voice files as a proxy for outcome."
+    },
+    {
+      "id": "E05-S3",
+      "type": "L2_TEST_RESEARCH",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/17501229.2022.2109643",
+      "finding": "Controlled English academic listening test of 61 people: audio authenticity, explicit/implicit question focus and option-preview presentation interact. Not Finnish-specific and not the official YKI format.",
+      "application": "In pilot compare scripted natural speech versus deliberately spontaneous speech at matched content/duration, separately for gist/detail/inference."
+    },
+    {
+      "id": "E05-S4",
+      "type": "L2_CAPTION_EXPERIMENT",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38488939/",
+      "finding": "2024 EFL video experiment 64 learners: captions and speech rate impacted listening performance/cognitive effort; modality, language and learner group differ from Finnish YKI.",
+      "application": "Show captions/transcripts for LEARN explanatory phase only; in EXAM do not expose any unsupported visual hints."
+    },
+    {
+      "id": "E05-S5",
+      "type": "L2_AUDIOVISUAL_META_ANALYSIS",
+      "url": "https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/effects-of-audiovisual-input-on-second-language-learning-a-metaanalysis/9B61BAEF14F110F01148E398D171634A",
+      "finding": "2026 meta-analysis of audiovisual input across 56 experiments, 1954 participants; reports pre-post learning effects, not direct Hospodar YKI evidence.",
+      "application": "Optional LEARN audiovisual support, but audio-only new-form assessment and independent delayed outcomes."
+    }
+  ],
+  "draft_asset_contract": {
+    "id": "unique stable id",
+    "path": "assets/audio/... (local permitted file)",
+    "sha256": "64 hex",
+    "durationSeconds": "measured positive finite",
+    "voiceOrigin": [
+      "human-original",
+      "human-licensed",
+      "tts"
+    ],
+    "speakerIds": "verified distinct speakers, no assumptions from gender labels",
+    "genre": [
+      "announcement",
+      "message",
+      "conversation",
+      "interview",
+      "story",
+      "report"
+    ],
+    "register": [
+      "standard",
+      "colloquial",
+      "mixed"
+    ],
+    "comprehensionTargets": [
+      "gist",
+      "detail",
+      "inference"
+    ],
+    "rights": "status, sourceUrl, rehostAllowed, attribution and speaker consent",
+    "contentReview": "two independent S2 reviewer IDs, actual approval",
+    "acousticReview": "human listen-and-check pass status",
+    "cefrDemand": "validated yes/no; otherwise proposed",
+    "testUse": "pool, showTranscriptBeforeSubmission, showAnswerKeyBeforeSubmission"
+  },
+  "editorial_design_rules": [
+    "Prefer naturally spoken, intelligible human Finnish with different speakers and registers; TTS is allowed as labelled LEARN practice only, not proof of authentic exam sound.",
+    "Multi-turn dialogue needs actual distinct voice identities and temporal turn-taking; do not invent YKI digital item order.",
+    "Semantic comprehension targets include gist, necessary detail and inference; separate explicit versus inferential item difficulty.",
+    "puhekieli is natural in contexts but not an arbitrary rule to maximize slang; formal announcements may use standard speech.",
+    "No fixed speech rate, SNR/loudness, noise layer, listen count, question preview or play/seek until first-party proof or controlled trial; noise addition can invalidate accessibility.",
+    "Source checks rights to distribute each media file, edits/transforms, voices/performer rights and any required credit; external examples remain links without permission.",
+    "Prohibit transcript, captions or correct answer display during closed EXAM; reveal aids in separate LEARN only after durable finish.",
+    "Never use same audio hash/identical source across LEARN and sealed held-out EXAM/transfer pools; audio reuse of different encodings should also be reviewed by content ID.",
+    "Playback errors and missing tracks block simulated results; don't silently credit correct responses without stimulus.",
+    "4GB storage is optional capacity, not content-quality target. Measure compressed size and only store independently rights-cleared useful material."
+  ],
+  "candidate_original_scenario_briefs": [
+    {
+      "id": "E05-BR1",
+      "genre": "message",
+      "domain": "housing",
+      "speech": "clear natural conversational voicemail",
+      "measures": [
+        "gist",
+        "detail"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    },
+    {
+      "id": "E05-BR2",
+      "genre": "conversation",
+      "domain": "service counter",
+      "speech": "two alternating human voices, realistic clarification",
+      "measures": [
+        "detail",
+        "inference"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    },
+    {
+      "id": "E05-BR3",
+      "genre": "announcement",
+      "domain": "public transport",
+      "speech": "single clear announcer, schedule change and action",
+      "measures": [
+        "gist",
+        "detail"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    },
+    {
+      "id": "E05-BR4",
+      "genre": "interview",
+      "domain": "work-study",
+      "speech": "two natural speakers, different views",
+      "measures": [
+        "gist",
+        "inference"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    },
+    {
+      "id": "E05-BR5",
+      "genre": "report",
+      "domain": "neighbourhood sustainability",
+      "speech": "short fact/opinion report",
+      "measures": [
+        "detail",
+        "inference"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    },
+    {
+      "id": "E05-BR6",
+      "genre": "story",
+      "domain": "everyday problem and solution",
+      "speech": "single natural speaker with narrative pragmatics",
+      "measures": [
+        "gist",
+        "inference"
+      ],
+      "draft_status": "NOT_SCRIPTED_NOT_RECORDED"
+    }
+  ],
+  "content_release_gates": [
+    {
+      "id": "E05-G01",
+      "criterion": "Individual human audio and source rights, signed license/consent and proper attribution",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G02",
+      "criterion": "Two independent Finnish S2 teachers sign off naturalness, semantic validity, language level and acceptable answer variants",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G03",
+      "criterion": "Listening QA verifies intelligibility, clipping, balance, actual duration, stable file hashes, codec/device support and accessibility",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G04",
+      "criterion": "Every released EXAM asset has no transcript/captions/answer exposure before sealed finish",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G05",
+      "criterion": "Independent content and audio held-out pools with provenance and unseen speaker IDs",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G06",
+      "criterion": "At least all three historical listening question families represented in reviewed original item bank; current mini only MCQ",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E05-G07",
+      "criterion": "Live 2027 playback/back/seek/timing from OPH corroborated and passed desktop browser E2E, otherwise practice only",
+      "status": "BLOCKED_E02_E04"
+    },
+    {
+      "id": "E05-G08",
+      "criterion": "Pilot compares real new-voice audio-only comprehension and delayed transfer, counterbalanced at equal exposure",
+      "status": "NOT_RUN"
+    }
+  ],
+  "trial_plan": {
+    "design": "Within-subject counterbalanced natural-human multi-talker vs current one-voice TTS in quality-matched original Finnish scenarios, with voices and content crossed; include strong equal-duration/feedback baseline.",
+    "primary": "Day14 independent unseen-voice gist/detail comprehension; blind human review for open answers",
+    "secondary": "Day30 new-topic comprehension; response latency only exploratory; listening confidence/distraction",
+    "avoid": "do not compare easily recognized same item, do not call TTS worse solely because it is synthetic, do not infer human voice = native Finnish or higher CEFR, no claim of published effect replication without sample and power design.",
+    "status": "NOT_RUN"
+  },
+  "implementation_scope": {
+    "new_audio_files": 0,
+    "live_exam_audio_player_changes": 0,
+    "live_2027_exact_status": "BLOCKED",
+    "added_reference_gate_only": true,
+    "human_review_completed": false,
+    "real_device_audio_review_completed": false,
+    "local_file_hashes_independently_verified": false
+  }
+}
