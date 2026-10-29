@@ -103,6 +103,23 @@ def validate():
         assert demo["automatic_text_fetch"] == "HTTP_403"
         assert demo["ui_observed"] is False
         assert demo["live_2027_equivalence_verified"] is False
+    # E01/E02 2026-10-29 is a source recheck, NOT manual demo UI observation.
+    followup = evidence["e01_e02_2026_10_29_recheck"]
+    assert followup["checked_at"] == "2026-10-29"
+    assert followup["strict_exact_2027_enabled"] is False
+    assert followup["newly_confirmed_digital_ui_parameters"] == []
+    assert followup["still_unknown_for_live_2027"] == r02["still_unknown_for_live_2027"]
+    assert followup["activity_completed"]["source_recheck"] is True
+    assert followup["activity_completed"]["live_manual_demo_walkthrough"] is False
+    assert followup["activity_completed"]["running_browser_e2e"] is False
+    assert len(followup["inspera_demo_recheck"]) == 4
+    for original, observed in zip(r02["digital_demo_links"], followup["inspera_demo_recheck"]):
+        assert original["skill"] == observed["skill"]
+        assert original["url"] == observed["url"]
+        assert observed["result"] == "HTTP_403_AUTOMATED_WEB_CLIENT"
+        assert observed["manual_browser_walkthrough_completed"] is False
+        assert observed["ui_observed"] is False
+        assert observed["live_2027_equivalence_verified"] is False
     assert r02["verified_calendar_dates"] == sorted(expected)
     assert set(r02["still_unknown_for_live_2027"]) == {u["id"] for u in unknown}
     assert r02["simulator_policy"]["exact_digital_profile_status"] == "BLOCKED"
