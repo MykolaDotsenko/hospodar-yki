@@ -181,15 +181,16 @@
     "No tamper-resistant offline proctoring claims"
   ],
   "reference_module": "app/e04-timing-policy.mjs",
-  "reference_only_not_imported_in_live_app": true,
+  "reference_only_not_imported_in_live_app": false,
   "implementation_status": {
     "source_audit": "DONE",
     "code_static_risk_review": "DONE",
     "reference_policy_contract": "DRAFT_WITH_TESTS",
-    "live_timer_fixes": "NOT_DONE",
+    "live_timer_fixes": "PARTIAL_DEADLINE_GUARD_AND_WATERMARK",
     "manual_inspera": "NOT_DONE",
     "exact_2027_fidelity": "BLOCKED",
-    "learner_validation": "NOT_DONE"
+    "learner_validation": "NOT_DONE",
+    "browser_e2e": "NOT_RUN_IN_CI"
   },
   "test_plan": {
     "reference_unit": [
@@ -234,5 +235,22 @@
       "url": "https://www.oph.fi/en/education-and-qualifications/selecting-right-yki-test-test-days",
       "scope": "date profile, not timer"
     }
-  ]
+  ],
+  "live_integration_2026_11_02": {
+    "contract": "E04-C1",
+    "scope": "optional practice timer only; no official 2027 timing",
+    "fixed_gaps": [
+      "R01 persisted elapsed high-watermark + monotonic page clock",
+      "R02 per-command deadline guard for answer/navigate/voice"
+    ],
+    "already_present": [
+      "R03 results render only after committed finish transaction"
+    ],
+    "still_open": [
+      "R04 voice evidence lost on reload (E06)",
+      "R05 strict 2027 profile OFF",
+      "R06-R10 replay/IME/lifecycle/phases/proctoring"
+    ],
+    "not_tamper_proof": "offline local clock; accidental extension prevented, intentional manipulation not"
+  }
 }

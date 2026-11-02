@@ -1,10 +1,12 @@
-/** E04 reference-only timing policy for Hospodar EXAM.
- * Not imported by the live EXAM: source-backed timer policy research, not 2027 implementation.
- * No actual digital YKI 2027 durations or behaviour have been verified.
+/** E04 practice timing policy for Hospodar EXAM.
+ * E04-C1 (2026-11-02): createTimingProfile + observePracticeTime are used by the live
+ * app/exam.mjs for its OPTIONAL 0/15/30/60-minute PRACTICE timer; the deadline itself is
+ * enforced in exam-core (writeAnswer/goToIndex/recordVoiceEvidence). This is NOT a 2027
+ * implementation: no actual digital YKI 2027 durations or behaviour have been verified.
  */
 import {PRACTICE_LIMITS_MINUTES} from "./exam-core.mjs";
 
-export const E04_POLICY_STAGE="REFERENCE_ONLY_NOT_LIVE";
+export const E04_POLICY_STAGE="PARTIAL_LIVE_PRACTICE_DEADLINE";
 export const E04_STRICT_2027_ENABLED=false;
 export const E04_ACTIONS=Object.freeze(["answer","navigate","finish","deadline-finish","reveal-results"]);
 
@@ -59,8 +61,8 @@ export function observePracticeTime(profile,{
     official2027:false
   });
 }
-/** The currently live MVP does NOT use this gate. Future implementation must apply it
- * at each UI command, inside the persistence transaction before acknowledging the event.
+/** Reference gate. The live MVP enforces the same answer/navigate rule through
+ * exam-core's DeadlineError; reveal-results still relies on the committed finishedAt.
  */
 export function gatePracticeAction({observation,action,finishCommitted=false}={}){
   if(!observation||typeof observation.expired!=="boolean"||

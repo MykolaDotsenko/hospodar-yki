@@ -26,7 +26,6 @@ test("E04 source provenance: 15 unresolved digital fields and historic samples s
 });
 test("Only explicit practice timers are allowed and no official claim sneaks in",()=>{
   assert.equal(E04_STRICT_2027_ENABLED,false);
-  assert.equal(E04_POLICY_STAGE,"REFERENCE_ONLY_NOT_LIVE");
   for(const minutes of [0,15,30,60]){
     const policy=createTimingProfile({kind:"practice",minutes});
     assert.equal(policy.durationMs,minutes*60_000);
@@ -106,14 +105,22 @@ test("Deadline finish requires commit receipt; no early reveal",()=>{
   assert.equal(gatePracticeAction({observation:expired,action:"deadline-finish",finishCommitted:true}).allowed,true);
   assert.equal(gatePracticeAction({observation:clock(1000),action:"deadline-finish",finishCommitted:true}).allowed,false);
 });
-test("Reference policy is not imported into live Web EXAM, nor certified browser tested",()=>{
+test("E04-C1: live Web EXAM observes the clock per command; browser/human validation not claimed",()=>{
   const live=readFileSync(join(root,"app/exam.mjs"),"utf8");
-  assert.ok(!live.includes('from "./e04-timing-policy.mjs"'));
-  assert.ok(live.includes("window.setInterval(clock,1000)"));
-  assert.ok(live.includes("remainingSeconds(exam.session"));
-  assert.equal(evidence.reference_only_not_imported_in_live_app,true);
-  assert.equal(evidence.implementation_status.live_timer_fixes,"NOT_DONE");
+  const core=readFileSync(join(root,"app/exam-core.mjs"),"utf8");
+  assert.ok(live.includes('from "./e04-timing-policy.mjs"'));
+  assert.ok(live.includes("observePracticeTime("));
+  assert.ok(live.includes("performance.now()"));
+  // The display interval is not the only guard: input, navigation and voice re-check the deadline.
+  for(const guard of ["observeClock();\n  try{exam.session=writeAnswer","if(observeClock()?.expired){deadlineReached();return;}",
+    "isDeadlineError(err)"])assert.ok(live.includes(guard),guard);
+  assert.match(core,/assertBeforeDeadline\(session,now\)/);
+  assert.equal(E04_POLICY_STAGE,"PARTIAL_LIVE_PRACTICE_DEADLINE");
+  assert.equal(evidence.reference_only_not_imported_in_live_app,false);
+  assert.equal(evidence.implementation_status.live_timer_fixes,"PARTIAL_DEADLINE_GUARD_AND_WATERMARK");
+  assert.equal(evidence.implementation_status.browser_e2e,"NOT_RUN_IN_CI");
   assert.equal(evidence.implementation_status.learner_validation,"NOT_DONE");
+  assert.equal(evidence.implementation_status.exact_2027_fidelity,"BLOCKED");
   assert.equal(evidence.gaps.length,10);
   assert.equal(evidence.gaps.filter(x=>x.severity==="P0").length,5);
 });
