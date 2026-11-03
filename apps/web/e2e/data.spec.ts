@@ -2,8 +2,9 @@ import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
+/** Reports the failing element too, so a browser-specific violation is diagnosable from the CI log alone. */
 const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze())
-  .violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")).map(v => v.id);
+  .violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")).map(v => `${v.id}: ${v.nodes.map(n => n.target.join(" ")).join(", ")}`);
 
 async function oneMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();

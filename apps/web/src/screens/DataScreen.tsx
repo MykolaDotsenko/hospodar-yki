@@ -89,7 +89,7 @@ export function DataScreen({ repository, examRepository, snapshot, onErased, onH
 
       <h2>Завантажити копію</h2>
       <p>Один JSON-файл з усім, що вище: твої відповіді й тексти, повторення, історія пробних іспитів. Без оцінок рівня й без прогнозу YKI. Перед завантаженням файл перечитується й перевіряється.</p>
-      <div className="actions"><button type="button" className="btn" onClick={() => void download()} disabled={!c}>Завантажити мої дані (JSON)</button></div>
+      <div className="actions"><button type="button" className="btn" onClick={() => void download()}>Завантажити мої дані (JSON)</button></div>
       {exported && ("error" in exported
         ? <p className="feedback error" role="alert">Файл НЕ створено ({exported.error}). Дані не змінено — спробуй ще раз.</p>
         : <p className="feedback" role="status">Файл перевірено й завантажено ({exported.bytes} байт). Контрольна сума SHA-256: <code className="hash">{exported.sha}</code></p>)}
