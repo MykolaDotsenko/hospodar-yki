@@ -69,5 +69,9 @@ class IdPatternTests(unittest.TestCase):
         text = "R11 gates R11-01…R11-20; R08-MOT; R03-E01; R4-14, R7-18, SD-G12 (SD-01 is a source row), MOT-07, MOT-E01, PSY-E01, QL-09"
         self.assertEqual(sorted(set(ID.findall(text))), sorted({"R11", "R11-01", "R11-20", "R08", "R03", "R4-14", "R7-18", "SD-G12", "MOT-07", "QL-09"}))
 
+    def test_exam_pillar_is_not_read_as_exam(self):
+        text = "EXAM-PILLAR-04 and EXAM-04, YKI-FID-09, LEARN-12, LE-08, SAMPLE-01, MVP-04, PER-07"
+        self.assertEqual(sorted(set(ID.findall(text))), sorted({"EXAM-PILLAR-04", "EXAM-04", "YKI-FID-09", "LEARN-12", "LE-08", "MVP-04", "PER-07"}))
+
 if __name__ == "__main__":
     unittest.main()
