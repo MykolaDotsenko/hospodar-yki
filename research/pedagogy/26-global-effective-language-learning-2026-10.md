@@ -126,14 +126,14 @@
 
 ## 8. Обов'язкова передача в розробку: кроки та пріоритет
 
-1. **P0 Content quality:** 100% `published` S2-reviewed, licensed, versioned; graded easy reading, living Finnish audio/puhekieli, authentic scenarios/chunks/rektio. Human editor is release gate.
-2. **P0 Learning core:** один 4-skill end-to-end цикл, snapshot first attempt, teacher-authored explanation, self-repair, new-context transfer, export/clear, quiet accessible controls.
-3. **P0 Spacing:** незалежні 7/14/30 checks для аудіювання, читання, письма, говоріння; сьогодні Web pilot є **лише grammar writing**, ungraded. Нові prompt pool повинні бути дійсно withheld, обліковувати first exposure, missed/late й baseline.
-4. **P0 Phonetics:** consented natural multi-talker audio, validated phonetic minimal pairs (quantity), high-variability identification, distinct production tasks; no ASR-as-YKI grade.
-5. **P0 EXAM:** окремий режим digital rehearsal з **лише підтвердженими OPH параметрами**, no hints, no training accent/sound, objective keys only; 4 independent skills, reliability/IDB durable.
-6. **P1 User agency/game/design:** мікромісії, візуальна ідентичність, optional subtitles/cues, intrinsic competence feedback, reduced motion; не перетворювати гейміфікацію на критерій «вивчив слово».
-7. **P1 Controlled research:** вбудувати R-L01…05 (лише після добровільної згоди), порівняти з **сильним** навчальним контролем, не вигадувати «приріст 25%».
-8. **P2 Android production:** після надійного Web/contracts, компіляція Gradle/Room/Media3, ліцензії медіа, офлайн пакет і реальне device тестування. Kotlin prototypes ≠ APK.
+1. **GL-01 · P0 Content quality:** 100% `published` S2-reviewed, licensed, versioned; graded easy reading, living Finnish audio/puhekieli, authentic scenarios/chunks/rektio. Human editor is release gate.
+2. **GL-02 · P0 Learning core:** один 4-skill end-to-end цикл, snapshot first attempt, teacher-authored explanation, self-repair, new-context transfer, export/clear, quiet accessible controls.
+3. **GL-03 · P0 Spacing:** незалежні 7/14/30 checks для аудіювання, читання, письма, говоріння; сьогодні Web pilot є **лише grammar writing**, ungraded. Нові prompt pool повинні бути дійсно withheld, обліковувати first exposure, missed/late й baseline.
+4. **GL-04 · P0 Phonetics:** consented natural multi-talker audio, validated phonetic minimal pairs (quantity), high-variability identification, distinct production tasks; no ASR-as-YKI grade.
+5. **GL-05 · P0 EXAM:** окремий режим digital rehearsal з **лише підтвердженими OPH параметрами**, no hints, no training accent/sound, objective keys only; 4 independent skills, reliability/IDB durable.
+6. **GL-06 · P1 User agency/game/design:** мікромісії, візуальна ідентичність, optional subtitles/cues, intrinsic competence feedback, reduced motion; не перетворювати гейміфікацію на критерій «вивчив слово».
+7. **GL-07 · P1 Controlled research:** вбудувати R-L01…05 (лише після добровільної згоди), порівняти з **сильним** навчальним контролем, не вигадувати «приріст 25%».
+8. **GL-08 · P2 Android production:** після надійного Web/contracts, компіляція Gradle/Room/Media3, ліцензії медіа, офлайн пакет і реальне device тестування. Kotlin prototypes ≠ APK.
 
 **Next acceptance:** зробити **одну якісну 20-хвилинну місію** із реального фінського життя: S2-accepted input + natural voice + first-response/repair/transfer + SRS + delayed held-out tasks і тести **перш ніж** додавати ще десятки красивих карток.
 

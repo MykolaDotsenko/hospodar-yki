@@ -7,7 +7,11 @@
     "docs/11-mvp-product-requirements.md",
     "research/ux/20-multimodal-interactive-learning-2026-10.md",
     "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
-    "research/ux/22-r10-accessibility-mobile-qa-2026-10.md"
+    "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+    "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+    "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+    "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+    "research/29-twelve-product-research-studies-execution-2026-10.md"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -1382,6 +1386,957 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "COG-01",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Testing effect: first answer without a model; ease of a lesson ≠ knowledge",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "COG-02",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Retrieval only together with clear feedback and meaning (strong elaboration comparator)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "COG-03",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "2–5 min meaningful blocks + short independent question; no quiz every few seconds",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Questions come after the whole recording; no verified meaningful segments with a question between them (see UIO-02)."
+    },
+    {
+      "id": "COG-04",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Active audio/video: gist/decision question between short fragments, watch cognitive load",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Listening asks gist→detail after the full clip; library video/audio only offers an ungraded note; no between-fragment questions."
+    },
+    {
+      "id": "COG-05",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "One contextual prompt per trigger ('why this case?'), no generic badges/toasts",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Cause-specific prompt exists in R08 repair only; no automated check that no toast/badge appears on every screen."
+    },
+    {
+      "id": "COG-06",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "No popups, autoplay video, sounds or notification overlays over reading/writing",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "COG-07",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "No seductive details: story/graphics only if they carry meaning; no decorative lesson animation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Calm mode removes decoration; no test asserts that default lesson screens have no decorative animation beyond token micro-transitions."
+    },
+    {
+      "id": "COG-08",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Deterministic SRS with 7/14/30 checkpoints as a pilot protocol, not 'the best calendar'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "COG-09",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Alternate FI→meaning comprehension and situation→FI production",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ],
+      "gap": "Both directions exist in separate missions; no deliberate alternation in scheduling."
+    },
+    {
+      "id": "COG-10",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Block a form first, later interleave only similar Finnish cases where discrimination helps",
+      "status": "NOT_YET",
+      "plan": "After S2 publishes R08 items: blocked first exposure, then targeted -ssa/-sta/-Vn interleaving in R06 ranking (PSY-06)."
+    },
+    {
+      "id": "COG-11",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Optional pause after a hard task or on request; no universal 25/5 rule; no forced break",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        }
+      ],
+      "gap": "No forced breaks exist and saved work survives reload; there is no explicit pause/resume control and in-progress text on some screens is lost on reload."
+    },
+    {
+      "id": "COG-12",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "No night marathons; flexible opt-in reminders; no 'study right before sleep' advice",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "The new app sends no reminders and has no streaks (so nothing pushes at night); opt-in reminders are not built and no test asserts absence of streak UI."
+    },
+    {
+      "id": "COG-13",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Optional short focus reset, never a 'brain booster' or health claim",
+      "status": "NOT_YET",
+      "plan": "Optional focus-reset entry after a long task, text-only, no health claims; only with an accessible alternative and no telemetry."
+    },
+    {
+      "id": "COG-14",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Calm mode by choice; B1 is not measured by wellbeing",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "COG-15",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "One semantic cue in the explanation AFTER the first attempt, with a text alternative",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "COG-16",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Highlighting/rereading never counted as mastery; use meaningful production",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "transcript or slow-speed support before answering → recorded ungraded, never scored"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ]
+    },
+    {
+      "id": "PSY-01",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Short meaningful input → one unhinted question → Finnish action; no popup quizzes",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Delayed equal-time human outcome trial NOT RUN; the rule is implemented, its learning effect is not measured. Day-14 unseen meaning/production primary outcome not measured."
+    },
+    {
+      "id": "PSY-02",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Immutable first try; meaning then grammar feedback → self-repair → new person/situation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Flow enforced; S2-reviewed acceptable variants pending (0 published); 14/30-day novel transfer trial NOT RUN."
+    },
+    {
+      "id": "PSY-03",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Focus mode: Finnish task centred, no extra sound/motion/badges, optional calm UI",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "Screen reader and real mobile devices not tested; matched-design comprehension trial NOT RUN."
+    },
+    {
+      "id": "PSY-04",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Deterministic spacing of real problem chunks; late/missed return without penalty",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "PSY-05",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Variable direction: comprehension and production, difficulty by success, measured as production",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Production is written; no success-based difficulty control and no delayed unseen dialogue measure."
+    },
+    {
+      "id": "PSY-06",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Precision interleaving of talossa/talosta/taloon after first teaching",
+      "status": "NOT_YET",
+      "plan": "Requires published R08 items; equal-time blocked-vs-interleaved comparison (PSY-E04) before claiming benefit."
+    },
+    {
+      "id": "PSY-07",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Pause/continue any time; voluntary break; draft kept; no penalty for pauses",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        }
+      ],
+      "gap": "Committed steps survive reload/conflict; unsaved drafts are not persisted on every screen; no explicit pause control."
+    },
+    {
+      "id": "PSY-08",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Flexible time, short finishable missions, opt-in reminders, no night streak pressure",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "No reminders or streaks exist; return after missed days is honest; opt-in reminders and study-hours setting not built."
+    },
+    {
+      "id": "PSY-09",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "EXAM isolation: no unverified breaks/feedback/timers; four skills; open skills ungraded",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "Pure policies ported with parity; the apps/web EXAM machine/UI is not built yet (legacy EXAM only)."
+    },
+    {
+      "id": "MEM-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Retrieval + spaced repetition (P0)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        }
+      ]
+    },
+    {
+      "id": "MEM-02",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Meaningful production, elaboration and feedback (P0)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "FEED-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Writing feedback: content and task first, then form — not grammar only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Editor issues on a weak draft are ordered content/register before grammar; no feedback on the learner's own text (no human reviewer flow yet)."
+    },
+    {
+      "id": "ATT-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Visual signalling, coherence and cognitive-load protection (P0)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "SND-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Finnish audio with captions/transcripts, without untested audio tricks",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ]
+    },
+    {
+      "id": "SND-02",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "No default background music, binaural beats or frequency claims",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "MSUI-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Accessible, controllable multisensory UI rather than compulsory effects",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Learner controls play/speed and calm mode; screen reader and real devices not tested."
+    },
+    {
+      "id": "GAM-01",
+      "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
+      "summary": "Interactive mechanics must preserve the learning objective",
+      "status": "NOT_YET",
+      "plan": "No game mechanics built yet; when built, each must be a real communicative mission tested against the plain task (UIO-09)."
+    },
+    {
+      "id": "GL-01",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Content quality: 100% published S2-reviewed, licensed, versioned; human editor is the release gate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "Gate and rights checks exist; 0 items are S2-published — every learner item is shown as a labelled draft."
+    },
+    {
+      "id": "GL-02",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Learning core: one 4-skill end-to-end cycle with first attempt, explanation, self-repair, transfer, export/clear",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Each skill has its own mission; no single integrated 4-skill mission; export/clear UI not in apps/web."
+    },
+    {
+      "id": "GL-03",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Independent 7/14/30 checks for all four skills, withheld prompts, missed/late tracked",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "Delayed checks exist only for grammar writing transfer; listening/reading/speaking delayed checks not built."
+    },
+    {
+      "id": "GL-04",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Phonetics: consented natural multi-talker audio, quantity minimal pairs, distinct production tasks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Same text in two human voices + dialects available; no validated minimal-pair (tuli/tuuli/tulli) perception or production tasks."
+    },
+    {
+      "id": "GL-05",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "EXAM: separate digital rehearsal with only OPH-confirmed parameters, no hints, objective keys only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "Domain policies ported; apps/web EXAM UI and machine not built; F4–F6 fidelity unverified."
+    },
+    {
+      "id": "GL-06",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "User agency/game/design: micro-missions, optional cues/subtitles, competence feedback, reduced motion",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "Choice, calm mode and honest progress exist; micro-mission game layer not built."
+    },
+    {
+      "id": "GL-07",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Controlled research R-L01…05 with consent and a strong control; no invented uplift",
+      "status": "STUDY_NOT_RUN",
+      "plan": "R01 preregistration-ready draft; recruitment, consent and day-14/30 blinded S2 outcomes not started."
+    },
+    {
+      "id": "GL-08",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Android production only after reliable Web/contracts and real Gradle/Room/device testing",
+      "status": "NOT_YET",
+      "plan": "G5/G6: compile Gradle/Room/Media3, licensed offline pack, real device tests; Kotlin prototypes are not an APK."
+    },
+    {
+      "id": "R01",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Measure real LEARN effectiveness: track first independent answer; delayed held-out transfer",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ],
+      "gap": "First independent attempt and delayed checks are recorded; the RCT/pilot is NOT RUN — no uplift claim allowed."
+    },
+    {
+      "id": "R02",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Digital YKI 2027 fidelity: unknown rules stay UNKNOWN/practice-only, never an invented preset",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ],
+      "gap": "Policies ported (practice timers only, labelled); no apps/web EXAM yet; F4/F5/F6 certification blocked."
+    },
+    {
+      "id": "R03",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Finnish morphology for Ukrainian speakers: S2-reviewed stem×case×situation item bank",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        }
+      ],
+      "gap": "Reviewer preview + error families exist; 0/14 S2-approved; no Ukrainian-L1 error ranking claimed."
+    },
+    {
+      "id": "R04",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Honest writing/speaking assessment: ungraded without a calibrated human panel",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "writing needs ≥20 chars; is stored ungraded with self-check as self-report, never `correct`"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Authentic multi-talker listening and phonetic quantity; no transcript leakage while listening",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Transcript only after answering; real human voices available; licensed two-speaker puhekieli dialogues with questions and new-speaker delayed tests not built."
+    },
+    {
+      "id": "R06",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Transparent deterministic next-task choice with 'why this task' and manual override",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
+        }
+      ],
+      "gap": "Built for cloze missions; R06 human study NOT RUN; no claim it beats a fixed spaced curriculum."
+    },
+    {
+      "id": "R07",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "One-task screen, learner-started audio, independent prompt, process feedback, repair, fresh scenario",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Grammar: intended meaning → independent inflection → explanation → self-repair → new context",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        }
+      ],
+      "gap": "Order enforced in the domain and reviewer preview; learners get R08 items only after S2 publication (currently 0)."
+    },
+    {
+      "id": "R09",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Motivation without coercion: topic/skill choice, voluntary restart, no streak/shame/luck loops",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "Manual task choice and honest progress; topic choice and 10/20/30-min session length (DEC-01) not built."
+    },
+    {
+      "id": "R10",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Accessibility: keyboard + screen reader, 200 % zoom, 320–390 px, contrast, captions, mic-denied honesty",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "axe + keyboard + 320 px/200 % automated; TalkBack/VoiceOver and real devices NOT RUN."
+    },
+    {
+      "id": "R11",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Reliability: atomic first attempt + schedule, migration without loss, export/restore",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "CAS, conflict and legacy import verified; quota/app-update/corrupt-media fault tests and Android not done."
+    },
+    {
+      "id": "R12",
+      "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
+      "summary": "Fair competitor benchmarking: no '№1' claim without matched outcomes",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/r12-benchmark-evidence.test.mjs",
+          "contains": "R12 is a frozen date-stamped source snapshot, not commercial endorsement"
+        }
+      ],
+      "gap": "Dated source snapshot guarded by tests; feature benchmark and outcome trial NOT RUN."
+    },
+    {
+      "id": "AUD-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Modern everyday 2–3-min multi-speaker B1 dialogues with text, gist/detail/inference questions and attribution",
+      "status": "NOT_YET",
+      "plan": "R05 intake: licensed/consented recordings + S2-checked transcripts and questions; none imported yet."
+    },
+    {
+      "id": "AUD-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Verbatim transcripts checked by listening; VTT timings verified; rights checked per recording",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Rights metadata gate + sha256 enforced; transcripts/VTT are not manually verified by listening (LibriVox text is the printed source)."
+    },
+    {
+      "id": "AUD-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Player play/pause/replay/speed; transcript/subtitles hidden until the first independent attempt; keyboard",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        }
+      ]
+    },
+    {
+      "id": "AUD-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Speaking role-play: explicit mic consent, on-device only, text fallback; no permission ≠ learning error",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ]
+    },
+    {
+      "id": "AUD-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Feedback separates task success, fluency, grammar, pronunciation; pronunciation only with validated anchors, else 'not assessed'",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ],
+      "gap": "Speaking is always 'not assessed' (ungraded) — honest; differentiated feedback by dimension needs calibrated human review (R04)."
+    },
+    {
+      "id": "AUD-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Live audio distinguished from Piper TTS and literary Finnish; modern multi-voice dialogues not claimed ready",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "human-voiced story is a listening mission with credit; options are not always in the first position"
+        },
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "all 6 real lessons are valid and synthetic single-voice"
         }
       ]
     }

@@ -10,7 +10,7 @@ const readAll = (pick: (i: number) => number): DiagnosticEvent[] =>
   B.reading.questions.map((q, i) => ({ type: "ANSWER_READING", questionId: q.id, optionIndex: pick(i) }));
 const W = "Hei! Haluaisin tietää lisää kurssista. Puhun suomea vähän.";
 
-describe("starting diagnostic (UX-01, R04: productive skills ungraded)", () => {
+describe("starting diagnostic (UX-06, R04: productive skills ungraded)", () => {
   it("real baseline is valid and not official exam content", () => {
     expect(validateBaseline(B)).toBe(true);
     expect(validateBaseline({ ...B, is_official_exam_content: true })).toBe(false);

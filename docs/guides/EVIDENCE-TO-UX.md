@@ -34,7 +34,7 @@ Research can correctly recommend **building nothing** when the evidence is irrel
 
 ## Design traceability gate (03.11.2026)
 
-Every design/UX PR updates [docs/design/design-traceability-v1.json](../design/design-traceability-v1.json): move a requirement to `ENFORCED` only together with the test that would fail if the rule were broken (file + exact test title), state the gap for `PARTIAL`, the plan for `NOT_YET`, the study for `STUDY_NOT_RUN`. `python3 scripts/validate_design_traceability.py` runs in CI.
+Every design/UX **or learning-flow** PR updates [docs/design/design-traceability-v1.json](../design/design-traceability-v1.json): move a requirement to `ENFORCED` only together with the test that would fail if the rule were broken (file + exact test title), state the gap for `PARTIAL`, the plan for `NOT_YET`, the study for `STUDY_NOT_RUN`. `python3 scripts/validate_design_traceability.py` runs in CI.
 
 ## Learning-first handoff: one concrete proposal at a time
 
