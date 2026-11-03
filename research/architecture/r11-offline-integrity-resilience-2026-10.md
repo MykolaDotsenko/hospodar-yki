@@ -80,27 +80,27 @@ R05 earlier nominal draft: 160 MB base + 1100 MB core audio + 640 MB advanced au
 
 All signed content/voice packs must align taskVersion+contentHash+mediaHash+approved rights and have a text-only fallback where pedagogically valid. A transcript **before** independent audio response changes listening evidence to supported/ungraded, it does not make listening comprehension "failed". Learner answers/storage and downloaded content assets belong to **different data lifecycles**; deletion of media cache should not delete first attempts.
 
-## 7. Proposed R11 acceptance gates and next owner
+## 7. Proposed R11 acceptance gates R11-01…R11-20 and next owner
 
-1. Verified source backup before V1→V2; raw Finnish unchanged.
-2. Unknown fields and older/newer versions fail closed, not silently reset.
-3. No capped-history truncation on migration and no accidental loss of ungraded answers.
-4. Exact eventId/itemVersion/contentHash, optimistic revision CAS and unique first attempts.
-5. Guided repair does not rewrite independent first-answer score.
-6. Actual IndexedDB transaction oncomplete before saved/next, lost ACK receipt reconciliation only.
-7. Test two concurrent tabs, failed write/retry, duplicate command mismatch.
-8. LocalStorage and IndexedDB eviction/quota user-visible warning + usable export.
-9. Cross-format Web/Android parity verified after compiling Kotlin, not assumed.
-10. Room migration validated with real exported schemas and existing data rows.
-11. Web offline app shell and selected media packs work after browser restart, with quota policy explained.
-12. Android Play-installed offline install-time packs actually load in airplane mode, within 4GB limits and 1.5GB each.
-13. Audio missing/hash mismatch/revoked rights blocks audio-only score, user gets supported alternative.
-14. All four skills LEARN and high-fidelity EXAM evidence kept separate.
-15. User writing/voice privacy, no forced cloud or AI evaluation.
-16. EU/privacy and WCAG status feedback/export reviewed for accessible operation.
-17. P95 latency, cold start and free disk measured only after real device build, no fabricated benchmark.
-18. Full 27 failure matrix with failures reported, rollback and a separate app feature PR.
-19. Any efficacy study uses matched pedagogy/time, independently new task and blind day14/day30 metrics.
-20. Green research/Node tests are not a Play release gate on their own.
+1. **R11-01** · Verified source backup before V1→V2; raw Finnish unchanged.
+2. **R11-02** · Unknown fields and older/newer versions fail closed, not silently reset.
+3. **R11-03** · No capped-history truncation on migration and no accidental loss of ungraded answers.
+4. **R11-04** · Exact eventId/itemVersion/contentHash, optimistic revision CAS and unique first attempts.
+5. **R11-05** · Guided repair does not rewrite independent first-answer score.
+6. **R11-06** · Actual IndexedDB transaction oncomplete before saved/next, lost ACK receipt reconciliation only.
+7. **R11-07** · Test two concurrent tabs, failed write/retry, duplicate command mismatch.
+8. **R11-08** · LocalStorage and IndexedDB eviction/quota user-visible warning + usable export.
+9. **R11-09** · Cross-format Web/Android parity verified after compiling Kotlin, not assumed.
+10. **R11-10** · Room migration validated with real exported schemas and existing data rows.
+11. **R11-11** · Web offline app shell and selected media packs work after browser restart, with quota policy explained.
+12. **R11-12** · Android Play-installed offline install-time packs actually load in airplane mode, within 4GB limits and 1.5GB each.
+13. **R11-13** · Audio missing/hash mismatch/revoked rights blocks audio-only score, user gets supported alternative.
+14. **R11-14** · All four skills LEARN and high-fidelity EXAM evidence kept separate.
+15. **R11-15** · User writing/voice privacy, no forced cloud or AI evaluation.
+16. **R11-16** · EU/privacy and WCAG status feedback/export reviewed for accessible operation.
+17. **R11-17** · P95 latency, cold start and free disk measured only after real device build, no fabricated benchmark.
+18. **R11-18** · Full 27 failure matrix with failures reported, rollback and a separate app feature PR.
+19. **R11-19** · Any efficacy study uses matched pedagogy/time, independently new task and blind day14/day30 metrics.
+20. **R11-20** · Green research/Node tests are not a Play release gate on their own.
 
 **Next production step:** implement real export/restore and LEARN migration using existing V2 contract, old V1 backup, exact receipt and preserved histories in a separately tested production PR; follow with real Room, Kotlin fixture, PAD and UI tests. **Next research workstream:** R12 per canonical roadmap. No claims of 100% durability or B1 success from this research package.

@@ -11,7 +11,17 @@
     "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
     "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
     "research/pedagogy/26-global-effective-language-learning-2026-10.md",
-    "research/29-twelve-product-research-studies-execution-2026-10.md"
+    "research/29-twelve-product-research-studies-execution-2026-10.md",
+    "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+    "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+    "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+    "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+    "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+    "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+    "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+    "docs/28-product-quality-niche-leadership-strategy.md",
+    "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+    "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -2339,6 +2349,2031 @@
           "contains": "all 6 real lessons are valid and synthetic single-voice"
         }
       ]
+    },
+    {
+      "id": "R7-01",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Objective observable in Finnish meaning use, not XP/dwell time",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "R7-02",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Independent response before feedback/hint/key/caption; first-attempt survives restarts",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "R7-03",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Accessibility help before the first answer marks 'supported', not failure",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        }
+      ]
+    },
+    {
+      "id": "R7-04",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Review keyed to S2-approved variants; writing/speaking ungraded without calibrated humans",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "R7-05",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Pause/replay/speed/transcript user-controlled; no audio autoplay",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ]
+    },
+    {
+      "id": "R7-06",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Novel transfer hides original answer, examples, colours and transcript",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "spot → issues reports found/missed by sentence, then the model; model hidden again in transfer"
+        }
+      ]
+    },
+    {
+      "id": "R7-07",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Role dialogue never claims a natural human voice when synthetic; rights + S2",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "all 6 real lessons are valid and synthetic single-voice"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "human-voiced story is a listening mission with credit; options are not always in the first position"
+        }
+      ]
+    },
+    {
+      "id": "R7-08",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Safe cold start and R06 selection with manual override; no streak punishment",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        }
+      ],
+      "gap": "No automated apps/web check that streak/punishment UI is absent (none exists)."
+    },
+    {
+      "id": "R7-09",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "LEARN/EXAM isolation; EXAM without aids, cues, reward SFX or leaks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "R7-10",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Offline packs check hash/rights; missing media → meaningful fallback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Rights/hash gate at build; offline app shell/packs and runtime missing-media fallback not built."
+    },
+    {
+      "id": "R7-11",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "WCAG 2.2 AA, keyboard, logical order; 200 % zoom and 320 px without blocked input",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "R7-12",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Reduced motion + static alternatives; pause/stop/hide",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Calm mode tested; no automated prefers-reduced-motion test."
+    },
+    {
+      "id": "R7-13",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Text alternative to essential sound; no music during Finnish listening/speaking; SFX off",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "R7-14",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Heavy art fallback; p95 interaction performance on mid-range Android offline",
+      "status": "NOT_YET",
+      "plan": "Measure only on a real Android build (G5/G6); no fixed budget without a baseline."
+    },
+    {
+      "id": "R7-15",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Readable typography from brand tokens; never colour-only correctness",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_raw_hex_in_app_css_fails_but_box_shadow_is_allowed"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R7-16",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Human outcome/harms vs strong equal-time comparator, blinded day-14/30, nulls reported",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R7-17",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Deterministic, unit-tested state changes",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "refuses empty answers and out-of-order events"
+        },
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "first answers are frozen; out-of-order or invalid events are refused"
+        }
+      ]
+    },
+    {
+      "id": "R7-18",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "Production PR with UI+storage+CI+manual browser+Android accessibility verification",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ],
+      "gap": "Web UI/storage/CI done per slice; manual browser + Android accessibility verification not done."
+    },
+    {
+      "id": "R5-01",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "100 % of bundled audio has rights/attribution/licence, SHA-256 and origin",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Licence/credit/source enforced for all; sha256 verified for LibriVox/story/video/photos, Commons/segment audio only has a git blob sha."
+    },
+    {
+      "id": "R5-02",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Human vs TTS vs derived segment identified; segments not counted as talkers",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "human-voiced story is a listening mission with credit; options are not always in the first position"
+        },
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "all 6 real lessons are valid and synthetic single-voice"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ]
+    },
+    {
+      "id": "R5-03",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "≥1 verified A2/B1 multi-talker everyday task with gist/detail + self-repair (S2)",
+      "status": "NOT_YET",
+      "plan": "R05 Stage A: rights-cleared two-voice everyday dialogue + S2 questions (AUD-01)."
+    },
+    {
+      "id": "R5-04",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Target phoneme/length contrast human-verified",
+      "status": "NOT_YET",
+      "plan": "Validated tuli/tuuli/tulli items with S2 + recorded speakers."
+    },
+    {
+      "id": "R5-05",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "A novel voice/item held out of teaching, used only in independent review",
+      "status": "NOT_YET",
+      "plan": "Needs ≥2 licensed speakers per item; hold one out for delayed checks."
+    },
+    {
+      "id": "R5-06",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Perception separate from oral production and intelligibility",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ],
+      "gap": "Listening is scored separately and speaking is never scored; no phonetic perception/production pair exists."
+    },
+    {
+      "id": "R5-07",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Captions/transcript never leak before the first attempt or in held-out listening",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "R5-08",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "EXAM timing/audio repeats only from verified first-party sources (R02)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "R5-09",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Audio failure/no permission/interruption cannot misgrade language",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ]
+    },
+    {
+      "id": "R5-10",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "SFX/music silent during speech; EXAM without game sounds",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "R5-11",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Normal speed accessible; slower mode never labelled official",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        }
+      ]
+    },
+    {
+      "id": "R5-12",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Native voices have dated signed releases; personal data blocked",
+      "status": "NOT_YET",
+      "plan": "Only for new project recordings (none yet); release forms before import."
+    },
+    {
+      "id": "R5-13",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Acoustic QA: clipping, intelligibility across speakers/devices, decoding",
+      "status": "NOT_YET",
+      "plan": "Add an acoustic QA script when new recordings are imported."
+    },
+    {
+      "id": "R5-14",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Day-14/30 unseen comprehension + speaking vs matched active control",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R5-15",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "Install-time packs keep offline playback after restart/airplane mode",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R5-16",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "4 GB Play compressed cap with slack; per-pack 1.5 GB",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R6-01",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Pure deterministic: same inputs → same ordered tasks/reason codes",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "identical rankings, scores and reasons for the reference inputs"
+        }
+      ]
+    },
+    {
+      "id": "R6-02",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "LEARN only; never EXAM-only content or answer leaks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "identical rankings, scores and reasons for the reference inputs"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "extensions are off by default: labelled drafts excluded unless explicitly allowed"
+        }
+      ],
+      "gap": "apps/web has no EXAM items yet, so no explicit exclusion test exists."
+    },
+    {
+      "id": "R6-03",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "S2-approved, rights-cleared, offline-available filter before ranking",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "extensions are off by default: labelled drafts excluded unless explicitly allowed"
+        }
+      ],
+      "gap": "Legacy cloze drafts are ranked only via the explicit, labelled allowLabelledDrafts extension; 0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "R6-04",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Media/skill prerequisites and time limit enforced",
+      "status": "NOT_YET",
+      "plan": "Session length (DEC-01 10/20/30) and skill prerequisites in the ranker."
+    },
+    {
+      "id": "R6-05",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "First independent result only; guided repair never proficiency",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ]
+    },
+    {
+      "id": "R6-06",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Ungraded speaking/writing never counted as correct/wrong or YKI grade",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ]
+    },
+    {
+      "id": "R6-07",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Stable bounds, invalid dates, Finnish DST-safe overdue calculation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        }
+      ]
+    },
+    {
+      "id": "R6-08",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Cold start neutral: no fabricated CEFR/proficiency/psychological score",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R6-09",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Each reason grounded in an observed record or explicit user choice",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ]
+    },
+    {
+      "id": "R6-10",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Four-skill coverage; exposure count separate from human-judged mastery",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "Progress shows 4 skills separately; the ranker itself ranks cloze missions only."
+    },
+    {
+      "id": "R6-11",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Accessible manual choice, skip, sound-off/reduced-motion control",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "R6-12",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Offline pack readiness; 3–4 GB is a ceiling, not a target",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R6-13",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Attempts preserved across storage migration and offline resume",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "a v1 database opened by the v2 schema keeps its learner row"
+        }
+      ]
+    },
+    {
+      "id": "R6-14",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Low data cap, export/delete, local privacy, no default telemetry",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "No telemetry exists; export/delete UI not built in apps/web."
+    },
+    {
+      "id": "R6-15",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Nonpunitive, variant-sensitive morphology incl. acceptable puhekieli",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ],
+      "gap": "Unknown forms stay 'unclassified'; S2-approved variants pending."
+    },
+    {
+      "id": "R6-16",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "No surprise music/SFX under reading, writing, listening or recording",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "R6-17",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Controlled time-matched blinded day-14/30 real-user evaluation",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R6-18",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "Feature PR with Web/Android E2E and rollback before any uplift claim",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ],
+      "gap": "Web E2E done; Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R8-01",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Every published form + alternatives reviewed by an S2 professional; review metadata",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ]
+    },
+    {
+      "id": "R8-02",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Meaning relation encoded separately from spelling; no impossible distractors",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "first-attempt evidence (meaning, form, error family) is identical to the reference"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "validation matches on all 14 drafts, approved copies and malformed variants"
+        }
+      ]
+    },
+    {
+      "id": "R8-03",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Independent meaning choice before the first inflected answer, no key/highlight",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ]
+    },
+    {
+      "id": "R8-04",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "First form+meaning immutable after repair; assistance labelled supported/ungraded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a correct form skips repair; skipping repair is recorded, never as success"
+        }
+      ]
+    },
+    {
+      "id": "R8-05",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Case selection vs stem vs valency vs boundedness; no overconfident regex label",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R08 unknown wrong form is 'unclassified', never guessed"
+        }
+      ]
+    },
+    {
+      "id": "R8-06",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Changed stems tied to word/case (vesi→vedessä/veteen), not one '-de' rule",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "validation matches on all 14 drafts, approved copies and malformed variants"
+        }
+      ],
+      "gap": "Item model supports it; S2 confirmation of all 14 drafts pending."
+    },
+    {
+      "id": "R8-07",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Alternatives and puhekieli vetted; normalisation keeps length/ä/ö",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "normalizeFinnish matches on tricky Finnish input"
+        }
+      ],
+      "gap": "Normalisation tested; S2 vetting of variants pending."
+    },
+    {
+      "id": "R8-08",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Exact form scored only for S2-approved structured response; creative ungraded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ]
+    },
+    {
+      "id": "R8-09",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "New-context transfer changes lemma/situation, hides keys, held out",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        }
+      ],
+      "gap": "Transfer hides keys and is ungraded; held-out status needs S2-assured items."
+    },
+    {
+      "id": "R8-10",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "EXAM-only vs practice never conflated; no answer cues in timed EXAM",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "R8-11",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "R06 targets observed confirmed errors, not assumed L1 difficulty",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        }
+      ]
+    },
+    {
+      "id": "R8-12",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Cues opt-in and only after the independent response; no music in phonetics",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "R8-13",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Offline audio/image rights hash known; plain text fallback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R8-14",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "WCAG 2.2 AA, no colour-only case signal, keyboard, 200 % zoom",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "R8-15",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Atomic, migration-safe first-attempt logging on Dexie/Room",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        }
+      ],
+      "gap": "Dexie done; Room not built."
+    },
+    {
+      "id": "R8-16",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Vocabulary frequency/B1 function checked; no copied corpus/textbook",
+      "status": "NOT_YET",
+      "plan": "Editorial S2 step before publication."
+    },
+    {
+      "id": "R8-17",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Delayed outcomes vs strong active equivalent with CIs and harms",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R8-18",
+      "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
+      "summary": "Dedicated Web/Android PR with S2 content, real browser, mobile UI, rollback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ],
+      "gap": "Reviewer-only preview in Web; learners get none until S2 publication; Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R4-01",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "OPH level 3/4 speaking/writing criterion mapping reviewed by S2",
+      "status": "NOT_YET",
+      "plan": "S2 reviewer maps OPH criteria to the two formative rubrics."
+    },
+    {
+      "id": "R4-02",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Speaking vs writing dimensions independent; task success first",
+      "status": "NOT_YET",
+      "plan": "Formative rubric UI after S2 mapping (R4-01)."
+    },
+    {
+      "id": "R4-03",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Internal feedback weights never shown as official YKI or 3/4 probability",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R4-04",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "2+ blind human raters on a calibration subset with adjudication logs",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Rater calibration study; NOT RUN."
+    },
+    {
+      "id": "R4-05",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Agreement reported with kappa/ICC and CIs, not correlation",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Part of the R4-04 calibration study; NOT RUN."
+    },
+    {
+      "id": "R4-06",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "First independent answer immutable before any hint; held-out pool",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "own draft first: no weak draft, issues or model visible while writing; short text refused"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        }
+      ],
+      "gap": "Held-out pool needs S2-assured items."
+    },
+    {
+      "id": "R4-07",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "LEARN feedback limited, evidence-cited, supports self-repair",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R4-08",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "EXAM zero hints, also after interruption/recovery",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "R4-09",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Missing/poor audio → UNGRADED; no pronunciation from a transcript",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ]
+    },
+    {
+      "id": "R4-10",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Finnish variants and context-dependent puhekieli human-reviewed",
+      "status": "NOT_YET",
+      "plan": "S2 review of accepted variants."
+    },
+    {
+      "id": "R4-11",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Longitudinal day-14/30 speaking/writing vs matched active comparator",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R4-12",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Consent/retention/deletion; no student PII in Git; accessible fallback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ],
+      "gap": "Consent and text fallback done; learner-facing deletion UI not in apps/web."
+    },
+    {
+      "id": "R4-13",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "ASR model version, WER and subgroup fairness checks before release",
+      "status": "NOT_YET",
+      "plan": "Only if ASR is ever added; the product has none today."
+    },
+    {
+      "id": "R4-14",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Code+tests+CI+human S2 review; separate product study for uplift",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "M3-01",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Every published prompt has S2 approval, rationale, grammar source, variants and rights",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ]
+    },
+    {
+      "id": "M3-02",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Separate case_choice, stem_form, valency, meaning and task_success",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "first-attempt evidence (meaning, form, error family) is identical to the reference"
+        }
+      ]
+    },
+    {
+      "id": "M3-03",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Meaning before morphological cue; first attempt saved; feedback and repair distinct",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ]
+    },
+    {
+      "id": "M3-04",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Changed stems tested with novel S2-matched lexemes",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "validation matches on all 14 drafts, approved copies and malformed variants"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "M3-05",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Partitive negation/aspect/quantity contexts accept valid alternatives",
+      "status": "NOT_YET",
+      "plan": "S2-authored partitive items with alternatives."
+    },
+    {
+      "id": "M3-06",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Rektio chunks complete and register-specific; valid puhekieli never flagged",
+      "status": "NOT_YET",
+      "plan": "S2-authored rektio chunks."
+    },
+    {
+      "id": "M3-07",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Correction can be 'ambiguous' → human reviewer; no CEFR/YKI rating",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R08 unknown wrong form is 'unclassified', never guessed"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "M3-08",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Multiple approved variants, Finnish Unicode, no coercive one-string rule",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "normalizeFinnish matches on tricky Finnish input"
+        }
+      ],
+      "gap": "Accepted alternatives supported in cloze checks; S2 variants pending."
+    },
+    {
+      "id": "M3-09",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Held-out 7/14/30 on real timestamps, no exposure leakage",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        }
+      ]
+    },
+    {
+      "id": "M3-10",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Offline first answers durable; incomplete recording never successful speaking",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ]
+    },
+    {
+      "id": "M3-11",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "No raw corpus text without consent; no PII in Git/telemetry",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Rights gate for media; no automated PII scan in this gate."
+    },
+    {
+      "id": "M3-12",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "EXAM practice without grammar highlights, answer feedback, fake grade or unverified controls",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "SD-G01",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "No duplicate palette; brand/tokens.json is the source of truth, pairs AA-audited",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_raw_hex_in_app_css_fails_but_box_shadow_is_allowed"
+        }
+      ]
+    },
+    {
+      "id": "SD-G02",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Text/speech/mic focus without decorative or answer-cue leakage",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "SD-G03",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "No colour-only feedback; visible state labels",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "SD-G04",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "OS reduced motion + calm mode; moving content user-controlled",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "No automated prefers-reduced-motion test."
+    },
+    {
+      "id": "SD-G05",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "No surprise autoplay; mute/pause available",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "SD-G06",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "No competing audio during learning speech or recording",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "SD-G07",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Captions only after the first independent answer or in teaching mode",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "SD-G08",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Finnish ä/ö/å and Ukrainian text accessible in light/dark/reflow/mobile",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        }
+      ],
+      "gap": "Dark theme not built; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "SD-G09",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Accessible mic, player, volume, caption, save and error messages",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "SD-G10",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Sound assets licensed per file with manifests/hashes/rights",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ]
+    },
+    {
+      "id": "SD-G11",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Efficacy on independent day-14 language actions, not satisfaction",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "SD-G12",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Neutral no-SFX EXAM UI; no invented official 2027 controls",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "QL-01",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Trusted content: S2 editor, correct written/spoken Finnish, level, situation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "QL-02",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Living Finnish voices: different speakers, tempo, puhekieli↔kirjakieli",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "human-voiced story is a listening mission with credit; options are not always in the first position"
+        }
+      ],
+      "gap": "Literary human readings + dialects; modern puhekieli dialogues not yet licensed (AUD-01)."
+    },
+    {
+      "id": "QL-03",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "From knowledge to use: meaning → own attempt → feedback → repair → new situation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "QL-04",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Memory after 14/30 days with held-out delayed material",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "Delayed checks only for grammar writing transfer (GL-03)."
+    },
+    {
+      "id": "QL-05",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Design for understanding: meaningful photos/motion, constant colour meaning, captions",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "No case-motion animation (SENS-08/UIO-06)."
+    },
+    {
+      "id": "QL-06",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Voluntary motivation: 10/20/30-min real missions, topic choice",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "Session length (DEC-01) and topic choice not built."
+    },
+    {
+      "id": "QL-07",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "YKI only as exact as proven: 4 modules, own S2 sets, verified OPH rules",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "QL-08",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Trust, accessibility, offline: local learning, export/delete, honest saving",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ],
+      "gap": "Offline app shell and export/delete UI not built in apps/web; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "QL-09",
+      "source": "docs/28-product-quality-niche-leadership-strategy.md",
+      "summary": "Understandable progress: separate signals, 'not yet assessed', no vanity metrics",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "R11-01",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Verified source backup before V1→V2; raw data unchanged",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ]
+    },
+    {
+      "id": "R11-02",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Unknown fields and other versions fail closed, never silently reset",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "a backup file with unknown fields or truncation risk is blocked with a clear reason"
+        }
+      ]
+    },
+    {
+      "id": "R11-03",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "No capped-history truncation on migration; ungraded answers not lost",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "a backup file with unknown fields or truncation risk is blocked with a clear reason"
+        }
+      ]
+    },
+    {
+      "id": "R11-04",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "eventId/itemVersion/contentHash, revision CAS, unique first attempts",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        }
+      ],
+      "gap": "Document-level CAS in apps/web; per-event IDs/content hashes (V2 event log) not used yet."
+    },
+    {
+      "id": "R11-05",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Guided repair never rewrites the independent first answer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ]
+    },
+    {
+      "id": "R11-06",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "IndexedDB transaction complete before 'saved'/next",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        }
+      ]
+    },
+    {
+      "id": "R11-07",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Two concurrent tabs, failed write/retry, duplicate command mismatch",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+        }
+      ]
+    },
+    {
+      "id": "R11-08",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Eviction/quota user-visible warning + usable export",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "errors are typed StorageError"
+        }
+      ],
+      "gap": "Quota mapped to a typed error; no quota UI test; export only via the legacy backup flow."
+    },
+    {
+      "id": "R11-09",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Cross-format Web/Android parity after compiling Kotlin",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R11-10",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Room migration validated with exported schemas and real rows",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R11-11",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Web offline app shell + media packs work after browser restart",
+      "status": "NOT_YET",
+      "plan": "Service worker/app shell not built."
+    },
+    {
+      "id": "R11-12",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Android install-time packs load in airplane mode within 4 GB / 1.5 GB",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R11-13",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Missing audio/hash mismatch/revoked rights blocks audio-only score",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Unadmitted/missing media is never offered (build time); runtime load failure not tested."
+    },
+    {
+      "id": "R11-14",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Four-skill LEARN and EXAM evidence kept separate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "R11-15",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Writing/voice privacy; no forced cloud or AI evaluation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ],
+      "gap": "No network/AI calls exist; no automated test asserting zero network requests."
+    },
+    {
+      "id": "R11-16",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "EU privacy and WCAG status/export reviewed for accessible operation",
+      "status": "NOT_YET",
+      "plan": "Legal/privacy review before any release."
+    },
+    {
+      "id": "R11-17",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "P95 latency, cold start and free disk measured on a real device build",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/PAD) not built or device-tested."
+    },
+    {
+      "id": "R11-18",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Full 27-scenario failure matrix with rollback, separate feature PR",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        }
+      ],
+      "gap": "Conflict/readback scenarios covered; most of the 27 fault scenarios not run."
+    },
+    {
+      "id": "R11-19",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Efficacy study with matched pedagogy/time and blind day-14/30 metrics",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "R11-20",
+      "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
+      "summary": "Green research/Node tests are never a Play release gate on their own",
+      "status": "NOT_YET",
+      "plan": "G6 release checklist requires real device QA in addition to green tests."
+    },
+    {
+      "id": "MOT-01",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "LEARN only; no EXAM promotion/pressure; no official score",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "reference prototype not active or sending notifications"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "No motivation/plan feature exists in apps/web (only the isolated reference app/r08-motivation-core.mjs)."
+    },
+    {
+      "id": "MOT-02",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Learner chooses goal, skill and time; 'skip' and 'no game' paths",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ],
+      "gap": "Task choice exists; goal/time choice not built."
+    },
+    {
+      "id": "MOT-03",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Default 0 notifications and 0 invasive tracking; opt-in only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "reference prototype not active or sending notifications"
+        }
+      ],
+      "gap": "apps/web sends no notifications; no automated apps/web assertion."
+    },
+    {
+      "id": "MOT-04",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Pause/missed day never resets knowledge, locks content or shames",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        }
+      ]
+    },
+    {
+      "id": "MOT-05",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "No automatic public standings, social comparison or pay-to-win",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "None exist; no explicit test."
+    },
+    {
+      "id": "MOT-06",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "No XP/streak metric presented as CEFR/YKI improvement",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "MOT-07",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Only first independent objective or qualified human review counts as success",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "only independently verified human productive task success is counted"
+        }
+      ]
+    },
+    {
+      "id": "MOT-08",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Ungraded writing/speaking never a performance score; exposure stays visible",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "MOT-09",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Guided repair never overrides independent error evidence",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ]
+    },
+    {
+      "id": "MOT-10",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Local dates robust across DST and invalid future dates",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        }
+      ]
+    },
+    {
+      "id": "MOT-11",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Plans stored only with consent; export/edit/delete",
+      "status": "NOT_YET",
+      "plan": "Only when a plan feature is built."
+    },
+    {
+      "id": "MOT-12",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Accessible focus, 320 px, 200 % zoom, reduced motion, no mandatory sound",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "MOT-13",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Completion SFX never overlays Finnish audio or microphone",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "MOT-14",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Offline-first; optional media packs rights-cleared; no cloud AI dependency",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Offline app shell not built."
+    },
+    {
+      "id": "MOT-15",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Time-bounded messages; no notifications or leaderboards in EXAM",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+    },
+    {
+      "id": "MOT-16",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Deterministic choices, bounded histories, duplicate event prevention",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "identical rankings, scores and reasons for the reference inputs"
+        }
+      ]
+    },
+    {
+      "id": "MOT-17",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Comparable independent day-14/30 communication outcome; harms reported",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "MOT-18",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "Separate production PR with Web+Android QA, migration, S2 copy, rollback",
+      "status": "NOT_YET",
+      "plan": "No motivation/plan feature exists in apps/web (only the isolated reference app/r08-motivation-core.mjs)."
     }
   ],
   "decisions": [
