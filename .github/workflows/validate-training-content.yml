@@ -11,6 +11,8 @@ on:
       - 'scripts/validate_a1_audio_visual.py'
       - 'scripts/tests/test_validate_a1_audio_visual.py'
       - 'scripts/validate_training_content.mjs'
+      - 'scripts/validate_content_publication.py'
+      - 'scripts/tests/test_validate_content_publication.py'
       - '.github/workflows/validate-training-content.yml'
   pull_request:
     paths:
@@ -22,6 +24,8 @@ on:
       - 'scripts/validate_a1_audio_visual.py'
       - 'scripts/tests/test_validate_a1_audio_visual.py'
       - 'scripts/validate_training_content.mjs'
+      - 'scripts/validate_content_publication.py'
+      - 'scripts/tests/test_validate_content_publication.py'
 permissions:
   contents: read
 jobs:
@@ -38,3 +42,7 @@ jobs:
         run: |
           python3 scripts/validate_a1_audio_visual.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_a1_audio_visual.py' -v
+      - name: Content publication gate (review_card v1; no unreviewed item may claim approval)
+        run: |
+          python3 scripts/validate_content_publication.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_content_publication.py' -v
