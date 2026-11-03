@@ -125,3 +125,8 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
   .threshold-segment.current { outline: 2px solid Highlight; }
   .learning-cue { background: Canvas; color: CanvasText; }
 }
+/* Writing clinic diff: underline/strike carry meaning, colour only reinforces (A10, COLOR-15). */
+.diff ins { text-decoration: underline; text-decoration-thickness: 2px; background: var(--learn-tint); }
+.diff del { text-decoration: line-through; color: var(--muted); }
+.diff ins::before { content: " [+] "; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.diff del::before { content: " [−] "; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

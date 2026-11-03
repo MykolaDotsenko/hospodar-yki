@@ -1160,8 +1160,18 @@
       "id": "IV-REQ-07",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Meaningful agency: branching dialogues, draft → feedback → rewrite",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "own draft first: no weak draft, issues or model visible while writing; short text refused"
+        }
+      ],
+      "gap": "draft → feedback → rewrite → new task is built for writing (6 S2-pending items; feedback is editor-written issues on a weak draft + self-check, no automatic feedback on the learner's own text). Branching dialogues and information-gap tasks are not built."
     },
     {
       "id": "IV-REQ-08",
