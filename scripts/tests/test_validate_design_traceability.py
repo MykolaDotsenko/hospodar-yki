@@ -81,6 +81,10 @@ class IdPatternTests(unittest.TestCase):
         text = "R05-H01, R08-MOT-H01, R04-T06, SD-H03, UX-I02, UX-S04, PSY-E05, R05"
         self.assertEqual(sorted(set(ID.findall(text))), sorted({"R05-H01", "R08-MOT-H01", "R04-T06", "SD-H03", "UX-I02", "UX-S04", "PSY-E05", "R05"}))
 
+    def test_catalogue_acceptance_ids_are_not_split(self):
+        text = "IV4-AC-05, V3-AC-10, V5-AC-12, YTP-14, MOCK-VID-08, R10-20, R-L03, E06-G09, R10"
+        self.assertEqual(sorted(set(ID.findall(text))), sorted({"IV4-AC-05", "V3-AC-10", "V5-AC-12", "YTP-14", "MOCK-VID-08", "R10-20", "R-L03", "E06-G09", "R10"}))
+
     def test_exam_pillar_is_not_read_as_exam(self):
         text = "EXAM-PILLAR-04 and EXAM-04, YKI-FID-09, LEARN-12, LE-08, SAMPLE-01, MVP-04, PER-07"
         self.assertEqual(sorted(set(ID.findall(text))), sorted({"EXAM-PILLAR-04", "EXAM-04", "YKI-FID-09", "LEARN-12", "LE-08", "MVP-04", "PER-07"}))
@@ -94,6 +98,12 @@ class CompletenessGateTests(unittest.TestCase):
     def test_traced_family_id_missing_from_matrix_fails_even_outside_sources(self):
         errors = scan_definitions({"docs/other.md": "- **LEARN-17:** new learning rule"}, {"LEARN-01"}, {"docs/15.md"})
         self.assertEqual(errors, ["docs/other.md defines LEARN-17 but it is not in the matrix (file is not a listed source)"])
+
+    def test_ranges_labelled_bold_and_json_ids_are_detected(self):
+        texts = {"docs/a.md": "Acceptance NEWX-01…NEWX-12 (planned)", "docs/b.md": "**Study NEWY-01 (P0):** compare",
+                 "research/c.json": '{"gates": [{"id": "NEWZ-G01", "criterion": "x"}]}'}
+        found = {e.split(" defines ")[1].split(":")[0] for e in scan_definitions(texts, set(), set())}
+        self.assertEqual(found, {"NEWX-01", "NEWY-01", "NEWZ-G01"})
 
     def test_evidence_rows_and_registers_are_allowed_with_a_reason(self):
         text = "| VD-07 [source](x) |\n| UIE-03 |\n| R06-E01 |\n| R11-S03 |\n| SD-04 |\n| Q-05 | risk |\n| A10-15 |"
