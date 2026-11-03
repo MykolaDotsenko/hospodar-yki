@@ -26,16 +26,19 @@ test("media library: licensed voices with credit, learner-started, same text in 
   await expect(page.getByText("Збережено без оцінки.")).toBeVisible();
 });
 
-test("pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay", async ({ page }) => {
+test("pictures: alt text, credit + licence link, ungraded description; uncaptioned video never playable (A11Y-03); illustrations credited", async ({ page }) => {
   await open(page, "Фото-ситуації");
   const img = page.getByRole("img", { name: /Turun kauppatori/ });
   await expect(img).toBeVisible();
   await expect(page.locator(".credit a", { hasText: "CC BY-SA 4.0" }).first()).toHaveAttribute("href", /creativecommons\.org/);
   expect(await serious(page)).toEqual([]);
   await page.getByRole("tab", { name: "Відео" }).click();
-  await expect(page.locator("video")).toHaveCount(3);
+  // A11Y-03 / WCAG 1.2.2: no uncaptioned video is ever playable; each is listed with its source instead.
+  await expect(page.locator("video")).toHaveCount(0);
+  await expect(page.locator(".media-card.unavailable")).toHaveCount(3);
+  await expect(page.getByText(/немає перевірених субтитрів/).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /Подивитися на сайті джерела/ }).first()).toHaveAttribute("href", /^https:\/\/commons\.wikimedia\.org\//);
   expect(await noAutoplay(page)).toBe(true);
-  await expect(page.getByText(/без субтитрів/).first()).toBeVisible();
   await page.getByRole("tab", { name: "Ілюстрації" }).click();
   await expect(page.locator(".media-svg")).toHaveCount(6);
   expect(await serious(page)).toEqual([]);

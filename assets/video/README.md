@@ -2,6 +2,8 @@
 
 **Stage:** Licensed sources reviewed 2026-10-21. Binary import uses GitHub Actions; the **only evidence that a video was actually downloaded and committed** is a `.webm` file plus `open/available.json` with `state=verified_binary`, nonzero bytes and SHA-256. A metadata entry alone is **not** a downloaded video.
 
+**Captions gate (03.11.2026, A11Y-03 / WCAG 1.2.2):** a video is played in `apps/web` **only** if its `open/available.json` entry has `captions_path` pointing to a reviewed WebVTT file under `assets/video/` (e.g. `open/<id>.fi.vtt`, timing checked by listening + S2 review). Without it the video is listed as "unavailable" with a link to its source — never played uncaptioned (`admitVideo` in `packages/domain/src/media.ts`). Today **0 of 3** videos have captions.
+
 ### 🎯 YKI mock videos and official SOLKI intermediate demos (21.10.2026)
 
 **[Mock source JSON: 3 timed/section-wise YouTube clips + 5 official organizer demo pages](../../sources/official/yki-mock-simulation-sources.json)** · **[Detailed video mock audit, risks and 8 acceptance requirements](../../sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md)**.
