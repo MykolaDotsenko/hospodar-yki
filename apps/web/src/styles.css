@@ -27,6 +27,9 @@ h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 750; letter-spacing: -.02
 h1:focus { outline: none; }
 .eyebrow { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); }
 .muted { color: var(--muted); }
+h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
+.btn:disabled { opacity: 1; cursor: not-allowed; background: var(--surface-subtle); color: var(--muted); border-color: var(--stroke); }
+.radio { display: flex; gap: var(--space-sm); align-items: center; min-height: 44px; }
 .qualification, .footer p { color: var(--muted); font-size: .88rem; }
 .footer { padding-bottom: var(--space-xl); }
 
