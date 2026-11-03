@@ -488,9 +488,13 @@
         {
           "file": "apps/web/src/screens/DialogueScreen.tsx",
           "contains": "← тут це сказано"
+        },
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
         }
       ],
-      "gap": "Correspondence cue (evidence line highlighted with a text label) only after the learner's answer — in dialogues. Not yet in reading texts or listening transcripts."
+      "gap": "Correspondence cue (evidence highlighted with a text label) only after the learner's answer — in dialogues and reading texts. Not yet in listening transcripts."
     },
     {
       "id": "COLOR-15",
@@ -1196,8 +1200,18 @@
       "id": "IV-REQ-05",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Interactive reading with approved evidence_span after answer",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "feedback reveals keys and highlights exactly each evidence span with its question number"
+        }
+      ],
+      "gap": "7 reading texts (S2-pending) with evidence spans revealed after answering; spans are mechanically exact but not yet teacher-approved."
     },
     {
       "id": "IV-REQ-06",
@@ -1428,6 +1442,10 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "while answering: no key, no model answer, no highlight; first answer frozen; invalid/empty refused"
         }
       ]
     },
@@ -4826,6 +4844,10 @@
         {
           "file": "app/tests/e05-listening-asset-gate.test.mjs",
           "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "EXAM-11: texts used by an EXAM blueprint never enter the LEARN pool"
         }
       ],
       "gap": "Pool separation enforced for audio assets by content hash; no held-out item bank exists."
@@ -5455,6 +5477,10 @@
         {
           "file": "app/tests/e03-construct-task-coverage.test.mjs",
           "contains": "E03 cites meaningful first-party links and no copied OPH task content"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "EXAM-11: texts used by an EXAM blueprint never enter the LEARN pool"
         }
       ]
     },
@@ -5968,6 +5994,10 @@
         {
           "file": "app/tests/e05-listening-asset-gate.test.mjs",
           "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "EXAM-11: texts used by an EXAM blueprint never enter the LEARN pool"
         }
       ],
       "gap": "Audio pools separated by content hash; no held-out item bank exists."
@@ -6622,8 +6652,14 @@
       "id": "IV-05",
       "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
       "summary": "Interactive message/notice: realistic letter/notice + 'what do you do?'",
-      "status": "NOT_YET",
-      "plan": "Reading missions on reading-pack texts (IV-REQ-05)."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        }
+      ],
+      "gap": "Event/notice texts with comprehension + transfer exist; no realistic letter/notice screenshot layout."
     },
     {
       "id": "IV-06",
@@ -6782,11 +6818,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "apps/web/e2e/dialogue.spec.ts",
-          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        },
+        {
+          "file": "packages/domain/test/reading.test.ts",
+          "contains": "feedback reveals keys and highlights exactly each evidence span with its question number"
         }
       ],
-      "gap": "Evidence line highlighted after answering in dialogues; reading texts not built and spans not S2-approved."
+      "gap": "Exact evidence spans highlighted only after submit in reading and dialogues; spans not yet S2/teacher-approved."
     },
     {
       "id": "IV-AC-06",
@@ -8657,9 +8697,13 @@
         {
           "file": "packages/domain/test/parity.test.ts",
           "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
         }
       ],
-      "gap": "Writing flow exists; reading-notice missions not built (IV-05)."
+      "gap": "Reading missions (notice/event texts → own message) exist; free writing ungraded; texts are short scaffolding, not full B1 exam length."
     },
     {
       "id": "UC-04",

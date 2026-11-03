@@ -154,3 +154,6 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 .credit { font-size: .82rem; color: var(--muted); overflow-wrap: anywhere; }
 .note-form .field { margin-top: var(--space-sm); }
 .picture-figure { margin: var(--space-base) 0; max-width: 560px; }
+/* Reading: evidence span marked with underline + text label, only after answering (IV-AC-05, COLOR-14). */
+.reading-text { font-size: 1.1rem; line-height: 1.75; }
+.evidence-span { text-decoration: underline; text-decoration-thickness: 2px; }

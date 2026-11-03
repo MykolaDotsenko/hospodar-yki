@@ -14,11 +14,12 @@ import { WritingClinicScreen } from "./screens/WritingClinicScreen.tsx";
 import { DialogueScreen } from "./screens/DialogueScreen.tsx";
 import { MediaScreen } from "./screens/MediaScreen.tsx";
 import { PictureMissionScreen } from "./screens/PictureMissionScreen.tsx";
+import { ReadingScreen } from "./screens/ReadingScreen.tsx";
 import { delayedTransferQueue } from "@hospodar/domain";
 import { transferBank } from "./content/transfer.ts";
 import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
 
-type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures";
+type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
 
 export function App({ repository, markUrl }: { repository: LearnerRepository; markUrl: string }) {
@@ -43,13 +44,14 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
           </a>
           <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
             onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>
-          <span className="pill" aria-live="polite">{view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" ? "01 · Навчання" : "Головна"}</span>
+          <span className="pill" aria-live="polite">{view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" ? "01 · Навчання" : "Головна"}</span>
         </div>
       </header>
       <main id="main" className="wrap" tabIndex={-1}>
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
         {view === "home" && <Home state={snapshot?.state ?? null} onLearn={() => setView("mission")} onImport={() => setView("import")}
-          onRetention={() => setView("retention")} onProgress={() => setView("progress")} onListening={() => setView("listening")} onDiagnostic={() => setView("diagnostic")} onWriting={() => setView("writing")} onDialogue={() => setView("dialogue")} onMedia={() => setView("media")} onPictures={() => setView("pictures")} />}
+          onRetention={() => setView("retention")} onProgress={() => setView("progress")} onListening={() => setView("listening")} onDiagnostic={() => setView("diagnostic")} onWriting={() => setView("writing")} onDialogue={() => setView("dialogue")} onMedia={() => setView("media")} onPictures={() => setView("pictures")} onReading={() => setView("reading")} />}
+        {view === "reading" && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "pictures" && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "dialogue" && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
@@ -72,7 +74,7 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
   );
 }
 
-function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, onDiagnostic, onWriting, onDialogue, onMedia, onPictures }: { state: LearnerState | null; onLearn: () => void; onImport: () => void; onRetention: () => void; onProgress: () => void; onListening: () => void; onDiagnostic: () => void; onWriting: () => void; onDialogue: () => void; onMedia: () => void; onPictures: () => void }) {
+function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, onDiagnostic, onWriting, onDialogue, onMedia, onPictures, onReading }: { state: LearnerState | null; onLearn: () => void; onImport: () => void; onRetention: () => void; onProgress: () => void; onListening: () => void; onDiagnostic: () => void; onWriting: () => void; onDialogue: () => void; onMedia: () => void; onPictures: () => void; onReading: () => void }) {
   const retDue = state ? delayedTransferQueue(state, transferBank).filter(q => q.due).length : 0;
   const done = state?.attempts.length ?? 0;
   const due = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
@@ -95,6 +97,7 @@ function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, 
       <p className="muted" aria-live="polite">Виконано місій: <strong>{done}</strong> · на повторення сьогодні: <strong>{due}</strong></p>
       {retDue > 0 && <p className="feedback" role="status">Сьогодні є відкладена перевірка: нова ситуація без підказки. <button type="button" className="btn secondary" onClick={onRetention}>Пройти</button></p>}
       <div className="actions">
+        <button type="button" className="btn secondary" onClick={onReading}>📖 Читання</button>
         <button type="button" className="btn secondary" onClick={onListening}>🎧 Аудіювання</button>
         <button type="button" className="btn secondary" onClick={onWriting}>✍ Майстерня письма</button>
         <button type="button" className="btn secondary" onClick={onDialogue}>💬 Діалоги</button>
