@@ -5,6 +5,13 @@ export const EXAM_STORAGE_KEY = "hospodar-yki:digitesti-rehearsal:v1";
 export const EXAM_STATE_VERSION = 1;
 export const MAX_ANSWER_CHARS = 12000;
 export const PRACTICE_LIMITS_MINUTES = [0, 15, 30, 60];
+export const DEADLINE_EXPIRED = "DEADLINE_EXPIRED";
+
+/** Practice deadline reached: answer/navigation/voice commands are refused (E04 R02). */
+export class DeadlineError extends Error {
+  constructor(){super("Practice time has expired");this.name="DeadlineError";this.code=DEADLINE_EXPIRED;}
+}
+export function isDeadlineError(error){return error?.code===DEADLINE_EXPIRED;}
 
 export function buildItems(blueprint, content) {
   if (!blueprint || !Array.isArray(blueprint.skill_blocks) || blueprint.skill_blocks.length !== 4) {
@@ -57,7 +64,7 @@ export function createSession(blueprintId,minutes=0,now=new Date()){
   if(Number.isNaN(now.getTime()))throw new Error("Invalid now");
   return {version:EXAM_STATE_VERSION,blueprintId,timeLimitMinutes:minutes,
     startedAt:now.toISOString(),finishedAt:null,
-    index:0,answers:{},voiceRecorded:{},lastSavedAt:now.toISOString()};
+    index:0,answers:{},voiceRecorded:{},elapsedHighWaterMs:0,lastSavedAt:now.toISOString()};
 }
 export function loadSession(raw,blueprintIds) {
   if(!raw)return {session:null,recovered:false};
@@ -69,7 +76,9 @@ export function loadSession(raw,blueprintIds) {
       !(s.finishedAt===null || typeof s.finishedAt==="string") ||
       !Number.isInteger(s.index)||s.index<0||s.index>100||
       typeof s.answers!=="object" || !s.answers || Array.isArray(s.answers) ||
-      typeof s.voiceRecorded!=="object" || !s.voiceRecorded || Array.isArray(s.voiceRecorded)){
+      typeof s.voiceRecorded!=="object" || !s.voiceRecorded || Array.isArray(s.voiceRecorded) ||
+      !(s.elapsedHighWaterMs===undefined || (typeof s.elapsedHighWaterMs==="number" &&
+        Number.isFinite(s.elapsedHighWaterMs) && s.elapsedHighWaterMs>=0))){
       throw new Error("Invalid state");
     }
     const answers={};
@@ -81,30 +90,60 @@ export function loadSession(raw,blueprintIds) {
     for(const [id,v] of Object.entries(s.voiceRecorded)){
       if(/^[a-z0-9_-]{1,110}$/i.test(id))voiceRecorded[id]=v===true;
     }
-    return {session:{...s,answers,voiceRecorded:{}},recovered:false}; // raw audio is ephemeral; restored session must NOT claim to still possess a voice recording
+    // Sessions saved before E04-C1 have no watermark: start from 0, never from a guess.
+    const elapsedHighWaterMs=Math.min(s.elapsedHighWaterMs??0,s.timeLimitMinutes*60_000);
+    return {session:{...s,answers,voiceRecorded:{},elapsedHighWaterMs},recovered:false}; // raw audio is ephemeral; restored session must NOT claim to still possess a voice recording
   }catch{
     return {session:null,recovered:true};
   }
 }
+/** Elapsed practice time = max(wall-clock elapsed, persisted high-watermark).
+ * A wall clock moved backwards cannot give back time already observed (E04 R01).
+ * Practice-only: an offline local clock is not tamper-proof proctoring.
+ */
+function elapsedMs(session,now){
+  const t=now instanceof Date?now.getTime():Number.NaN;
+  if(!Number.isFinite(t))throw new Error("Invalid now");
+  return Math.max(0,t-Date.parse(session.startedAt),session.elapsedHighWaterMs??0);
+}
 export function remainingSeconds(session,now=new Date()) {
   if(!session || !session.timeLimitMinutes)return null;
-  const end=Date.parse(session.startedAt)+session.timeLimitMinutes*60_000;
-  return Math.max(0,Math.ceil((end-now.getTime())/1000));
+  const limit=session.timeLimitMinutes*60_000;
+  return Math.max(0,Math.ceil((limit-Math.min(limit,elapsedMs(session,now)))/1000));
+}
+export function isPracticeExpired(session,now=new Date()){
+  return Boolean(session?.timeLimitMinutes) && !session.finishedAt &&
+    elapsedMs(session,now)>=session.timeLimitMinutes*60_000;
+}
+/** Persist the highest elapsed time seen (e.g. from a monotonic page clock); never decreases. */
+export function withElapsedHighWater(session,observedElapsedMs){
+  if(!session.timeLimitMinutes||session.finishedAt)return session;
+  if(typeof observedElapsedMs!=="number"||!Number.isFinite(observedElapsedMs)||observedElapsedMs<0)
+    throw new Error("Invalid elapsed time");
+  const next=Math.min(session.timeLimitMinutes*60_000,
+    Math.max(session.elapsedHighWaterMs??0,observedElapsedMs));
+  return next===(session.elapsedHighWaterMs??0)?session:{...session,elapsedHighWaterMs:next};
+}
+function assertBeforeDeadline(session,now){
+  if(isPracticeExpired(session,now))throw new DeadlineError();
 }
 export function writeAnswer(session,itemId,answer,now=new Date()) {
   if(session.finishedAt)throw new Error("Rehearsal finished");
+  assertBeforeDeadline(session,now);
   if(!/^[a-z0-9_-]{1,110}$/i.test(itemId))throw new Error("Invalid task ID");
   if(typeof answer!=="string")throw new Error("Invalid response");
   return {...session,answers:{...session.answers,[itemId]:answer.slice(0,MAX_ANSWER_CHARS)},
     lastSavedAt:now.toISOString()};
 }
-export function goToIndex(session,index,itemCount) {
+export function goToIndex(session,index,itemCount,now=new Date()) {
   if(session.finishedAt)throw new Error("Finished");
   if(!Number.isInteger(index)||index<0||index>=itemCount)throw new Error("Invalid task index");
+  assertBeforeDeadline(session,now);
   return {...session,index};
 }
-export function recordVoiceEvidence(session,itemId,hasAudio) {
+export function recordVoiceEvidence(session,itemId,hasAudio,now=new Date()) {
   if(session.finishedAt)throw new Error("Finished");
+  assertBeforeDeadline(session,now);
   return {...session,voiceRecorded:{...session.voiceRecorded,[itemId]:hasAudio===true}};
 }
 export function finishSession(session,now=new Date()) {

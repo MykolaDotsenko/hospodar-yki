@@ -14,6 +14,7 @@
 
 | Scope | Exact command | What it proves / does not prove |
 | --- | --- | --- |
+| E04-C1 live EXAM practice deadline | `node --test app/tests/exam-core.test.mjs app/tests/e04-timing-policy.test.mjs` | Pure deadline guard (t-1ms / t / t+1ms), elapsed watermark vs backwards clock, legacy session load; source check that exam.mjs observes the clock per command. A manual Playwright `page.clock` run against real `app/exam.html` (late answer, late Next, clock rollback + reload, no-timer) passed 13/13 on 02.11.2026 but is **not in CI**; **not** official 2027 timing, IME/two-tab/device sleep or tamper-proof proctoring. |
 | R07 isolated reference interaction state machine | `node --check app/r07-interaction-core.mjs && node --test app/tests/r07-interaction-core.test.mjs` | Deterministic answer-first/assisted-audio/EXAM exclusion in Node; **not** evidence of interactive rendered UI, speaking score, Android a11y or human learning gain. |
 | Browser JS syntax | `node --check app/core.mjs && node --check app/app.mjs && node --check app/exam-core.mjs && node --check app/exam.mjs && node --check app/attempt-storage.mjs` | Syntax, not user journeys |
 | App unit/integration | `node --test app/tests/*.test.mjs` | Present unit/content and in-memory storage behavior, not all browsers |

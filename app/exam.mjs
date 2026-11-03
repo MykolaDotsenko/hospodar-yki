@@ -1,9 +1,10 @@
 import {
   EXAM_STORAGE_KEY, buildItems, createSession, loadSession,
   remainingSeconds, writeAnswer, goToIndex, recordVoiceEvidence,
-  finishSession, scoreSession
+  finishSession, scoreSession, isDeadlineError, withElapsedHighWater
 } from "./exam-core.mjs";
 import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "./attempt-storage.mjs";
+import {createTimingProfile,observePracticeTime} from "./e04-timing-policy.mjs";
 
 const root=document.getElementById("exam-main");
 const notice=document.getElementById("exam-notice");
@@ -18,7 +19,40 @@ const taskNames={reading:"Tekstin ymmärtäminen · Читання",
 const exam={blueprints:null,content:null,session:null,items:null,storageBlocked:false,
   url:null,recorder:null,stream:null,stage:"welcome",now:Date.now(),
   repository:null,persistedRevision:0,saveQueue:Promise.resolve(),transitioning:false,
-  draftTimer:null,pendingDraft:null};
+  draftTimer:null,pendingDraft:null,clockBase:null,deadlineNotified:false,clockAnomalyNoted:false};
+/** Monotonic page clock anchored at session start/restore (E04-C1). performance.now()
+ * keeps counting if the wall clock is moved; the max of both is persisted as a watermark.
+ */
+function anchorClock(){
+  const s=exam.session;
+  exam.deadlineNotified=false;exam.clockAnomalyNoted=false;
+  exam.clockBase=s&&s.timeLimitMinutes&&!s.finishedAt?{perf:performance.now(),
+    elapsedMs:Math.max(0,Date.now()-Date.parse(s.startedAt),s.elapsedHighWaterMs||0)}:null;
+}
+/** Observe practice time on EVERY command, not only on the 1-second display interval,
+ * so a throttled/background interval cannot authorize late answers (E04 R02).
+ */
+function observeClock(){
+  const s=exam.session;
+  if(!s||s.finishedAt||!s.timeLimitMinutes)return null;
+  const observation=observePracticeTime(createTimingProfile({kind:"practice",minutes:s.timeLimitMinutes}),{
+    startedAtWallMs:Date.parse(s.startedAt),observedWallMs:Date.now(),
+    elapsedMonotonicMs:exam.clockBase?exam.clockBase.elapsedMs+(performance.now()-exam.clockBase.perf):null,
+    highestElapsedMs:s.elapsedHighWaterMs||0});
+  exam.session=withElapsedHighWater(s,observation.highestElapsedMs);
+  if(observation.clockIntegrity==="CLOCK_ANOMALY_PRACTICE_ONLY"&&!exam.clockAnomalyNoted&&!observation.expired){
+    exam.clockAnomalyNoted=true;
+    alertUser("Системний годинник змінився або пристрій був у режимі сну. Тренувальний таймер рахує обережно: втрачений час не повертається.");
+  }
+  return observation;
+}
+function deadlineReached(){
+  if(!exam.deadlineNotified){
+    exam.deadlineNotified=true;
+    alertUser("Тренувальний час закінчився: нові відповіді й переходи більше не приймаються. Це не офіційний таймінг YKI.");
+  }
+  conclude();
+}
 function failSave(error) {
   exam.storageBlocked=true;
   alertUser("⚠️ Відповідь НЕ збережена ("+(error?.code||"SAVE_FAILED")+
@@ -55,6 +89,7 @@ async function flushDraft(){
 async function transition(kind,createNext,after){
   if(exam.transitioning)return;
   exam.transitioning=true;
+  let expired=false;
   try{
     await flushDraft();
     if(exam.storageBlocked)return;
@@ -64,8 +99,9 @@ async function transition(kind,createNext,after){
     after?.();
     draw();
     root.focus({preventScroll:true});
-  }catch(err){failSave(err);}
+  }catch(err){if(isDeadlineError(err))expired=true;else failSave(err);} // deadline ≠ storage failure
   finally{exam.transitioning=false;}
+  if(expired)deadlineReached();
 }
 async function deleteSaved(){
   try{
@@ -216,11 +252,12 @@ async function start(id,minutes){
   if(!b)throw new Error("Unknown blueprint");
   const newItems=buildItems(b,exam.content);
   await transition("start",()=>createSession(b.id,minutes),()=>{
-    stopAudio();exam.items=newItems;exam.stage="exam";
+    stopAudio();exam.items=newItems;exam.stage="exam";anchorClock();
   });
 }
 function selectItem(index){
   if(exam.session.finishedAt)return;
+  if(observeClock()?.expired){deadlineReached();return;}
   return transition("navigate",()=>goToIndex(exam.session,index,exam.items.length),stopAudio);
 }
 function stopAudio(){
@@ -251,10 +288,11 @@ async function record(){
         try{
           await flushDraft();
           if(!exam.storageBlocked){
+            observeClock();
             exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
             await queueSave(exam.session,"answer");
           }
-        }catch(err){failSave(err);}
+        }catch(err){if(isDeadlineError(err))deadlineReached();else failSave(err);}
       }
       draw();
       alertUser(exam.url?"Можна прослухати свою відповідь. Голосовий файл не зберігається після перезавантаження.":"Не вдалося створити запис.");
@@ -285,7 +323,9 @@ root.addEventListener("input",e=>{
   if(!exam.session || exam.session.finishedAt || exam.transitioning)return;
   const input=e.target;if(input.name!=="exam-answer")return;
   const task=exam.items[exam.session.index];
-  exam.session=writeAnswer(exam.session,task.id,input.value);
+  observeClock();
+  try{exam.session=writeAnswer(exam.session,task.id,input.value);}
+  catch(err){if(isDeadlineError(err)){deadlineReached();return;}throw err;}
   if(!exam.storageBlocked)queueDraftSave(exam.session);
   const count=root.querySelector("[data-count]");if(count)count.textContent=String(input.value.length);
 });
@@ -318,19 +358,24 @@ root.addEventListener("click",e=>{
   }
 });
 function clock(){
-  if(!exam.session||exam.session.finishedAt)return;
-  if(exam.session.timeLimitMinutes){
-    const sec=remainingSeconds(exam.session);
-    const display=root.querySelector("[data-timer]");
-    if(display)display.textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;
-    if(sec===0){conclude();alertUser("Тренувальний час закінчився. Це не офіційний таймінг YKI.");}
-  }
+  const observation=observeClock();
+  if(!observation)return;
+  const sec=observation.remainingSeconds;
+  const display=root.querySelector("[data-timer]");
+  if(display)display.textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;
+  if(observation.expired)deadlineReached();
 }
 window.setInterval(clock,1000);
 window.addEventListener("beforeunload",stopAudio);
 document.addEventListener("visibilitychange",()=>{
-  if(document.visibilityState==="hidden"&&exam.pendingDraft&&!exam.storageBlocked)
-    flushDraft().catch(failSave); // best effort; transition always waits for commit
+  if(document.visibilityState==="visible"){clock();return;} // background intervals may be throttled
+  if(exam.storageBlocked||exam.transitioning||!exam.session||exam.session.finishedAt)return;
+  if(exam.session.timeLimitMinutes){
+    // Persist the elapsed watermark so a reload after a clock rollback cannot regain time.
+    if(observeClock()?.expired)return;
+    exam.pendingDraft=exam.session;
+  }
+  if(exam.pendingDraft)flushDraft().catch(failSave); // best effort; transition always waits for commit
 });
 async function boot(){
   try{
@@ -366,8 +411,8 @@ async function boot(){
       const b=exam.blueprints.find(x=>x.id===session.blueprintId);
       const items=buildItems(b,exam.content);
       if(session.index>=items.length)throw new Error("Restored exam index is invalid");
-      exam.items=items;exam.session=session;
-      if(session.timeLimitMinutes && remainingSeconds(session)===0 && !session.finishedAt)conclude();
+      exam.items=items;exam.session=session;anchorClock();
+      if(observeClock()?.expired)deadlineReached();
     }
     draw();
   }catch(err){
