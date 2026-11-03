@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { dueCards, type LearnerState } from "@hospodar/domain";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
+import type { ExamRepository } from "./storage/examRepository.ts";
+import { ExamScreen } from "./screens/ExamScreen.tsx";
 import { MissionScreen } from "./screens/MissionScreen.tsx";
 import { exercises } from "./content/cloze.ts";
 import { learnerR08Tasks } from "./content/r08.ts";
@@ -19,10 +21,10 @@ import { delayedTransferQueue } from "@hospodar/domain";
 import { transferBank } from "./content/transfer.ts";
 import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
 
-type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading";
+type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "exam";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
 
-export function App({ repository, markUrl }: { repository: LearnerRepository; markUrl: string }) {
+export function App({ repository, examRepository, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
@@ -44,13 +46,14 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
           </a>
           <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
             onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>
-          <span className="pill" aria-live="polite">{view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" ? "01 · Навчання" : "Головна"}</span>
+          <span className="pill" aria-live="polite">{view === "exam" ? "02 · Симуляція YKI" : view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" ? "01 · Навчання" : "Головна"}</span>
         </div>
       </header>
       <main id="main" className="wrap" tabIndex={-1}>
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
         {view === "home" && <Home state={snapshot?.state ?? null} onLearn={() => setView("mission")} onImport={() => setView("import")}
-          onRetention={() => setView("retention")} onProgress={() => setView("progress")} onListening={() => setView("listening")} onDiagnostic={() => setView("diagnostic")} onWriting={() => setView("writing")} onDialogue={() => setView("dialogue")} onMedia={() => setView("media")} onPictures={() => setView("pictures")} onReading={() => setView("reading")} />}
+          onRetention={() => setView("retention")} onProgress={() => setView("progress")} onListening={() => setView("listening")} onDiagnostic={() => setView("diagnostic")} onWriting={() => setView("writing")} onDialogue={() => setView("dialogue")} onMedia={() => setView("media")} onPictures={() => setView("pictures")} onReading={() => setView("reading")} onExam={() => setView("exam")} />}
+        {view === "exam" && <ExamScreen repository={examRepository} onHome={() => setView("home")} />}
         {view === "reading" && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "pictures" && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
@@ -74,7 +77,7 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
   );
 }
 
-function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, onDiagnostic, onWriting, onDialogue, onMedia, onPictures, onReading }: { state: LearnerState | null; onLearn: () => void; onImport: () => void; onRetention: () => void; onProgress: () => void; onListening: () => void; onDiagnostic: () => void; onWriting: () => void; onDialogue: () => void; onMedia: () => void; onPictures: () => void; onReading: () => void }) {
+function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, onDiagnostic, onWriting, onDialogue, onMedia, onPictures, onReading, onExam }: { state: LearnerState | null; onLearn: () => void; onImport: () => void; onRetention: () => void; onProgress: () => void; onListening: () => void; onDiagnostic: () => void; onWriting: () => void; onDialogue: () => void; onMedia: () => void; onPictures: () => void; onReading: () => void; onExam: () => void }) {
   const retDue = state ? delayedTransferQueue(state, transferBank).filter(q => q.due).length : 0;
   const done = state?.attempts.length ?? 0;
   const due = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
@@ -88,11 +91,12 @@ function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, 
           <small>Граматика в контексті: спершу власна відповідь, потім підказка й самовиправлення.</small>
           <span className="mode-cta">{done ? "Продовжити" : "Почати місію"} →</span>
         </button>
-        <div className="mode-entry mode-entry-exam" aria-describedby="exam-note">
+        <button type="button" className="mode-entry mode-entry-exam" onClick={onExam} aria-describedby="exam-note">
           <span className="mode-number">02</span>
           <strong>Симуляція YKI</strong>
-          <small id="exam-note">У новій версії ще в розробці. Тренувальна репетиція поки працює в попередній версії застосунку.</small>
-        </div>
+          <small id="exam-note">Тренувальна репетиція з 4 навичок, без підказок. Не офіційний YKI: правила цифрового іспиту 2027 ще не підтверджено.</small>
+          <span className="mode-cta">Почати репетицію →</span>
+        </button>
       </div>
       <p className="muted" aria-live="polite">Виконано місій: <strong>{done}</strong> · на повторення сьогодні: <strong>{due}</strong></p>
       {retDue > 0 && <p className="feedback" role="status">Сьогодні є відкладена перевірка: нова ситуація без підказки. <button type="button" className="btn secondary" onClick={onRetention}>Пройти</button></p>}

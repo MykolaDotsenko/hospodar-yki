@@ -1815,22 +1815,21 @@
       "id": "PSY-09",
       "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
       "summary": "EXAM isolation: no unverified breaks/feedback/timers; four skills; open skills ungraded",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
-      ],
-      "gap": "Pure policies ported with parity; the apps/web EXAM machine/UI is not built yet (legacy EXAM only)."
+      ]
     },
     {
       "id": "MEM-01",
@@ -2044,15 +2043,19 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
         }
       ],
-      "gap": "Domain policies ported; apps/web EXAM UI and machine not built; F4–F6 fidelity unverified."
+      "gap": "Mini blueprints only; F4–F6 fidelity unverified; strict 2027 profile stays off."
     },
     {
       "id": "GL-06",
@@ -2113,15 +2116,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
         }
       ],
-      "gap": "Policies ported (practice timers only, labelled); no apps/web EXAM yet; F4/F5/F6 certification blocked."
+      "gap": "Practice-only timer and playback, labelled; F4/F5/F6 certification blocked."
     },
     {
       "id": "R03",
@@ -2526,18 +2529,17 @@
       "id": "R7-09",
       "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
       "summary": "LEARN/EXAM isolation; EXAM without aids, cues, reward SFX or leaks",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "R7-10",
@@ -2748,14 +2750,17 @@
       "id": "R5-08",
       "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
       "summary": "EXAM timing/audio repeats only from verified first-party sources (R02)",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "R5-09",
@@ -3207,14 +3212,13 @@
       "id": "R8-10",
       "source": "research/pedagogy/34-r08-finnish-case-stems-meaning-transfer-2026-10.md",
       "summary": "EXAM-only vs practice never conflated; no answer cues in timed EXAM",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "R8-11",
@@ -3399,14 +3403,17 @@
       "id": "R4-08",
       "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
       "summary": "EXAM zero hints, also after interruption/recovery",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "R4-09",
@@ -3624,18 +3631,17 @@
       "id": "M3-12",
       "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
       "summary": "EXAM practice without grammar highlights, answer feedback, fake grade or unverified controls",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "SD-G01",
@@ -3795,14 +3801,17 @@
       "id": "SD-G12",
       "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
       "summary": "Neutral no-SFX EXAM UI; no invented official 2027 controls",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "QL-01",
@@ -3916,15 +3925,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
       ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      "gap": "Two mini rehearsals; no S2-authored full sets; OPH 2027 rules unverified."
     },
     {
       "id": "QL-08",
@@ -4106,14 +4115,17 @@
       "id": "R11-14",
       "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
       "summary": "Four-skill LEARN and EXAM evidence kept separate",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "apps/web/e2e/retention-progress.spec.ts",
-          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "R11-15",
@@ -4370,14 +4382,13 @@
       "id": "MOT-15",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "Time-bounded messages; no notifications or leaderboards in EXAM",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM machine/UI not built yet (legacy EXAM + ported domain policies only)."
+      ]
     },
     {
       "id": "MOT-16",
@@ -4526,22 +4537,21 @@
       "id": "CURATED-07",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Modes without assessment leakage: LEARN explains after the attempt, EXAM hides until finish",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "packages/domain/test/mission.test.ts",
           "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "CURATED-08",
@@ -4567,15 +4577,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "two original blueprints resolve four skills into nine exercises each"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
           "file": "app/tests/e03-construct-task-coverage.test.mjs",
           "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies. Only two mini rehearsals (3+4+1+1 units) exist."
+      "gap": "Full mini rehearsals only (3+4+1+1 units). Single-module (subtest) sessions are not built yet (EXAM-03)."
     },
     {
       "id": "EXAM-PILLAR-02",
@@ -4618,19 +4628,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
-        },
-        {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      "gap": "No aids before finish; pre-start explanation is Ukrainian, not an S2-reviewed Finnish instruction screen."
     },
     {
       "id": "EXAM-PILLAR-05",
@@ -4639,19 +4645,19 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "responses are capped and cannot be altered after closing"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a failed save never moves on: the learner stays with their answer and can retry"
         },
         {
-          "file": "app/tests/e05-listening-asset-gate.test.mjs",
-          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies. Held-out S2 bank does not exist."
+      "gap": "Answers persist on every navigation/finish (not every keystroke); no unexposed S2 item bank."
     },
     {
       "id": "EXAM-PILLAR-06",
@@ -4710,18 +4716,17 @@
       "id": "EXAM-01",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Separate mode without SRS, hints or coaching before finish",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "EXAM-02",
@@ -4745,7 +4750,7 @@
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Each subtest can be taken independently",
       "status": "NOT_YET",
-      "plan": "apps/web EXAM machine (G2-d part 2) with single-skill sessions."
+      "plan": "Module selection in the XState machine (single-skill sessions) — next EXAM slice."
     },
     {
       "id": "EXAM-04",
@@ -4761,15 +4766,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      "gap": "Item labels and buttons are Finnish, but the pre-start explanation is Ukrainian; no S2-reviewed Finnish instruction screen yet."
     },
     {
       "id": "EXAM-06",
@@ -4816,7 +4821,7 @@
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Attempt history with item-bank version, date, scope; no 'pass guarantee'",
       "status": "NOT_YET",
-      "plan": "apps/web exam history store with versions; no pass prediction."
+      "plan": "Attempt history store (item-bank version, date, scope) in the exam DB; no pass prediction."
     },
     {
       "id": "EXAM-10",
@@ -4831,6 +4836,10 @@
         {
           "file": "app/tests/exam-core.test.mjs",
           "contains": "corrupt state and obsolete schema recover safely"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a failed save never moves on: the learner stays with their answer and can retry"
         }
       ],
       "gap": "Legacy drafts survive reload; 'interrupted' status not modelled."
@@ -5401,15 +5410,11 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
-        },
-        {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      "gap": "Single-module (subtest) sessions are not built yet (EXAM-03)."
     },
     {
       "id": "YKI-FID-04",
@@ -5555,18 +5560,17 @@
       "id": "MODE-04",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Hints/feedback/SRS/self-repair only in learn; in exam everything hidden until finish",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "packages/domain/test/mission.test.ts",
           "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "MODE-05",
@@ -5585,14 +5589,17 @@
       "id": "MODE-06",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Never mix learning interleaving with the official module order; no exact-order claim",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
         {
           "file": "app/tests/e03-construct-task-coverage.test.mjs",
           "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "MODE-07",
@@ -5859,22 +5866,17 @@
       "id": "SIM-01",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Separate training rehearsal: four skills, navigation, independent answers, no hints/instant feedback",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "two original blueprints resolve four skills into nine exercises each"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "navigation prevents negative, missing and out-of-range indexes"
-        },
-        {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "SIM-02",
@@ -5900,18 +5902,17 @@
       "id": "SIM-03",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Learning (feedback after each task) and exam-like (feedback at the end), both labelled unofficial",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "packages/domain/test/mission.test.ts",
           "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
         },
         {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      ]
     },
     {
       "id": "SIM-04",
@@ -5920,15 +5921,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-voice-store.test.mjs",
-          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         }
       ],
-      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+      "gap": "In apps/web EXAM speaking is a text plan; consented voice recording exists only in the legacy EXAM."
     },
     {
       "id": "SIM-05",
@@ -6550,18 +6551,13 @@
       "id": "IV2-AC-16",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "EXAM without trainer gloss, prompts, hints, gestures, animations, AI auto-score",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
-        },
-        {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "IV2-AC-17",
@@ -6876,14 +6872,13 @@
       "id": "IV-AC-09",
       "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
       "summary": "EXAM: no learning-only widget/hint/mascot during the attempt",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "IV-AC-10",
@@ -7152,18 +7147,13 @@
       "id": "AC-10",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam → full: all four modules, order only if officially confirmed, no aids",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "two original blueprints resolve four skills into nine exercises each"
-        },
-        {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "AC-11",
@@ -7190,18 +7180,13 @@
       "id": "AC-17",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam → answering: no hints, SRS, repair or model answers before finish",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
-        },
-        {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "AC-18",
@@ -7343,14 +7328,13 @@
       "id": "AC-28",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Active YKI mock has no animations, learning hints or promo cards",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "AC-29",
@@ -7553,18 +7537,13 @@
       "id": "AC-44",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam shows no meaning cue, grammar cue or transcript timing",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "all question keys are hidden behind finishSession in the scoring API"
-        },
-        {
-          "file": "app/tests/e05-listening-asset-gate.test.mjs",
-          "contains": "TTS, missing authentic dialogue voices and leaked key or transcript fail exam"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+      ]
     },
     {
       "id": "AC-45",
@@ -7780,25 +7759,42 @@
       "id": "ARCH-02",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Learn and Exam share content sources but isolate feedback/hints/timers/scoring policies",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
         {
           "file": "packages/domain/test/mission.test.ts",
           "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
-        },
-        {
-          "file": "packages/domain/test/exam-parity.test.ts",
-          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+      ]
     },
     {
       "id": "ARCH-03",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "XState machine for exam/speaking/record; fail-closed events; submitted immutable",
-      "status": "NOT_YET",
-      "plan": "G2-d part 2 (xstate 5.33.3 prepared)."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "E04: after the practice deadline answers and navigation are refused; only finishing is possible"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a failed save never moves on: the learner stays with their answer and can retry"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
+        }
+      ],
+      "gap": "Exam rehearsal machine built; a speaking/recording sub-machine is not (voice only in the legacy EXAM)."
     },
     {
       "id": "ARCH-04",
@@ -8021,6 +8017,10 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         }
       ]
     },
@@ -8526,19 +8526,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
-        },
-        {
-          "file": "apps/web/e2e/writing-clinic.spec.ts",
-          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
-        },
-        {
-          "file": "apps/web/e2e/dialogue.spec.ts",
-          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
         }
       ],
-      "gap": "LEARN skills reachable; apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+      "gap": "LEARN skills and full EXAM rehearsal reachable; Single-module (subtest) sessions are not built yet (EXAM-03)."
     },
     {
       "id": "WEB-02",
@@ -8726,18 +8722,21 @@
       "id": "UC-05",
       "source": "research/user-cases/core-flows-v1.md",
       "summary": "Interrupted exam resumes from a persisted checkpoint; failed save blocks progress",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
         },
         {
-          "file": "packages/contracts/tests/session-v2.test.mjs",
-          "contains": "lost ACK uses command receipt fingerprint, never identical snapshot alone"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a failed save never moves on: the learner stays with their answer and can retry"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
-      ],
-      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+      ]
     },
     {
       "id": "UC-06",
@@ -10137,11 +10136,11 @@
           "contains": "Practice speech phases are explicit; no historic seconds become 2027 rules"
         },
         {
-          "file": "apps/web/e2e/diagnostic.spec.ts",
-          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         }
       ],
-      "gap": "apps/web EXAM not built; legacy EXAM + domain policies only."
+      "gap": "In apps/web EXAM speaking is a text plan; consented voice recording exists only in the legacy EXAM."
     },
     {
       "id": "MOCK-VID-08",

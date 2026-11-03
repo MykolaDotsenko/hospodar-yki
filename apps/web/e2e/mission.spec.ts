@@ -19,7 +19,7 @@ test("home: two modes, honest exam status, no serious axe violations", async ({ 
   await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
   await expect(page.getByText("01")).toBeVisible();
   await expect(page.getByText(/Симуляція YKI/)).toBeVisible();
-  await expect(page.getByText(/У новій версії ще в розробці/)).toBeVisible();
+  await expect(page.getByText(/Не офіційний YKI: правила цифрового іспиту 2027 ще не підтверджено/)).toBeVisible();
   expect(await axe(page)).toEqual([]);
 });
 

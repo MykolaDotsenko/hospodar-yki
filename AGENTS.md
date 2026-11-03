@@ -96,7 +96,7 @@ If changing learning strategies, sounds, visual cues, animations, AI feedback, c
 
 ## Hard engineering invariants
 
-- Keep `app/` runnable (vanilla ES modules today). **LEARN uses `localStorage`; EXAM checkpoints use IndexedDB.** `apps/web` (React/Vite/TS, G2-a) runs one LEARN mission beside the legacy app; Phaser/Capacitor/Kotlin Room are **target design or prototypes**, not a built Android app.
+- Keep `app/` runnable (vanilla ES modules today). **LEARN uses `localStorage`; EXAM checkpoints use IndexedDB.** `apps/web` (React/Vite/TS, G2) runs LEARN missions and an EXAM practice rehearsal (XState, own IndexedDB) beside the legacy app; Phaser/Capacitor/Kotlin Room are **target design or prototypes**, not a built Android app.
 - Preserve two top-level modes, four skill areas and **exam integrity**. EXAM must not leak answers, coaching, hints or first-try SRS signals before submission; synthetic timers and unofficial scoring must be labelled as practice.
 - `ExamCheckpoint` (mutable draft/navigation) is **not** `FirstAttemptEvent` (immutable independent learner evidence). Never score autosave as mastery. Do not mark ungraded speaking/writing as an official YKI result.
 - Critical writes are atomic, idempotent and fail closed: persist before navigation or success UI; handle retry/conflict/quota without fabricated success. See [CONTRACTS](docs/CONTRACTS.md).
