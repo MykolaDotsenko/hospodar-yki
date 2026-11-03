@@ -52,7 +52,10 @@ NOT_REQUIREMENTS = {
     r"E0[46]-R\d{2}": "E04/E06 risk registers with their own mitigation status",
     r"DEC-\d{2}": "product decisions, tracked in the matrix 'decisions' section",
     r"(?:OPH|MIGRI|YLE|KIELI|RESEARCH|OTAVA|FINN|SUOMI|OPE|NIKONEN|LEXIE|JYU|HAAGA|GIMARA)-\d{2}": "source-catalogue IDs in sources/learning",
-    r"[A-Z]+-B1-\d{2}": "content item IDs (YouTube missions such as HOUSING-B1-01)",
+    r"[A-Z]+-B1-\d{2}|PUHEKIELI-\d{2}": "content item IDs (missions such as HOUSING-B1-01, PUHEKIELI-01)",
+    r"R02-\d{2}": "R02 audit finding headings (findings, not requirements)",
+    r"([A-Z])\d{2}-\1\d{2}": "code ranges such as R06-R10, T01-T09, F01-F06 (span, not an ID)",
+    r"[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-20\d\d(?:-\d{2})?": "dated document/file names (…-2026-10)",
 }
 SCAN_GLOBS = ("docs/**/*.md", "research/**/*.md", "research/**/*.json", "sources/**/*.md")
 
@@ -68,6 +71,21 @@ def scan_definitions(texts: dict[str, str], traced: set[str], sources: set[str])
                     errors.append(f"{path} defines {m} but it is not in the matrix" + ("" if path in sources else " (file is not a listed source)"))
             elif not any(x.fullmatch(m) for x in excluded):
                 errors.append(f"{path} defines {m}: untraced requirement family — add it to the matrix or to NOT_REQUIREMENTS with a reason")
+    return errors
+
+
+MENTION = re.compile(r"\b(" + _IDSHAPE + r")\b")
+
+
+def scan_mentions(texts: dict[str, str], traced: set[str]) -> list[str]:
+    """Full-text mode: every ID-shaped token anywhere (even once in prose) must be traced or a listed non-requirement."""
+    excluded = [re.compile(p) for p in NOT_REQUIREMENTS]
+    errors: list[str] = []
+    for path, text in sorted(texts.items()):
+        for m in sorted(set(MENTION.findall(text))):
+            if m in traced or any(x.fullmatch(m) for x in excluded):
+                continue
+            errors.append(f"{path} mentions {m}: neither a traced requirement nor a listed non-requirement family")
     return errors
 
 
@@ -150,7 +168,9 @@ def summary(doc: dict) -> str:
 
 def main(argv: list[str]) -> int:
     doc = json.loads(MATRIX.read_text(encoding="utf-8"))
-    errors = check(doc) + scan_definitions(repository_texts(), {r["id"] for r in doc["requirements"]}, set(doc.get("sources", [])))
+    texts, traced = repository_texts(), {r["id"] for r in doc["requirements"]}
+    errors = check(doc) + scan_definitions(texts, traced, set(doc.get("sources", [])))
+    errors += [e for e in scan_mentions(texts, traced) if not any(e.split(" mentions ")[1].split(":")[0] in x for x in errors)]
     if errors:
         print("FAIL design traceability:\n  " + "\n  ".join(errors)); return 1
     if "--report" in argv:
