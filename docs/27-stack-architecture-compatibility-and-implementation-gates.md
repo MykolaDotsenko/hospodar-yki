@@ -1,5 +1,7 @@
 # ADR-027 — Hospodar YKI: стек × архітектура, єдині контракти та перевірювана реалізація
 
+> **Size superseded (03.11.2026):** "2–3GB" in this ADR is the historical budget. Current ceiling: [R05 amendment in ADR-023](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged) — planned ≈3.6GB compressed within Play's 4GB base+install-time limit (base ≤500MB, each pack ≤1.5GB). Persistence decisions here are unchanged.
+
 **Дата:** 22.10.2026 · **Статус:** ACCEPTED INTEGRATION PLAN / DOCUMENTATION ONLY.  
 **База аудиту:** `main` @ `b276e7f94fc830db0b835eef99079c4dbfa8622f` (PR #27 merged).  
 **Предмет:** повноцінний Web/PWA та Android 2D game, чотири навички фінської, LEARN / EXAM, навчальний прогрес, 2–3 GB *правомірно поширюваних* offline media у Play install-time packs. Цей документ **не реалізує** міграцію, нативний застосунок, AAB, офіційний цифровий YKI чи production SLO.

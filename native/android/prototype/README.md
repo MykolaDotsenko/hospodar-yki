@@ -1,6 +1,6 @@
 # Android native bridge prototype — not yet a buildable Android app
 
-This folder contains **real Kotlin implementation sources**, but is **not an Android Gradle/Capacitor project**. There is no APK/AAB, Media3 device test, Room migration test or 2–3 GB media pack yet. The files are a vertical-slice integration starting point, not production evidence.
+This folder contains **real Kotlin implementation sources**, but is **not an Android Gradle/Capacitor project**. There is no APK/AAB, Media3 device test, Room migration test or 3–4 GB (R05 plan) media pack yet. The files are a vertical-slice integration starting point, not production evidence.
 
 ## Source files
 
@@ -40,6 +40,6 @@ See [ADR-027](../../../docs/27-stack-architecture-compatibility-and-implementati
 - Current native JSON uses `JSONObject(sessionJson)` / `session.toString()`; cross-runtime canonical payload comparison with JS `JSON.stringify` has not been demonstrated.
 - Current `HospodarMediaPlugin.prepareAsset` validates `packId` but does not use it for pack-specific resource lookup. Check native and Web path validation parity, including percent-encoded path traversal.
 - Per-asset complete SHA-256 hash before playback may be costly for large files; measure on physical devices and define a version-aware verified-hash cache before enabling a shortcut.
-- No Android Gradle project, native instrumented tests, Play-installed PAD pack, Media3 video surface or verified 2–3GB offline delivery exists in this source folder.
+- No Android Gradle project, native instrumented tests, Play-installed PAD pack, Media3 video surface or verified 3–4GB offline delivery exists in this source folder.
 
 **Release condition:** a compiled app and real device tests, not the mere existence of Kotlin source files.

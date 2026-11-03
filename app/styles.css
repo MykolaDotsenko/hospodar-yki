@@ -1,4 +1,5 @@
-:root{color-scheme:light;--ink:#18251f;--navy:#083b7a;--gold:#c99135;--paper:#f8f5ed;--forest:#31574c;--stroke:#d9dcd4;--muted:#52615a;--red:#a83b38;--white:#fff;--learn-tint:#edf4ef;--exam-tint:#edf2f8;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-synthesis:none}
+@import url("./tokens.css");
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-synthesis:none}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.56}
 a{color:var(--navy);text-underline-offset:3px}
@@ -9,7 +10,7 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .wrap{max-width:920px;padding:0 18px;margin:0 auto}
 .skip{position:absolute;left:-9999px;top:0;background:white;padding:10px;z-index:5}
 .skip:focus{left:10px}
-.topbar{background:#fff;border-bottom:1px solid var(--stroke)}
+.topbar{background:var(--white);border-bottom:1px solid var(--stroke)}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:82px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
 .brand strong,.brand small{display:block;line-height:1.2}
@@ -37,10 +38,10 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .head-note{font-size:.84rem;color:var(--muted);white-space:nowrap}
 .tabs{display:flex;gap:7px;overflow-x:auto;padding:16px 0 18px;scrollbar-width:thin}
 .tab{flex:none;background:transparent;border:1px solid transparent;border-radius:11px;padding:10px 13px;color:var(--muted);white-space:nowrap;font-weight:650}
-.tab:hover{background:#fff}
-.tab.active{background:#fff;color:var(--navy);border-color:var(--stroke);box-shadow:0 2px 0 #e7e3da}
+.tab:hover{background:var(--white)}
+.tab.active{background:var(--white);color:var(--navy);border-color:var(--stroke);box-shadow:0 2px 0 #e7e3da}
 .notice:empty{display:none}
-.notice{margin:0 0 12px;padding:12px 16px;background:#fff4d8;border-left:4px solid var(--gold);border-radius:8px}
+.notice{margin:0 0 12px;padding:12px 16px;background:var(--warn-tint);border-left:4px solid var(--gold);border-radius:8px}
 .panel{background:var(--white);border:1px solid var(--stroke);border-radius:18px;padding:clamp(19px,4vw,34px);box-shadow:0 4px 28px #18251f09;margin-bottom:18px}
 h1,h2,h3{line-height:1.22;letter-spacing:-.025em;margin:0 0 12px}
 h1{font-size:clamp(1.45rem,4vw,2.15rem)}
@@ -50,14 +51,14 @@ p{margin:.4rem 0 1rem}
 .muted{color:var(--muted)}
 .eyebrow{letter-spacing:.08em;font-size:.74rem;text-transform:uppercase;color:var(--navy);font-weight:800;margin-bottom:10px}
 .qualification{font-size:.84rem;color:var(--muted);border-top:1px solid var(--stroke);padding-top:12px;margin-top:20px}
-.prompt{background:#edf2ef;border-left:4px solid var(--forest);border-radius:9px;padding:18px 20px;font-size:clamp(1.1rem,3vw,1.45rem);line-height:1.6;margin:16px 0;overflow-wrap:anywhere}
+.prompt{background:var(--learn-tint);border-left:4px solid var(--forest);border-radius:9px;padding:18px 20px;font-size:clamp(1.1rem,3vw,1.45rem);line-height:1.6;margin:16px 0;overflow-wrap:anywhere}
 .prompt.small{font-size:1rem;white-space:pre-wrap}
 .field{display:block;font-weight:650;margin:14px 0 6px}
-.field input,.field textarea,textarea.answer,input.answer{width:100%;padding:12px 14px;border:1.5px solid #9baaa2;border-radius:10px;background:#fff;color:var(--ink)}
+.field input,.field textarea,textarea.answer,input.answer{width:100%;padding:12px 14px;border:1.5px solid var(--input-border);border-radius:10px;background:var(--white);color:var(--ink)}
 textarea{min-height:115px;resize:vertical}
 .field textarea{display:block;margin-top:8px;font-weight:400}
 .radio{display:block;padding:10px 12px;border:1px solid var(--stroke);margin:8px 0;border-radius:9px;cursor:pointer}
-.radio:has(input:checked){border-color:var(--forest);background:#edf5ef}
+.radio:has(input:checked){border-color:var(--forest);background:var(--learn-tint)}
 .radio input{margin-right:9px;accent-color:var(--forest)}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .btn{border:1px solid var(--navy);border-radius:10px;background:var(--navy);color:white;padding:12px 18px;font-weight:720;min-height:46px}
@@ -66,13 +67,13 @@ textarea{min-height:115px;resize:vertical}
 .btn.quiet{border-color:var(--stroke);background:white;color:var(--ink)}
 .btn.danger{background:var(--red);border-color:var(--red)}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:16px 0}
-.kpi{background:#f2f5f0;border:1px solid var(--stroke);padding:14px;border-radius:12px}
+.kpi{background:var(--surface-subtle);border:1px solid var(--stroke);padding:14px;border-radius:12px}
 .kpi strong{display:block;font-size:1.8rem;line-height:1.25;font-variant-numeric:tabular-nums}
 .kpi span{color:var(--muted);font-size:.88rem}
-.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--stroke);border-radius:30px;padding:3px 10px;font-size:.8rem;font-weight:700;margin:3px 6px 3px 0;background:#f7f8f5}
-.feedback{border-left:4px solid var(--forest);background:#eef6f0;padding:16px 18px;border-radius:9px;margin:18px 0}
-.feedback.warn{border-left-color:var(--gold);background:#fff5e2}
-.feedback.error{border-left-color:var(--red);background:#fff0ef}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--stroke);border-radius:30px;padding:3px 10px;font-size:.8rem;font-weight:700;margin:3px 6px 3px 0;background:var(--surface-subtle)}
+.feedback{border-left:4px solid var(--forest);background:var(--learn-tint);padding:16px 18px;border-radius:9px;margin:18px 0}
+.feedback.warn{border-left-color:var(--gold);background:var(--warn-tint)}
+.feedback.error{border-left-color:var(--red);background:var(--error-tint)}
 ol{padding-left:22px}
 li{margin:8px 0}
 audio{width:100%;margin:12px 0 6px}
@@ -80,7 +81,7 @@ details{border:1px solid var(--stroke);border-radius:10px;padding:11px 14px;marg
 summary{cursor:pointer;font-weight:700}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 .steps{display:flex;gap:5px;margin-bottom:18px}
-.step{height:6px;flex:1;background:#e4e9e2;border-radius:9px}
+.step{height:6px;flex:1;background:var(--route-track);border-radius:9px}
 .step.done{background:var(--forest)}
 .rowline{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--stroke);align-items:baseline}
 .rowline:last-child{border-bottom:0}
@@ -91,9 +92,8 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 @media print{nav,.actions,.topbar,.footer{display:none}.panel{border:0;box-shadow:none}}
 
 /* Purposeful color, not generic AI-generated decoration: every cue has a skill label. */
-:root{--skill-reading:#126D79;--skill-listening:#694E9A;--skill-writing:#985023;--skill-speaking:#247244}
 .skills-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:5px 0 14px}
-.skill-label{position:relative;display:flex;align-items:center;justify-content:center;border:1px solid var(--stroke);border-bottom-width:3px;background:#fff;padding:7px 5px;border-radius:8px;font-size:.83rem;min-width:0;font-weight:750;line-height:1.35}
+.skill-label{position:relative;display:flex;align-items:center;justify-content:center;border:1px solid var(--stroke);border-bottom-width:3px;background:var(--white);padding:7px 5px;border-radius:8px;font-size:.83rem;min-width:0;font-weight:750;line-height:1.35}
 .skill-reading{border-bottom-color:var(--skill-reading);color:var(--skill-reading)}
 .skill-listening{border-bottom-color:var(--skill-listening);color:var(--skill-listening)}
 .skill-writing{border-bottom-color:var(--skill-writing);color:var(--skill-writing)}
@@ -107,21 +107,21 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
   grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
 .threshold-segment{min-width:0;min-height:42px;display:flex;flex-direction:column;
   justify-content:center;align-items:flex-start;gap:1px;padding:6px 13px 6px 13px;
-  background:#f1f4ef;color:#38564c;
+  background:var(--surface-subtle);color:var(--forest);
   clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%,9px 50%)}
 .threshold-segment:first-child{
   clip-path:polygon(0 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,0 100%)}
-.threshold-segment.completed{background:#dfece3;color:#31574c}
-.threshold-segment.current{background:#31574c;color:#fff}
+.threshold-segment.completed{background:var(--route-learn-done);color:var(--forest)}
+.threshold-segment.current{background:var(--forest);color:var(--white)}
 .threshold-index{font-size:.62rem;font-weight:800;letter-spacing:.08em;line-height:1}
 .threshold-label{font-size:.78rem;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
 .threshold-route-exam{margin:-5px 0 20px}
-.threshold-route-exam .threshold-segment{background:#e9eef4;color:#083b7a}
-.threshold-route-exam .threshold-segment.completed{background:#d7e3f0}
-.threshold-route-exam .threshold-segment.current{background:#083b7a;color:#fff}
+.threshold-route-exam .threshold-segment{background:var(--exam-tint);color:var(--navy)}
+.threshold-route-exam .threshold-segment.completed{background:var(--route-exam-done)}
+.threshold-route-exam .threshold-segment.current{background:var(--navy);color:var(--white)}
 /* Focus belongs to the answer, not to a collection of competing shiny cards. */
-.site-learn .panel>.eyebrow{color:#31574c}
-.site-exam .panel>.eyebrow{color:#083b7a}
+.site-learn .panel>.eyebrow{color:var(--forest)}
+.site-exam .panel>.eyebrow{color:var(--navy)}
 @media(max-width:380px){
   .mode-gateway{grid-template-columns:1fr}
   .skills-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -140,8 +140,8 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
    Never reveal answer cues in independent attempt, transfer or exam mode. */
 .learning-cue{
   display:inline;
-  background:#FFF1C6;
-  color:#083B7A;
+  background:var(--cue-bg);
+  color:var(--cue-text);
   font-weight:800;
   text-decoration:underline;
   text-decoration-thickness:2px;
@@ -159,7 +159,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
 
 /* Research-backed content hierarchy: meaning before visually amplified grammar.
    The neutral meaning panel reduces color competition and protects comprehension. */
-.meaning-first{margin:13px 0 11px;padding:10px 13px;background:#fff;border:1px solid var(--stroke);border-left:4px solid var(--forest);border-radius:7px}
+.meaning-first{margin:13px 0 11px;padding:10px 13px;background:var(--white);border:1px solid var(--stroke);border-left:4px solid var(--forest);border-radius:7px}
 .meaning-first p{margin:4px 0}
 .meaning-label{font-size:.75rem;font-weight:800;letter-spacing:.035em;color:var(--navy);text-transform:uppercase;margin:10px 0 4px}
 .meaning-text{font-size:1.03rem;line-height:1.5;color:var(--ink)}

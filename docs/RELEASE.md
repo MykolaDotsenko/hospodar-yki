@@ -4,7 +4,7 @@
 
 ## Current deliverable
 
-The runnable asset is `app/`, a browser-local prototype served with `python3 -m http.server 8080`. It is **not** a verified production deployment. `native/android/prototype/` contains Kotlin sources, not an Android app/Gradle project. A 2–3GB media library, Play install-time packs and signed AAB do not currently exist.
+The runnable asset is `app/`, a browser-local prototype served with `python3 -m http.server 8080`. It is **not** a verified production deployment. `native/android/prototype/` contains Kotlin sources, not an Android app/Gradle project. A 3–4GB media library ([R05 plan](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged): ≈3.6GB compressed, Play ceiling 4GB), Play install-time packs and signed AAB do not currently exist.
 
 ## Web preview/release prerequisites (future)
 
@@ -18,7 +18,7 @@ The runnable asset is `app/`, a browser-local prototype served with `python3 -m 
 ## Android Play release prerequisites (future G3/G4)
 
 - Create and compile real Capacitor/Gradle project, register tested Room and media bridges, pin plugin/SDK versions and export schema migrations.
-- Produce a signed **AAB**; Google Play install-time **Play Asset Delivery** packs are not a single 3GB standalone APK. Verify current Play size limits, compressed device size and installation/update disk headroom (including low-storage behavior) before shipping.
+- Produce a signed **AAB**; Google Play install-time **Play Asset Delivery** packs are not a single 3–4GB standalone APK. Verify current Play size limits, compressed device size and installation/update disk headroom (including low-storage behavior) before shipping.
 - Use an authorized **synthetic >1GB** asset pack for technical validation before licensing a large real media collection. Test `packId` resolution, traversal rejection, checksum, seek/pause, Media3 video surface, subtitles, audio focus and airplane mode on a **Play-installed** device.
 - Record phone/Android versions, CPU/memory/thermal/frames, Play Console/bundletool size output, installation and upgrade/downgrade results.
 - Confirm mic permission denial/recovery, process kill between writes, Room schema migration, export/delete and no phantom "saved" acknowledgments.

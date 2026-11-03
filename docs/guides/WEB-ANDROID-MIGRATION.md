@@ -18,7 +18,7 @@
 1. Introduce `apps/web/` and a pinned package-manager lockfile in its own PR. Extract a pure TS domain package that does **not** import React, Phaser, Dexie, Capacitor or Supabase.
 2. Port one full LEARN mission and one EXAM task using adapters rather than two scoring engines. Preserve keyboard navigation, focus management, Finnish diacritics and accessible text alternatives.
 3. Migrate persisted LEARN state to Dexie/IndexedDB with a **tested idempotent migration**, rollback/export story, quota failure and eviction notice. Web IndexedDB is not guaranteed permanent storage.
-4. Add service worker and optional downloadable offline packs **after** validated content ownership, rights and caching policy. Do not cache 2–3 GB by default or update the running exam mid-attempt.
+4. Add service worker and optional downloadable offline packs **after** validated content ownership, rights and caching policy. Do not cache the multi-GB Android media set (planned 3–4 GB, R05) by default or update the running exam mid-attempt.
 5. Verify original vs new UX with contract/unit tests, Playwright Chromium/Firefox/WebKit, real mobile media/mic permissions and lost-ACK simulations. Keep the legacy app until these pass.
 
 ## G3 / G4: buildable Android shell and media packs

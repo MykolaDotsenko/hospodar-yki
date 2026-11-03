@@ -1,5 +1,7 @@
 # ADR-023 — Hospodar YKI: Android game 2–3 GB з усією дозволеною мультимедіа офлайн
 
+> **Розмір замінено (03.11.2026):** «2–3 ГБ» нижче — історичний бюджет цього ADR. Чинна межа — [доповнення R05](#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged): план ≈3,6 ГБ стиснено (base ≤500 МБ, кожен pack ≤1,5 ГБ, base+install-time ≤4 ГБ за правилами Google Play, перевірити перед релізом). Решта рішення без змін; нічого не зібрано й не виміряно.
+
 > **Стан рішення (22.10.2026):** цей ADR визначає game/distribution goals. Пізніший [ADR-024](24-reliability-hardened-architecture-web-android.md) **замінює ранній Android IndexedDB/Dexie вибір** на Room/SQLite для критичного прогресу; [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md) уточнює єдиний контракт, `packId` resolution та вимірювані інтеграційні gates. Документація — не підтвердження Android/Play релізу.
 
 > **Дата:** 21.10.2026 · **Статус:** ACCEPTED PRODUCT CONSTRAINT + TARGET ARCHITECTURE, NOT IMPLEMENTED.  
