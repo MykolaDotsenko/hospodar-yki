@@ -1,8 +1,10 @@
 import {
   EXAM_STORAGE_KEY, buildItems, createSession, loadSession,
   remainingSeconds, writeAnswer, goToIndex, recordVoiceEvidence,
-  finishSession, scoreSession, isDeadlineError, withElapsedHighWater
+  finishSession, scoreSession, isDeadlineError, withElapsedHighWater,
+  sessionIdOf, setVoiceConsent, attachVoiceReceipt, removeVoiceReceipt, voiceEvidenceOf
 } from "./exam-core.mjs";
+import {createIndexedDbVoiceStore,saveVoiceClip,verifyVoiceClip} from "./exam-voice-store.mjs";
 import {createIndexedDbExamRepository,newCommit,commitWithRecovery} from "./attempt-storage.mjs";
 import {createTimingProfile,observePracticeTime} from "./e04-timing-policy.mjs";
 
@@ -19,7 +21,12 @@ const taskNames={reading:"Tekstin ymmärtäminen · Читання",
 const exam={blueprints:null,content:null,session:null,items:null,storageBlocked:false,
   url:null,recorder:null,stream:null,stage:"welcome",now:Date.now(),
   repository:null,persistedRevision:0,saveQueue:Promise.resolve(),transitioning:false,
-  draftTimer:null,pendingDraft:null,clockBase:null,deadlineNotified:false,clockAnomalyNoted:false};
+  draftTimer:null,pendingDraft:null,clockBase:null,deadlineNotified:false,clockAnomalyNoted:false,
+  voiceStore:null,urlTaskId:null,recordStartedAt:0,voiceLoading:null};
+function newSessionId(){
+  const raw=globalThis.crypto?.randomUUID?.()||String(Date.now())+Math.random().toString(16).slice(2);
+  return "s-"+raw.replace(/[^a-zA-Z0-9]/g,"").slice(0,40);
+}
 /** Monotonic page clock anchored at session start/restore (E04-C1). performance.now()
  * keeps counting if the wall clock is moved; the max of both is persisted as a watermark.
  */
@@ -107,6 +114,7 @@ async function deleteSaved(){
   try{
     await flushDraft();
     if(exam.storageBlocked)return false;
+    if(exam.session&&exam.voiceStore)await exam.voiceStore.deleteSession(sessionIdOf(exam.session));
     await exam.repository.deleteLocal();
     try{localStorage.removeItem(EXAM_STORAGE_KEY);}catch{}
     exam.persistedRevision=0;return true;
@@ -192,10 +200,7 @@ function renderExam(){
   } else {
     body+=`<p lang="fi" class="prompt small"><strong>${esc(t.prompt)}</strong></p>`;
     if(t.requiredPoints?.length)body+=`<details><summary lang="uk">Умови завдання (не зразок відповіді)</summary><ul lang="fi">${t.requiredPoints.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></details>`;
-    if(t.skill==="speaking")body+=`<p class="muted">Можна відповісти вголос. Дозвіл на мікрофон надається лише після натискання. Голос не передається на сервер і не збережеться після перезавантаження.</p>
-      <div class="actions">${actions(exam.recorder?.state==="recording"?"Зупинити запис":"Записати голос",exam.recorder?.state==="recording"?"stop-record":"start-record","secondary")}</div>
-      ${exam.url?`<audio controls src="${esc(exam.url)}"></audio><p class="muted">Запис існує лише до закриття / оновлення сторінки.</p>`:"" }
-      <p class="muted">Альтернатива, якщо мікрофон недоступний: введи свій текстовий план нижче. Письмова заміна не оцінює усне мовлення.</p>`;
+    if(t.skill==="speaking")body+=speakingBlock(t);
     body+=`<label class="field" for="exam-text">Твоя ${t.skill==="writing"?"письмова відповідь":"відповідь або план"}</label>
       <textarea class="exam-textarea" id="exam-text" name="exam-answer" lang="fi" maxlength="12000"
         placeholder="Kirjoita tähän…">${esc(answer)}</textarea>
@@ -209,6 +214,52 @@ function renderExam(){
   ${exam.storageBlocked?actions("Спробувати зберегти ще раз","retry-save","secondary"):""}</div>
   <p class="audiowarn">Можна залишити відповідь порожньою. Перехід і завершення доступні лише після успішного збереження в IndexedDB.</p>`;
   return section(body+policy());
+}
+function speakingBlock(t){
+  const s=exam.session,voice=voiceEvidenceOf(s,t.id),receipt=s.voiceReceipts?.[t.id];
+  const recording=exam.recorder?.state==="recording";
+  if(voice==="stored"&&!exam.url&&!exam.voiceLoading)loadStoredVoice(t.id);
+  const status=voice==="stored"?`<p class="feedback" role="status">✅ Запис збережено лише на цьому пристрої й перевірено (${Math.round(receipt.bytes/1024)} КБ, ${Math.round(receipt.durationMs/1000)} с). Автоматично не оцінюється.</p>`:
+    voice==="ephemeral"?`<p class="feedback warn" role="status">Запис НЕ збережено на пристрої: він зникне при переході до іншого завдання або перезавантаженні. Щоб зберегти — постав позначку згоди й запиши ще раз.</p>`:"";
+  const player=exam.url&&exam.urlTaskId===t.id?`<audio controls src="${esc(exam.url)}"></audio>`:"";
+  return `<p class="muted">Можна відповісти вголос. Мікрофон вмикається лише після натискання. Голос <strong>ніколи не надсилається</strong> на сервер.</p>
+    <label class="radio"><input type="checkbox" data-voice-consent ${s.voiceConsent?"checked":""} ${recording?"disabled":""}>
+      <span>Зберігати мій голосовий запис у цьому браузері, доки я його не видалю або не почну нову репетицію.</span></label>
+    <div class="actions">${actions(recording?"Зупинити запис":voice?"Записати ще раз":"Записати голос",recording?"stop-record":"start-record","secondary")}
+      ${voice==="stored"&&!recording?actions("Видалити запис","delete-voice","quiet"):""}</div>
+    ${status}${player}
+    <p class="muted">Альтернатива, якщо мікрофон недоступний: введи свій текстовий план нижче. Письмова заміна не оцінює усне мовлення.</p>`;
+}
+async function loadStoredVoice(taskId){
+  const receipt=exam.session?.voiceReceipts?.[taskId];
+  if(!receipt||!exam.voiceStore)return;
+  exam.voiceLoading=taskId;
+  try{
+    const check=await verifyVoiceClip(exam.voiceStore,receipt);
+    if(exam.session?.voiceReceipts?.[taskId]!==receipt)return;
+    if(!check.storedHashVerified){await dropUnverifiedVoice(taskId);return;}
+    if(exam.url)URL.revokeObjectURL(exam.url);
+    exam.url=URL.createObjectURL(new Blob([check.data],{type:check.mimeType}));exam.urlTaskId=taskId;
+    draw();
+  }finally{exam.voiceLoading=null;}
+}
+/** Stored bytes missing or changed: never keep claiming a spoken answer exists (E06). */
+async function dropUnverifiedVoice(taskId){
+  exam.session=removeVoiceReceipt(exam.session,taskId);
+  alertUser("⚠️ Збережений голосовий запис не знайдено або він пошкоджений (можливо, дані браузера очищено). Усна відповідь більше не позначена як виконана.");
+  if(!exam.session.finishedAt&&!exam.storageBlocked)await queueSave(exam.session,"answer").catch(()=>{});
+  draw();
+}
+async function deleteVoice(taskId){
+  if(exam.session.finishedAt||!exam.session.voiceReceipts?.[taskId])return;
+  if(!confirm("Видалити збережений голосовий запис цього завдання?"))return;
+  try{
+    await exam.voiceStore.delete(exam.session.voiceReceipts[taskId].storageKey.slice("local-audio:".length));
+    if(exam.urlTaskId===taskId)stopAudio();
+    exam.session=removeVoiceReceipt(exam.session,taskId);
+    await queueSave(exam.session,"answer");
+    alertUser("Запис видалено з цього пристрою.");draw();
+  }catch(err){failSave(err);}
 }
 function renderFinished(){
   const results=scoreSession(exam.items,exam.session);
@@ -224,7 +275,8 @@ function renderFinished(){
       ` · <span lang="fi">ключ: ${esc(t.kind==="choice"?t.options[t.correct]:t.correct==="true"?"Oikein":"Väärin")}</span>`:"";
     return `<div class="exam-result-row"><div><strong lang="fi">${esc(t.prompt)}</strong>
       <div class="muted">Твоя відповідь: ${esc(exam.session.answers[t.id]||(
-        exam.session.voiceRecorded[t.id]?"[усний запис виконано, але файл не зберігається]":"—"))}</div></div>
+        {stored:"[усний запис збережено на цьому пристрої, без автоматичної оцінки]",
+         ephemeral:"[усний запис був, але не збережений на пристрої]"}[voiceEvidenceOf(exam.session,t.id)]||"—"))}</div></div>
       <span class="tag ${d.status==="correct"?"ok":d.status==="incorrect"?"no":""}">${state}${showKey}</span></div>`;
   }).join("");
   return section(`<p class="eyebrow">Відкладений зворотний зв'язок · завершено</p>
@@ -251,19 +303,25 @@ async function start(id,minutes){
   const b=exam.blueprints.find(x=>x.id===id);
   if(!b)throw new Error("Unknown blueprint");
   const newItems=buildItems(b,exam.content);
-  await transition("start",()=>createSession(b.id,minutes),()=>{
+  await transition("start",()=>createSession(b.id,minutes,new Date(),newSessionId()),()=>{
     stopAudio();exam.items=newItems;exam.stage="exam";anchorClock();
   });
 }
+function recordingInProgress(){
+  if(exam.recorder?.state!=="recording")return false;
+  alertUser("Спершу зупини запис голосу — інакше він не збережеться.");
+  return true;
+}
 function selectItem(index){
   if(exam.session.finishedAt)return;
+  if(recordingInProgress())return;
   if(observeClock()?.expired){deadlineReached();return;}
   return transition("navigate",()=>goToIndex(exam.session,index,exam.items.length),stopAudio);
 }
 function stopAudio(){
   if(exam.recorder?.state==="recording"){exam.recorder.onstop=null;exam.recorder.stop();}
   if(exam.stream)exam.stream.getTracks().forEach(x=>x.stop());
-  if(exam.url){URL.revokeObjectURL(exam.url);exam.url=null;}
+  if(exam.url){URL.revokeObjectURL(exam.url);exam.url=null;exam.urlTaskId=null;}
 }
 async function record(){
   if(!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder==="undefined"){
@@ -282,26 +340,43 @@ async function record(){
     rec.onstop=async()=>{
       stream.getTracks().forEach(t=>t.stop());
       exam.stream=null;exam.recorder=null;
+      const durationMs=performance.now()-exam.recordStartedAt;
+      const blob=chunks.length?new Blob(chunks,{type:rec.mimeType||"audio/webm"}):null;
       if(exam.url)URL.revokeObjectURL(exam.url);
-      exam.url=chunks.length?URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"})):null;
-      if(!exam.session.finishedAt){
+      exam.url=blob&&blob.size?URL.createObjectURL(blob):null;exam.urlTaskId=exam.url?task.id:null;
+      let message=exam.url?"Можна прослухати свою відповідь. Запис НЕ збережено: ти не дав(-ла) згоду на локальне збереження, тож після перезавантаження він зникне.":
+        "Не вдалося створити запис (0 байт). Усна відповідь не зарахована як виконана.";
+      if(exam.url && !exam.session.finishedAt){
         try{
           await flushDraft();
           if(!exam.storageBlocked){
             observeClock();
-            exam.session=recordVoiceEvidence(exam.session,task.id,Boolean(exam.url));
+            if(exam.session.voiceConsent && exam.voiceStore){
+              try{
+                const receipt=await saveVoiceClip(exam.voiceStore,{sessionId:sessionIdOf(exam.session),
+                  taskId:task.id,data:blob,mimeType:blob.type,durationMs,revision:exam.persistedRevision+1});
+                exam.session=attachVoiceReceipt(exam.session,task.id,receipt);
+                message=`Запис збережено лише на цьому пристрої й перевірено (${Math.round(receipt.bytes/1024)} КБ). Його не оцінено автоматично.`;
+              }catch(err){
+                if(isDeadlineError(err))throw err;
+                exam.session=recordVoiceEvidence(exam.session,task.id,true);
+                message="⚠️ Запис НЕ збережено на пристрої ("+(err?.code||"SAVE_FAILED")+"). Прослухати можна до перезавантаження; спробуй записати ще раз або звільни місце.";
+              }
+            }else exam.session=recordVoiceEvidence(exam.session,task.id,true);
             await queueSave(exam.session,"answer");
           }
-        }catch(err){if(isDeadlineError(err))deadlineReached();else failSave(err);}
+        }catch(err){if(isDeadlineError(err)){deadlineReached();return;}failSave(err);}
       }
       draw();
-      alertUser(exam.url?"Можна прослухати свою відповідь. Голосовий файл не зберігається після перезавантаження.":"Не вдалося створити запис.");
+      alertUser(message);
     };
-    rec.start();draw();alertUser("Запис іде локально. Зупини вручну, щоб прослухати.");
+    exam.recordStartedAt=performance.now();
+    rec.start();draw();alertUser("Запис іде. Зупини його вручну, перш ніж переходити до іншого завдання.");
   }catch{alertUser("Немає дозволу на мікрофон. Для альтернативи введи відповідь у текстове поле.");}
 }
 function conclude(){
   if(!exam.session || exam.session.finishedAt)return;
+  if(exam.recorder?.state==="recording" && !exam.deadlineNotified){recordingInProgress();return;}
   return transition("finish",()=>finishSession(exam.session),stopAudio);
 }
 function exported(){
@@ -321,7 +396,15 @@ root.addEventListener("submit",e=>{
 });
 root.addEventListener("input",e=>{
   if(!exam.session || exam.session.finishedAt || exam.transitioning)return;
-  const input=e.target;if(input.name!=="exam-answer")return;
+  const input=e.target;
+  if(input.matches?.("[data-voice-consent]")){
+    try{exam.session=setVoiceConsent(exam.session,input.checked);}catch{return;}
+    if(!exam.storageBlocked)queueSave(exam.session,"answer").catch(()=>{});
+    alertUser(input.checked?"Записи цієї репетиції зберігатимуться лише на цьому пристрої.":
+      "Нові записи не зберігатимуться. Уже збережений запис можна видалити кнопкою.");
+    return;
+  }
+  if(input.name!=="exam-answer")return;
   const task=exam.items[exam.session.index];
   observeClock();
   try{exam.session=writeAnswer(exam.session,task.id,input.value);}
@@ -334,6 +417,7 @@ root.addEventListener("click",e=>{
   if(!exam.session)return;
   const act=b.dataset.action;
   if(act==="start-record"){record();return;}
+  if(act==="delete-voice"){deleteVoice(exam.items[exam.session.index].id);return;}
   if(act==="stop-record"){if(exam.recorder?.state==="recording")exam.recorder.stop();return;}
   if(act==="previous"){selectItem(Math.max(0,exam.session.index-1));return;}
   if(act==="next"){selectItem(Math.min(exam.items.length-1,exam.session.index+1));return;}
@@ -393,6 +477,7 @@ async function boot(){
     exam.blueprints=docs[0].blueprints;
     exam.content={reading:docs[1],listening:docs[2],baseline:docs[3]};
     exam.repository=createIndexedDbExamRepository();
+    try{exam.voiceStore=createIndexedDbVoiceStore();}catch{exam.voiceStore=null;}
     let saved=await exam.repository.readCurrent();
     if(!saved){
       const legacy=getSaved();
@@ -412,6 +497,10 @@ async function boot(){
       const items=buildItems(b,exam.content);
       if(session.index>=items.length)throw new Error("Restored exam index is invalid");
       exam.items=items;exam.session=session;anchorClock();
+      for(const [taskId,receipt] of Object.entries(session.voiceReceipts||{})){
+        const check=exam.voiceStore?await verifyVoiceClip(exam.voiceStore,receipt):{storedHashVerified:false};
+        if(!check.storedHashVerified)await dropUnverifiedVoice(taskId);
+      }
       if(observeClock()?.expired)deadlineReached();
     }
     draw();

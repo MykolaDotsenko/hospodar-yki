@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><title>Real IndexedDB voice evidence test</title></head>
+<body>
+<output id="result" data-result="RUNNING">RUNNING</output>
+<script type="module">
+import {createIndexedDbVoiceStore,saveVoiceClip,verifyVoiceClip,sha256Hex} from "../exam-voice-store.mjs";
+import {speakingEvidenceStatus} from "../e06-speaking-evidence-policy.mjs";
+const out=document.getElementById("result");
+const check=(c,m)=>{if(!c)throw Error(m);};
+(async()=>{
+  const dbName="yki-voice-it-"+Date.now()+"-"+Math.random();
+  try{
+    const bytes=new Uint8Array(4096).map((_,i)=>(i*31)%251);
+    const blob=new Blob([bytes],{type:"audio/webm;codecs=opus"});
+    const store=createIndexedDbVoiceStore({dbName});
+    const receipt=await saveVoiceClip(store,{sessionId:"s-browser01",taskId:"d-s1",data:blob,
+      mimeType:blob.type,durationMs:2500,revision:2});
+    check(receipt.sha256===await sha256Hex(bytes.buffer),"hash of real Blob bytes");
+    // A fresh connection behaves like a page reload.
+    const reopened=createIndexedDbVoiceStore({dbName});
+    const v=await verifyVoiceClip(reopened,receipt);
+    check(v.storedBytesVerified&&v.storedHashVerified,"bytes survive reopen and verify");
+    check(new Uint8Array(v.data)[100]===bytes[100],"content readable");
+    check(speakingEvidenceStatus({receipt,sessionId:"s-browser01",taskId:"d-s1",...v}).state==="REVIEWABLE_AUDIO_UNGRADED","E06 contract accepts");
+    // Tamper with stored bytes through raw IndexedDB: must be detected.
+    await new Promise((res,rej)=>{const r=indexedDB.open(dbName,1);r.onsuccess=()=>{
+      const t=r.result.transaction("clips","readwrite");const st=t.objectStore("clips");
+      const g=st.get("s-browser01_d-s1");g.onsuccess=()=>{const row=g.result;const b=new Uint8Array(row.bytes);b[0]^=255;row.bytes=b.buffer;st.put(row);};
+      t.oncomplete=()=>{r.result.close();res();};t.onerror=()=>rej(t.error);};r.onerror=()=>rej(r.error);});
+    const t=await verifyVoiceClip(createIndexedDbVoiceStore({dbName}),receipt);
+    check(t.storedBytesVerified===true&&t.storedHashVerified===false&&t.data===null,"tamper detected");
+    // Re-record replaces, deleteSession removes only that session.
+    const second=await saveVoiceClip(reopened,{sessionId:"s-browser01",taskId:"d-s1",data:new Uint8Array([1,2,3]),mimeType:"audio/ogg",durationMs:900,revision:3});
+    const other=await saveVoiceClip(reopened,{sessionId:"s-browser02",taskId:"d-s1",data:new Uint8Array([9,9]),mimeType:"audio/wav",durationMs:500,revision:1});
+    check((await verifyVoiceClip(reopened,second)).storedHashVerified,"re-record replaces");
+    await reopened.deleteSession("s-browser01");
+    check(!(await verifyVoiceClip(reopened,second)).storedBytesVerified,"session clips deleted");
+    check((await verifyVoiceClip(reopened,other)).storedHashVerified,"other session untouched");
+    let refused=false;
+    try{await saveVoiceClip(reopened,{sessionId:"s-browser01",taskId:"d-s1",data:new Blob([]),mimeType:"audio/webm",durationMs:100,revision:1});}
+    catch(e){refused=e.code==="NO_AUDIO_BYTES";}
+    check(refused,"0-byte recording refused");
+    out.dataset.result="PASS";out.textContent="PASS: real Chromium IndexedDB voice evidence store: SHA-256 readback after reopen, tamper detection, replace, per-session delete, 0-byte refusal";
+  }catch(e){out.dataset.result="FAIL";out.textContent="FAIL: "+e.message;}
+  finally{indexedDB.deleteDatabase(dbName);}
+})();
+</script></body></html>

@@ -106,11 +106,11 @@ MIC_PREFLIGHT → READY → PREP (optional) → STIMULUS → RECORDING → STOP_
 
 | Work contract | Acceptance | Зараз |
 | --- | --- | --- |
-| E06-C1: реальне durable recording | Blob, hash, verified readback, linked revision, export/delete, graceful restore | NOT DONE |
+| E06-C1: реальне durable recording | Blob, hash, verified readback, linked revision, export/delete, graceful restore | **PARTIAL — Web DONE (03.11.2026):** згода на сесію, байти в окремій IndexedDB `hospodar-yki:exam-voice:v1`, SHA-256 + розмір readback перед квитанцією, повторна перевірка при відновленні (зниклі/змінені байти → квитанцію знято, учня попереджено), блок переходу під час запису, 0 байт не зараховується, видалення; [app/exam-voice-store.mjs](../../app/exam-voice-store.mjs), 9 Node + real Chromium IDB тести, ручний E2E зі штучним мікрофоном 15/15. Експорт аудіо, Android, kill-під-час-запису на пристрої — NOT DONE |
 | E06-C2: device/browser fault injection | permission denied, codec, silence, tab close, simultaneous save, deadline | NOT RUN |
 | E06-C3: 4 original task families | natural multi-turn voice, two S2 reviewers, rights + QA | NOT DONE |
 | E06-C4: official 2027 interaction policy | manual Inspera 4 demos + OPH production confirmation | BLOCKED E02 |
 | E06-C5: human formative assessment | calibrated judges, no accent penalty, disagreement reconciliation | NOT DONE |
 | E06-C6: real transfer study | blind day14/day30 new speaking outcomes | NOT RUN |
 
-**Завершено тут:** датоване джерельне дослідження, live-source code review, ризик/реліз ledger, pure JS reference safety gate та тести. Немає production recording fix, human approval або оцінювання YKI 3/4. Наступний етап E07 — жанри письма, але **E06-C1 (збереження реального голосу)** залишається критичним технічним боргом.
+**Завершено тут:** датоване джерельне дослідження, live-source code review, ризик/реліз ledger, pure JS reference safety gate та тести. Немає production recording fix, human approval або оцінювання YKI 3/4. Наступний етап E07 — жанри письма, а **E06-C1 у Web закрито 03.11.2026** (див. таблицю); Android-захоплення й fault injection на пристроях лишаються відкритими.

@@ -310,10 +310,10 @@
     }
   ],
   "reference_module": "app/e06-speaking-evidence-policy.mjs",
-  "reference_only_not_live": true,
+  "reference_only_not_live": false,
   "user_trials_run": 0,
   "independent_s2_reviewers_confirmed": 0,
-  "live_audio_persistence_implemented": false,
+  "live_audio_persistence_implemented": "PARTIAL_WEB_LOCAL_CONSENTED",
   "official_2027_mic_timing_verified": false,
   "official_yki_grade_prediction_allowed": false,
   "rights_policy": "Link historical official examples only. New scripts/media must be originally authored and licensed; no transcription or republishing of SOLKI audio.",
@@ -330,5 +330,26 @@
     "only durable byte+hash receipt can be reviewed, but remains ungraded",
     "official grade always null",
     "two-tabs, tab closed while finalizing, suspended page, interrupted mic, device switch, stale callbacks browser E2E"
-  ]
+  ],
+  "live_integration_2026_11_03": {
+    "contract": "E06-C1",
+    "done": [
+      "explicit per-session consent checkbox",
+      "bytes in separate IndexedDB (hospodar-yki:exam-voice:v1), never uploaded",
+      "SHA-256 + size readback before receipt",
+      "receipt validated by inspectSpeakingReceipt in exam-core",
+      "stored bytes re-verified on resume; missing/changed => receipt dropped and learner told",
+      "navigation/manual finish blocked while recording; 0-byte => not counted",
+      "delete per task and on new rehearsal"
+    ],
+    "still_open": [
+      "Android native capture",
+      "fault injection (process kill mid-write, quota) on real devices",
+      "human S2 review of recordings",
+      "OPH 2027 mic/beep/timing rules (UNKNOWN)",
+      "four speaking families (E03)",
+      "retention policy UI beyond delete"
+    ],
+    "grading": "UNGRADED; no automatic or official YKI score"
+  }
 }
