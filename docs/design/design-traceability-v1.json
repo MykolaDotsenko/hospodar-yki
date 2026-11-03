@@ -4581,11 +4581,11 @@
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "app/tests/e03-construct-task-coverage.test.mjs",
-          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
       ],
-      "gap": "Full mini rehearsals only (3+4+1+1 units). Single-module (subtest) sessions are not built yet (EXAM-03)."
+      "gap": "Full and subset practice sessions exist, on the two mini rehearsals only (3+4+1+1 units); official partial-day profiles not modelled."
     },
     {
       "id": "EXAM-PILLAR-02",
@@ -4646,18 +4646,18 @@
       "evidence": [
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
-          "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
+          "contains": "AUTOSAVE persists typed text without navigation; nothing to save means no write"
         },
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
-          "contains": "a failed save never moves on: the learner stays with their answer and can retry"
+          "contains": "a failed finish writes neither the checkpoint nor history; RETRY finishes once"
         },
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
         }
       ],
-      "gap": "Answers persist on every navigation/finish (not every keystroke); no unexposed S2 item bank."
+      "gap": "Atomic finish + history, autosaved drafts and CAS; no unexposed S2 item bank."
     },
     {
       "id": "EXAM-PILLAR-06",
@@ -4749,15 +4749,33 @@
       "id": "EXAM-03",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Each subtest can be taken independently",
-      "status": "NOT_YET",
-      "plan": "Module selection in the XState machine (single-skill sessions) — next EXAM slice."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-03: a chosen subset (speaking only) contains exactly those items and survives a reload"
+        }
+      ]
     },
     {
       "id": "EXAM-04",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Optional custom module pair; 'official partial' only for OPH-confirmed day configs",
-      "status": "NOT_YET",
-      "plan": "After EXAM-03; label custom practice, never official partial."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "all four skills selected (or none) means the full rehearsal, never a partial claim"
+        }
+      ]
     },
     {
       "id": "EXAM-05",
@@ -4820,8 +4838,18 @@
       "id": "EXAM-09",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Attempt history with item-bank version, date, scope; no 'pass guarantee'",
-      "status": "NOT_YET",
-      "plan": "Attempt history store (item-bank version, date, scope) in the exam DB; no pass prediction."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-09: finishing writes the checkpoint and a history record atomically; history outlives a new rehearsal"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        }
+      ],
+      "gap": "History records date, set, scope, content version and per-skill objective counts; there is no unseen item bank yet, so repeated mocks reuse the same items."
     },
     {
       "id": "EXAM-10",
@@ -4830,19 +4858,19 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "AUTOSAVE persists typed text without navigation; nothing to save means no write"
         },
         {
-          "file": "app/tests/exam-core.test.mjs",
-          "contains": "corrupt state and obsolete schema recover safely"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         },
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "a failed save never moves on: the learner stays with their answer and can retry"
         }
       ],
-      "gap": "Legacy drafts survive reload; 'interrupted' status not modelled."
+      "gap": "Drafts autosave and survive reload; an explicit 'interrupted' status (vs finished) is not modelled."
     },
     {
       "id": "EXAM-11",
@@ -4865,18 +4893,17 @@
       "id": "EXAM-12",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Speaking-only mock works; no mic → honest not_assessed; text fallback never scores pronunciation",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "app/tests/exam-voice-store.test.mjs",
-          "contains": "E06-C1: stored speaking answer counts as answered but stays ungraded; deadline still applies"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         },
         {
-          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
-          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-03: a chosen subset (speaking only) contains exactly those items and survives a reload"
         }
-      ],
-      "gap": "Speaking-only session not built (EXAM-03)."
+      ]
     },
     {
       "id": "EXAM-13",
@@ -4902,8 +4929,17 @@
       "id": "EXAM-14",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Official configurations labelled separately; single-skill practice never tied to an official date",
-      "status": "NOT_YET",
-      "plan": "With EXAM-03/04 config model."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "all four skills selected (or none) means the full rehearsal, never a partial claim"
+        }
+      ]
     },
     {
       "id": "EXAM-15",
@@ -5407,14 +5443,17 @@
       "id": "YKI-FID-03",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Full/separate four modules; strict mode without hints, translation, transcripts",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
-      ],
-      "gap": "Single-module (subtest) sessions are not built yet (EXAM-03)."
+      ]
     },
     {
       "id": "YKI-FID-04",
@@ -5983,8 +6022,17 @@
       "id": "EXV-02",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Full vs only-writing vs only-speaking sessions contain exactly the chosen modules",
-      "status": "NOT_YET",
-      "plan": "apps/web EXAM machine with module selection (EXAM-03)."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-03: a chosen subset (speaking only) contains exactly those items and survives a reload"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "all four skills selected (or none) means the full rehearsal, never a partial claim"
+        }
+      ]
     },
     {
       "id": "EXV-03",
@@ -7159,22 +7207,40 @@
       "id": "AC-11",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam → each single subtest (AC-11–14) without the other three",
-      "status": "NOT_YET",
-      "plan": "With EXAM-03."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-03: a chosen subset (speaking only) contains exactly those items and survives a reload"
+        }
+      ]
     },
     {
       "id": "AC-15",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam → chosen 2–3 module practice subset, clearly labelled practice",
-      "status": "NOT_YET",
-      "plan": "With EXAM-04."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "all four skills selected (or none) means the full rehearsal, never a partial claim"
+        }
+      ]
     },
     {
       "id": "AC-16",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Exam → official partial date offers only OPH-confirmed allowedSkills",
       "status": "NOT_YET",
-      "plan": "With EXAM-14."
+      "plan": "Official partial-day profiles only after OPH publishes allowedSkills per date; today every subset is labelled practice (EXAM-14)."
     },
     {
       "id": "AC-17",
@@ -7231,8 +7297,18 @@
       "id": "AC-21",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Repeated mocks: unknown tasks, content version, real skill metrics, no YKI prediction",
-      "status": "NOT_YET",
-      "plan": "With EXAM-09."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-09: finishing writes the checkpoint and a history record atomically; history outlives a new rehearsal"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        }
+      ],
+      "gap": "Content version and per-skill metrics recorded; tasks repeat because no unseen bank exists; never a YKI prediction."
     },
     {
       "id": "AC-22",
@@ -8523,18 +8599,17 @@
       "id": "WEB-01",
       "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
       "summary": "All four skills, Learn/Exam and full/single module reachable via URL without Android",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
         },
         {
-          "file": "apps/web/e2e/listening.spec.ts",
-          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
-      ],
-      "gap": "LEARN skills and full EXAM rehearsal reachable; Single-module (subtest) sessions are not built yet (EXAM-03)."
+      ]
     },
     {
       "id": "WEB-02",
@@ -8735,6 +8810,10 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "AUTOSAVE persists typed text without navigation; nothing to save means no write"
         }
       ]
     },

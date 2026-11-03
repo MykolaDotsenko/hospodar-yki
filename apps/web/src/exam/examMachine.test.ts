@@ -11,11 +11,11 @@ const T0 = Date.parse("2026-11-03T10:00:00Z");
 const ids = examBlueprints.map(b => b.id);
 const db = () => "exam-test-" + Math.random().toString(16).slice(2);
 const boot = async (repo: ExamRepository) => {
-  const a = createActor(createExamMachine(repo, itemsFor, ids)).start();
+  const a = createActor(createExamMachine(repo, itemsFor, ids, "test-v1")).start();
   await waitFor(a, s => !s.matches("loading"));
   return a;
 };
-const settled = (a: ReturnType<typeof createActor>) => waitFor(a, s => !s.matches("saving") && !s.matches("clearing"));
+const settled = (a: ReturnType<typeof createActor>) => waitFor(a, s => !["saving", "finishing", "autosaving", "clearing"].some(x => s.matches(x)));
 
 describe("EXAM machine (XState) over the parity-tested domain policies", () => {
   it("starts a practice rehearsal and persists it before showing the first item", async () => {
@@ -75,7 +75,7 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
   it("a failed save never moves on: the learner stays with their answer and can retry", async () => {
     const real = createExamRepository(db());
     let fail = false;
-    const repo: ExamRepository = { ...real, commit: (s, r) => fail ? Promise.reject(new StorageError("QUOTA_OR_DISK_FULL", "full")) : real.commit(s, r) };
+    const repo: ExamRepository = { ...real, commit: (s, r, k) => fail ? Promise.reject(new StorageError("QUOTA_OR_DISK_FULL", "full")) : real.commit(s, r, k) };
     const a = await boot(repo);
     a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux5" });
     await settled(a);
@@ -103,5 +103,74 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     a.send({ type: "GOTO", index: 2, now: T0 + 2000 });
     await waitFor(a, s => s.matches("saveError"));
     expect(a.getSnapshot().context.error).toBe("REVISION_CONFLICT");
+  });
+  it("EXAM-03: a chosen subset (speaking only) contains exactly those items and survives a reload", async () => {
+    const name = db();
+    const a = await boot(createExamRepository(name));
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux7", skills: ["speaking"] });
+    await settled(a);
+    expect(a.getSnapshot().context.items.map(i => i.skill)).toEqual(["speaking"]);
+    const b = await boot(createExamRepository(name));
+    expect(b.getSnapshot().context.skills).toEqual(["speaking"]);
+    expect(b.getSnapshot().context.items.map(i => i.skill)).toEqual(["speaking"]);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "x" });          // ignored outside setup
+    expect(a.getSnapshot().context.session!.sessionId).toBe("sess-ux7");
+  });
+  it("all four skills selected (or none) means the full rehearsal, never a partial claim", async () => {
+    const a = await boot(createExamRepository(db()));
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux8", skills: ["reading", "listening", "writing", "speaking"] });
+    await settled(a);
+    expect(a.getSnapshot().context.skills).toBeNull();
+    expect(a.getSnapshot().context.items).toHaveLength(itemsFor(ids[0]!).length);
+  });
+  it("AUTOSAVE persists typed text without navigation; nothing to save means no write", async () => {
+    const name = db(); const repo = createExamRepository(name);
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux9", skills: ["writing"] });
+    await settled(a);
+    const before = (await repo.read())!.revision;
+    a.send({ type: "AUTOSAVE" });
+    expect(a.getSnapshot().matches("active")).toBe(true);                                  // not dirty → no write
+    const w = a.getSnapshot().context.items[0]!;
+    a.send({ type: "ANSWER", itemId: w.id, value: "Hei! Haluaisin tietää kurssista.", now: T0 + 1000 });
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    const cp = (await repo.read())!;
+    expect([cp.revision, cp.session.answers[w.id], cp.session.index]).toEqual([before + 1, "Hei! Haluaisin tietää kurssista.", 0]);
+  });
+  it("EXAM-09: finishing writes the checkpoint and a history record atomically; history outlives a new rehearsal", async () => {
+    const repo = createExamRepository(db());
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux10", skills: ["reading"] });
+    await settled(a);
+    const r0 = a.getSnapshot().context.items[0]!;
+    a.send({ type: "ANSWER", itemId: r0.id, value: String(r0.correct), now: T0 + 1000 });
+    a.send({ type: "REQUEST_FINISH" });
+    a.send({ type: "CONFIRM_FINISH", now: T0 + 2000 });
+    await settled(a);
+    await waitFor(a, s => s.matches("finished"));
+    const [h] = await repo.history();
+    expect(h).toMatchObject({ sessionId: "sess-ux10", contentVersion: "test-v1", skills: ["reading"] });
+    expect(h!.bySkill.reading.correct).toBe(1);
+    expect(JSON.stringify(h)).not.toMatch(/officialGrade|ykiPass|predict|level|\bgrade\b/i);
+    a.send({ type: "NEW_REHEARSAL" });
+    await waitFor(a, s => s.matches("setup"));
+    expect(await repo.history()).toHaveLength(1);
+  });
+  it("a failed finish writes neither the checkpoint nor history; RETRY finishes once", async () => {
+    const real = createExamRepository(db());
+    let fail = true;
+    const repo: ExamRepository = { ...real, finish: (s, r, k, rec) => fail ? Promise.reject(new StorageError("SAVE_FAILED", "x")) : real.finish(s, r, k, rec) };
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-ux11", skills: ["writing"] });
+    await settled(a);
+    a.send({ type: "REQUEST_FINISH" }); a.send({ type: "CONFIRM_FINISH", now: T0 + 1000 });
+    await waitFor(a, s => s.matches("saveError"));
+    expect((await real.read())!.session.finishedAt).toBeNull();
+    expect(await real.history()).toHaveLength(0);
+    fail = false;
+    a.send({ type: "RETRY" });
+    await waitFor(a, s => s.matches("finished"));
+    expect(await real.history()).toHaveLength(1);
   });
 });

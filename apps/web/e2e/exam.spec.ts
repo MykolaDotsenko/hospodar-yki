@@ -63,3 +63,36 @@ test("EXAM practice timer is labelled unofficial and visible; LEARN progress is 
   for (const skill of ["Читання", "Аудіювання", "Письмо", "Говоріння"])
     await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: new RegExp(`^${skill}$`) }) })).toContainText("Ще не тренувалося");
 });
+
+test("EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByText("Ще немає завершених репетицій.")).toBeVisible();
+  for (const s of ["Читання", "Аудіювання", "Письмо"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await expect(page.getByText(/не «офіційний частковий YKI»/)).toBeVisible();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText("Tehtävä 1 / 1")).toBeVisible();
+  await expect(page.locator(".pill", { hasText: "Osakoeharjoitus: Puhuminen · epävirallinen" })).toBeVisible();
+  await page.getByRole("textbox").fill("Valitettavasti en pääse torstaina. Sopisiko perjantai kello kymmenen?");
+  await expect(page.getByText("Tallennettu.")).toBeVisible({ timeout: 5000 });        // autosaved, no navigation
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByRole("textbox")).toHaveValue("Valitettavasti en pääse torstaina. Sopisiko perjantai kello kymmenen?");
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await expect(page.getByRole("heading", { name: /Tulokset/ })).toBeVisible();
+  await page.getByRole("button", { name: "Нова репетиція" }).click();
+  const history = page.locator(".exam-history li");
+  await expect(history).toHaveCount(1);
+  await expect(history.first()).toContainText("Говоріння: 1 без оцінки");
+  await expect(history.first()).toContainText("Не прогноз складання YKI");
+  expect(await serious(page)).toEqual([]);
+});
+
+test("at least one skill must be chosen before starting", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Читання", "Аудіювання", "Письмо", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await expect(page.getByRole("button", { name: /Aloita/ })).toBeDisabled();
+  await expect(page.getByRole("alert")).toContainText("Обери хоча б одну навичку");
+});
