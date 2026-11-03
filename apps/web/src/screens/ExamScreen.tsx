@@ -182,6 +182,15 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
       </div>
       {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}
       <h2>Попередні репетиції</h2>
+      <ExamHistoryList history={history} />
+    </section>
+  );
+}
+
+/** Attempt history (EXAM-09): objective counts per skill, ungraded counted separately; never a grade or pass prediction. */
+export function ExamHistoryList({ history }: { history: ExamHistoryRecord[] | null }) {
+  return (
+    <>
       {history === null ? <p className="muted">Завантаження…</p> : history.length === 0 ? <p className="muted">Ще немає завершених репетицій.</p> : (
         <ul className="skill-lines exam-history">
           {history.map(h => (
@@ -195,6 +204,6 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
           ))}
         </ul>
       )}
-    </section>
+    </>
   );
 }

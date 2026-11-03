@@ -8,7 +8,7 @@ import Dexie, { type Table } from "dexie";
 import { blankState, type LearnerState } from "@hospodar/domain";
 
 export const WEB_DB_NAME = "hospodar-yki:web:v1";
-export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH";
+export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED";
 export class StorageError extends Error {
   constructor(public readonly code: StorageErrorCode, message: string) { super(message); this.name = "StorageError"; }
 }
@@ -34,7 +34,8 @@ export interface LearnerSnapshot { state: LearnerState; revision: number }
 export interface LearnerRepository {
   read(): Promise<LearnerSnapshot>;
   commit(next: LearnerState, expectedRevision: number): Promise<LearnerSnapshot>;
-  deleteAll(): Promise<void>;
+  /** LEARN-16: erase progress AND import receipts in one transaction (CAS), then verify by readback. */
+  eraseAll(expectedRevision: number): Promise<LearnerSnapshot>;
   /** Import legacy V1 progress into an EMPTY new-app profile, atomically with its receipt. */
   importLegacy(state: LearnerState, receipt: Omit<ImportReceipt, "revision" | "importedAt">): Promise<{ snapshot: LearnerSnapshot; receipt: ImportReceipt }>;
   listImports(): Promise<ImportReceipt[]>;
@@ -67,7 +68,19 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         });
       } catch (e) { throw mapError(e); }
     },
-    async deleteAll() { await db.delete(); },
+    async eraseAll(expectedRevision) {
+      try {
+        await db.transaction("rw", db.learner, db.imports, async () => {
+          const current = (await db.learner.get("current"))?.revision ?? 0;
+          if (current !== expectedRevision) throw new StorageError("REVISION_CONFLICT", "Progress was changed in another tab");
+          await db.learner.clear();
+          await db.imports.clear();
+        });
+      } catch (e) { throw mapError(e); }
+      if ((await db.learner.count()) !== 0 || (await db.imports.count()) !== 0)
+        throw new StorageError("DELETE_NOT_VERIFIED", "Some progress is still stored");
+      return { state: blankState(), revision: 0 };
+    },
     async importLegacy(state, partial) {
       let result: { snapshot: LearnerSnapshot; receipt: ImportReceipt };
       try {
