@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createActor, type SnapshotFrom } from "xstate";
-import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem } from "@hospodar/domain";
+import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill } from "@hospodar/domain";
 import { createExamMachine } from "../exam/examMachine.ts";
-import { audioUrlFor, examBlueprints, itemsFor } from "../content/exam.ts";
-import type { ExamRepository } from "../storage/examRepository.ts";
+import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../content/exam.ts";
+import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -12,7 +12,7 @@ const newId = () => "sess-" + Date.now().toString(36) + Math.random().toString(3
 type Machine = ReturnType<typeof createExamMachine>;
 
 export function ExamScreen({ repository, onHome }: { repository: ExamRepository; onHome: () => void }) {
-  const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id))), [repository]);
+  const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id), examContentVersion)), [repository]);
   const [snap, setSnap] = useState<SnapshotFrom<Machine>>(() => actor.getSnapshot());
   useEffect(() => { const sub = actor.subscribe(setSnap); actor.start(); return () => { sub.unsubscribe(); actor.stop(); }; }, [actor]);
   const { session, items, error } = snap.context;
@@ -24,12 +24,18 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
     const t = setInterval(() => { actor.send({ type: "TICK", now: Date.now(), elapsedMs: Date.now() - Date.parse(session.startedAt) }); force(x => x + 1); }, 1000);
     return () => clearInterval(t);
   }, [actor, snap, session]);
-  const busy = snap.matches("saving") || snap.matches("clearing") || snap.matches("loading");
+  useEffect(() => {                                                       // draft autosave: 1.2 s after the last keystroke, never blocks typing
+    if (!snap.context.dirty || !snap.matches("active")) return;
+    const t = setTimeout(() => actor.send({ type: "AUTOSAVE" }), 1200);
+    return () => clearTimeout(t);
+  }, [actor, snap]);
+  const busy = snap.matches("saving") || snap.matches("finishing") || snap.matches("clearing") || snap.matches("loading");
+  const navBusy = busy || snap.matches("autosaving");
 
   if (snap.matches("loading")) return <section className="panel exam" aria-busy="true"><p>Ladataan…</p></section>;
-  if (snap.matches("setup")) return <ExamSetup error={error} onStart={(blueprintId, minutes) => actor.send({ type: "START", blueprintId, minutes, now: Date.now(), sessionId: newId() })} onHome={onHome} />;
+  if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId() })} onHome={onHome} />;
 
-  if (snap.matches("finished") || (snap.matches("clearing"))) {
+  if (snap.matches("finished") || snap.matches("clearing")) {
     const r = scoreSession(items, session!);
     return (
       <section className="panel exam" aria-labelledby="ex-res">
@@ -71,7 +77,7 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
   return (
     <section className="panel exam" aria-labelledby="ex-item">
       <div className="exam-bar">
-        <span className="pill">Harjoituskoe · epävirallinen</span>
+        <span className="pill">{snap.context.skills ? `Osakoeharjoitus: ${snap.context.skills.map(k => SKILL_FI[k]).join(", ")}` : "Harjoituskoe"} · epävirallinen</span>
         <span aria-live="polite">Tehtävä {session!.index + 1} / {items.length}</span>
         {left !== null && <span className="pill" aria-live="off">Harjoitusaika {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")}</span>}
       </div>
@@ -92,16 +98,18 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
       ) : (
         <ExamItemView item={item} answer={answer} onAnswer={set} disabled={busy} />
       )}
+      <p className="muted exam-save" aria-live="polite">{snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
+      {snap.context.autosaveError && <p className="feedback error" role="alert">Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
       {snap.matches("saveError") && (
         <div className="feedback error" role="alert"><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>
           <button type="button" className="btn" onClick={() => actor.send({ type: "RETRY" })}>Спробувати ще раз</button></div>
       )}
-      {(snap.matches("active") || snap.matches("saving") || snap.matches("saveError")) && (
+      {(snap.matches("active") || snap.matches("saving") || snap.matches("saveError") || snap.matches("autosaving")) && (
         <div className="actions">
-          <button type="button" className="btn secondary" disabled={busy || session!.index === 0} onClick={() => go(session!.index - 1)}>Edellinen</button>
+          <button type="button" className="btn secondary" disabled={navBusy || session!.index === 0} onClick={() => go(session!.index - 1)}>Edellinen</button>
           {session!.index < items.length - 1
-            ? <button type="button" className="btn" disabled={busy} onClick={() => go(session!.index + 1)}>{busy ? "Tallennetaan…" : "Seuraava"}</button>
-            : <button type="button" className="btn" disabled={busy} onClick={() => actor.send({ type: "REQUEST_FINISH" })}>Lopeta koe</button>}
+            ? <button type="button" className="btn" disabled={navBusy} onClick={() => go(session!.index + 1)}>{busy ? "Tallennetaan…" : "Seuraava"}</button>
+            : <button type="button" className="btn" disabled={navBusy} onClick={() => actor.send({ type: "REQUEST_FINISH" })}>Lopeta koe</button>}
         </div>
       )}
     </section>
@@ -138,27 +146,55 @@ function ExamItemView({ item, answer, onAnswer, disabled }: { item: ExamItem; an
   );
 }
 
-function ExamSetup({ error, onStart, onHome }: { error: string | null; onStart: (b: string, m: number) => void; onHome: () => void }) {
+function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null) => void; onHome: () => void }) {
   const [blueprint, setBlueprint] = useState(examBlueprints[0]!.id);
   const [minutes, setMinutes] = useState(0);
+  const all: ExamSkill[] = ["reading", "listening", "writing", "speaking"];
+  const [skills, setSkills] = useState<ExamSkill[]>(all);
+  const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
+  useEffect(() => { repository.history().then(setHistory, () => setHistory([])); }, [repository]);
+  const partial = skills.length > 0 && skills.length < all.length;
   return (
     <section className="panel exam" aria-labelledby="ex-setup">
       <p className="eyebrow">02 · Симуляція YKI</p>
       <h1 id="ex-setup">Тренувальна репетиція</h1>
-      <p className="qualification">Незалежна тренувальна репетиція з чотирьох навичок. Не офіційний YKI і не відтворення цифрового іспиту 2027: офіційні таймінги, навігацію й правила прослуховування ще не підтверджено. Під час репетиції немає підказок; результати — лише після завершення.</p>
+      <p className="qualification">Незалежна тренувальна репетиція. Не офіційний YKI і не відтворення цифрового іспиту 2027: офіційні таймінги, навігацію й правила прослуховування ще не підтверджено. Під час репетиції немає підказок; результати — лише після завершення.</p>
       {error && <p className="feedback error" role="alert">Не вдалося прочитати збережену репетицію ({error}).</p>}
       <fieldset className="choices-set">
         <legend>Набір завдань</legend>
         {examBlueprints.map(b => <label key={b.id} className="radio"><input type="radio" name="bp" checked={blueprint === b.id} onChange={() => setBlueprint(b.id)} /> {b.title_uk}</label>)}
       </fieldset>
       <fieldset className="choices-set">
+        <legend>Навички (усі 4 — повна репетиція; частина — окремий тренувальний субтест)</legend>
+        {all.map(k => (
+          <label key={k} className="radio"><input type="checkbox" checked={skills.includes(k)}
+            onChange={e => setSkills(s => e.target.checked ? all.filter(x => s.includes(x) || x === k) : s.filter(x => x !== k))} /> {SKILL_UK[k]} <span lang="fi" className="muted">· {SKILL_FI[k]}</span></label>
+        ))}
+        {partial && <p className="muted">Це тренувальний субтест, не «офіційний частковий YKI» (такий можливий лише для підтверджених OPH днів).</p>}
+      </fieldset>
+      <fieldset className="choices-set">
         <legend>Тренувальний таймер (не офіційний)</legend>
         {PRACTICE_LIMITS_MINUTES.map(m => <label key={m} className="radio"><input type="radio" name="tm" checked={minutes === m} onChange={() => setMinutes(m)} /> {m === 0 ? "Без таймера" : `${m} хв`}</label>)}
       </fieldset>
       <div className="actions">
-        <button type="button" className="btn" onClick={() => onStart(blueprint, minutes)}>Aloita · Почати</button>
+        <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null)}>Aloita · Почати</button>
         <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
       </div>
+      {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}
+      <h2>Попередні репетиції</h2>
+      {history === null ? <p className="muted">Завантаження…</p> : history.length === 0 ? <p className="muted">Ще немає завершених репетицій.</p> : (
+        <ul className="skill-lines exam-history">
+          {history.map(h => (
+            <li key={h.sessionId}>
+              <strong>{new Date(h.finishedAt).toLocaleDateString("uk-UA")}</strong> · {examBlueprints.find(b => b.id === h.blueprintId)?.title_uk ?? h.blueprintId}
+              {h.skills ? ` · ${h.skills.map(k => SKILL_UK[k]).join(", ")}` : " · усі 4 навички"}<br />
+              {(Object.keys(h.bySkill) as ExamSkill[]).filter(k => h.bySkill[k].objective || h.bySkill[k].ungraded).map(k =>
+                `${SKILL_UK[k]}: ${h.bySkill[k].objective ? `${h.bySkill[k].correct}/${h.bySkill[k].objective} із ключем` : ""}${h.bySkill[k].ungraded ? `${h.bySkill[k].objective ? ", " : ""}${h.bySkill[k].ungraded} без оцінки` : ""}`).join(" · ") || "без відповідей"}
+              <br /><small className="muted">Версія завдань: {h.contentVersion}. Не прогноз складання YKI.</small>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

@@ -163,3 +163,5 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 .exam-prompt { font-weight: 700; }
 .exam-audio audio { width: 100%; }
 .exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
+.exam-save { font-size: .85rem; margin: var(--space-sm) 0 0; }
+.exam-history small { display: block; }
