@@ -23,7 +23,13 @@
     "research/architecture/r11-offline-integrity-resilience-2026-10.md",
     "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
     "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
-    "docs/21-digital-yki-exam-simulator-executable-spec.md"
+    "docs/21-digital-yki-exam-simulator-executable-spec.md",
+    "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+    "docs/24-reliability-hardened-architecture-web-android.md",
+    "docs/23-android-offline-game-and-3gb-media-architecture.md",
+    "research/user-cases/core-flows-v1.md",
+    "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+    "research/ux/learning-impact-evaluation-protocol.md"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -7701,6 +7707,1351 @@
           "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
         }
       ]
+    },
+    {
+      "id": "ARCH-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "React+Vite+strict TS modular monolith; typed tasks; pure domain without React/Supabase",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_architecture_boundaries.py",
+          "contains": "def test_disallow_react_and_supabase"
+        },
+        {
+          "file": "tools/architecture/tests/check-boundaries.test.mjs",
+          "contains": "current pure modules and future directory discovered by AST"
+        }
+      ],
+      "gap": "Domain purity and strict TS enforced; schema-validated ContentPack not built."
+    },
+    {
+      "id": "ARCH-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Learn and Exam share content sources but isolate feedback/hints/timers/scoring policies",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+    },
+    {
+      "id": "ARCH-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "XState machine for exam/speaking/record; fail-closed events; submitted immutable",
+      "status": "NOT_YET",
+      "plan": "G2-d part 2 (xstate 5.33.3 prepared)."
+    },
+    {
+      "id": "ARCH-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "IndexedDB + Dexie for attempts, SRS, snapshots, outbox; migrate localStorage after JSON export",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "Dexie document store with CAS; per-event store/outbox not used yet."
+    },
+    {
+      "id": "ARCH-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "PWA offline content packs, versioned caching, no SW auto-update during an exam",
+      "status": "NOT_YET",
+      "plan": "Service worker/app shell slice."
+    },
+    {
+      "id": "ARCH-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "EXAM_2027_OFFICIAL_EXACT blocked while official digital fields are unknown",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        }
+      ]
+    },
+    {
+      "id": "ARCH-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Reading/listening objective key count; writing/speaking pending review, no invented YKI 3",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "ARCH-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Audio as large artifacts outside the source repo with checksums, versions, rights, transcript match",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Rights and sha256 checks exist; media still live in the repo; transcript/VTT match unverified."
+    },
+    {
+      "id": "ARCH-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Recorder only with permission, local by default, never voice in localStorage",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        }
+      ]
+    },
+    {
+      "id": "ARCH-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Optional EU cloud sync with RLS/DPA; full local-only guest flow",
+      "status": "NOT_YET",
+      "plan": "Not before a privacy/legal review; local-only today."
+    },
+    {
+      "id": "ARCH-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "AI keys server-side only, provider-independent adapter, durable STT/TTS queue",
+      "status": "NOT_YET",
+      "plan": "No AI in the learner runtime (product direction); only if ever added outside learner-critical paths."
+    },
+    {
+      "id": "ARCH-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Per-skill progress; learn retrieval→repair→transfer→SRS; exam post-submit review only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ]
+    },
+    {
+      "id": "ARCH-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "QA: Vitest + Playwright Chromium/Firefox/WebKit + physical mobile mic; leak, restore, DST, offline, migration",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": ".github/workflows/validate-web-app.yml",
+          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "No physical-device mic tests and no offline tests."
+    },
+    {
+      "id": "ARCH-14",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No big-bang rewrite: regression tests, parity, export/rollback, review gates before switching",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ]
+    },
+    {
+      "id": "C-01",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Same commandId → one persisted event and original ack; divergent payload → typed conflict",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/attempts.test.mjs",
+          "contains": "event id collision rejects altered payload"
+        },
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "first answer retry returns exact original receipt, not newer snapshot"
+        }
+      ]
+    },
+    {
+      "id": "C-02",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Two writers, same revision → exactly one durable winner; no fabricated success",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/attempts.test.mjs",
+          "contains": "optimistic concurrency prevents lost updates"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        }
+      ]
+    },
+    {
+      "id": "C-03",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Lost ACK → event-ID read-back; a matching snapshot from another command is not success",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "lost ACK uses command receipt fingerprint, never identical snapshot alone"
+        },
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "matching snapshot from another event is NEVER a lost-ACK receipt"
+        }
+      ]
+    },
+    {
+      "id": "C-04",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Crash between steps → event + snapshot or neither; persist before navigation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "atomic response+snapshot commit and exactly-once retry"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "C-05",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "LEARN localStorage → IDB migration without loss, with export and idempotent retry",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "a backup file with unknown fields or truncation risk is blocked with a clear reason"
+        }
+      ],
+      "gap": "Import is atomic with backup and receipt; idempotent retry of the same import is not tested in apps/web."
+    },
+    {
+      "id": "C-06",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Web/Room golden fixtures normalise hashes identically and reject malformed commands",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "portable golden fixture freezes canonical bytes and semantic types"
+        },
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "canonical encoding is stable under object-key permutation and preserves Finnish Unicode"
+        }
+      ],
+      "gap": "Web side fixed by golden fixtures; Room side not compiled."
+    },
+    {
+      "id": "C-07",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "PAD packs really differ by packId; encoded traversal/path mismatch rejected",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/media-platform.test.mjs",
+          "contains": "android provider requires verified hash and native handles (no file://)"
+        }
+      ],
+      "gap": "Contract-level checks only; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "C-08",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "1+ GB install-time pack, airplane-mode seek, video surface, low storage and update on device",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "C-09",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "Unknown OPH specifics never presented as official; EXAM isolates keys/hints",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ]
+    },
+    {
+      "id": "C-10",
+      "source": "docs/27-stack-architecture-compatibility-and-implementation-gates.md",
+      "summary": "All four skills, original responses and source rights have repeatable editorial/testable checks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "REL-01",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Web+Android share contentId+version+hash, four-skill contracts and exam policies",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "canonical encoding is stable under object-key permutation and preserves Finnish Unicode"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-02",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Android writes first_attempt transactionally to Room, Web to Dexie; identical event schema",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "Android bridge has identical command/result semantics, no callback transaction"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-03",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Crash/kill in a long exam resumes the last persisted answer, never fabricated ones",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "disk failure rejects whole logical unit and retry is permitted"
+        }
+      ],
+      "gap": "Web legacy EXAM + contracts; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-04",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Disk full/quota exceeded blocks progression with a recoverable warning, never silent loss",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "errors are typed StorageError"
+        },
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "disk failure rejects whole logical unit and retry is permitted"
+        }
+      ],
+      "gap": "Quota maps to a typed error; no UI test of the warning."
+    },
+    {
+      "id": "REL-05",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Native bundled audio/video seek, restart, unplug, background, completion in airplane mode",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-06",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Play internal track verifies size targets, per-pack limits, free storage",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-07",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Web starts without a compulsory multi-GB download; explicit selective offline and eviction/backup",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ],
+      "gap": "Web starts without downloads; selective offline and eviction controls not built."
+    },
+    {
+      "id": "REL-08",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Playable learning quests + four-skill task screens with preinstalled offline materials",
+      "status": "NOT_YET",
+      "plan": "Game layer + offline packs (G4–G6)."
+    },
+    {
+      "id": "REL-09",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Exam lock: no hints/solutions/transcript/reward before submit; objective vs productive separate",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        }
+      ]
+    },
+    {
+      "id": "REL-10",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "2027 digital exact profile blocked until OPH evidence and calibrated scoring",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ]
+    },
+    {
+      "id": "REL-11",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Brand/game assets accessible: reduced motion, keyboard/touch, text-only fallbacks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "REL-12",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Mid-range Android FPS/thermal/battery/memory profiling (≥30 fps 2D)",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "REL-13",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Rights checks reject unlicensed YouTube, external YKI MP3 and copied texts",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "REL-14",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "No client AI secret; EU RLS before cloud; opt-in voice uploads only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ],
+      "gap": "No cloud, AI or uploads exist; no automated secret/network test."
+    },
+    {
+      "id": "REL-15",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Asset/hash mismatch after an upgrade never invisibly changes an attempted question",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "provider preserves logical identity"
+        }
+      ],
+      "gap": "Logical identity preserved at contract level; no upgrade E2E."
+    },
+    {
+      "id": "REL-16",
+      "source": "docs/24-reliability-hardened-architecture-web-android.md",
+      "summary": "Rollback plan, internal release, export/restore, major-update QA on Android and browser",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "Legacy import with backup exists; release/rollback QA not done; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-01",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Android opens learn, four skills and exam in airplane mode right after a full Play install",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-02",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Full licensed media in install-time packs (nothing essential fast-follow/on-demand)",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-03",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Base ≤500 MB, each PAD ≤1.5 GB, total ≤4 GB; failing threshold blocks release",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-04",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Bundle vs single APK described accurately; no standalone multi-GB APK promise",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-05",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Offline audio/video seek/end/replay, correct codec, no duplicate copy, low-memory stable",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-06",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "No runtime download for mandatory lessons after full install",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-07",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Manifest SHA-256, packId, rights, version match payload; corrupt data surfaced safely",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/media-platform.test.mjs",
+          "contains": "native hash mismatch refuses playback"
+        },
+        {
+          "file": "app/tests/media-platform.test.mjs",
+          "contains": "android provider requires verified hash and native handles (no file://)"
+        }
+      ],
+      "gap": "Contract-level checks only; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-08",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Word/voice input, ä/ö, Android Back, media interruptions, mic permission/revoke, resume",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-09",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Guest profile stores attempts/voice locally; no automatic raw speech upload",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        }
+      ],
+      "gap": "Holds on Web; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-10",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Same IDs/content for exercises and NPC dialogues; no duplicate topic/SRS logic Android vs Web",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "Android bridge has identical command/result semantics, no callback transaction"
+        },
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "portable golden fixture freezes canonical bytes and semantic types"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-11",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Strict digital 2027 disabled; exam never shows gameplay/hints/answers/subtitles",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-12",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Gameplay skip/calm/reduced motion + 2D thermal/FPS checks on mid-range Android",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-13",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "7/14-day unseen progress and SRS independent of streaks/XP, offline",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "Web only; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-14",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "OS upgrade, asset-pack mismatch, low space and reinstall recovery without history overwrite",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-15",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Publication gate rejects unlicensed YouTube downloads, SOLKI MP3 and unsupported provider rights",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "ANDR-16",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "CI builds APK/AAB, runs rights validator, PAD size gate, Play internal test; protected signing",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-17",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Direct-sideload APK only with an explicit adb install compatibility matrix",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "ANDR-18",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Native media playing/seek/paused/ended/error parity with web fallback; no file:// assumptions",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/media-platform.test.mjs",
+          "contains": "android provider requires verified hash and native handles (no file://)"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "WEB-01",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "All four skills, Learn/Exam and full/single module reachable via URL without Android",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "LEARN skills reachable; apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+    },
+    {
+      "id": "WEB-02",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Same task/content/version IDs and shared learning/SRS/exam policy with Android",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "portable golden fixture freezes canonical bytes and semantic types"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "WEB-03",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Phaser game with the same NPCs/quests in the browser; keyboard/touch/reduced-motion/no-game alternative",
+      "status": "NOT_YET",
+      "plan": "Game layer after R01 evidence (UIO-09)."
+    },
+    {
+      "id": "WEB-04",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Rights-cleared streaming audio/video, subtitles, seek, playback rate in learning mode",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Videos lack captions (A11Y-03)."
+    },
+    {
+      "id": "WEB-05",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Web offline after explicit save of chosen materials with downloaded/online_only status",
+      "status": "NOT_YET",
+      "plan": "Service worker + explicit offline selection."
+    },
+    {
+      "id": "WEB-06",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "PWA install, SW asset versioning, update guard never reloads an active exam",
+      "status": "NOT_YET",
+      "plan": "With WEB-05 and the apps/web EXAM."
+    },
+    {
+      "id": "WEB-07",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Progress/SRS/error log in IndexedDB; JSON export/delete; migration from localStorage",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        },
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        }
+      ],
+      "gap": "Export/delete UI not built in apps/web."
+    },
+    {
+      "id": "WEB-08",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Browser mic consent, no silent-success recording; tested on Chrome/Firefox/WebKit/iOS Safari",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": ".github/workflows/validate-web-app.yml",
+          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+        }
+      ],
+      "gap": "Stubbed recorder in 3 CI engines; no real device or iOS Safari test."
+    },
+    {
+      "id": "WEB-09",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Optional Web↔Android sync only after explicit sign-in/consent; no automatic raw voice upload",
+      "status": "NOT_YET",
+      "plan": "Not before privacy/legal review."
+    },
+    {
+      "id": "WEB-10",
+      "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
+      "summary": "Parity tests of task IDs, rubric policies, statuses, subtitles, audio fallback Web vs Android",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "portable golden fixture freezes canonical bytes and semantic types"
+        },
+        {
+          "file": "app/tests/attempt-storage.test.mjs",
+          "contains": "Android bridge has identical command/result semantics, no callback transaction"
+        }
+      ],
+      "gap": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "UC-01",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "A2.2 learner learns rektio: context → own answer → feedback → repair → transfer → review",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "UC-02",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Commuter studies offline; missing pack offers optional download, never forced multi-GB",
+      "status": "NOT_YET",
+      "plan": "Offline app shell + packs (WEB-05)."
+    },
+    {
+      "id": "UC-03",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Read a Finnish notice, infer, write a 60–120-word message; free writing ungraded",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ],
+      "gap": "Writing flow exists; reading-notice missions not built (IV-05)."
+    },
+    {
+      "id": "UC-04",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Speak via Android microphone with permission; denied permission → text fallback, no false save",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ],
+      "gap": "Web only; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "UC-05",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Interrupted exam resumes from a persisted checkpoint; failed save blocks progress",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "packages/contracts/tests/session-v2.test.mjs",
+          "contains": "lost ACK uses command receipt fingerprint, never identical snapshot alone"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM and ported domain policies."
+    },
+    {
+      "id": "UC-06",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Mock YKI rehearsal: independent answers, finish, then objective keys; productive ungraded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ]
+    },
+    {
+      "id": "UC-07",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "YouTube supporting video opens as a source link; no offline copy",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "UC-08",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Licensed video: rights check, play, captions/transcript, answer",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "No captions for the open videos (A11Y-03); no question flow on video."
+    },
+    {
+      "id": "UC-09",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Lesson/app update keeps pinned content hash and migrates learner data with backup",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "a v1 database opened by the v2 schema keeps its learner row"
+        }
+      ],
+      "gap": "No content-version pinning per attempt in apps/web."
+    },
+    {
+      "id": "UC-10",
+      "source": "research/user-cases/core-flows-v1.md",
+      "summary": "Accessible 2D Finnish town with NPC story → meaningful attempt → repair → transfer",
+      "status": "NOT_YET",
+      "plan": "Game layer (WEB-03) after R01 evidence."
+    },
+    {
+      "id": "G-EX-01",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Every mandatory digital parameter source-linked with date/reviewer/version; unknowns stay unknown",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        }
+      ],
+      "gap": "Ledger covers known fields; F4–F6 unknowns remain."
+    },
+    {
+      "id": "G-EX-02",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Four legal manual demo walkthroughs + conflict register; first-party live-2027 confirmation",
+      "status": "NOT_YET",
+      "plan": "Manual OPH demo walkthroughs (not done; automated fetch got 403)."
+    },
+    {
+      "id": "G-EX-03",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Every released key/task/audio independently reviewed for Finnish, CEFR, provenance, rights",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Rights, speaker provenance, language and actual acoustic/S2 review are mandatory"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "G-EX-04",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "No contamination: no pre-finish keys/hints, locked first attempts, sealed held-out forms",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "responses are capped and cannot be altered after closing"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "No sealed held-out forms exist."
+    },
+    {
+      "id": "G-EX-05",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Honest productive assessment: calibrated human review or visible UNGRADED",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ],
+      "gap": "UNGRADED implemented; calibration NOT RUN."
+    },
+    {
+      "id": "G-EX-06",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Durable complete attempt: full fault-injection E2E incl. voice recovery; no false receipts",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        }
+      ],
+      "gap": "Partial fault coverage in the legacy EXAM; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "G-EX-07",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Complete independent subtest and full-test flows with verified counts/durations only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+        }
+      ],
+      "gap": "9-item mini mock only."
+    },
+    {
+      "id": "G-EX-08",
+      "source": "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
+      "summary": "Consented matched comparison, preregistration, blinded unseen day-14/30 outcomes",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L01",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "No-effect vs meaningful semantic visual cue for Finnish case use, day-14 novel writing",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L02",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "Spaced independent retrieval vs rereading, matched time/exposure, day-7/14 unseen production",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L03",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "Captions/transcript timing + control vs accessible baseline on new listening comprehension",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L04",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "User-controlled audio cues vs quiet baseline on effort, comprehension, delayed recall",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L05",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "NPC information-gap conversation vs plain equivalent, day-14 oral transfer",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "UX-L06",
+      "source": "research/ux/learning-impact-evaluation-protocol.md",
+      "summary": "Self-chosen 10/20-min missions vs fixed length at equal cumulative dose",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "RANGE-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Learning route from A1.3 with progression after diagnosis, top target B2.1",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ],
+      "gap": "A1.3 picture missions + B1 content exist; no level route or placement."
+    },
+    {
+      "id": "RANGE-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Each level covers all four skills with adaptive review and authentic language",
+      "status": "NOT_YET",
+      "plan": "Level-differentiated four-skill content after S2 review."
+    },
+    {
+      "id": "MEDIA-IMG-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Illustrations and realistic pictures used from their asset homes",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ]
+    },
+    {
+      "id": "GRAM-TENSE-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Four grammar tenses at matching levels with time expressions",
+      "status": "NOT_YET",
+      "plan": "Bring learning/exercises/grammar/tenses into apps/web after S2 review."
+    },
+    {
+      "id": "RIGHTS-01",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Licence + consent/provenance for every voice/track/photo/animation; third-party link-only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "A10-09",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Clear, actionable form success and error messages",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        }
+      ]
+    },
+    {
+      "id": "A10-10",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Manual Android accessibility services testing (TalkBack, Switch Access)",
+      "status": "NOT_YET",
+      "plan": "Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+    },
+    {
+      "id": "A10-11",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Automated scans find only some faults; manual review required",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "axe runs in E2E; no manual accessibility audit recorded."
+    },
+    {
+      "id": "A10-12",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Easy checks: page title, alt text, headings, contrast, keyboard, structure",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        }
+      ],
+      "gap": "No explicit page-title/heading-structure test."
+    },
+    {
+      "id": "A10-13",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "EN 301 549 / Finnish digital-services accessibility law applicability reviewed",
+      "status": "NOT_YET",
+      "plan": "Legal review before any public release."
+    },
+    {
+      "id": "A10-14",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Traficom 2025 obligations (notification of deficiencies, derogation grounds) reviewed",
+      "status": "NOT_YET",
+      "plan": "Legal review + accessibility statement before release."
     }
   ],
   "decisions": [
