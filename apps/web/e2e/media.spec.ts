@@ -62,8 +62,10 @@ test("human-voiced story is a listening mission with credit; options are not alw
 
 test("320 px: media library reflows without horizontal page scroll", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
-  for (const tab of ["Живі голоси", "Фото-ситуації", "Зовнішні джерела"]) {
+  for (const tab of ["Живі голоси", "Відео", "Фото-ситуації", "Ілюстрації", "Зовнішні джерела"]) {
     await open(page, tab);
+    // Wide fallback font: CI font metrics differ from local ones; long Finnish words must still wrap.
+    await page.addStyleTag({ content: '*{font-family:"DejaVu Sans Mono",monospace !important;letter-spacing:.02em}' });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   }
 });

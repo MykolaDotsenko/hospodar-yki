@@ -141,7 +141,8 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 /* Media library: calm cards, credit always visible, media never wider than the screen (A10-03 reflow). */
 .media-tabs { flex-wrap: wrap; }
 .media-grid { list-style: none; padding: 0; display: grid; gap: var(--space-md); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
-.media-card { border: 1px solid var(--stroke); border-radius: 12px; padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); }
+.media-card { border: 1px solid var(--stroke); border-radius: 12px; padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); overflow-wrap: anywhere; }
+.media-card .btn { white-space: normal; display: inline-block; max-width: 100%; }
 .media-card h3 { font-size: 1rem; margin: 0 0 var(--space-xs); overflow-wrap: anywhere; }
 .media-img { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--surface-subtle); }
 .media-svg { max-width: 240px; }
