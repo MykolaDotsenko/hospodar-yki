@@ -632,8 +632,13 @@
       "id": "UIO-08",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Actionable progress ('today practise these 2'), real delayed checks",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
     },
     {
       "id": "UIO-09",
@@ -717,8 +722,13 @@
       "id": "UX-05",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "One 'Мій прогрес' with 4 skills and Learn | Exams toggle, separate namespaces",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
     },
     {
       "id": "UX-06",
@@ -897,16 +907,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "packages/domain/test/mission.test.ts",
-          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
         },
         {
-          "file": "app/tests/retention-core.test.mjs",
-          "contains": "never exposes a delayed prompt before day 7"
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
         }
       ],
-      "gap": "discover and delayed_unseen not yet in apps/web",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "gap": "discover phase (pre-task input) not yet in apps/web"
     },
     {
       "id": "MULTI-02",
@@ -1057,15 +1066,17 @@
       "id": "IV-REQ-03",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Delayed unseen transfer and 7/14-day retest",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
         {
           "file": "app/tests/retention-core.test.mjs",
           "contains": "never exposes a delayed prompt before day 7"
         }
-      ],
-      "gap": "Legacy app only",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "IV-REQ-04",
@@ -1120,19 +1131,17 @@
       "id": "IV-REQ-09",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Honest mastery: unassisted first attempt separate from hints/transfer; no fake %",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: mission explains why it was chosen and lets the learner pick another"
-        },
-        {
-          "file": "packages/domain/test/mission.test.ts",
-          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
         }
-      ],
-      "gap": "Progress screen not built",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "IV-REQ-10",
@@ -1285,11 +1294,14 @@
         "5/10/20 хв (R08-MOT)"
       ],
       "recommendation": "10/20/30 як основні; 5 хв лише як «мінімальне повернення»",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "UIO-07",
         "UX-03"
-      ]
+      ],
+      "decided": "10/20/30 хв — основні сесії; 5 хв лише як «мінімальне повернення» після перерви",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     },
     {
       "id": "DEC-02",
@@ -1299,11 +1311,14 @@
         "як MVP-04/COLOR-02 (repair без ключа, потім ключ)"
       ],
       "recommendation": "MVP-04/COLOR-02 — єдине правило для всіх місій",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "COLOR-02",
         "UIO-04"
-      ]
+      ],
+      "decided": "MVP-04/COLOR-02 для всіх місій: самовиправлення без ключа, потім ключ (реалізовано в packages/domain/src/r08.ts)",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     },
     {
       "id": "DEC-03",
@@ -1314,11 +1329,14 @@
         "160–220 мс (recognition-strategy)"
       ],
       "recommendation": "tokens.json як єдине джерело",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "DESIGN-16",
         "SENS-08"
-      ]
+      ],
+      "decided": "brand/tokens.json (180/250 мс) — єдине джерело тривалостей руху",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     },
     {
       "id": "DEC-04",
@@ -1329,11 +1347,14 @@
         "Суперефективна підготовка / Максимально реалістична симуляція"
       ],
       "recommendation": "01 Навчання / 02 Симуляція YKI (tokens.json)",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "UX-01",
         "UX-02"
-      ]
+      ],
+      "decided": "«01 Навчання / 02 Симуляція YKI» у новому застосунку; legacy-тексти не змінюються до cut-over",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     },
     {
       "id": "DEC-05",
@@ -1343,11 +1364,14 @@
         "емодзі 📖🎧✍️🗣️ (session JSON)"
       ],
       "recommendation": "SVG; емодзі лише в документах",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "UX-01",
         "DESIGN-03"
-      ]
+      ],
+      "decided": "SVG-іконки book-open/headphones/pencil-line/mic; емодзі лише в документах",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     },
     {
       "id": "DEC-06",
@@ -1357,12 +1381,15 @@
         "без NPC"
       ],
       "recommendation": "NPC як співрозмовник, не маскот",
-      "status": "OPEN",
+      "status": "DECIDED",
       "affects": [
         "UIO-09",
         "SENS-09",
         "DESIGN-11"
-      ]
+      ],
+      "decided": "NPC — співрозмовник у завданні в редакційному стилі; декоративний маскот заборонено",
+      "decided_on": "2026-11-03",
+      "decided_by": "product owner"
     }
   ]
 }

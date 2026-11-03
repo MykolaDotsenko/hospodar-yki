@@ -18,10 +18,11 @@ export function R08MissionScreen({ task, preview, onExit }: { task: R08Task; pre
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (view.phase === "form") act({ type: "SUBMIT_FORM", answer: input });
-    else if (view.phase === "feedback") act(input.trim() ? { type: "SUBMIT_REPAIR", answer: input } : { type: "SKIP_REPAIR" });
+    else if (view.phase === "repair") act(input.trim() ? { type: "SUBMIT_REPAIR", answer: input } : { type: "SKIP_REPAIR" });
+    else if (view.phase === "feedback") act({ type: "CONTINUE" });
     else if (view.phase === "transfer") act({ type: "SUBMIT_TRANSFER", answer: input });
   };
-  const title = { meaning: "Що означає ця ситуація?", form: "Тепер форма", feedback: "Що вийшло", transfer: "Нова ситуація", done: "Готово" }[view.phase];
+  const title = { meaning: "Що означає ця ситуація?", form: "Тепер форма", repair: "Спробуй виправити сам(а)", feedback: "Що вийшло", transfer: "Нова ситуація", done: "Готово" }[view.phase];
 
   return (
     <section className="panel" aria-labelledby="r08-title">
@@ -52,18 +53,29 @@ export function R08MissionScreen({ task, preview, onExit }: { task: R08Task; pre
         </form>
       )}
 
+      {view.phase === "repair" && (
+        <form onSubmit={submit} noValidate>
+          <p className="prompt" lang="fi">{view.promptFi}</p>
+          <div className="feedback warn" role="status">
+            <p><strong>Значення:</strong> {view.meaningCorrect === null ? "з підказкою" : view.meaningCorrect ? "правильно" : "інше"} — потрібно {R08_CHOICE_UK[view.meaningRelation]}.</p>
+            {view.errorFamily && <p>{R08_FAMILY_UK[view.errorFamily]}</p>}
+            <p>Правильну форму покажемо після цієї спроби.</p>
+          </div>
+          <label className="field" htmlFor="r08-repair">Ще раз форма слова <span lang="fi">«{view.lemmaFi}»</span> (необов'язково, не оцінюється)</label>
+          <input id="r08-repair" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} value={input} onChange={e => setInput(e.target.value)} />
+          <div className="actions"><button type="submit" className="btn">{input.trim() ? "Перевірити ще раз" : "Показати правильну форму"}</button></div>
+        </form>
+      )}
+
       {view.phase === "feedback" && (
         <form onSubmit={submit} noValidate>
           <div className="feedback" role="status">
-            <p><strong>Значення:</strong> {view.meaningCorrect === null ? "з підказкою (не рахується як самостійне)" : view.meaningCorrect ? "правильно" : "інше"} — потрібно {R08_CHOICE_UK[view.meaningRelation]}.</p>
-            <p><strong>Форма:</strong> {view.formCorrect === null ? "з підказкою (не оцінюється)" : view.formCorrect ? "правильна" : "ще не та"}.</p>
-            {view.errorFamily && <p>{R08_FAMILY_UK[view.errorFamily]}</p>}
+            <p><strong>Перша форма:</strong> {view.formCorrect === null ? "з підказкою (не оцінюється)" : view.formCorrect ? "правильна з першої спроби" : "ще не та"}.</p>
+            {view.repair && "answer" in view.repair && <p><strong>Самовиправлення:</strong> {view.repair.matchesKey ? "вийшло — це керована спроба, не самостійна" : "ще не та"}.</p>}
             <p lang="fi"><span className="learning-cue">{view.answerFi}</span></p>
             {view.stemCue && <p lang="fi" className="muted">Основа: {view.stemCue}</p>}
             <p>{view.explanationUk}</p>
           </div>
-          <label className="field" htmlFor="r08-repair">Хочеш виправити самостійно? Напиши форму ще раз (необов'язково, не оцінюється)</label>
-          <input id="r08-repair" className="answer" lang="fi" autoComplete="off" value={input} onChange={e => setInput(e.target.value)} />
           <div className="actions"><button type="submit" className="btn">Далі: нова ситуація</button></div>
         </form>
       )}
