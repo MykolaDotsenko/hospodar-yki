@@ -4,7 +4,7 @@
 This validator tests spec consistency, not a signed AAB, Android compatibility,
 offline delivery, multimedia licensing, or measured artifact size.
 """
-import json
+import json, re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -92,7 +92,20 @@ def main():
       text=(ROOT/path).read_text(encoding="utf8")
       for marker in markers:
         assert marker in text,(path,marker)
+    # R05 (28.10.2026) superseded the 2–3GB budget: ADRs keep history behind an explicit
+    # notice, while live (non-ADR) docs must state the current 3–4GB plan.
+    adr23=(ROOT/"docs/23-android-offline-game-and-3gb-media-architecture.md").read_text(encoding="utf8")
+    assert "Розмір замінено" in adr23 and "## R05 follow-up 28.10.2026" in adr23
+    for adr in ("docs/22-optimal-stack-and-architecture-adr-2026-10.md","docs/24-reliability-hardened-architecture-web-android.md",
+                "docs/27-stack-architecture-compatibility-and-implementation-gates.md"):
+      assert "Size superseded" in (ROOT/adr).read_text(encoding="utf8"), adr
+    stale=re.compile(r"2[–-]3 ?(?:GB|ГБ)")
+    for live in ("README.md","AGENTS.md","app/README.md","app/AGENTS.md","assets/README.md","docs/ARCHITECTURE.md",
+                 "docs/RELEASE.md","docs/QUALITY.md","docs/INDEX.md","docs/guides/WEB-ANDROID-MIGRATION.md",
+                 "docs/25-implementation-vertical-slice-roadmap.md","native/android/prototype/README.md"):
+      hit=stale.search((ROOT/live).read_text(encoding="utf8"))
+      assert not hit, f"{live}: stale offline size {hit.group(0)!r}; current plan is 3–4GB (R05)"
     assert not (ROOT/"apps/android").is_dir(), "Android scaffold exists; revisit NOT_IMPLEMENTED status before merging"
-    print("PASS: dual-platform ADR-023: Web/PWA + Android, 18 Android and 10 Web gates, shared TS, 2.6GB planning pack")
+    print("PASS: dual-platform ADR-023: Web/PWA + Android, 18 Android and 10 Web gates, shared TS; historical 2.6GB budget superseded by R05 3–4GB plan in live docs")
 
 if __name__=="__main__":main()

@@ -105,7 +105,7 @@ Specs: [product requirements](../docs/11-mvp-product-requirements.md) · [archit
 - Short input bursts are coalesced. Navigation and report reveal **wait for a durable write**; after a save failure, the user stays on the question and can use **JSON export + Retry saving**.
 - A completed commit with a lost acknowledgment is reconciled against the saved snapshot, not a guess.
 - `app/tests/atomic-idb-browser.html` + `scripts/run-chromium-idb.mjs` provide the real Chromium IndexedDB integration check.
-- `app/attempt-storage.d.ts` and `app/media-platform.d.ts` define platform protocols. `native/android/prototype` contains Kotlin/Room and Media3 sources **not yet compiled**. No Android release or 2–3GB media packs exist yet.
+- `app/attempt-storage.d.ts` and `app/media-platform.d.ts` define platform protocols. `native/android/prototype` contains Kotlin/Room and Media3 sources **not yet compiled**. No Android release or 3–4GB (R05 plan) media packs exist yet.
 
 **Privacy:** text and metadata remain local to the browser profile; IndexedDB is not encrypted by this application and can be evicted. Voice recordings stay ephemeral and are not claimed to survive reload. Export important writing before relying on browser storage alone.
 

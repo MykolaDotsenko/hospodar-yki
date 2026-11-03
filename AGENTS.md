@@ -97,7 +97,7 @@ If changing learning strategies, sounds, visual cues, animations, AI feedback, c
 - Preserve two top-level modes, four skill areas and **exam integrity**. EXAM must not leak answers, coaching, hints or first-try SRS signals before submission; synthetic timers and unofficial scoring must be labelled as practice.
 - `ExamCheckpoint` (mutable draft/navigation) is **not** `FirstAttemptEvent` (immutable independent learner evidence). Never score autosave as mastery. Do not mark ungraded speaking/writing as an official YKI result.
 - Critical writes are atomic, idempotent and fail closed: persist before navigation or success UI; handle retry/conflict/quota without fabricated success. See [CONTRACTS](docs/CONTRACTS.md).
-- Android Kotlin files under `native/android/prototype/` are **uncompiled prototypes**. No Gradle build, app installation, full Media3 video, PAD verification or 2–3 GB offline course is proven.
+- Android Kotlin files under `native/android/prototype/` are **uncompiled prototypes**. No Gradle build, app installation, full Media3 video, PAD verification or 3–4 GB offline course (R05 plan: ≈3.6GB compressed, Play ceiling 4GB) is proven.
 - Media must have verified redistribution rights; external official/YouTube material is link-only absent explicit permission. No learner voice, private data, secrets or production credentials in Git. No raw microphone upload by default.
 - Keep domain contracts framework independent; platform-specific storage/media adapters behind interfaces; preserve IDs, content hashes and versioned migration semantics.
 - Prefer small, reversible vertical slices with unit/integration tests and meaningful error handling. No blanket rewrites, generated binary dumps, microservices or unrelated dependency upgrades.

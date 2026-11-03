@@ -1,0 +1,40 @@
+/* GENERATED from brand/tokens.json by scripts/validate_design_tokens.py --write.
+   Do not edit by hand: change brand/tokens.json and regenerate. */
+
+:root{
+  --ink:#18251F;
+  --navy:#083B7A;
+  --gold:#C99135;
+  --paper:#F8F5ED;
+  --forest:#31574C;
+  --stroke:#D9DCD4;
+  --muted:#52615A;
+  --red:#A83B38;
+  --white:#FFFFFF;
+  --learn-tint:#EDF4EF;
+  --exam-tint:#EDF2F8;
+  --skill-reading:#126D79;
+  --skill-listening:#694E9A;
+  --skill-writing:#985023;
+  --skill-speaking:#247244;
+  --input-border:#76857D;
+  --surface-subtle:#F3F5F0;
+  --warn-tint:#FFF4D8;
+  --error-tint:#FFF0EF;
+  --route-track:#E4E9E2;
+  --route-learn-done:#DFECE3;
+  --route-exam-done:#D7E3F0;
+  --cue-bg:#FFF1C6;
+  --cue-text:#083B7A;
+  --space-xs:4px;
+  --space-sm:8px;
+  --space-md:12px;
+  --space-base:16px;
+  --space-lg:24px;
+  --space-xl:32px;
+  --radius-sm:6px;
+  --radius-card:14px;
+  --radius-pill:999px;
+  --motion-micro:180ms;
+  --motion-max:250ms;
+}
