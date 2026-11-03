@@ -26,7 +26,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs/design/design-traceability-v1.json"
-ID = re.compile(r"\b(R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
+ID = re.compile(r"\b(YTP-\d{2}|V3-AC-\d{2}|IV4-AC-\d{2}|V5-AC-\d{2}|MOCK-VID-\d{2}|R10-\d{2}|R-L\d{2}|E0[356]-G\d{2}|R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
                 r"|COG-\d{2}|PSY-\d{2}|MEM-\d{2}|FEED-\d{2}|ATT-\d{2}|AUD-\d{2}|MSUI-\d{2}|SND-\d{2}|GAM-\d{2}|GL-\d{2}|R(?:0[1-9]|1[0-2])(?!-\d)"
                 r"|R[4-8]-\d{2}|R11-\d{2}|M3-\d{2}|SD-G\d{2}|QL-\d{2}|MOT-\d{2}"
                 r"|EXAM-PILLAR-\d{2}|EXAM-\d{2}|LEARN-\d{2}|LE-\d{2}|YKI-FID-\d{2}|CURATED-\d{2}|MODE-\d{2}|MVP-\d{2}|PER-\d{2}|SIM-\d{2}|AC-\d{2}"
@@ -35,7 +35,11 @@ STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "STUDY_NOT_RUN", "SUPERSEDED"}
 
 # Completeness gate: an ID *defined* anywhere in docs/ or research/ (first table cell, list item or bold) must
 # either be a traced requirement or belong to a family that is deliberately not a requirement (reason given).
-DEFINITION = re.compile(r"(?:^(?:\|\s*|[-*]\s+|\d+\.\s+)\**`?|\*\*)([A-Z][A-Z0-9]{0,9}(?:-[A-Z0-9]{1,6})?-[A-Z]?[0-9]{2}[a-z]?)\b", re.M)
+_IDSHAPE = r"[A-Z][A-Z0-9]{0,9}(?:-[A-Z0-9]{1,6})?-[A-Z]?[0-9]{2}[a-z]?"
+DEFINITION = re.compile(
+    r"(?:^(?:\|\s*|[-*]\s+|\d+\.\s+)\**`?|\*\*(?:[A-Z][a-z]+ )?|`)(" + _IDSHAPE + r")\b"      # cell, list, bold (opt. leading word), code
+    r"|\b(" + _IDSHAPE + r")\s*(?:…|\.\.\.?)\s*(?:[A-Z][A-Z0-9-]*-)?[A-Z]?[0-9]{2}\b"          # declared range X-01…X-12 / X-01..12
+    r"|\"id\"\s*:\s*\"(" + _IDSHAPE + r")\"", re.M)                                             # JSON "id": "X-01"
 NOT_REQUIREMENTS = {
     r"(?:EV|VD|UIE)-\d{2}": "evidence-source rows (studies/standards cited), not requirements",
     r"R(?:0[1-9]|1[0-2])(?:-MOT)?-E\d{2}|MOT-E\d{2}": "evidence-source rows of the deep dossiers",
@@ -43,8 +47,14 @@ NOT_REQUIREMENTS = {
     r"SD-\d{2}": "design #19 evidence-source rows (its gates are SD-G*)",
     r"Q-\d{2}": "docs/QUALITY.md risk register (own status) and gameplay quest scenarios",
     r"A10-1[5-9]": "R10 cross-references to other research, not norms",
+    r"ARC-\d{2}": "machine acceptance-test IDs mirroring ARCH-01…14 (traced as ARCH-*); NOTE their JSON statuses are stale",
+    r"R05-S\d{2}": "R05 audio material candidates (sources), not requirements",
+    r"E0[46]-R\d{2}": "E04/E06 risk registers with their own mitigation status",
+    r"DEC-\d{2}": "product decisions, tracked in the matrix 'decisions' section",
+    r"(?:OPH|MIGRI|YLE|KIELI|RESEARCH|OTAVA|FINN|SUOMI|OPE|NIKONEN|LEXIE|JYU|HAAGA|GIMARA)-\d{2}": "source-catalogue IDs in sources/learning",
+    r"[A-Z]+-B1-\d{2}": "content item IDs (YouTube missions such as HOUSING-B1-01)",
 }
-SCAN_GLOBS = ("docs/**/*.md", "research/**/*.md")
+SCAN_GLOBS = ("docs/**/*.md", "research/**/*.md", "research/**/*.json", "sources/**/*.md")
 
 
 def scan_definitions(texts: dict[str, str], traced: set[str], sources: set[str]) -> list[str]:
@@ -52,7 +62,7 @@ def scan_definitions(texts: dict[str, str], traced: set[str], sources: set[str])
     errors: list[str] = []
     excluded = [re.compile(p) for p in NOT_REQUIREMENTS]
     for path, text in sorted(texts.items()):
-        for m in sorted(set(DEFINITION.findall(text))):
+        for m in sorted({x for groups in DEFINITION.findall(text) for x in groups if x}):
             if ID.fullmatch(m):
                 if m not in traced:
                     errors.append(f"{path} defines {m} but it is not in the matrix" + ("" if path in sources else " (file is not a listed source)"))

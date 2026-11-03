@@ -29,7 +29,15 @@
     "docs/23-android-offline-game-and-3gb-media-architecture.md",
     "research/user-cases/core-flows-v1.md",
     "research/yki/exam-e01-e16-research-validation-plan-2026-10.md",
-    "research/ux/learning-impact-evaluation-protocol.md"
+    "research/ux/learning-impact-evaluation-protocol.md",
+    "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+    "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+    "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+    "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+    "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+    "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+    "research/yki/e05-authentic-listening-audit-2026-10.json",
+    "research/yki/e06-speaking-evidence-audit-2026-10.json"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -9394,6 +9402,1310 @@
       "summary": "P2: music and SFX — Вибір добровільного тихого instrumental ambience / nonverbal feedback — Тиша, рівні час/контент; збереження право вимкнути sound — retention at day-14, writing…",
       "status": "STUDY_NOT_RUN",
       "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "YTP-01",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Providers github_asset vs youtube never conflated",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "YTP-02",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Embed only via the official YouTube IFrame Player API; no proxy/cache/download/extraction",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"embeddable\"] is None"
+        }
+      ],
+      "gap": "No YouTube embed exists: videos are link-only cards that open on YouTube."
+    },
+    {
+      "id": "YTP-03",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Deferred embed until explicit Play/consent with privacy notice; 'Open on YouTube' fallback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "'Open on YouTube' is the only path today; consented deferred embed not built."
+    },
+    {
+      "id": "YTP-04",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Publisher controls, ads and attribution kept intact; no audio-only extraction",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        }
+      ]
+    },
+    {
+      "id": "YTP-05",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Chapter start_seconds for navigation; no claim of precise chapter ends",
+      "status": "NOT_YET",
+      "plan": "With an embedded player (YTP-02)."
+    },
+    {
+      "id": "YTP-06",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Independent learning attempt before any model answer shown in a video",
+      "status": "NOT_YET",
+      "plan": "Video tasks with model-answer segments (YTP-12)."
+    },
+    {
+      "id": "YTP-07",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "caption_status pending until reviewed; no CC/VTT claims or scraping",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"subtitles_fi_verified\"] is False"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "YTP-08",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Target-level guess kept apart from the publisher's tag; teacher review can change it",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/screens/MediaScreen.tsx",
+          "contains": "(оцінка редакції)"
+        }
+      ],
+      "gap": "UI labels the level as an editorial estimate; no automated test."
+    },
+    {
+      "id": "YTP-09",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "LEARN only; EXAM excludes YouTube videos and model-answer material",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"learning_mode_only\"] is True"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "YTP-10",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Local lesson events only (attempt, segment, first uncued answer); no watch analytics",
+      "status": "NOT_YET",
+      "plan": "No video lesson events exist; no analytics exists."
+    },
+    {
+      "id": "YTP-11",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Accessible skip-to-exercise, keyboard around embeds, responsive 16:9, text fallback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "No YouTube embed exists: videos are link-only cards that open on YouTube."
+    },
+    {
+      "id": "YTP-12",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Answer-leak guidance outside the player; never obscure player controls",
+      "status": "NOT_YET",
+      "plan": "With video tasks (YTP-06)."
+    },
+    {
+      "id": "YTP-13",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Technical compliance gate against current YouTube API/policies before embedding",
+      "status": "NOT_YET",
+      "plan": "Before any embed is built."
+    },
+    {
+      "id": "YTP-14",
+      "source": "sources/youtube/YOUTUBE-LEARNING-CATALOG.md",
+      "summary": "Periodic link/availability verification; broken → 'unavailable' without losing notes",
+      "status": "NOT_YET",
+      "plan": "Scheduled link check via approved interfaces."
+    },
+    {
+      "id": "V3-AC-01",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "New direct YouTube URLs have exact 11-character IDs, no overlap",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "VIDEO_RE = re.compile(r\"^[A-Za-z0-9_-]{11}$\")"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ]
+    },
+    {
+      "id": "V3-AC-02",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "Chapter counts/starts follow publisher outlines",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ],
+      "gap": "Validator checks chapter structure; match to publisher outlines is manual."
+    },
+    {
+      "id": "V3-AC-03",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "A1–A2 sources never labelled B1 or counted as an independent B1 test",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/screens/MediaScreen.tsx",
+          "contains": "(оцінка редакції)"
+        }
+      ],
+      "gap": "Editorial labelling; no automated level check."
+    },
+    {
+      "id": "V3-AC-04",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "Publisher series saved with URL and direct_video_ids_known=false when unknown",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ],
+      "gap": "Field set editorially; not validated."
+    },
+    {
+      "id": "V3-AC-05",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "score_100 = editorial learning relevance, not CEFR, uplift or embeddability",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/r12-benchmark-evidence.test.mjs",
+          "contains": "R12 is a frozen date-stamped source snapshot, not commercial endorsement"
+        }
+      ]
+    },
+    {
+      "id": "V3-AC-06",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "No raw external audio/video; obey YTP-01…14 and publisher terms",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        }
+      ]
+    },
+    {
+      "id": "V3-AC-07",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "Tasks from transcripts/subtitles stay teacher_review_pending; no invented keys",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert seed[\"status\"] == \"original_draft_pending_teacher_review\""
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        }
+      ]
+    },
+    {
+      "id": "V3-AC-08",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "External fallback if embedding is blocked; link rot tracked separately",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "Link-only fallback is the default; link-rot tracking not built (YTP-14)."
+    },
+    {
+      "id": "V3-AC-09",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "Next videos chosen to close the B1 real-speed gap, not more easy A1–A2 playlists",
+      "status": "NOT_YET",
+      "plan": "Editorial curation rule for the next intake round."
+    },
+    {
+      "id": "V3-AC-10",
+      "source": "sources/youtube/YOUTUBE-AND-PUBLISHERS-HIGH-VALUE-ROUND3-2026-10.md",
+      "summary": "Records usable for publisher page → verified video → teacher-approved 4-skill content",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "IV4-AC-01",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "Unique YouTube IDs with direct watch URLs, no duplicates",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "VIDEO_RE = re.compile(r\"^[A-Za-z0-9_-]{11}$\")"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ]
+    },
+    {
+      "id": "IV4-AC-02",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "B1–B2 level only when stated by the author; B1+ otherwise labelled as estimate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/screens/MediaScreen.tsx",
+          "contains": "(оцінка редакції)"
+        }
+      ],
+      "gap": "Editorial labelling; no automated check."
+    },
+    {
+      "id": "IV4-AC-03",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "Time segments match the author's published description",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ],
+      "gap": "Chapter starts validated structurally; content match is manual."
+    },
+    {
+      "id": "IV4-AC-04",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "Model answers, hints and visible captions in videos make a result 'assisted'",
+      "status": "NOT_YET",
+      "plan": "With video tasks; assisted labelling exists for audio (support)."
+    },
+    {
+      "id": "IV4-AC-05",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "playback_verified=false, embeddable=null, teacher_review=pending until checked",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"embeddable\"] is None"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        }
+      ]
+    },
+    {
+      "id": "IV4-AC-06",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "Store only links, title/creator/topic and our own original task text",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        }
+      ]
+    },
+    {
+      "id": "IV4-AC-07",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "A2 scaffold vs B1–B2 task difficulty distinct in UI; EXAM never substituted",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/screens/MediaScreen.tsx",
+          "contains": "(оцінка редакції)"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"learning_mode_only\"] is True"
+        }
+      ],
+      "gap": "Level shown as estimate; no difficulty split in the UI."
+    },
+    {
+      "id": "IV4-AC-08",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "First pass of natural audio in LEARN without automatic transcript",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "IV4-AC-09",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "COFFEE-ROOM fully keyboard-accessible; transcript fallback only where licensed",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Scenario not built in apps/web."
+    },
+    {
+      "id": "IV4-AC-10",
+      "source": "sources/youtube/YOUTUBE-B1PLUS-HIGH-VALUE-ROUND4-2026-10.md",
+      "summary": "Author rights and YouTube attribution kept; YouTube controls stay in the frame",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ]
+    },
+    {
+      "id": "V5-AC-01",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Distinct 11-character YouTube IDs; new ones not duplicating earlier rounds",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "VIDEO_RE = re.compile(r\"^[A-Za-z0-9_-]{11}$\")"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ]
+    },
+    {
+      "id": "V5-AC-02",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Chapter segments only where the publisher gives them",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ],
+      "gap": "Structural check only."
+    },
+    {
+      "id": "V5-AC-03",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Publisher series and verified individual Yle items kept separate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert video_id not in video_ids, \"duplicate YouTube video ID\""
+        }
+      ],
+      "gap": "Editorial classification."
+    },
+    {
+      "id": "V5-AC-04",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Publisher B1/B2 kept as the author's claim, not our assessment",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/screens/MediaScreen.tsx",
+          "contains": "(оцінка редакції)"
+        }
+      ],
+      "gap": "No automated check."
+    },
+    {
+      "id": "V5-AC-05",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "subtitles_fi_verified=false, embeddable=null, teacher_review=pending for new items",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"subtitles_fi_verified\"] is False"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"embeddable\"] is None"
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        }
+      ]
+    },
+    {
+      "id": "V5-AC-06",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Publisher subtitle/description claims separate from verified transcription",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"subtitles_fi_verified\"] is False"
+        }
+      ]
+    },
+    {
+      "id": "V5-AC-07",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Source categories youtube / yle_areena / publisher_series_page; canonical playback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "Only YouTube cards are surfaced in apps/web."
+    },
+    {
+      "id": "V5-AC-08",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "One validated first_uncued → guided explanation → self-repair → new context loop",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ],
+      "gap": "Loop exists for app content; not yet for any video."
+    },
+    {
+      "id": "V5-AC-09",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Only links and original metadata/our own tasks stored",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        },
+        {
+          "file": "packages/contracts/tests/media.test.mjs",
+          "contains": "external-only assets cannot be redistributed"
+        }
+      ]
+    },
+    {
+      "id": "V5-AC-10",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Embedding only with official means; no hidden ads or extraction",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "No YouTube embed exists: videos are link-only cards that open on YouTube."
+    },
+    {
+      "id": "V5-AC-11",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Link/playback/rights/S2 QA before learning_ready=true",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "V5-AC-12",
+      "source": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md",
+      "summary": "Short clips kept for listening, speaking and writing practice",
+      "status": "NOT_YET",
+      "plan": "Video-based tasks per skill after S2 review."
+    },
+    {
+      "id": "MOCK-VID-01",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "Every YKI video has a mock_type (timed subtest, task demo, format explainer, story)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert classified[video_id][\"model_answers_start_seconds\"] == v[\"model_answers_start_seconds\"]"
+        }
+      ]
+    },
+    {
+      "id": "MOCK-VID-02",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "Model-answer start times recorded so the learner can attempt first",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert classified[video_id][\"model_answers_start_seconds\"] == v[\"model_answers_start_seconds\"]"
+        }
+      ]
+    },
+    {
+      "id": "MOCK-VID-03",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "'Official organizer demo' means an authentic sample source, not a past exam",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert v[\"is_verified_digital_2027_mock\"] is False"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "no simulated YKI grade asserted by official demo link addition"
+        }
+      ]
+    },
+    {
+      "id": "MOCK-VID-04",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "A new digital simulation uses a separately versioned, verified profile",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ]
+    },
+    {
+      "id": "MOCK-VID-05",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "LEARN may embed via the official embed only, within terms",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "external sources are link-only cards: https, new tab, noopener, no iframe/embed"
+        }
+      ],
+      "gap": "No YouTube embed exists: videos are link-only cards that open on YouTube."
+    },
+    {
+      "id": "MOCK-VID-06",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "teacher_review / embed permission / rights stay pending without proof",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"teacher_review\"] == \"pending\", \"Never mark reviewed without manual review\""
+        },
+        {
+          "file": "scripts/validate_youtube_video_catalog.py",
+          "contains": "assert item[\"embeddable\"] is None"
+        }
+      ]
+    },
+    {
+      "id": "MOCK-VID-07",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "Honest speaking mock: audio cue → preparation → recording, practice-labelled",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Practice speech phases are explicit; no historic seconds become 2027 rules"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ],
+      "gap": "apps/web EXAM not built; legacy EXAM + domain policies only."
+    },
+    {
+      "id": "MOCK-VID-08",
+      "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
+      "summary": "Watching model answers marks attempt_exposure and affects 'unseen' status",
+      "status": "NOT_YET",
+      "plan": "Exposure tracking for video model answers."
+    },
+    {
+      "id": "R10-01",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Correct UA/fi language attributes, landmarks and skip link on every entry point",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "lang='fi' used on Finnish text; no automated check of every element."
+    },
+    {
+      "id": "R10-02",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Consistent LEARN/EXAM navigation by keyboard and screen reader; no answer leak",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "R10-03",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Strong 3:1 focus indicator never fully hidden (WCAG 2.4.11)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Focus contrast checked statically; 'not obscured' not tested (A10-06)."
+    },
+    {
+      "id": "R10-04",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Text ≥4.5:1, large ≥3:1, control states ≥3:1",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        }
+      ]
+    },
+    {
+      "id": "R10-05",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "320 px reflow, 200 % text, 400 % zoom without loss",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        }
+      ],
+      "gap": "400 % zoom and manual checks not done."
+    },
+    {
+      "id": "R10-06",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Accessible labels, instructions, error status; no redundant entry",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ]
+    },
+    {
+      "id": "R10-07",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Targets meet 2.5.8 (24 px) and 44 px for major actions",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        }
+      ],
+      "gap": "Min-height 44 px in CSS; no rendered target-size test."
+    },
+    {
+      "id": "R10-08",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Four-stage route labels readable at 320 px without shape/colour only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ]
+    },
+    {
+      "id": "R10-09",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Audio start/pause/repeat learner-controlled; no background music over SR output",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "R10-10",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Correct captions/transcripts with editorial timing; assisted evidence differentiated",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "VTT timing not editorially verified (AUD-02); videos lack captions (A11Y-03)."
+    },
+    {
+      "id": "R10-11",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "EXAM accommodations only as officially verified; nothing invented",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ]
+    },
+    {
+      "id": "R10-12",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Mic denied → 'ungraded/not recorded', no false recording; no auto permission prompt",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ]
+    },
+    {
+      "id": "R10-13",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Safe persistence after rotate/interruption; no silent corruption or deadline loss",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        }
+      ],
+      "gap": "Rotation/interruption not tested on devices."
+    },
+    {
+      "id": "R10-14",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Reduced motion and high contrast; no mandatory GPU/canvas; meaningful alt text",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "No reduced-motion or forced-colours rendered test."
+    },
+    {
+      "id": "R10-15",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Offline core learning without subscription/cloud AI; media pack integrity and rights",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "No offline app shell."
+    },
+    {
+      "id": "R10-16",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "320/360/390 px, several browsers and forced colours verified on rendered pages",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": ".github/workflows/validate-web-app.yml",
+          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+        }
+      ],
+      "gap": "Forced colours and 360/390 px not tested."
+    },
+    {
+      "id": "R10-17",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "TalkBack, Switch Access, keyboard, large text, Voice Access on real devices",
+      "status": "NOT_YET",
+      "plan": "Android build not compiled or device-tested."
+    },
+    {
+      "id": "R10-18",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Automation (axe/Playwright) plus manual testing with zero critical blockers",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Manual accessibility audit not recorded."
+    },
+    {
+      "id": "R10-19",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Task completion, recovery and blinded day-14 transfer measured without discrimination",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "R10-20",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Legal/standards owner assesses EN 301 549 and Traficom scope; only verified compliance reported",
+      "status": "NOT_YET",
+      "plan": "Legal review before public release."
+    },
+    {
+      "id": "R-L01",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Error-targeted spaced retrieval with feedback + new context vs strong control",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "R-L02",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Several natural Finnish speakers + phonetic training vs single voice",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "R-L03",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Realistic written/oral task repetition with feedback vs strong control",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "R-L04",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Graded extensive reading vs matched intensive practice",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "R-L05",
+      "source": "research/pedagogy/26-global-effective-language-learning-2026-10.md",
+      "summary": "Metacognitive planning/reflection vs matched practice",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "E03-G01",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "13/13 canonical families mapped exactly once with honest historical-vs-live provenance",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "E03 listening and speaking gaps are not relabeled as verified features"
+        }
+      ],
+      "gap": "Mapping is source-verified only; no live 2027 confirmation."
+    },
+    {
+      "id": "E03-G02",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "Per-genre/functions and B1/B2 demand annotated on each original task with source/rights",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (NOT_DONE)."
+    },
+    {
+      "id": "E03-G03",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "Two independent Finnish S2 reviewers on released original task prompts, keys, alternatives; conflicts adjudicated",
+      "status": "NOT_YET",
+      "plan": "Two independent S2 reviewers on released items."
+    },
+    {
+      "id": "E03-G04",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "Listening open/T-F and speaking multi-turn + narrative implemented after S2/audio licensing",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (NOT_DONE)."
+    },
+    {
+      "id": "E03-G05",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "Distractors require understanding intent/gist/detail/inference not keyword spotting; review alternative correct interpretations",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (NOT_DONE)."
+    },
+    {
+      "id": "E03-G06",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "Held-out independent forms remain unseen; post-exam LEARN cannot contaminate later EXAM scores",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "No held-out forms exist."
+    },
+    {
+      "id": "E03-G07",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "No official digital length/count, timer or form-quota asserted until OPH first-party evidence and E2E",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ]
+    },
+    {
+      "id": "E03-G08",
+      "source": "research/yki/e03-construct-task-coverage-audit-2026-10.json",
+      "summary": "User outcomes for E03 item diversity validated in distinct pilot, discrimination and fairness checked with adequate samples",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "E05-G01",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Individual human audio and source rights, signed license/consent and proper attribution",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Rights, speaker provenance, language and actual acoustic/S2 review are mandatory"
+        }
+      ],
+      "gap": "Commons/LibriVox rights recorded; no signed consent for project recordings."
+    },
+    {
+      "id": "E05-G02",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Two independent Finnish S2 teachers sign off naturalness, semantic validity, language level and acceptable answer variants",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (NOT_DONE)."
+    },
+    {
+      "id": "E05-G03",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Listening QA verifies intelligibility, clipping, balance, actual duration, stable file hashes, codec/device support and accessibility",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Missing file identity or duration fails closed"
+        }
+      ],
+      "gap": "Hashes/identity checked; acoustic QA not done."
+    },
+    {
+      "id": "E05-G04",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Every released EXAM asset has no transcript/captions/answer exposure before sealed finish",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "TTS, missing authentic dialogue voices and leaked key or transcript fail exam"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ]
+    },
+    {
+      "id": "E05-G05",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Independent content and audio held-out pools with provenance and unseen speaker IDs",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "Pools separated by content hash; no unseen-speaker bank."
+    },
+    {
+      "id": "E05-G06",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "At least all three historical listening question families represented in reviewed original item bank; current mini only MCQ",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (NOT_DONE)."
+    },
+    {
+      "id": "E05-G07",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Live 2027 playback/back/seek/timing from OPH corroborated and passed desktop browser E2E, otherwise practice only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ],
+      "gap": "Practice-only playback; OPH live behaviour not corroborated."
+    },
+    {
+      "id": "E05-G08",
+      "source": "research/yki/e05-authentic-listening-audit-2026-10.json",
+      "summary": "Pilot compares real new-voice audio-only comprehension and delayed transfer, counterbalanced at equal exposure",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "E06-G01",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Source-backed original four family item bank reviewed by two independent S2 teachers",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (OPEN)."
+    },
+    {
+      "id": "E06-G02",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Authorized production voice and interlocutor rights/consent",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (OPEN)."
+    },
+    {
+      "id": "E06-G03",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Durable byte-backed audio capture with readback/hash and idempotent receipts",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        }
+      ]
+    },
+    {
+      "id": "E06-G04",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Mic denial, silence, recorder.stop, codec, reload, background and concurrent-tab browser E2E",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: write failure surfaces a typed error and issues no receipt"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        }
+      ],
+      "gap": "Legacy browser checks cover several cases; full E2E incl. codec/background/concurrent tabs not done."
+    },
+    {
+      "id": "E06-G05",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "No feedback before sealed persistent finish; no typed plan counted as spoken evidence",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "E06-G06",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Independent calibrated Finnish S2 raters with adjudication and no auto-grade substitution",
+      "status": "NOT_YET",
+      "plan": "Open gate in the audit (OPEN)."
+    },
+    {
+      "id": "E06-G07",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Voice privacy/retention/deletion/export and no undisclosed upload",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ],
+      "gap": "Consent and local-only storage; export/deletion UI for voice not built."
+    },
+    {
+      "id": "E06-G08",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Verified OPH 2027 mic/cue/prep windows and E2E or practice-only disclaimer",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Practice speech phases are explicit; no historic seconds become 2027 rules"
+        }
+      ],
+      "gap": "Practice-only disclaimer; OPH 2027 windows unverified."
+    },
+    {
+      "id": "E06-G09",
+      "source": "research/yki/e06-speaking-evidence-audit-2026-10.json",
+      "summary": "Day 14/30 unseen speaking transfer outcome compared fairly with human blind assessment",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
     }
   ],
   "decisions": [

@@ -8,6 +8,7 @@ on:
     paths:
       - 'docs/**'
       - 'research/**'
+      - 'sources/**'
       - 'apps/web/**'
       - 'packages/**'
       - 'app/tests/**'
@@ -20,6 +21,7 @@ on:
     paths:
       - 'docs/**'
       - 'research/**'
+      - 'sources/**'
       - 'apps/web/**'
       - 'packages/**'
       - 'app/tests/**'
