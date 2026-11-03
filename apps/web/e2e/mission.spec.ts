@@ -49,9 +49,10 @@ test("wrong → repair without key → feedback with key → transfer → saved;
 
 test("empty answer is refused with an accessible error; keyboard-only flow works", async ({ page }) => {
   await page.goto("./");
-  await page.keyboard.press("Tab"); // skip link
-  await page.keyboard.press("Tab"); // brand
-  await page.keyboard.press("Tab"); // learn entry
+  for (let i = 0; i < 8; i++) {                       // reach the learn entry with Tab only
+    await page.keyboard.press("Tab");
+    if ((await page.evaluate(() => document.activeElement?.textContent ?? "")).includes("Навчання")) break;
+  }
   await page.keyboard.press("Enter");
   await expect(page.getByRole("heading", { name: "Твоя відповідь" })).toBeFocused();
   await page.getByRole("button", { name: "Перевірити" }).click();

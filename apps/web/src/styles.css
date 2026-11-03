@@ -95,6 +95,20 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
   .threshold-segment, .threshold-segment:first-child { clip-path: none; border-radius: 6px; }
   .topbar-inner .pill { display: none; }
 }
+/* Calm / low-stimulation appearance: same content, labels and states; fewer fills and no motion. */
+.toggle { cursor: pointer; min-height: 44px; color: var(--ink); }
+.toggle[aria-pressed="true"] { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.topbar-inner > :last-child { margin-left: auto; }
+.topbar-inner { flex-wrap: wrap; }
+[data-appearance="calm"] .mode-entry-learn, [data-appearance="calm"] .mode-entry-exam { background: var(--white); }
+[data-appearance="calm"] .mode-entry::after { display: none; }
+[data-appearance="calm"] .prompt { background: var(--white); }
+[data-appearance="calm"] .feedback, [data-appearance="calm"] .feedback.warn, [data-appearance="calm"] .feedback.error { background: var(--white); }
+[data-appearance="calm"] .threshold-segment.current { background: var(--white); color: var(--forest); outline: 2px solid var(--forest); outline-offset: -2px; }
+[data-appearance="calm"] .threshold-segment.completed { background: var(--white); }
+[data-appearance="calm"] .learning-cue { background: var(--white); color: var(--cue-text); }
+[data-appearance="calm"] * { transition: none !important; animation: none !important; }
+
 @media (prefers-reduced-motion: no-preference) { .btn, .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
 @media (forced-colors: active) {
   .threshold-segment.current { outline: 2px solid Highlight; }

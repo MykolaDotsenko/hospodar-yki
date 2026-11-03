@@ -32,6 +32,10 @@ Research can correctly recommend **building nothing** when the evidence is irrel
 
 **R03 implementation evidence (28.10.2026):** [Finnish L2 changed stems, contextual object partitive, learner valency/rektio, authorized corpora and teacher-reviewed correction §30](../../research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md). Every grammar task must separate **case meaning**, **correct stem form**, **valency** and **communicative completion**, accept S2-verified normal/register/context variants, preserve first uncued answer, offer focused repair and new-context transfer. Error frequencies for Ukrainian-L1 **UNVERIFIED**, don't assert universal rankings. M3-01…12 are release gates; docs alone implement none. Existing 70 canonical methods remain canonical; 14/30-day held-out human outcome planned, not measured.
 
+## Design traceability gate (03.11.2026)
+
+Every design/UX PR updates [docs/design/design-traceability-v1.json](../design/design-traceability-v1.json): move a requirement to `ENFORCED` only together with the test that would fail if the rule were broken (file + exact test title), state the gap for `PARTIAL`, the plan for `NOT_YET`, the study for `STUDY_NOT_RUN`. `python3 scripts/validate_design_traceability.py` runs in CI.
+
 ## Learning-first handoff: one concrete proposal at a time
 
 1. **Cite:** stable evidence ID and direct DOI/official source, source design/effect/limitations and applicability. Do not invent transfer to Finnish or use method-fit /100 as experimental effect.

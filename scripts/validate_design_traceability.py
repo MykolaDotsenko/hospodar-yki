@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""Design ↔ research traceability gate (docs/design/design-traceability-v1.json).
+
+Every design / UX requirement ID defined in the canonical spec and design/UX research
+must have an honest status:
+  ENFORCED       — at least one evidence item; every evidence file exists AND contains the
+                   quoted text (normally the exact test title), so a deleted or renamed
+                   test breaks CI;
+  PARTIAL        — evidence as above + a stated gap;
+  NOT_YET        — a plan step;
+  STUDY_NOT_RUN  — a plan for the human study (no product-effect claim);
+  SUPERSEDED     — the newer rule that replaces it.
+No ID may be missing or invented; open product decisions must be listed with options.
+
+    python3 scripts/validate_design_traceability.py            # check (CI)
+    python3 scripts/validate_design_traceability.py --report   # print coverage table
+Static only: it proves that tests exist and are referenced, not that the design teaches better.
+"""
+from __future__ import annotations
+
+import json
+import re
+import sys
+from collections import Counter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MATRIX = ROOT / "docs/design/design-traceability-v1.json"
+ID = re.compile(r"\b(DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-0[1-8])\b")
+STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "STUDY_NOT_RUN", "SUPERSEDED"}
+
+
+def defined_ids(sources: list[str], root: Path = ROOT) -> set[str]:
+    found: set[str] = set()
+    for s in sources:
+        found |= set(ID.findall((root / s).read_text(encoding="utf-8")))
+    return found
+
+
+def check(doc: dict, root: Path = ROOT) -> list[str]:
+    errors: list[str] = []
+    if doc.get("schema") != "hospodar-design-traceability-v1":
+        errors.append("schema must be hospodar-design-traceability-v1")
+    reqs = doc.get("requirements", [])
+    ids = [r.get("id") for r in reqs]
+    dup = [i for i, n in Counter(ids).items() if n > 1]
+    if dup:
+        errors.append(f"duplicate ids: {dup}")
+    expected = defined_ids(doc.get("sources", []), root)
+    missing, extra = sorted(expected - set(ids)), sorted(set(ids) - expected)
+    if missing:
+        errors.append(f"requirements defined in sources but missing from the matrix: {missing}")
+    if extra:
+        errors.append(f"matrix ids not defined in any source: {extra}")
+    for r in reqs:
+        rid, st = r.get("id"), r.get("status")
+        if st not in STATUSES:
+            errors.append(f"{rid}: unknown status {st!r}"); continue
+        if not str(r.get("summary", "")).strip():
+            errors.append(f"{rid}: summary required")
+        if r.get("source") not in doc.get("sources", []):
+            errors.append(f"{rid}: source must be one of the listed sources")
+        evidence = r.get("evidence", [])
+        if st in ("ENFORCED", "PARTIAL"):
+            if not evidence:
+                errors.append(f"{rid}: {st} needs at least one evidence item")
+            for e in evidence:
+                path = root / e.get("file", "")
+                if not path.is_file():
+                    errors.append(f"{rid}: evidence file missing: {e.get('file')}")
+                elif e.get("contains", "") not in path.read_text(encoding="utf-8") or not e.get("contains"):
+                    errors.append(f"{rid}: evidence text not found in {e.get('file')}: {e.get('contains')!r}")
+        elif evidence:
+            errors.append(f"{rid}: {st} must not list evidence (use PARTIAL)")
+        if st == "PARTIAL" and not r.get("gap"):
+            errors.append(f"{rid}: PARTIAL needs a gap")
+        if st in ("NOT_YET", "STUDY_NOT_RUN") and not r.get("plan"):
+            errors.append(f"{rid}: {st} needs a plan")
+        if st == "SUPERSEDED" and not r.get("superseded_by"):
+            errors.append(f"{rid}: SUPERSEDED needs superseded_by")
+    for d in doc.get("decisions", []):
+        if d.get("status") not in ("OPEN", "DECIDED") or len(d.get("options", [])) < 2 or not d.get("question"):
+            errors.append(f"{d.get('id')}: decision needs question, ≥2 options and OPEN/DECIDED status")
+        if d.get("status") == "DECIDED" and not d.get("decided"):
+            errors.append(f"{d.get('id')}: DECIDED needs the chosen option in 'decided'")
+        for a in d.get("affects", []):
+            if a not in ids:
+                errors.append(f"{d.get('id')}: affects unknown requirement {a}")
+    return errors
+
+
+def summary(doc: dict) -> str:
+    c = Counter(r["status"] for r in doc["requirements"])
+    n = len(doc["requirements"])
+    open_dec = sum(d["status"] == "OPEN" for d in doc.get("decisions", []))
+    return (f"{n} design/UX requirements: ENFORCED {c['ENFORCED']} ({100 * c['ENFORCED'] // n} %), PARTIAL {c['PARTIAL']}, "
+            f"NOT_YET {c['NOT_YET']}, STUDY_NOT_RUN {c['STUDY_NOT_RUN']}, SUPERSEDED {c['SUPERSEDED']}; open decisions {open_dec}")
+
+
+def main(argv: list[str]) -> int:
+    doc = json.loads(MATRIX.read_text(encoding="utf-8"))
+    errors = check(doc)
+    if errors:
+        print("FAIL design traceability:\n  " + "\n  ".join(errors)); return 1
+    if "--report" in argv:
+        for r in doc["requirements"]:
+            print(f"{r['status']:<14} {r['id']:<10} {r['summary']}")
+    print("PASS: " + summary(doc) + " (static: tests exist and are referenced; not a learning-effect claim)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
