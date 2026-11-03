@@ -5,6 +5,11 @@
  * first decides the MEANING, then produces the FORM; both first answers are kept separately.
  * Wrong forms get a cause ONLY when an editor listed that exact form (never regex guessing).
  *
+ * Phase order (DEC-02, 03.11.2026 — canonical, same as cloze MVP-04/COLOR-02): a form that does
+ * not match the key goes to `repair` FIRST (cause shown, key hidden); the key appears only in
+ * `feedback` afterwards. This intentionally differs from the order in app/r08-grammar-core.mjs;
+ * first-attempt evidence (meaning, form, error family) stays identical to the reference.
+ *
  * Learner use requires S2-approved items. `reviewerPreview` lets an S2 reviewer walk a draft
  * in the real UI; such sessions are marked and are never learner evidence.
  */
@@ -23,7 +28,7 @@ export interface R08Task {
   known_wrong_forms?: Array<{ form: string; error_family: R08ErrorFamily }>;
   meaning_hint_uk?: string; form_hint_uk?: string; stem_visual_after_answer?: string; level?: string;
 }
-export type R08Phase = "meaning" | "form" | "feedback" | "transfer" | "done";
+export type R08Phase = "meaning" | "form" | "repair" | "feedback" | "transfer" | "done";
 export interface R08Session {
   version: 1; taskId: string; phase: R08Phase; preview: boolean;
   supportUsed: Array<"meaning" | "form">;
@@ -31,7 +36,7 @@ export interface R08Session {
   firstForm: { answer: string; independent: boolean; correct: boolean | null } | null;
   formEvidence: "formative_independent_objective_only" | "supported_ungraded" | null;
   feedback: { meaningCorrect: boolean | null; formCorrect: boolean | null; editorialErrorFamily: R08ErrorFamily | "unclassified" | null } | null;
-  repair: { answer: string; status: "guided_ungraded" } | null;
+  repair: { answer: string; matchesKey: boolean; status: "guided_ungraded" } | { skipped: true; status: "guided_ungraded" } | null;
   transfer: { answer: string; status: "ungraded_new_context"; independent: true } | null;
 }
 export type R08Event =
@@ -40,6 +45,7 @@ export type R08Event =
   | { type: "SUBMIT_FORM"; answer: string }
   | { type: "SUBMIT_REPAIR"; answer: string }
   | { type: "SKIP_REPAIR" }
+  | { type: "CONTINUE" }
   | { type: "SUBMIT_TRANSFER"; answer: string };
 
 const MAX_TEXT = 1600;
@@ -113,15 +119,18 @@ export function advanceR08(session: R08Session, task: R08Task, event: R08Event):
     s.firstForm = { answer, independent, correct };
     s.formEvidence = independent ? EVIDENCE : "supported_ungraded";
     s.feedback = { meaningCorrect: s.firstMeaning!.correct, formCorrect: correct, editorialErrorFamily: family };
-    s.phase = "feedback"; return frozen(s);
+    const matches = accepted.some(x => norm(x) === norm(answer));
+    s.phase = matches ? "feedback" : "repair"; return frozen(s);
   }
-  if (event.type === "SUBMIT_REPAIR" && s.phase === "feedback") {
+  if (event.type === "SUBMIT_REPAIR" && s.phase === "repair") {
     const answer = safe(event.answer);
     if (!answer) throw new TypeError("R08 needs nonempty repair");
-    s.repair = { answer, status: "guided_ungraded" };
-    s.phase = "transfer"; return frozen(s);
+    const matchesKey = [task.answer_fi, ...(task.accepted_alternatives_fi || [])].some(x => norm(x) === norm(answer));
+    s.repair = { answer, matchesKey, status: "guided_ungraded" };
+    s.phase = "feedback"; return frozen(s);
   }
-  if (event.type === "SKIP_REPAIR" && s.phase === "feedback") { s.phase = "transfer"; return frozen(s); }
+  if (event.type === "SKIP_REPAIR" && s.phase === "repair") { s.repair = { skipped: true, status: "guided_ungraded" }; s.phase = "feedback"; return frozen(s); }
+  if (event.type === "CONTINUE" && s.phase === "feedback") { s.phase = "transfer"; return frozen(s); }
   if (event.type === "SUBMIT_TRANSFER" && s.phase === "transfer") {
     const answer = safe(event.answer);
     if (!answer) throw new TypeError("R08 needs independent new context response");
@@ -139,7 +148,9 @@ export function r08View(session: R08Session, task: R08Task) {
     contextFi: task.prompt_fi, supportVisible: session.supportUsed.includes("meaning") ? (task.meaning_hint_uk || null) : null, noAudioAutoplay: true } as const;
   if (phase === "form") return { phase, promptFi: task.prompt_fi, lemmaFi: task.lemma_fi,
     supportVisible: session.supportUsed.includes("form") ? (task.form_hint_uk || null) : null, noAudioAutoplay: true } as const;
-  if (phase === "feedback") return { phase, meaningRelation: task.semantic_relation, answerFi: task.answer_fi,
+  if (phase === "repair") return { phase, promptFi: task.prompt_fi, lemmaFi: task.lemma_fi, meaningRelation: task.semantic_relation,
+    meaningCorrect: session.firstMeaning?.correct ?? null, errorFamily: session.feedback?.editorialErrorFamily || null, noKey: true } as const;
+  if (phase === "feedback") return { phase, repair: session.repair, meaningRelation: task.semantic_relation, answerFi: task.answer_fi,
     explanationUk: task.explanation_uk, meaningCorrect: session.firstMeaning?.correct ?? null,
     formCorrect: session.firstForm?.correct ?? null, errorFamily: session.feedback?.editorialErrorFamily || null,
     evidence: session.formEvidence, stemCue: task.stem_transparency === "semitransparent" ? (task.stem_visual_after_answer || null) : null } as const;

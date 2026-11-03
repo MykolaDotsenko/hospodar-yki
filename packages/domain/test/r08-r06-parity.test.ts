@@ -28,31 +28,41 @@ describe("R08 meaning → form parity", () => {
       expect(d.createR08Trial(t, { reviewerPreview: true }).preview).toBe(true);
     }
   });
-  it("every event sequence yields identical sessions and views (minus the preview flag)", () => {
-    const strip = (s: Record<string, unknown>) => { const { preview, ...rest } = s; void preview; return rest; };
-    const scripts = (t: d.R08Task): d.R08Event[][] => [
-      [{ type: "CHOOSE_MEANING", choice: t.semantic_relation }, { type: "SUBMIT_FORM", answer: t.answer_fi }, { type: "SKIP_REPAIR" }, { type: "SUBMIT_TRANSFER", answer: "Oma lause." }],
-      [{ type: "CHOOSE_MEANING", choice: t.semantic_options.find(o => o !== t.semantic_relation)! }, { type: "SUBMIT_FORM", answer: t.known_wrong_forms?.[0]?.form ?? "väärä" }, { type: "SUBMIT_REPAIR", answer: t.answer_fi }, { type: "SUBMIT_TRANSFER", answer: "Uusi tilanne." }],
-      [{ type: "REQUEST_HELP", kind: "meaning" }, { type: "CHOOSE_MEANING", choice: t.semantic_relation }, { type: "REQUEST_HELP", kind: "form" }, { type: "SUBMIT_FORM", answer: "jotain" }],
-      [{ type: "CHOOSE_MEANING", choice: t.semantic_relation }, { type: "SUBMIT_FORM", answer: " " }],
-      [{ type: "SUBMIT_FORM", answer: t.answer_fi }],
-    ];
+  it("first-attempt evidence (meaning, form, error family) is identical to the reference", () => {
     for (const raw of drafts) {
       const t = approve(raw);
-      for (const script of scripts(t)) {
+      const wrongMeaning = t.semantic_options.find(o => o !== t.semantic_relation)!;
+      for (const [meaning, form, help] of [[t.semantic_relation, t.answer_fi, false], [wrongMeaning, t.known_wrong_forms?.[0]?.form ?? "väärä", false],
+        [t.semantic_relation, "jotain", true]] as const) {
         let a = refR08.createR08Trial(t), b = d.createR08Trial(t);
-        for (const ev of script) {
-          let ea: unknown = null, eb: unknown = null, na = a, nb = b;
-          try { na = refR08.advanceR08(a, t, ev); } catch (e) { ea = (e as Error).message; }
-          try { nb = d.advanceR08(b, t, ev); } catch (e) { eb = (e as Error).message; }
-          expect(eb).toEqual(ea);
-          if (ea) break;
-          a = na; b = nb;
-          expect(strip(b as never)).toEqual(a);
-          expect(d.r08View(b, t)).toEqual(refR08.r08View(a, t));
-        }
+        if (help) { a = refR08.advanceR08(a, t, { type: "REQUEST_HELP", kind: "form" }); b = d.advanceR08(b, t, { type: "REQUEST_HELP", kind: "form" }); }
+        a = refR08.advanceR08(refR08.advanceR08(a, t, { type: "CHOOSE_MEANING", choice: meaning }), t, { type: "SUBMIT_FORM", answer: form });
+        b = d.advanceR08(d.advanceR08(b, t, { type: "CHOOSE_MEANING", choice: meaning }), t, { type: "SUBMIT_FORM", answer: form });
+        expect([b.firstMeaning, b.firstForm, b.formEvidence, b.feedback]).toEqual([a.firstMeaning, a.firstForm, a.formEvidence, a.feedback]);
       }
     }
+  });
+  it("DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback", () => {
+    const t = approve(drafts[0]!);
+    let s = d.advanceR08(d.advanceR08(d.createR08Trial(t), t, { type: "CHOOSE_MEANING", choice: "toward" }), t, { type: "SUBMIT_FORM", answer: "kaupasta" });
+    expect(s.phase).toBe("repair");
+    const rv = d.r08View(s, t);
+    expect(rv).toMatchObject({ phase: "repair", errorFamily: "case_selection", noKey: true });
+    expect(JSON.stringify(rv)).not.toContain(t.answer_fi);
+    s = d.advanceR08(s, t, { type: "SUBMIT_REPAIR", answer: "kaupassa" });
+    expect(s.repair).toMatchObject({ matchesKey: true, status: "guided_ungraded" });
+    expect(s.firstForm).toMatchObject({ answer: "kaupasta", correct: false });   // repair never rewrites the first attempt
+    expect(d.r08View(s, t)).toMatchObject({ phase: "feedback", answerFi: t.answer_fi });
+    expect(() => d.advanceR08(s, t, { type: "SUBMIT_REPAIR", answer: "x" })).toThrow();
+    s = d.advanceR08(d.advanceR08(s, t, { type: "CONTINUE" }), t, { type: "SUBMIT_TRANSFER", answer: "Odotan asemalla." });
+    expect(s.phase).toBe("done");
+  });
+  it("DEC-02: a correct form skips repair; skipping repair is recorded, never as success", () => {
+    const t = approve(drafts[0]!);
+    const ok = d.advanceR08(d.advanceR08(d.createR08Trial(t), t, { type: "CHOOSE_MEANING", choice: t.semantic_relation }), t, { type: "SUBMIT_FORM", answer: t.answer_fi });
+    expect(ok.phase).toBe("feedback");
+    const wrong = d.advanceR08(d.advanceR08(d.createR08Trial(t), t, { type: "CHOOSE_MEANING", choice: t.semantic_relation }), t, { type: "SUBMIT_FORM", answer: "x" });
+    expect(d.advanceR08(wrong, t, { type: "SKIP_REPAIR" }).repair).toEqual({ skipped: true, status: "guided_ungraded" });
   });
   it("keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed", () => {
     const t = approve(drafts[0]!);
@@ -61,7 +71,7 @@ describe("R08 meaning → form parity", () => {
     s = d.advanceR08(s, t, { type: "CHOOSE_MEANING", choice: t.semantic_relation });
     expect(JSON.stringify(d.r08View(s, t))).not.toContain(t.answer_fi);
     s = d.advanceR08(s, t, { type: "SUBMIT_FORM", answer: t.answer_fi + "x" });
-    expect(d.r08View(s, t)).toMatchObject({ phase: "feedback", answerFi: t.answer_fi, errorFamily: "unclassified" });
+    expect(d.r08View(s, t)).toMatchObject({ phase: "repair", errorFamily: "unclassified", noKey: true });
   });
 });
 

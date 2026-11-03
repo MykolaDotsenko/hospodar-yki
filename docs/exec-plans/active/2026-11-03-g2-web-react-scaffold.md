@@ -30,7 +30,7 @@ The accepted stack exists only on paper. Acceptance per slice: domain behaviour 
 - New Web DB `hospodar-yki:web:v1` is separate from legacy storage; no learner data is moved in G2-a.
 - 2026-11-03 — R06 extension `allowLabelledDrafts` (default off) is used only for legacy cloze items that the live MVP already shows labelled as unreviewed; R08 drafts stay reviewer-only because AGENTS forbids shipping them before S2 approval.
 - 2026-11-03 — Items practised today are excluded from immediate re-recommendation (spacing instead of massed repetition); R06 weights unchanged.
-- OPEN — R08 reference shows the key before its optional repair, while docs/11 MVP-04 / COLOR-02 put repair before the key; kept as in the reference module (parity) pending a pedagogy decision.
+- 2026-11-03 — DEC-02 DECIDED: R08 now follows MVP-04/COLOR-02 (repair without key, then key); reference module keeps first-attempt evidence parity only.
 
 ## Verification log
 

@@ -48,7 +48,13 @@ test("R03/R08 reviewer preview: meaning → form → editor-tagged cause; learne
   await expect(page.locator("body")).not.toContainText("kaupassa");
   await page.getByLabel(/Впиши форму слова/).fill("kaupasta");                        // editor-listed wrong form
   await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();   // DEC-02: repair first
   await expect(page.getByText("Обрано не той відмінок для цього значення (M01).")).toBeVisible();
+  await expect(page.locator("body")).not.toContainText("kaupassa");                             // still no key
+  expect(await axe(page)).toEqual([]);
+  await page.getByLabel(/Ще раз форма слова/).fill("kaupassa");
+  await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.getByText(/керована спроба, не самостійна/)).toBeVisible();
   await expect(page.locator(".learning-cue")).toHaveText("kaupassa");
   await expect(page.getByText("Основа: kauppa → kaupassa")).toBeVisible();
   expect(await axe(page)).toEqual([]);
