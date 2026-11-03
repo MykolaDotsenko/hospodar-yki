@@ -73,6 +73,19 @@ textarea.answer, input.answer { width: 100%; padding: 12px 14px; border: 1.5px s
 .meaning-first { display: block; padding: 10px 13px; background: var(--white); border: 1px solid var(--stroke); border-left: 4px solid var(--forest); border-radius: 7px; }
 .meaning-label { display: block; font-size: .75rem; font-weight: 800; letter-spacing: .035em; color: var(--navy); text-transform: uppercase; }
 
+/* R06 "why this task", choice lists, R08 meaning options, reviewer banner */
+.why { margin: 0 0 var(--space-base); padding: var(--space-md) var(--space-base); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
+.why summary { cursor: pointer; font-weight: 800; color: var(--navy); min-height: 24px; }
+.why ul { margin: var(--space-sm) 0; padding-left: 1.2em; }
+.choices { list-style: none; padding: 0; margin: var(--space-md) 0 0; display: grid; gap: var(--space-sm); }
+.choices-set { border: 0; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-sm); }
+.choices-set legend { font-weight: 800; margin-bottom: var(--space-sm); }
+.choice { width: 100%; min-height: 44px; display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 10px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); cursor: pointer; }
+.choice:hover { border-color: var(--navy); }
+.choice small { color: var(--muted); }
+.reviewer-banner { margin: 0 0 var(--space-base); padding: var(--space-sm) var(--space-md); border-left: 4px solid var(--navy); background: var(--exam-tint); border-radius: 8px; font-weight: 700; }
+code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; border-radius: 4px; }
+
 @media (max-width: 560px) {
   .mode-gateway { grid-template-columns: 1fr; }
   .threshold-route { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8em), 1fr)); }
