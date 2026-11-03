@@ -138,3 +138,17 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 .dialogue .line p { margin: 2px 0 0; overflow-wrap: anywhere; }
 .dialogue .who { font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
 .cue-label { font-weight: 800; color: var(--forest); }
+/* Media library: calm cards, credit always visible, media never wider than the screen (A10-03 reflow). */
+.media-tabs { flex-wrap: wrap; }
+.media-grid { list-style: none; padding: 0; display: grid; gap: var(--space-md); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.media-card { border: 1px solid var(--stroke); border-radius: 12px; padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); }
+.media-card h3 { font-size: 1rem; margin: 0 0 var(--space-xs); overflow-wrap: anywhere; }
+.media-img { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--surface-subtle); }
+.media-svg { max-width: 240px; }
+.media-video { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--ink); }
+.player { margin: var(--space-sm) 0; }
+.player figcaption { font-size: .85rem; font-weight: 700; color: var(--muted); }
+.player audio { width: 100%; }
+.parts { padding-left: 1.2em; }
+.credit { font-size: .82rem; color: var(--muted); overflow-wrap: anywhere; }
+.note-form .field { margin-top: var(--space-sm); }

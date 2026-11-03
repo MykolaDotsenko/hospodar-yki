@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, listeningEvidence, listeningReducer, listeningView, startListening,
   type LearnerState, type ListeningLesson, type ListeningSession, ListeningError } from "@hospodar/domain";
-import { listeningLessons, mediaFor } from "../content/listening.ts";
+import { listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 
 export function ListeningScreen({ repository, snapshot, onSaved, onHome }: {
@@ -15,12 +15,12 @@ export function ListeningScreen({ repository, snapshot, onSaved, onHome }: {
       <section className="panel" aria-labelledby="lst-title">
         <p className="eyebrow">Навчання · аудіювання</p>
         <h1 id="lst-title">Обери запис</h1>
-        <p className="muted">Записи синтезовані одним голосом (Piper TTS) і ще не перевірені S2-викладачем. Це тренування розуміння, не автентичне мовлення YKI.</p>
+        <p className="muted">Більшість записів синтезовано одним голосом (Piper TTS); «живий голос» — читання людиною (LibriVox, суспільне надбання). Ніщо ще не перевірено S2-викладачем і не є автентичним мовленням YKI.</p>
         <ul className="choices" aria-label="Аудіозаписи">
           {listeningLessons.map(l => (
             <li key={l.id}><button type="button" className="choice" onClick={() => setLesson(l)}>
               <span lang="fi">{l.title_fi}</span>
-              <small>{Math.round(l.duration_seconds / 60 * 10) / 10} хв · {l.questions.length} питання{l.questions.every(q => done.has(q.id)) ? " · уже прослухано" : ""}</small>
+              <small>{/tts/i.test(l.narrators_type) ? "синтетичний голос" : "живий голос"} · {Math.round(l.duration_seconds / 60 * 10) / 10} хв · {l.questions.length} питання{l.questions.every(q => done.has(q.id)) ? " · уже прослухано" : ""}</small>
             </button></li>
           ))}
         </ul>
@@ -44,6 +44,7 @@ function ListeningMission({ lesson, repository, snapshot, onSaved, onExit }: {
   const heading = useRef<HTMLHeadingElement>(null);
   const v = listeningView(s, lesson);
   const media = mediaFor(lesson);
+  const credit = (lesson as { credit?: LessonCredit }).credit;
   useEffect(() => { heading.current?.focus(); }, [s.phase, s.index]);
   const latest = useRef(s);
   latest.current = s;
@@ -72,7 +73,8 @@ function ListeningMission({ lesson, repository, snapshot, onSaved, onExit }: {
   const titles = { predict: "Про що, на твою думку, буде запис?", listen: "Слухай", questions: v.question?.kind === "gist" ? "Головне: про що це?" : "Деталі", feedback: "Що вийшло", review: "Послухай ще раз із текстом", done: "Готово" };
   const player = v.showPlayer && media.audio && (
     <div className="audio-box">
-      <p className="audio-label">🎧 <span lang="fi">{lesson.title_fi}</span> · синтетичний голос, один диктор</p>
+      <p className="audio-label">🎧 <span lang="fi">{lesson.title_fi}</span> · {v.synthetic ? "синтетичний голос, один диктор" : "живий голос, один читець (літературний текст, не розмовна B1)"}</p>
+      {credit && <p className="muted">Читає {credit.credit} · {credit.licence}{credit.source && <> · <a href={credit.source} target="_blank" rel="noopener noreferrer">джерело</a></>}</p>}
       <audio ref={audioRef} controls preload="none" src={media.audio} onPlay={() => act({ type: "AUDIO_STARTED" })}>
         {v.allowSubtitles && media.subtitles && <track kind="subtitles" srcLang="fi" label="Suomi" src={media.subtitles} default />}
       </audio>
