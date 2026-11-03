@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-  completeMission, dueCards, missionReducer, missionResult, missionView, startMission,
+  completeMission, missionReducer, missionResult, missionView, startMission,
   type LearnerState, type MissionPhase, type MissionState, MissionError,
 } from "@hospodar/domain";
 import { exercises, isDraft, type ClozeExercise } from "../content/cloze.ts";
+import { recommend, type Recommendation } from "../content/selection.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
@@ -14,11 +15,10 @@ const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "done", label: "Збережено" },
 ];
 
-/** Same selection rule as the legacy MVP: due review first, then first unattempted, then first. */
-export function selectExercise(state: LearnerState): ClozeExercise {
-  const due = dueCards(state).find(c => exercises.some(e => e.id === c.id));
-  return (due && exercises.find(e => e.id === due.id)) ||
-    exercises.find(e => !state.attempts.some(a => a.taskId === e.id)) || exercises[0]!;
+/** R06: transparent deterministic ranking; falls back to the first item only if nothing ranks. */
+export function selectExercise(state: LearnerState): { exercise: ClozeExercise; options: Recommendation[] } {
+  const options = recommend(state);
+  return { exercise: options[0]?.exercise ?? exercises[0]!, options };
 }
 
 type SaveStatus = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; code: string };
@@ -29,7 +29,11 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   onSaved: (s: { state: LearnerState; revision: number }) => void;
   onHome: () => void;
 }) {
-  const [task, setTask] = useState(() => selectExercise(snapshot.state));
+  const [initial] = useState(() => selectExercise(snapshot.state));
+  const [task, setTask] = useState(initial.exercise);
+  const [options, setOptions] = useState(initial.options);
+  const [choosing, setChoosing] = useState(false);
+  const why = options.find(o => o.exercise.id === task.id)?.why ?? [];
   const [mission, setMission] = useState<MissionState>(() => startMission(task.id));
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -71,9 +75,12 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     }
   }
 
+  function open(t: ClozeExercise) {
+    setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" }); setInput(""); setError(null); setChoosing(false);
+  }
   function nextMission() {
-    const t = selectExercise(snapshot.state);
-    setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" }); setInput(""); setError(null);
+    const next = selectExercise(snapshot.state);
+    setOptions(next.options); open(next.exercise);
   }
 
   const cta = { answer: "Перевірити", repair: "Перевірити ще раз", feedback: "Далі: нова ситуація", transfer: "Зберегти місію", done: "" }[mission.phase];
@@ -105,6 +112,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         <div className="feedback" role="status">
           <p>{mission.firstCorrect ? "Правильно з першої спроби." : mission.repairCorrect ? "Друга спроба правильна — це керована підказка, тому повторимо завтра." : "Ось правильна форма. Повторимо завтра."}</p>
           {task.meaning_uk && <p className="meaning-first"><span className="meaning-label">Зміст</span><span className="meaning-text">{task.meaning_uk}</span></p>}
+          {task.semantic_relation_uk && <p className="meaning-first"><span className="meaning-label">Значення форми</span><span className="meaning-text">{task.semantic_relation_uk}</span></p>}
           <p lang="fi"><span className="learning-cue">{task.answer_fi}</span></p>
           {task.explanation_uk && <p>{task.explanation_uk}</p>}
         </div>
@@ -126,6 +134,24 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           {error && <p id="mission-error" className="feedback error" role="alert">{error}</p>}
           <div className="actions"><button type="submit" className="btn">{cta}</button></div>
         </form>
+      )}
+
+      {mission.phase === "answer" && (
+        <details className="why">
+          <summary>Чому це завдання зараз?</summary>
+          {why.length ? <ul>{why.map(w => <li key={w}>{w}</li>)}</ul> : <p>Немає особливих сигналів — це наступне доступне завдання.</p>}
+          <p className="muted">Рекомендація лише з твоїх відповідей на цьому пристрої, без оцінки рівня.</p>
+          <button type="button" className="btn secondary" aria-expanded={choosing} onClick={() => setChoosing(c => !c)}>Обрати інше завдання</button>
+          {choosing && (
+            <ul className="choices" aria-label="Інші завдання">
+              {options.filter(o => o.exercise.id !== task.id).slice(0, 4).map(o => (
+                <li key={o.exercise.id}><button type="button" className="choice" onClick={() => open(o.exercise)}>
+                  <span lang="fi">{o.exercise.prompt_fi}</span><small>{o.why[0] ?? "Наступне доступне"}</small>
+                </button></li>
+              ))}
+            </ul>
+          )}
+        </details>
       )}
 
       {mission.phase === "done" && (

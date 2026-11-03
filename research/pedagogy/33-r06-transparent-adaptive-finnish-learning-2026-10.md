@@ -1,5 +1,7 @@
 # 33 — R06: прозора персоналізація фінської A1.3–B2.1, адаптивне повторення і чотири навички
 
+**Update 03.11.2026 (G2-c):** a parity-tested TS port (`packages/domain/src/r06.ts`) now ranks cloze missions in the new `apps/web` with learner-visible reasons and manual choice; legacy `app.mjs` unchanged; R06 real-user study still NOT RUN.
+
 **Перевірка:** 28.10.2026. **Owner:** research/pedagogy, implementation owner app learning domain, study owner R01 UX. **Status:** CRITICAL_SELECTIVE_REVIEW_COMPLETED / REFERENCE_PROTOTYPE_ONLY / USER_TRIAL_NOT_RUN / APP_NOT_INTEGRATED. Ціль: українськомовні дорослі A2→B1+ (ширша LEARN A1.3–B2.1). Розділяти LEARN і EXAM YKI 2027. Це не PRISMA, не дані користувачів і не доведена ефективність Hospodar.
 
 **Не дублювати:** [R01 human outcome study](../ux/learning-impact-evaluation-protocol.md), [R03 Finnish morphology](30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md), [R04 calibrated speaking/writing](31-r04-speaking-writing-human-calibrated-assessment-2026-10.md), [R05 natural multi-talker audio](32-r05-multitalker-phonetic-transfer-2026-10.md), [70 canonical methods](learning-methods-v1.json), [current SRS](../../app/core.mjs), [current active mission selection](../../app/app.mjs), [quiet audio UI](../design/19-r05-sound-visual-design-transfer-2026-10.md), [ADR-024/027](../../docs/27-stack-architecture-compatibility-and-implementation-gates.md). Немає нового другого методичного реєстру і нових ratings.
