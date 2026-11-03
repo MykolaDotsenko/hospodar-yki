@@ -573,7 +573,7 @@
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Media paused at a semantic boundary before the question (LEARN only)",
       "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "plan": "Needs items whose segment boundaries are verified semantic boundaries with a question per segment. Current media: LibriVox parts are cut at detected pauses and Commons monologue parts are time-cut (both unverified), so no pause-then-question flow is claimed."
     },
     {
       "id": "UIO-03",
@@ -823,8 +823,14 @@
       "id": "SENS-02",
       "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
       "summary": "Related photo/text/situation without decorative excess",
-      "status": "NOT_YET",
-      "plan": "content production with S2 review and rights"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "8 licensed photos of real Finnish places, each with one situation prompt (describe → ungraded) and visible credit; prompt is generic and S2 review is pending; no photo-specific tasks yet."
     },
     {
       "id": "SENS-03",
@@ -855,9 +861,13 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
         }
       ],
-      "gap": "Learner-controlled play/replay/speed done; only one synthetic voice — real multi-talker recordings need R05 rights + S2"
+      "gap": "Real human voices now in apps/web (LibriVox: one text read by 2 narrators + a 3rd work; Commons dialogue/monologues/phrases; 6 SKN dialect samples; a human-read story as a listening mission). Still missing: conversational multi-talker B1 recordings with checked transcripts and questions (R05 rights + S2); LibriVox is literary read speech."
     },
     {
       "id": "SENS-05",
