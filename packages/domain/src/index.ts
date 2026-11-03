@@ -6,3 +6,4 @@ export * from "./legacyImport.ts";
 export * from "./retention.ts";
 export * from "./listening.ts";
 export * from "./diagnostic.ts";
+export * from "./writingClinic.ts";
