@@ -56,7 +56,7 @@ class TraceabilityTests(unittest.TestCase):
     def test_decisions_need_options_and_known_requirements(self):
         self.doc["decisions"][0]["options"] = ["only one"]
         self.doc["decisions"][1]["affects"] = ["NOPE-01"]
-        self.doc["decisions"][2].update(status="DECIDED")
+        self.doc["decisions"][2].update(status="DECIDED"); self.doc["decisions"][2].pop("decided", None)
         errors = check(self.doc)
         self.assertTrue(any("≥2 options" in e for e in errors))
         self.assertTrue(any("affects unknown requirement NOPE-01" in e for e in errors))
