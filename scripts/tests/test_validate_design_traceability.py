@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_design_traceability import MATRIX, check  # noqa: E402
+from validate_design_traceability import ID, MATRIX, check  # noqa: E402
 
 DOC = json.loads(MATRIX.read_text(encoding="utf-8"))
 
@@ -62,6 +62,12 @@ class TraceabilityTests(unittest.TestCase):
         self.assertTrue(any("affects unknown requirement NOPE-01" in e for e in errors))
         self.assertTrue(any("DECIDED needs the chosen option" in e for e in errors))
 
+
+
+class IdPatternTests(unittest.TestCase):
+    def test_research_track_ids_do_not_swallow_gate_ids(self):
+        text = "R11 gates R11-01…R11-20; R08-MOT; R03-E01; R4-14, R7-18, SD-G12 (SD-01 is a source row), MOT-07, MOT-E01, PSY-E01, QL-09"
+        self.assertEqual(sorted(set(ID.findall(text))), sorted({"R11", "R11-01", "R11-20", "R08", "R03", "R4-14", "R7-18", "SD-G12", "MOT-07", "QL-09"}))
 
 if __name__ == "__main__":
     unittest.main()

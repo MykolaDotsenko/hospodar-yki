@@ -69,23 +69,23 @@
 
 ## 6. Product acceptance R6-01…R6-18 (all PROPOSED, prototype does not pass product gates)
 
-1. Pure deterministic same inputs → same ordered tasks/reason codes.
-2. Only LEARN; never EXAM-only content or exam answer leaks.
-3. S2-approved, rights-cleared, offline-available item filter enforced before ranking.
-4. Media/skill prerequisites and time limit actually enforced.
-5. Evidence of first independent result, never guided repair as proficiency.
-6. Ungraded speaking/writing never counted as correct/wrong or official YKI grade.
-7. Stable rule bounds and invalid date handling; Finnish local DST-safe overdue calculation.
-8. Cold-start neutral content with no fabricated CEFR/proficiency/psychological score.
-9. Each reason grounded in actual observed learning record or explicit user choice.
-10. Four-skill practice coverage; exposure count separated from human-judged mastery.
-11. Accessible manual choice, skip, sound-off/reduced-motion control.
-12. Device offline source/pack readiness; 3–4GB allowed content size not a storage utilization target.
-13. Preserve existing attempts across future storage migration and offline resume.
-14. Reasonable low-data cap, export/delete/local privacy, no default telemetry.
-15. Nonpunitive variant-sensitive R03 Finnish morphology and acceptable puhekieli.
-16. No surprise music/SFX under reading, writing, listening or recording.
-17. Controlled time-matched blinded unseen day-14/30 real user evaluation with uncertainty.
-18. Feature PR includes QA across Web/Android E2E and rollback, before any measured-uplift claim.
+1. **R6-01** · Pure deterministic same inputs → same ordered tasks/reason codes.
+2. **R6-02** · Only LEARN; never EXAM-only content or exam answer leaks.
+3. **R6-03** · S2-approved, rights-cleared, offline-available item filter enforced before ranking.
+4. **R6-04** · Media/skill prerequisites and time limit actually enforced.
+5. **R6-05** · Evidence of first independent result, never guided repair as proficiency.
+6. **R6-06** · Ungraded speaking/writing never counted as correct/wrong or official YKI grade.
+7. **R6-07** · Stable rule bounds and invalid date handling; Finnish local DST-safe overdue calculation.
+8. **R6-08** · Cold-start neutral content with no fabricated CEFR/proficiency/psychological score.
+9. **R6-09** · Each reason grounded in actual observed learning record or explicit user choice.
+10. **R6-10** · Four-skill practice coverage; exposure count separated from human-judged mastery.
+11. **R6-11** · Accessible manual choice, skip, sound-off/reduced-motion control.
+12. **R6-12** · Device offline source/pack readiness; 3–4GB allowed content size not a storage utilization target.
+13. **R6-13** · Preserve existing attempts across future storage migration and offline resume.
+14. **R6-14** · Reasonable low-data cap, export/delete/local privacy, no default telemetry.
+15. **R6-15** · Nonpunitive variant-sensitive R03 Finnish morphology and acceptable puhekieli.
+16. **R6-16** · No surprise music/SFX under reading, writing, listening or recording.
+17. **R6-17** · Controlled time-matched blinded unseen day-14/30 real user evaluation with uncertainty.
+18. **R6-18** · Feature PR includes QA across Web/Android E2E and rollback, before any measured-uplift claim.
 
 **Next source track:** R07 meaningful interactive UX; carry design tokens and R05 audio-first discipline forward. Research complete ≠ finished product feature or empirically proven adaptive improvement.

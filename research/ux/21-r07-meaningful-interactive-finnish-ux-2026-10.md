@@ -96,24 +96,24 @@ Reference [app/r07-interaction-core.mjs](../../app/r07-interaction-core.mjs) (pu
 
 ## 8. R07 acceptance gates — NEW R7-01…R7-18, product gates remain unverified
 
-1. Task learning objective observable in Finnish meaning use, not generic XP/dwell time.
-2. Independent response recorded before feedback/hint/key/caption reveal; first-attempt distinction survives restarts.
-3. Accessibility help may be requested pre-first-answer and marks *supported learning*, not inability or failed assessment.
-4. Reading/listening structured review keyed only to S2-approved accepted variants; writing/speaking ungraded absent calibrated humans.
-5. Pausing, replay, speed choice, transcript and safe quiet controls user controlled; no audio autoplay.
-6. Novel transfer hides original answer, worked examples, overlaid colors and transcript.
-7. Role dialog does not falsely claim natural Finnish human voice when synthetic; license rights and S2 review required.
-8. Safe cold-start and selection from R06 with manual override; no coercive streak punishment.
-9. LEARN/EXAM isolation; EXAM has no study aids, cues, reward SFX, adaptive question leaks.
-10. All audio/video offline packs check hash/rights, unavailable media supports meaningful fallback where valid; no unknown-license re-hosting.
-11. WCAG 2.2 AA contrast, touch, labels, keyboard focus, logical reading order; 200% zoom and 320px mobile no blocked input.
-12. Reduced motion preference and static alternatives (2.3.3 AAA beneficial design); pause/stop/hide true W3C 2.2.2 implementation.
-13. Text alternative to essential sound, no background music during any Finnish listening/speaking; sound effects off by default.
-14. Heavy art and GPU-free fallback: p95 interaction performance on mid-range Android in airplane mode; no arbitrary fixed budget without baseline.
-15. Plain readable typography from brand tokens; never color-only correctness or decorative UI behind text.
-16. Human outcome/experience and harms evaluated with equal-time strong comparator, blinded day14/30 transfer, explicitly report null.
-17. Event state changes deterministic and unit-tested (prototype tests not equivalent to browser/mobile compliance).
-18. Distinct production feature PR with UI+storage+CI+manual browser+Android accessibility verification; rollback and migration if needed.
+1. **R7-01** · Task learning objective observable in Finnish meaning use, not generic XP/dwell time.
+2. **R7-02** · Independent response recorded before feedback/hint/key/caption reveal; first-attempt distinction survives restarts.
+3. **R7-03** · Accessibility help may be requested pre-first-answer and marks *supported learning*, not inability or failed assessment.
+4. **R7-04** · Reading/listening structured review keyed only to S2-approved accepted variants; writing/speaking ungraded absent calibrated humans.
+5. **R7-05** · Pausing, replay, speed choice, transcript and safe quiet controls user controlled; no audio autoplay.
+6. **R7-06** · Novel transfer hides original answer, worked examples, overlaid colors and transcript.
+7. **R7-07** · Role dialog does not falsely claim natural Finnish human voice when synthetic; license rights and S2 review required.
+8. **R7-08** · Safe cold-start and selection from R06 with manual override; no coercive streak punishment.
+9. **R7-09** · LEARN/EXAM isolation; EXAM has no study aids, cues, reward SFX, adaptive question leaks.
+10. **R7-10** · All audio/video offline packs check hash/rights, unavailable media supports meaningful fallback where valid; no unknown-license re-hosting.
+11. **R7-11** · WCAG 2.2 AA contrast, touch, labels, keyboard focus, logical reading order; 200% zoom and 320px mobile no blocked input.
+12. **R7-12** · Reduced motion preference and static alternatives (2.3.3 AAA beneficial design); pause/stop/hide true W3C 2.2.2 implementation.
+13. **R7-13** · Text alternative to essential sound, no background music during any Finnish listening/speaking; sound effects off by default.
+14. **R7-14** · Heavy art and GPU-free fallback: p95 interaction performance on mid-range Android in airplane mode; no arbitrary fixed budget without baseline.
+15. **R7-15** · Plain readable typography from brand tokens; never color-only correctness or decorative UI behind text.
+16. **R7-16** · Human outcome/experience and harms evaluated with equal-time strong comparator, blinded day14/30 transfer, explicitly report null.
+17. **R7-17** · Event state changes deterministic and unit-tested (prototype tests not equivalent to browser/mobile compliance).
+18. **R7-18** · Distinct production feature PR with UI+storage+CI+manual browser+Android accessibility verification; rollback and migration if needed.
 
 ## 9. Concrete file ownership and next R08
 

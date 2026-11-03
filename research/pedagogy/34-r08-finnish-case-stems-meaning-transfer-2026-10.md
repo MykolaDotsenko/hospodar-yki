@@ -73,24 +73,24 @@
 
 ## 6. Acceptance gates R8-01…R8-18 (PROPOSED, not product-wide passed)
 
-1. Every published form + all accepted alternatives reviewed by Finnish S2 language professional; editor review metadata and version required.
-2. Meaning relation encoded separately from word-form spelling; semantic options support actual Finnish meaning, no accidental impossible distractor leakage.
-3. Independent meaning choice precedes first inflected answer without source answer key/word-highlight revealing it.
-4. First form+meaning independent scores immutable after repair; assistance separately labeled supported/ungraded.
-5. Distinguish case selection vs stem alternation vs valency vs boundedness; never use overconfident regex-generated error label.
-6. Changed stem variation tied to word/case: *vesi→vedessä* and *veteen*, *käsi→kädessä* are not one "always add -de" rule.
-7. Correct alternatives and acceptable puhekieli register systematically vetted; normalization preserves Finnish length/ä/ö.
-8. Exact form objective scored only for approved S2 structured response; creative writing/speaking ungraded absent calibrated R04 humans.
-9. New-context transfer changes lemma/situation, hides worked keys and is held-out; independent meaningful communication requirement.
-10. EXAM-only material and unofficial practice never conflated; no color/grammar answer cues in active timed EXAM.
-11. R06 recommendation may target **observed confirmed errors**, not assumed Ukrainian-specific difficulty/error prevalence.
-12. Audio, visual stem cue or animation opt-in/relevant; answer and morphological picture key shown only after independent response, no background music during phonetics.
-13. Offline audio/image/right hash known, S2 accurate and pack verified; up-to-3–4GB Android is an **upper capacity** not mandated filler; plain accessible text fallback.
-14. Responsive Finnish text accessibility, high contrast WCAG 2.2 AA, no color-only "case" signal, keyboard and 200% zoom.
-15. Event logging first attempt atomic and migration-safe on Web Dexie/Android Room before runtime integration (existing MVP localStorage remains).
-16. Contextual vocabulary frequency and B1 function checked; no unreviewed corpus/textbook copied into public app.
-17. All tests/delayed language outcomes measured versus strong active equivalent condition with confidence bounds and harm attrition.
-18. Dedicated Web/Android feature PR with S2 verified content, real browser, mobile UI, error recovery and rollback; research-only reference ≠ shipped feature.
+1. **R8-01** · Every published form + all accepted alternatives reviewed by Finnish S2 language professional; editor review metadata and version required.
+2. **R8-02** · Meaning relation encoded separately from word-form spelling; semantic options support actual Finnish meaning, no accidental impossible distractor leakage.
+3. **R8-03** · Independent meaning choice precedes first inflected answer without source answer key/word-highlight revealing it.
+4. **R8-04** · First form+meaning independent scores immutable after repair; assistance separately labeled supported/ungraded.
+5. **R8-05** · Distinguish case selection vs stem alternation vs valency vs boundedness; never use overconfident regex-generated error label.
+6. **R8-06** · Changed stem variation tied to word/case: *vesi→vedessä* and *veteen*, *käsi→kädessä* are not one "always add -de" rule.
+7. **R8-07** · Correct alternatives and acceptable puhekieli register systematically vetted; normalization preserves Finnish length/ä/ö.
+8. **R8-08** · Exact form objective scored only for approved S2 structured response; creative writing/speaking ungraded absent calibrated R04 humans.
+9. **R8-09** · New-context transfer changes lemma/situation, hides worked keys and is held-out; independent meaningful communication requirement.
+10. **R8-10** · EXAM-only material and unofficial practice never conflated; no color/grammar answer cues in active timed EXAM.
+11. **R8-11** · R06 recommendation may target **observed confirmed errors**, not assumed Ukrainian-specific difficulty/error prevalence.
+12. **R8-12** · Audio, visual stem cue or animation opt-in/relevant; answer and morphological picture key shown only after independent response, no background music during phonetics.
+13. **R8-13** · Offline audio/image/right hash known, S2 accurate and pack verified; up-to-3–4GB Android is an **upper capacity** not mandated filler; plain accessible text fallback.
+14. **R8-14** · Responsive Finnish text accessibility, high contrast WCAG 2.2 AA, no color-only "case" signal, keyboard and 200% zoom.
+15. **R8-15** · Event logging first attempt atomic and migration-safe on Web Dexie/Android Room before runtime integration (existing MVP localStorage remains).
+16. **R8-16** · Contextual vocabulary frequency and B1 function checked; no unreviewed corpus/textbook copied into public app.
+17. **R8-17** · All tests/delayed language outcomes measured versus strong active equivalent condition with confidence bounds and harm attrition.
+18. **R8-18** · Dedicated Web/Android feature PR with S2 verified content, real browser, mobile UI, error recovery and rollback; research-only reference ≠ shipped feature.
 
 ## 7. Editorial/implementation handoff & future R09
 

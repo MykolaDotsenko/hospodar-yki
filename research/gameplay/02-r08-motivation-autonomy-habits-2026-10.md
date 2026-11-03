@@ -99,26 +99,26 @@ This is a **UX copy proposal**, not a tested motivational intervention or active
 
 **Study gates:** independent baseline, randomized stratification, frozen source/S2/media versions and held-out unfamiliar tasks/voices, active time-matched comparator and blinded human R04 rubric, privacy/consent, preregister primary outcomes/power/attrition/multiplicity before run. Measure sign+size+CI, report null and harm. No inference that more DAU ≡ more Finnish competence.
 
-## 7. R08-MOT acceptance gates (proposed future product requirements, NOT validated)
+## 7. R08-MOT acceptance gates MOT-01…MOT-18 (proposed future product requirements, NOT validated)
 
-1. Mode strict LEARN only; no EXAM promotion/pressure, no official score.
-2. Learner explicitly chooses actual Finnish goal, skill and time; accessible "skip" and "no game" paths.
-3. Default 0 notifications, 0 invasive tracking; future opt-in only with revoke.
-4. A pause/missed day never resets earned knowledge, locks content, imposes catch-up quota or uses shame language.
-5. No automatic public standings, social comparisons or pay-to-win access gates.
-6. No XP/streak/notification metric misrepresented as CEFR/YKI improvement.
-7. Only first independent objective or qualified human review counts as verified task success.
-8. Ungraded writing/speaking never transformed into a performance score; practice exposure remains visible and valuable.
-9. Guided repair never overrides original independent error evidence.
-10. Local date processing robust across daylight saving changes and invalid future dates.
-11. User plan and copy stored only if explicit consent to local settings; export/edit/delete controls when integrated.
-12. Respect device accessibility: readable focus, 320px mobile, 200% zoom, reduced motion and no mandatory sound.
-13. Any environment sound or completion SFX never overlays Finnish audio or microphone.
-14. Offline-first: optional 3–4GB media packs rights-cleared and not required for core motivation loop; no cloud AI dependency.
-15. Time-bounded messages, no notification or leaderboarding in EXAM.
-16. Stable deterministic choices, bounded saved event histories and duplicate event prevention.
-17. Comparable independent day14/day30 communication outcome with quality checks, user autonomy and harms reported.
-18. Separate production PR with Web+Android real QA, persistence migration, S2-approved copy and rollback; no false "already deployed" claim.
+1. **MOT-01** · Mode strict LEARN only; no EXAM promotion/pressure, no official score.
+2. **MOT-02** · Learner explicitly chooses actual Finnish goal, skill and time; accessible "skip" and "no game" paths.
+3. **MOT-03** · Default 0 notifications, 0 invasive tracking; future opt-in only with revoke.
+4. **MOT-04** · A pause/missed day never resets earned knowledge, locks content, imposes catch-up quota or uses shame language.
+5. **MOT-05** · No automatic public standings, social comparisons or pay-to-win access gates.
+6. **MOT-06** · No XP/streak/notification metric misrepresented as CEFR/YKI improvement.
+7. **MOT-07** · Only first independent objective or qualified human review counts as verified task success.
+8. **MOT-08** · Ungraded writing/speaking never transformed into a performance score; practice exposure remains visible and valuable.
+9. **MOT-09** · Guided repair never overrides original independent error evidence.
+10. **MOT-10** · Local date processing robust across daylight saving changes and invalid future dates.
+11. **MOT-11** · User plan and copy stored only if explicit consent to local settings; export/edit/delete controls when integrated.
+12. **MOT-12** · Respect device accessibility: readable focus, 320px mobile, 200% zoom, reduced motion and no mandatory sound.
+13. **MOT-13** · Any environment sound or completion SFX never overlays Finnish audio or microphone.
+14. **MOT-14** · Offline-first: optional 3–4GB media packs rights-cleared and not required for core motivation loop; no cloud AI dependency.
+15. **MOT-15** · Time-bounded messages, no notification or leaderboarding in EXAM.
+16. **MOT-16** · Stable deterministic choices, bounded saved event histories and duplicate event prevention.
+17. **MOT-17** · Comparable independent day14/day30 communication outcome with quality checks, user autonomy and harms reported.
+18. **MOT-18** · Separate production PR with Web+Android real QA, persistence migration, S2-approved copy and rollback; no false "already deployed" claim.
 
 ## 8. Follow-up ownership
 
