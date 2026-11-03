@@ -15,6 +15,8 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
                                   └── app/attempt-storage.mjs
                                        └── IndexedDB (exam event + checkpoint)
 app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
+apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
+     └── Dexie DB hospodar-yki:web:v1 (LEARN cloze mission; G2-a, beside legacy app/)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -22,7 +24,7 @@ native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
 
 **Runnable Web MVP:** plain JavaScript ES modules; browser pages served via a local HTTP server (not a build step). UI, progression, sample exam and limited audio exist. Browser exam V1 IndexedDB uses event+snapshot transactions with event-receipt recovery and a Chromium integration check; an **isolated** V2 adapter separately proves first-attempt uniqueness. The live learning SRS still uses `localStorage`.
 
-**Not implemented:** `apps/web` React/Vite/PWA, `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery (planned ≈3.6GB compressed within the 4GB Play ceiling, [R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
+**G2-a (03.11.2026):** `apps/web` React/Vite/TS shell with one LEARN cloze mission and Dexie persistence, `packages/domain` TS port with parity tests ([plan](exec-plans/active/2026-11-03-g2-web-react-scaffold.md)). **Not implemented:** PWA/offline packs, migration of legacy progress, EXAM/audio/diagnostics in the new app, `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery (planned ≈3.6GB compressed within the 4GB Play ceiling, [R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
 
 ## Planned modular monolith (direction, **not** current paths)
 

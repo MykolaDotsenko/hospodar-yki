@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOKENS = ROOT / "brand/tokens.json"
 GENERATED = ROOT / "app/tokens.css"
-APP_CSS = ("app/styles.css", "app/exam.css")
+APP_CSS = ("app/styles.css", "app/exam.css", "apps/web/src/styles.css")
 SYSTEM_COLOURS = {"Canvas", "Field", "ButtonFace", "transparent", "inherit", "none"}
 HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
 HEADER = ("/* GENERATED from brand/tokens.json by scripts/validate_design_tokens.py --write.\n"

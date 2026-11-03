@@ -1,0 +1,57 @@
+name: Validate React web app (G2)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'packages/domain/**'
+      - 'app/core.mjs'
+      - 'app/tokens.css'
+      - 'brand/tokens.json'
+      - 'learning/exercises/b1/grammar/contextual-cloze.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/validate-web-app.yml'
+  pull_request:
+    paths:
+      - 'apps/web/**'
+      - 'packages/domain/**'
+      - 'app/core.mjs'
+      - 'app/tokens.css'
+      - 'brand/tokens.json'
+      - 'learning/exercises/b1/grammar/contextual-cloze.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/validate-web-app.yml'
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install locked dependencies (pnpm via corepack)
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Domain parity with legacy app/core.mjs (TZ=Europe/Helsinki) and mission rules
+        run: pnpm --filter @hospodar/domain test
+      - name: Strict TypeScript
+        run: pnpm -r typecheck
+      - name: Dexie repository unit tests
+        run: pnpm --filter @hospodar/web test
+      - name: Build
+        run: pnpm --filter @hospodar/web build
+      - name: Playwright E2E + axe on Chromium, Firefox and WebKit
+        working-directory: apps/web
+        run: |
+          pnpm exec playwright install --with-deps chromium firefox webkit
+          pnpm exec playwright test
+        env:
+          CI: 'true'

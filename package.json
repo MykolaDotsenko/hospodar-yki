@@ -1,0 +1,12 @@
+{
+  "name": "hospodar-yki",
+  "private": true,
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "typecheck": "pnpm -r typecheck",
+    "test:domain": "pnpm --filter @hospodar/domain test",
+    "build:web": "pnpm --filter @hospodar/web build",
+    "e2e:web": "pnpm --filter @hospodar/web e2e"
+  }
+}
