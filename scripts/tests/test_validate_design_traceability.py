@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_design_traceability import ID, MATRIX, check, scan_definitions  # noqa: E402
+from validate_design_traceability import ID, MATRIX, check, scan_definitions, scan_mentions  # noqa: E402
 
 DOC = json.loads(MATRIX.read_text(encoding="utf-8"))
 
@@ -104,6 +104,14 @@ class CompletenessGateTests(unittest.TestCase):
                  "research/c.json": '{"gates": [{"id": "NEWZ-G01", "criterion": "x"}]}'}
         found = {e.split(" defines ")[1].split(":")[0] for e in scan_definitions(texts, set(), set())}
         self.assertEqual(found, {"NEWX-01", "NEWY-01", "NEWZ-G01"})
+
+    def test_an_id_mentioned_once_in_prose_must_still_be_traced(self):
+        errors = scan_mentions({"docs/x.md": "As planned in NEWQ-07, the learner first answers."}, {"LEARN-01"})
+        self.assertEqual(errors, ["docs/x.md mentions NEWQ-07: neither a traced requirement nor a listed non-requirement family"])
+
+    def test_prose_mentions_of_traced_ids_ranges_and_file_names_pass(self):
+        text = "See LEARN-01, R06-R10 and T01-T09, the ROUND4-2026-10 catalogue, finding R02-03 and HOUSING-B1-01."
+        self.assertEqual(scan_mentions({"docs/x.md": text}, {"LEARN-01"}), [])
 
     def test_evidence_rows_and_registers_are_allowed_with_a_reason(self):
         text = "| VD-07 [source](x) |\n| UIE-03 |\n| R06-E01 |\n| R11-S03 |\n| SD-04 |\n| Q-05 | risk |\n| A10-15 |"
