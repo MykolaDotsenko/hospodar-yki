@@ -1173,8 +1173,18 @@
       "id": "IV-REQ-06",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Picture + Ukrainian gloss in learning only, then independent production",
-      "status": "NOT_YET",
-      "plan": "content production with S2 review and rights"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "packages/domain/test/picture-mission.test.ts",
+          "contains": "support shows models + gloss; transfer hides photo, models and gloss; evidence is ungraded"
+        }
+      ],
+      "gap": "8 image-led missions (a1/image-led, S2-pending) on rights-admitted photos. The Ukrainian gloss is scene-level (photo alt_uk), not per chunk; the 7–14-day repeat with a different unseen image is not built; no effect claim from pictures."
     },
     {
       "id": "IV-REQ-07",
