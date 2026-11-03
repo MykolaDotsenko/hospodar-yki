@@ -26,12 +26,49 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs/design/design-traceability-v1.json"
-ID = re.compile(r"\b(IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
+ID = re.compile(r"\b(R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
                 r"|COG-\d{2}|PSY-\d{2}|MEM-\d{2}|FEED-\d{2}|ATT-\d{2}|AUD-\d{2}|MSUI-\d{2}|SND-\d{2}|GAM-\d{2}|GL-\d{2}|R(?:0[1-9]|1[0-2])(?!-\d)"
                 r"|R[4-8]-\d{2}|R11-\d{2}|M3-\d{2}|SD-G\d{2}|QL-\d{2}|MOT-\d{2}"
                 r"|EXAM-PILLAR-\d{2}|EXAM-\d{2}|LEARN-\d{2}|LE-\d{2}|YKI-FID-\d{2}|CURATED-\d{2}|MODE-\d{2}|MVP-\d{2}|PER-\d{2}|SIM-\d{2}|AC-\d{2}"
                 r"|ARCH-\d{2}|C-\d{2}|REL-\d{2}|ANDR-\d{2}|WEB-\d{2}|UC-\d{2}|G-EX-\d{2}|UX-L\d{2}|RANGE-\d{2}|MEDIA-IMG-\d{2}|GRAM-TENSE-\d{2}|RIGHTS-\d{2})\b")
 STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "STUDY_NOT_RUN", "SUPERSEDED"}
+
+# Completeness gate: an ID *defined* anywhere in docs/ or research/ (first table cell, list item or bold) must
+# either be a traced requirement or belong to a family that is deliberately not a requirement (reason given).
+DEFINITION = re.compile(r"(?:^(?:\|\s*|[-*]\s+|\d+\.\s+)\**`?|\*\*)([A-Z][A-Z0-9]{0,9}(?:-[A-Z0-9]{1,6})?-[A-Z]?[0-9]{2}[a-z]?)\b", re.M)
+NOT_REQUIREMENTS = {
+    r"(?:EV|VD|UIE)-\d{2}": "evidence-source rows (studies/standards cited), not requirements",
+    r"R(?:0[1-9]|1[0-2])(?:-MOT)?-E\d{2}|MOT-E\d{2}": "evidence-source rows of the deep dossiers",
+    r"R11-S\d{2}": "R11 evidence-source rows (ADR-024 owns REL-*)",
+    r"SD-\d{2}": "design #19 evidence-source rows (its gates are SD-G*)",
+    r"Q-\d{2}": "docs/QUALITY.md risk register (own status) and gameplay quest scenarios",
+    r"A10-1[5-9]": "R10 cross-references to other research, not norms",
+}
+SCAN_GLOBS = ("docs/**/*.md", "research/**/*.md")
+
+
+def scan_definitions(texts: dict[str, str], traced: set[str], sources: set[str]) -> list[str]:
+    """Pure: texts = {repo-relative path: markdown}. Returns completeness errors."""
+    errors: list[str] = []
+    excluded = [re.compile(p) for p in NOT_REQUIREMENTS]
+    for path, text in sorted(texts.items()):
+        for m in sorted(set(DEFINITION.findall(text))):
+            if ID.fullmatch(m):
+                if m not in traced:
+                    errors.append(f"{path} defines {m} but it is not in the matrix" + ("" if path in sources else " (file is not a listed source)"))
+            elif not any(x.fullmatch(m) for x in excluded):
+                errors.append(f"{path} defines {m}: untraced requirement family — add it to the matrix or to NOT_REQUIREMENTS with a reason")
+    return errors
+
+
+def repository_texts(root: Path = ROOT) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for g in SCAN_GLOBS:
+        for f in root.glob(g):
+            rel = f.relative_to(root).as_posix()
+            if "/history/" not in rel:
+                out[rel] = f.read_text(encoding="utf-8")
+    return out
 
 
 def defined_ids(sources: list[str], root: Path = ROOT) -> set[str]:
@@ -103,7 +140,7 @@ def summary(doc: dict) -> str:
 
 def main(argv: list[str]) -> int:
     doc = json.loads(MATRIX.read_text(encoding="utf-8"))
-    errors = check(doc)
+    errors = check(doc) + scan_definitions(repository_texts(), {r["id"] for r in doc["requirements"]}, set(doc.get("sources", [])))
     if errors:
         print("FAIL design traceability:\n  " + "\n  ".join(errors)); return 1
     if "--report" in argv:
