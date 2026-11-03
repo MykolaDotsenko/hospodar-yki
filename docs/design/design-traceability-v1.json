@@ -449,8 +449,18 @@
       "id": "COLOR-14",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Semantic correspondence cue only after attempt, with text labels",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/src/screens/DialogueScreen.tsx",
+          "contains": "← тут це сказано"
+        }
+      ],
+      "gap": "Correspondence cue (evidence line highlighted with a text label) only after the learner's answer — in dialogues. Not yet in reading texts or listening transcripts."
     },
     {
       "id": "COLOR-15",
@@ -1169,9 +1179,13 @@
         {
           "file": "packages/domain/test/writing-clinic.test.ts",
           "contains": "own draft first: no weak draft, issues or model visible while writing; short text refused"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
         }
       ],
-      "gap": "draft → feedback → rewrite → new task is built for writing (6 S2-pending items; feedback is editor-written issues on a weak draft + self-check, no automatic feedback on the learner's own text). Branching dialogues and information-gap tasks are not built."
+      "gap": "Built: writing clinic (draft → feedback → rewrite → new task) and linear dialogues where the learner takes speaker A's turns (reply first, script line as one possible variant). Not built: real branching dialogues and information-gap tasks (need authored branch content + S2 review); dialogues are script-only (no recording)."
     },
     {
       "id": "IV-REQ-08",

@@ -7,3 +7,4 @@ export * from "./retention.ts";
 export * from "./listening.ts";
 export * from "./diagnostic.ts";
 export * from "./writingClinic.ts";
+export * from "./dialogue.ts";
