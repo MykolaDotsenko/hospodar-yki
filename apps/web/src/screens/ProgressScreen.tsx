@@ -57,7 +57,8 @@ export function ProgressScreen({ state, onHome, onLearn, onRetention }: { state:
               return (
                 <li key={s.id}><strong>{s.uk}</strong> <span lang="fi" className="muted">· {s.fi}</span><br />
                   {xs.length === 0 ? "Ще не тренувалося в цій версії." :
-                    `${scored.filter(d => d.correct).length} з ${scored.length} перевірених відповідей правильні; ${xs.length - scored.length} без оцінки (письмо/говоріння оцінює людина).`}
+                    s.id === "writing" || s.id === "speaking" ? `${xs.length} без оцінки — відповіді збережено; оцінити може лише людина (викладач).` :
+                    `${scored.filter(d => d.correct).length} з ${scored.length} перевірених відповідей правильні; ${xs.length - scored.length} без оцінки.`}
                 </li>
               );
             })}

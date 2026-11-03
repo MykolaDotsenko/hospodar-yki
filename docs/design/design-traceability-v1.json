@@ -743,8 +743,22 @@
       "id": "UX-06",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Adaptive mix never forces microphone; pause/scope change keeps progress",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "apps/web/src/screens/DiagnosticScreen.tsx",
+          "contains": "Мікрофон недоступний — напиши свій усний план чи відповідь"
+        }
+      ],
+      "gap": "Diagnostic: mic optional (consent, text fallback) and each step persisted before moving on. No adaptive 4-skill daily mix yet; an interrupted diagnostic restarts at reading (saved steps kept, in-progress text not)."
     },
     {
       "id": "UX-07",
