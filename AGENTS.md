@@ -87,6 +87,9 @@ On conflict, identify the contradiction, preserve data and working behavior, and
 
 ## Research-driven UX and pedagogy, no engagement theater
 
+**Design traceability (03.11.2026):** any UI/design change must update [docs/design/design-traceability-v1.json](docs/design/design-traceability-v1.json); `ENFORCED` requires a real test that fails when the rule is broken (`scripts/validate_design_traceability.py`, CI).
+
+
 If changing learning strategies, sounds, visual cues, animations, AI feedback, concentration features or game mechanics, first consult [research protocol](research/RESEARCH-PROGRAM.md), [sensory/memory evidence](research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md), and [implementation checklist](docs/guides/EVIDENCE-TO-UX.md). The existing [67 learning methods](research/pedagogy/08-learning-methods-evidence-2026-10.md) are research proposals and fit ratings, not measured in-app success. Demand controlled, delayed **independent** Finnish language transfer; avoid decorative distractions, mandatory background sound and unsupported learning-style/brainwave claims. Never add duplicate catalogs to document this work.
 
 **Scoped instructions:** coding in [app/](app/AGENTS.md), [shared contracts](packages/contracts/AGENTS.md) or [research](research/AGENTS.md) has short area-specific checklists, all subordinate to this file. For dependency direction and static CI enforcement see [module boundaries](docs/architecture/MODULE-BOUNDARIES.md).

@@ -1,0 +1,1368 @@
+{
+  "schema": "hospodar-design-traceability-v1",
+  "updated": "2026-11-03",
+  "purpose": "Every design/UX requirement from the canonical spec and research has an honest implementation status; ENFORCED and PARTIAL entries point to tests that exist. Checked by scripts/validate_design_traceability.py. Status describes the product, not a learning effect.",
+  "sources": [
+    "docs/15-two-modes-skill-scopes.md",
+    "docs/11-mvp-product-requirements.md",
+    "research/ux/20-multimodal-interactive-learning-2026-10.md",
+    "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+    "research/ux/22-r10-accessibility-mobile-qa-2026-10.md"
+  ],
+  "statuses": {
+    "ENFORCED": "an automated test fails if the rule is broken",
+    "PARTIAL": "some automated evidence; gap stated",
+    "NOT_YET": "not built; plan step stated",
+    "STUDY_NOT_RUN": "requires a human study; plan stated",
+    "SUPERSEDED": "replaced by a newer canonical rule"
+  },
+  "requirements": [
+    {
+      "id": "DESIGN-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Colour is allowed where it serves orientation and attention",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_low_contrast_pair_fails"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-01a",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Colour roles: accents orient; calm surfaces behind Finnish text; cue only in feedback",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_learning_cue_cannot_use_accent_tokens"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Own visual DNA: H-threshold mark, short gold diagonal, threshold route",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "assert \"#C99135\" in text(MARK)"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Signature corner and typographic fingerprint are not checked automatically in apps/web; needs design review"
+    },
+    {
+      "id": "DESIGN-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Four skill accents always with icon + name, never colour alone",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "assert contrast(data[\"accent\"],t[\"colors\"][\"surface\"]) >= 4.5, skill"
+        }
+      ],
+      "gap": "apps/web has only the grammar mission; skill UI not built",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "DESIGN-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "One bright spot for one current action; calm field around long text",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "WCAG 2.2 AA, keyboard, high contrast, reduced motion, calm option; not red/green only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "focus retained as visible high-contrast 3px outline in forced-colors mode"
+        }
+      ],
+      "gap": "Forced-colors and screen readers not tested in apps/web; high-contrast variant not built",
+      "plan": "R10 manual device/screen-reader matrix"
+    },
+    {
+      "id": "DESIGN-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Prove with users: 24px icon, 5-second recall, task completion, usability",
+      "status": "STUDY_NOT_RUN",
+      "plan": "R01/R10 consented usability study"
+    },
+    {
+      "id": "DESIGN-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "One human-made illustration style (Finnish everyday life)",
+      "status": "NOT_YET",
+      "plan": "content production with S2 review and rights"
+    },
+    {
+      "id": "DESIGN-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Signature route shows real mission steps with text state for screen readers",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Adult colourful product; neutral space for long texts and writing",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Focus budget: one primary CTA per task; fits 320/360/390 px and 200 %",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ]
+    },
+    {
+      "id": "DESIGN-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Anti-AI-sameness gate: no gradients/glass/blobs/robots/hero+3 cards",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "len(t[\"attention_design\"][\"avoid_ai_sameness\"]) >= 5"
+        }
+      ],
+      "gap": "Visual review is manual; no screenshot diff"
+    },
+    {
+      "id": "DESIGN-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Learn more expressive, exam calmer; exam hides gateway/SRS",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "gateway.hidden=Boolean(exam.session && !exam.session.finishedAt)"
+        }
+      ],
+      "gap": "Covered in legacy EXAM only; EXAM not yet in apps/web",
+      "plan": "G2-c EXAM engine in apps/web"
+    },
+    {
+      "id": "DESIGN-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Colour supports hierarchy; no memory/YKI gain claims without a controlled test",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "t[\"attention_design\"][\"proven_learning_effect\"]==\"NOT_ESTABLISHED\""
+        },
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"study_plan\"][\"no_learning_claim_until_tested\"] is True"
+        }
+      ],
+      "gap": "Claim prohibition enforced; the A/B study itself not run"
+    },
+    {
+      "id": "DESIGN-14",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "WCAG 2.2 AA: 4.5:1 / 3:1, targets ≥24 px (CTA ≥44 px)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_low_contrast_pair_fails"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_input_border_meets_non_text_minimum"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Real axe on every screen state and screen readers still partial"
+    },
+    {
+      "id": "DESIGN-15",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Recognisable without logo: blind 5-second and 24-hour recall tests",
+      "status": "STUDY_NOT_RUN",
+      "plan": "brand recognition study (recognition-strategy-v02)"
+    },
+    {
+      "id": "DESIGN-16",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Calm/low-stimulation mode and controlled motion, prefers-reduced-motion",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Skill accents for orientation, not promised to improve memory",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "t[\"attention_design\"][\"proven_learning_effect\"]==\"NOT_ESTABLISHED\""
+        },
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "assert contrast(data[\"accent\"],t[\"colors\"][\"surface\"]) >= 4.5, skill"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No cue before first attempt; one colour+underline cue in feedback; repair without key",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No key highlighting in transfer, review, retest or exam",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"mode_policy\"][\"exam\"][\"answer_cues\"] is False"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Morpheme segmentation only from teacher-reviewed content, no regex",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"mode_policy\"][\"learn\"][\"morphology_segmentation\"]==\"manual_teacher_reviewed\""
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Audio first; VTT highlight only for verified timestamps; none in exam",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "COLOR-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Reading and writing on a neutral light field; one accent per task",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Calm / high-contrast change presentation only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "High-contrast variant not built"
+    },
+    {
+      "id": "COLOR-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Measure 7/14-day cueless recall in a randomized comparison",
+      "status": "STUDY_NOT_RUN",
+      "plan": "R01 pilot"
+    },
+    {
+      "id": "COLOR-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Colourful but no AI gradients/glass/acid accents",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "len(t[\"attention_design\"][\"avoid_ai_sameness\"]) >= 5"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_raw_hex_in_app_css_fails_but_box_shadow_is_allowed"
+        }
+      ],
+      "gap": "Visual review manual"
+    },
+    {
+      "id": "COLOR-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Name + underline/shape + colour; no status by hue alone",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "focus retained as visible high-contrast 3px outline in forced-colors mode"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Meaning before highlighted form, only after independent answer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Form highlighting must not harm comprehension (guardrail)",
+      "status": "STUDY_NOT_RUN",
+      "plan": "R01/COLOR-19 study"
+    },
+    {
+      "id": "COLOR-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Never advertise meta-analytic g as a % memory gain",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "t[\"attention_design\"][\"proven_learning_effect\"]==\"NOT_ESTABLISHED\""
+        },
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"study_plan\"][\"no_learning_claim_until_tested\"] is True"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-14",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Semantic correspondence cue only after attempt, with text labels",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "COLOR-15",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Max one active semantic cue; calm surfaces for text, writing, speaking",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_learning_cue_cannot_use_accent_tokens"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-16",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Morpheme underline / grammar metadata need independent S2 review",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        }
+      ]
+    },
+    {
+      "id": "COLOR-17",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam, unseen diagnostic and transfer get no colour hints; skill colour ≠ answer highlight",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_learning_cue_cannot_use_accent_tokens"
+        },
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"mode_policy\"][\"exam\"][\"answer_cues\"] is False"
+        }
+      ],
+      "gap": "EXAM in apps/web not built",
+      "plan": "G2-c EXAM engine in apps/web"
+    },
+    {
+      "id": "COLOR-18",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Calm/high-contrast never change tasks, SRS metrics or keys",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "High-contrast variant not built"
+    },
+    {
+      "id": "COLOR-19",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "A/B coloured cue vs plain; primary 7-day cueless first attempt",
+      "status": "STUDY_NOT_RUN",
+      "plan": "R01 pilot"
+    },
+    {
+      "id": "COLOR-20",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Saturated palette on home is fine; during a task the Finnish text holds attention",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_saturated_fill_behind_finnish_text_fails"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "UIO-01",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "One language task and one main next action per screen",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "UIO-02",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Media paused at a semantic boundary before the question (LEARN only)",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UIO-03",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Immutable first attempt → feedback → self-repair → new addressee",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "UIO-04",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Scaffold reveals one insight only after an independent attempt",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ]
+    },
+    {
+      "id": "UIO-05",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Next step from a real error/gap, no invented CEFR/YKI percentages",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ]
+    },
+    {
+      "id": "UIO-06",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "One meaningful visual interaction (talossa → talosta → taloon) with static alternative",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UIO-07",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Agency over skill, length, pace, captions and calm mode",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Skill and session length choice not built",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UIO-08",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Actionable progress ('today practise these 2'), real delayed checks",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UIO-09",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Microgame only as a real communicative mission, tested against plain task",
+      "status": "NOT_YET",
+      "plan": "gameplay slice after R01 evidence"
+    },
+    {
+      "id": "UIO-10",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "EXAM firewall: no LEARN overlays, rewards, cues or unverified pause/repeat",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        }
+      ],
+      "gap": "Legacy EXAM only",
+      "plan": "G2-c EXAM engine in apps/web"
+    },
+    {
+      "id": "UX-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Same module IDs, names and icons everywhere",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "assert contrast(data[\"accent\"],t[\"colors\"][\"surface\"]) >= 4.5, skill"
+        }
+      ],
+      "gap": "Icon set decision open (see decisions)"
+    },
+    {
+      "id": "UX-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Mode and scope always visible as a badge",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "UX-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Default reaches a useful result in 1–2 actions; 'Продовжити'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ]
+    },
+    {
+      "id": "UX-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No dead buttons; unavailable modules explained as in development",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ]
+    },
+    {
+      "id": "UX-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "One 'Мій прогрес' with 4 skills and Learn | Exams toggle, separate namespaces",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UX-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Adaptive mix never forces microphone; pause/scope change keeps progress",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "UX-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "One-line help: learning allows hints, simulation hides them",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "UX-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Mobile-first, keyboard/screen reader, not colour-only, no autoplay",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Screen reader not tested"
+    },
+    {
+      "id": "SENS-01",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "One semantic cue after first response",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_learning_cue_cannot_use_accent_tokens"
+        }
+      ]
+    },
+    {
+      "id": "SENS-02",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Related photo/text/situation without decorative excess",
+      "status": "NOT_YET",
+      "plan": "content production with S2 review and rights"
+    },
+    {
+      "id": "SENS-03",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Controlled Finnish captions and transcript, accessibility preserved",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "SENS-04",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Real Finnish with different voices; learner-controlled play/replay/speed",
+      "status": "NOT_YET",
+      "plan": "R05 recordings with rights + G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "SENS-05",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Quiet by default; separate speech/sound/music controls",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ],
+      "gap": "Quiet by default enforced; separate controls arrive with audio",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "SENS-06",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Meaning-first feedback → small grammar highlight → fading",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Cue fading over repetitions not built"
+    },
+    {
+      "id": "SENS-07",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Skill colour plus icon/text, never colour-only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "assert contrast(data[\"accent\"],t[\"colors\"][\"surface\"]) >= 4.5, skill"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "focus retained as visible high-contrast 3px outline in forced-colors mode"
+        }
+      ],
+      "gap": "Skill UI not in apps/web",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "SENS-08",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Short controlled motion animation (-ssa/-sta/-Vn) with static twin",
+      "status": "NOT_YET",
+      "plan": "motion experiment after G2-c"
+    },
+    {
+      "id": "SENS-09",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Gamified real missions with choice and competence feedback",
+      "status": "NOT_YET",
+      "plan": "gameplay slice after R01 evidence"
+    },
+    {
+      "id": "SENS-10",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Optional soft sound after an answer, with visual/text equivalent",
+      "status": "NOT_YET",
+      "plan": "opt-in only, after audio"
+    },
+    {
+      "id": "SENS-11",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Optional instrumental background music, separate from speech",
+      "status": "NOT_YET",
+      "plan": "P2, opt-in only; mixed evidence"
+    },
+    {
+      "id": "SENS-12",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "DO NOT SHIP: binaural/'frequency' audio, flashes, dopamine loops",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "MULTI-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "LEARN sub-phases discover → first_uncued → support → repair → transfer → delayed",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "app/tests/retention-core.test.mjs",
+          "contains": "never exposes a delayed prompt before day 7"
+        }
+      ],
+      "gap": "discover and delayed_unseen not yet in apps/web",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "MULTI-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "First attempt: no answer reveal, suffix colours, captions or gloss",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "MULTI-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "One primary hint; learner chooses calm/rich",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ]
+    },
+    {
+      "id": "MULTI-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Questions at semantic media boundaries; captions after submit",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "MULTI-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Iconic gestures short and optional",
+      "status": "NOT_YET",
+      "plan": "experiment only"
+    },
+    {
+      "id": "MULTI-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Visual maps only if learner generates Finnish; keyboard equivalent",
+      "status": "NOT_YET",
+      "plan": "experiment only"
+    },
+    {
+      "id": "MULTI-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "AI interlocutor bounded by S2 goals, abstention, no YKI grade",
+      "status": "SUPERSEDED",
+      "superseded_by": "CURATED-03 (no generative AI in learner runtime)"
+    },
+    {
+      "id": "MULTI-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "WCAG 2.2 AA + motion policy: reduced motion, 320 px, 200 %, no drag-only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Screen reader and real devices not run"
+    },
+    {
+      "id": "MULTI-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Honest evidence: uncued / assisted / caption_seen / transfer / day7-14 separately",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ],
+      "gap": "caption_seen and day 7/14 in apps/web not yet",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "MULTI-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "EXAM: no learning overlays, pop quizzes, karaoke, hints, mascots, AI grades",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        }
+      ],
+      "gap": "Legacy EXAM only",
+      "plan": "G2-c EXAM engine in apps/web"
+    },
+    {
+      "id": "IV-REQ-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Generate before reveal: own answer before key",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "IV-REQ-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Feedback + repair; assisted success ≠ independent knowledge",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ]
+    },
+    {
+      "id": "IV-REQ-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Delayed unseen transfer and 7/14-day retest",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/retention-core.test.mjs",
+          "contains": "never exposes a delayed prompt before day 7"
+        }
+      ],
+      "gap": "Legacy app only",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "IV-REQ-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Listening: prediction → uncued audio → gist → details → transcript after submit",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "IV-REQ-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Interactive reading with approved evidence_span after answer",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "IV-REQ-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Picture + Ukrainian gloss in learning only, then independent production",
+      "status": "NOT_YET",
+      "plan": "content production with S2 review and rights"
+    },
+    {
+      "id": "IV-REQ-07",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Meaningful agency: branching dialogues, draft → feedback → rewrite",
+      "status": "NOT_YET",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "IV-REQ-08",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "WCAG 2.2 AA, alternatives to drag, calm/reduced motion, no distractor animation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ],
+      "gap": "Screen reader not tested"
+    },
+    {
+      "id": "IV-REQ-09",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Honest mastery: unassisted first attempt separate from hints/transfer; no fake %",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ],
+      "gap": "Progress screen not built",
+      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+    },
+    {
+      "id": "IV-REQ-10",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Mode isolation: zero trainer feedback in exam",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "plan": "G2-c EXAM engine in apps/web",
+      "gap": "Legacy EXAM only; apps/web has no EXAM yet"
+    },
+    {
+      "id": "IV-REQ-11",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Optional gamification; mascot/sounds opt-in experiment",
+      "status": "NOT_YET",
+      "plan": "gameplay slice after R01 evidence"
+    },
+    {
+      "id": "IV-REQ-12",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Evidence audit: study type, limits; /100 is product fit, not effect size",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/validate_brand_identity.py",
+          "contains": "t[\"attention_design\"][\"proven_learning_effect\"]==\"NOT_ESTABLISHED\""
+        },
+        {
+          "file": "scripts/validate_color_memory_policy.py",
+          "contains": "data[\"study_plan\"][\"no_learning_claim_until_tested\"] is True"
+        }
+      ]
+    },
+    {
+      "id": "A10-01",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "WCAG 2.2 A/AA incl. 2.4.11, 2.5.7, 2.5.8",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "axe covers only automatable rules; manual audit pending"
+    },
+    {
+      "id": "A10-02",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Reflow at 320 CSS px without two-axis scrolling",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ]
+    },
+    {
+      "id": "A10-03",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Text resize to 200 % without loss",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ]
+    },
+    {
+      "id": "A10-04",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Contrast ≥4.5:1 text, ≥3:1 large",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_low_contrast_pair_fails"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ]
+    },
+    {
+      "id": "A10-05",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Non-text contrast ≥3:1 for control edges and focus",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_input_border_meets_non_text_minimum"
+        }
+      ]
+    },
+    {
+      "id": "A10-06",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Focused element not entirely obscured",
+      "status": "NOT_YET",
+      "plan": "add Playwright check when sticky UI appears"
+    },
+    {
+      "id": "A10-07",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "Targets ≥24 px (project: CTA ≥44 px)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ]
+    },
+    {
+      "id": "A10-08",
+      "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
+      "summary": "No autoplay audio; pause/stop/volume control",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-01",
+      "question": "Канонічна тривалість сесії",
+      "options": [
+        "10/20/30 хв (docs/15, session JSON)",
+        "5/10/20 хв (R08-MOT)"
+      ],
+      "recommendation": "10/20/30 як основні; 5 хв лише як «мінімальне повернення»",
+      "status": "OPEN",
+      "affects": [
+        "UIO-07",
+        "UX-03"
+      ]
+    },
+    {
+      "id": "DEC-02",
+      "question": "R08: ключ до чи після необов'язкового самовиправлення",
+      "options": [
+        "як у референсі R08 (ключ, потім repair)",
+        "як MVP-04/COLOR-02 (repair без ключа, потім ключ)"
+      ],
+      "recommendation": "MVP-04/COLOR-02 — єдине правило для всіх місій",
+      "status": "OPEN",
+      "affects": [
+        "COLOR-02",
+        "UIO-04"
+      ]
+    },
+    {
+      "id": "DEC-03",
+      "question": "Тривалість мікроанімацій",
+      "options": [
+        "180/250 мс (tokens.json)",
+        "150–250 мс (visual-system)",
+        "160–220 мс (recognition-strategy)"
+      ],
+      "recommendation": "tokens.json як єдине джерело",
+      "status": "OPEN",
+      "affects": [
+        "DESIGN-16",
+        "SENS-08"
+      ]
+    },
+    {
+      "id": "DEC-04",
+      "question": "Назви режимів в інтерфейсі",
+      "options": [
+        "01 Навчання / 02 Симуляція YKI",
+        "Вчитися / Пробний YKI",
+        "Суперефективна підготовка / Максимально реалістична симуляція"
+      ],
+      "recommendation": "01 Навчання / 02 Симуляція YKI (tokens.json)",
+      "status": "OPEN",
+      "affects": [
+        "UX-01",
+        "UX-02"
+      ]
+    },
+    {
+      "id": "DEC-05",
+      "question": "Іконки навичок",
+      "options": [
+        "SVG book-open/headphones/pencil-line/mic (tokens)",
+        "емодзі 📖🎧✍️🗣️ (session JSON)"
+      ],
+      "recommendation": "SVG; емодзі лише в документах",
+      "status": "OPEN",
+      "affects": [
+        "UX-01",
+        "DESIGN-03"
+      ]
+    },
+    {
+      "id": "DEC-06",
+      "question": "NPC у місті vs заборона маскота",
+      "options": [
+        "NPC — співрозмовник у завданні в редакційному стилі; маскот заборонено",
+        "без NPC"
+      ],
+      "recommendation": "NPC як співрозмовник, не маскот",
+      "status": "OPEN",
+      "affects": [
+        "UIO-09",
+        "SENS-09",
+        "DESIGN-11"
+      ]
+    }
+  ]
+}

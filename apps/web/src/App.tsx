@@ -6,6 +6,7 @@ import { exercises } from "./content/cloze.ts";
 import { learnerR08Tasks } from "./content/r08.ts";
 import { ReviewerScreen } from "./screens/ReviewerScreen.tsx";
 import { ImportScreen } from "./screens/ImportScreen.tsx";
+import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
 
 type View = "home" | "mission" | "review" | "import";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
@@ -15,6 +16,8 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [appearance, setAppearance] = useState<Appearance>(readAppearance);
+  useEffect(() => { applyAppearance(appearance); }, [appearance]);
 
   useEffect(() => {
     repository.read().then(setSnapshot, e => setLoadError(String(e?.code ?? e)));
@@ -28,6 +31,8 @@ export function App({ repository, markUrl }: { repository: LearnerRepository; ma
             <img className="brand-mark" src={markUrl} alt="" width={46} height={46} />
             <span><strong>Hospodar YKI</strong><small>Фінська для життя. Впевненість для YKI.</small></span>
           </a>
+          <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
+            onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>
           <span className="pill" aria-live="polite">{view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" ? "Прогрес" : "Головна"}</span>
         </div>
       </header>

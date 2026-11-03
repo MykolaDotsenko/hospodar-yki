@@ -11,6 +11,14 @@ on:
       - 'app/tokens.css'
       - 'scripts/validate_design_tokens.py'
       - 'scripts/tests/test_validate_design_tokens.py'
+      - 'scripts/validate_design_traceability.py'
+      - 'scripts/tests/test_validate_design_traceability.py'
+      - 'docs/design/**'
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'docs/11-mvp-product-requirements.md'
+      - 'research/ux/**'
+      - 'research/design/**'
+      - 'apps/web/e2e/**'
       - 'app/exam.mjs'
       - 'app/app.mjs'
       - 'research/design/16-color-attention-memory-research-2026-10.md'
@@ -28,6 +36,14 @@ on:
       - 'app/tokens.css'
       - 'scripts/validate_design_tokens.py'
       - 'scripts/tests/test_validate_design_tokens.py'
+      - 'scripts/validate_design_traceability.py'
+      - 'scripts/tests/test_validate_design_traceability.py'
+      - 'docs/design/**'
+      - 'docs/15-two-modes-skill-scopes.md'
+      - 'docs/11-mvp-product-requirements.md'
+      - 'research/ux/**'
+      - 'research/design/**'
+      - 'apps/web/e2e/**'
       - 'app/exam.mjs'
       - 'app/app.mjs'
       - 'research/design/16-color-attention-memory-research-2026-10.md'
@@ -54,3 +70,7 @@ jobs:
         run: |
           python3 scripts/validate_design_tokens.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_design_tokens.py' -v
+      - name: Design ↔ research traceability (every requirement has an honest status; evidence tests exist)
+        run: |
+          python3 scripts/validate_design_traceability.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_design_traceability.py' -v
