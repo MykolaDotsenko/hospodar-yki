@@ -632,8 +632,13 @@
       "id": "UIO-08",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Actionable progress ('today practise these 2'), real delayed checks",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
     },
     {
       "id": "UIO-09",
@@ -717,8 +722,13 @@
       "id": "UX-05",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "One 'Мій прогрес' with 4 skills and Learn | Exams toggle, separate namespaces",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
     },
     {
       "id": "UX-06",
@@ -897,16 +907,15 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "packages/domain/test/mission.test.ts",
-          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
         },
         {
-          "file": "app/tests/retention-core.test.mjs",
-          "contains": "never exposes a delayed prompt before day 7"
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
         }
       ],
-      "gap": "discover and delayed_unseen not yet in apps/web",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "gap": "discover phase (pre-task input) not yet in apps/web"
     },
     {
       "id": "MULTI-02",
@@ -1057,15 +1066,17 @@
       "id": "IV-REQ-03",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Delayed unseen transfer and 7/14-day retest",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
         {
           "file": "app/tests/retention-core.test.mjs",
           "contains": "never exposes a delayed prompt before day 7"
         }
-      ],
-      "gap": "Legacy app only",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "IV-REQ-04",
@@ -1120,19 +1131,17 @@
       "id": "IV-REQ-09",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Honest mastery: unassisted first attempt separate from hints/transfer; no fake %",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: mission explains why it was chosen and lets the learner pick another"
-        },
-        {
-          "file": "packages/domain/test/mission.test.ts",
-          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
         }
-      ],
-      "gap": "Progress screen not built",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "IV-REQ-10",
