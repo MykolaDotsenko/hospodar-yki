@@ -3,7 +3,7 @@
  * sources/youtube). Every item passes the domain rights gate AND must exist as a bundled file; anything else is
  * dropped and listed in `refused` (shown to reviewers, never silently used). YouTube is link-only — no embed.
  */
-import { admitExternalLink, admitMedia, type MediaEntry } from "@hospodar/domain";
+import { admitExternalLink, admitMedia, admitVideo, type MediaEntry } from "@hospodar/domain";
 import audioManifest from "../../../../assets/audio/available.json";
 import videoManifest from "../../../../assets/video/open/available.json";
 import pictureManifest from "../../../../assets/images/pictures/available.json";
@@ -13,7 +13,7 @@ import youtube from "../../../../sources/youtube/youtube-catalog.json";
 
 const files = import.meta.glob([
   "../../../../assets/audio/open/**/*.{ogg,mp3}", "../../../../assets/audio/segments/**/*.ogg", "../../../../assets/audio/human/librivox/**/*.ogg",
-  "../../../../assets/video/open/*.webm", "../../../../assets/images/pictures/*.jpg", "../../../../assets/images/illustrations/*.svg",
+  "../../../../assets/video/open/*.webm", "../../../../assets/video/open/*.vtt", "../../../../assets/images/pictures/*.jpg", "../../../../assets/images/illustrations/*.svg",
 ], { query: "?url", import: "default", eager: true }) as Record<string, string>;
 const urlOf = (repoPath: string) => Object.entries(files).find(([k]) => k.endsWith("/" + repoPath))?.[1] ?? null;
 
@@ -54,8 +54,20 @@ export const librivoxWorks = [...new Set(librivox.map(l => l.work))].map(work =>
     narrators: [...new Set(parts.map(p => p.narrator!))].map(n => ({ narrator: n, parts: parts.filter(p => p.narrator === n) })) };
 });
 
-type VideoEntry = MediaEntry & { duration_seconds: number; teacher_review: string };
-export const videos = admit((videoManifest as unknown as { assets: VideoEntry[] }).assets);
+type VideoEntry = MediaEntry & { duration_seconds: number; teacher_review: string; captions_path?: string };
+const videoEntries = (videoManifest as unknown as { assets: VideoEntry[] }).assets;
+/** Played only with reviewed captions (A11Y-03 / WCAG 1.2.2). The rest are listed as unavailable, with their source. */
+export const videos = videoEntries.flatMap(v => {
+  const g = admitVideo(v, v.captions_path);
+  const url = urlOf(v.path), captions = v.captions_path ? urlOf(v.captions_path) : null;
+  if (!g.ok || !url || !captions) return [];
+  return [{ ...v, url, captions, credit: { credit: g.credit, licence: g.licence, licenceUrl: v.license_url ?? null, source: g.source } }];
+});
+export const videosWithoutCaptions = videoEntries.filter(v => !videos.some(x => x.id === v.id)).map(v => {
+  const g = admitMedia(v);
+  return { ...v, reason: admitVideo(v, v.captions_path).ok ? "file not bundled" : "no reviewed captions",
+    credit: g.ok ? { credit: g.credit, licence: g.licence, licenceUrl: v.license_url ?? null, source: g.source } : null };
+});
 
 type PictureEntry = MediaEntry & { alt_fi: string; alt_uk: string; topics: string[]; levels: string[]; width: number; height: number };
 export const pictures = admit((pictureManifest as unknown as { assets: PictureEntry[] }).assets);

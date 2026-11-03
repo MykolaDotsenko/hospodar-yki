@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
-import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videos, type Credit } from "../content/media.ts";
+import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 
 type Snap = { state: LearnerState; revision: number };
@@ -69,17 +69,30 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
         )}
 
         {tab === "video" && (
-          <ul className="media-grid">
-            {videos.map(v => (
-              <li key={v.id} className="media-card">
-                <h3 lang="fi">{sourceTitle(v.credit.source, v.id)}</h3>
-                <p className="muted">{Math.round(v.duration_seconds / 6) / 10} хв · без субтитрів (не заявлено джерелом)</p>
-                <Player kind="video" src={v.url} label={`Відео: ${sourceTitle(v.credit.source, v.id)}`} />
-                <CreditLine c={v.credit} />
-                {note(`media-${v.id}`, "listening", "Що ти зрозумів(ла)? (фінською, без оцінки)")}
-              </li>
-            ))}
-          </ul>
+          <>
+            {videos.length === 0 && <p>Відео відтворюються лише з перевіреними субтитрами (доступність, WCAG 1.2.2). Поки що жодне відео їх не має.</p>}
+            <ul className="media-grid">
+              {videos.map(v => (
+                <li key={v.id} className="media-card">
+                  <h3 lang="fi">{sourceTitle(v.credit.source, v.id)}</h3>
+                  <p className="muted">{Math.round(v.duration_seconds / 6) / 10} хв · фінські субтитри</p>
+                  <video className="media-video" controls preload="none" src={v.url} aria-label={`Відео: ${sourceTitle(v.credit.source, v.id)}`}>
+                    <track kind="captions" srcLang="fi" label="Suomi" src={v.captions} default />
+                  </video>
+                  <CreditLine c={v.credit} />
+                  {note(`media-${v.id}`, "listening", "Що ти зрозумів(ла)? (фінською, без оцінки)")}
+                </li>
+              ))}
+              {videosWithoutCaptions.map(v => (
+                <li key={v.id} className="media-card unavailable">
+                  <h3 lang="fi">{sourceTitle(v.credit?.source ?? null, v.id)}</h3>
+                  <p><strong>Поки недоступне тут:</strong> немає перевірених субтитрів. Відео з'явиться, коли субтитри підготує й перевірить редактор.</p>
+                  {v.credit?.source && <p><a href={v.credit.source} target="_blank" rel="noopener noreferrer">Подивитися на сайті джерела ↗</a></p>}
+                  {v.credit && <CreditLine c={v.credit} />}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
         {tab === "pictures" && (
@@ -130,10 +143,9 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
   );
 }
 
-function Player({ kind, src, label }: { kind: "audio" | "video"; src: string; label: string }) {
-  return kind === "audio"
-    ? <figure className="player"><figcaption>{label}</figcaption><audio controls preload="none" src={src} aria-label={label} /></figure>
-    : <video className="media-video" controls preload="none" src={src} aria-label={label} />;
+/** Audio only. Video is rendered inline with a mandatory captions <track> (A11Y-03), never through this helper. */
+function Player({ src, label }: { kind: "audio"; src: string; label: string }) {
+  return <figure className="player"><figcaption>{label}</figcaption><audio controls preload="none" src={src} aria-label={label} /></figure>;
 }
 
 function CreditLine({ c }: { c: Credit }): ReactNode {

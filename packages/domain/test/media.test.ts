@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { admitExternalLink, admitMedia, normaliseLicence, shuffleOptions, type ExternalLink, type MediaEntry } from "../src/index.ts";
+import { admitExternalLink, admitMedia, admitVideo, normaliseLicence, shuffleOptions, type ExternalLink, type MediaEntry } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
 const json = (p: string) => JSON.parse(readFileSync(new URL(p, root), "utf8"));
@@ -34,6 +34,13 @@ describe("media rights gate (AGENTS media rule)", () => {
     expect(admitMedia({ ...ok, path: "assets/../secret.jpg" })).toMatchObject({ ok: false });
     expect(admitMedia({ ...illustrations[0]!, source_page: undefined })).toMatchObject({ ok: true, source: null });
     expect(["CC-BY-SA-3.0", "CC BY-SA 3.0", "cc-by-4.0"].map(normaliseLicence)).toEqual(["CC BY-SA 3.0", "CC BY-SA 3.0", "CC BY 4.0"]);
+  });
+  it("A11Y-03: a video is admitted only with a reviewed WebVTT caption file; the 3 open videos have none", () => {
+    for (const v of video) expect(admitVideo(v, (v as { captions_path?: string }).captions_path)).toMatchObject({ ok: false, reason: expect.stringContaining("WCAG 1.2.2") });
+    expect(admitVideo(video[0]!, "assets/video/open/jenni-puhekieli.fi.vtt")).toMatchObject({ ok: true });
+    expect(admitVideo(video[0]!, "assets/video/../x.vtt")).toMatchObject({ ok: false });
+    expect(admitVideo(video[0]!, "assets/video/open/x.srt")).toMatchObject({ ok: false });
+    expect(admitVideo({ ...video[0]!, license: "CC BY-NC 4.0" }, "assets/video/open/x.vtt")).toMatchObject({ ok: false, reason: expect.stringContaining("licence") });
   });
   it("external links are link-only cards; non-allow-listed hosts and local copies are refused", () => {
     const admitted = links.filter(l => admitExternalLink(l).ok);

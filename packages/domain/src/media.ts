@@ -30,6 +30,16 @@ export function admitMedia(e: MediaEntry): Admission {
   return { ok: true, licence: normaliseLicence(licence), credit, source: original ? null : source };
 }
 
+/** Pre-recorded video with sound may be played only with synchronised captions (WCAG 2.2 SC 1.2.2, level A; A11Y-03).
+ *  `captionsPath` must be a reviewed WebVTT file under assets/; without it the video is refused, never shown uncaptioned. */
+export function admitVideo(e: MediaEntry, captionsPath: string | null | undefined): Admission {
+  const base = admitMedia(e);
+  if (!base.ok) return base;
+  if (typeof captionsPath !== "string" || !/^assets\/video\/[a-z0-9_./-]+\.vtt$/i.test(captionsPath) || captionsPath.includes(".."))
+    return { ok: false, reason: "no reviewed captions (WCAG 1.2.2): video is not played" };
+  return base;
+}
+
 /** "CC-BY-SA-3.0" / "CC BY-SA 3.0" → "CC BY-SA 3.0" (one display form for the same licence). */
 export function normaliseLicence(l: string): string {
   const m = /^cc[- ]by(-sa)?[- ](\d\.\d)$/i.exec(l.trim());
