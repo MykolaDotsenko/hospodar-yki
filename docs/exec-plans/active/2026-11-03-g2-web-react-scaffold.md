@@ -19,7 +19,8 @@ The accepted stack exists only on paper. Acceptance per slice: domain behaviour 
 | G2-c (part 1) | R06 transparent selection (reasons + manual choice, no same-day re-serve) and R03/R08 meaning→form mission (S2 reviewer preview; learner use only after `published`) | domain parity vs `adaptation-core.mjs`/`r08-grammar-core.mjs` (7 tests); Playwright 4 new E2E incl. axe | DONE_TESTED (Chromium local; FF/WebKit CI) |
 | G2-c (design) | Calm mode (DESIGN-16, COLOR-07/18), focus-budget E2E on every mission step, design traceability matrix + CI gate | `validate_design_traceability.py` (8 tests), Playwright `calm.spec.ts`, `focus.spec.ts` | DONE_TESTED |
 | G2-c (part 2a) | 7/14/30 delayed transfer (TS port of retention-core, parity) + «Мій прогрес» (Learn/Exam tabs, 4 skills separately, ≤2 actionable steps, no %/level) | domain parity (3 tests, days 0…40 incl. DST); Playwright `retention-progress.spec.ts` (clock-controlled) | DONE_TESTED (Chromium local) |
-| G2-c (part 2b) | Diagnostics, audio (UIO-02, MULTI-04, SENS-03/04/05 controls), then EXAM engine (XState) | Parity with legacy tests and EXV cases | PLANNED |
+| G2-c (part 2b) | Listening mission: prediction → learner-started audio → gist → details → keys → transcript/subtitles only after answering; slow speed / transcript as accessibility support → saved ungraded; synthetic voice labelled | domain 5 tests; Playwright `listening.spec.ts` 3 E2E incl. axe | DONE_TESTED (Chromium local) |
+| G2-c (part 3) | Diagnostics (reading/writing/speaking), semantic-boundary pauses (needs segment-aligned items), then EXAM engine (XState) | Parity with legacy tests and EXV cases | PLANNED |
 | G2-d | PWA shell + explicit offline packs; SW never activates during an exam | Playwright offline + update tests | PLANNED |
 | G2-e | Route cut-over: legacy `app/` behind `legacy` link only after parity + migration | Full legacy suite green on new app | PLANNED |
 
