@@ -332,8 +332,14 @@
       "id": "COLOR-05",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Audio first; VTT highlight only for verified timestamps; none in exam",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Subtitles only after answering; VTT timings are derived from synthesis, not human-verified"
     },
     {
       "id": "COLOR-06",
@@ -623,10 +629,13 @@
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
         }
       ],
-      "gap": "Skill and session length choice not built",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "gap": "Skill choice and session length (DEC-01 10/20/30) not built"
     },
     {
       "id": "UIO-08",
@@ -797,15 +806,34 @@
       "id": "SENS-03",
       "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
       "summary": "Controlled Finnish captions and transcript, accessibility preserved",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        }
+      ]
     },
     {
       "id": "SENS-04",
       "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
       "summary": "Real Finnish with different voices; learner-controlled play/replay/speed",
-      "status": "NOT_YET",
-      "plan": "R05 recordings with rights + G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        }
+      ],
+      "gap": "Learner-controlled play/replay/speed done; only one synthetic voice — real multi-talker recordings need R05 rights + S2"
     },
     {
       "id": "SENS-05",
@@ -953,8 +981,14 @@
       "id": "MULTI-04",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Questions at semantic media boundaries; captions after submit",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Captions after submit done; questions at semantic media boundaries need segment-aligned items"
     },
     {
       "id": "MULTI-05",
@@ -1082,8 +1116,17 @@
       "id": "IV-REQ-04",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Listening: prediction → uncued audio → gist → details → transcript after submit",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "questions require starting the audio first; no transcript or key before answering"
+        }
+      ]
     },
     {
       "id": "IV-REQ-05",
@@ -1279,8 +1322,8 @@
           "contains": "focus budget and orientation hold on every mission step"
         },
         {
-          "file": "app/tests/r10-accessibility-contract.test.mjs",
-          "contains": "audio controls fit panels and media has no automatic sound on page render"
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
         }
       ]
     }
