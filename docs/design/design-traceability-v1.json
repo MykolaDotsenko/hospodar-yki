@@ -4374,6 +4374,1551 @@
       "summary": "Separate production PR with Web+Android QA, migration, S2 copy, rollback",
       "status": "NOT_YET",
       "plan": "No motivation/plan feature exists in apps/web (only the isolated reference app/r08-motivation-core.mjs)."
+    },
+    {
+      "id": "CURATED-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Curated, level-appropriate, licensed material over generation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "CURATED-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Scientific loop: context → input → first independent attempt → feedback + self-repair → production → new situation → delayed check",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "CURATED-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No AI dependency in the learner runtime",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        }
+      ],
+      "gap": "No LLM/network model is used anywhere; no automated test asserts zero network/model calls."
+    },
+    {
+      "id": "CURATED-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Semantic visualisation (photos, schemes, timelines, motion) that explains meaning",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ],
+      "gap": "Photos and SVGs with credit; grammar motion/timeline interactions not built (SENS-08, UIO-06)."
+    },
+    {
+      "id": "CURATED-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Considered sound: clear natural Finnish, several voices, controllable pause/replay/speed, hideable captions",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "Human voices exist only as literary readings/dialects; modern multi-speaker dialogues not licensed (AUD-01)."
+    },
+    {
+      "id": "CURATED-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Motivation without manipulation: real competence, choice, no dark patterns",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        }
+      ],
+      "gap": "Story missions/levels/progress map not built; no streaks or dark patterns exist."
+    },
+    {
+      "id": "CURATED-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Modes without assessment leakage: LEARN explains after the attempt, EXAM hides until finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "CURATED-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Quality = learning (independent answers, new tasks, 7/14/30 retention per skill), not time in app",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ],
+      "gap": "Delayed checks exist for grammar writing only; Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "EXAM-PILLAR-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Full four-skill session or each module alone; partial official profile only per OPH day",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies. Only two mini rehearsals (3+4+1+1 units) exist."
+    },
+    {
+      "id": "EXAM-PILLAR-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Six separate fidelity dimensions, no single fake fidelity %",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ],
+      "gap": "Legacy ledger + E01 gate keep 2027-exact OFF; F4–F6 unverified."
+    },
+    {
+      "id": "EXAM-PILLAR-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "OPH digital demos are the first-party UX source; reproduce only verified behaviour",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E02 four official external demos match unchanged OPH-linked evidence"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ],
+      "gap": "Demo links verified; demo UI behaviour not manually inspected."
+    },
+    {
+      "id": "EXAM-PILLAR-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam discipline: Finnish instructions, no hints/transcripts/translation/gamification/feedback before finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "EXAM-PILLAR-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Unexposed bank, atomic draft saving, immutable first answer, recovery",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "responses are capped and cannot be altered after closing"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies. Held-out S2 bank does not exist."
+    },
+    {
+      "id": "EXAM-PILLAR-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Honest scoring: verified keys; writing/speaking ungraded without calibrated humans; per-skill results",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "incorrect and missing answers never receive automatic credit"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "EXAM-PILLAR-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Readiness: F1–F6 + evidence gaps, browser E2E of all four modules incl. audio/mic/reload/save failures",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "E04-C1: answers, navigation and voice evidence are refused at and after the practice deadline"
+        }
+      ],
+      "gap": "Legacy exam browser checks cover voice store + deadline; full four-module E2E in apps/web not built."
+    },
+    {
+      "id": "EXAM-PILLAR-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Honest current state: only a limited practice rehearsal, not a faithful 2027 system",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "no simulated YKI grade asserted by official demo link addition"
+        }
+      ]
+    },
+    {
+      "id": "EXAM-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Separate mode without SRS, hints or coaching before finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "EXAM-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Full YKI: four modules; types/timing only after official confirmation, else 'practice rehearsal'",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ],
+      "gap": "Two small mini rehearsals only; no full exam."
+    },
+    {
+      "id": "EXAM-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Each subtest can be taken independently",
+      "status": "NOT_YET",
+      "plan": "apps/web EXAM machine (G2-d part 2) with single-skill sessions."
+    },
+    {
+      "id": "EXAM-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Optional custom module pair; 'official partial' only for OPH-confirmed day configs",
+      "status": "NOT_YET",
+      "plan": "After EXAM-03; label custom practice, never official partial."
+    },
+    {
+      "id": "EXAM-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam discipline: Finnish instructions, hidden keys, no pedagogical intervention",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "EXAM-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Per-parameter official_verified with date/source; else training UX only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        }
+      ],
+      "gap": "Ledger + E04 provenance exist; per-parameter config model not built in apps/web."
+    },
+    {
+      "id": "EXAM-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Enough unique S2-reviewed items, live voices, genres and speaking types",
+      "status": "NOT_YET",
+      "plan": "S2-authored held-out bank + licensed multi-voice audio (R05)."
+    },
+    {
+      "id": "EXAM-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Separate per-module scoring; open responses ungraded without calibrated rater",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "EXAM-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Attempt history with item-bank version, date, scope; no 'pass guarantee'",
+      "status": "NOT_YET",
+      "plan": "apps/web exam history store with versions; no pass prediction."
+    },
+    {
+      "id": "EXAM-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Never lose writing; interruption marked 'interrupted', not 'failed'",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "corrupt state and obsolete schema recover safely"
+        }
+      ],
+      "gap": "Legacy drafts survive reload; 'interrupted' status not modelled."
+    },
+    {
+      "id": "EXAM-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Separate learn and held_out_exam pools; used items never 'unseen'",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "Pool separation enforced for audio assets by content hash; no held-out item bank exists."
+    },
+    {
+      "id": "EXAM-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Speaking-only mock works; no mic → honest not_assessed; text fallback never scores pronunciation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: stored speaking answer counts as answered but stays ungraded; deadline still applies"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ],
+      "gap": "Speaking-only session not built (EXAM-03)."
+    },
+    {
+      "id": "EXAM-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Every mock marked independent practice; OPH/JYU not affiliated; no grade from %",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "no simulated YKI grade asserted by official demo link addition"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "EXAM-14",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Official configurations labelled separately; single-skill practice never tied to an official date",
+      "status": "NOT_YET",
+      "plan": "With EXAM-03/04 config model."
+    },
+    {
+      "id": "EXAM-15",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Timer only as an explicitly configured practice timer until OPH limits are confirmed",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "practice timer only accepts opt-in exercise limits and is nonofficial"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        }
+      ]
+    },
+    {
+      "id": "LEARN-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Adaptive Mix (recommended) alternating all four skills by real gaps and SRS",
+      "status": "NOT_YET",
+      "plan": "4-skill scheduler on top of the R06 ranker (currently cloze only)."
+    },
+    {
+      "id": "LEARN-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Structured Course A2.2→B1→B1+ by topic with returns to review",
+      "status": "NOT_YET",
+      "plan": "Course map after S2 content publication."
+    },
+    {
+      "id": "LEARN-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Skill Focus: one chosen skill; mission stays within it",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Per-skill missions exist as separate entries; no Skill Focus mode switch."
+    },
+    {
+      "id": "LEARN-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Differentiated diagnosis: four separate profiles, weak spots, no fake 0–100 → YKI 3",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        }
+      ]
+    },
+    {
+      "id": "LEARN-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Retrieval + SRS + delayed independent checks with new tasks",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "LEARN-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Task-based real-life scenarios (housing, work, doctor, services, transport)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "LEARN-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Own answer → specific feedback → guided self-repair → new situation → unhinted check",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "LEARN-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Interleaving, contextual chunks, rektio, morphology in context",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "first-attempt evidence (meaning, form, error family) is identical to the reference"
+        }
+      ],
+      "gap": "Contextual cloze/R08 model exist; interleaving not built (COG-10)."
+    },
+    {
+      "id": "LEARN-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Intensive listening: human voices, puhekieli, gist/detail/inference, transcript hidden until answered",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "No puhekieli multi-speaker dialogues with inference questions yet (AUD-01)."
+    },
+    {
+      "id": "LEARN-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Interactive speaking: role-play, recorder only with explicit consent, ASR auxiliary only",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Consent + text fallback + role-play plan exist; turn-taking with audio replies not built; no ASR."
+    },
+    {
+      "id": "LEARN-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Writing with feedback: genres, content/lexis/grammar gaps, guided rewrite + unseen transfer",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "spot → issues reports found/missed by sentence, then the model; model hidden again in transfer"
+        }
+      ],
+      "gap": "No feedback on the learner's own text (human review flow not built)."
+    },
+    {
+      "id": "LEARN-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Small sessions 10/20/30 min, big 'Continue', clear next mission, no forced streak",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ],
+      "gap": "Session length choice (DEC-01) not built."
+    },
+    {
+      "id": "LEARN-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Prove learning: 7/14-day unseen checks; repeating the same key is not B1 evidence",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        }
+      ],
+      "gap": "Delayed unseen checks only for grammar writing transfer (GL-03)."
+    },
+    {
+      "id": "LEARN-14",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Switch between mix and single module and back without losing progress",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ],
+      "gap": "Progress is shared across missions; no explicit mode switch exists to test."
+    },
+    {
+      "id": "LEARN-15",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "'Why this task now?' for every recommendation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        }
+      ],
+      "gap": "Reasons shown for cloze recommendations only."
+    },
+    {
+      "id": "LEARN-16",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Privacy and control: local storage, export/delete of profile and raw answers",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/import.spec.ts",
+          "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "app/tests/learn-backup.test.mjs",
+          "contains": "only exact LEARN key is ever written; unrelated EXAM data untouched"
+        }
+      ],
+      "gap": "Local only; export/delete UI not built in apps/web (legacy backup exists)."
+    },
+    {
+      "id": "LE-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Own answer first, then key; separate first-attempt log",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ]
+    },
+    {
+      "id": "LE-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Adaptive SRS; 1/3/7/14/30 only a baseline; retention measured, not claimed optimal",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        }
+      ]
+    },
+    {
+      "id": "LE-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Scaffolding example→guided→independent with fading",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Model-after-attempt exists; systematic fading over repetitions not built (SENS-06)."
+    },
+    {
+      "id": "LE-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Contrastive interleaving of close forms after understanding",
+      "status": "NOT_YET",
+      "plan": "After S2 publishes R08 items (COG-10, PSY-06)."
+    },
+    {
+      "id": "LE-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Task-based scenarios with task_goal, audience, register, communicative outcome",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Scenarios exist; items do not yet carry a structured task_goal/audience/register schema."
+    },
+    {
+      "id": "LE-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Content-first corrective feedback → guided repair, limited high-priority errors",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "LE-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Voice/phonetics without fake grading; STT ≠ pronunciation score",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "LE-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Listening gist-first; captions only after answering",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "LE-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Writing: content/structure separate from grammar, then rewrite",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Editor issues are tagged by focus; no content_coverage/coherence fields on the learner's own text."
+    },
+    {
+      "id": "LE-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Unseen transfer at 7/14 days with exposure log, 4 skill streams",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        }
+      ],
+      "gap": "Only the grammar writing stream exists."
+    },
+    {
+      "id": "LE-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Optional confidence calibration without shaming",
+      "status": "NOT_YET",
+      "plan": "Optional confidence before feedback; never converted to CEFR."
+    },
+    {
+      "id": "LE-12",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Short missions, 'Continue', opt-in reminders, no forced streaks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        }
+      ],
+      "gap": "Session length and opt-in reminders not built."
+    },
+    {
+      "id": "LE-13",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Content graph with licences and S2 review status for every scored item",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "YKI-FID-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Six separate fidelity statuses; no single fake fidelity %",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        }
+      ],
+      "gap": "Statuses live in the evidence ledger; no runtime per-dimension status in apps/web."
+    },
+    {
+      "id": "YKI-FID-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "2011/SOLKI paper rules never become digital-2027 rules; any null blocks strict mode",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Full/separate four modules; strict mode without hints, translation, transcripts",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "YKI-FID-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Reading/listening with source-reviewed keys; writing/speaking needs_human_review",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-05",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Audio/voice: permission, interruption handling, verified provenance, no STT grade",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Rights, speaker provenance, language and actual acoustic/S2 review are mandatory"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-06",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Original bank with separate held-out pool, 9 topics × 6 functions, S2/licence gate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+        }
+      ],
+      "gap": "Held-out S2 bank not built."
+    },
+    {
+      "id": "YKI-FID-07",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Seen material is never 'unseen'; no copying of paid/official materials",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "E03 cites meaningful first-party links and no copied OPH task content"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Original practice timer visibly marked, never presented as OPH-confirmed",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "practice timer only accepts opt-in exercise limits and is nonofficial"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "DIGITAL_2027_VERIFIED disabled until public OPH/JYU evidence + acceptance tests",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ]
+    },
+    {
+      "id": "YKI-FID-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "After the Nov 2026 pilot, recheck OPH announcements; versioned runtime evidence",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ],
+      "gap": "Recheck is a dated manual step; no automated freshness check."
+    },
+    {
+      "id": "MODE-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Exactly two top-level modes: learn and exam",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ]
+    },
+    {
+      "id": "MODE-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "learn offers adaptive_mix (recommended), structured course and skill focus",
+      "status": "NOT_YET",
+      "plan": "Same plan as LEARN-01/02/03."
+    },
+    {
+      "id": "MODE-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "exam offers full_exam, each module separately and optional practice_subset",
+      "status": "NOT_YET",
+      "plan": "Same plan as EXAM-03/04."
+    },
+    {
+      "id": "MODE-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Hints/feedback/SRS/self-repair only in learn; in exam everything hidden until finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "MODE-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Chosen mode/skills persist; focus can change without losing progress",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        }
+      ],
+      "gap": "No mode/skill preference is stored yet."
+    },
+    {
+      "id": "MODE-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Never mix learning interleaving with the official module order; no exact-order claim",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "Two existing mini forms have precisely 3+4+1+1 units, no fictitious full YKI claim"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "MODE-07",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Every menu (incl. single-skill choices) functional, tested and keyboard-accessible",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ],
+      "gap": "Single-skill choices in both modes not built; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "MVP-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Real task from contextual-cloze.json with stable ID, origin, tag, level",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "identical rankings, scores and reasons for the reference inputs"
+        }
+      ]
+    },
+    {
+      "id": "MVP-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "No key before the first answer; empty answer refused",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "refuses empty answers and out-of-order events"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ]
+    },
+    {
+      "id": "MVP-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Deterministic structured cloze check with case/space normalisation; listed alternatives only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "normalizeFinnish matches on tricky Finnish input"
+        }
+      ]
+    },
+    {
+      "id": "MVP-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "After an error: one self-correction without the key; key after the second try (DEC-02)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "MVP-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Transfer: own answer without a model; completion stored, never auto-graded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ]
+    },
+    {
+      "id": "MVP-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Store date, independent first result, self-repair, transfer text, task ID, next review",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ]
+    },
+    {
+      "id": "MVP-07",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Progress and review cards available after return; honest warning if storage unavailable",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "errors are typed StorageError"
+        }
+      ]
+    },
+    {
+      "id": "MVP-08",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Accessible mobile-first UI, keyboard, clear states, no autoplay, no noisy effects",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "PER-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Baseline diagnosis of four skills separately",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        }
+      ],
+      "gap": "Listening is not probed (script-only item); reading/writing/speaking are."
+    },
+    {
+      "id": "PER-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Reading/listening scored only with verified text/audio and unambiguous keys",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "app/tests/core.test.mjs",
+          "contains": "diagnostics never auto grade writing or speaking"
+        }
+      ]
+    },
+    {
+      "id": "PER-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Productive writing/speaking = draft/recording + self-check, 'ungraded' until human review",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        },
+        {
+          "file": "app/tests/core.test.mjs",
+          "contains": "diagnostics never auto grade writing or speaking"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        }
+      ]
+    },
+    {
+      "id": "PER-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Adaptive initial SRS from first independent attempt and delayed recall",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "app/tests/core.test.mjs",
+          "contains": "independent failure resets SRS even after successful guided repair"
+        }
+      ]
+    },
+    {
+      "id": "PER-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Repeated-error log; only confirmed errors enter the weakness queue",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "explanations describe observed signals only"
+        }
+      ]
+    },
+    {
+      "id": "PER-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Same-question memorisation never counts as B1 progress; unseen 7/14-day checks",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ],
+      "gap": "Unseen checks for grammar writing only."
+    },
+    {
+      "id": "PER-07",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Local by default: no login, analytics, mic upload or hidden sync",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "starts blank at revision 0, commits atomically and reads back after reopen"
+        }
+      ],
+      "gap": "No such features exist; no automated test asserts zero network requests."
+    },
+    {
+      "id": "SIM-01",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Separate training rehearsal: four skills, navigation, independent answers, no hints/instant feedback",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "navigation prevents negative, missing and out-of-range indexes"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "SIM-02",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Official counts/timer/format/playback/pause rules only after verified publication",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        }
+      ]
+    },
+    {
+      "id": "SIM-03",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Learning (feedback after each task) and exam-like (feedback at the end), both labelled unofficial",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "SIM-04",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Keyboard input, audio player, consented speaking recording, finish and recovery without loss",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; behaviour holds in the legacy EXAM (app/exam.mjs) and the ported domain policies."
+    },
+    {
+      "id": "SIM-05",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Four skills scored separately; open responses ungraded; internal 0–100 never YKI",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "SIM-06",
+      "source": "docs/11-mvp-product-requirements.md",
+      "summary": "Warn that the product is independent of OPH/JYU and not their software",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "no simulated YKI grade asserted by official demo link addition"
+        }
+      ]
     }
   ],
   "decisions": [
