@@ -157,3 +157,9 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 /* Reading: evidence span marked with underline + text label, only after answering (IV-AC-05, COLOR-14). */
 .reading-text { font-size: 1.1rem; line-height: 1.75; }
 .evidence-span { text-decoration: underline; text-decoration-thickness: 2px; }
+/* EXAM: neutral, no learning cues or semantic highlight colours (EXAM-05, MULTI-10, UIO-10). */
+.exam-bar { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; justify-content: space-between; margin-bottom: var(--space-md); }
+.exam-passage { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--white); line-height: 1.7; overflow-wrap: anywhere; }
+.exam-prompt { font-weight: 700; }
+.exam-audio audio { width: 100%; }
+.exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
