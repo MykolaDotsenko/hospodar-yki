@@ -73,6 +73,10 @@ class IdPatternTests(unittest.TestCase):
         text = "IV2-AC-01, IV-AC-15, IV2-12, IV-07, IV-REQ-05, AC-04–07, EXV-20, A11Y-03, UIE-01, VD-07"
         self.assertEqual(sorted(set(ID.findall(text))), sorted({"IV2-AC-01", "IV-AC-15", "IV2-12", "IV-07", "IV-REQ-05", "AC-04", "EXV-20", "A11Y-03"}))
 
+    def test_short_architecture_ids_are_not_found_inside_longer_ones(self):
+        text = "UC-01, AC-01, IV2-AC-01, C-05, REL-16, R11-S03 (an R11 source row, so only the track R11), E04-C1, UX-L02, UX-03, A10-14, A10-15, G-EX-04"
+        self.assertEqual(sorted(set(ID.findall(text))), sorted({"UC-01", "AC-01", "IV2-AC-01", "C-05", "REL-16", "R11", "UX-L02", "UX-03", "A10-14", "G-EX-04"}))
+
     def test_exam_pillar_is_not_read_as_exam(self):
         text = "EXAM-PILLAR-04 and EXAM-04, YKI-FID-09, LEARN-12, LE-08, SAMPLE-01, MVP-04, PER-07"
         self.assertEqual(sorted(set(ID.findall(text))), sorted({"EXAM-PILLAR-04", "EXAM-04", "YKI-FID-09", "LEARN-12", "LE-08", "MVP-04", "PER-07"}))
