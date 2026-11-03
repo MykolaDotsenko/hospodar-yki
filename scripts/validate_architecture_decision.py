@@ -57,9 +57,21 @@ def main():
         for phrase in need:
             assert phrase in content, (path,phrase)
     assert (ROOT/"app/app.mjs").is_file() and (ROOT/"app/exam-core.mjs").is_file()
+    web=d["repository_baseline"].get("web_scaffold")
     if (ROOT/"apps/web/package.json").is_file():
-        raise AssertionError("New web scaffold detected: revise architecture-baseline implementation status before merging")
-    print("PASS: ADR-022 3 audits, 5 scored candidates, 14 future gates; current vanilla MVP accurately described")
+        # The scaffold exists: its status must be recorded honestly as partial, beside the legacy app.
+        assert web and web["path"]=="apps/web" and web["status"].startswith("PARTIAL"), \
+            "apps/web exists: record repository_baseline.web_scaffold with a PARTIAL status"
+        assert web["legacy_app_remains_reference"] is True and web["not_implemented"]
+        assert (ROOT/web["plan"]).is_file(), "web_scaffold.plan must point to an execution plan"
+        pkg=json.loads((ROOT/"apps/web/package.json").read_text(encoding="utf8"))
+        for dep in ("react","react-dom","dexie"):
+            assert dep in pkg["dependencies"], dep
+        assert not any(v.startswith(("^","~")) for v in {**pkg["dependencies"],**pkg["devDependencies"]}.values() if not v.startswith("workspace:")), \
+            "apps/web dependencies must be exact-pinned"
+    else:
+        assert web is None, "web_scaffold recorded but apps/web is missing"
+    print("PASS: ADR-022 3 audits, 5 scored candidates, 14 future gates; vanilla MVP + G2-a web scaffold status accurately described")
 
 if __name__=="__main__":
     main()

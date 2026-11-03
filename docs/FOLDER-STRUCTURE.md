@@ -4,7 +4,8 @@
 
 ```text
 hospodar-yki/
-├── app/                         # Поточний працюючий Web MVP
+├── app/                         # Поточний працюючий Web MVP (legacy, залишається до паритету)
+├── apps/web/                    # Новий React 19 + Vite 8 + TypeScript застосунок (G2-a)
 ├── assets/
 │   ├── images/brand/            # Справжні SVG логотипи
 │   ├── images/illustrations/    # 5 справжніх навчальних SVG + маніфест
@@ -40,6 +41,7 @@ hospodar-yki/
 ├── docs/                        # ТЗ, ADR і правила AI-розробки
 ├── native/android/prototype/    # Kotlin source — ще не buildable Android
 ├── packages/contracts/          # Чинні JS contracts + тести
+├── packages/domain/             # Чиста доменна логіка TypeScript (паритет з app/core.mjs)
 ├── scripts/                     # Валідатори, завантаження, синтез, міграції
 └── .github/workflows/           # CI
 ```

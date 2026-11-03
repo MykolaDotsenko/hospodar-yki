@@ -20,7 +20,28 @@
     "exam": "9-item YKI-like mini rehearsal",
     "deployment_status": "local runnable MVP",
     "backend": "none",
-    "full_exam_implemented": false
+    "full_exam_implemented": false,
+    "web_scaffold": {
+      "status": "PARTIAL_G2A",
+      "path": "apps/web",
+      "since": "2026-11-03",
+      "implemented": [
+        "React 19 + Vite 8 + strict TypeScript shell",
+        "packages/domain TS port with parity tests vs app/core.mjs",
+        "one LEARN cloze mission",
+        "Dexie/IndexedDB learner repository with CAS",
+        "Playwright + axe E2E (CI: chromium, firefox, webkit)"
+      ],
+      "not_implemented": [
+        "legacy progress migration",
+        "EXAM, audio, diagnostics, retention screens",
+        "PWA/offline packs",
+        "XState",
+        "Tailwind (tokens consumed as CSS custom properties)"
+      ],
+      "legacy_app_remains_reference": true,
+      "plan": "docs/exec-plans/active/2026-11-03-g2-web-react-scaffold.md"
+    }
   },
   "choice": {
     "architecture_style": "local-first modular monolith, incremental migration, static-first delivery",
