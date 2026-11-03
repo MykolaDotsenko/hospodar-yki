@@ -35,6 +35,8 @@ export interface ExamRepository {
   finish(session: ExamSession, expectedRevision: number, skills: ExamSkill[] | null, record: ExamHistoryRecord): Promise<ExamCheckpoint>;
   clear(expectedRevision: number): Promise<void>;
   history(): Promise<ExamHistoryRecord[]>;
+  /** LEARN-16 control for exam data: erase the current rehearsal AND all history in one transaction (CAS), then verify. */
+  eraseAll(expectedRevision: number): Promise<void>;
 }
 
 function mapError(e: unknown): StorageError {
@@ -83,6 +85,17 @@ export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamReposit
           await db.checkpoints.delete("current");
         });
       } catch (e) { throw mapError(e); }
+    },
+    async eraseAll(expectedRevision) {
+      try {
+        await db.transaction("rw", db.checkpoints, db.history, async () => {
+          await cas(expectedRevision);
+          await db.checkpoints.clear();
+          await db.history.clear();
+        });
+      } catch (e) { throw mapError(e); }
+      if ((await db.checkpoints.count()) !== 0 || (await db.history.count()) !== 0)
+        throw new StorageError("DELETE_NOT_VERIFIED", "Some exam data is still stored");
     },
     async history() {
       try { return (await db.history.orderBy("finishedAt").reverse().toArray()); }

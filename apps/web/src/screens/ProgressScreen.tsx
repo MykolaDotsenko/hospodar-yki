@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { delayedTransferQueue, dueCards, type LearnerState, type Skill } from "@hospodar/domain";
 import { exercises } from "../content/cloze.ts";
 import { transferBank } from "../content/transfer.ts";
+import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
+import { ExamHistoryList } from "./ExamScreen.tsx";
 
 const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [
   { id: "reading", uk: "Читання", fi: "Tekstin ymmärtäminen" }, { id: "listening", uk: "Аудіювання", fi: "Puheen ymmärtäminen" },
@@ -9,8 +11,10 @@ const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [
 ];
 
 /** UX-05 / UIO-08 / IV-REQ-09: separate signals per skill, actionable next steps, no %, no level. */
-export function ProgressScreen({ state, onHome, onLearn, onRetention }: { state: LearnerState; onHome: () => void; onLearn: () => void; onRetention: () => void }) {
+export function ProgressScreen({ state, examRepository, onHome, onLearn, onRetention }: { state: LearnerState; examRepository: ExamRepository; onHome: () => void; onLearn: () => void; onRetention: () => void }) {
   const [tab, setTab] = useState<"learn" | "exam">("learn");
+  const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
+  useEffect(() => { examRepository.history().then(setHistory, () => setHistory([])); }, [examRepository]);
   const a = state.attempts;
   const independent = a.filter(x => x.firstCorrect).length;
   const guided = a.filter(x => !x.firstCorrect && x.repairCorrect).length;
@@ -32,7 +36,10 @@ export function ProgressScreen({ state, onHome, onLearn, onRetention }: { state:
         <button type="button" role="tab" aria-selected={tab === "exam"} className="tab" onClick={() => setTab("exam")}>Пробні іспити</button>
       </div>
       {tab === "exam" ? (
-        <p role="tabpanel">Пробні іспити ще не перенесено в нову версію; їхні результати зберігаються окремо від навчання і не змішуються з ним.</p>
+        <div role="tabpanel">
+          <p>Завершені тренувальні репетиції. Вони зберігаються окремо від навчання й не змішуються з ним: тут лише кількість відповідей із ключем, без оцінки й без прогнозу YKI.</p>
+          <ExamHistoryList history={history} />
+        </div>
       ) : (
         <div role="tabpanel">
           <h2>Сьогодні</h2>

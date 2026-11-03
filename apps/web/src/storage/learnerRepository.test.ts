@@ -63,3 +63,23 @@ describe("legacy import (G2-b)", () => {
     expect((await createLearnerRepository(db).read()).state.attempts).toHaveLength(1);
   });
 });
+
+describe("erase my data (LEARN-16)", () => {
+  it("erases progress and import receipts together and verifies the store is empty", async () => {
+    const db = name();
+    const repo = createLearnerRepository(db);
+    await repo.importLegacy(done(), { id: "imp-e", source: "legacy_v1_file", originalSha256: "b".repeat(64), originalBytes: 3,
+      counts: { attempts: 1, diagnostics: 0, errors: 1, retention: 0, cards: 1 } });
+    expect(await repo.eraseAll(1)).toEqual({ state: blankState(), revision: 0 });
+    const again = createLearnerRepository(db);
+    expect(await again.read()).toEqual({ state: blankState(), revision: 0 });
+    expect(await again.listImports()).toEqual([]);
+  });
+  it("a stale tab cannot erase progress it has not seen (REVISION_CONFLICT, nothing removed)", async () => {
+    const db = name();
+    const a = createLearnerRepository(db);
+    await a.commit(done(), 0);
+    await expect(createLearnerRepository(db).eraseAll(0)).rejects.toMatchObject({ code: "REVISION_CONFLICT" });
+    expect((await a.read()).state.attempts).toHaveLength(1);
+  });
+});

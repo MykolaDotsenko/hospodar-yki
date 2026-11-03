@@ -5209,7 +5209,7 @@
       "id": "LEARN-16",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Privacy and control: local storage, export/delete of profile and raw answers",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/import.spec.ts",
@@ -5218,9 +5218,21 @@
         {
           "file": "app/tests/learn-backup.test.mjs",
           "contains": "only exact LEARN key is ever written; unrelated EXAM data untouched"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
+        },
+        {
+          "file": "packages/domain/test/data-export.test.ts",
+          "contains": "verification fails closed on damaged, foreign or tampered files"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "a stale tab cannot erase progress it has not seen (REVISION_CONFLICT, nothing removed)"
         }
       ],
-      "gap": "Local only; export/delete UI not built in apps/web (legacy backup exists)."
+      "note": "Local export/erase in apps/web is tested; GDPR legal review, restore-from-export and Android Room parity are not done."
     },
     {
       "id": "LE-01",
@@ -8674,7 +8686,7 @@
       "id": "WEB-07",
       "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
       "summary": "Progress/SRS/error log in IndexedDB; JSON export/delete; migration from localStorage",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/src/storage/learnerRepository.test.ts",
@@ -8683,9 +8695,21 @@
         {
           "file": "apps/web/e2e/import.spec.ts",
           "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
+        },
+        {
+          "file": "packages/domain/test/data-export.test.ts",
+          "contains": "verification fails closed on damaged, foreign or tampered files"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "a stale tab cannot erase progress it has not seen (REVISION_CONFLICT, nothing removed)"
         }
       ],
-      "gap": "Export/delete UI not built in apps/web."
+      "note": "Local export/erase in apps/web is tested; GDPR legal review, restore-from-export and Android Room parity are not done."
     },
     {
       "id": "WEB-08",

@@ -12,3 +12,4 @@ export * from "./media.ts";
 export * from "./pictureMission.ts";
 export * from "./exam.ts";
 export * from "./reading.ts";
+export * from "./dataExport.ts";

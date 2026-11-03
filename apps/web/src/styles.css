@@ -67,6 +67,9 @@ textarea.answer, input.answer { width: 100%; padding: 12px 14px; border: 1.5px s
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-base); }
 .btn { min-height: 44px; padding: 10px 20px; border-radius: 10px; border: 1.5px solid var(--navy); background: var(--navy); color: var(--white); font-weight: 800; cursor: pointer; }
 .btn.secondary { background: var(--white); color: var(--navy); }
+.btn.danger { background: var(--red); border-color: var(--red); color: var(--white); }
+.btn.danger:disabled { background: var(--surface-subtle); color: var(--muted); border-color: var(--stroke); }
+code.hash { overflow-wrap: anywhere; word-break: break-all; font-size: .85em; }
 .feedback { border-left: 4px solid var(--forest); background: var(--learn-tint); padding: 14px 16px; border-radius: 9px; margin: var(--space-base) 0; }
 .feedback.warn { border-left-color: var(--gold); background: var(--warn-tint); }
 .feedback.error { border-left-color: var(--red); background: var(--error-tint); }
