@@ -134,7 +134,7 @@
 
 ## 8. Готовність до імплементації
 
-**P0**, наступна вертикальна реалізація: `IV2-01, 02, 09, 10, 11, 12`, local honest evidence record, teacher/licensing gates і IV2-AC-01…05/09…18. Частина IV-18 уже прототипована, але нові gates **не вважати виконаними**, поки немає тестів і QA.
+**P0**, наступна вертикальна реалізація: `IV2-01, 02, 09, 10, 11, 12`, local honest evidence record, teacher/licensing gates і IV2-AC-01…05/09…18. Частина UX #18 (IV-*) уже прототипована, але нові gates **не вважати виконаними**, поки немає тестів і QA.
 
 **P1:** `IV2-03…08`: semantic gesture library, video decision point, інтерактивні діаграми, calibrated CAPT/AI conversation. Починати з оригінального легального assets, не з high-cost AR/VR.
 

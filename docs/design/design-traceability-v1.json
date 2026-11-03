@@ -21,7 +21,9 @@
     "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
     "docs/28-product-quality-niche-leadership-strategy.md",
     "research/architecture/r11-offline-integrity-resilience-2026-10.md",
-    "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md"
+    "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+    "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+    "docs/21-digital-yki-exam-simulator-executable-spec.md"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -5917,6 +5919,1786 @@
         {
           "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
           "contains": "no simulated YKI grade asserted by official demo link addition"
+        }
+      ]
+    },
+    {
+      "id": "EXV-01",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Unknown 2027 navigation → strict fidelity false, fail closed",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        }
+      ]
+    },
+    {
+      "id": "EXV-02",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Full vs only-writing vs only-speaking sessions contain exactly the chosen modules",
+      "status": "NOT_YET",
+      "plan": "apps/web EXAM machine with module selection (EXAM-03)."
+    },
+    {
+      "id": "EXV-03",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "An item reused in training is never marked unseen in exam assessment",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Content SHA separates training and held-out pools, independent of different IDs"
+        }
+      ],
+      "gap": "Audio pools separated by content hash; no held-out item bank exists."
+    },
+    {
+      "id": "EXV-04",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Legacy listening 'x2' is not propagated to 2027 (null)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        }
+      ]
+    },
+    {
+      "id": "EXV-05",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Speaking demo prep/response seconds apply only to the identified pattern",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Practice speech phases are explicit; no historic seconds become 2027 rules"
+        }
+      ]
+    },
+    {
+      "id": "EXV-06",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Unverified fixed no-back rule: practice explicit and labelled, strict disabled",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        },
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        }
+      ]
+    },
+    {
+      "id": "EXV-07",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Lost microphone / silent input → capture failure, never a YKI grade",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: write failure surfaces a typed error and issues no receipt"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "EXV-08",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Typed writing persisted before submit; immutable after submit",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "responses are capped and cannot be altered after closing"
+        }
+      ]
+    },
+    {
+      "id": "EXV-09",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "MCQ correct count and ungraded writing stay separate",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "EXV-10",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Invented 2027 screen styling rejected as unverified",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        }
+      ],
+      "gap": "Rejection is a documented review rule; no automated check of screen styling."
+    },
+    {
+      "id": "EXV-11",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "External official sample text/audio with unknown rights: link only, no repo asset",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "OPH official root source is clearly linked but does not imply rights to copy"
+        },
+        {
+          "file": "app/tests/e03-construct-task-coverage.test.mjs",
+          "contains": "E03 cites meaningful first-party links and no copied OPH task content"
+        }
+      ]
+    },
+    {
+      "id": "EXV-12",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Module result '3' from 4 MCQs prohibited; show practice objective correctness",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        }
+      ]
+    },
+    {
+      "id": "EXV-13",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Browser refresh during a session loses no answers/recordings (privacy permitting)",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        }
+      ]
+    },
+    {
+      "id": "EXV-14",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Finnish instruction screen with a Ukrainian hint is rejected for EXAM",
+      "status": "NOT_YET",
+      "plan": "Content lint for EXAM instruction screens (language + hint check) in the apps/web EXAM slice."
+    },
+    {
+      "id": "EXV-15",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Answer leakage via a transcript overlay during the exam is rejected",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "TTS, missing authentic dialogue voices and leaked key or transcript fail exam"
+        }
+      ]
+    },
+    {
+      "id": "EXV-16",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Changed source URL / missing provenance fails validation and quarantines the feature",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Missing file identity or duration fails closed"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ],
+      "gap": "Media/audio provenance fails closed; exam item source URLs are not re-validated automatically."
+    },
+    {
+      "id": "EXV-17",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Missing audio version/codec/checksum → cannot publish realistic listening/voice",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Missing file identity or duration fails closed"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "Rights, speaker provenance, language and actual acoustic/S2 review are mandatory"
+        }
+      ]
+    },
+    {
+      "id": "EXV-18",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "2011 basis never surfaced as a '2026 revised standard'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        }
+      ]
+    },
+    {
+      "id": "EXV-19",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "App never presents 'official YKI' as accreditation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "no simulated YKI grade asserted by official demo link addition"
+        }
+      ]
+    },
+    {
+      "id": "EXV-20",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "After the OPH pilot: update evidence, version fixtures, QA, only then allow behaviour",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e01-e02-official-demo-entrypoints.test.mjs",
+          "contains": "E01 source recheck dated and 2027 exact mode still blocked"
+        }
+      ],
+      "gap": "Manual dated recheck; no automated freshness gate."
+    },
+    {
+      "id": "IV2-01",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Gloss-on-demand, one primary gloss, anti-overload",
+      "status": "NOT_YET",
+      "plan": "After S2 glossary data; one gloss + 'show more', logged as assisted."
+    },
+    {
+      "id": "IV2-02",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Caption ladder: independent gist first, captions/words/replay after submit",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Built for audio listening; not for video."
+    },
+    {
+      "id": "IV2-03",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Semantic gestures (2–4 s) for concrete verbs, optional",
+      "status": "NOT_YET",
+      "plan": "Needs licensed gesture clips; optional, keyboard/static equivalent."
+    },
+    {
+      "id": "IV2-04",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Visual explanation builder (mihin → minne → kirjastoon) then own sentence",
+      "status": "NOT_YET",
+      "plan": "With UIO-06 visual interaction + static alternative."
+    },
+    {
+      "id": "IV2-05",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Video decision points: 1–2 questions at semantic boundaries",
+      "status": "NOT_YET",
+      "plan": "Needs verified scene boundaries (UIO-02)."
+    },
+    {
+      "id": "IV2-06",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Game layer without grade inflation: badge only for completed real task",
+      "status": "NOT_YET",
+      "plan": "After R01 evidence; plain-task comparison (UIO-09)."
+    },
+    {
+      "id": "IV2-07",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Audio quantity lab (tuli–tuuli) with optional rhythm view after the answer",
+      "status": "NOT_YET",
+      "plan": "Validated minimal pairs + recordings (GL-04)."
+    },
+    {
+      "id": "IV2-08",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "AI partner with guardrails",
+      "status": "NOT_YET",
+      "plan": "Not planned for the learner runtime (product direction 2026-10-24: no required AI tutor); revisit only as an optional, reviewed, offline-safe experiment."
+    },
+    {
+      "id": "IV2-09",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Autonomy + media preferences: simple/rich, calm, keyboard, reduced motion",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Calm mode only; no simple/rich media-density control; no reduced-motion test."
+    },
+    {
+      "id": "IV2-10",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Screen-fit text+diagram proximity on small viewports",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ],
+      "gap": "Reflow tested; no diagrams yet to test proximity."
+    },
+    {
+      "id": "IV2-11",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Multimodal anti-cue assessment: unseen retest without video/photo/gesture/colour/caption",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ]
+    },
+    {
+      "id": "IV2-12",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Quality gate: no interactive media without teacher-approved tasks and rights",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "IV2-AC-01",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Single and combined gloss supported as controlled variants",
+      "status": "NOT_YET",
+      "plan": "With IV2-01."
+    },
+    {
+      "id": "IV2-AC-02",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Before the first uncued submit: no reveal answer/hint/captions in independent tasks",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        }
+      ]
+    },
+    {
+      "id": "IV2-AC-03",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "FI captions after submit only if timing-verified, reviewed and licensed",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Captions appear only after answering; VTT timing is not manually verified (AUD-02)."
+    },
+    {
+      "id": "IV2-AC-04",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "No captions → stable no-captions fallback, never fake auto-words",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ]
+    },
+    {
+      "id": "IV2-AC-05",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Video questions at scene boundaries; interruption keeps player/focus/keyboard",
+      "status": "NOT_YET",
+      "plan": "With IV2-05."
+    },
+    {
+      "id": "IV2-AC-06",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Gesture enactment optional; complete without a camera",
+      "status": "NOT_YET",
+      "plan": "With IV2-03 (no gestures/camera today)."
+    },
+    {
+      "id": "IV2-AC-07",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Gestures only for semantically matching actions",
+      "status": "NOT_YET",
+      "plan": "With IV2-03."
+    },
+    {
+      "id": "IV2-AC-08",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Every interactive diagram has list/select alternative + independent explanation",
+      "status": "NOT_YET",
+      "plan": "With IV2-04."
+    },
+    {
+      "id": "IV2-AC-09",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Graphics and Finnish labels stay close at 320 px / 200 %, correct SR order",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "IV2-AC-10",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Same task outcome in rich and calm; all controls keyboard-operable",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ]
+    },
+    {
+      "id": "IV2-AC-11",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Reduced motion and pause/stop/hide remove moving content",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "No automated prefers-reduced-motion test."
+    },
+    {
+      "id": "IV2-AC-12",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Audio lab shows 'ungraded pronunciation', no numeric accent score",
+      "status": "NOT_YET",
+      "plan": "With IV2-07."
+    },
+    {
+      "id": "IV2-AC-13",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "AI dialogue at low confidence → human_review_required / not_assessed",
+      "status": "NOT_YET",
+      "plan": "No AI dialogue (see IV2-08)."
+    },
+    {
+      "id": "IV2-AC-14",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "After help/captions/gesture the result is 'assisted' and never raises unassisted mastery",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "slower speed keeps pitch and marks the attempt as supported"
+        }
+      ]
+    },
+    {
+      "id": "IV2-AC-15",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "7/14-day unseen uses new assessment-eligible items without media cues",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ],
+      "gap": "Delayed checks only for grammar writing (GL-03)."
+    },
+    {
+      "id": "IV2-AC-16",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "EXAM without trainer gloss, prompts, hints, gestures, animations, AI auto-score",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "IV2-AC-17",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Privacy, media rights and S2 status checked before enabling a multimodal exercise",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "IV2-AC-18",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "Experiments record immediate and delayed outcomes plus drop-off/cognitive load",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "IV-01",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "'Recall first': own word/sentence/voice before the correct answer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "IV-02",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Diagnostic self-correction: a short prompt without the key",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        }
+      ]
+    },
+    {
+      "id": "IV-03",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Interactive delayed transfer in a new life scenario",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "IV-04",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Listening prediction → gist → evidence",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Prediction and gist-first exist; no 'choose the evidence line' step in listening."
+    },
+    {
+      "id": "IV-05",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Interactive message/notice: realistic letter/notice + 'what do you do?'",
+      "status": "NOT_YET",
+      "plan": "Reading missions on reading-pack texts (IV-REQ-05)."
+    },
+    {
+      "id": "IV-06",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Visual + Ukrainian gloss → active production",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ],
+      "gap": "Gloss is scene-level, not per chunk."
+    },
+    {
+      "id": "IV-07",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Branching information gap with an interlocutor",
+      "status": "NOT_YET",
+      "plan": "Needs authored branch content + S2."
+    },
+    {
+      "id": "IV-08",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Writer's workshop: draft → feedback by content/coherence/form → rewrite",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "spot → issues reports found/missed by sentence, then the model; model hidden again in transfer"
+        }
+      ],
+      "gap": "No feedback on the learner's own text by dimension."
+    },
+    {
+      "id": "IV-09",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Guided concept map built by the learner, then explained in Finnish",
+      "status": "NOT_YET",
+      "plan": "With MULTI-06."
+    },
+    {
+      "id": "IV-10",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Finnish minimal-pair audio (tuli/tuuli)",
+      "status": "NOT_YET",
+      "plan": "With IV2-07 / GL-04."
+    },
+    {
+      "id": "IV-11",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "On-demand context gloss after the own attempt",
+      "status": "NOT_YET",
+      "plan": "With IV2-01."
+    },
+    {
+      "id": "IV-12",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Informative four-skill progress from independent results",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "IV-13",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Micro-missions 10–20 min with meaningful topic choice",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ],
+      "gap": "Task choice exists; session length and topic choice not built."
+    },
+    {
+      "id": "IV-14",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Fun interruptions/mascot only as an opt-in experiment",
+      "status": "NOT_YET",
+      "plan": "Decorative mascot excluded by DEC-06; any sound/surprise only as an opt-in experiment after usability + delayed tests."
+    },
+    {
+      "id": "IV-AC-01",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "First attempt without key, form hint or answer highlight",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "correct first answer → feedback → transfer → done; key shown only in feedback"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-02",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Wrong → hint without key → self-repair; hint use recorded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "DEC-02: a non-matching form goes to repair with the cause but WITHOUT the key; key only in feedback"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-03",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Independent transfer has new conditions; only the first uncued attempt counts",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-04",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Dialogue listened before transcript; verified captions only after submit",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-05",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "After reading submit, highlight only the exact teacher-approved evidence span",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Evidence line highlighted after answering in dialogues; reading texts not built and spans not S2-approved."
+    },
+    {
+      "id": "IV-AC-06",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Photo + UA gloss relevant; the following production hides both",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-07",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Missing licence/teacher review blocks publication as a verified resource",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-08",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Writing/speaking feedback shows ungraded/not assessed; ASR never a CEFR score",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-09",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "EXAM: no learning-only widget/hint/mascot during the attempt",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "IV-AC-10",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "MCQ/drag have keyboard alternative, semantic labels, visible focus",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "IV-AC-11",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "prefers-reduced-motion and calm mode remove optional animation without losing content",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "No automated prefers-reduced-motion test."
+    },
+    {
+      "id": "IV-AC-12",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Result semantics not colour-only; contrast checked automatically + manually",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Automatic token contrast + text labels; manual contrast review not recorded."
+    },
+    {
+      "id": "IV-AC-13",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "Dashboard never adds assisted successes to independent mastery",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "IV-AC-14",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "7/14-day test uses new item IDs/contexts from a separate bank",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        }
+      ],
+      "gap": "Separate transfer bank for grammar writing only."
+    },
+    {
+      "id": "IV-AC-15",
+      "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
+      "summary": "No valid follow-up/audio/feedback → transparent message, never fake success",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+        }
+      ]
+    },
+    {
+      "id": "A11Y-01",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "No autostarting background effects or music; speech plays on user action",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        },
+        {
+          "file": "app/tests/r10-accessibility-contract.test.mjs",
+          "contains": "audio controls fit panels and media has no automatic sound on page render"
+        }
+      ]
+    },
+    {
+      "id": "A11Y-02",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Speech and music on separate channels with pause/mute independent of system volume",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Speech is learner-controlled; no music/SFX channel exists, so separate controls are not built (SENS-05)."
+    },
+    {
+      "id": "A11Y-03",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Pre-recorded synchronised video has captions (WCAG 1.2.2, level A)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "pictures: alt text, credit + licence link, ungraded description; video and illustrations credited; no autoplay"
+        }
+      ],
+      "gap": "NOT MET for the 3 open videos in the media library: they are labelled 'без субтитрів' and need authored, checked captions (or removal) before release. Audio lessons have VTT."
+    },
+    {
+      "id": "A11Y-04",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Motion only user-triggered with a static equivalent; reduced motion; calm",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "No motion exists beyond micro-transitions; no prefers-reduced-motion test."
+    },
+    {
+      "id": "A11Y-05",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "WCAG 2.2 AA: contrast, keyboard, screen reader, 320/360/390 px + 200 %",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        }
+      ],
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
+    },
+    {
+      "id": "A11Y-06",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "Calm/stimulus preferences persist across missions; mic refusal handled",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ]
+    },
+    {
+      "id": "AC-01",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Opening the app shows two clearly separated cards: Learning / Simulation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        }
+      ]
+    },
+    {
+      "id": "AC-02",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Learning → mix: all four skills, adaptive alternation, no blind random",
+      "status": "NOT_YET",
+      "plan": "With LEARN-01."
+    },
+    {
+      "id": "AC-03",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Learning → structured: four skills with a clear plan",
+      "status": "NOT_YET",
+      "plan": "With LEARN-02."
+    },
+    {
+      "id": "AC-04",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Learning → each single skill (AC-04–07): only that skill is trained",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        }
+      ],
+      "gap": "Separate per-skill missions; no single-skill mode selector."
+    },
+    {
+      "id": "AC-08",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "First wrong response → hint → self-repair → transfer → SRS, progress saved",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "AC-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Switching scope mid-day keeps history; next mission respects the new choice",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        }
+      ],
+      "gap": "No scope selector exists yet."
+    },
+    {
+      "id": "AC-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → full: all four modules, order only if officially confirmed, no aids",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "two original blueprints resolve four skills into nine exercises each"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "AC-11",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → each single subtest (AC-11–14) without the other three",
+      "status": "NOT_YET",
+      "plan": "With EXAM-03."
+    },
+    {
+      "id": "AC-15",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → chosen 2–3 module practice subset, clearly labelled practice",
+      "status": "NOT_YET",
+      "plan": "With EXAM-04."
+    },
+    {
+      "id": "AC-16",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → official partial date offers only OPH-confirmed allowedSkills",
+      "status": "NOT_YET",
+      "plan": "With EXAM-14."
+    },
+    {
+      "id": "AC-17",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → answering: no hints, SRS, repair or model answers before finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "EXAM feedback remains sealed until a durable finish; grade is never authorized"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "AC-18",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam → finish: separate results for chosen modules; open responses ungraded",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "scoreSession: refused before finish; same objective/ungraded/unanswered counts after; never a grade"
+        }
+      ]
+    },
+    {
+      "id": "AC-19",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Resume after reload; a missing voice file is never counted as saved",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: receipt requires consent, survives reload; ephemeral recording does not"
+        }
+      ]
+    },
+    {
+      "id": "AC-20",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Completed exam → explained practice plan; exam items not reused unseen",
+      "status": "NOT_YET",
+      "plan": "After the apps/web EXAM."
+    },
+    {
+      "id": "AC-21",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Repeated mocks: unknown tasks, content version, real skill metrics, no YKI prediction",
+      "status": "NOT_YET",
+      "plan": "With EXAM-09."
+    },
+    {
+      "id": "AC-22",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Unverified OPH timer/replay/navigation marked 'practice'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/e04-timing-policy.test.mjs",
+          "contains": "Only explicit practice timers are allowed and no official claim sneaks in"
+        },
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "practice timer only accepts opt-in exercise limits and is nonofficial"
+        }
+      ]
+    },
+    {
+      "id": "AC-23",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No microphone permission → text alternative and 'speaking not assessed'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        }
+      ]
+    },
+    {
+      "id": "AC-24",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Empty/insufficient bank → honest 'not enough verified tasks' blocker",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/App.tsx",
+          "contains": "завдання «значення → форма» з'являться після рецензії"
+        }
+      ],
+      "gap": "Honest notice exists for R08 only; no E2E and no general bank-size blocker."
+    },
+    {
+      "id": "AC-25",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Same identity on every screen (logo, typography, route signature)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "apps/web/e2e/focus.spec.ts",
+          "contains": "focus budget and orientation hold on every mission step"
+        }
+      ],
+      "gap": "Icon set and full cross-screen identity check not automated (UX-01)."
+    },
+    {
+      "id": "AC-26",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Each skill understandable from its label without colour; contrast meets minimums",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "AC-27",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Colourful mode with semantic accents; neutral space on long text",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        }
+      ]
+    },
+    {
+      "id": "AC-28",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Active YKI mock has no animations, learning hints or promo cards",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "AC-29",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "320 px and 200 % zoom: no horizontal overflow or overlapping inputs",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "320 px: media library reflows without horizontal page scroll"
+        }
+      ]
+    },
+    {
+      "id": "AC-30",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Reduced motion and calm keep statuses and labels",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ]
+    },
+    {
+      "id": "AC-31",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Blind test with name/logo hidden checks signature recall",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Brand recognition study (DESIGN-15); NOT RUN."
+    },
+    {
+      "id": "AC-32",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Favicon 16/24/48, monochrome, light/dark and trademark similarity check",
+      "status": "NOT_YET",
+      "plan": "Before public branding."
+    },
+    {
+      "id": "AC-33",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No learning-cue with the ready form before the first answer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "AC-34",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Transfer, unseen retest and mock without correct colour hint",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "spot → issues reports found/missed by sentence, then the model; model hidden again in transfer"
+        }
+      ]
+    },
+    {
+      "id": "AC-35",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Highlight also underlined/semantic; #083B7A/#FFF1C6 ≥4.5:1; forced colours keep content",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_raw_hex_in_app_css_fails_but_box_shadow_is_allowed"
+        }
+      ]
+    },
+    {
+      "id": "AC-36",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Suffix segmentation only for reviewed content; no naive heuristics",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R08 unknown wrong form is 'unclassified', never guessed"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "AC-37",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "A/B study checks delayed cueless recall, not clicks or beauty ratings",
+      "status": "STUDY_NOT_RUN",
+      "plan": "COLOR-19 study; NOT RUN."
+    },
+    {
+      "id": "AC-38",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Same goal and keys in standard/calm/high-contrast; skill indicators labelled",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ]
+    },
+    {
+      "id": "AC-39",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Ukrainian meaning shown before the highlighted form in examples",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "first-attempt evidence (meaning, form, error family) is identical to the reference"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ],
+      "gap": "Meaning-first order in R08 reviewer preview; learners get no R08 items until S2 publication."
+    },
+    {
+      "id": "AC-40",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "answer, repair and transfer carry no meaning_uk or colour key",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "keys stay hidden before feedback; unknown wrong forms are 'unclassified', never regex-guessed"
+        }
+      ]
+    },
+    {
+      "id": "AC-41",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "No exercise without meaning_uk gets an invented translation",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "validation matches on all 14 drafts, approved copies and malformed variants"
+        }
+      ],
+      "gap": "No translation generator exists; no explicit test asserts it."
+    },
+    {
+      "id": "AC-42",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "meaning_uk has an editorial status; S2 review before any human CEFR scoring",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        }
+      ],
+      "gap": "0 S2-published items; all learner content is a labelled draft."
+    },
+    {
+      "id": "AC-43",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Skill category colour never equals the correct-ending colour",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_repository_state_passes"
+        }
+      ],
+      "gap": "Colour roles separated statically in tokens; no rendered check (COLOR-17)."
+    },
+    {
+      "id": "AC-44",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Exam shows no meaning cue, grammar cue or transcript timing",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/exam-core.test.mjs",
+          "contains": "all question keys are hidden behind finishSession in the scoring API"
+        },
+        {
+          "file": "app/tests/e05-listening-asset-gate.test.mjs",
+          "contains": "TTS, missing authentic dialogue voices and leaked key or transcript fail exam"
+        }
+      ],
+      "gap": "apps/web EXAM UI/machine not built yet; holds in the legacy EXAM (app/exam.mjs) and ported domain policies."
+    },
+    {
+      "id": "AC-45",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Automatic policy check separates 'colour alone' from 'signalling ensemble'; no g as %",
+      "status": "NOT_YET",
+      "plan": "Add to the research/doc validators."
+    },
+    {
+      "id": "AC-46",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "A/B metrics separate meaning comprehension and form correctness; no YKI promises",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
+    },
+    {
+      "id": "AC-47",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "First recall is never overwritten by feedback or self-repair",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "completeMission produces identical state, including error log and first-attempt record"
+        }
+      ]
+    },
+    {
+      "id": "AC-48",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Scheduler never calls fixed 1/3/7/14/30 the optimum; replaceable",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "updateCard sequences match legacy for success/failure patterns"
+        },
+        {
+          "file": "packages/domain/test/retention-parity.test.ts",
+          "contains": "queue matches the reference on days 0…40 incl. Helsinki DST (25.10.2026)"
+        }
+      ]
+    },
+    {
+      "id": "AC-49",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Different help levels for novice/advanced without changing goals; help gone in transfer",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "spot → issues reports found/missed by sentence, then the model; model hidden again in transfer"
+        }
+      ],
+      "gap": "Help disappears in transfer; no novice/advanced help levels."
+    },
+    {
+      "id": "AC-50",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Contrastive mix of similar constructions after initial learning; seedable",
+      "status": "NOT_YET",
+      "plan": "With COG-10 / PSY-06."
+    },
+    {
+      "id": "AC-51",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Communicative result of a real situation is assessed, not only absence of form errors",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Self-check of task points only; no human assessment flow."
+    },
+    {
+      "id": "AC-52",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Corrective feedback never hides content errors or shows '100/100 B1'",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "AC-53",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Speaking feedback never sets CEFR from STT/ASR; no recording without permission",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
+          "contains": "Typed notes alone are not speaking evidence and no official grade is emitted"
+        }
+      ]
+    },
+    {
+      "id": "AC-54",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Listening transcript invisible before answering",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "AC-55",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Writing feedback separates purpose/coherence/form and checks an independent rewrite",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Editor issues tagged by focus on a weak draft; not on the learner's own text."
+    },
+    {
+      "id": "AC-56",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Independent 7/14-day items are new and never shown in learn/exam",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ],
+      "gap": "Grammar writing only."
+    },
+    {
+      "id": "AC-57",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Optional self-confidence never a YKI score and never punitive",
+      "status": "NOT_YET",
+      "plan": "With LE-11."
+    },
+    {
+      "id": "AC-58",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Quick start 10/20/30 min; missing streak never blocks or erases progress",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "app/tests/r08-motivation-core.test.mjs",
+          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        }
+      ],
+      "gap": "Session length choice not built."
+    },
+    {
+      "id": "AC-59",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Rights/S2 review/versioning block assessment claims about unverified Finnish content",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_content_publication.py",
+          "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "packages/domain/test/r08-r06-parity.test.ts",
+          "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
         }
       ]
     }
