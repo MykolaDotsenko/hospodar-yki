@@ -9052,6 +9052,348 @@
       "summary": "Traficom 2025 obligations (notification of deficiencies, derogation grounds) reviewed",
       "status": "NOT_YET",
       "plan": "Legal review + accessibility statement before release."
+    },
+    {
+      "id": "PSY-E01",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "3–5-хв meaningful chunks + retrieval between segments — Same Finnish content and exposure, equal-time coherent explanation + active elaboration with feedback — Day-14 new-context…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "PSY-E02",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Targeted after-error feedback, self-repair, new-context task — Same time/amount of meaningful elaboration and comparable feedback but no explicit self-repair — Day-14 functional…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "PSY-E03",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Calm focused UI — Equally accessible and meaningful, more decorative study UI (without confounding study time) — Day-14 transfer + comprehension, eye/attention comfort and a11y",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "PSY-E04",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Later interleave similar Finnish case contrasts after initial teaching — Blocking of the same contrasts, comparable instruction and practice — Day-14 novel-context case…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "PSY-E05",
+      "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
+      "summary": "Optional voluntary pause/focus reset — No prompted break, ability to pause remains for everyone — Task completion + perceived fatigue, no forced exposure; true language gains…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R03-H01",
+      "source": "research/pedagogy/30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md",
+      "summary": "Randomised follow-up: targeted stem + meaning + feedback + novel-task vs equally reviewed meaningful practice with feedback; primary day-14 unseen writing morphosyntax",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R04-T01",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Відсутній потрібний request / date / detail — TASK_MEANING_MISSING (P0) — Не сплутати з помилкою відмінка",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "writing needs ≥20 chars; is stored ungraded with self-check as self-report, never `correct`"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Learner self-checks required task points; a reviewer-facing TASK_MEANING_MISSING code is not built."
+    },
+    {
+      "id": "R04-T02",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Фрагменти не зв'язуються, адресату важко стежити — COHERENCE_BREAK (P0) — Не карати за простий B1 синтаксис",
+      "status": "NOT_YET",
+      "plan": "Reviewer feedback code for coherence breaks (R04 rubric, S2-calibrated)."
+    },
+    {
+      "id": "R04-T03",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Надто фамільярно або не до того адресата — REGISTER_MISMATCH (P1) — puhekieli може бути доречною в усному побутовому контексті",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ],
+      "gap": "Register issues are shown on the weak example draft only, never assessed on the learner's own text."
+    },
+    {
+      "id": "R04-T04",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Механічні форми змінюють/ускладнюють зміст — FORM_IMPACT (P1), crossref R03 M01–M09 — Не штрафувати acceptable variants",
+      "status": "NOT_YET",
+      "plan": "Form-impact code linked to R03 M01–M09 after S2 calibration."
+    },
+    {
+      "id": "R04-T05",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Слухач не може розрізнити ключову інформацію в аудіо — INTELLIGIBILITY_TARGET (P0) — Не діагностувати за transcript alone; accent ≠ fail",
+      "status": "NOT_YET",
+      "plan": "Intelligibility target needs consented audio + calibrated human listeners."
+    },
+    {
+      "id": "R04-T06",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Відповідь надто коротка для висновку — INSUFFICIENT_EVIDENCE — ungraded, не «нижчий рівень»",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/parity.test.ts",
+          "contains": "diagnostics and skill summary match; productive skills cannot be scored"
+        },
+        {
+          "file": "packages/domain/test/diagnostic.test.ts",
+          "contains": "summary: counts and next steps, no percentage or level; skillSummary keeps productive skills ungraded"
+        }
+      ]
+    },
+    {
+      "id": "R04-T07",
+      "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+      "summary": "Audio clipping/ASR mismatch/device error — TECHNICAL_UNCERTAINTY — fail closed; не приписувати учневі linguistic deficit",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "app/tests/exam-voice-store.test.mjs",
+          "contains": "E06-C1: write failure surfaces a typed error and issues no receipt"
+        },
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        }
+      ]
+    },
+    {
+      "id": "R05-H01",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "P0, NOT RUN) — 3 independent voices vs one voice, equivalent script/time and meaningful feedback — day 14 unseen voice gist/details; day 30 novel situation — Voices/accent…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R05-H02",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "P0, NOT RUN) — Minimal-pair acoustic training + meaningful production vs time-matched meaning practice — day 14 unseen perceptual contrast and separate human-rated speaking —…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R05-H03",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "P1, NOT RUN) — Caption after first answer vs immediate caption, content/time matched — day 14 no-caption new talker vocabulary/comprehension — Transcript leak; differences in…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R05-H04",
+      "source": "research/pedagogy/32-r05-multitalker-phonetic-transfer-2026-10.md",
+      "summary": "P1, NOT RUN) — One relevant still image vs no image/3 decorative images — day 14 gist + delayed new context; cognitive-load self-report — Surface task simplification confound",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R06-H01",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "P0 — Transparent multi-skill error/due/exposure weighted ranker vs high-quality level-aware fixed-spaced task order with same content, media, feedback, duration and choice — Blind…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R06-H02",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "P1 — Exact same task order, \"Why this task?\" plus override vs normal transparent task picker — Held-out Finnish task success, burden, dropout and override frequency; not…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R06-H03",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "P1 — Targeted independently confirmed R03 grammar errors vs exposure-balanced review with same due schedule — New morphological meaning-in-context and novel writing, not trained…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R06-H04",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "P2 — After consented sufficient histories: HLR/memory-optimized scheduling vs deterministic strong baseline — Calibration of recall prediction and blinded new communication…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R06-H05",
+      "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
+      "summary": "P1 — Dense after-failure scaffold vs immediate forced spaced review — Novel day-14 success in difficulty-matched Finnish chunks and learner frustration/dropout",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H01",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P0) feedback stage: identical Finnish authentic task, content and tutoring feedback; A meaning-first staged reveal after first independent response vs B same depth feedback…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H02",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P0) listening pause prompt: A voluntary replay and one semantic pause question vs B uninterrupted playback then equally active matched recall. Same speakers/audio, same total time…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H03",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P1) semantic visual: A *meaning-congruent* apartment/timetable/timeline near input vs B same semantic information in simple static text, match detail level/time. Outcome day14…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H04",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P1) interactive role scene: A task-driven branching dialog with one relevant choice+production vs B task-driven linear clip and equal productive turns. Match content/audio/time;…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H05",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P1) optional calm sound and visual motion: A optional restrained nonverbal orientation cue with explicit off switch vs B full silence/static. Both do *not* overlay Finnish speech;…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H06",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P2) aesthetic art direction: current warm Nordic design vs stripped high-contrast equivalent with exact same Finnish text, controls, assets and duration; prefer within-person…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R07-H07",
+      "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
+      "summary": "P1) 2D exploration tax: B comparable non-game task, A low-density 2D playable scene; time/content matched and media rights cleared, primary day14 communicative Finnish performance…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "R08-MOT-H01",
+      "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
+      "summary": "P0) autonomy/meaning vs neutral strong learning UI: A optional real-life goals+5/10/20 min plus calm progress; B identical S2 lessons/feedback/time + clear neutral task browser,…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H01",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Quiet player vs optional status cues after learner action — Day-14 unseen Finnish gist, time-to-answer, distraction and opt-out; don't optimize by clicks",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H02",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "One relevant context image vs none vs 3 decorative — Day-14 novel Finnish situation comprehension + cognitive-load report",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H03",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Post-first-answer captions vs instant captions — Day-14 unseen voice no-caption gist/detail, form knowledge",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H04",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Quiet world screen vs optional instrumental map music — Session choice + next-day/14d language tasks, hearing fatigue; no EXAM SFX",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H05",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Warm route/map UX vs plain navigation with identical tasks — Day-14 new-situation communicative success, cost/time, dropout; results may be null",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "SD-H06",
+      "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
+      "summary": "Silent meaningful error explanation vs same with optional chime after submission — Day-14 self-repair / new-context writing, anxiety, screen-reader interference",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-I01",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "P0 — Коротка Finnish dialogue with paused comprehension→production question vs same length/media/time with equally meaningful post-listening task but without in-play interruption…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-I02",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "P0 — First-try → staged \"meaning→form\" feedback → self-repair vs same teacher-verified quality/content/time feedback delivered immediately all at once without staged UI —…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-I03",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "P1 — Один semantic interactive -ssa/-sta/-Vn visual vs equally informative static Finnish explanation + same output demands/time — Нові cases production and comprehension day-14,…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-I04",
+      "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
+      "summary": "P1 — Actionable next-step 4-skill dashboard vs minimal text next-step with same curriculum/SRS/contact time — 14/30-day novel 4-skill transfer; analytics accuracy, data…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-S01",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "P0: color/form — Meaning-first explanation + single semantic cue після independent response — Такий самий текст/feedback без кольорового виділення — day-14 independent new-context…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-S02",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "P0: L2 captions — Навчальні Finnish subtitles з дозволеним toggle/timing — Ідентичне аудіо/час; plain text or alternative caption arrangement залежно від accessibility — day-14…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-S03",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "P1: grammar motion — User-triggered 2D рух в/із/до місця (talossa/talosta/taloon) + static fallback — Статичне зрозуміле фото зі стрілками + така сама практика — day-14 delayed…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
+    },
+    {
+      "id": "UX-S04",
+      "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
+      "summary": "P2: music and SFX — Вибір добровільного тихого instrumental ambience / nonverbal feedback — Тиша, рівні час/контент; збереження право вимкнути sound — retention at day-14, writing…",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Human study — NOT RUN: needs consent, equal-time strong comparator and blinded delayed unseen Finnish outcomes (see source)."
     }
   ],
   "decisions": [
