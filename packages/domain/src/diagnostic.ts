@@ -1,5 +1,5 @@
 /**
- * LEARN starting diagnostic: one short probe per productive/receptive skill (UX-01, UIO-03, R04, A10).
+ * LEARN starting diagnostic: one short probe per productive/receptive skill (UX-06, UIO-03, R04, A10).
  *
  *   reading (objective, first answer frozen; keys only after all answers)
  *   → writing (own text first, then learner self-check of the task points — self-report, NOT a grade)

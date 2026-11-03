@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Design ↔ research traceability gate (docs/design/design-traceability-v1.json).
+"""Design + pedagogy ↔ research traceability gate (docs/design/design-traceability-v1.json).
 
 Every design / UX requirement ID defined in the canonical spec and design/UX research
 must have an honest status:
@@ -26,7 +26,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs/design/design-traceability-v1.json"
-ID = re.compile(r"\b(DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-0[1-8])\b")
+ID = re.compile(r"\b(DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-0[1-8]"
+                r"|COG-\d{2}|PSY-\d{2}|MEM-\d{2}|FEED-\d{2}|ATT-\d{2}|AUD-\d{2}|MSUI-\d{2}|SND-\d{2}|GAM-\d{2}|GL-\d{2}|R(?:0[1-9]|1[0-2]))\b")
 STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "STUDY_NOT_RUN", "SUPERSEDED"}
 
 
@@ -93,7 +94,7 @@ def summary(doc: dict) -> str:
     c = Counter(r["status"] for r in doc["requirements"])
     n = len(doc["requirements"])
     open_dec = sum(d["status"] == "OPEN" for d in doc.get("decisions", []))
-    return (f"{n} design/UX requirements: ENFORCED {c['ENFORCED']} ({100 * c['ENFORCED'] // n} %), PARTIAL {c['PARTIAL']}, "
+    return (f"{n} design/UX/pedagogy requirements: ENFORCED {c['ENFORCED']} ({100 * c['ENFORCED'] // n} %), PARTIAL {c['PARTIAL']}, "
             f"NOT_YET {c['NOT_YET']}, STUDY_NOT_RUN {c['STUDY_NOT_RUN']}, SUPERSEDED {c['SUPERSEDED']}; open decisions {open_dec}")
 
 

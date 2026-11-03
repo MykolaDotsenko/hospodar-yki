@@ -34,20 +34,20 @@
 - **Тест:** matched condition з еквівалентним змістом/часом; delayed comprehension/production, error rate, reading time, sensory-discomfort reports.
 - **Джерела:** [Cambridge Handbook 2021](https://doi.org/10.1017/9781108894333.019); [Noetel et al. 2022, systematic-review overview](https://doi.org/10.3102/00346543211052329).
 
-### AUD-01 — Finnish audio + captions/transcripts, without untested audio tricks: P0/P1
+### SND-01 — Finnish audio + captions/transcripts, without untested audio tricks: P0/P1
 - **Evidence transfer:** огляди multimedia design підтримують доступність і корисність L2 captions, але **оптимальна послідовність** «перший прохід без тексту» vs «текст одразу» для Finnish/YKI потребує окремого A/B і врахування рівня/слухових потреб.
 - **Пропозиція:** якісний природний фінський голос, явний play/replay, optional slower segment, phrase-level transcript/captions, meaningful pauses, visible audio progress, simple alternative when audio denied. У LEARN учень може сам керувати підказками; у EXAM політика надання субтитрів/повторів визначається *перевіреним* профілем симуляції та доступністю, без вигаданих правил OPH.
 - **Захист:** не ховати субтитри/транскрипцію від учнів, яким вони потрібні як доступність; фіксувати їхній вплив на валідність оцінки, не «караючи» за користування функцією.
 - **Тест:** gist/details on *new* Finnish speakers/audio at 7–14 days, accessibility and mic-denial fallback.
 - **Джерела:** [Noetel et al. 2022](https://doi.org/10.3102/00346543211052329); [W3C accessible audio/video](https://www.w3.org/WAI/media/av/); [CAST UDL v3](https://udlguidelines.cast.org/).
 
-### AUD-02 — Background music, binaural beats and frequency claims: P2 / NO DEFAULT ACTIVATION
+### SND-02 — Background music, binaural beats and frequency claims: P2 / NO DEFAULT ACTIVATION
 - **Докази:** Cheah et al. (2022), systematic review of 95 studies (154 experiments), reports heterogeneous methods/inconclusive effects of background music on cognition. A 2022 meta-analysis on binaural beats reported a pooled effect in memory/attention, **but also conflicting frequency-specific findings and explicitly called for stronger studies**. Neither establishes reliable YKI learning gains, «alpha/theta brain tuning», or a universal background soundtrack.
 - **Продуктова позиція:** sound off by default during reading/writing/EXAM; never mix background audio with Finnish prompts; optional **user-initiated** ambient audio only after privacy/a11y/performance consideration and robust controlled evaluation. No medical or brainwave-performance claims.
 - **Тест:** quiet vs instrumental vs speech/lyrics vs optional binaural beats (only if ethically justified) matched time/content, headphone/use baseline, participant preference/expectancy, delayed unseen performance and adverse distraction. Reject if objective language gains absent or distraction increases.
 - **Джерела:** [Cheah et al. 2022, DOI](https://doi.org/10.1177/20592043221134392); [binaural beats systematic review/meta-analysis, PubMed](https://pubmed.ncbi.nlm.nih.gov/35842538/).
 
-### UX-01 — Accessible, controllable multisensory UI rather than compulsory effects: P0
+### MSUI-01 — Accessible, controllable multisensory UI rather than compulsory effects: P0
 - **Нормативне джерело:** W3C WCAG 2.2 **1.4.2 Audio Control** addresses automatic audio; **2.2.2 Pause Stop Hide** addresses distracting auto-moving content; **2.3.3 Animation from Interactions** concerns motion reduction; CAST UDL 3.0 recognizes variability and multiple ways to engage, represent, and respond.
 - **Дизайн-правила:** no autoplay decorative sound; reduce-motion defaults from OS, no flashing/attention traps; silent/reduced-effects switch, descriptive text control, keyboard/screen-reader paths, controllable captions, optional Finnish listening. **Не створювати фіксованих типів «аудіал/візуал/кінестетик».**
 - **Джерела:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/), [W3C audio control](https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html), [W3C pause/stop/hide](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html), [CAST UDL](https://udlguidelines.cast.org/), [Pashler et al. 2008 learning styles review](https://pubmed.ncbi.nlm.nih.gov/26162104/).
