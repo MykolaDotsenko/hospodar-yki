@@ -88,14 +88,14 @@
       "severity": "P0",
       "issue": "Wall clock adjustments can increase/decrease remaining time",
       "mitigation": "Active monotonic elapsed plus persisted max-observed elapsed and warning; offline trusted clock impossible",
-      "status": "UNFIXED_IN_LIVE_APP"
+      "status": "FIXED_IN_LIVE_PRACTICE_TIMER_2026_11_02"
     },
     {
       "id": "E04-R02",
       "severity": "P0",
       "issue": "Interval-based timeout can be late after tab suspension and actions lack deadline enforcement",
       "mitigation": "Deadline verification on each answer/navigation/finish command at atomic commit",
-      "status": "UNFIXED_IN_LIVE_APP"
+      "status": "FIXED_IN_LIVE_PRACTICE_TIMER_2026_11_02"
     },
     {
       "id": "E04-R03",
@@ -109,7 +109,7 @@
       "severity": "P0",
       "issue": "Voice recording stops on navigation/reload and raw audio is ephemeral",
       "mitigation": "Persist consented audio or show no evidence and leave speaking UNGRADED",
-      "status": "UNFIXED_IN_LIVE_APP"
+      "status": "PARTIAL_WEB_CONSENTED_LOCAL_AUDIO_E06_C1_2026_11_03"
     },
     {
       "id": "E04-R05",
@@ -247,7 +247,7 @@
       "R03 results render only after committed finish transaction"
     ],
     "still_open": [
-      "R04 voice evidence lost on reload (E06)",
+      "R04 voice: Web consented local audio since 2026-11-03 (E06-C1); Android/device fault injection open",
       "R05 strict 2027 profile OFF",
       "R06-R10 replay/IME/lifecycle/phases/proctoring"
     ],

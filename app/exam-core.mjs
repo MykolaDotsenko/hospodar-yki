@@ -1,6 +1,8 @@
 /** Pure and browser-independent model for independent YKI-pattern rehearsals.
  * It is NOT official YKI software and never emits YKI grades.
  */
+import {inspectSpeakingReceipt} from "./e06-speaking-evidence-policy.mjs";
+
 export const EXAM_STORAGE_KEY = "hospodar-yki:digitesti-rehearsal:v1";
 export const EXAM_STATE_VERSION = 1;
 export const MAX_ANSWER_CHARS = 12000;
@@ -58,13 +60,22 @@ export function buildItems(blueprint, content) {
   return items;
 }
 
-export function createSession(blueprintId,minutes=0,now=new Date()){
+const SESSION_ID=/^[a-zA-Z0-9_-]{3,60}$/;
+/** Stable session id; sessions saved before E06-C1 derive one from startedAt. */
+export function sessionIdOf(session){
+  if(SESSION_ID.test(session?.sessionId||""))return session.sessionId;
+  return "legacy-"+String(session?.startedAt||"").replace(/\D/g,"").slice(0,40);
+}
+export function createSession(blueprintId,minutes=0,now=new Date(),sessionId=null){
   if(!/^yki-mini-[a-z0-9-]+$/.test(blueprintId))throw new Error("Unknown blueprint id");
   if(!PRACTICE_LIMITS_MINUTES.includes(minutes))throw new Error("Unsupported practice timer");
   if(Number.isNaN(now.getTime()))throw new Error("Invalid now");
-  return {version:EXAM_STATE_VERSION,blueprintId,timeLimitMinutes:minutes,
+  if(sessionId!==null && !SESSION_ID.test(sessionId))throw new Error("Invalid session id");
+  const base={version:EXAM_STATE_VERSION,blueprintId,timeLimitMinutes:minutes,
     startedAt:now.toISOString(),finishedAt:null,
-    index:0,answers:{},voiceRecorded:{},elapsedHighWaterMs:0,lastSavedAt:now.toISOString()};
+    index:0,answers:{},voiceRecorded:{},voiceReceipts:{},voiceConsent:false,
+    elapsedHighWaterMs:0,lastSavedAt:now.toISOString()};
+  return {...base,sessionId:sessionId||sessionIdOf(base)};
 }
 export function loadSession(raw,blueprintIds) {
   if(!raw)return {session:null,recovered:false};
@@ -92,7 +103,18 @@ export function loadSession(raw,blueprintIds) {
     }
     // Sessions saved before E04-C1 have no watermark: start from 0, never from a guess.
     const elapsedHighWaterMs=Math.min(s.elapsedHighWaterMs??0,s.timeLimitMinutes*60_000);
-    return {session:{...s,answers,voiceRecorded:{},elapsedHighWaterMs},recovered:false}; // raw audio is ephemeral; restored session must NOT claim to still possess a voice recording
+    const sessionId=sessionIdOf(s);
+    // Ephemeral (non-consented) recordings never survive a reload. Only receipts that
+    // pass the E06 contract are kept; the UI must still re-verify the stored bytes.
+    const voiceReceipts={};
+    if(s.voiceReceipts && typeof s.voiceReceipts==="object" && !Array.isArray(s.voiceReceipts)){
+      for(const [id,r] of Object.entries(s.voiceReceipts)){
+        if(/^[a-z0-9_-]{1,110}$/i.test(id) && inspectSpeakingReceipt(r,{sessionId,taskId:id}).valid)
+          voiceReceipts[id]=r;
+      }
+    }
+    return {session:{...s,sessionId,answers,voiceRecorded:{},voiceReceipts,
+      voiceConsent:s.voiceConsent===true,elapsedHighWaterMs},recovered:false};
   }catch{
     return {session:null,recovered:true};
   }
@@ -146,6 +168,32 @@ export function recordVoiceEvidence(session,itemId,hasAudio,now=new Date()) {
   assertBeforeDeadline(session,now);
   return {...session,voiceRecorded:{...session.voiceRecorded,[itemId]:hasAudio===true}};
 }
+/** Session-level opt-in to keep spoken answers on this device (E06 consent). */
+export function setVoiceConsent(session,consent){
+  if(session.finishedAt)throw new Error("Finished");
+  return {...session,voiceConsent:consent===true};
+}
+/** Attach a durable local-audio receipt; replaces an earlier draft recording of this task. */
+export function attachVoiceReceipt(session,itemId,receipt,now=new Date()){
+  if(session.finishedAt)throw new Error("Finished");
+  assertBeforeDeadline(session,now);
+  if(session.voiceConsent!==true)throw new Error("Voice storage consent missing");
+  const check=inspectSpeakingReceipt(receipt,{sessionId:sessionIdOf(session),taskId:itemId});
+  if(!check.valid)throw new Error("Invalid voice receipt: "+check.errors.join(","));
+  return {...session,voiceReceipts:{...(session.voiceReceipts||{}),[itemId]:receipt},
+    voiceRecorded:{...session.voiceRecorded,[itemId]:true}};
+}
+/** Remove a receipt (learner deleted it, or stored bytes failed verification on resume). */
+export function removeVoiceReceipt(session,itemId){
+  const voiceReceipts={...(session.voiceReceipts||{})};delete voiceReceipts[itemId];
+  const voiceRecorded={...session.voiceRecorded};delete voiceRecorded[itemId];
+  return {...session,voiceReceipts,voiceRecorded};
+}
+export function voiceEvidenceOf(session,itemId){
+  if(session.voiceReceipts?.[itemId])return "stored";
+  if(session.voiceRecorded?.[itemId]===true)return "ephemeral";
+  return null;
+}
 export function finishSession(session,now=new Date()) {
   return {...session,finishedAt:session.finishedAt||now.toISOString(),lastSavedAt:now.toISOString()};
 }
@@ -158,7 +206,8 @@ export function scoreSession(items,session) {
   const details=[];
   for(const t of items){
     const answer=String(session.answers[t.id]??"").trim();
-    const recorded=session.voiceRecorded[t.id]===true;
+    const voice=voiceEvidenceOf(session,t.id);
+    const recorded=voice!==null;
     const hasAnswer=answer.length>0||recorded;
     if(!hasAnswer){bySkill[t.skill].unanswered++;details.push({id:t.id,skill:t.skill,status:"unanswered"});continue;}
     if(t.kind==="choice"||t.kind==="boolean"){
@@ -168,7 +217,7 @@ export function scoreSession(items,session) {
       details.push({id:t.id,skill:t.skill,status:correct?"correct":"incorrect",correct:t.correct});
     }else{
       bySkill[t.skill].ungraded++;
-      details.push({id:t.id,skill:t.skill,status:"ungraded"});
+      details.push({id:t.id,skill:t.skill,status:"ungraded",...(t.skill==="speaking"?{voice}:{})});
     }
   }
   return {bySkill,details,officialGrade:null,ykiPassPrediction:null,

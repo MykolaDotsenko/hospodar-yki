@@ -28,9 +28,9 @@ test("E06 research ledger is dated and never declares an operational speaking gr
   assert.equal(audit.live_web_exam_baseline.human_review_run,false);
   assert.equal(audit.user_trials_run,0);
   assert.equal(audit.independent_s2_reviewers_confirmed,0);
-  assert.equal(audit.live_audio_persistence_implemented,false);
+  assert.equal(audit.live_audio_persistence_implemented,"PARTIAL_WEB_LOCAL_CONSENTED");
   assert.equal(audit.official_yki_grade_prediction_allowed,false);
-  assert.equal(E06_STAGE,"REFERENCE_ONLY_NOT_LIVE");
+  assert.equal(E06_STAGE,"PARTIAL_LIVE_LOCAL_AUDIO_RECEIPT");
   assert.equal(E06_EXACT_2027_SPEAKING,false);
 });
 test("E06 canonical four families are mapped without creating a second taxonomy",()=>{
@@ -125,14 +125,14 @@ test("EXAM feedback remains sealed until a durable finish; grade is never author
   assert.deepEqual(authorizeSpeakingFeedback({...context,finishedCommitted:true}),
     {allowed:false,reason:"NO_VERIFIED_AUDIO_EVIDENCE"});
 });
-test("Current exam retains ephemeral-only recording; E06 module is not imported by UI",()=>{
+test("E06-C1: live exam keeps ephemeral audio only without consent and uses the E06 receipt gate",()=>{
   const app=readFileSync(join(root,"app/exam.mjs"),"utf8");
   const core=readFileSync(join(root,"app/exam-core.mjs"),"utf8");
-  assert.ok(app.includes("exam.recorder.onstop=null"));
-  assert.ok(app.includes("URL.createObjectURL(new Blob(chunks"));
-  assert.ok(app.includes("Голосовий файл не зберігається"));
-  assert.ok(!app.includes('from "./e06-speaking-evidence-policy.mjs"'));
-  assert.ok(core.includes("voiceRecorded:{}"));
-  assert.ok(core.includes("raw audio is ephemeral"));
-  assert.equal(audit.reference_only_not_live,true);
+  assert.ok(app.includes("exam.recorder.onstop=null"),"deadline/finish discards an unfinished recording");
+  assert.ok(app.includes("Запис НЕ збережено"),"honest message without consent or on save failure");
+  assert.ok(core.includes('from "./e06-speaking-evidence-policy.mjs"'));
+  assert.ok(core.includes("inspectSpeakingReceipt(r,{sessionId,taskId:id}).valid"));
+  assert.ok(core.includes("voiceRecorded:{},voiceReceipts"),"ephemeral flags never survive reload");
+  assert.equal(audit.reference_only_not_live,false);
+  assert.equal(audit.live_audio_persistence_implemented,"PARTIAL_WEB_LOCAL_CONSENTED");
 });
