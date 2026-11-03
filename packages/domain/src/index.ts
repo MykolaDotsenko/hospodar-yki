@@ -9,3 +9,4 @@ export * from "./diagnostic.ts";
 export * from "./writingClinic.ts";
 export * from "./dialogue.ts";
 export * from "./media.ts";
+export * from "./pictureMission.ts";
