@@ -59,7 +59,7 @@ test("LEARN-16/WEB-07: my data — verified JSON export, then separate typed-con
   await expect(page.locator("code.hash")).toHaveText(/^[0-9a-f]{64}$/);
 
   // EXAM erase: wrong word keeps the button disabled; the right one erases exam data only.
-  await page.getByLabel("Усі пробні іспити й їхню історію").check();
+  await page.getByLabel("Усі пробні іспити, їхню історію й голосові записи").check();
   await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("так");
   await expect(page.getByRole("button", { name: "Видалити пробні іспити" })).toBeDisabled();
   await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");

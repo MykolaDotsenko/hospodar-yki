@@ -12,10 +12,14 @@
  *    "official partial YKI". The scope is stored with the checkpoint so a reload restores the same items.
  *  - Finish writes the checkpoint AND an attempt-history record atomically (EXAM-09); no grade, no pass prediction.
  *  - Practice deadline (E04): once expired, answers/navigation are refused and only "finish" is possible.
+ *  - Voice (E06): consent is persisted first; a recording counts as STORED only via a verified receipt (bytes already
+ *    written + read back + hashed by the voice store) committed with the checkpoint; without consent it is EPHEMERAL
+ *    (this page only). A receipt whose bytes no longer verify is dropped (VOICE_UNVERIFIED), never kept as an answer.
+ *    A new rehearsal deletes the previous session's clips before clearing the checkpoint.
  */
 import { assign, fromPromise, setup } from "xstate";
-import { createSession, finishSession, goToIndex, isPracticeExpired, scoreSession, withElapsedHighWater, writeAnswer,
-  type ExamItem, type ExamSession, type ExamSkill } from "@hospodar/domain";
+import { attachVoiceReceipt, createSession, finishSession, goToIndex, isPracticeExpired, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
+  setVoiceConsent, withElapsedHighWater, writeAnswer, type ExamItem, type ExamSession, type ExamSkill, type SpeakingReceipt } from "@hospodar/domain";
 import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 
 export interface ExamContext {
@@ -29,7 +33,15 @@ export type ExamEvent =
   | { type: "GOTO"; index: number; now: number }
   | { type: "TICK"; now: number; elapsedMs: number }
   | { type: "REQUEST_FINISH" } | { type: "CANCEL_FINISH" } | { type: "CONFIRM_FINISH"; now: number }
-  | { type: "RETRY" } | { type: "NEW_REHEARSAL" };
+  | { type: "RETRY" } | { type: "NEW_REHEARSAL" }
+  | { type: "CONSENT"; consent: boolean; now: number }
+  | { type: "VOICE_STORED"; itemId: string; receipt: SpeakingReceipt; now: number }
+  | { type: "VOICE_EPHEMERAL"; itemId: string; now: number }
+  | { type: "VOICE_REMOVED"; itemId: string; now: number }
+  | { type: "VOICE_UNVERIFIED"; itemId: string };
+
+/** The part of the voice store the machine needs: deleting a session's clips when a new rehearsal starts. */
+export interface VoiceCleanup { pruneSession(sessionId: string, keepStorageKeys?: string[]): Promise<number> }
 
 const SKILLS: ExamSkill[] = ["reading", "listening", "writing", "speaking"];
 /** null = full rehearsal; otherwise a non-empty, ordered subset of the four skills. */
@@ -41,13 +53,19 @@ const codeOf = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FA
 const expired = (c: ExamContext, now: number) => Boolean(c.session) && isPracticeExpired(c.session, new Date(now));
 
 export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: string, skills: ExamSkill[] | null) => ExamItem[],
-  blueprintIds: string[], contentVersion = "unversioned") {
+  blueprintIds: string[], contentVersion = "unversioned", voice: VoiceCleanup | null = null) {
+  const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt; now: number }) => {
+    if (c.items.find(i => i.id === e.itemId)?.skill !== "speaking") return null;
+    try { return attachVoiceReceipt(c.session!, e.itemId, e.receipt, new Date(e.now)); } catch { return null; }
+  };
   const record = (c: ExamContext): ExamHistoryRecord => {
     const s = c.session!;
     return { sessionId: s.sessionId, blueprintId: s.blueprintId, contentVersion, skills: c.skills, startedAt: s.startedAt,
       finishedAt: s.finishedAt!, timeLimitMinutes: s.timeLimitMinutes, bySkill: scoreSession(c.items, s).bySkill };
   };
-  const restore = (cp: ExamCheckpoint) => ({ session: cp.session, revision: cp.revision, skills: cp.skills,
+  // An unconsented recording lived only in that page: after a reload it is gone, so it must not count as an answer.
+  const restore = (cp: ExamCheckpoint) => ({ session: { ...cp.session, voiceRecorded: Object.fromEntries(Object.keys(cp.session.voiceReceipts ?? {}).map(k => [k, true])) },
+    revision: cp.revision, skills: cp.skills,
     items: itemsFor(cp.session.blueprintId, cp.skills), dirty: false });
   return setup({
     types: { context: {} as ExamContext, events: {} as ExamEvent },
@@ -57,7 +75,10 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
         repo.commit(input.session, input.revision, input.skills)),
       finish: fromPromise(async ({ input }: { input: { session: ExamSession; revision: number; skills: ExamSkill[] | null; record: ExamHistoryRecord } }) =>
         repo.finish(input.session, input.revision, input.skills, input.record)),
-      clear: fromPromise(async ({ input }: { input: { revision: number } }) => repo.clear(input.revision)),
+      clear: fromPromise(async ({ input }: { input: { revision: number; sessionId: string | null } }) => {
+        if (voice && input.sessionId) await voice.pruneSession(input.sessionId, []);   // audio first: never orphan a recording
+        await repo.clear(input.revision);
+      }),
     },
     guards: {
       runningExpired: ({ context, event }) => "now" in event && expired(context, (event as { now: number }).now),
@@ -126,6 +147,29 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
             { actions: assign({ session: ({ context, event }) => withElapsedHighWater(context.session!, event.elapsedMs) }) },
           ],
           REQUEST_FINISH: "confirming",
+          CONSENT: [
+            { guard: "runningExpired", target: "expired" },
+            { guard: ({ context, event }) => context.session!.voiceConsent !== event.consent && !(event.consent === false &&
+                Object.keys(context.session!.voiceReceipts ?? {}).length > 0) ,                       // delete stored clips first
+              target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const, session: setVoiceConsent(context.session!, event.consent) })) },
+          ],
+          VOICE_STORED: [
+            { guard: "runningExpired", target: "expired" },
+            { guard: ({ context, event }) => tryAttach(context, event) !== null, target: "saving",
+              actions: assign(({ context, event }) => ({ after: "active" as const, session: tryAttach(context, event)! })) },
+          ],
+          VOICE_EPHEMERAL: [
+            { guard: "runningExpired", target: "expired" },
+            { guard: ({ context, event }) => context.items.find(i => i.id === event.itemId)?.skill === "speaking",
+              actions: assign({ dirty: true, session: ({ context, event }) => recordVoiceEvidence(context.session!, event.itemId, true, new Date(event.now)) }) },
+          ],
+          VOICE_REMOVED: [
+            { guard: "runningExpired", target: "expired" },
+            { guard: ({ context, event }) => Boolean(context.session!.voiceReceipts?.[event.itemId] || context.session!.voiceRecorded?.[event.itemId]),
+              target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const, session: removeVoiceReceipt(context.session!, event.itemId) })) },
+          ],
+          VOICE_UNVERIFIED: { guard: ({ context, event }) => Boolean(context.session!.voiceReceipts?.[event.itemId]), target: "saving",
+            actions: assign(({ context, event }) => ({ after: "active" as const, session: removeVoiceReceipt(context.session!, event.itemId) })) },
         },
       },
       autosaving: {
@@ -156,10 +200,14 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
             session: finishSession(context.session!, new Date(event.now)) })) },
         },
       },
-      finished: { on: { NEW_REHEARSAL: "clearing" } },
+      finished: { on: {
+        NEW_REHEARSAL: "clearing",
+        // finished results must not show a recording that no longer verifies; the finished checkpoint itself is not rewritten
+        VOICE_UNVERIFIED: { actions: assign({ session: ({ context, event }) => removeVoiceReceipt(context.session!, event.itemId) }) },
+      } },
       clearing: {
         invoke: {
-          src: "clear", input: ({ context }) => ({ revision: context.revision }),
+          src: "clear", input: ({ context }) => ({ revision: context.revision, sessionId: context.session?.sessionId ?? null }),
           onDone: { target: "setup", actions: assign({ session: null, items: [], skills: null, revision: 0, error: null, dirty: false }) },
           onError: { target: "finished", actions: assign({ error: ({ event }) => codeOf(event.error) }) },
         },
