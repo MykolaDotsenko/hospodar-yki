@@ -8781,7 +8781,7 @@
       "id": "WEB-06",
       "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
       "summary": "PWA install, SW asset versioning, update guard never reloads an active exam",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/offline.spec.ts",
@@ -8790,9 +8790,13 @@
         {
           "file": "apps/web/src/pwa/offline.test.ts",
           "contains": "install precaches the whole shell without activating itself (update waits for the learner)"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-06: the app is installable (Chromium's own installability check is empty) with a Ukrainian manifest and no exam shortcut"
         }
       ],
-      "gap": "Update guard and versioned shell caches are tested; no web app manifest/install prompt yet (installability)."
+      "note": "Installability verified by Chromium's own check; install prompts on real Android/iOS devices are not tested."
     },
     {
       "id": "WEB-07",

@@ -59,3 +59,16 @@ test("WEB-06: a new version waits; it is never offered during the exam, only out
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByText("Tehtävä 1 / 9")).toBeVisible();                              // the rehearsal survived the update
 });
+
+test("WEB-06: the app is installable (Chromium's own installability check is empty) with a Ukrainian manifest and no exam shortcut", async ({ page }) => {
+  await page.goto("./");
+  await controlled(page);
+  const manifest = await page.evaluate(() => fetch("./manifest.webmanifest").then(r => r.json()));
+  expect(manifest).toMatchObject({ lang: "uk", display: "standalone", start_url: "./", short_name: "Hospodar YKI" });
+  expect(manifest.description).toMatch(/Не офіційний YKI/);
+  expect(manifest.shortcuts).toBeUndefined();
+  expect(await page.evaluate(u => fetch(u).then(r => r.ok), new URL(manifest.icons[0].src, page.url()).href)).toBe(true);
+  const cdp = await page.context().newCDPSession(page);
+  const { installabilityErrors } = await cdp.send("Page.getInstallabilityErrors") as { installabilityErrors: { errorId: string }[] };
+  expect(installabilityErrors.map(e => e.errorId)).toEqual([]);
+});
