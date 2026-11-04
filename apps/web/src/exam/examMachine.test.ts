@@ -1,8 +1,8 @@
 import "fake-indexeddb/auto";
 import { describe, expect, it } from "vitest";
 import { createActor, waitFor } from "xstate";
-import { scoreSession } from "@hospodar/domain";
-import { createExamMachine } from "./examMachine.ts";
+import { finishSession, scoreSession, voiceEvidenceOf, type SpeakingReceipt } from "@hospodar/domain";
+import { createExamMachine, type VoiceCleanup } from "./examMachine.ts";
 import { createExamRepository, type ExamRepository } from "../storage/examRepository.ts";
 import { StorageError } from "../storage/learnerRepository.ts";
 import { examBlueprints, itemsFor } from "../content/exam.ts";
@@ -172,5 +172,71 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     a.send({ type: "RETRY" });
     await waitFor(a, s => s.matches("finished"));
     expect(await real.history()).toHaveLength(1);
+  });
+});
+
+describe("EXAM voice (E06) in the XState machine", () => {
+  const T = T0 + 1000;
+  const receiptFor = (sessionId: string, taskId: string, revision: number): SpeakingReceipt => ({ sessionId, taskId, storageKey: `local-audio:${sessionId}_${taskId}`,
+    sha256: "a".repeat(64), bytes: 1200, durationMs: 3000, mimeType: "audio/webm", revision, consentToLocalStorage: true, firstAttemptSealed: true,
+    committedAt: new Date(T).toISOString() });
+  const speaking = async (repo: ExamRepository, voice: VoiceCleanup | null = null) => {
+    const a = createActor(createExamMachine(repo, itemsFor, ids, "test-v1", voice)).start();
+    await waitFor(a, s => !s.matches("loading"));
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-voice1", skills: ["speaking"] });
+    await settled(a);
+    return { a, item: a.getSnapshot().context.items[0]! };
+  };
+  it("a receipt is refused without persisted consent; with consent it is committed and survives reload as 'stored'", async () => {
+    const name = db(); const repo = createExamRepository(name);
+    const { a, item } = await speaking(repo);
+    a.send({ type: "VOICE_STORED", itemId: item.id, receipt: receiptFor("sess-voice1", item.id, 2), now: T });
+    expect(a.getSnapshot().context.session!.voiceReceipts).toEqual({});                      // no consent → ignored
+    a.send({ type: "CONSENT", consent: true, now: T });
+    await settled(a);
+    expect((await repo.read())!.session.voiceConsent).toBe(true);
+    a.send({ type: "VOICE_STORED", itemId: item.id, receipt: receiptFor("sess-voice1", item.id, a.getSnapshot().context.revision + 1), now: T });
+    await settled(a);
+    const b = await boot(createExamRepository(name));
+    expect(voiceEvidenceOf(b.getSnapshot().context.session!, item.id)).toBe("stored");
+  });
+  it("an unconsented recording is ephemeral: it counts on this page, but not after a reload", async () => {
+    const name = db(); const repo = createExamRepository(name);
+    const { a, item } = await speaking(repo);
+    a.send({ type: "VOICE_EPHEMERAL", itemId: item.id, now: T });
+    expect(voiceEvidenceOf(a.getSnapshot().context.session!, item.id)).toBe("ephemeral");
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    const b = await boot(createExamRepository(name));
+    expect(voiceEvidenceOf(b.getSnapshot().context.session!, item.id)).toBeNull();
+  });
+  it("receipts for a wrong session or a non-speaking item are refused; consent cannot be withdrawn while recordings exist", async () => {
+    const { a, item } = await speaking(createExamRepository(db()));
+    a.send({ type: "CONSENT", consent: true, now: T }); await settled(a);
+    a.send({ type: "VOICE_STORED", itemId: item.id, receipt: receiptFor("sess-other", item.id, 9), now: T });
+    expect(a.getSnapshot().context.session!.voiceReceipts).toEqual({});
+    a.send({ type: "VOICE_STORED", itemId: item.id, receipt: receiptFor("sess-voice1", item.id, 3), now: T }); await settled(a);
+    a.send({ type: "CONSENT", consent: false, now: T });
+    expect(a.getSnapshot().context.session!.voiceConsent).toBe(true);
+    a.send({ type: "VOICE_REMOVED", itemId: item.id, now: T }); await settled(a);
+    a.send({ type: "CONSENT", consent: false, now: T }); await settled(a);
+    expect(a.getSnapshot().context.session!.voiceConsent).toBe(false);
+  });
+  it("a receipt whose bytes no longer verify is dropped and the drop is persisted", async () => {
+    const repo = createExamRepository(db());
+    const { a, item } = await speaking(repo);
+    a.send({ type: "CONSENT", consent: true, now: T }); await settled(a);
+    a.send({ type: "VOICE_STORED", itemId: item.id, receipt: receiptFor("sess-voice1", item.id, 3), now: T }); await settled(a);
+    a.send({ type: "VOICE_UNVERIFIED", itemId: item.id }); await settled(a);
+    expect((await repo.read())!.session.voiceReceipts).toEqual({});
+    expect(scoreSession(a.getSnapshot().context.items, finishSession(a.getSnapshot().context.session!, new Date(T))).bySkill.speaking.unanswered).toBe(1);
+  });
+  it("a new rehearsal deletes the finished session's recordings before clearing the checkpoint", async () => {
+    const pruned: string[] = [];
+    const { a } = await speaking(createExamRepository(db()), { pruneSession: async id => { pruned.push(id); return 1; } });
+    a.send({ type: "REQUEST_FINISH" }); a.send({ type: "CONFIRM_FINISH", now: T }); await settled(a);
+    a.send({ type: "NEW_REHEARSAL" });
+    await waitFor(a, s => s.matches("setup"));
+    expect(pruned).toEqual(["sess-voice1"]);
   });
 });

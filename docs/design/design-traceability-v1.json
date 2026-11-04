@@ -3449,7 +3449,7 @@
       "id": "R4-12",
       "source": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
       "summary": "Consent/retention/deletion; no student PII in Git; accessible fallback",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/diagnostic.spec.ts",
@@ -3458,9 +3458,17 @@
         {
           "file": "packages/domain/test/diagnostic.test.ts",
           "contains": "speaking accepts a text plan or a session-only voice flag; empty is refused; audio is never in evidence"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a stored recording can be deleted, and a recording whose bytes vanished is dropped with a clear message"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
         }
       ],
-      "gap": "Consent and text fallback done; learner-facing deletion UI not in apps/web."
+      "note": "Legal review of consent wording not done."
     },
     {
       "id": "R4-13",
@@ -3950,7 +3958,7 @@
           "contains": "320 px wide and 200% text: no horizontal page scroll"
         }
       ],
-      "gap": "Offline app shell and export/delete UI not built in apps/web; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+      "gap": "Offline app shell not built in apps/web; Screen reader (TalkBack/VoiceOver) and real devices not tested."
     },
     {
       "id": "QL-09",
@@ -4692,9 +4700,13 @@
         {
           "file": "app/tests/exam-core.test.mjs",
           "contains": "E04-C1: answers, navigation and voice evidence are refused at and after the practice deadline"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
         }
       ],
-      "gap": "Legacy exam browser checks cover voice store + deadline; full four-module E2E in apps/web not built."
+      "gap": "apps/web E2E covers reading/listening/writing/speaking incl. consented voice, reload and save failures, with a stubbed recorder; F1–F6 evidence gaps and live 2027 UI remain unverified."
     },
     {
       "id": "EXAM-PILLAR-08",
@@ -5969,7 +5981,7 @@
       "id": "SIM-04",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Keyboard input, audio player, consented speaking recording, finish and recovery without loss",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/exam.spec.ts",
@@ -5978,9 +5990,21 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "C-04: navigation is persisted first; reload resumes the same item with the typed answer"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a denied microphone is reported honestly; the text plan remains the answer path and nothing is claimed"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a receipt is refused without persisted consent; with consent it is committed and survives reload as 'stored'"
         }
       ],
-      "gap": "In apps/web EXAM speaking is a text plan; consented voice recording exists only in the legacy EXAM."
+      "note": "Recorder stubbed in E2E (deterministic bytes); real microphones, codecs and iOS Safari are not tested."
     },
     {
       "id": "SIM-05",
@@ -7863,7 +7887,7 @@
       "id": "ARCH-03",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "XState machine for exam/speaking/record; fail-closed events; submitted immutable",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
@@ -7880,9 +7904,17 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a receipt is refused without persisted consent; with consent it is committed and survives reload as 'stored'"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
         }
       ],
-      "gap": "Exam rehearsal machine built; a speaking/recording sub-machine is not (voice only in the legacy EXAM)."
+      "note": "Voice is handled by consent/receipt events in the exam machine (no separate sub-machine); Recorder stubbed in E2E (deterministic bytes); real microphones, codecs and iOS Safari are not tested."
     },
     {
       "id": "ARCH-04",
@@ -8724,6 +8756,14 @@
         {
           "file": ".github/workflows/validate-web-app.yml",
           "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a denied microphone is reported honestly; the text plan remains the answer path and nothing is claimed"
         }
       ],
       "gap": "Stubbed recorder in 3 CI engines; no real device or iOS Safari test."
@@ -9006,9 +9046,17 @@
         {
           "file": "app/tests/exam-core.test.mjs",
           "contains": "local drafts survive reload, but voice evidence does not masquerade as persisted audio"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a stored recording can be deleted, and a recording whose bytes vanished is dropped with a clear message"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a receipt is refused without persisted consent; with consent it is committed and survives reload as 'stored'"
         }
       ],
-      "gap": "Partial fault coverage in the legacy EXAM; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
+      "gap": "Voice recovery (vanished bytes dropped, orphans pruned) tested on Web; Android build (Gradle/Room/Media3/PAD) not compiled or device-tested."
     },
     {
       "id": "G-EX-07",
@@ -10241,9 +10289,13 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
         }
       ],
-      "gap": "In apps/web EXAM speaking is a text plan; consented voice recording exists only in the legacy EXAM."
+      "gap": "Consented recording exists in apps/web; no audio cue → preparation → response windows (OPH 2027 timings unverified)."
     },
     {
       "id": "MOCK-VID-08",
@@ -10792,9 +10844,21 @@
         {
           "file": "app/tests/exam-voice-store.test.mjs",
           "contains": "E06-C1: live EXAM wiring — consent gate, readback verification, no upload, navigation blocked while recording"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a denied microphone is reported honestly; the text plan remains the answer path and nothing is claimed"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a stored recording can be deleted, and a recording whose bytes vanished is dropped with a clear message"
+        },
+        {
+          "file": "apps/web/src/storage/voiceStore.test.ts",
+          "contains": "issues exactly the legacy receipt for the same bytes, and it passes the E06 contract"
         }
       ],
-      "gap": "Legacy browser checks cover several cases; full E2E incl. codec/background/concurrent tabs not done."
+      "gap": "Mic denial, reload, vanished bytes and receipt parity covered with a stubbed recorder; real codecs, background tabs and concurrent-tab recording not tested."
     },
     {
       "id": "E06-G05",
@@ -10832,9 +10896,17 @@
         {
           "file": "apps/web/e2e/diagnostic.spec.ts",
           "contains": "speaking voice needs explicit consent; recording stays in the tab and only a flag is saved"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: a stored recording can be deleted, and a recording whose bytes vanished is dropped with a clear message"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
         }
       ],
-      "gap": "Consent and local-only storage; export/deletion UI for voice not built."
+      "gap": "Audio bytes are not part of the JSON export (receipts only); legal privacy review not done."
     },
     {
       "id": "E06-G08",

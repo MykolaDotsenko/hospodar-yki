@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createActor, type SnapshotFrom } from "xstate";
-import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill } from "@hospodar/domain";
+import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf } from "@hospodar/domain";
 import { createExamMachine } from "../exam/examMachine.ts";
 import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../content/exam.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
+import type { VoiceStore } from "../storage/voiceStore.ts";
+import { ExamVoice, useVerifiedClip } from "./ExamVoice.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -11,8 +13,8 @@ const SKILL_UK: Record<ExamItem["skill"], string> = { reading: "Читання",
 const newId = () => "sess-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 type Machine = ReturnType<typeof createExamMachine>;
 
-export function ExamScreen({ repository, onHome }: { repository: ExamRepository; onHome: () => void }) {
-  const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id), examContentVersion)), [repository]);
+export function ExamScreen({ repository, voiceStore, onHome }: { repository: ExamRepository; voiceStore: VoiceStore; onHome: () => void }) {
+  const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id), examContentVersion, voiceStore)), [repository, voiceStore]);
   const [snap, setSnap] = useState<SnapshotFrom<Machine>>(() => actor.getSnapshot());
   useEffect(() => { const sub = actor.subscribe(setSnap); actor.start(); return () => { sub.unsubscribe(); actor.stop(); }; }, [actor]);
   const { session, items, error } = snap.context;
@@ -29,8 +31,15 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
     const t = setTimeout(() => actor.send({ type: "AUTOSAVE" }), 1200);
     return () => clearTimeout(t);
   }, [actor, snap]);
+  const [recording, setRecording] = useState(false);
+  const pruned = useRef<string | null>(null);
+  useEffect(() => {                                                       // once per resumed session: drop clips no receipt points to
+    if (!session || session.finishedAt || pruned.current === session.sessionId || !snap.matches("active")) return;
+    pruned.current = session.sessionId;
+    void voiceStore.pruneSession(session.sessionId, Object.values(session.voiceReceipts ?? {}).map(r => r.storageKey)).catch(() => {});
+  }, [snap, session, voiceStore]);
   const busy = snap.matches("saving") || snap.matches("finishing") || snap.matches("clearing") || snap.matches("loading");
-  const navBusy = busy || snap.matches("autosaving");
+  const navBusy = busy || snap.matches("autosaving") || recording;
 
   if (snap.matches("loading")) return <section className="panel exam" aria-busy="true"><p>Ladataan…</p></section>;
   if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId() })} onHome={onHome} />;
@@ -56,7 +65,8 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
             const key = it.options && d.correct !== undefined ? (it.kind === "boolean" ? (d.correct === "true" ? "Oikein" : "Väärin") : it.options[Number(d.correct)]) : null;
             return <li key={d.id}><span lang="fi">{it.prompt}</span><br />
               <strong>{{ correct: "Правильно", incorrect: "Неправильно", ungraded: "Без оцінки", unanswered: "Без відповіді" }[d.status]}</strong>
-              {key && <> · ключ: <span lang="fi">{key}</span></>}</li>;
+              {key && <> · ключ: <span lang="fi">{key}</span></>}
+              {d.voice === "stored" && <StoredVoice receipt={session!.voiceReceipts[d.id]!} voiceStore={voiceStore} onUnverified={() => actor.send({ type: "VOICE_UNVERIFIED", itemId: d.id })} />}</li>;
           })}
         </ol>
         {error && <p className="feedback error" role="alert">Не вдалося очистити ({error}).</p>}
@@ -73,7 +83,7 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
   const left = remainingSeconds(session!, new Date());
   const go = (index: number) => actor.send({ type: "GOTO", index, now: Date.now() });
   const set = (value: string) => actor.send({ type: "ANSWER", itemId: item.id, value, now: Date.now() });
-  const unanswered = items.filter(x => !(session!.answers[x.id] ?? "").trim()).length;
+  const unanswered = items.filter(x => !(session!.answers[x.id] ?? "").trim() && !voiceEvidenceOf(session!, x.id)).length;
   return (
     <section className="panel exam" aria-labelledby="ex-item">
       <div className="exam-bar">
@@ -96,7 +106,11 @@ export function ExamScreen({ repository, onHome }: { repository: ExamRepository;
           </div>
         </div>
       ) : (
-        <ExamItemView item={item} answer={answer} onAnswer={set} disabled={busy} />
+        <>
+          <ExamItemView item={item} answer={answer} onAnswer={set} disabled={busy} />
+          {item.skill === "speaking" && <ExamVoice item={item} session={session!} revision={snap.context.revision} voiceStore={voiceStore}
+            send={e => actor.send(e)} disabled={busy || snap.matches("autosaving")} onRecording={setRecording} />}
+        </>
       )}
       <p className="muted exam-save" aria-live="polite">{snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
       {snap.context.autosaveError && <p className="feedback error" role="alert">Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
@@ -206,4 +220,11 @@ export function ExamHistoryList({ history }: { history: ExamHistoryRecord[] | nu
       )}
     </>
   );
+}
+
+/** After a durable finish: the learner may listen to their own stored answer — reviewable, never graded (E06). */
+function StoredVoice({ receipt, voiceStore, onUnverified }: { receipt: SpeakingReceipt; voiceStore: VoiceStore; onUnverified: () => void }) {
+  const url = useVerifiedClip(receipt, voiceStore, onUnverified);
+  return url ? <figure className="player"><figcaption>Твій запис ({Math.max(1, Math.round(receipt.durationMs / 1000))} с) · без оцінки: оцінити може лише людина</figcaption>
+    <audio controls src={url} aria-label="Прослухати свою усну відповідь" /></figure> : null;
 }

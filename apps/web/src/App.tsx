@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { dueCards, type LearnerState } from "@hospodar/domain";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
 import type { ExamRepository } from "./storage/examRepository.ts";
+import type { VoiceStore } from "./storage/voiceStore.ts";
 import { ExamScreen } from "./screens/ExamScreen.tsx";
 import { MissionScreen } from "./screens/MissionScreen.tsx";
 import { exercises } from "./content/cloze.ts";
@@ -25,7 +26,7 @@ import { applyAppearance, readAppearance, type Appearance } from "./appearance.t
 type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "exam" | "data";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
 
-export function App({ repository, examRepository, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; markUrl: string }) {
+export function App({ repository, examRepository, voiceStore, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; voiceStore: VoiceStore; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
@@ -54,8 +55,8 @@ export function App({ repository, examRepository, markUrl }: { repository: Learn
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
         {view === "home" && <Home state={snapshot?.state ?? null} onLearn={() => setView("mission")} onImport={() => setView("import")}
           onRetention={() => setView("retention")} onProgress={() => setView("progress")} onListening={() => setView("listening")} onDiagnostic={() => setView("diagnostic")} onWriting={() => setView("writing")} onDialogue={() => setView("dialogue")} onMedia={() => setView("media")} onPictures={() => setView("pictures")} onReading={() => setView("reading")} onExam={() => setView("exam")} onData={() => setView("data")} />}
-        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} snapshot={snapshot} onErased={setSnapshot} onHome={() => setView("home")} />}
-        {view === "exam" && <ExamScreen repository={examRepository} onHome={() => setView("home")} />}
+        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={setSnapshot} onHome={() => setView("home")} />}
+        {view === "exam" && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => setView("home")} />}
         {view === "reading" && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "pictures" && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => setView("home")} />}
