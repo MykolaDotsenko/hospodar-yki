@@ -2550,9 +2550,17 @@
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "same size but different bytes is refused (HASH_MISMATCH); a file without a recorded hash is never offline"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
         }
       ],
-      "gap": "Rights/hash gate at build; offline app shell/packs and runtime missing-media fallback not built."
+      "gap": "Packs verified by size + SHA-256 and rights-gated at build; a runtime fallback inside a task when media fails to load is not tested."
     },
     {
       "id": "R7-11",
@@ -3956,9 +3964,13 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "320 px wide and 200% text: no horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
         }
       ],
-      "gap": "Offline app shell not built in apps/web; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+      "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
     },
     {
       "id": "QL-09",
@@ -4096,8 +4108,18 @@
       "id": "R11-11",
       "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
       "summary": "Web offline app shell + media packs work after browser restart",
-      "status": "NOT_YET",
-      "plan": "Service worker/app shell not built."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "offline navigation gets the cached shell; media not saved by the learner goes to the network; saved media answers ranges with 206"
+        }
+      ],
+      "gap": "Offline reload tested; a full browser restart and eviction under storage pressure are not tested."
     },
     {
       "id": "R11-12",
@@ -4377,14 +4399,22 @@
       "id": "MOT-14",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "Offline-first; optional media packs rights-cleared; no cloud AI dependency",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
         }
       ],
-      "gap": "Offline app shell not built."
+      "note": "Service-worker E2E runs in Chromium only; Firefox/WebKit rely on the sandboxed SW unit tests."
     },
     {
       "id": "MOT-15",
@@ -7937,8 +7967,22 @@
       "id": "ARCH-05",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "PWA offline content packs, versioned caching, no SW auto-update during an exam",
-      "status": "NOT_YET",
-      "plan": "Service worker/app shell slice."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-06: a new version waits; it is never offered during the exam, only outside it, and applies on the learner's click"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "install precaches the whole shell without activating itself (update waits for the learner)"
+        }
+      ],
+      "note": "Service-worker E2E runs in Chromium only; Firefox/WebKit rely on the sandboxed SW unit tests."
     },
     {
       "id": "ARCH-06",
@@ -8052,9 +8096,13 @@
         {
           "file": "apps/web/e2e/import.spec.ts",
           "contains": "imports legacy progress from this device: preview → backup download → confirm → verified; old data untouched"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
         }
       ],
-      "gap": "No physical-device mic tests and no offline tests."
+      "gap": "Offline E2E in Chromium only; no physical-device mic tests."
     },
     {
       "id": "ARCH-14",
@@ -8313,14 +8361,22 @@
       "id": "REL-07",
       "source": "docs/24-reliability-hardened-architecture-web-android.md",
       "summary": "Web starts without a compulsory multi-GB download; explicit selective offline and eviction/backup",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "home: two modes, honest exam status, no serious axe violations"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
         }
       ],
-      "gap": "Web starts without downloads; selective offline and eviction controls not built."
+      "note": "Browser eviction itself is not simulated; the offline screen reports the real cached state."
     },
     {
       "id": "REL-08",
@@ -8704,15 +8760,39 @@
       "id": "WEB-05",
       "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
       "summary": "Web offline after explicit save of chosen materials with downloaded/online_only status",
-      "status": "NOT_YET",
-      "plan": "Service worker + explicit offline selection."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "same size but different bytes is refused (HASH_MISMATCH); a file without a recorded hash is never offline"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "offline navigation gets the cached shell; media not saved by the learner goes to the network; saved media answers ranges with 206"
+        }
+      ],
+      "note": "Service-worker E2E runs in Chromium only; Firefox/WebKit rely on the sandboxed SW unit tests."
     },
     {
       "id": "WEB-06",
       "source": "docs/23-android-offline-game-and-3gb-media-architecture.md",
       "summary": "PWA install, SW asset versioning, update guard never reloads an active exam",
-      "status": "NOT_YET",
-      "plan": "With WEB-05 and the apps/web EXAM."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-06: a new version waits; it is never offered during the exam, only outside it, and applies on the learner's click"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "install precaches the whole shell without activating itself (update waits for the learner)"
+        }
+      ],
+      "gap": "Update guard and versioned shell caches are tested; no web app manifest/install prompt yet (installability)."
     },
     {
       "id": "WEB-07",
@@ -8816,8 +8896,14 @@
       "id": "UC-02",
       "source": "research/user-cases/core-flows-v1.md",
       "summary": "Commuter studies offline; missing pack offers optional download, never forced multi-GB",
-      "status": "NOT_YET",
-      "plan": "Offline app shell + packs (WEB-05)."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        }
+      ],
+      "gap": "Packs are offered on the «Офлайн-доступ» screen; a missing-pack prompt inside a mission is not built."
     },
     {
       "id": "UC-03",
@@ -10524,14 +10610,22 @@
       "id": "R10-15",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "Offline core learning without subscription/cloud AI; media pack integrity and rights",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/offline.spec.ts",
+          "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/src/pwa/offline.test.ts",
+          "contains": "same size but different bytes is refused (HASH_MISMATCH); a file without a recorded hash is never offline"
         }
       ],
-      "gap": "No offline app shell."
+      "note": "Service-worker E2E runs in Chromium only; Firefox/WebKit rely on the sandboxed SW unit tests."
     },
     {
       "id": "R10-16",
