@@ -77,26 +77,26 @@
 
 ## 6. Accessibility release criteria R10-01..R10-20 (some source-level fixes done, product release NOT certified)
 
-1. Web four entrypoints correct localized UA language/landmarks/skip destination; generated Finnish voice spans have correct fi language.
-2. Consistent LEARN/EXAM navigation with keyboard and screen reader, no feedback/answer leak.
-3. Focus strong 3:1+ indicator and visible at every UI state; never fully hidden by sticky panels or keyboard (WCAG 2.4.11).
-4. Body regular text >=4.5:1; large >=3:1; important control-state nontext >=3:1, with documented WCAG exceptions.
-5. 320px reflow, 200% text resize and 400% equivalent browser zoom manually pass without content loss or two-axis scrolling except genuine exceptions.
-6. Accessible label, instructions, error status, and no redundant keyboard entry across form states.
-7. Every operable target meets applicable 2.5.8 AA 24px-with-exceptions; major actions ergonomic target 44px+ project rule.
-8. Complex four-stage route labels readable in 320px without relying only on shape/color.
-9. Native LEARN audio start/pause/repeat user controlled, screen-reader output not covered by background music.
-10. Correct captions/transcripts with editorial timing, optional before response in LEARN, assisted evidence clearly differentiated.
-11. EXAM accessibility matches officially verified 2027 conditions, never invented timing/grade accommodations.
-12. Speaking fallback if mic denied shows `ungraded/not recorded`, no false successful recording; permission flow not auto-triggered.
-13. Real user safe persistence after rotate/interrupted attempt, no silent answer corruption or deadline loss.
-14. Reduced-motion and high-contrast options, no mandatory GPU/canvas path; meaningful alt text for graphic clues.
-15. Offline core learning operates without subscription/cloud AI; optional media pack integrity and legal rights clear.
-16. Web 320/360/390, multiple browsers and forced-colors verified with *rendered* page, not only source grep.
-17. Android TalkBack, Switch Access, keyboard, large text and Voice Access tested on real devices, real user workflows included.
-18. Test automation (source checks plus axe/Playwright later) supplemented by manual testing and zero critical blockers.
-19. Actual task completion, error recovery, reading/listening comprehension and blinded day14 Finnish new-task transfer measured without discrimination; secondary time, burden, discomfort.
-20. Legal/standards owner assesses EN 301 549, Finnish Traficom scope, statement and checkout obligations if applicable; report only verified compliance.
+1. **R10-01** · Web four entrypoints correct localized UA language/landmarks/skip destination; generated Finnish voice spans have correct fi language.
+2. **R10-02** · Consistent LEARN/EXAM navigation with keyboard and screen reader, no feedback/answer leak.
+3. **R10-03** · Focus strong 3:1+ indicator and visible at every UI state; never fully hidden by sticky panels or keyboard (WCAG 2.4.11).
+4. **R10-04** · Body regular text >=4.5:1; large >=3:1; important control-state nontext >=3:1, with documented WCAG exceptions.
+5. **R10-05** · 320px reflow, 200% text resize and 400% equivalent browser zoom manually pass without content loss or two-axis scrolling except genuine exceptions.
+6. **R10-06** · Accessible label, instructions, error status, and no redundant keyboard entry across form states.
+7. **R10-07** · Every operable target meets applicable 2.5.8 AA 24px-with-exceptions; major actions ergonomic target 44px+ project rule.
+8. **R10-08** · Complex four-stage route labels readable in 320px without relying only on shape/color.
+9. **R10-09** · Native LEARN audio start/pause/repeat user controlled, screen-reader output not covered by background music.
+10. **R10-10** · Correct captions/transcripts with editorial timing, optional before response in LEARN, assisted evidence clearly differentiated.
+11. **R10-11** · EXAM accessibility matches officially verified 2027 conditions, never invented timing/grade accommodations.
+12. **R10-12** · Speaking fallback if mic denied shows `ungraded/not recorded`, no false successful recording; permission flow not auto-triggered.
+13. **R10-13** · Real user safe persistence after rotate/interrupted attempt, no silent answer corruption or deadline loss.
+14. **R10-14** · Reduced-motion and high-contrast options, no mandatory GPU/canvas path; meaningful alt text for graphic clues.
+15. **R10-15** · Offline core learning operates without subscription/cloud AI; optional media pack integrity and legal rights clear.
+16. **R10-16** · Web 320/360/390, multiple browsers and forced-colors verified with *rendered* page, not only source grep.
+17. **R10-17** · Android TalkBack, Switch Access, keyboard, large text and Voice Access tested on real devices, real user workflows included.
+18. **R10-18** · Test automation (source checks plus axe/Playwright later) supplemented by manual testing and zero critical blockers.
+19. **R10-19** · Actual task completion, error recovery, reading/listening comprehension and blinded day14 Finnish new-task transfer measured without discrimination; secondary time, burden, discomfort.
+20. **R10-20** · Legal/standards owner assesses EN 301 549, Finnish Traficom scope, statement and checkout obligations if applicable; report only verified compliance.
 
 ## 7. Follow-up & result accounting
 

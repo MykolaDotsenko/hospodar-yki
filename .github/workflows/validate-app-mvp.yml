@@ -62,3 +62,4 @@ jobs:
           fi
           node scripts/run-chromium-idb.mjs
           node scripts/run-chromium-idb.mjs learn-backup-browser.html
+          node scripts/run-chromium-idb.mjs exam-voice-browser.html

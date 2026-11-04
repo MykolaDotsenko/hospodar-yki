@@ -67,7 +67,7 @@ python3 scripts/validate_ai_docs.py
 | Vanilla JavaScript Web LEARN/EXAM MVP | React/Vite/Phaser повноцінний клієнт |
 | EXAM IndexedDB checkpoints і тести браузерного збереження | Спільний production-ready Web/Android протокол першої спроби |
 | LEARN зі збереженням у `localStorage` | Durable Web LEARN storage та міграція |
-| Локальне фінське аудіо, окремі WebM і вправи | Готовий встановлюваний Android AAB, Play Asset Delivery, 2–3 GB офлайн |
+| Локальне фінське аудіо, окремі WebM і вправи | Готовий встановлюваний Android AAB, Play Asset Delivery, офлайн 3–4 GB ([план R05](docs/23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)) |
 | Курований YouTube URL-каталог | Автоматична оцінка незрецензованих письмових/усних відповідей як офіційний YKI результат |
 
 **Мовна якість та права:** частина вправ і відеозавдань потребує S2/редакторської перевірки. Джерело, доступність посилання та право на копіювання — різні речі. Зовнішні матеріали не включаємо в офлайн-пакети без права на поширення.

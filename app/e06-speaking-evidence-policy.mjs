@@ -1,8 +1,10 @@
-/** E06 speaking evidence gate: pure, reference-only contract.
- * NOT imported by the live EXAM; does not save an actual audio blob, claim consent,
- * provide grade 3/4, or reproduce unverified digital-2027 YKI speaking timings.
+/** E06 speaking evidence gate: pure contract.
+ * E06-C1 (03.11.2026): `inspectSpeakingReceipt` is used by the live practice EXAM
+ * (exam-core.mjs) to accept only complete local-audio receipts written by
+ * exam-voice-store.mjs after consent, byte readback and SHA-256 verification.
+ * It never provides grade 3/4 or reproduces unverified digital-2027 speaking timings.
  */
-export const E06_STAGE="REFERENCE_ONLY_NOT_LIVE";
+export const E06_STAGE="PARTIAL_LIVE_LOCAL_AUDIO_RECEIPT";
 export const E06_EXACT_2027_SPEAKING=false;
 export const E06_RESULT_STATE=Object.freeze({
   NO_AUDIO:"NO_AUDIO_EVIDENCE",UNVERIFIED:"UNVERIFIED_AUDIO_REFERENCE",

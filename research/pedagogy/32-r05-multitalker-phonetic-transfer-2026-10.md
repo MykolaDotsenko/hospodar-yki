@@ -97,22 +97,22 @@ For every real, distributable asset: **unique ID, first-party URL, publisher/aut
 
 ## 7. Acceptance gates R5-01…R5-16 (all PROPOSED / NOT PASSED)
 
-1. 100% of bundled audio has rights/attribution/consent/license, SHA-256 and reproducible origin.
-2. Real human vs TTS vs derived segment clearly identified, no counting segments as talkers.
-3. Minimum one verified A2/B1 everyday multi-talker task with independent gist/detail and self-repair (S2 reviewed).
-4. Target Finnish phoneme/length contrast human-verified; no ambiguous pseudoword or wrong semantics.
-5. At least one novel voice/item held out of teaching and used only in independent review.
-6. Separate perception / human oral production and intelligibility results.
-7. Captions/transcript do not leak before first attempt or in held-out listening.
-8. EXAM 2027 timing/audio repeats only verified by official first-party source (R02).
-9. Audio fail/no permissions/interrupt/headphone loss cannot misgrade language.
-10. Sound effects/music silent during meaningful speech, optional/muted in settings; EXAM no game sounds.
-11. Playback normal speed accessible, optional slower teaching mode not labeled official exam.
-12. Native voices have dated signed releases; recordings with personal data blocked.
-13. Acoustic QA checks including clipping, intelligibility across speakers/devices, file decoding.
-14. Day-14 and day-30 unseen comprehension plus distinct speaking, matched-time active control preregistered and independently assessed.
-15. Install-time packs preserve offline playback after restart/airplane and verify per-pack SHA/routing; benchmark on actual Android, not paper ADR.
-16. 4GB Play compressed cap with slack; per-pack 1.5GB cap; not an unsupported single-file APK claim.
+1. **R5-01** · 100% of bundled audio has rights/attribution/consent/license, SHA-256 and reproducible origin.
+2. **R5-02** · Real human vs TTS vs derived segment clearly identified, no counting segments as talkers.
+3. **R5-03** · Minimum one verified A2/B1 everyday multi-talker task with independent gist/detail and self-repair (S2 reviewed).
+4. **R5-04** · Target Finnish phoneme/length contrast human-verified; no ambiguous pseudoword or wrong semantics.
+5. **R5-05** · At least one novel voice/item held out of teaching and used only in independent review.
+6. **R5-06** · Separate perception / human oral production and intelligibility results.
+7. **R5-07** · Captions/transcript do not leak before first attempt or in held-out listening.
+8. **R5-08** · EXAM 2027 timing/audio repeats only verified by official first-party source (R02).
+9. **R5-09** · Audio fail/no permissions/interrupt/headphone loss cannot misgrade language.
+10. **R5-10** · Sound effects/music silent during meaningful speech, optional/muted in settings; EXAM no game sounds.
+11. **R5-11** · Playback normal speed accessible, optional slower teaching mode not labeled official exam.
+12. **R5-12** · Native voices have dated signed releases; recordings with personal data blocked.
+13. **R5-13** · Acoustic QA checks including clipping, intelligibility across speakers/devices, file decoding.
+14. **R5-14** · Day-14 and day-30 unseen comprehension plus distinct speaking, matched-time active control preregistered and independently assessed.
+15. **R5-15** · Install-time packs preserve offline playback after restart/airplane and verify per-pack SHA/routing; benchmark on actual Android, not paper ADR.
+16. **R5-16** · 4GB Play compressed cap with slack; per-pack 1.5GB cap; not an unsupported single-file APK claim.
 
 **Implementation priority:** Stage A teacher-curated, rights-cleared two-voice everyday task + novelty test (P0). Stage B 3+ talker Finnish length inventory and explicit perception/production split (P0). Stage C consented human/UX study (P0). Stage D expand to 3.6GB **only as valuable validated content becomes available** (P1). No new app behavior shipped by this research PR.
 

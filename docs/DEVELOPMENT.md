@@ -32,7 +32,20 @@ node --test packages/contracts/tests/*.test.mjs
 python3 scripts/validate_ai_docs.py
 ```
 
-Full validation by affected area is in [TESTING.md](TESTING.md). Do **not** run `pnpm build`, `gradlew` or Android release commands today: no corresponding buildable project or root lockfile has been established.
+Full validation by affected area is in [TESTING.md](TESTING.md). `gradlew` and Android release commands do not apply yet: there is no Android project. The pnpm workspace exists only for `apps/web` and `packages/domain`.
+
+## New React/TypeScript web app (G2-a, 03.11.2026)
+
+```sh
+corepack enable && pnpm install --frozen-lockfile
+pnpm --filter @hospodar/domain test      # parity with app/core.mjs, TZ=Europe/Helsinki
+pnpm -r typecheck
+pnpm --filter @hospodar/web test          # Dexie repository
+pnpm --filter @hospodar/web dev           # http://localhost:5173/
+cd apps/web && E2E_BROWSERS=chromium pnpm exec playwright test   # CI runs chromium,firefox,webkit
+```
+
+The legacy `app/` keeps working with the commands above; the two apps store progress separately until the planned G2-b import.
 
 ## Working on a change
 

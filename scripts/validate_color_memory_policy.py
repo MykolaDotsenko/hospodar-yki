@@ -43,7 +43,7 @@ def main():
         assert feature["exam_colored"] is False or feature["id"]=="use_skill_colors_only_for_navigation"
     assert set(data["colors"]) >= SKILLS|{"cue_background","cue_ink"}
     assert contrast(data["colors"]["cue_ink"],data["colors"]["cue_background"])>=4.5
-    assert tokens["version"]=="0.3.1"
+    assert tokens["version"]=="0.3.2"
     assert tokens["learning_cue"]["allowed_phases"]==["feedback"]
     assert "answer" in tokens["learning_cue"]["blocked_phases"]
     assert "exam" in tokens["learning_cue"]["blocked_phases"]

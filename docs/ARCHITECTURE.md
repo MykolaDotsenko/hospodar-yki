@@ -15,6 +15,8 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
                                   └── app/attempt-storage.mjs
                                        └── IndexedDB (exam event + checkpoint)
 app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
+apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
+     └── Dexie DB hospodar-yki:web:v1 (LEARN cloze mission; G2-a, beside legacy app/)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -22,7 +24,7 @@ native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
 
 **Runnable Web MVP:** plain JavaScript ES modules; browser pages served via a local HTTP server (not a build step). UI, progression, sample exam and limited audio exist. Browser exam V1 IndexedDB uses event+snapshot transactions with event-receipt recovery and a Chromium integration check; an **isolated** V2 adapter separately proves first-attempt uniqueness. The live learning SRS still uses `localStorage`.
 
-**Not implemented:** `apps/web` React/Vite/PWA, `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery 2–3GB, full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
+**G2-a…G2-d (03.11.2026):** `apps/web` React/Vite/TS app with Dexie persistence and `packages/domain` strict-TS policies with parity tests ([plan](exec-plans/active/2026-11-03-g2-web-react-scaffold.md)). **IMPLEMENTED (tested, S2 content pending):** LEARN missions (cloze, R08 reviewer preview, listening, reading, writing clinic, dialogues, picture missions, diagnostic, 7/14/30 delayed checks, media library), legacy progress import, «Мої дані» (verified JSON export + per-scope typed-confirmation erase, LEARN-16/WEB-07), and an EXAM practice rehearsal on an **XState** machine with its own IndexedDB (`hospodar-yki:web-exam:v1`: checkpoint + attempt history), full or skill-subset sessions, draft autosave and consented local voice recording (E06 receipts, separate `hospodar-yki:web-exam-voice:v1`), plus an offline app shell and explicit offline media packs with an exam-safe update guard (service worker, WEB-05/06). installable as a PWA (web app manifest). **Not implemented:** `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery (planned ≈3.6GB compressed within the 4GB Play ceiling, [R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
 
 ## Planned modular monolith (direction, **not** current paths)
 
@@ -47,7 +49,7 @@ React/Vite Web UI       XState exam policy     Phaser 2D scenes
 
 1. **EXAM:** `start → edit checkpoint → atomic durable commit → next/finish`. A save failure blocks progression. Mark typed event evidence separately from editable drafts. On lost ACK confirm actual **event ID plus fingerprint**, not just matching snapshot. Never expose correct answers/coaching before appropriate submission.
 2. **LEARN:** independent first response → immutable `FirstAttemptEvent` → corrections/transfer events → SRS update. A draft isn't evidence of independent recall. Do not silently migrate learning `localStorage` without export and repeatable migration tests.
-3. **CONTENT:** identity = `itemId + version + sha256`; freeze content identity in an in-flight attempt. Rights/source validation comes before media bundling; never copy 2–3GB assets into IndexedDB/Room.
+3. **CONTENT:** identity = `itemId + version + sha256`; freeze content identity in an in-flight attempt. Rights/source validation comes before media bundling; never copy multi-GB media assets into IndexedDB/Room.
 4. **ANDROID MEDIA:** install-time pack is target, not shipped. A provided `packId` must actually select a verified pack; native seek/subtitles/video and path traversal controls require compiled-device evidence.
 5. **AI/VOICE:** core offline first; optional remote feedback only after explicit opt-in, with minimal data and no default voice upload.
 

@@ -1,5 +1,7 @@
 # ADR-024 — Hospodar YKI: production-reliability architecture (Web + Android + 2–3GB offline game)
 
+> **Size superseded (03.11.2026):** "2–3GB" in this ADR is the historical budget. Current ceiling: [R05 amendment in ADR-023](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged) — planned ≈3.6GB compressed within Play's 4GB base+install-time limit (base ≤500MB, each pack ≤1.5GB). Persistence decisions here are unchanged.
+
 > **Implementation clarification — [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md):** TypeScript command boundary must be serializable across Capacitor, not a callback-based transaction protocol. `ExamCheckpoint` and immutable `FirstAttemptEvent` require a unified registry but distinct event semantics. Native Room/Media3 files are prototypes, not verified device binaries.
 
 **Date:** 22.10.2026 · **Decision:** recommended target, **NOT implemented**, no claim of measured 98/100 reliability.  

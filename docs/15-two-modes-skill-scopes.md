@@ -229,7 +229,19 @@ OPH дозволяє записуватися на **конкретні** мод
 
 ## 5.1. Впізнаваний, сміливо кольоровий дизайн без AI sameness — обов'язкова вимога
 
+**Простежуваність дизайну (03.11.2026):** кожна вимога DESIGN/COLOR/UIO/UX/SENS/MULTI/IV-REQ/A10, CURATED, EXAM-PILLAR, EXAM, LEARN, LE, YKI-FID і AC цього документа, MODE/MVP/PER/SIM/AUD (docs/11), EXV (docs/21), IV/IV-AC (UX #18), IV2/IV2-AC (UX #20), A11Y (дизайн #18), а також педагогічні вимоги досліджень #27 (COG/PSY), #22 (MEM/FEED/ATT/SND/MSUI/GAM), #26 (GL), R01…R12 (#29), QL-01…09 (docs/28) і всі release-гейти глибоких досліджень (R4-…R8-, M3-, SD-G, R11-, MOT-) має статус у [design-traceability-v1.json](design/design-traceability-v1.json) (`ENFORCED` / `PARTIAL` / `NOT_YET` / `STUDY_NOT_RUN` / `SUPERSEDED`). `ENFORCED` і `PARTIAL` посилаються на тести, які реально існують; CI (`validate_design_traceability.py`) падає, якщо вимогу пропущено, вигадано або доказ-тест зник. Звіт: `python3 scripts/validate_design_traceability.py --report`. Продуктові рішення DEC-01…06 **прийнято 03.11.2026**: сесії 10/20/30 хв (5 хв — лише мінімальне повернення); у всіх місіях, включно з R08, самовиправлення без ключа йде **до** показу ключа; тривалості руху — лише з `brand/tokens.json`; назви режимів «01 Навчання / 02 Симуляція YKI»; SVG-іконки навичок; NPC — співрозмовник у завданні, не маскот. Статус описує продукт, не доведений навчальний ефект.
+
 **DESIGN-01 — Колір дозволено і заохочується там, де він корисний.** Не обмежувати дизайн штучно до нудного мінімалізму чи бежево-сірої палітри. Дозволені насичені, свіжі, енергійні кольори для **привернення й утримання уваги**, розрізнення завдань, підсилення ієрархії та створення емоційно живого навчання. Не стверджувати без вимірювання, що самі яскраві кольори покращують запам'ятовування або результат YKI.
+
+**DESIGN-01a — Розподіл ролей кольору (уточнення DESIGN-01 ↔ COLOR-06/15, 03.11.2026).** DESIGN-01 і COLOR-15 не суперечать одне одному — вони стосуються різних шарів екрана:
+
+| Шар | Що в ньому | Кольори |
+|---|---|---|
+| **Орієнтація (accent layer)** | Навігація, gateway режимів, бейдж/підпис/рамка навички, активний крок маршруту, **одна** головна CTA, фокус | Насичені `primary`/`forest` і 4 кольори навичок; `gold` — лише графіка. У завданні — не більше **однієї** насиченої заливки |
+| **Поверхня змісту (reading surface)** | Фінський текст і prompt, поле письма, поля відповіді, транскрипт, активне завдання EXAM | Лише спокійні `surface`/`paper`/`surface_subtle`/`learn_tint`/`exam_tint` + текст `ink`/`muted`/`primary`/`forest` |
+| **Навчальна підказка (feedback cue)** | Підсвічена форма/значення | `cue_background`/`cue_text` + підкреслення, **лише у фазі feedback** після самостійної спроби |
+
+Машинний контракт — `color_roles` у [brand/tokens.json](../brand/tokens.json); `scripts/validate_design_tokens.py` у CI відхиляє насичену заливку під фінським текстом і сторонні кольори в навчальній підказці. Це статична перевірка, не доказ навчального ефекту кольору (DESIGN-13).
 
 **DESIGN-02 — Власна візуальна ДНК замість шаблонного AI sameness.** У кожному екрані зберігати впізнавану монограму H-поріг, короткий золотий діагональний мотив, чітку типографіку, відчуття фінсько-українського характеру, реальний зміст фінських ситуацій. **Не використовувати за замовчуванням** фіолетово-сині градієнти, скляні floating cards, всюдисущі однакові заокруглені картки, шаблонні роботики/світні кулі/маскоти, стокові AI-ілюстрації та випадкові декоративні емодзі.
 
@@ -571,11 +583,11 @@ type Session = {
 
 ## 12. Android-game + усі дозволені мультимедіа до першого запуску — ADR-023 / P0
 
-[Документ 23 — Android 2D game & 2–3 GB offline assets](23-android-offline-game-and-3gb-media-architecture.md) · [machine contract](../research/architecture/android-game-distribution-v1.json).
+[Документ 23 — Android 2D game & 3–4 GB offline assets (R05)](23-android-offline-game-and-3gb-media-architecture.md) · [machine contract](../research/architecture/android-game-distribution-v1.json).
 
 **Оновлення ARCH-01…14:** React/Vite/TypeScript + XState + Dexie залишається **shared application/domain**; Phaser малює лише ігровий світ, Android Capacitor+Kotlin відкриває native audio/video й install-time packs. **Для Web** — PWA/stream+offline packs; **для Android** — увесь схвалений/ліцензований контент має бути встановлений **до першого запуску**. Іспит YKI — без анімацій/світових підказок.
 
-**ANDR-01…18 (обов'язкове ТЗ/acceptance):** 01 airplane-mode first launch; 02 усі mandatory media `install-time`; 03 ≤500MB base, ≤1.5GB each pack, ≤4GB base+install-time, ціль 2–3GB measured; 04 не обіцяти буквально один standalone APK; 05 real seek/play 2GB без дублювання в IndexedDB; 06 offline core; 07 rights+SHA256+contentVersion; 08 Kotlin mic/back/resume/ä/ö; 09 privacy-by-default; 10 shared domain; 11 exam без гри й підказок; 12 low-motion, skip, FPS/thermal checks; 13 SRS/7/14d offline; 14 Android storage/packs upgrade recovery; 15 no unauthorized YouTube/SOLKI videos; 16 AAB + Play internal release gate; 17 signed standalone 2–3GB APK POC before any claim; 18 web/native media adapter parity.
+**ANDR-01…18 (обов'язкове ТЗ/acceptance):** 01 airplane-mode first launch; 02 усі mandatory media `install-time`; 03 ≤500MB base, ≤1.5GB each pack, ≤4GB base+install-time, ціль ≈3,6GB стиснено з запасом 400MB ([R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), measured; 04 не обіцяти буквально один standalone APK; 05 real seek/play 2GB без дублювання в IndexedDB; 06 offline core; 07 rights+SHA256+contentVersion; 08 Kotlin mic/back/resume/ä/ö; 09 privacy-by-default; 10 shared domain; 11 exam без гри й підказок; 12 low-motion, skip, FPS/thermal checks; 13 SRS/7/14d offline; 14 Android storage/packs upgrade recovery; 15 no unauthorized YouTube/SOLKI videos; 16 AAB + Play internal release gate; 17 signed standalone 2–3GB APK POC before any claim; 18 web/native media adapter parity.
 
 **Поточний стан:** `TARGET/NOT IMPLEMENTED`. Архітектурне рішення не означає, що `android/`, asset packs, Phaser-scenes або величезні медіафайли вже зібрані.
 

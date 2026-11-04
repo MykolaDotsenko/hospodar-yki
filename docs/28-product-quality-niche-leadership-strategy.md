@@ -148,7 +148,7 @@
 
 | Порядок | Конкретна задача | Acceptance |
 | --- | --- | --- |
-| **1** | Описати **content review card** для кожного опублікованого lesson/audio/item: рівень, communication outcome, source/licence, S2, answer variants, transcript, version | Validator не випускає `published` без обов'язкових полів; S2 може затвердити чи повернути |
+| **1** | Описати **content review card** для кожного опублікованого lesson/audio/item: рівень, communication outcome, source/licence, S2, answer variants, transcript, version | Validator не випускає `published` без обов'язкових полів; S2 може затвердити чи повернути **Gate built 03.11.2026:** `scripts/validate_content_publication.py` + 11 tests in CI; format in [CONTENT-AUTHORING](guides/CONTENT-AUTHORING.md). 0 items published — S2 review itself NOT DONE. |
 | **2** | Завершити один **реальний 20-хвилинний 4-skill LEARN** від першого слухання до незалежного переносу, без хмарного AI | Реальні кнопки й audio; exported first attempt; tests + S2 review |
 | **3** | Створити **незалежний held-out 7/14/30 pilot** на усіх 4 навичках (спочатку grammar writing як reference), збереження valid exposure днів | Жодного leakage, правильне виявлення пропусків, людський рубрикатор для open responses |
 | **4** | Провести дозволений **ручний review чотирьох OPH цифрових демо** та записати F1–F6 evidence gaps | Кожний елемент demo status/version, критичні UNKNOWN, без вигаданих таймерів |

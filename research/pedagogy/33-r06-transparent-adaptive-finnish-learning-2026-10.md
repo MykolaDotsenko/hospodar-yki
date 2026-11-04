@@ -1,5 +1,7 @@
 # 33 — R06: прозора персоналізація фінської A1.3–B2.1, адаптивне повторення і чотири навички
 
+**Update 03.11.2026 (G2-c):** a parity-tested TS port (`packages/domain/src/r06.ts`) now ranks cloze missions in the new `apps/web` with learner-visible reasons and manual choice; legacy `app.mjs` unchanged; R06 real-user study still NOT RUN.
+
 **Перевірка:** 28.10.2026. **Owner:** research/pedagogy, implementation owner app learning domain, study owner R01 UX. **Status:** CRITICAL_SELECTIVE_REVIEW_COMPLETED / REFERENCE_PROTOTYPE_ONLY / USER_TRIAL_NOT_RUN / APP_NOT_INTEGRATED. Ціль: українськомовні дорослі A2→B1+ (ширша LEARN A1.3–B2.1). Розділяти LEARN і EXAM YKI 2027. Це не PRISMA, не дані користувачів і не доведена ефективність Hospodar.
 
 **Не дублювати:** [R01 human outcome study](../ux/learning-impact-evaluation-protocol.md), [R03 Finnish morphology](30-r03-finnish-morphology-ukrainian-learner-evidence-2026-10.md), [R04 calibrated speaking/writing](31-r04-speaking-writing-human-calibrated-assessment-2026-10.md), [R05 natural multi-talker audio](32-r05-multitalker-phonetic-transfer-2026-10.md), [70 canonical methods](learning-methods-v1.json), [current SRS](../../app/core.mjs), [current active mission selection](../../app/app.mjs), [quiet audio UI](../design/19-r05-sound-visual-design-transfer-2026-10.md), [ADR-024/027](../../docs/27-stack-architecture-compatibility-and-implementation-gates.md). Немає нового другого методичного реєстру і нових ratings.
@@ -67,23 +69,23 @@
 
 ## 6. Product acceptance R6-01…R6-18 (all PROPOSED, prototype does not pass product gates)
 
-1. Pure deterministic same inputs → same ordered tasks/reason codes.
-2. Only LEARN; never EXAM-only content or exam answer leaks.
-3. S2-approved, rights-cleared, offline-available item filter enforced before ranking.
-4. Media/skill prerequisites and time limit actually enforced.
-5. Evidence of first independent result, never guided repair as proficiency.
-6. Ungraded speaking/writing never counted as correct/wrong or official YKI grade.
-7. Stable rule bounds and invalid date handling; Finnish local DST-safe overdue calculation.
-8. Cold-start neutral content with no fabricated CEFR/proficiency/psychological score.
-9. Each reason grounded in actual observed learning record or explicit user choice.
-10. Four-skill practice coverage; exposure count separated from human-judged mastery.
-11. Accessible manual choice, skip, sound-off/reduced-motion control.
-12. Device offline source/pack readiness; 3–4GB allowed content size not a storage utilization target.
-13. Preserve existing attempts across future storage migration and offline resume.
-14. Reasonable low-data cap, export/delete/local privacy, no default telemetry.
-15. Nonpunitive variant-sensitive R03 Finnish morphology and acceptable puhekieli.
-16. No surprise music/SFX under reading, writing, listening or recording.
-17. Controlled time-matched blinded unseen day-14/30 real user evaluation with uncertainty.
-18. Feature PR includes QA across Web/Android E2E and rollback, before any measured-uplift claim.
+1. **R6-01** · Pure deterministic same inputs → same ordered tasks/reason codes.
+2. **R6-02** · Only LEARN; never EXAM-only content or exam answer leaks.
+3. **R6-03** · S2-approved, rights-cleared, offline-available item filter enforced before ranking.
+4. **R6-04** · Media/skill prerequisites and time limit actually enforced.
+5. **R6-05** · Evidence of first independent result, never guided repair as proficiency.
+6. **R6-06** · Ungraded speaking/writing never counted as correct/wrong or official YKI grade.
+7. **R6-07** · Stable rule bounds and invalid date handling; Finnish local DST-safe overdue calculation.
+8. **R6-08** · Cold-start neutral content with no fabricated CEFR/proficiency/psychological score.
+9. **R6-09** · Each reason grounded in actual observed learning record or explicit user choice.
+10. **R6-10** · Four-skill practice coverage; exposure count separated from human-judged mastery.
+11. **R6-11** · Accessible manual choice, skip, sound-off/reduced-motion control.
+12. **R6-12** · Device offline source/pack readiness; 3–4GB allowed content size not a storage utilization target.
+13. **R6-13** · Preserve existing attempts across future storage migration and offline resume.
+14. **R6-14** · Reasonable low-data cap, export/delete/local privacy, no default telemetry.
+15. **R6-15** · Nonpunitive variant-sensitive R03 Finnish morphology and acceptable puhekieli.
+16. **R6-16** · No surprise music/SFX under reading, writing, listening or recording.
+17. **R6-17** · Controlled time-matched blinded unseen day-14/30 real user evaluation with uncertainty.
+18. **R6-18** · Feature PR includes QA across Web/Android E2E and rollback, before any measured-uplift claim.
 
 **Next source track:** R07 meaningful interactive UX; carry design tokens and R05 audio-first discipline forward. Research complete ≠ finished product feature or empirically proven adaptive improvement.

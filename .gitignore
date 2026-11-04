@@ -3,6 +3,8 @@ node_modules/
 .pnpm-store/
 dist/
 coverage/
+test-results/
+playwright-report/
 .cache/
 *.tsbuildinfo
 __pycache__/

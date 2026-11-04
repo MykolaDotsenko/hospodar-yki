@@ -1,4 +1,7 @@
 /** R08 grammar research reference — no runtime integration or learner state storage.
+ * Phase order superseded by DEC-02 (03.11.2026): the canonical learner flow is
+ * packages/domain/src/r08.ts (repair without key BEFORE the key). First-attempt
+ * evidence rules here remain the parity reference.
  * No universal Finnish word-form generator: teacher-approved items+forms only.
  */
 export const R08_GRAMMAR_STATUS="RESEARCH_PROTOTYPE_NOT_ACTIVE_APP";

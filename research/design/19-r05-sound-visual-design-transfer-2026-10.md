@@ -60,20 +60,20 @@ Voice QA: capture real speech, compare recording quality, no clipped consonants,
 
 Before running: S2-approved tasks, participant consent, accessibility QA, sample feasibility/power, randomization, blinded evaluators and **strong task-equivalent comparison**. Never claim an effect of Hospodar without participants and new-situation outcomes.
 
-## 6. Release gates SD-01…SD-12: all PROPOSED / NOT PASSED
+## 6. Release gates SD-G01…SD-G12: all PROPOSED / NOT PASSED
 
-1. No duplicate token palette; source of truth remains brand/tokens.json, color pairs AA-audited.
-2. Text/speech/mic action focus with no decorative or answer-cue leakage.
-3. No color-only feedback; visible distinguishable state labels.
-4. Respect OS reduced motion + configurable Calm Mode; moving content user-controlled per WCAG.
-5. No surprise autoplay; ability to mute/pause independent of system volume where applicable.
-6. No competing audio during learning speech or learner recording.
-7. Captions only after first independent answer or in explicit teaching mode, never independent exam.
-8. Finnish (ä/ö/å) and Ukrainian text accessible across light/dark/reflow/mobile.
-9. Accessible mic, player, volume, caption, save and error messages.
-10. Sound assets licensed per audio file; any bundled assets include manifests/hashes/rights.
-11. Test efficacy on independent day-14 language actions, not only satisfaction or animation impressions.
-12. Neutral no-sfx EXAM UI; no invented official digital 2027 controls.
+1. **SD-G01** · No duplicate token palette; source of truth remains brand/tokens.json, color pairs AA-audited.
+2. **SD-G02** · Text/speech/mic action focus with no decorative or answer-cue leakage.
+3. **SD-G03** · No color-only feedback; visible distinguishable state labels.
+4. **SD-G04** · Respect OS reduced motion + configurable Calm Mode; moving content user-controlled per WCAG.
+5. **SD-G05** · No surprise autoplay; ability to mute/pause independent of system volume where applicable.
+6. **SD-G06** · No competing audio during learning speech or learner recording.
+7. **SD-G07** · Captions only after first independent answer or in explicit teaching mode, never independent exam.
+8. **SD-G08** · Finnish (ä/ö/å) and Ukrainian text accessible across light/dark/reflow/mobile.
+9. **SD-G09** · Accessible mic, player, volume, caption, save and error messages.
+10. **SD-G10** · Sound assets licensed per audio file; any bundled assets include manifests/hashes/rights.
+11. **SD-G11** · Test efficacy on independent day-14 language actions, not only satisfaction or animation impressions.
+12. **SD-G12** · Neutral no-sfx EXAM UI; no invented official digital 2027 controls.
 
 ## 7. Handoff
 

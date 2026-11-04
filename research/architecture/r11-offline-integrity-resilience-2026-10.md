@@ -18,21 +18,21 @@ Can an adult learner resume the exact sequence **independent first Finnish answe
 
 | ID / level | Primary source and verifiable finding | Hospodar action / limit |
 |---|---|---|
-| REL-01 official Android | [Offline-first data layer](https://developer.android.com/topic/architecture/data-layer/offline-first): local database should be the read source of truth, writes to critical user data locally first and optional later network sync. | **ADOPT:** future Room Android, transactional IndexedDB Web behind portable command model; no cloud AI requirement. Not an experiment measuring second-language efficacy. |
-| REL-02 official Android | [Data layer](https://developer.android.com/topic/architecture/data-layer): repository owns source-of-truth updates and UI observes it. | **ADOPT:** show saved success only after repository receipt; do not trust optimistic UI or unchanged snapshot. |
-| REL-03 MDN Storage API | [Storage quotas, eviction and persistence](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria): best-effort storage can be evicted, persistent request may be denied, private browsing differs and user can delete any stored data. | **ADOPT:** backup/export, quota recovery, honest browser-local notice; navigator.storage.persist is NOT a guarantee. |
-| REL-04 MDN IndexedDB | [IDB durability](https://developer.mozilla.org/en-US/docs/Web/API/IDBTransaction/durability) and [transaction options](https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/transaction): strict prioritizes persistent medium, relaxed can acknowledge OS buffers; UA/browser compatibility caveats. | **EXPERIMENT:** compare strict for first/last critical commit vs default for frequent draft, on actual browsers; neither prevents drive destruction or user deletion. |
-| REL-05 MDN IndexedDB | [Using IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB): transaction COMPLETE not mere request success, abort/upgrade blocking, relaxed durability caveat. | **ADOPT:** existing V1/V2 receipt and CAS, test exact eventId on ACK loss, fail closed on conflict. |
-| REL-06 official Android Room | [MigrationTestHelper](https://developer.android.com/reference/androidx/room/testing/MigrationTestHelper): create old DB and validate schema migration on real driver; retain old data checks separately. | **ADOPT:** compiled Kotlin parity+Room migration/rollback tests before Android release; existing Kotlin is only source prototype. |
-| REL-07 official Google Play | [Size limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en): base or feature module 500MB each; **single asset pack 1.5GB compressed; aggregate base+features+install-time asset packs 4GB compressed**; separate on-demand/fast-follow cap 30GB not equivalent to full first-start offline. | **ADOPT:** current 3.6GB nominal R05 pack proposal must stay below real compressed 4GB cap with headroom. No AAB was built. |
-| REL-08 official Google PAD | [Play Asset Delivery guide](https://developer.android.com/guide/playcore/asset-delivery): update/install of install-time packs needs extra disk, guide notes about twice pack size, assets can change availability/location across update. | **ADOPT:** actual Play-installed airplane, update, low disk, pack-integrity and license tests. Avoid assuming pack files are writable durable user progress. |
-| REL-09 Google PWA | [Caching](https://web.dev/learn/pwa/caching): service-worker caches selected URLs, extra media wastes bandwidth/disk and can serve stale content. | **ADAPT:** optional bounded Web packs with release manifest; never cache entire 4GB Android distribution on the Web by default. |
-| REL-10 Chrome official | [Cache strategies](https://developer.chrome.com/docs/modern-web-guidance/guides/performance/performance): static hash-versioned immutable assets vs HTML and runtime freshness; bound cache sizes. | **ADAPT:** version every learning item/key and audio together; no mid-exam silent hot swap. |
-| REL-11 actual repo V1 | [EXAM IndexedDB](../../app/attempt-storage.mjs) and [real Chromium test](../../app/tests/atomic-idb-browser.html) have atomic snapshot/event CAS, exact receipt and ACK recovery. | **KEEP:** current Web EXAM has meaningful browser tests, not hardware-power cycle or compiled Android. Don't replace needlessly. |
-| REL-12 actual repo V2 | [Portable command](../../packages/contracts/src/session-v2.mjs) and [V2 experimental IndexedDB](../../app/session-v2-idb.mjs), [G1 record](../../docs/architecture/G1-IMPLEMENTATION.md) have independent first-attempt keyed by itemId/version/hash, receipts and CAS; not active LEARN/EXAM. | **ADAPT:** gated Web V1→V2 only after exact backup/migration test and Android Kotlin parity; no silent cutover. |
-| REL-13 actual repo LEARN | [core.mjs](../../app/core.mjs) readState filters invalid cards/retention/attempts and caps historical lists to 120/160; [app.mjs](../../app/app.mjs) persists JSON via localStorage and handles failed write as volatile mode. | **ACTUAL R11 PROTOTYPE:** preflight checks against the shipped reader and refuses any potentially lossy conversion. No learner data touched. |
-| REL-14 EU privacy | [EU GDPR data minimization](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en): process only necessary learner information. | **ADOPT:** no automatic uploads of speaking/audio/answers; no private response snippets in migration diagnostics. |
-| REL-15 W3C a11y | [WCAG 2.2](https://www.w3.org/TR/WCAG22/): understandable, perceivable state and keyboard access; normative not learning-effect evidence. | **ADOPT:** correct recovery copy for failed save, absent audio/microphone, accessible export/restore, mode separation. |
+| R11-S01 official Android | [Offline-first data layer](https://developer.android.com/topic/architecture/data-layer/offline-first): local database should be the read source of truth, writes to critical user data locally first and optional later network sync. | **ADOPT:** future Room Android, transactional IndexedDB Web behind portable command model; no cloud AI requirement. Not an experiment measuring second-language efficacy. |
+| R11-S02 official Android | [Data layer](https://developer.android.com/topic/architecture/data-layer): repository owns source-of-truth updates and UI observes it. | **ADOPT:** show saved success only after repository receipt; do not trust optimistic UI or unchanged snapshot. |
+| R11-S03 MDN Storage API | [Storage quotas, eviction and persistence](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria): best-effort storage can be evicted, persistent request may be denied, private browsing differs and user can delete any stored data. | **ADOPT:** backup/export, quota recovery, honest browser-local notice; navigator.storage.persist is NOT a guarantee. |
+| R11-S04 MDN IndexedDB | [IDB durability](https://developer.mozilla.org/en-US/docs/Web/API/IDBTransaction/durability) and [transaction options](https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/transaction): strict prioritizes persistent medium, relaxed can acknowledge OS buffers; UA/browser compatibility caveats. | **EXPERIMENT:** compare strict for first/last critical commit vs default for frequent draft, on actual browsers; neither prevents drive destruction or user deletion. |
+| R11-S05 MDN IndexedDB | [Using IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB): transaction COMPLETE not mere request success, abort/upgrade blocking, relaxed durability caveat. | **ADOPT:** existing V1/V2 receipt and CAS, test exact eventId on ACK loss, fail closed on conflict. |
+| R11-S06 official Android Room | [MigrationTestHelper](https://developer.android.com/reference/androidx/room/testing/MigrationTestHelper): create old DB and validate schema migration on real driver; retain old data checks separately. | **ADOPT:** compiled Kotlin parity+Room migration/rollback tests before Android release; existing Kotlin is only source prototype. |
+| R11-S07 official Google Play | [Size limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en): base or feature module 500MB each; **single asset pack 1.5GB compressed; aggregate base+features+install-time asset packs 4GB compressed**; separate on-demand/fast-follow cap 30GB not equivalent to full first-start offline. | **ADOPT:** current 3.6GB nominal R05 pack proposal must stay below real compressed 4GB cap with headroom. No AAB was built. |
+| R11-S08 official Google PAD | [Play Asset Delivery guide](https://developer.android.com/guide/playcore/asset-delivery): update/install of install-time packs needs extra disk, guide notes about twice pack size, assets can change availability/location across update. | **ADOPT:** actual Play-installed airplane, update, low disk, pack-integrity and license tests. Avoid assuming pack files are writable durable user progress. |
+| R11-S09 Google PWA | [Caching](https://web.dev/learn/pwa/caching): service-worker caches selected URLs, extra media wastes bandwidth/disk and can serve stale content. | **ADAPT:** optional bounded Web packs with release manifest; never cache entire 4GB Android distribution on the Web by default. |
+| R11-S10 Chrome official | [Cache strategies](https://developer.chrome.com/docs/modern-web-guidance/guides/performance/performance): static hash-versioned immutable assets vs HTML and runtime freshness; bound cache sizes. | **ADAPT:** version every learning item/key and audio together; no mid-exam silent hot swap. |
+| R11-S11 actual repo V1 | [EXAM IndexedDB](../../app/attempt-storage.mjs) and [real Chromium test](../../app/tests/atomic-idb-browser.html) have atomic snapshot/event CAS, exact receipt and ACK recovery. | **KEEP:** current Web EXAM has meaningful browser tests, not hardware-power cycle or compiled Android. Don't replace needlessly. |
+| R11-S12 actual repo V2 | [Portable command](../../packages/contracts/src/session-v2.mjs) and [V2 experimental IndexedDB](../../app/session-v2-idb.mjs), [G1 record](../../docs/architecture/G1-IMPLEMENTATION.md) have independent first-attempt keyed by itemId/version/hash, receipts and CAS; not active LEARN/EXAM. | **ADAPT:** gated Web V1→V2 only after exact backup/migration test and Android Kotlin parity; no silent cutover. |
+| R11-S13 actual repo LEARN | [core.mjs](../../app/core.mjs) readState filters invalid cards/retention/attempts and caps historical lists to 120/160; [app.mjs](../../app/app.mjs) persists JSON via localStorage and handles failed write as volatile mode. | **ACTUAL R11 PROTOTYPE:** preflight checks against the shipped reader and refuses any potentially lossy conversion. No learner data touched. |
+| R11-S14 EU privacy | [EU GDPR data minimization](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/principles-gdpr_en): process only necessary learner information. | **ADOPT:** no automatic uploads of speaking/audio/answers; no private response snippets in migration diagnostics. |
+| R11-S15 W3C a11y | [WCAG 2.2](https://www.w3.org/TR/WCAG22/): understandable, perceivable state and keyboard access; normative not learning-effect evidence. | **ADOPT:** correct recovery copy for failed save, absent audio/microphone, accessible export/restore, mode separation. |
 
 **Research validity:** mostly official standards, architecture documentation and directly inspected code; this is not 15 novel clinical/L2 trials. It is not a hardware failure audit or production performance benchmark. No throughput, crash resistance percentages or Finnish-learning gains have been measured.
 
@@ -80,27 +80,27 @@ R05 earlier nominal draft: 160 MB base + 1100 MB core audio + 640 MB advanced au
 
 All signed content/voice packs must align taskVersion+contentHash+mediaHash+approved rights and have a text-only fallback where pedagogically valid. A transcript **before** independent audio response changes listening evidence to supported/ungraded, it does not make listening comprehension "failed". Learner answers/storage and downloaded content assets belong to **different data lifecycles**; deletion of media cache should not delete first attempts.
 
-## 7. Proposed R11 acceptance gates and next owner
+## 7. Proposed R11 acceptance gates R11-01…R11-20 and next owner
 
-1. Verified source backup before V1→V2; raw Finnish unchanged.
-2. Unknown fields and older/newer versions fail closed, not silently reset.
-3. No capped-history truncation on migration and no accidental loss of ungraded answers.
-4. Exact eventId/itemVersion/contentHash, optimistic revision CAS and unique first attempts.
-5. Guided repair does not rewrite independent first-answer score.
-6. Actual IndexedDB transaction oncomplete before saved/next, lost ACK receipt reconciliation only.
-7. Test two concurrent tabs, failed write/retry, duplicate command mismatch.
-8. LocalStorage and IndexedDB eviction/quota user-visible warning + usable export.
-9. Cross-format Web/Android parity verified after compiling Kotlin, not assumed.
-10. Room migration validated with real exported schemas and existing data rows.
-11. Web offline app shell and selected media packs work after browser restart, with quota policy explained.
-12. Android Play-installed offline install-time packs actually load in airplane mode, within 4GB limits and 1.5GB each.
-13. Audio missing/hash mismatch/revoked rights blocks audio-only score, user gets supported alternative.
-14. All four skills LEARN and high-fidelity EXAM evidence kept separate.
-15. User writing/voice privacy, no forced cloud or AI evaluation.
-16. EU/privacy and WCAG status feedback/export reviewed for accessible operation.
-17. P95 latency, cold start and free disk measured only after real device build, no fabricated benchmark.
-18. Full 27 failure matrix with failures reported, rollback and a separate app feature PR.
-19. Any efficacy study uses matched pedagogy/time, independently new task and blind day14/day30 metrics.
-20. Green research/Node tests are not a Play release gate on their own.
+1. **R11-01** · Verified source backup before V1→V2; raw Finnish unchanged.
+2. **R11-02** · Unknown fields and older/newer versions fail closed, not silently reset.
+3. **R11-03** · No capped-history truncation on migration and no accidental loss of ungraded answers.
+4. **R11-04** · Exact eventId/itemVersion/contentHash, optimistic revision CAS and unique first attempts.
+5. **R11-05** · Guided repair does not rewrite independent first-answer score.
+6. **R11-06** · Actual IndexedDB transaction oncomplete before saved/next, lost ACK receipt reconciliation only.
+7. **R11-07** · Test two concurrent tabs, failed write/retry, duplicate command mismatch.
+8. **R11-08** · LocalStorage and IndexedDB eviction/quota user-visible warning + usable export.
+9. **R11-09** · Cross-format Web/Android parity verified after compiling Kotlin, not assumed.
+10. **R11-10** · Room migration validated with real exported schemas and existing data rows.
+11. **R11-11** · Web offline app shell and selected media packs work after browser restart, with quota policy explained.
+12. **R11-12** · Android Play-installed offline install-time packs actually load in airplane mode, within 4GB limits and 1.5GB each.
+13. **R11-13** · Audio missing/hash mismatch/revoked rights blocks audio-only score, user gets supported alternative.
+14. **R11-14** · All four skills LEARN and high-fidelity EXAM evidence kept separate.
+15. **R11-15** · User writing/voice privacy, no forced cloud or AI evaluation.
+16. **R11-16** · EU/privacy and WCAG status feedback/export reviewed for accessible operation.
+17. **R11-17** · P95 latency, cold start and free disk measured only after real device build, no fabricated benchmark.
+18. **R11-18** · Full 27 failure matrix with failures reported, rollback and a separate app feature PR.
+19. **R11-19** · Any efficacy study uses matched pedagogy/time, independently new task and blind day14/day30 metrics.
+20. **R11-20** · Green research/Node tests are not a Play release gate on their own.
 
 **Next production step:** implement real export/restore and LEARN migration using existing V2 contract, old V1 backup, exact receipt and preserved histories in a separately tested production PR; follow with real Room, Kotlin fixture, PAD and UI tests. **Next research workstream:** R12 per canonical roadmap. No claims of 100% durability or B1 success from this research package.

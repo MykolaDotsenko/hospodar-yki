@@ -21,7 +21,7 @@ A draft autosave is NOT proof of an independently recalled first answer. Current
 | --- | --- | --- | --- | --- |
 | **G0** | Existing app/test | Freeze baseline fixtures, known failure inventory; protect working browser MVP | Node + Chromium IDB green, documented source hash | **PARTIAL** — regression tests exist |
 | **G1** | `packages/contracts`, domain | One versioned command registry, `ExamCheckpoint` vs `FirstAttemptEvent`, canonical serialization, cross-language errors; C-01…C-06 | Shared fixtures + JS/Room parity, ID-based lost-ACK reconciliation | **PARTIAL** — V2 JS commands/fixtures, isolated Web V2 IDB, V1 Web receipt recovery; UI integration, Kotlin parity and migrations NOT DONE |
-| **G2** | `apps/web`, Web storage | React 19 / strict TS / Vite app; port Learn+Exam, IndexedDB/Dexie, legacy export/migration, PWA selective offline | All legacy missions and exam tests pass; Playwright Chromium/Firefox/WebKit | **NOT STARTED** |
+| **G2** | `apps/web`, Web storage | React 19 / strict TS / Vite app; port Learn+Exam, IndexedDB/Dexie, legacy export/migration, PWA selective offline | All legacy missions and exam tests pass; Playwright Chromium/Firefox/WebKit | **PARTIAL — G2-a (03.11.2026):** `apps/web` shell + one LEARN mission + Dexie + TS domain parity; migration, EXAM, PWA, other screens NOT DONE ([plan](exec-plans/active/2026-11-03-g2-web-react-scaffold.md)) |
 | **G3** | `apps/android`, Kotlin | Scaffold Capacitor+Gradle; integrate native Room, migrations, plugins, lifecycle; 1 shared task end-to-end | Compiled debug/Release-compatible AAB, emulator & physical phone tests | **SOURCE PROTOTYPE ONLY** |
 | **G4** | Media pipeline/native | Real PAD `packId` routing + checksum/path parity, native seek + video surface, captions; >1 GB **synthetic** offline install-time test | Signed AAB + bundletool / Play internal install, airplane-mode seek, resource profile | **SOURCE PROTOTYPE ONLY** |
 | **G5** | Learning/game/exam | Phaser 2D scene + NPC quest with real outcome/feedback/transfer; 4-skill parity, strict exam mode | End-to-end Web/Android gameplay + accessible forms + 30 FPS measured mid-range Android | **NOT STARTED** |
@@ -46,6 +46,6 @@ For upcoming G2/G5 UI, voice, SRS and Phaser work, apply [research program](../r
 
 ## 4. Exclusions / migration safety
 
-Do **not** deploy two independent domain engines or score ungraded speaking/writing as an official YKI level. Do **not** block offline core on Supabase login or automatic 3GB Web download. Do **not** remove the existing `app/` until critical flows, old exports, check/scores and data migrations are demonstrably equivalent. Checksum/version pin content to an in-progress attempt.
+Do **not** deploy two independent domain engines or score ungraded speaking/writing as an official YKI level. Do **not** block offline core on Supabase login or automatic multi-GB Web download. Do **not** remove the existing `app/` until critical flows, old exports, check/scores and data migrations are demonstrably equivalent. Checksum/version pin content to an in-progress attempt.
 
 **Acceptance case list:** [C-01…C-10](27-stack-architecture-compatibility-and-implementation-gates.md). **Legacy release gates:** [REL-01…REL-16](24-reliability-hardened-architecture-web-android.md), [ANDR-01…ANDR-18 / WEB-01…WEB-10](23-android-offline-game-and-3gb-media-architecture.md).

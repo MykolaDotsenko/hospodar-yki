@@ -6,7 +6,8 @@ import {resolve,dirname,join} from "node:path";
 import {
   EXAM_STORAGE_KEY,EXAM_STATE_VERSION,MAX_ANSWER_CHARS,buildItems,
   createSession,loadSession,remainingSeconds,writeAnswer,goToIndex,
-  recordVoiceEvidence,finishSession,scoreSession
+  recordVoiceEvidence,finishSession,scoreSession,isPracticeExpired,
+  withElapsedHighWater,isDeadlineError,DEADLINE_EXPIRED
 } from "../exam-core.mjs";
 
 const BASE=resolve(dirname(fileURLToPath(import.meta.url)),"../..");
@@ -82,7 +83,7 @@ test("incorrect and missing answers never receive automatic credit",()=>{
 test("local drafts survive reload, but voice evidence does not masquerade as persisted audio",()=>{
   let s=createSession(manifest.blueprints[0].id,30,now);
   s=writeAnswer(s,items[0].id,"0",now);
-  s=recordVoiceEvidence(s,items.at(-1).id,true);
+  s=recordVoiceEvidence(s,items.at(-1).id,true,now);
   const restored=loadSession(JSON.stringify(s),manifest.blueprints.map(b=>b.id));
   assert.equal(restored.recovered,false);
   assert.equal(restored.session.answers[items[0].id],"0");
@@ -122,4 +123,56 @@ test("evidence ledger is explicit about unsupported 2027 digitesti assumptions",
     assert.ok(claim.simulator_policy);
   }
   assert.equal(registry.assessment_rubrics.grade_policy,"NO_AUTOMATIC_YKI_GRADE");
+});
+
+const at=ms=>new Date(now.getTime()+ms);
+test("E04-C1: answers, navigation and voice evidence are refused at and after the practice deadline",()=>{
+  const s=createSession(manifest.blueprints[0].id,15,now);
+  const t=items[0],voice=items.at(-1);
+  assert.equal(writeAnswer(s,t.id,"0",at(899_999)).answers[t.id],"0");
+  assert.equal(goToIndex(s,1,9,at(899_999)).index,1);
+  for(const late of [900_000,900_001,3_600_000]){
+    const isLate=e=>isDeadlineError(e)&&e.code===DEADLINE_EXPIRED;
+    assert.throws(()=>writeAnswer(s,t.id,"late",at(late)),isLate);
+    assert.throws(()=>goToIndex(s,1,9,at(late)),isLate);
+    assert.throws(()=>recordVoiceEvidence(s,voice.id,true,at(late)),isLate);
+  }
+  // Finishing after expiry stays possible: that is how a deadline finish is committed.
+  const done=finishSession(s,at(900_500));
+  assert.equal(isPracticeExpired(done,at(900_500)),false);
+  assert.equal(scoreSession(items,done).officialGrade,null);
+});
+test("E04-C1: no-timer sessions never expire",()=>{
+  const s=createSession(manifest.blueprints[0].id,0,now);
+  assert.equal(isPracticeExpired(s,at(10*24*3_600_000)),false);
+  assert.equal(writeAnswer(s,items[0].id,"1",at(10*24*3_600_000)).answers[items[0].id],"1");
+  assert.equal(withElapsedHighWater(s,5_000),s);
+});
+test("E04-C1: elapsed high-watermark survives reload and a backwards wall clock",()=>{
+  let s=createSession(manifest.blueprints[0].id,15,now);
+  s=withElapsedHighWater(s,600_000);           // e.g. monotonic page clock saw 10 min
+  assert.equal(withElapsedHighWater(s,100_000).elapsedHighWaterMs,600_000); // never decreases
+  assert.equal(withElapsedHighWater(s,5_000_000).elapsedHighWaterMs,900_000); // clamped to limit
+  const restored=loadSession(JSON.stringify(s),manifest.blueprints.map(b=>b.id)).session;
+  assert.equal(restored.elapsedHighWaterMs,600_000);
+  // Wall clock moved back to the start: the 10 observed minutes are not given back.
+  assert.equal(remainingSeconds(restored,now),300);
+  assert.equal(remainingSeconds(restored,at(-3_600_000)),300);
+  assert.equal(isPracticeExpired(withElapsedHighWater(restored,900_000),now),true);
+  assert.throws(()=>writeAnswer(withElapsedHighWater(restored,900_000),items[0].id,"x",now),isDeadlineError);
+  assert.throws(()=>withElapsedHighWater(s,-1));
+  assert.throws(()=>withElapsedHighWater(s,Number.NaN));
+});
+test("E04-C1: legacy sessions without watermark load as 0; malformed watermark is rejected",()=>{
+  const ids=manifest.blueprints.map(b=>b.id);
+  const legacy=createSession(manifest.blueprints[0].id,30,now);
+  delete legacy.elapsedHighWaterMs;
+  const loaded=loadSession(JSON.stringify(legacy),ids);
+  assert.equal(loaded.recovered,false);
+  assert.equal(loaded.session.elapsedHighWaterMs,0);
+  for(const bad of [-5,"60000",null]){
+    assert.equal(loadSession(JSON.stringify({...legacy,elapsedHighWaterMs:bad}),ids).recovered,true);
+  }
+  const huge=loadSession(JSON.stringify({...legacy,elapsedHighWaterMs:9e12}),ids).session;
+  assert.equal(huge.elapsedHighWaterMs,30*60_000);
 });
