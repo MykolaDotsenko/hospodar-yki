@@ -1,7 +1,7 @@
 import swSource from "../sw/sw.js?raw";
 import { describe, expect, it } from "vitest";
 import { planOffline, packState } from "./manifest.ts";
-import { downloadPack, packStatus, removePack, type CachesLike } from "./offline.ts";
+import { downloadPack, isWaitingUpdate, packStatus, removePack, type CachesLike } from "./offline.ts";
 
 const files = [
   { url: "index.html", bytes: 500 }, { url: "assets/index-a1.js", bytes: 9000 }, { url: "assets/index-a1.js.map", bytes: 99999 },
@@ -30,6 +30,16 @@ describe("offline manifest (WEB-05)", () => {
 
 const hex = async (n: number) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new Uint8Array(n)))].map(x => x.toString(16).padStart(2, "0")).join("");
 const withHashes = await Promise.all(files.map(async f => ({ ...f, sha256: await hex(f.bytes) })));
+describe("update guard (WEB-06)", () => {
+  it("only an installed worker in the waiting slot with another active worker is an update; a first install never is", () => {
+    expect(isWaitingUpdate("installed", true, true)).toBe(true);
+    expect(isWaitingUpdate("installed", false, false)).toBe(false);   // first install (WebKit may report this before activation)
+    expect(isWaitingUpdate("installed", true, false)).toBe(false);
+    expect(isWaitingUpdate("activated", false, false)).toBe(false);
+    expect(isWaitingUpdate("installing", false, true)).toBe(false);
+  });
+});
+
 describe("explicit pack download", () => {
   const pack = planOffline(withHashes, "abcdef0123456789").packs[0]!;
   const okFetch = (async (u: string) => new Response(new Uint8Array(u.endsWith(".mp3") ? 6000 : 4000), { headers: { "content-type": "audio/x" } })) as unknown as typeof fetch;

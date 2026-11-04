@@ -52,6 +52,11 @@ export async function removePack(pack: OfflinePack, caches: CachesLike, abs = ab
   for (const f of pack.files) await cache.delete(abs(f.url));
 }
 
+/** A NEW version is waiting only if it is installed, sits in `registration.waiting`, and a DIFFERENT worker is active.
+ * (A first install is never an "update"; engines differ in the order of statechange vs controller, so the
+ * registration slots are the source of truth.) */
+export const isWaitingUpdate = (state: string, inWaitingSlot: boolean, otherActive: boolean) => state === "installed" && inWaitingSlot && otherActive;
+
 /** Update guard state shared with the UI: a waiting worker is only activated by an explicit learner action. */
 type Listener = (ready: boolean) => void;
 let waiting: ServiceWorker | null = null;
@@ -65,7 +70,10 @@ export async function registerServiceWorker(): Promise<ServiceWorkerRegistration
     const reg = await navigator.serviceWorker.register("./sw.js", { scope: "./" });
     const track = (w: ServiceWorker | null) => {
       if (!w) return;
-      const check = () => { if (w.state === "installed" && navigator.serviceWorker.controller) { waiting = w; announce(); } };
+      const check = () => {
+        const next = isWaitingUpdate(w.state, reg.waiting === w, reg.active !== null && reg.active !== w) ? w : waiting === w ? null : waiting;
+        if (next !== waiting) { waiting = next; announce(); }
+      };
       check(); w.addEventListener("statechange", check);
     };
     track(reg.waiting); track(reg.installing);
