@@ -37,7 +37,8 @@
     "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
     "research/yki/e03-construct-task-coverage-audit-2026-10.json",
     "research/yki/e05-authentic-listening-audit-2026-10.json",
-    "research/yki/e06-speaking-evidence-audit-2026-10.json"
+    "research/yki/e06-speaking-evidence-audit-2026-10.json",
+    "research/yki/e07-writing-editor-evidence-2026-10.json"
   ],
   "statuses": {
     "ENFORCED": "an automated test fails if the rule is broken",
@@ -11025,6 +11026,127 @@
       "summary": "Day 14/30 unseen speaking transfer outcome compared fairly with human blind assessment",
       "status": "STUDY_NOT_RUN",
       "plan": "Human study — NOT RUN: consent, equal-time strong comparator, blinded delayed unseen Finnish outcomes."
+    },
+    {
+      "id": "E07-G01",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Three historical writing families covered by original, licensed, S2-reviewed Finnish tasks (not copied official items)",
+      "status": "NOT_YET",
+      "plan": "S2-authored item bank; five E07 briefs exist only as BRIEF_ONLY_NOT_S2_REVIEWED."
+    },
+    {
+      "id": "E07-G02",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Two independent Finnish S2 teachers approve genre, recipient, purpose, required points and valid alternatives",
+      "status": "NOT_YET",
+      "plan": "Two-person S2 review (human)."
+    },
+    {
+      "id": "E07-G03",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Unicode-exact draft persisted and verified across reload and multi-tab conflict, with a clear local save status",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
+        },
+        {
+          "file": "app/tests/e07-writing-evidence-policy.test.mjs",
+          "contains": "Different input, normalized Unicode or pasted character changes invalidate readback"
+        }
+      ],
+      "gap": "apps/web autosave + reload + CAS conflict + 'Tallennettu' status are tested; exact-Unicode readback exists only in the isolated E07 reference module, not wired into apps/web."
+    },
+    {
+      "id": "E07-G04",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "IME / Android ä-ö, copy-paste, keyboard and composition boundaries pass browser E2E",
+      "status": "NOT_YET",
+      "plan": "Composition-safe transitions (reference in app/e07-writing-evidence-policy.mjs) + browser/device E2E."
+    },
+    {
+      "id": "E07-G05",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Deadline and finish enforced transactionally; no final-text mutation after commit",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "E04: after the practice deadline answers and navigation are refused; only finishing is possible"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        }
+      ],
+      "gap": "Deadline checked per event in the exam machine and finished sessions are immutable; the storage commit itself does not re-check the deadline."
+    },
+    {
+      "id": "E07-G06",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "No rubric hints, grammar correction, keys, template phrases or auto-drafting inside the closed EXAM",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ]
+    },
+    {
+      "id": "E07-G07",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Human-calibrated holistic feedback only after a sealed finish; no invented YKI 3/4 or numeric formula",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "app/tests/e07-writing-evidence-policy.test.mjs",
+          "contains": "Official YKI 3/4 output cannot be produced by formative tool"
+        }
+      ],
+      "gap": "No grade is ever produced (tested); human-calibrated feedback after finish is not built (needs calibrated S2 raters, R04)."
+    },
+    {
+      "id": "E07-G08",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Digital 2027 writing UI controls verified with OPH / authorized Inspera walkthrough; otherwise practice-only labels",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "app/tests/e07-writing-evidence-policy.test.mjs",
+          "contains": "2027 editor and official word count cannot be manufactured"
+        }
+      ],
+      "gap": "Practice-only labels; OPH 2027 editor controls unverified (blocked by E02/E04)."
+    },
+    {
+      "id": "E07-G09",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Personal writing retained, deleted and exported securely with accessible state announcements and privacy review",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
+        }
+      ],
+      "gap": "Local export/erase of exam writing tested; legal privacy review not done."
+    },
+    {
+      "id": "E07-G10",
+      "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
+      "summary": "Independent day-14/30 new-genre/recipient writing transfer vs matched baseline, blinded S2 raters",
+      "status": "STUDY_NOT_RUN",
+      "plan": "Controlled human study with blinded S2 raters; NOT RUN."
     }
   ],
   "decisions": [

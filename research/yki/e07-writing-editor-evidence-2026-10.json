@@ -1,0 +1,377 @@
+{
+  "schema_version": "1.0.0",
+  "research_id": "E07",
+  "checked_at": "2026-10-29",
+  "status": "FIRST_PARTY_SOURCES_AND_REAL_CODE_AUDITED_REFERENCE_ONLY_NO_NEW_WRITING_TASKS_OR_GRADING",
+  "canonical_reuse": {
+    "patterns": "research/yki/yki-official-patterns-v2.json",
+    "assessment_science": "research/pedagogy/31-r04-speaking-writing-human-calibrated-assessment-2026-10.md",
+    "authoritative_executable_spec": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+    "timing_precondition": "research/yki/22-e04-digital-timing-session-policy-2026-10.md",
+    "content_blueprint": "research/yki/21-e03-construct-task-blueprint-2026-10.md"
+  },
+  "canonical_families": [
+    "WRITING_MESSAGE",
+    "WRITING_FORMAL",
+    "WRITING_OPINION"
+  ],
+  "source_evidence": [
+    {
+      "tier": "OPH_RUBRIC",
+      "label": "OPH writing levels 3/4 primary criterion PDF page 2",
+      "url": "https://www.oph.fi/sites/default/files/documents/Kirjoittamisen_arviointikriteerit.pdf",
+      "claim": "Holistic judgement; level 3 everyday coherent and comprehensible writing; level 4 more flexible, elaborated, register-adapted writing; not official arithmetic scoring."
+    },
+    {
+      "tier": "JYU_SAMPLES_HISTORICAL",
+      "label": "SOLKI keskitaso kirjoittaminen",
+      "url": "https://ykitesti.solki.jyu.fi/tutustu-testiin/testifin/keskitaso-kirjoittaminen/",
+      "claim": "Historical sample says three different writing tasks and shows email and opinion examples; paper handwriting instructions are NOT digital editor instructions; exact future distribution unknown."
+    },
+    {
+      "tier": "OPH_RATING",
+      "label": "OPH after YKI test",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "claim": "Qualified language teachers/assessors do assessment under criteria, certificates automatically issued only after ratings; automation not writing grading."
+    },
+    {
+      "tier": "OPH_DIGITAL",
+      "label": "OPH digital pilot announcement",
+      "url": "https://www.oph.fi/fi/uutiset/2026/yki-digitestia-kokeillaan-marraskuussa-2026",
+      "claim": "Digital YKI computer pilot 7 November 2026 for Finnish intermediate (future as of check); does not publish text editor UX."
+    },
+    {
+      "tier": "OPH_FUTURE",
+      "label": "OPH before test/demos",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia",
+      "claim": "Four ungraded Inspera demos; mixed historic paper-day instructions; no manual digital demo inspected."
+    },
+    {
+      "tier": "CEFR_DESCRIPTOR",
+      "label": "Council of Europe CEFR writing production and interaction",
+      "url": "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors",
+      "claim": "Outcome descriptors, not actual official YKI editor controls or scoring formula."
+    },
+    {
+      "tier": "R04_HUMAN",
+      "label": "Internal prior human-anchored Finnish study, reusing evidence",
+      "url": "https://www.oph.fi/fi/koulutus-ja-tutkinnot/yki-testin-jalkeen",
+      "claim": "Keep the existing R04 grading framework rather than competing new arbitrary weights."
+    },
+    {
+      "tier": "META_2026",
+      "label": "AI-assisted L2 writing feedback 2026 meta, 19 studies N=11875",
+      "url": "https://doi.org/10.1016/j.system.2026.104018",
+      "claim": "Modest overall d=.271 with heterogeneity; stronger engagement than cognitive outcome; cannot infer Finnish YKI pass improvement."
+    },
+    {
+      "tier": "META_2026",
+      "label": "Algorithm-based writing feedback 2026, 33 studies",
+      "url": "https://doi.org/10.1016/j.asw.2026.101034",
+      "claim": "Surface/deep writing skills can improve; surface maintenance null in reviewed comparisons; transfer to novel tasks small, so evaluate day14/30."
+    },
+    {
+      "tier": "META_2024",
+      "label": "Feedback L1/L2/FL learners 2024",
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101961",
+      "claim": "Combined surface/deep feedback may benefit outcomes; context and interventions vary."
+    },
+    {
+      "tier": "STANDARD_UI",
+      "label": "W3C UI Events composition lifecycle",
+      "url": "https://www.w3.org/TR/uievents/",
+      "claim": "compositionstart/end, beforeinput/input event order matters; IME behaviors must be tested, not assumed."
+    },
+    {
+      "tier": "ACCESSIBILITY",
+      "label": "WCAG 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "claim": "Keyboard access, status messages, time-limit rules and understandable navigation; exact YKI accommodation remains separate first-party decision."
+    }
+  ],
+  "current_state": {
+    "active_mini_count": 2,
+    "writing_per_mini": 1,
+    "writing_ids": [
+      "d-w1",
+      "d-w2"
+    ],
+    "writing_prompts": {
+      "d-w1": {
+        "kind": "formal_message",
+        "genre": "course organizer inquiry",
+        "required_points_count": 3,
+        "coverage": "PARTIAL_WRITING_FORMAL_UNREVIEWED"
+      },
+      "d-w2": {
+        "kind": "opinion",
+        "genre": "living near centre vs quiet area",
+        "required_points_count": 3,
+        "coverage": "STRUCTURAL_WRITING_OPINION_UNREVIEWED"
+      }
+    },
+    "missing_independent_friendly_message": true,
+    "editor": "textarea lang fi maxlength=12000 characters, count answer.length JavaScript UTF-16 units; not an official word limit",
+    "required_points": "Collapsed details section in Web EXAM, not automatically expanded",
+    "save": "Debounced 250ms local pendingDraft then IndexedDB commit via queue; flushDraft before navigation/finish and best-effort visibility hidden",
+    "persistence": "IndexedDB session snapshots and append-only commit events; export JSON includes personal answers",
+    "ime_events": "No explicit compositionstart/compositionend handler",
+    "deadline": "UI setInterval tick, no per-command atomic expired check (E04)",
+    "automatic_writing_score": "UNGRADED, no YKI 3/4 prediction",
+    "internal_teaching_rubric_weights": {
+      "task_fulfilment": 30,
+      "coherence": 25,
+      "appropriateness": 15,
+      "vocabulary": 15,
+      "grammar": 15
+    },
+    "rubric_weights_official": false,
+    "digital_2027_editor_verified": false,
+    "inspera_manual_observed": false,
+    "human_review_run": false,
+    "learner_trial_run": false
+  },
+  "current_unknowns": {
+    "official_2027_writing_task_count": null,
+    "official_2027_editor_word_limit": null,
+    "official_2027_editor_character_limit": null,
+    "official_2027_spellcheck_policy": null,
+    "official_2027_autocorrect_policy": null,
+    "official_2027_copy_paste_policy": null,
+    "official_2027_navigation_rule": null,
+    "official_2027_autosave_indicator": null,
+    "official_2027_keyboard_policy": null,
+    "official_2027_module_timing": null,
+    "strict_official_profile_enabled": false
+  },
+  "historical_three_task_policy": "Old JYU webpage explicitly says three different task types, but displays two example prompts. No claim official live 2027 has exactly three screens/tasks.",
+  "original_genre_briefs": [
+    {
+      "id": "E07-B1",
+      "canonical_pattern_id": "WRITING_MESSAGE",
+      "purpose": "Inform a friend about a changed visit schedule and propose another plan",
+      "audience": "friend",
+      "context": "social everyday life",
+      "must_cover": [
+        "change",
+        "reason",
+        "new proposal",
+        "response request"
+      ],
+      "draft_status": "BRIEF_ONLY_NOT_S2_REVIEWED"
+    },
+    {
+      "id": "E07-B2",
+      "canonical_pattern_id": "WRITING_FORMAL",
+      "purpose": "Request repair clarification from property service provider and explain consequences",
+      "audience": "service provider",
+      "context": "housing services",
+      "must_cover": [
+        "problem",
+        "impact",
+        "requested action",
+        "availability"
+      ],
+      "draft_status": "BRIEF_ONLY_NOT_S2_REVIEWED"
+    },
+    {
+      "id": "E07-B3",
+      "canonical_pattern_id": "WRITING_FORMAL",
+      "purpose": "Polite cancellation/change request in training or employment",
+      "audience": "training coordinator",
+      "context": "work study",
+      "must_cover": [
+        "identification",
+        "request",
+        "reason",
+        "follow_up"
+      ],
+      "draft_status": "BRIEF_ONLY_NOT_S2_REVIEWED"
+    },
+    {
+      "id": "E07-B4",
+      "canonical_pattern_id": "WRITING_OPINION",
+      "purpose": "Evaluate benefits and downsides of improving city buses",
+      "audience": "local residents",
+      "context": "society",
+      "must_cover": [
+        "stance",
+        "reasons",
+        "example",
+        "balanced closing"
+      ],
+      "draft_status": "BRIEF_ONLY_NOT_S2_REVIEWED"
+    },
+    {
+      "id": "E07-B5",
+      "canonical_pattern_id": "WRITING_MESSAGE",
+      "purpose": "Short personal update about a service experience and next step",
+      "audience": "acquaintance",
+      "context": "everyday services",
+      "must_cover": [
+        "what happened",
+        "feelings",
+        "next step",
+        "recipient relevance"
+      ],
+      "draft_status": "BRIEF_ONLY_NOT_S2_REVIEWED"
+    }
+  ],
+  "research_questions": [
+    "Whether content-genre and audience-specific task feedback improves novel day14/day30 functional writing vs equally intensive human-edited examples",
+    "How UI feedback timing/surfacing affects exam fidelity and self-correction, measured independently under sealed EXAM",
+    "Which keyboard/autosave edge cases actually lose Finnish writing on Android and desktop",
+    "Whether human S2 reviewers agree on purposeful B1/B2 writing traits in naturally imperfect L2 Finnish, using adjudication"
+  ],
+  "risks": [
+    {
+      "id": "E07-R01",
+      "severity": "P0",
+      "risk": "Only two mini writing tasks; separate personal message family absent",
+      "mitigation": "Original independently authored friendly-message/functional-formal/opinion genres, two S2 approvals and held-out form splits",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R02",
+      "severity": "P0",
+      "risk": "Finnish real-world genre/register and audience pragmatics not human-calibrated",
+      "mitigation": "Independent S2 review of recipient, purpose, greeting/signoff, all must-cover points and meaningful completion",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R03",
+      "severity": "P0",
+      "risk": "250ms debounce can leave latest composition uncommitted before close/crash",
+      "mitigation": "Durable transaction readback with exact Unicode text and version; distinct editable/saved/sealed state",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R04",
+      "severity": "P0",
+      "risk": "No explicit IME compositionstart/compositionend transition policy",
+      "mitigation": "Block submit/nav while composing, flush final composition before committed transition; test ä/ö and mobile keyboard",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R05",
+      "severity": "P0",
+      "risk": "Timed EXAM checks deadline on 1s UI interval, not per answer or commit",
+      "mitigation": "Integrate E04 per-transaction time cutoff, lock already sealed answers",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R06",
+      "severity": "P0",
+      "risk": "Automatic grading without human Finnish writing calibration could mislabel YKI 3/4",
+      "mitigation": "Meaning-first formative feedback only after seal; two blind S2 raters and adjudication before empirical grade claims",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R07",
+      "severity": "P0",
+      "risk": "Official 2027 editor controls and word/time limits not observed",
+      "mitigation": "Strict exact OFF; practice character ceiling 12000 not official; verify Inspera with OPH",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R08",
+      "severity": "P1",
+      "risk": "Current requiredPoints collapsed in details, may be missed on timed question",
+      "mitigation": "Accessible content rendering with visible task constraints; ensure no accidental answer hints",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R09",
+      "severity": "P1",
+      "risk": "Keyboard navigation, focus and screen reader autosave status not E2E checked",
+      "mitigation": "WCAG 2.2 manual screen reader/keyboard/IME and non-blocking status announcements",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R10",
+      "severity": "P1",
+      "risk": "Text output exposed in export; personal data, retention and shared-device privacy need clarity",
+      "mitigation": "Explicit private local mode and user-initiated export/delete, no implicit LLM/cloud text upload",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R11",
+      "severity": "P1",
+      "risk": "Generic feedback rubric with 30/25/15/15/15 internal weights may imply official levels",
+      "mitigation": "Display qualitative purpose/genre/coherence/lexicon/grammar evidence, no fake OPH arithmetic",
+      "status": "OPEN_IN_LIVE_APP"
+    },
+    {
+      "id": "E07-R12",
+      "severity": "P1",
+      "risk": "Practice reuse and post-exam feedback can contaminate independent later EXAM results",
+      "mitigation": "Held-out prompt IDs + content variants and day14/30 unseen transfer",
+      "status": "OPEN_IN_LIVE_APP"
+    }
+  ],
+  "acceptance_gates": [
+    {
+      "id": "E07-G01",
+      "description": "Three historical canonical families covered by original licensed S2-reviewed Finnish tasks (not copied official examples)",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G02",
+      "description": "Two independent Finnish S2 teachers approve genre/recipient/purpose/required points and valid alternatives",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G03",
+      "description": "Byte/Unicode-exact draft persisted and verified across reload and multi-tab conflict, with clear local save status",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G04",
+      "description": "IME/Android ä/ö/copy/paste/keyboard and composition boundaries pass browser E2E",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G05",
+      "description": "Deadline and finish state enforced transactionally, no final text post-commit mutation",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G06",
+      "description": "No rubric hints, grammar correction, keys, template phrases or auto-drafting inside closed EXAM",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G07",
+      "description": "Human calibrated holistic feedback only after sealed finish; no invented YKI 3/4 or numeric formula",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G08",
+      "description": "Digital 2027 writing UI controls verified through OPH and authorized Inspera walkthrough; otherwise practice profile only",
+      "status": "BLOCKED_E02_E04"
+    },
+    {
+      "id": "E07-G09",
+      "description": "Personal writing retained/deleted/exported securely with accessible state announcements and privacy review",
+      "status": "NOT_DONE"
+    },
+    {
+      "id": "E07-G10",
+      "description": "Independent day14/day30 new-genre/recipient transfer evaluated against matched baseline with blinded S2 raters",
+      "status": "NOT_RUN"
+    }
+  ],
+  "implementation_scope": {
+    "source_audit": "DONE",
+    "real_app_static_review": "DONE",
+    "reference_only_policy": "ADDED_NOT_INTEGRATED",
+    "live_editor_fix": "NOT_DONE",
+    "content_items_written": 0,
+    "independent_reviewers": 0,
+    "participant_studies": 0,
+    "strict_exact_2027": false
+  },
+  "legal_policy": "Do not copy historic official example task prompts or answer texts into product. Review rights of any external models. Retain only user-authorized local responses unless separate consent and security review.",
+  "human_rating_plan": "Use OPH holistic levels for criterion reference, two trained S2 teachers with blind independent reviews and adjudication; language-quality analysis not equal to official certificate.",
+  "feedback_policy": "Only after durable finish, emphasize communicative task, genre and recipient, coherence, wording then selected grammar; self-repair and new unseen task. Any AI-assisted output clearly formative and uncalibrated."
+}

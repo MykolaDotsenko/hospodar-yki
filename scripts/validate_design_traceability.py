@@ -26,7 +26,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs/design/design-traceability-v1.json"
-ID = re.compile(r"\b(YTP-\d{2}|V3-AC-\d{2}|IV4-AC-\d{2}|V5-AC-\d{2}|MOCK-VID-\d{2}|R10-\d{2}|R-L\d{2}|E0[356]-G\d{2}|R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
+ID = re.compile(r"\b(YTP-\d{2}|V3-AC-\d{2}|IV4-AC-\d{2}|V5-AC-\d{2}|MOCK-VID-\d{2}|R10-\d{2}|R-L\d{2}|E0[3567]-G\d{2}|R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
                 r"|COG-\d{2}|PSY-\d{2}|MEM-\d{2}|FEED-\d{2}|ATT-\d{2}|AUD-\d{2}|MSUI-\d{2}|SND-\d{2}|GAM-\d{2}|GL-\d{2}|R(?:0[1-9]|1[0-2])(?!-\d)"
                 r"|R[4-8]-\d{2}|R11-\d{2}|M3-\d{2}|SD-G\d{2}|QL-\d{2}|MOT-\d{2}"
                 r"|EXAM-PILLAR-\d{2}|EXAM-\d{2}|LEARN-\d{2}|LE-\d{2}|YKI-FID-\d{2}|CURATED-\d{2}|MODE-\d{2}|MVP-\d{2}|PER-\d{2}|SIM-\d{2}|AC-\d{2}"
@@ -49,7 +49,8 @@ NOT_REQUIREMENTS = {
     r"A10-1[5-9]": "R10 cross-references to other research, not norms",
     r"ARC-\d{2}": "machine acceptance-test IDs mirroring ARCH-01…14 (traced as ARCH-*); NOTE their JSON statuses are stale",
     r"R05-S\d{2}": "R05 audio material candidates (sources), not requirements",
-    r"E0[46]-R\d{2}": "E04/E06 risk registers with their own mitigation status",
+    r"E0[467]-R\d{2}": "E04/E06/E07 risk registers with their own mitigation status",
+    r"UTF-\d{2}": "character-encoding names (UTF-16), not requirements",
     r"DEC-\d{2}": "product decisions, tracked in the matrix 'decisions' section",
     r"(?:OPH|MIGRI|YLE|KIELI|RESEARCH|OTAVA|FINN|SUOMI|OPE|NIKONEN|LEXIE|JYU|HAAGA|GIMARA)-\d{2}": "source-catalogue IDs in sources/learning",
     r"[A-Z]+-B1-\d{2}|PUHEKIELI-\d{2}": "content item IDs (missions such as HOUSING-B1-01, PUHEKIELI-01)",
