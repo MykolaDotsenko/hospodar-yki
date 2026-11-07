@@ -36,7 +36,9 @@ describe("delayed learner-owned reflection (not a grade)", () => {
       taskId: "b1-g-001", day: 7,
       earlierResponse: "Menen kirjastoon: ystävä.", delayedResponse: answer,
     });
-    expect(JSON.stringify(completedTransferReflection(saved, "b1-g-001", 7))).not.toMatch(/grade|correct|score|B1|YKI/i);
+    expect(Object.keys(completedTransferReflection(saved, "b1-g-001", 7)!)).toEqual([
+      "taskId", "day", "earlierResponse", "delayedResponse", "earlierAt", "submittedAt",
+    ]); // schema whitelist: no score/grade/prediction fields
     expect(completedTransferReflection(saved, "b1-g-001", 14)).toBeNull();
   });
   it("uses the earliest independent original, not a later guided attempt; survives serialisation", () => {
