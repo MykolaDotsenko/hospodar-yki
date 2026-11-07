@@ -16,10 +16,10 @@ Accept only bounded v1 Web-export files, validate **individual LEARN records** a
 
 | Milestone | Deliverable | Verification | Status |
 | --- | --- | --- | --- |
-| 1 | Pure `inspectWebLearnBackup` with fail-closed schema, bounds and lossless checks | `pnpm --filter @hospodar/domain test` | IMPLEMENTED; CI PENDING |
-| 2 | Empty-destination transactional restore, CAS and readback | `pnpm --filter @hospodar/web test` | IMPLEMENTED; CI PENDING |
-| 3 | Accessible preview, consent, warnings, errors and reload | `pnpm exec playwright test e2e/restore.spec.ts` | IMPLEMENTED; CI PENDING |
-| 4 | Multi-engine CI and release decision | `validate-web-app.yml` on PR | NOT RUN |
+| 1 | Pure `inspectWebLearnBackup` with fail-closed schema, bounds and lossless checks | `pnpm --filter @hospodar/domain test` | DONE_TESTED (CI first run) |
+| 2 | Empty-destination transactional restore, CAS and readback | `pnpm --filter @hospodar/web test` | DONE_TESTED (CI first run) |
+| 3 | Accessible preview, consent, warnings, errors and reload | `pnpm exec playwright test e2e/restore.spec.ts` | DONE_TESTED (3 browsers, 9 tests in first CI run) |
+| 4 | Multi-engine CI and release decision | `validate-web-app.yml` on PR | RE-RUN REQUIRED (legacy export E2E selector collision; fixed in follow-up commit) |
 
 ## Decisions / limitations
 
@@ -32,7 +32,7 @@ Accept only bounded v1 Web-export files, validate **individual LEARN records** a
 
 | Check | Status | Evidence |
 | --- | --- | --- |
-| Domain, Web unit, TypeScript, build, browser E2E | NOT RUN | Await workflow result |
+| Domain, Web unit, TypeScript, build | PASS | First CI run `42348774609` (domain, web, typecheck, build) |\n| New restore browser E2E | PASS | 9/9 across Chromium, Firefox and WebKit in CI run `42348774609` |\n| Full multi-engine Web E2E | FAIL (first run) | 129 passed, 3 legacy `data.spec.ts` failed from an extra `role=status` notification; changed to show warning only after file selection; rerun required |
 | Manual physical-device and real browser quota/eviction | NOT RUN | Separate release gate |
 
 ## Rollback and remaining work

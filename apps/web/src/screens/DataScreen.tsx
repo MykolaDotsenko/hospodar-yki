@@ -144,7 +144,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           {restoreCheck.hasExamData && <p>У копії також є EXAM-дані — вони не будуть імпортовані.</p>}
         </div>
       ) : <p className="feedback error" role="alert">Копія непридатна для відновлення ({restoreCheck.reason}). Жодні дані не змінено.</p>)}
-      {restoreBlocked && <p className="feedback warn" role="status">Для відновлення потрібен порожній профіль LEARN. Спершу збережи резервну копію поточного прогресу; існуючі дані автоматично не замінюються.</p>}
+      {restoreCheck?.ok && restoreBlocked && <p className="feedback warn" role="status">Для відновлення потрібен порожній профіль LEARN. Спершу збережи резервну копію поточного прогресу; існуючі дані автоматично не замінюються.</p>}
       {restoreCheck?.ok && !restoreBlocked && restoreStatus !== "done" && (
         <>
           <label className="radio"><input type="checkbox" checked={restoreConfirmed} onChange={e => setRestoreConfirmed(e.target.checked)} />
