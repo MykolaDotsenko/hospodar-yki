@@ -240,3 +240,78 @@ describe("EXAM voice (E06) in the XState machine", () => {
     expect(pruned).toEqual(["sess-voice1"]);
   });
 });
+
+
+describe("E07: composition-safe Finnish writing", () => {
+  it("never autosaves an unfinished IME composition, navigates or finishes; exact Unicode is committed on compositionend", async () => {
+    const name = db(), repo = createExamRepository(name), a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-ime", skills: ["writing"] });
+    await settled(a);
+    const item = a.getSnapshot().context.items[0]!;
+    expect(item.skill).toBe("writing");
+    const rev = (await repo.read())!.revision;
+    a.send({ type: "COMPOSE_START", itemId: item.id });
+    a.send({ type: "ANSWER", itemId: item.id, value: "partial", now: T0 + 1000 });
+    a.send({ type: "AUTOSAVE" });
+    a.send({ type: "GOTO", index: 0, now: T0 + 1000 });
+    a.send({ type: "REQUEST_FINISH" });
+    expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.composingItemId).toBe(item.id);
+    expect((await repo.read())!.revision).toBe(rev);
+    expect((await repo.read())!.session.answers[item.id]).toBeUndefined();
+    const exact = "Hyvää päivää! Kävin Töölössä. ysta\u0308vä ja äiti.";
+    a.send({ type: "COMPOSE_END", itemId: "wrong-item", value: "bad", now: T0 + 1100 });
+    expect(a.getSnapshot().context.composingItemId).toBe(item.id);
+    a.send({ type: "COMPOSE_END", itemId: item.id, value: exact, now: T0 + 1200 });
+    expect(a.getSnapshot().context.composingItemId).toBeNull();
+    expect(a.getSnapshot().context.session!.answers[item.id]).toBe(exact);
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    expect((await repo.read())!.session.answers[item.id]).toBe(exact);
+    const reopened = await boot(createExamRepository(name));
+    expect(reopened.getSnapshot().context.session!.answers[item.id]).toBe(exact);
+    a.send({ type: "REQUEST_FINISH" });
+    expect(a.getSnapshot().matches("confirming")).toBe(true);
+    a.send({ type: "CONFIRM_FINISH", now: T0 + 2000 });
+    await waitFor(a, s => s.matches("finished"));
+    expect((await repo.read())!.session.answers[item.id]).toBe(exact);
+    expect((await repo.history())[0]!.bySkill.writing.ungraded).toBe(1);
+  });
+  it("refuses composition claims on unrelated/non-writing items", async () => {
+    const repo = createExamRepository(db()), a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-guards", skills: ["reading"] });
+    await settled(a);
+    const id = a.getSnapshot().context.items[0]!.id;
+    a.send({ type: "COMPOSE_START", itemId: id });
+    expect(a.getSnapshot().context.composingItemId).toBeNull();
+    a.send({ type: "COMPOSE_END", itemId: id, value: "bad", now: T0 + 1000 });
+    expect(a.getSnapshot().context.session!.answers[id]).toBeUndefined();
+  });
+  it("edits made during an in-flight autosave remain dirty, including completed composition", async () => {
+    const name = db(), actual = createExamRepository(name);
+    let release: (() => void) | undefined;
+    let delay = false;
+    const repo: ExamRepository = { ...actual, commit: async (s, r, skills) => {
+      if (delay) { delay = false; await new Promise<void>(resolve => { release = resolve; }); }
+      return actual.commit(s, r, skills);
+    } };
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-race", skills: ["writing"] });
+    await settled(a);
+    const id = a.getSnapshot().context.items[0]!.id;
+    a.send({ type: "ANSWER", itemId: id, value: "Old", now: T0 + 1000 });
+    delay = true;
+    a.send({ type: "AUTOSAVE" });
+    expect(a.getSnapshot().matches("autosaving")).toBe(true);
+    a.send({ type: "COMPOSE_START", itemId: id });
+    const exact = "Uusi teksti: yö, ä, ö.";
+    a.send({ type: "COMPOSE_END", itemId: id, value: exact, now: T0 + 2000 });
+    expect(a.getSnapshot().context.dirty).toBe(true);
+    release?.();
+    await waitFor(a, s => s.matches("active"));
+    expect(a.getSnapshot().context.dirty).toBe(true);
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    expect((await actual.read())!.session.answers[id]).toBe(exact);
+  });
+});

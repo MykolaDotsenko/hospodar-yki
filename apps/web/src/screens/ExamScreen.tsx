@@ -27,7 +27,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
     return () => clearInterval(t);
   }, [actor, snap, session]);
   useEffect(() => {                                                       // draft autosave: 1.2 s after the last keystroke, never blocks typing
-    if (!snap.context.dirty || !snap.matches("active")) return;
+    if (!snap.context.dirty || snap.context.composingItemId || !snap.matches("active")) return;
     const t = setTimeout(() => actor.send({ type: "AUTOSAVE" }), 1200);
     return () => clearTimeout(t);
   }, [actor, snap]);
@@ -39,7 +39,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
     void voiceStore.pruneSession(session.sessionId, Object.values(session.voiceReceipts ?? {}).map(r => r.storageKey)).catch(() => {});
   }, [snap, session, voiceStore]);
   const busy = snap.matches("saving") || snap.matches("finishing") || snap.matches("clearing") || snap.matches("loading");
-  const navBusy = busy || snap.matches("autosaving") || recording;
+  const navBusy = busy || snap.matches("autosaving") || recording || snap.context.composingItemId !== null;
 
   if (snap.matches("loading")) return <section className="panel exam" aria-busy="true"><p>Ladataan…</p></section>;
   if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId() })} onHome={onHome} />;
@@ -107,12 +107,15 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
         </div>
       ) : (
         <>
-          <ExamItemView item={item} answer={answer} onAnswer={set} disabled={busy} />
+          <ExamItemView key={item.id} item={item} answer={answer} onAnswer={set}
+            onComposeStart={() => actor.send({ type: "COMPOSE_START", itemId: item.id })}
+            onComposeEnd={value => actor.send({ type: "COMPOSE_END", itemId: item.id, value, now: Date.now() })}
+            disabled={busy || snap.matches("saveError")} />
           {item.skill === "speaking" && <ExamVoice item={item} session={session!} revision={snap.context.revision} voiceStore={voiceStore}
             send={e => actor.send(e)} disabled={busy || snap.matches("autosaving")} onRecording={setRecording} />}
         </>
       )}
-      <p className="muted exam-save" aria-live="polite">{snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
+      <p className="muted exam-save" aria-live="polite">{snap.context.composingItemId ? "Syöttö kesken — viimeistele teksti ennen tallennusta." : snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
       {snap.context.autosaveError && <p className="feedback error" role="alert">Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
       {snap.matches("saveError") && (
         <div className="feedback error" role="alert"><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>
@@ -130,7 +133,20 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
   );
 }
 
-function ExamItemView({ item, answer, onAnswer, disabled }: { item: ExamItem; answer: string; onAnswer: (v: string) => void; disabled: boolean }) {
+function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, disabled }: {
+  item: ExamItem; answer: string; onAnswer: (v: string) => void;
+  onComposeStart: () => void; onComposeEnd: (v: string) => void; disabled: boolean;
+}) {
+  // Keep IME interim text *only* in the editor. It is not a submitted answer and must not
+  // be autosaved. The final exact Unicode string is sent on compositionend (or blur fallback).
+  const composing = useRef(false);
+  const [compositionDraft, setCompositionDraft] = useState<string | null>(null);
+  const completeComposition = (value: string) => {
+    if (!composing.current) return;
+    composing.current = false;
+    setCompositionDraft(null);
+    onComposeEnd(value);
+  };
   const audio = item.skill === "listening" ? audioUrlFor(item.audioPath) : null;
   return (
     <div className="exam-item">
@@ -153,7 +169,13 @@ function ExamItemView({ item, answer, onAnswer, disabled }: { item: ExamItem; an
         <>
           <p className="exam-prompt" lang="fi">{item.prompt}</p>
           <label className="field" htmlFor={`ex-${item.id}`} lang="fi">{item.skill === "speaking" ? "Kirjoita puheenvuorosi suunnitelma (puhetta ei arvioida automaattisesti)" : "Vastauksesi"}</label>
-          <textarea id={`ex-${item.id}`} className="answer" lang="fi" rows={item.skill === "writing" ? 8 : 4} maxLength={12000} value={answer} disabled={disabled} onChange={e => onAnswer(e.target.value)} />
+          <textarea id={`ex-${item.id}`} className="answer" lang="fi" rows={item.skill === "writing" ? 8 : 4}
+            maxLength={12000} value={compositionDraft ?? answer} disabled={disabled}
+            onChange={e => composing.current ? setCompositionDraft(e.currentTarget.value) : onAnswer(e.currentTarget.value)}
+            onCompositionStart={e => { if (item.skill !== "writing") return; composing.current = true;
+              setCompositionDraft(e.currentTarget.value); onComposeStart(); }}
+            onCompositionEnd={e => completeComposition(e.currentTarget.value)}
+            onBlur={e => completeComposition(e.currentTarget.value)} />
         </>
       )}
     </div>

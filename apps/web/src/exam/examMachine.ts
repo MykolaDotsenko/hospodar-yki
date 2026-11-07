@@ -24,11 +24,13 @@ import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../stora
 
 export interface ExamContext {
   items: ExamItem[]; session: ExamSession | null; skills: ExamSkill[] | null; revision: number; after: "active" | "finished";
-  error: string | null; autosaveError: string | null; dirty: boolean; blueprintIds: string[];
+  error: string | null; autosaveError: string | null; dirty: boolean; composingItemId: string | null; blueprintIds: string[];
 }
 export type ExamEvent =
   | { type: "START"; blueprintId: string; minutes: number; now: number; sessionId: string; skills?: ExamSkill[] | null }
   | { type: "ANSWER"; itemId: string; value: string; now: number }
+  | { type: "COMPOSE_START"; itemId: string }
+  | { type: "COMPOSE_END"; itemId: string; value: string; now: number }
   | { type: "AUTOSAVE" }
   | { type: "GOTO"; index: number; now: number }
   | { type: "TICK"; now: number; elapsedMs: number }
@@ -66,7 +68,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
   // An unconsented recording lived only in that page: after a reload it is gone, so it must not count as an answer.
   const restore = (cp: ExamCheckpoint) => ({ session: { ...cp.session, voiceRecorded: Object.fromEntries(Object.keys(cp.session.voiceReceipts ?? {}).map(k => [k, true])) },
     revision: cp.revision, skills: cp.skills,
-    items: itemsFor(cp.session.blueprintId, cp.skills), dirty: false });
+    items: itemsFor(cp.session.blueprintId, cp.skills), dirty: false, composingItemId: null });
   return setup({
     types: { context: {} as ExamContext, events: {} as ExamEvent },
     actors: {
@@ -86,7 +88,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
   }).createMachine({
     id: "exam",
     initial: "loading",
-    context: { items: [], session: null, skills: null, revision: 0, after: "active", error: null, autosaveError: null, dirty: false, blueprintIds },
+    context: { items: [], session: null, skills: null, revision: 0, after: "active", error: null, autosaveError: null, dirty: false, composingItemId: null, blueprintIds },
     states: {
       loading: {
         invoke: {
@@ -106,7 +108,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
           START: { target: "saving", actions: assign(({ event }) => {
             const skills = normaliseSkills(event.skills);
             return { items: itemsFor(event.blueprintId, skills), skills, after: "active" as const, error: null, autosaveError: null, dirty: false,
-              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId) };
+              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId), composingItemId: null };
           }) },
         },
       },
@@ -131,12 +133,28 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
       },
       active: {
         on: {
+          COMPOSE_START: {
+            guard: ({ context, event }) => context.composingItemId === null &&
+              context.items[context.session!.index]?.id === event.itemId &&
+              context.items[context.session!.index]?.skill === "writing",
+            actions: assign({ composingItemId: ({ event }) => event.itemId }),
+          },
+          COMPOSE_END: [
+            { guard: "runningExpired", target: "expired", actions: assign({ composingItemId: null }) },
+            { guard: ({ context, event }) => context.composingItemId === event.itemId,
+              actions: assign(({ context, event }) => ({
+                composingItemId: null, dirty: true,
+                session: writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)),
+              })) },
+          ],
           ANSWER: [
+            { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired", target: "expired" },
             { actions: assign({ dirty: true, session: ({ context, event }) => writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) }) },
           ],
-          AUTOSAVE: { guard: ({ context }) => context.dirty, target: "autosaving" },
+          AUTOSAVE: { guard: ({ context }) => context.dirty && context.composingItemId === null, target: "autosaving" },
           GOTO: [
+            { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired", target: "expired" },
             { guard: ({ context, event }) => event.index < 0 || event.index >= context.items.length || event.index === context.session!.index },
             { target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const,
@@ -146,7 +164,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
             { guard: "runningExpired", target: "expired" },
             { actions: assign({ session: ({ context, event }) => withElapsedHighWater(context.session!, event.elapsedMs) }) },
           ],
-          REQUEST_FINISH: "confirming",
+          REQUEST_FINISH: { guard: ({ context }) => context.composingItemId === null, target: "confirming" },
           CONSENT: [
             { guard: "runningExpired", target: "expired" },
             { guard: ({ context, event }) => context.session!.voiceConsent !== event.consent && !(event.consent === false &&
@@ -181,7 +199,20 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
           onError: { target: "active", actions: assign({ autosaveError: ({ event }) => codeOf(event.error) }) },
         },
         on: {                                                            // typing never blocks; navigation waits for the save
+          COMPOSE_START: {
+            guard: ({ context, event }) => context.composingItemId === null &&
+              context.items[context.session!.index]?.id === event.itemId &&
+              context.items[context.session!.index]?.skill === "writing",
+            actions: assign({ composingItemId: ({ event }) => event.itemId }),
+          },
+          COMPOSE_END: [
+            { guard: "runningExpired", target: "expired", actions: assign({ composingItemId: null }) },
+            { guard: ({ context, event }) => context.composingItemId === event.itemId,
+              actions: assign(({ context, event }) => ({ composingItemId: null, dirty: true,
+                session: writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) })) },
+          ],
           ANSWER: [
+            { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired" },
             { actions: assign({ dirty: true, session: ({ context, event }) => writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) }) },
           ],
@@ -208,7 +239,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
       clearing: {
         invoke: {
           src: "clear", input: ({ context }) => ({ revision: context.revision, sessionId: context.session?.sessionId ?? null }),
-          onDone: { target: "setup", actions: assign({ session: null, items: [], skills: null, revision: 0, error: null, dirty: false }) },
+          onDone: { target: "setup", actions: assign({ session: null, items: [], skills: null, revision: 0, error: null, dirty: false, composingItemId: null }) },
           onError: { target: "finished", actions: assign({ error: ({ event }) => codeOf(event.error) }) },
         },
       },
