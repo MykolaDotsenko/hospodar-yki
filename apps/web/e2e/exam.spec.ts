@@ -109,7 +109,20 @@ test("E07: unfinished IME composition cannot finish writing; exact Finnish Unico
   const exact = "Hyvää päivää! Kävin Töölössä. ysta\u0308vä ja äiti.";
   await editor.dispatchEvent("compositionstart", { data: "ä" });
   await expect(page.getByText(/Syöttö kesken/)).toBeVisible();
-  await editor.fill(exact);
+  await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
+  // Playwright fill() finishes a synthetic IME composition in Firefox. Use the native
+  // setter and a composing input event so all three browser engines exercise the
+  // *intermediate* editor state without an implicit blur/compositionend.
+  await editor.evaluate((node, text) => {
+    const el = node as HTMLTextAreaElement;
+    const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set;
+    if (!setter) throw new Error("No native textarea setter");
+    setter.call(el, text);
+    el.dispatchEvent(new InputEvent("input", {
+      bubbles: true, data: text, inputType: "insertCompositionText", isComposing: true,
+    }));
+  }, exact);
+  await expect(editor).toHaveValue(exact);
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
   await editor.dispatchEvent("compositionend", { data: "ä" });
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeEnabled();

@@ -22,3 +22,8 @@
 
 ## Rollback / risks
 Additive UI+state guard, no IndexedDB schema change. Abort/revert without migration. A crash before final composition commit may lose unsaved, locally composed keystrokes; do not promise lossless abrupt process termination. Browser IME simulation is not proof of actual Android/Finnish keyboard behavior. Official 2027 input rules and S2-reviewed texts remain separate release blockers.
+
+## CI follow-up
+
+- First GitHub CI run `42426171299`, commit `65078993`: domain parity PASS, strict TS PASS, Web unit PASS, Vite build PASS and all non-Web checks PASS. Playwright: 134 passed / 6 skipped / 1 failure on Firefox new E07 test.
+- Cause isolated to test input emulation: Playwright `fill()` ended the synthetic composition in Firefox before asserting its intermediate state; Chromium/WebKit passed. The assertion has been changed to dispatch composing `InputEvent` with native textarea setter, then explicit `compositionend`. Re-run required; this is not evidence of a production Firefox data-loss bug.
