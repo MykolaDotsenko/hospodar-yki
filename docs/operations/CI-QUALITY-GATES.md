@@ -1,6 +1,6 @@
 # CI and release evidence — real stack, real gates
 
-The repository currently ships a local Web MVP, not a production React app or Android AAB. A green static workflow is **not** evidence of WebKit support, Room runtime or install-time PAD.
+The repository contains the legacy local Web MVP **and** a buildable React/Vite Web app with automated Chromium/Firefox/WebKit E2E. It has **not** been verified as a production deployment or Android AAB. A green CI run is not a physical-device, Room runtime or install-time PAD test.
 
 ## Today — executable checks
 
@@ -12,7 +12,7 @@ The repository currently ships a local Web MVP, not a production React app or An
 | Any doc, research, test or app change | `python3 scripts/validate_design_traceability.py` ([validate-traceability](../../.github/workflows/validate-traceability.yml)): every requirement ID in docs/research has an honest status, every cited evidence test still exists, and no new requirement family is left untraced (completeness gate). Static — not a learning-effect claim |
 | Educational content / media | Specific Python/Node validators, per-asset rights and Finnish human review; no official YKI grade inference |
 
-**GitHub Actions filters must point to real tracked paths.** Changes in `learning/exercises/`, `assets/audio/`, `sources/` and contract packages must trigger the corresponding tests; [documentation integrity validator](../../scripts/validate_doc_integrity.py) checks path filters and rejects extinct content roots, duplicate/nonmatching filters and unpinned external actions. The only explicit not-yet-present filter exception is `apps/web/**` for the approved future scaffold. Update this safeguard in the same PR if a new approved future build path is added.
+**GitHub Actions filters must point to real tracked paths.** Changes in `learning/exercises/`, `assets/audio/`, `sources/` and contract packages must trigger the corresponding tests; [documentation integrity validator](../../scripts/validate_doc_integrity.py) checks path filters and rejects extinct content roots, duplicate/nonmatching filters and unpinned external actions. Web source filters are now active (not a future scaffold); retain only explicit, documented path exceptions in validators. Update this safeguard in the same PR if a new approved future build path is added.
 
 ## Future deployment and release — blocked until implemented
 
