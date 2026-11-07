@@ -76,3 +76,41 @@ export function recordDelayedTransfer(state: LearnerState, bank: TransferBank,
   next.retention = [...(next.retention || []), entry].slice(-120);
   return next;
 }
+
+/** After a *persisted* 7/14/30 attempt, compare two of the learner's OWN
+ * independently written sentences. This is reflective feedback, never a
+ * teacher key, correctness signal, CEFR level or official YKI evaluation.
+ *
+ * No response exists before a delayed check is committed; UI callers must
+ * obtain the state from a fresh storage readback, not the draft in memory.
+ */
+export interface DelayedTransferReflection {
+  taskId: string;
+  day: TransferDay;
+  earlierResponse: string;
+  delayedResponse: string;
+  earlierAt: string;
+  submittedAt: string;
+}
+export function completedTransferReflection(
+  state: Pick<LearnerState, "attempts" | "retention">,
+  taskId: string, day: number,
+): DelayedTransferReflection | null {
+  if (!idValid(taskId) || !(TRANSFER_DAYS as readonly number[]).includes(day)) return null;
+  const saved = (state.retention || []).filter(x => x.taskId === taskId && x.day === day &&
+    x.status === "ungraded" && x.independent === true &&
+    typeof x.response === "string" && x.response.trim().length > 0 &&
+    typeof x.submittedAt === "string" && Number.isFinite(Date.parse(x.submittedAt)))
+    .sort((a, b) => Date.parse(a.submittedAt) - Date.parse(b.submittedAt)).at(-1);
+  if (!saved) return null;
+  const earlier = (state.attempts || []).filter(a => a.taskId === taskId && a.skill === "grammar" &&
+    typeof a.transferText === "string" && a.transferText.trim().length > 0 &&
+    typeof a.completedAt === "string" && Number.isFinite(Date.parse(a.completedAt)) &&
+    Date.parse(a.completedAt) <= Date.parse(saved.submittedAt))
+    .sort((a, b) => Date.parse(a.completedAt) - Date.parse(b.completedAt))[0];
+  if (!earlier) return null;
+  return {
+    taskId, day: day as TransferDay, earlierResponse: earlier.transferText,
+    delayedResponse: saved.response, earlierAt: earlier.completedAt, submittedAt: saved.submittedAt,
+  };
+}
