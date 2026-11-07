@@ -5,7 +5,7 @@
  * (CONTRACTS rule 8). Separate DB name: never touches the legacy app's localStorage/IDB.
  */
 import Dexie, { type Table } from "dexie";
-import { blankState, type LearnerState } from "@hospodar/domain";
+import { blankState, type LearnerState, type WebRestoreImport } from "@hospodar/domain";
 
 export const WEB_DB_NAME = "hospodar-yki:web:v1";
 export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED";
@@ -38,6 +38,8 @@ export interface LearnerRepository {
   eraseAll(expectedRevision: number): Promise<LearnerSnapshot>;
   /** Import legacy V1 progress into an EMPTY new-app profile, atomically with its receipt. */
   importLegacy(state: LearnerState, receipt: Omit<ImportReceipt, "revision" | "importedAt">): Promise<{ snapshot: LearnerSnapshot; receipt: ImportReceipt }>;
+  /** Restore only LEARN from a validated new-Web JSON export into an empty profile (never EXAM/audio). */
+  restoreWebLearn(state: LearnerState, imports: WebRestoreImport[], expectedRevision: number): Promise<LearnerSnapshot>;
   listImports(): Promise<ImportReceipt[]>;
 }
 
@@ -105,6 +107,37 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           c.retention.length !== partial.counts.retention || Object.keys(c.cards).length !== partial.counts.cards)
         throw new StorageError("READBACK_MISMATCH", "Imported progress could not be verified");
       return result;
+    },
+    async restoreWebLearn(state, imports, expectedRevision) {
+      let snapshot: LearnerSnapshot;
+      try {
+        snapshot = await db.transaction("rw", db.learner, db.imports, async () => {
+          const row = await db.learner.get("current");
+          if ((row?.revision ?? 0) !== expectedRevision)
+            throw new StorageError("REVISION_CONFLICT", "The profile changed in another tab");
+          // An existing blank row is still owned by another workflow. Never silently overwrite it.
+          if (row || await db.imports.count())
+            throw new StorageError("DESTINATION_NOT_EMPTY", "Existing LEARN data or receipts must not be overwritten");
+          const revision = 1;
+          await db.learner.add({ id: "current", revision, state, updatedAt: new Date().toISOString() });
+          if (imports.length) await db.imports.bulkAdd(imports as ImportReceipt[]);
+          return { state, revision };
+        });
+      } catch (e) { throw mapError(e); }
+      // This is a fresh transaction, not the in-memory object returned by the write.
+      try {
+        const [back, receipts] = await db.transaction("r", db.learner, db.imports, async () =>
+          Promise.all([db.learner.get("current"), db.imports.toArray()]));
+        const byId = (xs: WebRestoreImport[]) => [...xs].sort((a, b) => a.id.localeCompare(b.id));
+        if (!back || back.revision !== snapshot.revision ||
+            JSON.stringify(back.state) !== JSON.stringify(state) ||
+            JSON.stringify(byId(receipts)) !== JSON.stringify(byId(imports)))
+          throw new StorageError("READBACK_MISMATCH", "Restored LEARN data could not be verified");
+        return snapshot;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
     },
     async listImports() { return db.imports.toArray(); },
   };
