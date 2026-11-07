@@ -1,6 +1,6 @@
 # Architecture map — real implementation and approved target
 
-**Status:** verified repository map as of 2026-10-22, with planned boundaries separated from code. [Authority/index](INDEX.md) · [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md).
+**Status:** source map updated for the 2026-11-07 G2 Web progress-recovery slice; release targets remain separate from implemented code. [Authority/index](INDEX.md) · [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md).
 
 See the [ADR lifecycle and current decision map](architecture/README.md) for explicit precedence, and the [Web/Android migration how-to](guides/WEB-ANDROID-MIGRATION.md) for implementation sequencing. These navigation pages do not replace the canonical contracts in [CONTRACTS](CONTRACTS.md).
 
@@ -16,7 +16,7 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
                                        └── IndexedDB (exam event + checkpoint)
 app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
 apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
-     └── Dexie DB hospodar-yki:web:v1 (LEARN cloze mission; G2-a, beside legacy app/)
+     └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -24,7 +24,7 @@ native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
 
 **Runnable Web MVP:** plain JavaScript ES modules; browser pages served via a local HTTP server (not a build step). UI, progression, sample exam and limited audio exist. Browser exam V1 IndexedDB uses event+snapshot transactions with event-receipt recovery and a Chromium integration check; an **isolated** V2 adapter separately proves first-attempt uniqueness. The live learning SRS still uses `localStorage`.
 
-**G2-a…G2-d (03.11.2026):** `apps/web` React/Vite/TS app with Dexie persistence and `packages/domain` strict-TS policies with parity tests ([plan](exec-plans/active/2026-11-03-g2-web-react-scaffold.md)). **IMPLEMENTED (tested, S2 content pending):** LEARN missions (cloze, R08 reviewer preview, listening, reading, writing clinic, dialogues, picture missions, diagnostic, 7/14/30 delayed checks, media library), legacy progress import, «Мої дані» (verified JSON export + per-scope typed-confirmation erase, LEARN-16/WEB-07), and an EXAM practice rehearsal on an **XState** machine with its own IndexedDB (`hospodar-yki:web-exam:v1`: checkpoint + attempt history), full or skill-subset sessions, draft autosave and consented local voice recording (E06 receipts, separate `hospodar-yki:web-exam-voice:v1`), plus an offline app shell and explicit offline media packs with an exam-safe update guard (service worker, WEB-05/06). installable as a PWA (web app manifest). **Not implemented:** `apps/android` Capacitor/Gradle app, Phaser gameplay, shared strict TypeScript domain, durable Android Room binary, real Play Asset Delivery (planned ≈3.6GB compressed within the 4GB Play ceiling, [R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
+**G2-a…G2-d (03.11.2026):** `apps/web` React/Vite/TS app with Dexie persistence and `packages/domain` strict-TS policies with parity tests ([plan](exec-plans/active/2026-11-03-g2-web-react-scaffold.md)). **IMPLEMENTED (tested, S2 content pending):** LEARN missions (cloze, R08 reviewer preview, listening, reading, writing clinic, dialogues, picture missions, diagnostic, 7/14/30 delayed checks, media library), legacy progress import, «Мої дані» (verified JSON export + per-scope typed-confirmation erase + fail-closed LEARN-only restore from Web v1 backup into an empty profile, LEARN-16/WEB-07), and an EXAM practice rehearsal on an **XState** machine with its own IndexedDB (`hospodar-yki:web-exam:v1`: checkpoint + attempt history), full or skill-subset sessions, draft autosave and consented local voice recording (E06 receipts, separate `hospodar-yki:web-exam-voice:v1`), plus an offline app shell and explicit offline media packs with an exam-safe update guard (service worker, WEB-05/06). installable as a PWA (web app manifest). **Not implemented:** `apps/android` Capacitor/Gradle app, Phaser gameplay, cross-platform Kotlin/TypeScript V2 persistence parity, durable Android Room binary, real Play Asset Delivery (planned ≈3.6GB compressed within the 4GB Play ceiling, [R05](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)), full online sync, verified official YKI 2027 reproduction. See [implementation status](25-implementation-vertical-slice-roadmap.md).
 
 ## Planned modular monolith (direction, **not** current paths)
 
