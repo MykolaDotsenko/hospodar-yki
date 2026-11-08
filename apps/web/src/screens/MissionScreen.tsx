@@ -120,13 +120,21 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     return () => clearTimeout(timeout);
   }, [mission, input, task, ready, blocked]);
 
+  // Read the actual control synchronously before any state update can rerender it.
+  // Some browsers can dispatch a very fast click before React commits the final input event.
+  function latestFieldText(): string {
+    const field = document.getElementById("mission-input") as HTMLInputElement | HTMLTextAreaElement | null;
+    return field?.value ?? inputRef.current;
+  }
+
   async function submit(ev: FormEvent) {
     ev.preventDefault();
     if (busy.current || !ready || blocked) return;
     setError(null);
     let next: MissionState;
     try {
-      const latest = inputRef.current;
+      const latest = latestFieldText();
+      inputRef.current = latest;
       const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: latest }
         : mission.phase === "repair" ? { type: "SUBMIT_REPAIR" as const, answer: latest }
         : mission.phase === "feedback" ? { type: "CONTINUE" as const }
@@ -165,11 +173,17 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
 
   async function pause() {
     if (busy.current || blocked || !ready || mission.phase === "done") return;
+    const exactInput = latestFieldText(); // before setState or awaits
+    inputRef.current = exactInput;
     busy.current = true; setWorking(true); editGeneration.current++;
     setDraftStatus("saving");
     try {
       await writeQueue.current;
-      await enqueueCheckpoint(mission, inputRef.current);
+      await enqueueCheckpoint(mission, exactInput);
+      const verified = await repository.readMissionDraft();
+      if (!verified || verified.input !== exactInput ||
+          verified.mission.taskId !== task.id || verified.mission.phase !== mission.phase)
+        throw Object.assign(new Error("Paused response did not reread identically"), { code: "READBACK_MISMATCH" });
       onHome();
     } catch (e) {
       setDraftStatus("error");
