@@ -16,7 +16,7 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
                                        └── IndexedDB (exam event + checkpoint)
 app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
 apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
-     └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore)
+     └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore; v3 separate cloze draft)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -68,3 +68,7 @@ React/Vite Web UI       XState exam policy     Phaser 2D scenes
 ## Change protocol
 
 When design and source disagree, keep both statuses visible and open a scoped fix with a regression test. Treat [ADR-024](24-reliability-hardened-architecture-web-android.md) and [ADR-027](27-stack-architecture-compatibility-and-implementation-gates.md) as the latest architecture integration decisions; do not edit old ADRs as if they were live source code. Read [TESTING](TESTING.md) before reporting "implemented".
+
+## 2026-11-08: recoverable cloze LEARN draft (separate store, same Web DB)
+
+The React LEARN cloze now uses the additive Dexie **v3 `missionDraft` table** with optimistic draft revision and learner-state revision. Step submission is checkpointed and reread before updating the UI. A frozen first attempt is kept separate from guided repair. A short idle debounce saves unfinished typing; **Зберегти та вийти** flushes immediately; reload validates the saved phase by re-running the pure mission reducer against the current editorial content fingerprint. A stale, malformed or old-content draft blocks silent continuation and requires deliberate discard; EXAM store and feedback rules are untouched. Finishing a mission updates the LEARN history and removes the matching draft **in one transaction**, verified afterward. LEARN deletion removes draft too; an unfinished draft blocks new-profile restore and legacy import rather than being overwritten. The existing Web JSON export remains **completed-records-only** and cannot be called a full paused-draft backup; UI says so explicitly. A physical power-kill/IDB eviction/Android resilience matrix and expanded autosave on the other LEARN skill screens are **NOT RUN**.
