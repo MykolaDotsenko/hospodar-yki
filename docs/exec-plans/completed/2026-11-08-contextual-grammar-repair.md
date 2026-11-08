@@ -1,6 +1,6 @@
 # LEARN contextual, non-answer-leaking grammar repair (R03 / COG-05)
 
-Date: 2026-11-08. Baseline: `e7e377939eecee62faccd4e3977e62cc3fc11bc8`. Status: IMPLEMENTED / CI PENDING.
+Date: 2026-11-08. Baseline: `e7e377939eecee62faccd4e3977e62cc3fc11bc8`. Status: DONE_TESTED for automated Web scope; human S2 and independent-learning outcome gates NOT RUN.
 
 ## Finding / learner risk
 The existing live React `MissionScreen` always showed **"де? куди? звідки?"** after an incorrect first response, even for past/perfect tenses, negation, object, numerals, conditional, verb valency, passive, plural and verbs with changed stems. This is misleading instructional feedback, not merely a cosmetic issue. The UI was not diagnosing the cause of an error; the generic location question made that false impression.
@@ -17,7 +17,7 @@ The existing live React `MissionScreen` always showed **"де? куди? зві�
 4. Keep `S2 pending` draft labels, COG-05/PSY-02 traceability honest. Don't assert anything about observed Finnish outcomes.
 
 ## Evidence
-- TypeScript / Web Vitest / build / 3-engine Playwright: CI PENDING.
+- TypeScript / Web Vitest / build / 3-engine Playwright: DONE_TESTED. GitHub run [42429182549](https://github.com/MykolaDotsenko/hospodar-yki/actions/runs/42429182549), tested commit `47465042b1e548c43ffb17cdd0f085ca34658fa9`: **6/6 checks succeeded**, **147 browser cases passed / 6 skipped** (Chromium, Firefox, WebKit), no failures in final run. Valency and location repair E2E both passed in all three engines. New content/repair question tests and domain/TS/build succeeded.
 - Teacher approval of the Ukrainian cues and Finnish task keys: NOT RUN.
 - Controlled R01 day14/day30 novel transfer: NOT RUN.
 - Manual mobile screen-reader: NOT RUN.
@@ -27,3 +27,7 @@ No DB migration; rollback by reverting PR. Errors in tag mapping are non-destruc
 ## First CI run — documentation correction
 
 GitHub PR #120 head `270a6948`: traceability and combined contract checks failed solely on a mistyped untracked requirement incorrectly transposed PSY code in this plan (correct canonical code: `PSY-02`). Domain parity, TypeScript, Web unit tests and build passed; the browser suite was still running when this correction was made. No pedagogical runtime failure was observed in that first completed CI segment. Recheck final HEAD before merging.
+
+## Final test and release note
+
+PR [#120](https://github.com/MykolaDotsenko/hospodar-yki/pull/120) implemented this slice. Initial traceability runs failed because a planning-note identifier was transposed; the note was corrected. The final commit passed all six CI checks on the same source/tests. The current original Finnish cloze bank and new Ukrainian questions remain **S2 editorial drafts**: automatic checks can establish key non-leakage, tag coverage and browser behavior, **not** correctness of every accepted Finnish variant nor a statistically demonstrated learning gain. No native Android build and no official YKI 2027 fidelity claim. Rollback requires no data migration.
