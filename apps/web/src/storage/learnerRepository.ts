@@ -6,6 +6,7 @@
  */
 import Dexie, { type Table } from "dexie";
 import { blankState, type LearnerState, type WebRestoreImport } from "@hospodar/domain";
+import type { MissionDraftPayload } from "./missionDraft.ts";
 
 export const WEB_DB_NAME = "hospodar-yki:web:v1";
 export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED";
@@ -13,6 +14,9 @@ export class StorageError extends Error {
   constructor(public readonly code: StorageErrorCode, message: string) { super(message); this.name = "StorageError"; }
 }
 interface LearnerRow { id: "current"; revision: number; state: LearnerState; updatedAt: string }
+export interface MissionDraftRow extends MissionDraftPayload {
+  id: "active"; revision: number; learnerRevision: number; savedAt: string;
+}
 /** Proof of what was imported from the legacy app: hash of the exact original bytes + counts. */
 export interface ImportReceipt {
   id: string; source: "legacy_v1_file" | "legacy_v1_this_device"; originalSha256: string; originalBytes: number;
@@ -23,10 +27,12 @@ export interface ImportReceipt {
 class WebDb extends Dexie {
   learner!: Table<LearnerRow, string>;
   imports!: Table<ImportReceipt, string>;
+  missionDraft!: Table<MissionDraftRow, string>;
   constructor(name: string) {
     super(name);
     this.version(1).stores({ learner: "id" });
     this.version(2).stores({ learner: "id", imports: "id" }); // additive: v1 rows untouched
+    this.version(3).stores({ learner: "id", imports: "id", missionDraft: "id" }); // additive: no migrations of LEARN history
   }
 }
 
@@ -41,6 +47,14 @@ export interface LearnerRepository {
   /** Restore only LEARN from a validated new-Web JSON export into an empty profile (never EXAM/audio). */
   restoreWebLearn(state: LearnerState, imports: WebRestoreImport[], expectedRevision: number): Promise<LearnerSnapshot>;
   listImports(): Promise<ImportReceipt[]>;
+  /** A paused, ungraded LEARN cloze checkpoint. Not part of EXAM/finished LEARN history. */
+  readMissionDraft(): Promise<MissionDraftRow | null>;
+  /** CAS the draft AND the underlying completed LEARN revision (multi-tab safe). */
+  saveMissionDraft(draft: MissionDraftPayload, expectedLearnerRevision: number, expectedDraftRevision: number): Promise<MissionDraftRow>;
+  /** Atomically write finished LEARN history and delete the *matching* checkpoint. */
+  finishMissionDraft(next: LearnerState, expectedLearnerRevision: number, expectedDraftRevision: number, taskId: string): Promise<LearnerSnapshot>;
+  /** Explicit abandonment only, no automatic lost progress. */
+  discardMissionDraft(expectedLearnerRevision: number, expectedDraftRevision: number): Promise<void>;
 }
 
 function mapError(e: unknown): StorageError {
@@ -72,21 +86,24 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     },
     async eraseAll(expectedRevision) {
       try {
-        await db.transaction("rw", db.learner, db.imports, async () => {
+        await db.transaction("rw", db.learner, db.imports, db.missionDraft, async () => {
           const current = (await db.learner.get("current"))?.revision ?? 0;
           if (current !== expectedRevision) throw new StorageError("REVISION_CONFLICT", "Progress was changed in another tab");
           await db.learner.clear();
           await db.imports.clear();
+          await db.missionDraft.clear();
         });
       } catch (e) { throw mapError(e); }
-      if ((await db.learner.count()) !== 0 || (await db.imports.count()) !== 0)
+      if ((await db.learner.count()) !== 0 || (await db.imports.count()) !== 0 ||
+          (await db.missionDraft.count()) !== 0)
         throw new StorageError("DELETE_NOT_VERIFIED", "Some progress is still stored");
       return { state: blankState(), revision: 0 };
     },
     async importLegacy(state, partial) {
       let result: { snapshot: LearnerSnapshot; receipt: ImportReceipt };
       try {
-        result = await db.transaction("rw", db.learner, db.imports, async () => {
+        result = await db.transaction("rw", db.learner, db.imports, db.missionDraft, async () => {
+          if (await db.missionDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished cloze mission exists");
           const row = await db.learner.get("current");
           // No merge: refuse if the new app already holds any learning history.
           if (row && (row.state.attempts.length || row.state.diagnostics.length || Object.keys(row.state.cards).length || row.state.retention.length))
@@ -111,12 +128,12 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     async restoreWebLearn(state, imports, expectedRevision) {
       let snapshot: LearnerSnapshot;
       try {
-        snapshot = await db.transaction("rw", db.learner, db.imports, async () => {
+        snapshot = await db.transaction("rw", db.learner, db.imports, db.missionDraft, async () => {
           const row = await db.learner.get("current");
           if ((row?.revision ?? 0) !== expectedRevision)
             throw new StorageError("REVISION_CONFLICT", "The profile changed in another tab");
           // An existing blank row is still owned by another workflow. Never silently overwrite it.
-          if (row || await db.imports.count())
+          if (row || await db.imports.count() || await db.missionDraft.count())
             throw new StorageError("DESTINATION_NOT_EMPTY", "Existing LEARN data or receipts must not be overwritten");
           const revision = 1;
           await db.learner.add({ id: "current", revision, state, updatedAt: new Date().toISOString() });
@@ -140,5 +157,81 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
       }
     },
     async listImports() { return db.imports.toArray(); },
+    async readMissionDraft() {
+      try { return (await db.missionDraft.get("active")) ?? null; }
+      catch (e) { throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e)); }
+    },
+    async saveMissionDraft(draft, expectedLearnerRevision, expectedDraftRevision) {
+      let row: MissionDraftRow;
+      try {
+        row = await db.transaction("rw", db.learner, db.missionDraft, async () => {
+          const learnerRevision = (await db.learner.get("current"))?.revision ?? 0;
+          const old = await db.missionDraft.get("active");
+          if (learnerRevision !== expectedLearnerRevision ||
+              (old?.revision ?? 0) !== expectedDraftRevision ||
+              (old && old.learnerRevision !== learnerRevision))
+            throw new StorageError("REVISION_CONFLICT", "LEARN progress or mission draft changed in another tab");
+          const stored: MissionDraftRow = {
+            ...structuredClone(draft), id: "active",
+            revision: expectedDraftRevision + 1, learnerRevision,
+            savedAt: new Date().toISOString(),
+          };
+          await db.missionDraft.put(stored);
+          return stored;
+        });
+      } catch (e) { throw mapError(e); }
+      try {
+        const back = await db.missionDraft.get("active");
+        if (JSON.stringify(back) !== JSON.stringify(row))
+          throw new StorageError("READBACK_MISMATCH", "Mission draft was not durably reread");
+        return row;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
+    },
+    async finishMissionDraft(next, expectedLearnerRevision, expectedDraftRevision, taskId) {
+      let saved: LearnerSnapshot;
+      try {
+        saved = await db.transaction("rw", db.learner, db.missionDraft, async () => {
+          const learner = await db.learner.get("current");
+          const draft = await db.missionDraft.get("active");
+          if ((learner?.revision ?? 0) !== expectedLearnerRevision ||
+              !draft || draft.revision !== expectedDraftRevision ||
+              draft.learnerRevision !== expectedLearnerRevision ||
+              draft.mission.taskId !== taskId || draft.mission.phase !== "transfer")
+            throw new StorageError("REVISION_CONFLICT", "The unfinished draft is missing, stale or belongs to a different task");
+          const revision = expectedLearnerRevision + 1;
+          await db.learner.put({ id: "current", revision, state: next, updatedAt: new Date().toISOString() });
+          await db.missionDraft.delete("active");
+          return { state: next, revision };
+        });
+      } catch (e) { throw mapError(e); }
+      try {
+        const [learner, draft] = await db.transaction("r", db.learner, db.missionDraft, async () =>
+          Promise.all([db.learner.get("current"), db.missionDraft.get("active")]));
+        if (!learner || learner.revision !== saved.revision || draft ||
+            JSON.stringify(learner.state) !== JSON.stringify(next))
+          throw new StorageError("READBACK_MISMATCH", "Completed LEARN progress not confirmed in storage");
+        return saved;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
+    },
+    async discardMissionDraft(expectedLearnerRevision, expectedDraftRevision) {
+      try {
+        await db.transaction("rw", db.learner, db.missionDraft, async () => {
+          const revision = (await db.learner.get("current"))?.revision ?? 0;
+          const current = await db.missionDraft.get("active");
+          if (revision !== expectedLearnerRevision || !current ||
+              current.revision !== expectedDraftRevision)
+            throw new StorageError("REVISION_CONFLICT", "Draft was changed or already discarded");
+          await db.missionDraft.delete("active");
+        });
+        if (await db.missionDraft.get("active"))
+          throw new StorageError("READBACK_MISMATCH", "Discard could not be verified");
+      } catch (e) { throw mapError(e); }
+    },
   };
 }

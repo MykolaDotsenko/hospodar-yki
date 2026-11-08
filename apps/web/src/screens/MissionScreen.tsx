@@ -7,6 +7,7 @@ import { exercises, isDraft, type ClozeExercise } from "../content/cloze.ts";
 import { repairQuestionFor } from "../content/repairCues.ts";
 import { recommend, type Recommendation } from "../content/selection.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
+import { clozeFingerprint, validMissionDraft, type MissionDraftPayload } from "../storage/missionDraft.ts";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "answer", label: "Спроба" },
@@ -39,45 +40,165 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [save, setSave] = useState<SaveStatus>({ kind: "idle" });
+  const [ready, setReady] = useState(false);
+  const [blocked, setBlocked] = useState<string | null>(null);
+  const [recovered, setRecovered] = useState(false);
+  const [draftStatus, setDraftStatus] = useState<"idle" | "dirty" | "saving" | "saved" | "error">("idle");
+  const draftRevision = useRef(0);
+  const lastWritten = useRef("");
+  const writeQueue = useRef<Promise<void>>(Promise.resolve());
+  const editGeneration = useRef(0);
+  const busy = useRef(false);
   const heading = useRef<HTMLHeadingElement>(null);
   const view = missionView(mission);
   const reachedRepair = mission.firstCorrect === false;
   const steps = useMemo(() => STEPS.filter(s => s.phase !== "repair" || reachedRepair || mission.phase === "answer"), [reachedRepair, mission.phase]);
   const current = steps.findIndex(s => s.phase === mission.phase);
 
-  useEffect(() => { heading.current?.focus(); }, [mission.phase, task.id]);
+  useEffect(() => { if (ready && !blocked) heading.current?.focus(); }, [ready, blocked, mission.phase, task.id]);
 
-  async function persist(finished: MissionState) {
-    setSave({ kind: "saving" });
-    try {
-      const next = completeMission(snapshot.state, missionResult(finished, task.grammar_tag));
-      const saved = await repository.commit(next, snapshot.revision);
-      onSaved(saved);
-      setSave({ kind: "saved" }); // success only after the IndexedDB transaction completed
-    } catch (e) {
-      setSave({ kind: "error", code: String((e as { code?: string })?.code ?? "SAVE_FAILED") });
-    }
+  useEffect(() => {
+    let alive = true;
+    void repository.readMissionDraft().then(draft => {
+      if (!alive) return;
+      if (draft) {
+        draftRevision.current = draft.revision;
+        const found = exercises.find(e => e.id === draft.mission?.taskId);
+        if (draft.learnerRevision !== snapshot.revision || !found || !validMissionDraft({
+          mission: draft.mission, input: draft.input, contentFingerprint: draft.contentFingerprint,
+        }, found)) {
+          setBlocked("Незавершена місія змінилася або має стару версію матеріалів. Її не відкрито: можна явно відкинути цю чернетку й почати заново.");
+        } else {
+          const current = selectExercise(snapshot.state);
+          setOptions(current.options);
+          setTask(found); setMission(draft.mission); setInput(draft.input);
+          lastWritten.current = JSON.stringify({
+            mission: draft.mission, input: draft.input, contentFingerprint: draft.contentFingerprint,
+          });
+          setRecovered(true);
+          setDraftStatus("saved");
+        }
+      }
+      setReady(true);
+    }).catch(e => { if (alive) { setBlocked("Не вдалося прочитати чернетку (" +
+      String((e as { code?: string })?.code ?? "READ_FAILED") + "). Перезавантаж сторінку; нічого не перезаписано."); setReady(true); } });
+    return () => { alive = false; };
+  }, [repository]); // one initial storage read; don't overwrite a draft on rerender
+
+  function payload(state: MissionState, writtenInput: string, exercise: ClozeExercise = task): MissionDraftPayload {
+    return { mission: state, input: writtenInput, contentFingerprint: clozeFingerprint(exercise) };
   }
+  /** Serialize all local writes: a slow old keystroke must never overwrite a newer step. */
+  function enqueueCheckpoint(next: MissionState, value: string, exercise: ClozeExercise = task) {
+    const d = payload(next, value, exercise), fingerprint = JSON.stringify(d);
+    const queued = writeQueue.current.then(async () => {
+      if (lastWritten.current === fingerprint) return;
+      setDraftStatus("saving");
+      const saved = await repository.saveMissionDraft(d, snapshot.revision, draftRevision.current);
+      draftRevision.current = saved.revision;
+      lastWritten.current = fingerprint; // only after a fresh repository readback
+      setDraftStatus("saved");
+    });
+    writeQueue.current = queued.catch(() => {});
+    return queued;
+  }
+  useEffect(() => {
+    if (!ready || blocked || mission.phase === "done" || busy.current) return;
+    if (mission.phase === "answer" && !input && draftRevision.current === 0) return;
+    const generation = editGeneration.current;
+    const timeout = setTimeout(() => {
+      if (generation !== editGeneration.current) return;
+      void enqueueCheckpoint(mission, input).catch(e => {
+        setDraftStatus("error");
+        setError("Автозбереження не підтверджено (" +
+          String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). Текст залишається на екрані.");
+      });
+    }, 650);
+    return () => clearTimeout(timeout);
+  }, [mission, input, task, ready, blocked]);
 
-  function submit(ev: FormEvent) {
+  async function submit(ev: FormEvent) {
     ev.preventDefault();
+    if (busy.current || !ready || blocked) return;
     setError(null);
+    let next: MissionState;
     try {
       const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: input }
         : mission.phase === "repair" ? { type: "SUBMIT_REPAIR" as const, answer: input }
         : mission.phase === "feedback" ? { type: "CONTINUE" as const }
         : { type: "SUBMIT_TRANSFER" as const, text: input };
-      const next = missionReducer(mission, task, event);
-      setMission(next);
-      setInput("");
-      if (next.phase === "done") void persist(next);
+      next = missionReducer(mission, task, event);
     } catch (e) {
       setError(e instanceof MissionError && e.code === "EMPTY_ANSWER" ? "Спершу напиши відповідь." : "Цю дію зараз виконати не можна.");
+      return;
     }
+    busy.current = true;
+    editGeneration.current++;
+    setDraftStatus("saving");
+    try {
+      await writeQueue.current;
+      if (next.phase === "done") {
+        const history = completeMission(snapshot.state, missionResult(next, task.grammar_tag));
+        const saved = await repository.finishMissionDraft(history, snapshot.revision, draftRevision.current, task.id);
+        onSaved(saved);
+        draftRevision.current = 0;
+        lastWritten.current = "";
+        setMission(next); setInput("");
+        setSave({ kind: "saved" });
+      } else {
+        await enqueueCheckpoint(next, "");
+        setMission(next); setInput("");
+      }
+      setError(null);
+    } catch (e) {
+      const code = String((e as { code?: string })?.code ?? "SAVE_FAILED");
+      setDraftStatus("error");
+      setError(code === "REVISION_CONFLICT" || code === "READBACK_MISMATCH"
+        ? "Не вдалося підтвердити запис (" + code + "). Онови сторінку й перевір прогрес перед повторною дією."
+        : "Не збережено (" + code + "). Спробуй знову, текст збережено на екрані.");
+    } finally { busy.current = false; }
+  }
+
+  async function pause() {
+    if (busy.current || blocked || !ready || mission.phase === "done") return;
+    busy.current = true; editGeneration.current++;
+    setDraftStatus("saving");
+    try {
+      await writeQueue.current;
+      await enqueueCheckpoint(mission, input);
+      onHome();
+    } catch (e) {
+      setDraftStatus("error");
+      setError("Не вдалося зберегти чернетку (" +
+        String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). Залишаємося в місії.");
+    } finally { busy.current = false; }
+  }
+
+  async function discard() {
+    if (busy.current || !ready) return;
+    busy.current = true; editGeneration.current++;
+    try {
+      await writeQueue.current;
+      if (draftRevision.current > 0) {
+        await repository.discardMissionDraft(snapshot.revision, draftRevision.current);
+        draftRevision.current = 0;
+      }
+      lastWritten.current = "";
+      setBlocked(null); setRecovered(false);
+      setMission(startMission(task.id)); setInput(""); setDraftStatus("idle");
+      setError(null); setChoosing(false);
+    } catch (e) {
+      setError("Не вдалося відкинути чернетку (" + String((e as { code?: string })?.code ?? "SAVE_FAILED") + ").");
+    } finally { busy.current = false; }
   }
 
   function open(t: ClozeExercise) {
-    setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" }); setInput(""); setError(null); setChoosing(false);
+    if (draftRevision.current > 0 || input.trim()) {
+      setError("Для зміни завдання спочатку явно відкинь поточну чернетку."); return;
+    }
+    editGeneration.current++;
+    setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" });
+    setInput(""); setError(null); setChoosing(false); setRecovered(false);
   }
   function nextMission() {
     const next = selectExercise(snapshot.state);
@@ -85,6 +206,19 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   }
 
   const cta = { answer: "Перевірити", repair: "Перевірити ще раз", feedback: "Далі: нова ситуація", transfer: "Зберегти місію", done: "" }[mission.phase];
+
+  if (!ready) return <section className="panel" role="status">Перевіряю незавершену місію на цьому пристрої…</section>;
+  if (blocked) return (
+    <section className="panel" aria-labelledby="draft-blocked">
+      <h1 id="draft-blocked">Чернетка потребує уваги</h1>
+      <p className="feedback warn" role="alert">{blocked}</p>
+      {error && <p className="feedback error" role="alert">{error}</p>}
+      <div className="actions">
+        {draftRevision.current > 0 && <button className="btn danger" type="button" onClick={() => void discard()}>Відкинути несумісну чернетку</button>}
+        <button className="btn secondary" type="button" onClick={onHome}>На головну</button>
+      </div>
+    </section>
+  );
 
   return (
     <section className="panel" aria-labelledby="mission-title">
@@ -103,7 +237,15 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           );
         })}
       </ol>
-      {isDraft(task) && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
+      {isDraft(task) && <p className="draft-note">Чернетка матеріалу: ще не перевірено S2-викладачем.</p>}
+      {recovered && mission.phase !== "done" && <p className="feedback" role="status">Продовжуємо незавершену місію з останньої підтвердженої чернетки.</p>}
+      {mission.phase !== "done" && <p className="muted" role="status">
+        {draftStatus === "saving" ? "Зберігаю чернетку…" :
+          draftStatus === "saved" ? "Чернетку збережено на цьому пристрої." :
+          draftStatus === "error" ? "Останні зміни не підтверджено. Використай «Зберегти та вийти»." :
+          "Зміни в полі автоматично зберігаються після короткої паузи. Для негайного збереження — «Зберегти та вийти»."}
+        Чернетка не вважається завершеною місією.
+      </p>
 
       {view.showPrompt && <p className="prompt" lang="fi">{task.prompt_fi}</p>}
       {view.showRepairHint && (
@@ -121,19 +263,22 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       {view.showTransfer && <p className="prompt" lang="fi">{task.transfer_task_fi ?? "Kirjoita oma lause."}</p>}
 
       {mission.phase !== "done" && (
-        <form onSubmit={submit} noValidate>
+        <form onSubmit={e => void submit(e)} noValidate>
           {mission.phase !== "feedback" && (
             <>
               <label className="field" htmlFor="mission-input">
                 {mission.phase === "transfer" ? "Твоє власне речення фінською (без зразка, не оцінюється автоматично)" : "Впиши пропущену форму фінською"}
               </label>
               {mission.phase === "transfer"
-                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} value={input} onChange={e => setInput(e.target.value)} aria-describedby={error ? "mission-error" : undefined} />
-                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} value={input} onChange={e => setInput(e.target.value)} aria-describedby={error ? "mission-error" : undefined} />}
+                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
+                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
             </>
           )}
           {error && <p id="mission-error" className="feedback error" role="alert">{error}</p>}
-          <div className="actions"><button type="submit" className="btn">{cta}</button></div>
+          <div className="actions">
+            <button type="submit" className="btn">{cta}</button>
+            <button type="button" className="btn secondary" onClick={() => void pause()}>Зберегти та вийти</button>
+          </div>
         </form>
       )}
 
@@ -142,6 +287,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           <summary>Чому це завдання зараз?</summary>
           {why.length ? <ul>{why.map(w => <li key={w}>{w}</li>)}</ul> : <p>Немає особливих сигналів — це наступне доступне завдання.</p>}
           <p className="muted">Рекомендація лише з твоїх відповідей на цьому пристрої, без оцінки рівня.</p>
+          {draftRevision.current > 0 && <p className="muted">Щоб обрати інше завдання, відкинь поточну чернетку кнопкою нижче.</p>}
           <button type="button" className="btn secondary" aria-expanded={choosing} onClick={() => setChoosing(c => !c)}>Обрати інше завдання</button>
           {choosing && (
             <ul className="choices" aria-label="Інші завдання">
@@ -155,17 +301,19 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         </details>
       )}
 
+      {mission.phase !== "done" && (
+        <div className="actions">
+          <button className="btn secondary" type="button" onClick={() => void discard()}>
+            Відкинути чернетку та почати заново
+          </button>
+        </div>
+      )}
+
       {mission.phase === "done" && (
         <div aria-live="polite">
           {save.kind === "saving" && <p className="feedback" role="status">Зберігаю на пристрої…</p>}
           {save.kind === "saved" && <p className="feedback" role="status">✅ Збережено на цьому пристрої. Перша спроба записана окремо від самовиправлення.</p>}
-          {save.kind === "error" && (
-            <div className="feedback error" role="alert">
-              <p>⚠️ Місію НЕ збережено ({save.code}). Нічого не втрачено з екрана — спробуй ще раз{save.code === "REVISION_CONFLICT" ? " після перезавантаження сторінки (прогрес змінено в іншій вкладці)" : ""}.</p>
-              <div className="actions"><button type="button" className="btn secondary" onClick={() => void persist(mission)}>Спробувати зберегти ще раз</button></div>
-            </div>
-          )}
-          {save.kind === "saved" && (
+           {save.kind === "saved" && (
             <div className="actions">
               <button type="button" className="btn" onClick={nextMission}>Наступна місія</button>
               <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
