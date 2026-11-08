@@ -1178,6 +1178,10 @@
         {
           "file": "app/tests/retention-core.test.mjs",
           "contains": "never exposes a delayed prompt before day 7"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: complete two due novel transfers one by one without merging or grading"
         }
       ]
     },
@@ -3969,6 +3973,10 @@
         {
           "file": "apps/web/e2e/offline.spec.ts",
           "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "LE-10: own earlier Finnish sentence remains hidden until delayed answer is durably saved"
         }
       ],
       "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
@@ -5420,6 +5428,10 @@
         {
           "file": "packages/domain/test/retention-parity.test.ts",
           "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "LE-10: own earlier Finnish sentence remains hidden until delayed answer is durably saved"
         }
       ],
       "gap": "Only the grammar writing stream exists."
