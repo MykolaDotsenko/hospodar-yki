@@ -14,7 +14,7 @@ The existing live React `MissionScreen` always showed **"де? куди? зві�
 1. At least 28/28 bundled items have a tagged prompt. A new tag without approved question falls back to a neutral meaning-based check, never a fabricated specific diagnosis. No correct answer leaks before the second attempt.
 2. Frozen first independent answer, repair-before-key and novel free-production transfer retain current behavior. No extra learner data, storage schema, Android, EXAM, audio, AI or notifications.
 3. Unit checks cover tag completeness, bounded prompts, no answer-key substring, tense/non-location category routing, unknown/prototype tags. Browser three-engine Playwright shows valency and motion routing, hides keys in repair, shows key only in feedback, axe.
-4. Keep `S2 pending` draft labels, COG-05/PYS-02 traceability honest. Don't assert anything about observed Finnish outcomes.
+4. Keep `S2 pending` draft labels, COG-05/PSY-02 traceability honest. Don't assert anything about observed Finnish outcomes.
 
 ## Evidence
 - TypeScript / Web Vitest / build / 3-engine Playwright: CI PENDING.
@@ -23,3 +23,7 @@ The existing live React `MissionScreen` always showed **"де? куди? зві�
 - Manual mobile screen-reader: NOT RUN.
 
 No DB migration; rollback by reverting PR. Errors in tag mapping are non-destructive and should be corrected with human S2 feedback before content publication.
+
+## First CI run — documentation correction
+
+GitHub PR #120 head `270a6948`: traceability and combined contract checks failed solely on a mistyped untracked requirement `PYS-02` in this plan (correct canonical code: `PSY-02`). Domain parity, TypeScript, Web unit tests and build passed; the browser suite was still running when this correction was made. No pedagogical runtime failure was observed in that first completed CI segment. Recheck final HEAD before merging.
