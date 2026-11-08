@@ -123,7 +123,8 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 [data-appearance="calm"] .learning-cue { background: var(--white); color: var(--cue-text); }
 [data-appearance="calm"] * { transition: none !important; animation: none !important; }
 
-@media (prefers-reduced-motion: no-preference) { .btn, .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
+/* The button's text colour changes immediately. Do not tween its background through low-contrast intermediate shades (WCAG 1.4.3). */
+@media (prefers-reduced-motion: no-preference) { .btn { transition: border-color var(--motion-micro); } .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
 @media (forced-colors: active) {
   .threshold-segment.current { outline: 2px solid Highlight; }
   .learning-cue { background: Canvas; color: CanvasText; }

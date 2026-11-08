@@ -51,7 +51,19 @@ test("LEARN Writing Clinic: spot/model/rewrite/transfer checkpoints preserve bou
   await page.getByRole("button", { name: "Переписати свій текст" }).click();
   const rewrite = DRAFT + " Olen kotona arkisin kello 17 jälkeen.";
   await page.getByLabel(/Твій переписаний текст/).fill(rewrite);
+  await expect(page.getByLabel(/Твій переписаний текст/)).toHaveValue(rewrite);
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  const savedInput = await page.evaluate(async () => new Promise<string | undefined>((resolve, reject) => {
+    const request = indexedDB.open("hospodar-yki:web:v1");
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const tx = request.result.transaction("clinicDraft", "readonly");
+      const get = tx.objectStore("clinicDraft").get("active");
+      get.onerror = () => reject(get.error);
+      get.onsuccess = () => { resolve((get.result as { input?: string } | undefined)?.input); request.result.close(); };
+    };
+  }));
+  expect(savedInput).toBe(rewrite);
   await page.reload();
   await openClinic(page);
   await expect(page.getByRole("heading", { name: "Перепиши свій текст" })).toBeVisible();

@@ -105,9 +105,8 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
   useEffect(() => { heading.current?.focus(); }, [s.phase]);
 
   function currentText() {
-    const id = s.phase === "write" ? "cl-draft" : s.phase === "rewrite" ? "cl-rewrite" : "cl-transfer";
-    const node = document.getElementById(id) as HTMLTextAreaElement | null;
-    return node?.value ?? inputRef.current;
+    // onInput captures the exact value synchronously even before React commits a fast final change.
+    return inputRef.current;
   }
   /** A slow keystroke never overwrites a newer step; a successful write is verified by the repository. */
   function checkpoint(state: ClinicSession, input: string) {
@@ -242,7 +241,7 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
     <>
       <label className="field" htmlFor={id}>{label}</label>
       <textarea id={id} className="answer" lang="fi" rows={7} maxLength={CLINIC_MAX_CHARS} disabled={working}
-        value={text} onChange={e => changeText(e.target.value)} />
+        value={text} onInput={e => { inputRef.current = e.currentTarget.value; }} onChange={e => changeText(e.target.value)} />
     </>
   );
 
