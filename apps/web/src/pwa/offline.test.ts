@@ -63,6 +63,50 @@ describe("explicit pack download", () => {
     const noHash = { ...pack, files: pack.files.map(f => ({ url: f.url, bytes: f.bytes })) };
     expect(await downloadPack(noHash, memCaches(), () => {}, okFetch, abs)).toMatchObject({ ok: false, reason: "HASH_MISMATCH" });
   });
+  it("detects a same-size stale cache entry, reports partial and downloads only the invalid file", async () => {
+    const c = memCaches();
+    expect((await downloadPack(pack, c, () => {}, okFetch, abs)).ok).toBe(true);
+    const cache = await c.open("hospodar-media-v1");
+    const url = abs(pack.files[0]!.url);
+    const entry = await cache.match(url);
+    const changed = new Uint8Array(await entry!.arrayBuffer());
+    changed[0] ^= 1; // same URL and byte length, different SHA-256
+    await cache.put(url, new Response(changed));
+    expect(await packStatus(pack, c, abs)).toEqual({ state: "partial", cached: 1 });
+    const fetched: string[] = [];
+    const fetchSpy = (async (u: string) => { fetched.push(u); return okFetch(u); }) as typeof fetch;
+    expect(await downloadPack(pack, c, () => {}, fetchSpy, abs)).toEqual({ ok: true, files: 2 });
+    expect(fetched).toEqual([url]);
+    expect(await packStatus(pack, c, abs)).toEqual({ state: "downloaded", cached: 2 });
+  });
+  it("evicts an invalid cached asset even if network repair is impossible", async () => {
+    const c = memCaches();
+    await downloadPack(pack, c, () => {}, okFetch, abs);
+    const cache = await c.open("hospodar-media-v1");
+    const url = abs(pack.files[0]!.url);
+    await cache.put(url, new Response(new Uint8Array(pack.files[0]!.bytes - 1)));
+    const down = (async () => { throw new TypeError("offline"); }) as unknown as typeof fetch;
+    expect(await downloadPack(pack, c, () => {}, down, abs)).toMatchObject({ ok: false, failedUrl: pack.files[0]!.url, reason: "NETWORK", done: 0 });
+    expect(await cache.match(url)).toBeUndefined(); // the SW cannot serve stale bytes
+    expect(await packStatus(pack, c, abs)).toEqual({ state: "partial", cached: 1 });
+  });
+  it("refuses an already-cached file when the current manifest has no usable SHA-256", async () => {
+    const c = memCaches();
+    await downloadPack(pack, c, () => {}, okFetch, abs);
+    const noHash = { ...pack, files: [{ ...pack.files[0]!, sha256: undefined }, pack.files[1]!] };
+    expect(await packStatus(noHash, c, abs)).toEqual({ state: "partial", cached: 1 });
+    expect(await downloadPack(noHash, c, () => {}, okFetch, abs)).toMatchObject({ ok: false, reason: "HASH_MISMATCH", done: 0 });
+    expect(await (await c.open("hospodar-media-v1")).match(abs(pack.files[0]!.url))).toBeUndefined();
+  });
+  it("refuses silent CacheStorage eviction after put: no false success or progress increment", async () => {
+    const c = memCaches();
+    const cache = await c.open("hospodar-media-v1") as MemCache;
+    cache.put = async () => {}; // emulates a successful but lost cache write
+    const seen: number[] = [];
+    expect(await downloadPack(pack, c, n => seen.push(n), okFetch, abs)).toMatchObject({ ok: false, reason: "CACHE_READBACK_FAILED", done: 0 });
+    expect(seen).toEqual([]);
+    expect(await packStatus(pack, c, abs)).toEqual({ state: "online_only", cached: 0 });
+  });
   it("network failure and HTTP errors are reported, not hidden", async () => {
     const down = (async () => { throw new TypeError("offline"); }) as unknown as typeof fetch;
     expect(await downloadPack(pack, memCaches(), () => {}, down, abs)).toMatchObject({ ok: false, reason: "NETWORK" });

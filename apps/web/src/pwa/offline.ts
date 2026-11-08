@@ -3,7 +3,7 @@
  * Media is cached only when the learner asks; each file is checked against the manifest size AND SHA-256 before it is stored,
  * and a pack counts as "downloaded" only when every file is present (no false offline claim).
  */
-import { packState, type OfflineManifest, type OfflinePack, type PackState } from "./manifest.ts";
+import { packState, type OfflineFile, type OfflineManifest, type OfflinePack, type PackState } from "./manifest.ts";
 
 export const MEDIA_CACHE = "hospodar-media-v1";
 export interface CacheLike { match(url: string): Promise<Response | undefined>; put(url: string, r: Response): Promise<void>; delete(url: string): Promise<boolean> }
@@ -17,31 +17,71 @@ export async function loadManifest(fetchFn: typeof fetch = fetch): Promise<Offli
   } catch { return null; }
 }
 
+/** An offline-ready pack requires matching current content bytes, not just a cache key.
+ * Recheck after deployments as unchanged URLs may contain old media. Sequential digesting
+ * avoids loading an entire pack at once (SubtleCrypto.digest is not streaming).
+ */
 export async function packStatus(pack: OfflinePack, caches: CachesLike, abs = absolute): Promise<{ state: PackState; cached: number }> {
   const cache = await caches.open(MEDIA_CACHE);
   let cached = 0;
-  for (const f of pack.files) if (await cache.match(abs(f.url))) cached++;
+  for (const f of pack.files) {
+    if (await responseMatchesFile(await cache.match(abs(f.url)), f)) cached++;
+  }
   return { state: packState(pack.files.length, cached), cached };
 }
 
-export type DownloadResult = { ok: true; files: number } | { ok: false; failedUrl: string; reason: "NETWORK" | "HTTP" | "SIZE_MISMATCH" | "HASH_MISMATCH" | "QUOTA_OR_DISK_FULL"; done: number };
+export type DownloadResult = { ok: true; files: number } | { ok: false; failedUrl: string; reason: "NETWORK" | "HTTP" | "SIZE_MISMATCH" | "HASH_MISMATCH" | "QUOTA_OR_DISK_FULL" | "CACHE_READBACK_FAILED"; done: number };
 const sha256Hex = async (b: ArrayBuffer) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", b))].map(x => x.toString(16).padStart(2, "0")).join("");
-/** Sequential, verified download. Stops at the first failure; already-stored files stay (status becomes "partial"). */
+
+/** A CacheStorage match is not a receipt: old assets keep the same URL across builds. */
+async function responseMatchesFile(response: Response | undefined, file: OfflineFile): Promise<boolean> {
+  if (!response?.ok || !Number.isSafeInteger(file.bytes) || file.bytes < 0 ||
+      !/^[a-f0-9]{64}$/.test(file.sha256 ?? "")) return false;
+  try {
+    const bytes = await response.arrayBuffer();
+    return bytes.byteLength === file.bytes && (await sha256Hex(bytes)) === file.sha256;
+  } catch { return false; }
+}
+
+/** Sequential verified download. Invalid cached entries are evicted before refetching.
+ * A write only counts after fresh CacheStorage readback verifies current SHA-256.
+ */
 export async function downloadPack(pack: OfflinePack, caches: CachesLike, onProgress: (done: number, total: number) => void,
   fetchFn: typeof fetch = fetch, abs = absolute): Promise<DownloadResult> {
-  const cache = await caches.open(MEDIA_CACHE);
+  let cache: CacheLike;
+  try { cache = await caches.open(MEDIA_CACHE); }
+  catch { return { ok: false, failedUrl: pack.files[0]?.url ?? "", reason: "CACHE_READBACK_FAILED", done: 0 }; }
   let done = 0;
   for (const f of pack.files) {
     const url = abs(f.url);
-    if (await cache.match(url)) { onProgress(++done, pack.files.length); continue; }
+    let stored: Response | undefined;
+    try { stored = await cache.match(url); }
+    catch { return { ok: false, failedUrl: f.url, reason: "CACHE_READBACK_FAILED", done }; }
+    if (stored) {
+      if (await responseMatchesFile(stored, f)) { onProgress(++done, pack.files.length); continue; }
+      // Never let the service worker serve known-stale or corrupt media when network repair fails.
+      try { await cache.delete(url); }
+      catch { return { ok: false, failedUrl: f.url, reason: "CACHE_READBACK_FAILED", done }; }
+    }
     let res: Response;
-    try { res = await fetchFn(url, { cache: "no-store" }); } catch { return { ok: false, failedUrl: f.url, reason: "NETWORK", done }; }
+    try { res = await fetchFn(url, { cache: "no-store" }); }
+    catch { return { ok: false, failedUrl: f.url, reason: "NETWORK", done }; }
     if (!res.ok) return { ok: false, failedUrl: f.url, reason: "HTTP", done };
-    const buf = await res.arrayBuffer();
+    let buf: ArrayBuffer;
+    try { buf = await res.arrayBuffer(); }
+    catch { return { ok: false, failedUrl: f.url, reason: "NETWORK", done }; }
     if (buf.byteLength !== f.bytes) return { ok: false, failedUrl: f.url, reason: "SIZE_MISMATCH", done };
-    if (!f.sha256 || (await sha256Hex(buf)) !== f.sha256) return { ok: false, failedUrl: f.url, reason: "HASH_MISMATCH", done };   // no hash → not offline
+    if (!/^[a-f0-9]{64}$/.test(f.sha256 ?? "") || (await sha256Hex(buf)) !== f.sha256)
+      return { ok: false, failedUrl: f.url, reason: "HASH_MISMATCH", done };
     try { await cache.put(url, new Response(buf, { headers: { "Content-Type": res.headers.get("content-type") ?? "application/octet-stream" } })); }
     catch { return { ok: false, failedUrl: f.url, reason: "QUOTA_OR_DISK_FULL", done }; }
+    let verified = false;
+    try { verified = await responseMatchesFile(await cache.match(url), f); }
+    catch { /* readback failed: fail closed */ }
+    if (!verified) {
+      try { await cache.delete(url); } catch { /* never report a successful save */ }
+      return { ok: false, failedUrl: f.url, reason: "CACHE_READBACK_FAILED", done };
+    }
     onProgress(++done, pack.files.length);
   }
   return { ok: true, files: done };
