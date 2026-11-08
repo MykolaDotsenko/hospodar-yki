@@ -12,6 +12,11 @@ async function oneMission(page: Page) {
   await page.getByRole("button", { name: "Перевірити" }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  // If an IndexedDB checkpoint is refused, report the actual on-screen error rather than a 30s missing-button timeout.
+  await expect.poll(async () => {
+    const error = await page.locator("#mission-error").count() ? await page.locator("#mission-error").textContent() : null;
+    return error ? `SAVE ERROR: ${error}` : await page.locator("#mission-title").textContent();
+  }).toContain("Що вийшло");
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
   await page.getByLabel(/Твоє власне речення/).fill("Menen kauppaan.");
   await page.getByRole("button", { name: "Зберегти місію" }).click();

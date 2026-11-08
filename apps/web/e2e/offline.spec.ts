@@ -28,6 +28,22 @@ test("WEB-05: the app opens offline after one online visit; media is online_only
   await expect(page.getByText(/збережено для офлайну \(\d+ файлів, перевірено розмір і контрольну суму\)/)).toBeVisible({ timeout: 30_000 });
   await expect(packs.locator("li").first()).toContainText("збережено для офлайну");
 
+  // WEB-05: a stale same-URL audio response must NOT survive as a fake ready pack.
+  await page.evaluate(async url => {
+    const cache = await caches.open("hospodar-media-v1");
+    const key = new URL(url, document.baseURI).href;
+    const response = await cache.match(key);
+    if (!response) throw new Error("Expected the downloaded audio cache entry");
+    const tampered = new Uint8Array(await response.arrayBuffer());
+    tampered[0] = (tampered[0] ?? 0) ^ 1; // exact size preserved, only digest differs
+    await cache.put(key, new Response(tampered, { headers: { "Content-Type": response.headers.get("content-type") ?? "audio/ogg" } }));
+  }, audioUrl);
+  await page.getByRole("button", { name: "На головну" }).click();
+  await page.getByRole("button", { name: "Офлайн-доступ" }).click();
+  await expect(packs.locator("li").first()).toContainText("частково збережено");
+  await packs.getByRole("button", { name: "Дозберегти" }).first().click();
+  await expect(packs.locator("li").first()).toContainText("збережено для офлайну");
+
   await context.setOffline(true);
   const r = await page.evaluate(u => fetch(u, { headers: { Range: "bytes=0-99" } }).then(x => [x.status, x.headers.get("content-range")?.startsWith("bytes 0-99/")]), audioUrl);
   expect(r).toEqual([206, true]);

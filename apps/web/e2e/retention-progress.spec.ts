@@ -11,6 +11,11 @@ async function wrongMission(page: Page) {
   await page.getByRole("button", { name: "Перевірити" }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  // Distinguish an actual refused IndexedDB write from a temporarily delayed feedback render.
+  await expect.poll(async () => {
+    const error = await page.locator("#mission-error").count() ? await page.locator("#mission-error").textContent() : null;
+    return error ? `SAVE ERROR: ${error}` : await page.locator("#mission-title").textContent();
+  }).toContain("Що вийшло");
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
   await page.getByLabel(/Твоє власне речення/).fill("Menen kauppaan.");
   await page.getByRole("button", { name: "Зберегти місію" }).click();
