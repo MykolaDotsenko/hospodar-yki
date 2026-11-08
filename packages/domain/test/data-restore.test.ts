@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { addDiagnostic, blankState, buildDataExport, completeMission, inspectWebLearnBackup,
-  serialiseDataExport } from "../src/index.ts";
+  recordDelayedTransfer, serialiseDataExport, type TransferBank } from "../src/index.ts";
 
 const T = new Date("2026-11-04T10:00:00.000Z");
 const saved = () => completeMission(blankState(), {
@@ -66,5 +66,36 @@ describe("Web v1 LEARN restore inspection (fail closed)", () => {
     expect(inspectWebLearnBackup(file(saved(), [receipt]))).toMatchObject({ ok: true });
     expect(inspectWebLearnBackup(file(saved(), [receipt, receipt]))).toMatchObject({ ok: false, reason: "UNSAFE_IMPORT_RECEIPTS" });
     expect(inspectWebLearnBackup(file(saved(), [{ ...receipt, originalSha256: "bad" }]))).toMatchObject({ ok: false, reason: "UNSAFE_IMPORT_RECEIPTS" });
+  });
+});
+
+describe("Regression: WEB-07 backup restore preserves real 7/14/30 retention entries", () => {
+  const bank: TransferBank = { schema_version: "1.0.0", items: [{
+    task_id: "b1-g-001", grammar_tag: "illatiivi", checkpoints: [
+      { day: 7, prompt_fi: "Minne menet?" }, { day: 14, prompt_fi: "Miksi?" },
+      { day: 30, prompt_fi: "Miten?" },
+    ],
+  }] };
+  it("accepts the existing promptVersion field actually emitted by recordDelayedTransfer", () => {
+    const first = completeMission(blankState(), {
+      taskId: "b1-g-001", firstAnswer: "kirjasto", firstCorrect: false,
+      secondAnswer: "kirjastoon", repairCorrect: true, transferText: "Menen kirjastoon."
+    }, new Date("2026-10-01T10:00:00.000Z"));
+    const delayed = recordDelayedTransfer(first, bank,
+      { taskId: "b1-g-001", day: 7, response: "Huomenna menen töihin." },
+      new Date("2026-10-09T10:00:00.000Z"));
+    const r = inspectWebLearnBackup(file(delayed));
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.state.retention[0]).toMatchObject({
+      taskId: "b1-g-001", day: 7, response: "Huomenna menen töihin.",
+      promptVersion: "1.0.0", status: "ungraded", independent: true
+    });
+    const raw = JSON.parse(file(delayed));
+    raw.learn.state.retention[0].promptVersion = { fake: true };
+    expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
+    raw.learn.state.retention[0].promptVersion = "1.0.0";
+    raw.learn.state.retention[0].officialGrade = "YKI-4";
+    expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
   });
 });

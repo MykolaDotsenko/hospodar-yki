@@ -56,9 +56,13 @@ function validState(s: LearnerState): boolean {
     str(d.response) && utc(d.completedAt));
   const errors = s.errors.every(e => obj(e) && exactKeys(e, ["taskId", "grammarTag", "at", "resolution"]) && id(e.taskId) && str(e.grammarTag, 50) &&
     utc(e.at) && ["guided_repair", "not_yet_demonstrated"].includes(String(e.resolution)));
-  const retention = s.retention.every(r => obj(r) && Object.keys(r).every(k => ["taskId", "day", "status", "independent", "response", "submittedAt", "actualAgeDays", "lateByDays"].includes(k)) && id(r.taskId) &&
+  const retention = s.retention.every(r => obj(r) && Object.keys(r).every(k => ["taskId", "day", "status", "independent", "response", "submittedAt", "actualAgeDays", "lateByDays", "promptVersion"].includes(k)) && id(r.taskId) &&
     [7, 14, 30].includes(r.day) && r.status === "ungraded" && r.independent === true &&
     nonempty(r.response) && utc(r.submittedAt) &&
+    // recordDelayedTransfer() writes the bank's explicit prompt version. Allow
+    // this existing first-party field without admitting arbitrary extra keys.
+    (r.promptVersion === undefined || (typeof r.promptVersion === "string" &&
+      /^[A-Za-z0-9._-]{1,80}$/.test(r.promptVersion))) &&
     (r.actualAgeDays === undefined || integer(r.actualAgeDays, r.day)) &&
     (r.lateByDays === undefined || integer(r.lateByDays)));
   const cards = Object.entries(s.cards).every(([key, c]) => id(key) && obj(c) && exactKeys(c, ["stage", "due", "reviews", "failures", "lastCorrect", "lastReviewed"]) &&

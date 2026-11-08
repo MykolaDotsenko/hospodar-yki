@@ -28,3 +28,7 @@ Rollback: additive pure selector and UI, no IndexedDB migration. Revert this PR 
 ## CI correction (first run)
 
 Run `42427608220` stopped in domain tests: 100 passed / 1 failed. The failing test searched JSON text for `/B1/i`, which falsely matched the legitimate task ID `b1-g-001`. This was a **test assertion bug**, not observed grading. Replaced it with an exact whitelist of reflection fields. Web E2E and build were skipped due to the earlier stop; rerun pending.
+
+## Cross-feature data portability defect discovered and fixed
+
+While auditing the combined delayed-retrieval flow against PR #117, found that `recordDelayedTransfer()` writes `promptVersion`, yet the NEW-Web `inspectWebLearnBackup()` rejected that field. That made a valid exported file with delayed responses impossible to restore. Added the existing optional field to the typed `RetentionEntry` and the restore allowlist, with a bounded ASCII-version validation; unknown extensions and spoofed YKI grading remain rejected. Regression exercises **real domain writer → Web JSON export → restore inspector** without any migration or extra permission. This is a backward-compatible correction, not a new YKI content approval.
