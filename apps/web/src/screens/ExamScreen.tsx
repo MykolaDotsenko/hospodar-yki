@@ -115,7 +115,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
             send={e => actor.send(e)} disabled={busy || snap.matches("autosaving")} onRecording={setRecording} />}
         </>
       )}
-      <p className="muted exam-save" aria-live="polite">{snap.context.composingItemId ? "Syöttö kesken — viimeistele teksti ennen tallennusta." : snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
+      <p className="muted exam-save" aria-live="polite">{snap.context.composingItemId ? "Syöttö kesken — viimeistele teksti ennen tallennusta." : snap.matches("saving") ? "Tallennetaan siirtymää…" : snap.matches("saveError") ? "Tallennus epäonnistui." : snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
       {snap.context.autosaveError && <p className="feedback error" role="alert">Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
       {snap.matches("saveError") && (
         <div className="feedback error" role="alert"><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>

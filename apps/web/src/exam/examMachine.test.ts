@@ -41,6 +41,36 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     expect(b.getSnapshot().context.session!.index).toBe(1);
     expect(b.getSnapshot().context.session!.answers[first.id]).toBe("1");
   });
+  it("C-04 / EXAM-05: slow navigation stays on the old task until verified; reload before ACK sees old task", async () => {
+    const name = db(), actual = createExamRepository(name);
+    let release: (() => void) | undefined;
+    let delay = false;
+    const repo: ExamRepository = { ...actual, commit: async (session, revision, skills) => {
+      if (delay) { delay = false; await new Promise<void>(resolve => { release = resolve; }); }
+      return actual.commit(session, revision, skills);
+    } };
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-unacked-nav" });
+    await settled(a);
+    const first = a.getSnapshot().context.items[0]!;
+    a.send({ type: "ANSWER", itemId: first.id, value: "1", now: T0 + 500 });
+    delay = true;
+    a.send({ type: "GOTO", index: 1, now: T0 + 1000 });
+    expect(a.getSnapshot().matches("saving")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(0);
+    expect(a.getSnapshot().context.pendingNavigation!.index).toBe(1);
+    // No acknowledgement yet: a page reload MUST NOT pretend the destination was saved.
+    const beforeAck = await boot(createExamRepository(name));
+    expect(beforeAck.getSnapshot().context.session!.index).toBe(0);
+    release?.();
+    await settled(a);
+    expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(1);
+    expect(a.getSnapshot().context.pendingNavigation).toBeNull();
+    const afterAck = await boot(createExamRepository(name));
+    expect(afterAck.getSnapshot().context.session!.index).toBe(1);
+    expect(afterAck.getSnapshot().context.session!.answers[first.id]).toBe("1");
+  });
   it("EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade", async () => {
     const repo = createExamRepository(db());
     const a = await boot(repo);
@@ -85,11 +115,15 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     a.send({ type: "GOTO", index: 1, now: T0 + 2000 });
     await waitFor(a, s => s.matches("saveError"));
     expect(a.getSnapshot().context.error).toBe("QUOTA_OR_DISK_FULL");
+    expect(a.getSnapshot().context.session!.index).toBe(0); // failed pending navigation never becomes visible
+    expect(a.getSnapshot().context.pendingNavigation!.index).toBe(1);
     expect((await real.read())!.session.index).toBe(0);
     fail = false;
     a.send({ type: "RETRY" });
     await settled(a);
     expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(1);
+    expect(a.getSnapshot().context.pendingNavigation).toBeNull();
     expect((await real.read())!.session.answers[it0.id]).toBe("2");
   });
   it("a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)", async () => {
