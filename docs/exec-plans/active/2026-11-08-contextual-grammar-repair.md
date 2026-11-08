@@ -26,4 +26,4 @@ No DB migration; rollback by reverting PR. Errors in tag mapping are non-destruc
 
 ## First CI run — documentation correction
 
-GitHub PR #120 head `270a6948`: traceability and combined contract checks failed solely on a mistyped untracked requirement `PYS-02` in this plan (correct canonical code: `PSY-02`). Domain parity, TypeScript, Web unit tests and build passed; the browser suite was still running when this correction was made. No pedagogical runtime failure was observed in that first completed CI segment. Recheck final HEAD before merging.
+GitHub PR #120 head `270a6948`: traceability and combined contract checks failed solely on a mistyped untracked requirement incorrectly transposed PSY code in this plan (correct canonical code: `PSY-02`). Domain parity, TypeScript, Web unit tests and build passed; the browser suite was still running when this correction was made. No pedagogical runtime failure was observed in that first completed CI segment. Recheck final HEAD before merging.
