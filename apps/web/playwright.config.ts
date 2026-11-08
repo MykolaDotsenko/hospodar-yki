@@ -11,6 +11,9 @@ const all = [
 export default defineConfig({
   testDir: "e2e",
   fullyParallel: false,
+  // WebKit IndexedDB checkpoint tests intermittently hit a 30s stalled phase under CI parallel load.
+  // Keep all three engines, but serialize E2E in CI rather than masking failures with retries.
+  workers: process.env.CI ? 1 : undefined,
   retries: 0,
   reporter: [["list"]],
   use: { baseURL: "http://127.0.0.1:4173/", trace: "retain-on-failure" },
