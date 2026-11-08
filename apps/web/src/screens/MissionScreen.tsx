@@ -246,7 +246,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           draftStatus === "error" ? "Останні зміни не підтверджено. Використай «Зберегти та вийти»." :
           "Зміни в полі автоматично зберігаються після короткої паузи. Для негайного збереження — «Зберегти та вийти»."}
         Чернетка не вважається завершеною місією.
-      </p>
+      </p>}
 
       {view.showPrompt && <p className="prompt" lang="fi">{task.prompt_fi}</p>}
       {view.showRepairHint && (
@@ -314,7 +314,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         <div aria-live="polite">
           {save.kind === "saving" && <p className="feedback" role="status">Зберігаю на пристрої…</p>}
           {save.kind === "saved" && <p className="feedback" role="status">✅ Збережено на цьому пристрої. Перша спроба записана окремо від самовиправлення.</p>}
-           {save.kind === "saved" && (
+          {save.kind === "saved" && (
             <div className="actions">
               <button type="button" className="btn" onClick={nextMission}>Наступна місія</button>
               <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
