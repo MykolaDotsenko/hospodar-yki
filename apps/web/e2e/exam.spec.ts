@@ -109,6 +109,7 @@ test("E07: unfinished IME composition cannot finish writing; exact Finnish Unico
   await expect(page.getByText("Tehtävä 1 / 1")).toBeVisible();
   const editor = page.getByRole("textbox");
   const exact = "Hyvää päivää! Kävin Töölössä. ysta\u0308vä ja äiti.";
+  await editor.focus(); // actual IME sessions start in the focused editor; avoid synthetic pre-focus composition races
   await editor.dispatchEvent("compositionstart", { data: "ä" });
   await expect(page.getByText(/Syöttö kesken/)).toBeVisible();
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
