@@ -4102,7 +4102,7 @@
         },
         {
           "file": "apps/web/e2e/mission.spec.ts",
-          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+          "contains": "second tab with a stale snapshot never overwrites a first answer (REVISION_CONFLICT)"
         }
       ]
     },
@@ -7127,7 +7127,7 @@
         },
         {
           "file": "apps/web/e2e/mission.spec.ts",
-          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+          "contains": "second tab with a stale snapshot never overwrites a first answer (REVISION_CONFLICT)"
         }
       ]
     },
