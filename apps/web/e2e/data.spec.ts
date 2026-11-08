@@ -126,3 +126,25 @@ test("LEARN-16: an unfinished mission is erasable but never falsely exported as 
   await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
   expect(await serious(page)).toEqual([]);
 });
+
+test("LEARN-16: stale data screen cannot erase a draft modified in a second tab", async ({ page, context }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await page.getByLabel("Впиши пропущену форму фінською").fill("Minä menen.");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("незавершених місій 1");
+  const second = await context.newPage();
+  await second.goto("./");
+  await second.getByRole("button", { name: /Навчання/ }).click();
+  await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen.");
+  await second.getByLabel("Впиши пропущену форму фінською").fill("Minä menen nyt.");
+  await second.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByLabel("Увесь прогрес навчання").check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect(page.getByRole("alert")).toContainText("НЕ видалено");
+  await second.reload();
+  await second.getByRole("button", { name: /Навчання/ }).click();
+  await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen nyt.");
+});

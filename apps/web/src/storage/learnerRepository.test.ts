@@ -150,7 +150,22 @@ describe("P0 durable LEARN cloze checkpoints (not completed evidence)", () => {
   it("erasing LEARN also erases a draft without touching EXAM", async () => {
     const db = name(), a = createLearnerRepository(db);
     await a.saveMissionDraft({ ...initial(), input: "ei lähetetty" }, 0, 0);
-    expect(await a.eraseAll(0)).toEqual({ state: blankState(), revision: 0 });
+    expect(await a.eraseAll(0, 1)).toEqual({ state: blankState(), revision: 0 });
     expect(await createLearnerRepository(db).readMissionDraft()).toBeNull();
+  });
+});
+
+describe("LEARN erase respects concurrently updated paused drafts", () => {
+  it("a stale data-management tab may NOT erase newer text when LEARN history revision is unchanged", async () => {
+    const db = name(), firstTab = createLearnerRepository(db), otherTab = createLearnerRepository(db);
+    await firstTab.saveMissionDraft({ ...initial(), input: "Menen kotiin." }, 0, 0);
+    const knownDraftRevision = 1;
+    await otherTab.saveMissionDraft({ ...initial(), input: "Menen nyt kotiin." }, 0, knownDraftRevision);
+    await expect(firstTab.eraseAll(0, knownDraftRevision))
+      .rejects.toMatchObject({ code: "REVISION_CONFLICT" });
+    expect((await firstTab.readMissionDraft())?.input).toBe("Menen nyt kotiin.");
+    expect((await firstTab.read()).revision).toBe(0);
+    await firstTab.eraseAll(0, 2);
+    expect(await otherTab.readMissionDraft()).toBeNull();
   });
 });

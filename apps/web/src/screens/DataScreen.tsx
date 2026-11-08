@@ -13,7 +13,7 @@ import { examContentVersion } from "../content/exam.ts";
  */
 type Snap = { state: LearnerState; revision: number };
 type Scope = "learn" | "exam";
-type Loaded = { counts: DataExportCounts; examRevision: number; voiceClips: number; draftPresent: boolean };
+type Loaded = { counts: DataExportCounts; examRevision: number; voiceClips: number; draftPresent: boolean; draftRevision: number };
 
 async function sha256Hex(text: string) {
   const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -42,7 +42,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
     try {
       const { learn, imports, current, history, missionDraft } = await collect();
       const d = buildDataExport({ learn: { ...learn, imports }, exam: { current, history }, exportedAt: new Date() });
-      setLoaded({ counts: d.counts, examRevision: current?.revision ?? 0, voiceClips: await voiceStore.count().catch(() => 0), draftPresent: Boolean(missionDraft) });
+      setLoaded({ counts: d.counts, examRevision: current?.revision ?? 0, voiceClips: await voiceStore.count().catch(() => 0), draftPresent: Boolean(missionDraft), draftRevision: missionDraft?.revision ?? 0 });
     } catch (e) { setLoaded({ error: codeOf(e) }); }
   }
   useEffect(() => { void refresh(); }, [repository, examRepository, snapshot.revision]);
@@ -66,7 +66,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
     if (!scope || !isDeleteConfirmed(typed) || !loaded || "error" in loaded) return;
     setErase("working");
     try {
-      if (scope === "learn") onErased(await repository.eraseAll(snapshot.revision));
+      if (scope === "learn") onErased(await repository.eraseAll(snapshot.revision, loaded.draftRevision));
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); }   // audio first: never orphan a recording
       setErase({ done: scope }); setScope(null); setTyped("");
       await refresh();

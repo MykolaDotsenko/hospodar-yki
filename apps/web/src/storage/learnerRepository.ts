@@ -41,7 +41,7 @@ export interface LearnerRepository {
   read(): Promise<LearnerSnapshot>;
   commit(next: LearnerState, expectedRevision: number): Promise<LearnerSnapshot>;
   /** LEARN-16: erase progress AND import receipts in one transaction (CAS), then verify by readback. */
-  eraseAll(expectedRevision: number): Promise<LearnerSnapshot>;
+  eraseAll(expectedRevision: number, expectedDraftRevision?: number): Promise<LearnerSnapshot>;
   /** Import legacy V1 progress into an EMPTY new-app profile, atomically with its receipt. */
   importLegacy(state: LearnerState, receipt: Omit<ImportReceipt, "revision" | "importedAt">): Promise<{ snapshot: LearnerSnapshot; receipt: ImportReceipt }>;
   /** Restore only LEARN from a validated new-Web JSON export into an empty profile (never EXAM/audio). */
@@ -84,11 +84,13 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         });
       } catch (e) { throw mapError(e); }
     },
-    async eraseAll(expectedRevision) {
+    async eraseAll(expectedRevision, expectedDraftRevision = 0) {
       try {
         await db.transaction("rw", db.learner, db.imports, db.missionDraft, async () => {
           const current = (await db.learner.get("current"))?.revision ?? 0;
-          if (current !== expectedRevision) throw new StorageError("REVISION_CONFLICT", "Progress was changed in another tab");
+          const activeDraftRevision = (await db.missionDraft.get("active"))?.revision ?? 0;
+          if (current !== expectedRevision || activeDraftRevision !== expectedDraftRevision)
+            throw new StorageError("REVISION_CONFLICT", "LEARN progress or draft changed in another tab");
           await db.learner.clear();
           await db.imports.clear();
           await db.missionDraft.clear();
