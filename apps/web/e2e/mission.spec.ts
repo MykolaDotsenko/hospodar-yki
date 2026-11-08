@@ -87,3 +87,34 @@ test("320 px wide and 200% text: no horizontal page scroll", async ({ page }) =>
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test("COG-05: repair asks about the actual grammar tag, not generic location for verb valency", async ({ page }) => {
+  await startMission(page);
+  await page.getByText("Чому це завдання зараз?").click();
+  await page.getByRole("button", { name: "Обрати інше завдання" }).click();
+  await page.getByRole("button", { name: /Odotan/ }).click();
+  await expect(page.locator(".prompt[lang=fi]")).toContainText("Odotan");
+  await page.getByLabel("Впиши пропущену форму фінською").fill("bussi");
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  const hint = page.locator(".feedback.warn");
+  await expect(hint).toContainText("керування");
+  await expect(hint).not.toContainText("де? куди? звідки?");
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  await expect(page.getByText("bussia", { exact: true })).toHaveCount(0);
+  expect(await axe(page)).toEqual([]);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("bussia");
+  await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.locator(".learning-cue")).toHaveText("bussia");
+  await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+});
+
+test("PSY-02: a location-task repair remains about direction, without leaking its key", async ({ page }) => {
+  await startMission(page);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.locator(".feedback.warn")).toContainText("куди");
+  await expect(page.getByText(KEY, { exact: true })).toHaveCount(0);
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  expect(await axe(page)).toEqual([]);
+});

@@ -4,6 +4,7 @@ import {
   type LearnerState, type MissionPhase, type MissionState, MissionError,
 } from "@hospodar/domain";
 import { exercises, isDraft, type ClozeExercise } from "../content/cloze.ts";
+import { repairQuestionFor } from "../content/repairCues.ts";
 import { recommend, type Recommendation } from "../content/selection.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 
@@ -106,7 +107,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
 
       {view.showPrompt && <p className="prompt" lang="fi">{task.prompt_fi}</p>}
       {view.showRepairHint && (
-        <p className="feedback warn" role="status">Поки не так. Подумай, на яке питання відповідає форма: де? куди? звідки? Правильну відповідь покажемо після другої спроби.</p>
+        <p className="feedback warn" role="status">Поки не так. {repairQuestionFor(task.grammar_tag)} Правильну форму покажемо після другої спроби.</p>
       )}
       {view.showKey && (
         <div className="feedback" role="status">

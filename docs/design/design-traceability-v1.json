@@ -1513,6 +1513,10 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
         }
       ],
       "gap": "Cause-specific prompt exists in R08 repair only; no automated check that no toast/badge appears on every screen."
@@ -1713,6 +1717,10 @@
         {
           "file": "apps/web/e2e/writing-clinic.spec.ts",
           "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-02: a location-task repair remains about direction, without leaking its key"
         }
       ],
       "gap": "Flow enforced; S2-reviewed acceptable variants pending (0 published); 14/30-day novel transfer trial NOT RUN."
@@ -5121,6 +5129,10 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
         }
       ]
     },
