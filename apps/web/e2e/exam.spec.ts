@@ -25,6 +25,8 @@ test("EXAM rehearsal (XState): no aids before finish, persisted navigation survi
   await first.check();
   await page.getByRole("button", { name: "Seuraava" }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();
+  // A visible next task now implies the checkpoint was committed AND reread, not a pending transition.
+  await expect(page.getByText("Tallennettu.")).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();          // resumed from the persisted checkpoint
