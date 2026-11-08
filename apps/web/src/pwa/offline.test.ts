@@ -74,7 +74,7 @@ describe("explicit pack download", () => {
     await cache.put(url, new Response(changed));
     expect(await packStatus(pack, c, abs)).toEqual({ state: "partial", cached: 1 });
     const fetched: string[] = [];
-    const fetchSpy = (async (u: string) => { fetched.push(u); return okFetch(u); }) as typeof fetch;
+    const fetchSpy = (async (u: string) => { fetched.push(u); return okFetch(u); }) as unknown as typeof fetch;
     expect(await downloadPack(pack, c, () => {}, fetchSpy, abs)).toEqual({ ok: true, files: 2 });
     expect(fetched).toEqual([url]);
     expect(await packStatus(pack, c, abs)).toEqual({ state: "downloaded", cached: 2 });
