@@ -26,6 +26,7 @@ export function WritingClinicScreen({ repository, snapshot, onSaved, onHome }: {
         session: row.session, input: row.input, contentFingerprint: row.contentFingerprint,
       }, item) || row.learnerRevision !== snapshot.revision)
         ? "Незавершений текст або навчальний прогрес змінився. Чернетку не відкрито, щоб не показати зразок завчасно й не втратити твої відповіді." : null;
+      if (row && !blocked && item) setSelected(item); // Keep the active screen mounted after the final checkpoint is atomically removed.
       setLoaded({ kind: "ready", draft: row, blocked });
     }).catch(e => { if (alive) { setLoadError(code(e)); setLoaded({ kind: "ready", draft: null, blocked: "Не вдалося прочитати чернетку. Нічого не перезаписано." }); } });
     return () => { alive = false; };
