@@ -1807,9 +1807,13 @@
         {
           "file": "apps/web/src/storage/learnerRepository.test.ts",
           "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-07: wrong first attempt and repair text survive reload with NO answer key"
         }
       ],
-      "gap": "Committed steps survive reload/conflict; unsaved drafts are not persisted on every screen; no explicit pause control."
+      "gap": "Web cloze now has an independent paused draft and readback-verified autosave, but other LEARN skill screens and physical mobile kill/eviction durability are not covered."
     },
     {
       "id": "PSY-08",
@@ -2433,6 +2437,10 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-07: wrong first attempt and repair text survive reload with NO answer key"
         }
       ]
     },
@@ -3985,6 +3993,10 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "LE-10: own earlier Finnish sentence remains hidden until delayed answer is durably saved"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "atomically commits the finished mission and removes its draft; rejects replay"
         }
       ],
       "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
@@ -5293,6 +5305,10 @@
         {
           "file": "apps/web/src/storage/learnerRepository.test.ts",
           "contains": "a stale tab cannot erase progress it has not seen (REVISION_CONFLICT, nothing removed)"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16: an unfinished mission is erasable but never falsely exported as completed"
         }
       ],
       "note": "Local export/erase in apps/web is tested; GDPR legal review, restore-from-export and Android Room parity are not done."

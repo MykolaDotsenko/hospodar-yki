@@ -98,3 +98,31 @@ test("a second tab's newer progress is never erased by a stale screen (REVISION_
   await page.reload();
   await expect(page.getByText(/Виконано місій: 2/)).toBeVisible();
 });
+
+test("LEARN-16: an unfinished mission is erasable but never falsely exported as completed", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kesken oleva luonnos");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  const stored = page.getByRole("list", { name: "Збережені дані" });
+  await expect(stored).toContainText("місій 0");
+  await expect(stored).toContainText("незавершених місій 1");
+  await expect(page.getByText(/не експортується незавершена чернетка/)).toBeVisible();
+  await expect(page.getByLabel("Увесь прогрес навчання")).toBeEnabled();
+  const [dl] = await Promise.all([
+    page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click(),
+  ]);
+  const json = JSON.parse(readFileSync((await dl.path())!, "utf8"));
+  expect(json.counts.attempts).toBe(0);
+  expect(JSON.stringify(json)).not.toContain("kesken oleva luonnos");
+  await page.getByLabel("Увесь прогрес навчання").check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
+  await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
+  expect(await serious(page)).toEqual([]);
+});

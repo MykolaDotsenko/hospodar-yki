@@ -41,6 +41,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   const [error, setError] = useState<string | null>(null);
   const [save, setSave] = useState<SaveStatus>({ kind: "idle" });
   const [ready, setReady] = useState(false);
+  const [working, setWorking] = useState(false);
   const [blocked, setBlocked] = useState<string | null>(null);
   const [recovered, setRecovered] = useState(false);
   const [draftStatus, setDraftStatus] = useState<"idle" | "dirty" | "saving" | "saved" | "error">("idle");
@@ -132,7 +133,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       setError(e instanceof MissionError && e.code === "EMPTY_ANSWER" ? "Спершу напиши відповідь." : "Цю дію зараз виконати не можна.");
       return;
     }
-    busy.current = true;
+    busy.current = true; setWorking(true);
     editGeneration.current++;
     setDraftStatus("saving");
     try {
@@ -156,12 +157,12 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       setError(code === "REVISION_CONFLICT" || code === "READBACK_MISMATCH"
         ? "Не вдалося підтвердити запис (" + code + "). Онови сторінку й перевір прогрес перед повторною дією."
         : "Не збережено (" + code + "). Спробуй знову, текст збережено на екрані.");
-    } finally { busy.current = false; }
+    } finally { busy.current = false; setWorking(false); }
   }
 
   async function pause() {
     if (busy.current || blocked || !ready || mission.phase === "done") return;
-    busy.current = true; editGeneration.current++;
+    busy.current = true; setWorking(true); editGeneration.current++;
     setDraftStatus("saving");
     try {
       await writeQueue.current;
@@ -171,12 +172,12 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       setDraftStatus("error");
       setError("Не вдалося зберегти чернетку (" +
         String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). Залишаємося в місії.");
-    } finally { busy.current = false; }
+    } finally { busy.current = false; setWorking(false); }
   }
 
   async function discard() {
     if (busy.current || !ready) return;
-    busy.current = true; editGeneration.current++;
+    busy.current = true; setWorking(true); editGeneration.current++;
     try {
       await writeQueue.current;
       if (draftRevision.current > 0) {
@@ -189,7 +190,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       setError(null); setChoosing(false);
     } catch (e) {
       setError("Не вдалося відкинути чернетку (" + String((e as { code?: string })?.code ?? "SAVE_FAILED") + ").");
-    } finally { busy.current = false; }
+    } finally { busy.current = false; setWorking(false); }
   }
 
   function open(t: ClozeExercise) {
@@ -214,7 +215,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       <p className="feedback warn" role="alert">{blocked}</p>
       {error && <p className="feedback error" role="alert">{error}</p>}
       <div className="actions">
-        {draftRevision.current > 0 && <button className="btn danger" type="button" onClick={() => void discard()}>Відкинути несумісну чернетку</button>}
+        {draftRevision.current > 0 && <button className="btn danger" type="button" disabled={working} onClick={() => void discard()}>Відкинути несумісну чернетку</button>}
         <button className="btn secondary" type="button" onClick={onHome}>На головну</button>
       </div>
     </section>
@@ -237,7 +238,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           );
         })}
       </ol>
-      {isDraft(task) && <p className="draft-note">Чернетка матеріалу: ще не перевірено S2-викладачем.</p>}
+      {isDraft(task) && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
       {recovered && mission.phase !== "done" && <p className="feedback" role="status">Продовжуємо незавершену місію з останньої підтвердженої чернетки.</p>}
       {mission.phase !== "done" && <p className="muted" role="status">
         {draftStatus === "saving" ? "Зберігаю чернетку…" :
@@ -270,14 +271,14 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
                 {mission.phase === "transfer" ? "Твоє власне речення фінською (без зразка, не оцінюється автоматично)" : "Впиши пропущену форму фінською"}
               </label>
               {mission.phase === "transfer"
-                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
-                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
+                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} disabled={working} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
+                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} disabled={working} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
             </>
           )}
           {error && <p id="mission-error" className="feedback error" role="alert">{error}</p>}
           <div className="actions">
-            <button type="submit" className="btn">{cta}</button>
-            <button type="button" className="btn secondary" onClick={() => void pause()}>Зберегти та вийти</button>
+            <button type="submit" className="btn" disabled={working}>{cta}</button>
+            <button type="button" className="btn secondary" disabled={working} onClick={() => void pause()}>Зберегти та вийти</button>
           </div>
         </form>
       )}
@@ -288,7 +289,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           {why.length ? <ul>{why.map(w => <li key={w}>{w}</li>)}</ul> : <p>Немає особливих сигналів — це наступне доступне завдання.</p>}
           <p className="muted">Рекомендація лише з твоїх відповідей на цьому пристрої, без оцінки рівня.</p>
           {draftRevision.current > 0 && <p className="muted">Щоб обрати інше завдання, відкинь поточну чернетку кнопкою нижче.</p>}
-          <button type="button" className="btn secondary" aria-expanded={choosing} onClick={() => setChoosing(c => !c)}>Обрати інше завдання</button>
+          <button type="button" className="btn secondary" disabled={working} aria-expanded={choosing} onClick={() => setChoosing(c => !c)}>Обрати інше завдання</button>
           {choosing && (
             <ul className="choices" aria-label="Інші завдання">
               {options.filter(o => o.exercise.id !== task.id).slice(0, 4).map(o => (
@@ -303,7 +304,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
 
       {mission.phase !== "done" && (
         <div className="actions">
-          <button className="btn secondary" type="button" onClick={() => void discard()}>
+          <button className="btn secondary" type="button" disabled={working} onClick={() => void discard()}>
             Відкинути чернетку та почати заново
           </button>
         </div>

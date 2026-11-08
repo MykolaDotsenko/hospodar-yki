@@ -62,22 +62,23 @@ test("empty answer is refused with an accessible error; keyboard-only flow works
   await expect(page.getByText("Правильно з першої спроби.")).toBeVisible();
 });
 
-test("second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)", async ({ page, context }) => {
+test("second tab with a stale snapshot never overwrites a first answer (REVISION_CONFLICT)", async ({ page, context }) => {
   const other = await context.newPage();
   await startMission(page);
   await other.goto("./");
   await other.getByRole("button", { name: /Навчання/ }).click();
-  for (const p of [page, other]) {
-    await p.getByLabel("Впиши пропущену форму фінською").fill(KEY);
-    await p.getByRole("button", { name: "Перевірити" }).click();
-    await p.getByRole("button", { name: "Далі: нова ситуація" }).click();
-    await p.getByLabel(/Твоє власне речення/).fill("Oma lause.");
-  }
-  await page.getByRole("button", { name: "Зберегти місію" }).click();
-  await expect(page.getByText(/Збережено на цьому пристрої/)).toBeVisible();
-  await other.getByRole("button", { name: "Зберегти місію" }).click();
+  await page.getByLabel("Впиши пропущену форму фінською").fill(KEY);
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByText("Правильно з першої спроби.")).toBeVisible();
+  await other.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
+  await other.getByRole("button", { name: "Перевірити" }).click();
   await expect(other.getByRole("alert")).toContainText("REVISION_CONFLICT");
-  await expect(other.getByText(/Збережено на цьому пристрої/)).toHaveCount(0);
+  await expect(other.getByRole("heading", { name: "Твоя відповідь" })).toBeVisible();
+  await expect(other.locator(".learning-cue")).toHaveCount(0);
+  await other.reload();
+  await other.getByRole("button", { name: /Навчання/ }).click();
+  await expect(other.getByText("Правильно з першої спроби.")).toBeVisible();
+  await expect(other.locator(".learning-cue")).toHaveText(KEY);
 });
 
 test("320 px wide and 200% text: no horizontal page scroll", async ({ page }) => {
@@ -117,4 +118,54 @@ test("PSY-02: a location-task repair remains about direction, without leaking it
   await expect(page.getByText(KEY, { exact: true })).toHaveCount(0);
   await expect(page.locator(".learning-cue")).toHaveCount(0);
   expect(await axe(page)).toEqual([]);
+});
+
+test("PSY-07: wrong first attempt and repair text survive reload with NO answer key", async ({ page }) => {
+  await startMission(page);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto**");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await expect(page.getByText(/Виконано місій: 0/)).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();
+  await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("kirjasto**");
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  await page.getByLabel("Впиши пропущену форму фінською").fill(KEY);
+  await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.locator(".learning-cue")).toHaveText(KEY);
+  await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  await page.getByLabel(/Твоє власне речення/).fill("Menen tänään kauppaan.");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByRole("heading", { name: "Скажи це про себе" })).toBeVisible();
+  await expect(page.getByLabel(/Твоє власне речення/)).toHaveValue("Menen tänään kauppaan.");
+  await expect(page.locator(".learning-cue")).toHaveCount(0);
+  await page.getByRole("button", { name: "Зберегти місію" }).click();
+  await expect(page.getByText(/✅ Збережено на цьому пристрої/)).toBeVisible();
+  await page.reload();
+  await expect(page.getByText("Виконано місій:")).toContainText("1");
+  expect(await axe(page)).toEqual([]);
+});
+
+test("LEARN-07: autonomous answer field autosaves after a pause; discard is deliberate and verified", async ({ page }) => {
+  await startMission(page);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjast");
+  await expect(page.getByText(/Чернетку збережено на цьому пристрої/)).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("kirjast");
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toBeVisible();
+  await page.getByRole("button", { name: "Відкинути чернетку та почати заново" }).click();
+  await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
+  await expect(page.getByText(/Виконано місій: 0/)).toHaveCount(0); // mission view, not Home statistics
 });
