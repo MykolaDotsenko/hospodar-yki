@@ -14,6 +14,25 @@ async function startMission(page: Page) {
   await expect(page.getByRole("heading", { name: "Твоя відповідь" })).toBeVisible();
 }
 
+/** Independent native IndexedDB read: UI success must match actual durable bytes. */
+async function storedClozeInput(page: Page): Promise<string | null> {
+  return page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const req = indexedDB.open("hospodar-yki:web:v1");
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    try {
+      const req = db.transaction("missionDraft", "readonly").objectStore("missionDraft").get("active");
+      const row = await new Promise<{ input?: string } | undefined>((resolve, reject) => {
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return row?.input ?? null;
+    } finally { db.close(); }
+  });
+}
+
 test("home: two modes, honest exam status, no serious axe violations", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
@@ -142,7 +161,9 @@ test("PSY-07: wrong first attempt and repair text survive reload with NO answer 
   await expect(page.locator(".learning-cue")).toHaveCount(0);
   await page.getByLabel(/Твоє власне речення/).fill("Menen tänään kauppaan.");
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  expect(await storedClozeInput(page)).toBe("Menen tänään kauppaan."); // actual IDB bytes, not toast
   await page.reload();
+  expect(await storedClozeInput(page)).toBe("Menen tänään kauppaan.");
   await page.getByRole("button", { name: /Навчання/ }).click();
   await expect(page.getByRole("heading", { name: "Скажи це про себе" })).toBeVisible();
   await expect(page.getByLabel(/Твоє власне речення/)).toHaveValue("Menen tänään kauppaan.");
