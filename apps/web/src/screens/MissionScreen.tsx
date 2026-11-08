@@ -38,6 +38,8 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   const why = options.find(o => o.exercise.id === task.id)?.why ?? [];
   const [mission, setMission] = useState<MissionState>(() => startMission(task.id));
   const [input, setInput] = useState("");
+  // Updated synchronously in the DOM input event, so rapid Save & Exit cannot use a stale React render.
+  const inputRef = useRef("");
   const [error, setError] = useState<string | null>(null);
   const [save, setSave] = useState<SaveStatus>({ kind: "idle" });
   const [ready, setReady] = useState(false);
@@ -72,7 +74,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         } else {
           const current = selectExercise(snapshot.state);
           setOptions(current.options);
-          setTask(found); setMission(draft.mission); setInput(draft.input);
+          setTask(found); setMission(draft.mission); inputRef.current = draft.input; setInput(draft.input);
           lastWritten.current = JSON.stringify({
             mission: draft.mission, input: draft.input, contentFingerprint: draft.contentFingerprint,
           });
@@ -124,10 +126,11 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     setError(null);
     let next: MissionState;
     try {
-      const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: input }
-        : mission.phase === "repair" ? { type: "SUBMIT_REPAIR" as const, answer: input }
+      const latest = inputRef.current;
+      const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: latest }
+        : mission.phase === "repair" ? { type: "SUBMIT_REPAIR" as const, answer: latest }
         : mission.phase === "feedback" ? { type: "CONTINUE" as const }
-        : { type: "SUBMIT_TRANSFER" as const, text: input };
+        : { type: "SUBMIT_TRANSFER" as const, text: latest };
       next = missionReducer(mission, task, event);
     } catch (e) {
       setError(e instanceof MissionError && e.code === "EMPTY_ANSWER" ? "Спершу напиши відповідь." : "Цю дію зараз виконати не можна.");
@@ -144,11 +147,11 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         onSaved(saved);
         draftRevision.current = 0;
         lastWritten.current = "";
-        setMission(next); setInput("");
+        setMission(next); inputRef.current = ""; setInput("");
         setSave({ kind: "saved" });
       } else {
         await enqueueCheckpoint(next, "");
-        setMission(next); setInput("");
+        setMission(next); inputRef.current = ""; setInput("");
       }
       setError(null);
     } catch (e) {
@@ -166,7 +169,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     setDraftStatus("saving");
     try {
       await writeQueue.current;
-      await enqueueCheckpoint(mission, input);
+      await enqueueCheckpoint(mission, inputRef.current);
       onHome();
     } catch (e) {
       setDraftStatus("error");
@@ -186,7 +189,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       }
       lastWritten.current = "";
       setBlocked(null); setRecovered(false);
-      setMission(startMission(task.id)); setInput(""); setDraftStatus("idle");
+      setMission(startMission(task.id)); inputRef.current = ""; setInput(""); setDraftStatus("idle");
       setError(null); setChoosing(false);
     } catch (e) {
       setError("Не вдалося відкинути чернетку (" + String((e as { code?: string })?.code ?? "SAVE_FAILED") + ").");
@@ -199,7 +202,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     }
     editGeneration.current++;
     setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" });
-    setInput(""); setError(null); setChoosing(false); setRecovered(false);
+    inputRef.current = ""; setInput(""); setError(null); setChoosing(false); setRecovered(false);
   }
   function nextMission() {
     const next = selectExercise(snapshot.state);
@@ -271,8 +274,8 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
                 {mission.phase === "transfer" ? "Твоє власне речення фінською (без зразка, не оцінюється автоматично)" : "Впиши пропущену форму фінською"}
               </label>
               {mission.phase === "transfer"
-                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} disabled={working} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
-                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} disabled={working} value={input} onChange={e => { editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
+                ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} disabled={working} value={input} onChange={e => { inputRef.current = e.target.value; editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
+                : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} disabled={working} value={input} onChange={e => { inputRef.current = e.target.value; editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
             </>
           )}
           {error && <p id="mission-error" className="feedback error" role="alert">{error}</p>}
