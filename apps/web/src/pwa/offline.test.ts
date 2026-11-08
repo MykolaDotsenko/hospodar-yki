@@ -70,7 +70,7 @@ describe("explicit pack download", () => {
     const url = abs(pack.files[0]!.url);
     const entry = await cache.match(url);
     const changed = new Uint8Array(await entry!.arrayBuffer());
-    changed[0] ^= 1; // same URL and byte length, different SHA-256
+    changed[0] = (changed[0] ?? 0) ^ 1; // same URL and byte length, different SHA-256
     await cache.put(url, new Response(changed));
     expect(await packStatus(pack, c, abs)).toEqual({ state: "partial", cached: 1 });
     const fetched: string[] = [];
