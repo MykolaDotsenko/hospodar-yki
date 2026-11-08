@@ -35,7 +35,7 @@ test("WEB-05: the app opens offline after one online visit; media is online_only
     const response = await cache.match(key);
     if (!response) throw new Error("Expected the downloaded audio cache entry");
     const tampered = new Uint8Array(await response.arrayBuffer());
-    tampered[0] ^= 1; // exact size preserved, only digest differs
+    tampered[0] = (tampered[0] ?? 0) ^ 1; // exact size preserved, only digest differs
     await cache.put(key, new Response(tampered, { headers: { "Content-Type": response.headers.get("content-type") ?? "audio/ogg" } }));
   }, audioUrl);
   await page.getByRole("button", { name: "На головну" }).click();
