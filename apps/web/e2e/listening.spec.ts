@@ -58,6 +58,6 @@ test("support before answering (transcript) is allowed for accessibility but sav
 test("slower speed keeps pitch and marks the attempt as supported", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "0,75× (підтримка)" }).click();
-  expect(await page.locator("audio").evaluate(a => [(a as HTMLAudioElement).playbackRate, (a as HTMLAudioElement).preservesPitch])).toEqual([0.75, true]);
+  await expect.poll(() => page.locator("audio").evaluate(a => [(a as HTMLAudioElement).playbackRate, (a as HTMLAudioElement).preservesPitch])).toEqual([0.75, true]);
   await expect(page.getByText(/З підтримкою відповіді зберігаються без оцінки/)).toBeVisible();
 });
