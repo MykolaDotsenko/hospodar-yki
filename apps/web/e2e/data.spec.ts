@@ -113,7 +113,7 @@ test("LEARN-16: an unfinished mission is erasable but never falsely exported as 
   const stored = page.getByRole("list", { name: "Збережені дані" });
   await expect(stored).toContainText("місій 0");
   await expect(stored).toContainText("незавершених місій 1");
-  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN, майстерні письма, вправ читання, аудіювання та діалогів/)).toBeVisible();
+  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN, майстерні письма, вправ читання, аудіювання, діалогів та фото-місій/)).toBeVisible();
   await expect(page.getByLabel("Увесь прогрес навчання")).toBeEnabled();
   const [dl] = await Promise.all([
     page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click(),
