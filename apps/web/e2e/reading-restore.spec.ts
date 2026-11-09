@@ -12,6 +12,9 @@ async function start(page: Page) {
   await page.getByRole("button", { name: /Kirjaston kielikahvila/ }).click();
 }
 async function resume(page: Page) {
+  // Save & Exit deliberately navigates home only AFTER CAS+fresh readback.
+  // Wait for that receipt before simulating reload; otherwise Chromium can race the write.
+  await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
   await page.reload();
   await openReading(page);
 }
