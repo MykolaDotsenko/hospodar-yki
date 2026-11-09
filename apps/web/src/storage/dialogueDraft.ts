@@ -57,15 +57,19 @@ export function validDialogueDraft(value: unknown, item: DialogueItem): value is
     const questionsPlayed = s.phase === "turns" ? 0 : s.qIndex;
     for (let i = 0; i < questionsPlayed; i++) {
       const q = item.questions[i]!;
-      if (typeof s.answers[q.id] !== "string" || s.answers[q.id].length > DIALOGUE_MAX_CHARS) return false;
-      replay = dialogueReducer(replay, item, { type: "ANSWER", questionId: q.id, text: s.answers[q.id] });
-      replay = dialogueReducer(replay, item, { type: "JUDGE", questionId: q.id, judgement: s.judged[q.id] });
+      const answer = s.answers[q.id];
+      const judgement = s.judged[q.id];
+      if (typeof answer !== "string" || answer.length > DIALOGUE_MAX_CHARS ||
+          (judgement !== "same" && judgement !== "partly" && judgement !== "different")) return false;
+      replay = dialogueReducer(replay, item, { type: "ANSWER", questionId: q.id, text: answer });
+      replay = dialogueReducer(replay, item, { type: "JUDGE", questionId: q.id, judgement });
     }
     if (s.phase === "questions" && item.questions[s.qIndex] &&
         Object.prototype.hasOwnProperty.call(s.answers, item.questions[s.qIndex]!.id)) {
       const q = item.questions[s.qIndex]!;
-      if (typeof s.answers[q.id] !== "string" || s.answers[q.id].length > DIALOGUE_MAX_CHARS) return false;
-      replay = dialogueReducer(replay, item, { type: "ANSWER", questionId: q.id, text: s.answers[q.id] });
+      const answer = s.answers[q.id];
+      if (typeof answer !== "string" || answer.length > DIALOGUE_MAX_CHARS) return false;
+      replay = dialogueReducer(replay, item, { type: "ANSWER", questionId: q.id, text: answer });
     }
     if (p.input && (s.phase === "turns"
       ? item.turns[s.turn]!.speaker !== "A" || Object.prototype.hasOwnProperty.call(s.replies, s.turn)
