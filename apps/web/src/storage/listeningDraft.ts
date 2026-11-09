@@ -56,7 +56,7 @@ export function validListeningDraft(value: unknown, lesson: ListeningLesson): va
         for (let i = 0; i < s.index; i++) {
           const q = lesson.questions[i]!;
           const answer = s.answers[q.id];
-          if (!Number.isInteger(answer)) return false;
+          if (typeof answer !== "number" || !Number.isInteger(answer)) return false;
           expected = listeningReducer(expected, lesson, { type: "ANSWER", questionId: q.id, optionIndex: answer });
         }
         if (s.phase === "review") expected = listeningReducer(expected, lesson, { type: "OPEN_REVIEW" });
