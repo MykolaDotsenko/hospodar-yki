@@ -2,14 +2,66 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, dialogueEvidence, dialogueReducer, dialogueView, startDialogue, DialogueError, DIALOGUE_MAX_CHARS,
   type DialogueEvent, type DialogueItem, type DialogueSession, type LearnerState, type SelfJudgement } from "@hospodar/domain";
 import { dialogues } from "../content/dialogues.ts";
-import type { LearnerRepository } from "../storage/learnerRepository.ts";
+import { dialoguePayload, validDialogueDraft } from "../storage/dialogueDraft.ts";
+import type { LearnerRepository, DialogueDraftRow } from "../storage/learnerRepository.ts";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
+type Loaded = { kind: "loading" } | { kind: "ready"; draft: DialogueDraftRow | null; blocked: string | null };
+const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
 export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void }) {
-  const [item, setItem] = useState<DialogueItem | null>(null);
-  if (item) return <Dialogue key={item.id} item={item} repository={repository} snapshot={snapshot} onSaved={onSaved} onExit={() => setItem(null)} />;
+  const [selected, setSelected] = useState<DialogueItem | null>(null);
+  const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [discarding, setDiscarding] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    void repository.readDialogueDraft().then(row => {
+      if (!alive) return;
+      const item = dialogues.find(d => d.id === row?.session?.itemId);
+      const blocked = row && (!item || !validDialogueDraft({
+        session: row.session, input: row.input, contentFingerprint: row.contentFingerprint,
+      }, item) || row.learnerRevision !== snapshot.revision)
+        ? "Незавершений діалог несумісний із матеріалом або прогресом. Відповіді приховано; чернетку не перезаписано." : null;
+      if (row && !blocked && item) setSelected(item);
+      setLoaded({ kind: "ready", draft: row, blocked });
+    }).catch(e => {
+      if (alive) {
+        setLoadError(code(e));
+        setLoaded({ kind: "ready", draft: null, blocked: "Не вдалося прочитати незавершений діалог. Нічого не перезаписано." });
+      }
+    });
+    return () => { alive = false; };
+  }, [repository, snapshot.revision]);
+
+  async function discardBlocked() {
+    if (loaded.kind !== "ready" || !loaded.draft || discarding) return;
+    setDiscarding(true); setLoadError(null);
+    try {
+      await repository.discardDialogueDraft(snapshot.revision, loaded.draft.revision);
+      setLoaded({ kind: "ready", draft: null, blocked: null }); setSelected(null);
+    } catch (e) { setLoadError(code(e)); }
+    finally { setDiscarding(false); }
+  }
+  if (loaded.kind === "loading") return <section className="panel" role="status">Перевіряю незавершений діалог…</section>;
+  if (loaded.blocked) return (
+    <section className="panel" aria-labelledby="dlg-blocked">
+      <h1 id="dlg-blocked">Чернетка діалогу потребує уваги</h1>
+      <p className="feedback warn" role="alert">{loaded.blocked}</p>
+      {loadError && <p className="feedback error" role="alert">Помилка ({loadError}). Нічого не перезаписано.</p>}
+      <div className="actions">
+        {loaded.draft && <button type="button" className="btn danger" disabled={discarding || loaded.draft.learnerRevision !== snapshot.revision}
+          onClick={() => void discardBlocked()}>Відкинути несумісну чернетку</button>}
+        <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
+      </div>
+    </section>
+  );
+  const resume = loaded.draft ? dialogues.find(d => d.id === loaded.draft?.session.itemId) ?? null : null;
+  const item = resume ?? selected;
+  const clear = () => { setSelected(null); setLoaded({ kind: "ready", draft: null, blocked: null }); };
+  if (item) return <Dialogue key={item.id} item={item} repository={repository} snapshot={snapshot}
+    initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   return (
     <section className="panel" aria-labelledby="dl-title">
@@ -19,7 +71,7 @@ export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repo
       <p className="draft-note">Лише текст (запису ще немає) і чернетки, не перевірені S2-викладачем. Без автоматичної оцінки.</p>
       <ul className="choices" aria-label="Діалоги">
         {dialogues.map(d => (
-          <li key={d.id}><button type="button" className="choice" onClick={() => setItem(d)}>
+          <li key={d.id}><button type="button" className="choice" onClick={() => setSelected(d)}>
             <span lang="fi">{d.title_fi}</span><small>{done.has(`${d.id}-roleplay`) ? "уже пройдено" : `${d.turns.length} реплік · ${d.questions.length} питання`}</small>
           </button></li>
         ))}
@@ -29,32 +81,119 @@ export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repo
   );
 }
 
-function Dialogue({ item, repository, snapshot, onSaved, onExit }: { item: DialogueItem; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onExit: () => void }) {
-  const [s, setS] = useState<DialogueSession>(() => startDialogue(item));
+function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, onHome }: {
+  item: DialogueItem; repository: LearnerRepository; snapshot: Snap; initialDraft: DialogueDraftRow | null;
+  onSaved: (s: Snap) => void; onExit: () => void; onHome: () => void;
+}) {
+  const [s, setS] = useState<DialogueSession>(() => initialDraft?.session ?? startDialogue(item));
   const latest = useRef(s); latest.current = s;
-  const [text, setText] = useState("");
+  const snap = useRef(snapshot); snap.current = snapshot;
+  const [text, setText] = useState(initialDraft?.input ?? "");
+  const inputRef = useRef(initialDraft?.input ?? "");
+  const draftRevision = useRef(initialDraft?.revision ?? 0);
+  const lastWritten = useRef(initialDraft ? JSON.stringify(dialoguePayload(initialDraft.session, initialDraft.input, item)) : "");
+  const queue = useRef<Promise<void>>(Promise.resolve());
+  const generation = useRef(0);
+  const busy = useRef(false);
+  const [working, setWorking] = useState(false);
+  const [status, setStatus] = useState<"idle" | "dirty" | "saving" | "saved" | "error">(initialDraft ? "saved" : "idle");
   const [error, setError] = useState<string | null>(null);
-  const [saving, setSaving] = useState<"idle" | "saving" | { error: string }>("idle");
   const heading = useRef<HTMLHeadingElement>(null);
   const v = dialogueView(s, item);
-  useEffect(() => { heading.current?.focus(); }, [s.phase, s.qIndex]);
-  const act = (e: DialogueEvent) => {
-    setError(null);
-    try { const n = dialogueReducer(latest.current, item, e); latest.current = n; setS(n); return true; }
-    catch (err) { setError(err instanceof DialogueError && err.code === "EMPTY" ? "Спершу напиши щось (або пропусти репліку)." : "Цей крок зараз недоступний."); return false; }
-  };
+  useEffect(() => { heading.current?.focus(); }, [s.phase, s.turn, s.qIndex]);
+
+  function checkpoint(state: DialogueSession, input: string) {
+    const payload = dialoguePayload(state, input, item);
+    if (!validDialogueDraft(payload, item)) return Promise.reject(new Error("INVALID_DRAFT"));
+    const fingerprint = JSON.stringify(payload);
+    const next = queue.current.then(async () => {
+      if (fingerprint === lastWritten.current) return;
+      setStatus("saving");
+      const row = await repository.saveDialogueDraft(payload, snap.current.revision, draftRevision.current);
+      draftRevision.current = row.revision; lastWritten.current = fingerprint; setStatus("saved");
+    });
+    queue.current = next.catch(() => {});
+    return next;
+  }
+  useEffect(() => {
+    if (busy.current || s.phase === "done" || (!text && draftRevision.current === 0)) return;
+    const id = generation.current;
+    const timer = setTimeout(() => {
+      if (id !== generation.current) return;
+      void checkpoint(latest.current, inputRef.current).catch(e => {
+        setStatus("error"); setError("Автозбереження не вдалося (" + code(e) + "). Текст лишився на екрані.");
+      });
+    }, 650);
+    return () => clearTimeout(timer);
+  }, [s, text, item]);
+  function changeText(next: string) {
+    inputRef.current = next; generation.current++;
+    setText(next); setError(null); setStatus("dirty");
+  }
+  function failed(e: unknown) {
+    setStatus("error");
+    setError("НЕ збережено (" + code(e) + "). Відповідь лишилася на екрані. Перевір іншу вкладку або спробуй знову.");
+  }
+  async function transition(event: DialogueEvent) {
+    if (busy.current) return;
+    let next: DialogueSession;
+    try { next = dialogueReducer(latest.current, item, event); }
+    catch (e) { setError(e instanceof DialogueError && e.code === "EMPTY"
+      ? "Спершу напиши щось (або пропусти репліку)." : "Цей крок зараз недоступний."); return; }
+    busy.current = true; setWorking(true); generation.current++; setError(null);
+    try {
+      await queue.current;
+      await checkpoint(next, "");
+      latest.current = next; setS(next); inputRef.current = ""; setText("");
+    } catch (e) { failed(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
   async function finish(e: FormEvent) {
     e.preventDefault();
+    if (busy.current) return;
+    const exact = inputRef.current;
     let next: DialogueSession;
-    try { next = dialogueReducer(latest.current, item, { type: "SUBMIT_TRANSFER", text }); setError(null); }
+    try { next = dialogueReducer(latest.current, item, { type: "SUBMIT_TRANSFER", text: exact }); }
     catch { setError("Напиши свій план чи репліки."); return; }
-    setSaving("saving");
+    busy.current = true; setWorking(true); generation.current++; setError(null);
     try {
-      let st = snapshot.state;
+      await queue.current;
+      await checkpoint(latest.current, exact);
+      let st = snap.current.state;
       for (const ev of dialogueEvidence(next, item)) st = addDiagnostic(st, ev);
-      onSaved(await repository.commit(st, snapshot.revision));
-      latest.current = next; setS(next); setText(""); setSaving("idle");     // advance only after the commit
-    } catch (err) { setSaving({ error: String((err as { code?: string })?.code ?? "SAVE_FAILED") }); }
+      const saved = await repository.finishDialogueDraft(st, snap.current.revision, draftRevision.current, item.id, exact);
+      snap.current = saved; onSaved(saved);
+      draftRevision.current = 0; lastWritten.current = "";
+      latest.current = next; setS(next); inputRef.current = ""; setText(""); setStatus("saved");
+    } catch (e) { failed(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function pause() {
+    if (busy.current) return;
+    const exact = inputRef.current;
+    busy.current = true; setWorking(true); generation.current++; setError(null);
+    try {
+      await queue.current;
+      if (exact || draftRevision.current) {
+        await checkpoint(latest.current, exact);
+        const back = await repository.readDialogueDraft();
+        if (!back || back.revision !== draftRevision.current ||
+            JSON.stringify(dialoguePayload(back.session, back.input, item)) !== JSON.stringify(dialoguePayload(latest.current, exact, item)))
+          throw new Error("READBACK_MISMATCH");
+      }
+      onHome();
+    } catch (e) { failed(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function discard() {
+    if (busy.current) return;
+    busy.current = true; setWorking(true); generation.current++; setError(null);
+    try {
+      await queue.current;
+      if (draftRevision.current) await repository.discardDialogueDraft(snap.current.revision, draftRevision.current);
+      onExit();
+    } catch (e) { failed(e); }
+    finally { busy.current = false; setWorking(false); }
   }
   const title = { turns: "Розмова", questions: "Що ти зрозумів(ла)?", transfer: "Твоя ситуація", done: "Готово" }[s.phase];
 
@@ -63,6 +202,7 @@ function Dialogue({ item, repository, snapshot, onSaved, onExit }: { item: Dialo
       <p className="eyebrow">Навчання · розмова · <span lang="fi">{item.title_fi}</span></p>
       <h1 id="dlg-title" ref={heading} tabIndex={-1}>{title}</h1>
       {!v.reviewed && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
+      {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершений діалог відновлено з цього пристрою.</p>}
 
       {s.phase !== "transfer" && s.phase !== "done" && (
         <ol className="dialogue" aria-label="Репліки">
@@ -83,24 +223,22 @@ function Dialogue({ item, repository, snapshot, onSaved, onExit }: { item: Dialo
       )}
 
       {s.phase === "turns" && (v.awaitingReply ? (
-        <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (act({ type: "REPLY", text })) setText(""); }} noValidate>
+        <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "REPLY", text: inputRef.current }); }} noValidate>
           <label className="field" htmlFor="dlg-reply">Твоя репліка фінською — що ти скажеш?</label>
-          <input id="dlg-reply" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => setText(e.target.value)} />
-          {error && <p className="feedback error" role="alert">{error}</p>}
+          <input id="dlg-reply" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions">
             <button type="submit" className="btn">Сказати</button>
-            <button type="button" className="btn secondary" onClick={() => { act({ type: "SKIP_REPLY" }); setText(""); }}>Пропустити й подивитися сценарій</button>
+            <button type="button" className="btn secondary" onClick={() => void transition({ type: "SKIP_REPLY" })}>Пропустити й подивитися сценарій</button>
           </div>
         </form>
       ) : (
-        <div className="actions"><button type="button" className="btn" onClick={() => act({ type: "NEXT_TURN" })}>Далі</button></div>
+        <div className="actions"><button type="button" className="btn" onClick={() => void transition({ type: "NEXT_TURN" })}>Далі</button></div>
       ))}
 
       {s.phase === "questions" && v.question && (v.question.model_fi === null ? (
-        <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (act({ type: "ANSWER", questionId: v.question!.id, text })) setText(""); }} noValidate>
+        <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "ANSWER", questionId: v.question!.id, text: inputRef.current }); }} noValidate>
           <label className="field" htmlFor="dlg-q"><span className="muted">Питання {v.question.n} з {v.question.of} · </span><span lang="fi">{v.question.prompt_fi}</span></label>
-          <input id="dlg-q" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => setText(e.target.value)} />
-          {error && <p className="feedback error" role="alert">{error}</p>}
+          <input id="dlg-q" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions"><button type="submit" className="btn">Відповісти</button></div>
         </form>
       ) : (
@@ -111,7 +249,7 @@ function Dialogue({ item, repository, snapshot, onSaved, onExit }: { item: Dialo
             <legend>Твоя відповідь означає те саме? <span className="muted">(оцінюєш ти — це не бал)</span></legend>
             <div className="actions">
               {(Object.keys(JUDGE_UK) as SelfJudgement[]).map(j => (
-                <button key={j} type="button" className="btn secondary" onClick={() => act({ type: "JUDGE", questionId: v.question!.id, judgement: j })}>{JUDGE_UK[j]}</button>
+                <button key={j} type="button" className="btn secondary" onClick={() => void transition({ type: "JUDGE", questionId: v.question!.id, judgement: j })}>{JUDGE_UK[j]}</button>
               ))}
             </div>
           </fieldset>
@@ -122,13 +260,22 @@ function Dialogue({ item, repository, snapshot, onSaved, onExit }: { item: Dialo
         <form onSubmit={e => void finish(e)} noValidate>
           <div className="prompt" lang="fi">{v.transfer_fi}</div>
           <label className="field" htmlFor="dlg-transfer">Твої репліки фінською (можна потім сказати вголос; без оцінки)</label>
-          <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => setText(e.target.value)} />
-          {error && <p className="feedback error" role="alert">{error}</p>}
-          {typeof saving === "object" && <p className="feedback error" role="alert">НЕ збережено ({saving.error}). Текст лишився тут — спробуй ще раз.</p>}
-          <div className="actions"><button type="submit" className="btn" disabled={saving === "saving"}>{saving === "saving" ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
+          <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <div className="actions"><button type="submit" className="btn" disabled={working}>{working ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
         </form>
       )}
 
+      {s.phase !== "done" && (
+        <>
+          {error && <p className="feedback error" role="alert">{error}</p>}
+          <p className="muted" role="status">{status === "dirty" ? "Є незбережені зміни." : status === "saving" ? "Зберігаю локально…" :
+            status === "saved" ? "Чернетка збережена на цьому пристрої." : status === "error" ? "Чернетку не підтверджено." : "Збереження почнеться після першої відповіді."}</p>
+          <div className="actions">
+            <button type="button" className="btn secondary" disabled={working} onClick={() => void pause()}>Зберегти та вийти</button>
+            <button type="button" className="btn danger" disabled={working} onClick={() => void discard()}>Відкинути чернетку</button>
+          </div>
+        </>
+      )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
           <p>✅ Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою і твій план розмови.</p>
