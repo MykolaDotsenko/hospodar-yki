@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addDiagnostic, pictureEvidence, pictureReducer, pictureView, startPicture, PICTURE_MAX_CHARS,
   type LearnerState, type PictureSession, type PictureEvent } from "@hospodar/domain";
 import { pictureMissions } from "../content/pictureMissions.ts";
