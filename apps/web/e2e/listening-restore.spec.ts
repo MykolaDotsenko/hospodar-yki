@@ -18,8 +18,11 @@ async function resume(page: Page) {
 }
 async function answerAll(page: Page) {
   for (let i = 0; i < 4; i++) {
+    await expect(page.getByText(`Питання ${i + 1} з 4`)).toBeVisible();
     await page.locator('input[name="lq"]').first().check();
     await page.getByRole("button", { name: "Відповісти" }).click();
+    if (i < 3) await expect(page.getByText(`Питання ${i + 2} з 4`)).toBeVisible();
+    else await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
   }
 }
 test("LEARN Listening: exact prediction survives reload; no first answer or key shown early", async ({ page }) => {
@@ -52,9 +55,12 @@ test("LEARN Listening: exact prediction survives reload; no first answer or key 
   await resume(page);
   await expect(page.getByRole("heading", { name: "Деталі" })).toBeVisible();
   await expect(page.locator(".learning-cue")).toHaveCount(0);
-  for (let i = 0; i < 3; i++) {
+  for (let i = 1; i < 4; i++) {
+    await expect(page.getByText(`Питання ${i + 1} з 4`)).toBeVisible();
     await page.locator('input[name="lq"]').first().check();
     await page.getByRole("button", { name: "Відповісти" }).click();
+    if (i < 3) await expect(page.getByText(`Питання ${i + 2} з 4`)).toBeVisible();
+    else await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
   }
   await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
