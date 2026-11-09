@@ -115,3 +115,9 @@ Run `python3 scripts/validate_visual_assets.py` and `python3 -m unittest discove
 ## Delayed transfer Web pilot — regression scope (24.10.2026)
 
 `node --test app/tests/retention-core.test.mjs` validates authored, separate day-7/14/30 prompts; date eligibility including elapsed/missed intervals; independent nonempty written response; duplicate/future submission rejection; and backward-compatible persisted V1 profiles. The same feature is included in `node --test app/tests/*.test.mjs` and the app CI workflow when either `app/**` or its specific content JSON changes. Browser UI, S2 text accuracy, calendar changes across user timezone moves, loss of the oldest first-attempt after history retention, Android parity and independent delayed *learning quality* are **not** established by unit tests.
+
+## 2026-11-09 Reading recovery regression suite — coded, CI pending
+
+For the React LEARN Reading path, `apps/web/src/storage/readingDraft.test.ts` rejects forged feedback and out-of-order/revised content; `readingDraft.repository.test.ts` covers v4→v5 IndexedDB upgrade, independent second-handle readback, CAS conflicts, atomic diagnostic completion, deliberate erasure and empty-profile restore/import refusal. `apps/web/e2e/reading-restore.spec.ts` exercises real reloads across choice, feedback, self-judgement and hidden-text transfer; stale multi-tab state; `axe` WCAG 2.2 AA serious/critical rules; and Reading in the privacy/erase screen. Run `pnpm --filter @hospodar/web test`, `pnpm -r typecheck`, `pnpm --filter @hospodar/web build` and the Playwright Chromium/Firefox/WebKit matrix from `.github/workflows/validate-web-app.yml`. Only report PASS after successful Actions logs; do not extrapolate to physical Android, eviction or Finnish S2 review.
+
+Reference: [LEARN Reading durable plan](exec-plans/active/2026-11-09-durable-reading-draft.md).
