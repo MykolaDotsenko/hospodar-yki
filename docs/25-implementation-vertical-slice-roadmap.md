@@ -57,3 +57,7 @@ Do **not** deploy two independent domain engines or score ungraded speaking/writ
 ## LEARN Listening Web durability slice — 10.11.2026
 
 Implementation coded on its own feature branch: Dexie v6 `listeningDraft`, reducer-validated independent first answers, sticky accessibility support (always ungraded), serialized CAS/readback, atomic diagnostics + checkpoint removal, and privacy/delete/restore integration. Browser/device/Android release claims **not** warranted before independent CI and hardware evidence. [Plan + pending gates](exec-plans/active/2026-11-10-durable-listening-draft.md). G2 remains partial; G3–G6 unchanged.
+
+## LEARN Dialogue Web durability slice — 10.11.2026
+
+G2 Web implementation branch adds IndexedDB v7 dialogue checkpoints, reply-before-script reducer replay, no premature model reveal, serialized CAS/readback, and atomic ungraded role-play completion. Privacy/data erasure/export inventory and 3-engine browser verification remain explicit gates before declaring a merge. [Execution plan](exec-plans/active/2026-11-10-durable-dialogue-draft.md). Android native, S2 content review, measured effects and exact YKI 2027 fidelity remain unverified.
