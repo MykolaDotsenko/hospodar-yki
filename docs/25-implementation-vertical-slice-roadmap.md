@@ -53,3 +53,7 @@ Do **not** deploy two independent domain engines or score ungraded speaking/writ
 ## Web LEARN Reading slice — 09.11.2026 (part of G2, not G2 completion)
 
 `apps/web` now has **coded** v5 IndexedDB Reading checkpoints with reducer-validated restoration, phase write/readback ACK, stale-tab CAS and atomic completed evidence + draft deletion. New source/unit/E2E suites are identified in [execution plan](exec-plans/active/2026-11-09-durable-reading-draft.md). **CI remains to be verified independently** and G2 still needs broader Web/mobile accessibility and failure-mode evidence. G3–G6 Android, large media delivery, official YKI 2027, licensed/S2-final material and efficacy trials remain uncompleted; the old table above is a baseline, not a claim of latest implementation inventory.
+
+## LEARN Listening Web durability slice — 10.11.2026
+
+Implementation coded on its own feature branch: Dexie v6 `listeningDraft`, reducer-validated independent first answers, sticky accessibility support (always ungraded), serialized CAS/readback, atomic diagnostics + checkpoint removal, and privacy/delete/restore integration. Browser/device/Android release claims **not** warranted before independent CI and hardware evidence. [Plan + pending gates](exec-plans/active/2026-11-10-durable-listening-draft.md). G2 remains partial; G3–G6 unchanged.
