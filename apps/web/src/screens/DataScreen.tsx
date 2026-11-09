@@ -13,7 +13,7 @@ import { examContentVersion } from "../content/exam.ts";
  */
 type Snap = { state: LearnerState; revision: number };
 type Scope = "learn" | "exam";
-type Loaded = { counts: DataExportCounts; examRevision: number; voiceClips: number; draftPresent: boolean; draftRevision: number; clinicDraftPresent: boolean; clinicDraftRevision: number; readingDraftPresent: boolean; readingDraftRevision: number; listeningDraftPresent: boolean; listeningDraftRevision: number };
+type Loaded = { counts: DataExportCounts; examRevision: number; voiceClips: number; draftPresent: boolean; draftRevision: number; clinicDraftPresent: boolean; clinicDraftRevision: number; readingDraftPresent: boolean; readingDraftRevision: number; listeningDraftPresent: boolean; listeningDraftRevision: number; dialogueDraftPresent: boolean; dialogueDraftRevision: number };
 
 async function sha256Hex(text: string) {
   const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -35,14 +35,14 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
   const restoreChoice = useRef(0);
 
   async function collect() {
-    const [learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft] = await Promise.all([repository.read(), repository.listImports(), examRepository.read(), examRepository.history(), repository.readMissionDraft(), repository.readClinicDraft(), repository.readReadingDraft(), repository.readListeningDraft()]);
-    return { learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft };
+    const [learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft, dialogueDraft] = await Promise.all([repository.read(), repository.listImports(), examRepository.read(), examRepository.history(), repository.readMissionDraft(), repository.readClinicDraft(), repository.readReadingDraft(), repository.readListeningDraft(), repository.readDialogueDraft()]);
+    return { learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft, dialogueDraft };
   }
   async function refresh() {
     try {
-      const { learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft } = await collect();
+      const { learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft, dialogueDraft } = await collect();
       const d = buildDataExport({ learn: { ...learn, imports }, exam: { current, history }, exportedAt: new Date() });
-      setLoaded({ counts: d.counts, examRevision: current?.revision ?? 0, voiceClips: await voiceStore.count().catch(() => 0), draftPresent: Boolean(missionDraft), draftRevision: missionDraft?.revision ?? 0, clinicDraftPresent: Boolean(clinicDraft), clinicDraftRevision: clinicDraft?.revision ?? 0, readingDraftPresent: Boolean(readingDraft), readingDraftRevision: readingDraft?.revision ?? 0, listeningDraftPresent: Boolean(listeningDraft), listeningDraftRevision: listeningDraft?.revision ?? 0 });
+      setLoaded({ counts: d.counts, examRevision: current?.revision ?? 0, voiceClips: await voiceStore.count().catch(() => 0), draftPresent: Boolean(missionDraft), draftRevision: missionDraft?.revision ?? 0, clinicDraftPresent: Boolean(clinicDraft), clinicDraftRevision: clinicDraft?.revision ?? 0, readingDraftPresent: Boolean(readingDraft), readingDraftRevision: readingDraft?.revision ?? 0, listeningDraftPresent: Boolean(listeningDraft), listeningDraftRevision: listeningDraft?.revision ?? 0, dialogueDraftPresent: Boolean(dialogueDraft), dialogueDraftRevision: dialogueDraft?.revision ?? 0 });
     } catch (e) { setLoaded({ error: codeOf(e) }); }
   }
   useEffect(() => { void refresh(); }, [repository, examRepository, snapshot.revision]);
@@ -66,7 +66,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
     if (!scope || !isDeleteConfirmed(typed) || !loaded || "error" in loaded) return;
     setErase("working");
     try {
-      if (scope === "learn") onErased(await repository.eraseAll(snapshot.revision, loaded.draftRevision, loaded.clinicDraftRevision, loaded.readingDraftRevision, loaded.listeningDraftRevision));
+      if (scope === "learn") onErased(await repository.eraseAll(snapshot.revision, loaded.draftRevision, loaded.clinicDraftRevision, loaded.readingDraftRevision, loaded.listeningDraftRevision, loaded.dialogueDraftRevision));
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); }   // audio first: never orphan a recording
       setErase({ done: scope }); setScope(null); setTyped("");
       await refresh();
@@ -103,7 +103,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
 
   const c = loaded && !("error" in loaded) ? loaded.counts : null;
   const draftPresent = loaded && !("error" in loaded) ? loaded.draftPresent : false;
-  const learnCount = c ? c.attempts + c.diagnostics + c.retention + c.cards + c.imports + (draftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.clinicDraftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.readingDraftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.listeningDraftPresent ? 1 : 0) : 0;
+  const learnCount = c ? c.attempts + c.diagnostics + c.retention + c.cards + c.imports + (draftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.clinicDraftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.readingDraftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.listeningDraftPresent ? 1 : 0) + (loaded && !("error" in loaded) && loaded.dialogueDraftPresent ? 1 : 0) : 0;
   const voiceClips = loaded && !("error" in loaded) ? loaded.voiceClips : 0;
   const examCount = c ? c.examCurrent + c.examHistory + voiceClips : 0;
   // Restore is deliberately LEARN-only. No cross-DB partial restore of exam or unavailable voice bytes.
@@ -119,14 +119,14 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         <p className="feedback error" role="alert">Не вдалося прочитати дані ({loaded.error}). Нічого не змінено.</p>
       ) : (
         <ul className="skill-lines" aria-label="Збережені дані">
-          <li><strong>Навчання</strong>: місій {c!.attempts}, відповідей з діагностики й вправ {c!.diagnostics}, відкладених перевірок {c!.retention}, карток повторення {c!.cards}, незавершених місій {draftPresent ? 1 : 0}, незавершених майстерень письма {loaded.clinicDraftPresent ? 1 : 0}, незавершених вправ читання {loaded.readingDraftPresent ? 1 : 0}, незавершених вправ аудіювання {loaded.listeningDraftPresent ? 1 : 0}, записів про перенесення з попередньої версії {c!.imports}</li>
+          <li><strong>Навчання</strong>: місій {c!.attempts}, відповідей з діагностики й вправ {c!.diagnostics}, відкладених перевірок {c!.retention}, карток повторення {c!.cards}, незавершених місій {draftPresent ? 1 : 0}, незавершених майстерень письма {loaded.clinicDraftPresent ? 1 : 0}, незавершених вправ читання {loaded.readingDraftPresent ? 1 : 0}, незавершених вправ аудіювання {loaded.listeningDraftPresent ? 1 : 0}, незавершених діалогів {loaded.dialogueDraftPresent ? 1 : 0}, записів про перенесення з попередньої версії {c!.imports}</li>
           <li><strong>Пробні іспити</strong> (окремо від навчання): незавершена репетиція {c!.examCurrent ? "є" : "немає"}, завершених репетицій {c!.examHistory}, голосових записів {voiceClips}</li>
         </ul>
       )}
 
       <h2>Завантажити копію</h2>
       <p>Один JSON-файл із завершеними відповідями й текстами, повтореннями та історією пробних іспитів (без незавершених чернеток). Без оцінок рівня й без прогнозу YKI. Перед завантаженням файл перечитується й перевіряється.</p>
-      <p className="muted">Голосові записи (аудіо) у файл не входять, лише їхні квитанції (розмір, тривалість, контрольна сума). Також не експортуються незавершені чернетки місій LEARN, майстерні письма, вправ читання та аудіювання. Заверши їх перед перенесенням браузера або пристрою. Прослухати аудіо можна в результатах репетиції.</p>
+      <p className="muted">Голосові записи (аудіо) у файл не входять, лише їхні квитанції (розмір, тривалість, контрольна сума). Також не експортуються незавершені чернетки місій LEARN, майстерні письма, вправ читання, аудіювання та діалогів. Заверши їх перед перенесенням браузера або пристрою. Прослухати аудіо можна в результатах репетиції.</p>
       <div className="actions"><button type="button" className="btn" onClick={() => void download()}>Завантажити мої дані (JSON)</button></div>
       {exported && ("error" in exported
         ? <p className="feedback error" role="alert">Файл НЕ створено ({exported.error}). Дані не змінено — спробуй ще раз.</p>
@@ -162,7 +162,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           : `Відновлення не підтверджено (${restoreStatus.error}). Перевір дані перед новою спробою.`}</p>}
 
       <h2>Видалити</h2>
-      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання й аудіювання. Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
+      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання й діалоги. Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
       <fieldset className="choices-set">
         <legend>Що видалити</legend>
         <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0)}
