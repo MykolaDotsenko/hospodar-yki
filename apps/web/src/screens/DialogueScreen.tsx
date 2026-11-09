@@ -225,21 +225,21 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       {s.phase === "turns" && (v.awaitingReply ? (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "REPLY", text: inputRef.current }); }} noValidate>
           <label className="field" htmlFor="dlg-reply">Твоя репліка фінською — що ти скажеш?</label>
-          <input id="dlg-reply" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <input id="dlg-reply" className="answer" lang="fi" autoComplete="off" disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions">
-            <button type="submit" className="btn">Сказати</button>
-            <button type="button" className="btn secondary" onClick={() => void transition({ type: "SKIP_REPLY" })}>Пропустити й подивитися сценарій</button>
+            <button type="submit" className="btn" disabled={working}>Сказати</button>
+            <button type="button" className="btn secondary" disabled={working} onClick={() => void transition({ type: "SKIP_REPLY" })}>Пропустити й подивитися сценарій</button>
           </div>
         </form>
       ) : (
-        <div className="actions"><button type="button" className="btn" onClick={() => void transition({ type: "NEXT_TURN" })}>Далі</button></div>
+        <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void transition({ type: "NEXT_TURN" })}>Далі</button></div>
       ))}
 
       {s.phase === "questions" && v.question && (v.question.model_fi === null ? (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "ANSWER", questionId: v.question!.id, text: inputRef.current }); }} noValidate>
           <label className="field" htmlFor="dlg-q"><span className="muted">Питання {v.question.n} з {v.question.of} · </span><span lang="fi">{v.question.prompt_fi}</span></label>
-          <input id="dlg-q" className="answer" lang="fi" autoComplete="off" maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
-          <div className="actions"><button type="submit" className="btn">Відповісти</button></div>
+          <input id="dlg-q" className="answer" lang="fi" autoComplete="off" disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <div className="actions"><button type="submit" className="btn" disabled={working}>Відповісти</button></div>
         </form>
       ) : (
         <div className="feedback" role="status">
@@ -249,7 +249,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
             <legend>Твоя відповідь означає те саме? <span className="muted">(оцінюєш ти — це не бал)</span></legend>
             <div className="actions">
               {(Object.keys(JUDGE_UK) as SelfJudgement[]).map(j => (
-                <button key={j} type="button" className="btn secondary" onClick={() => void transition({ type: "JUDGE", questionId: v.question!.id, judgement: j })}>{JUDGE_UK[j]}</button>
+                <button key={j} type="button" className="btn secondary" disabled={working} onClick={() => void transition({ type: "JUDGE", questionId: v.question!.id, judgement: j })}>{JUDGE_UK[j]}</button>
               ))}
             </div>
           </fieldset>
@@ -260,7 +260,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
         <form onSubmit={e => void finish(e)} noValidate>
           <div className="prompt" lang="fi">{v.transfer_fi}</div>
           <label className="field" htmlFor="dlg-transfer">Твої репліки фінською (можна потім сказати вголос; без оцінки)</label>
-          <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions"><button type="submit" className="btn" disabled={working}>{working ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
         </form>
       )}
