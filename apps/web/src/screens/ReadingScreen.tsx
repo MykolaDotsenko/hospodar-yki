@@ -26,6 +26,7 @@ export function ReadingScreen({ repository, snapshot, onSaved, onHome }: {
         session: row.session, input: row.input, contentFingerprint: row.contentFingerprint,
       }, item) || row.learnerRevision !== snapshot.revision)
         ? "Незавершене читання несумісне з поточним матеріалом або прогресом. Чернетку не відкрито, щоб не показати відповіді завчасно й не втратити роботу." : null;
+      if (row && !blocked && item) setSelected(item); // Keep the completed stage mounted after atomic checkpoint removal.
       setLoaded({ kind: "ready", draft: row, blocked });
     }).catch(e => {
       if (alive) {
