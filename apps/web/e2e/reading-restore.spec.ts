@@ -83,7 +83,7 @@ test("Reading: privacy inventory, fail-closed restore and explicit erasure inclu
   await start(page);
   await page.getByLabel("Ei tarvitse").check();
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
-  await page.getByRole("button", { name: "Мої дані" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
   await expect(page.getByText(/незавершених вправ читання 1/)).toBeVisible();
   await expect(page.getByText(/не експортуються незавершені чернетки/)).toBeVisible();
   await page.getByRole("radio", { name: /Увесь прогрес навчання/ }).check();
