@@ -123,7 +123,7 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     },
     async eraseAll(expectedRevision, expectedDraftRevision = 0, expectedClinicRevision = 0, expectedReadingRevision = 0, expectedListeningRevision = 0) {
       try {
-        await db.transaction("rw", db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, async () => {
+        await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft], async () => {
           const current = (await db.learner.get("current"))?.revision ?? 0;
           const activeDraftRevision = (await db.missionDraft.get("active"))?.revision ?? 0;
           const clinicRevision = (await db.clinicDraft.get("active"))?.revision ?? 0;
@@ -148,7 +148,7 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     async importLegacy(state, partial) {
       let result: { snapshot: LearnerSnapshot; receipt: ImportReceipt };
       try {
-        result = await db.transaction("rw", db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, async () => {
+        result = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft], async () => {
           if (await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished LEARN exercise exists");
           const row = await db.learner.get("current");
           // No merge: refuse if the new app already holds any learning history.
@@ -174,7 +174,7 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     async restoreWebLearn(state, imports, expectedRevision) {
       let snapshot: LearnerSnapshot;
       try {
-        snapshot = await db.transaction("rw", db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, async () => {
+        snapshot = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft], async () => {
           const row = await db.learner.get("current");
           if ((row?.revision ?? 0) !== expectedRevision)
             throw new StorageError("REVISION_CONFLICT", "The profile changed in another tab");
