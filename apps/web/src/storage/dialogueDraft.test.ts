@@ -35,7 +35,7 @@ describe("Dialogue checkpoint must replay all independent attempts", () => {
     const s = startDialogue(d), p = dialoguePayload(s, "", d);
     expect(validDialogueDraft({ ...p, session: { ...s, phase: "transfer" } }, d)).toBe(false);
     expect(validDialogueDraft({ ...p, session: { ...s, turn: d.turns.length } }, d)).toBe(false);
-    expect(validDialogueDraft({ ...p, session: { ...s, replies: { 0: "surprise" } } }, d)).toBe(false);
+    expect(validDialogueDraft({ ...p, session: { ...s, replies: { 1: "surprise" } } }, d)).toBe(false);
     expect(validDialogueDraft({ ...p, session: { ...s, answers: { unexpected: "a" } } }, d)).toBe(false);
     expect(validDialogueDraft({ ...p, session: { ...s, judged: { surprise: "same" } } }, d)).toBe(false);
     expect(validDialogueDraft({ ...p, extra: true }, d)).toBe(false);
