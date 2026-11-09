@@ -49,3 +49,7 @@ For upcoming G2/G5 UI, voice, SRS and Phaser work, apply [research program](../r
 Do **not** deploy two independent domain engines or score ungraded speaking/writing as an official YKI level. Do **not** block offline core on Supabase login or automatic multi-GB Web download. Do **not** remove the existing `app/` until critical flows, old exports, check/scores and data migrations are demonstrably equivalent. Checksum/version pin content to an in-progress attempt.
 
 **Acceptance case list:** [C-01…C-10](27-stack-architecture-compatibility-and-implementation-gates.md). **Legacy release gates:** [REL-01…REL-16](24-reliability-hardened-architecture-web-android.md), [ANDR-01…ANDR-18 / WEB-01…WEB-10](23-android-offline-game-and-3gb-media-architecture.md).
+
+## Web LEARN Reading slice — 09.11.2026 (part of G2, not G2 completion)
+
+`apps/web` now has **coded** v5 IndexedDB Reading checkpoints with reducer-validated restoration, phase write/readback ACK, stale-tab CAS and atomic completed evidence + draft deletion. New source/unit/E2E suites are identified in [execution plan](exec-plans/active/2026-11-09-durable-reading-draft.md). **CI remains to be verified independently** and G2 still needs broader Web/mobile accessibility and failure-mode evidence. G3–G6 Android, large media delivery, official YKI 2027, licensed/S2-final material and efficacy trials remain uncompleted; the old table above is a baseline, not a claim of latest implementation inventory.
