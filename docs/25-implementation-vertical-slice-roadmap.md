@@ -61,3 +61,7 @@ Implementation coded on its own feature branch: Dexie v6 `listeningDraft`, reduc
 ## LEARN Dialogue Web durability slice — 10.11.2026
 
 G2 Web implementation branch adds IndexedDB v7 dialogue checkpoints, reply-before-script reducer replay, no premature model reveal, serialized CAS/readback, and atomic ungraded role-play completion. Privacy/data erasure/export inventory and 3-engine browser verification remain explicit gates before declaring a merge. [Execution plan](exec-plans/active/2026-11-10-durable-dialogue-draft.md). Android native, S2 content review, measured effects and exact YKI 2027 fidelity remain unverified.
+
+## LEARN Picture Mission Web durability slice — 10.11.2026
+
+Scoped G2 Web checkpoint work, **not** a G2/G6 release: additive Dexie v8 picture drafts with lesson+licensed-photo fingerprint and pure reducer replay; unassisted response persisted before showing Finnish models/Ukrainian gloss; separate transfer without the picture; bounded autosave, exact Save & Exit, cross-tab CAS/readback, and atomic ungraded final diagnostics plus deletion. Explicit LEARN erase/import/restore fail-closed protections and portable export disclosure include unfinished photo work. [Execution plan, implementation and test locations](exec-plans/active/2026-11-10-durable-picture-mission-draft.md). Native Android, true media eviction/power-loss resilience, S2 review, measured learning and official YKI 2027 fidelity remain unverified.
