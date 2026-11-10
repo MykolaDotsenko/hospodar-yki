@@ -10,6 +10,8 @@ async function oneMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  // Wait until the immutable first attempt was acknowledged before editing guided repair.
+  await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   // If an IndexedDB checkpoint is refused, report the actual on-screen error rather than a 30s missing-button timeout.
