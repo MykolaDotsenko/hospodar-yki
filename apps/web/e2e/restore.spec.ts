@@ -7,8 +7,10 @@ async function oneMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible(); // first-answer ACK
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.getByRole("button", { name: "Далі: нова ситуація" })).toBeVisible(); // repair ACK
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
   await page.getByLabel(/Твоє власне речення/).fill("Menen kirjastoon.");
   await page.getByRole("button", { name: "Зберегти місію" }).click();
