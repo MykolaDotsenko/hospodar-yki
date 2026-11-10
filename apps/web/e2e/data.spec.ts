@@ -10,6 +10,8 @@ async function oneMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  // Wait until the immutable first attempt was acknowledged before editing guided repair.
+  await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   // If an IndexedDB checkpoint is refused, report the actual on-screen error rather than a 30s missing-button timeout.
@@ -113,7 +115,7 @@ test("LEARN-16: an unfinished mission is erasable but never falsely exported as 
   const stored = page.getByRole("list", { name: "Збережені дані" });
   await expect(stored).toContainText("місій 0");
   await expect(stored).toContainText("незавершених місій 1");
-  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN, майстерні письма, вправ читання, аудіювання та діалогів/)).toBeVisible();
+  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN/)).toContainText("фото-місій");
   await expect(page.getByLabel("Увесь прогрес навчання")).toBeEnabled();
   const [dl] = await Promise.all([
     page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click(),

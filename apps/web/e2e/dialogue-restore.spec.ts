@@ -62,7 +62,7 @@ test("Dialogue v7 privacy inventory: unfinished text omitted from export and era
   await saveExit(page);
   await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
   await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("незавершених діалогів 1");
-  await expect(page.getByText(/чернетки місій LEARN, майстерні письма, вправ читання, аудіювання та діалогів/)).toBeVisible();
+  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN/)).toContainText("діалогів");
   const [dl] = await Promise.all([
     page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click(),
   ]);

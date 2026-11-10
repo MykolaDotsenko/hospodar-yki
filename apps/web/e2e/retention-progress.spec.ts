@@ -9,6 +9,9 @@ async function wrongMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  // Phase becomes repair only after the first IndexedDB checkpoint ACK.
+  // Otherwise a fast WebKit test can fill the old input and race its reset.
+  await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   // Distinguish an actual refused IndexedDB write from a temporarily delayed feedback render.
