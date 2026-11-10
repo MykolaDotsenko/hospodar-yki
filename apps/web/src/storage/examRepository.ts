@@ -52,6 +52,25 @@ export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamReposit
     if (current !== expectedRevision) throw new StorageError("REVISION_CONFLICT", "The rehearsal was changed in another tab");
     return current + 1;
   };
+  /** A successful transaction alone is not an E07 readback receipt. Re-open stored bytes
+   * and compare the exact session (including composed Unicode), scope and finish history.
+   * A competing tab or ambiguous read is reported, never shown as a successful save. */
+  const verifyCommitted = async (session: ExamSession, revision: number, skills: ExamSkill[] | null, record?: ExamHistoryRecord) => {
+    try {
+      const { row, history } = await db.transaction("r", db.checkpoints, db.history, async () => ({
+        row: await db.checkpoints.get("current"),
+        history: record ? await db.history.get(record.sessionId) : undefined,
+      }));
+      if (!row || row.revision !== revision ||
+          JSON.stringify(row.session) !== JSON.stringify(session) ||
+          JSON.stringify(row.skills ?? null) !== JSON.stringify(skills) ||
+          (record && JSON.stringify(history) !== JSON.stringify(record)))
+        throw new StorageError("READBACK_MISMATCH", "Committed EXAM checkpoint differs from persisted data");
+    } catch (e) {
+      if (e instanceof StorageError) throw e;
+      throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+    }
+  };
   return {
     async read() {
       try {
@@ -61,21 +80,25 @@ export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamReposit
     },
     async commit(session, expectedRevision, skills) {
       try {
-        return await db.transaction("rw", db.checkpoints, async () => {
+        const saved = await db.transaction("rw", db.checkpoints, async () => {
           const revision = await cas(expectedRevision);
           await db.checkpoints.put({ id: "current", revision, session, skills, updatedAt: new Date().toISOString() });
           return { session, revision, skills };
         });
+        await verifyCommitted(session, saved.revision, skills);
+        return saved;
       } catch (e) { throw mapError(e); }
     },
     async finish(session, expectedRevision, skills, record) {
       try {
-        return await db.transaction("rw", db.checkpoints, db.history, async () => {
+        const saved = await db.transaction("rw", db.checkpoints, db.history, async () => {
           const revision = await cas(expectedRevision);
           await db.checkpoints.put({ id: "current", revision, session, skills, updatedAt: new Date().toISOString() });
           await db.history.put(record);
           return { session, revision, skills };
         });
+        await verifyCommitted(session, saved.revision, skills, record);
+        return saved;
       } catch (e) { throw mapError(e); }
     },
     async clear(expectedRevision) {

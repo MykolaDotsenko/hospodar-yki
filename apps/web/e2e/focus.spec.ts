@@ -23,9 +23,11 @@ test("focus budget and orientation hold on every mission step", async ({ page })
   await stepChecks(page);                                                           // answer
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible(); // checkpoint ACK
   await stepChecks(page);                                                           // repair
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible(); // checkpoint ACK
   await stepChecks(page);                                                           // feedback
   const order = await page.evaluate(() => {
     const m = document.querySelector(".meaning-first"), c = document.querySelector(".learning-cue");

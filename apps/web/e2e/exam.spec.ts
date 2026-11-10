@@ -1,4 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 
 const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze())
@@ -24,6 +25,8 @@ test("EXAM rehearsal (XState): no aids before finish, persisted navigation survi
   await first.check();
   await page.getByRole("button", { name: "Seuraava" }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();
+  // A visible next task now implies the checkpoint was committed AND reread, not a pending transition.
+  await expect(page.getByText("Tallennettu.")).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();          // resumed from the persisted checkpoint
@@ -95,4 +98,50 @@ test("at least one skill must be chosen before starting", async ({ page }) => {
   for (const s of ["Читання", "Аудіювання", "Письмо", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
   await expect(page.getByRole("button", { name: /Aloita/ })).toBeDisabled();
   await expect(page.getByRole("alert")).toContainText("Обери хоча б одну навичку");
+});
+
+
+test("E07: unfinished IME composition cannot finish writing; exact Finnish Unicode survives autosave, reload and final submission", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Читання", "Аудіювання", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText("Tehtävä 1 / 1")).toBeVisible();
+  const editor = page.getByRole("textbox");
+  const exact = "Hyvää päivää! Kävin Töölössä. ysta\u0308vä ja äiti.";
+  await editor.focus(); // actual IME sessions start in the focused editor; avoid synthetic pre-focus composition races
+  await editor.dispatchEvent("compositionstart", { data: "ä" });
+  await expect(page.getByText(/Syöttö kesken/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
+  // Playwright fill() finishes a synthetic IME composition in Firefox. Use the native
+  // setter and a composing input event so all three browser engines exercise the
+  // *intermediate* editor state without an implicit blur/compositionend.
+  await editor.evaluate((node, text) => {
+    const el = node as HTMLTextAreaElement;
+    const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value")?.set;
+    if (!setter) throw new Error("No native textarea setter");
+    setter.call(el, text);
+    el.dispatchEvent(new InputEvent("input", {
+      bubbles: true, data: text, inputType: "insertCompositionText", isComposing: true,
+    }));
+  }, exact);
+  await expect(editor).toHaveValue(exact);
+  await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
+  await editor.dispatchEvent("compositionend", { data: "ä" });
+  await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeEnabled();
+  await expect(page.getByText("Tallennettu.")).toBeVisible({ timeout: 8000 });
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByRole("textbox")).toHaveValue(exact);
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await expect(page.getByRole("heading", { name: /Tulokset/ })).toBeVisible();
+  await page.getByRole("button", { name: "На головну" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click()]);
+  const exported = JSON.parse(readFileSync((await download.path())!, "utf8"));
+  expect(exported.exam.current.session.answers["d-w1"]).toBe(exact);
+  expect(exported.exam.current.session.finishedAt).not.toBeNull();
+  expect(exported.exam.history[0].bySkill.writing.ungraded).toBe(1);
+  expect(JSON.stringify(exported)).not.toMatch(/officialGrade|ykiPassPrediction/);
 });

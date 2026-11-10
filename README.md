@@ -26,7 +26,17 @@
 python3 -m http.server 8080
 ```
 
-Відкрити **[LEARN](http://localhost:8080/app/)** або **[EXAM](http://localhost:8080/app/exam.html)** у браузері. В іншому терміналі:
+Відкрити **[LEARN](http://localhost:8080/app/)** або **[EXAM](http://localhost:8080/app/exam.html)** у браузері. Це старий Vanilla JS MVP. Новий React Web застосунок (`apps/web`, Node.js 22 + corepack/pnpm):
+
+```sh
+corepack enable
+pnpm install --frozen-lockfile
+pnpm --filter @hospodar/web dev
+```
+
+Новий Web має окремі IndexedDB для LEARN і EXAM та PWA-офлайн. У розділі «Мої дані» доступні JSON-експорт, видалення і **відновлення лише LEARN** із Web v1 експорту в порожній профіль; пробні іспити й голос у такому відновленні не переносяться. Це **не production deployment** і не Android-застосунок.
+
+В іншому терміналі:
 
 ```sh
 node --test app/tests/*.test.mjs
@@ -41,7 +51,9 @@ python3 scripts/validate_ai_docs.py
 
 | Папка | Що знайдете |
 | --- | --- |
-| [`app/`](app/README.md) | Працюючий Web MVP і unit/browser-тести |
+| [`app/`](app/README.md) | Початковий Vanilla JS Web MVP та тести |
+| [`apps/web/`](apps/web/) | Новий React/TypeScript Web з LEARN/EXAM, Dexie, PWA та browser E2E |
+| [`packages/domain/`](packages/domain/) | Чиста TypeScript-логіка навчання та іспитових репетицій |
 | [`assets/images/`](assets/images/README.md) | SVG-логотипи; місце для майбутніх ілюстрацій |
 | [`assets/audio/`](assets/audio/README.md) | Фінське OGG/MP3, транскрипти й субтитри |
 | [`assets/video/`](assets/video/README.md) | Реально збережені ліцензовані WebM |
@@ -64,11 +76,11 @@ python3 scripts/validate_ai_docs.py
 
 | Реалізовано частково | Ще не реалізовано / не підтверджено |
 | --- | --- |
-| Vanilla JavaScript Web LEARN/EXAM MVP | React/Vite/Phaser повноцінний клієнт |
-| EXAM IndexedDB checkpoints і тести браузерного збереження | Спільний production-ready Web/Android протокол першої спроби |
-| LEARN зі збереженням у `localStorage` | Durable Web LEARN storage та міграція |
-| Локальне фінське аудіо, окремі WebM і вправи | Готовий встановлюваний Android AAB, Play Asset Delivery, офлайн 3–4 GB ([план R05](docs/23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)) |
-| Курований YouTube URL-каталог | Автоматична оцінка незрецензованих письмових/усних відповідей як офіційний YKI результат |
+| Старий Vanilla JS LEARN/EXAM і нові React/Vite/TS режими з E2E | Нативна Android/Phaser-гра та production rollout |
+| Нові окремі IndexedDB/Dexie LEARN та EXAM, збереження чернеток і спроб | Спільний production-ready Web/Android V2 протокол першої спроби |
+| Явне перенесення legacy LEARN; Web JSON експорт/видалення і відновлення **лише LEARN** в порожній профіль | Повне EXAM/voice відновлення з копії, cloud sync та Android parity |
+| PWA shell та перевірені вибіркові Web-офлайн-медіапаки; локальне аудіо та фото | Play Asset Delivery, AAB та офлайн 3–4 GB ([план R05](docs/23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged)) |
+| Курований YouTube URL-каталог | Людська S2-редактура контенту, відповідність YKI 2027 та каліброване оцінювання |
 
 **Мовна якість та права:** частина вправ і відеозавдань потребує S2/редакторської перевірки. Джерело, доступність посилання та право на копіювання — різні речі. Зовнішні матеріали не включаємо в офлайн-пакети без права на поширення.
 

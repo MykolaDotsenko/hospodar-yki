@@ -102,3 +102,9 @@
 **Критерії E07-G01..G10** (10 шт.) і **ризики E07-R01..R12** збережені в [JSON](e07-writing-editor-evidence-2026-10.json). На дату звіту **0/10 release gates passed**: це **не оцінка всього Hospodar**, а стан сертифікації нового E07 функціоналу.
 
 **Результат цієї ітерації:** sourced research + фактичний code review + precision requirements + reference policy + 12 test cases + docs linking. Немає вигаданої exact симуляції YKI 2027 або непідтвердженого “writing grade”. Наступний науковий модуль **E08 — читання**, а паралельна P0 engineering implementation — стійке збереження тексту й реальна самостійна перевірка на Android/desktop.
+
+## Implementation update — 2026-11-08 (E07 Web writing reliability)
+
+The new `apps/web` EXAM (NOT legacy `app/exam.mjs`) now has an IME composition gate for the **practice-only** writing textarea: intermediate composition is local-only, draft autosave/next/finish cannot proceed until final `compositionend` (or blur fallback), and the final Unicode text is sent to the XState machine once. Concurrent autosave and composition retain a dirty flag until another commit. The Dexie EXAM repository reads the stored session/checkpoint revision and, for finished attempts, the history entry after the transaction; any exact readback mismatch blocks the success state. Automated unit and Playwright coverage is in the new PR; CI results must be recorded before release claims.
+
+**Still unknown/blocked:** official 2027 editor controls, full writing genre content bank and two independent S2 reviews, human calibration, physical Finnish-IME/Android device QA, process-kill/disk pressure. Old standalone E07 reference module still describes the legacy `app/` editor and is unchanged. No claim of official scoring or faithful 2027 Inspera layout.

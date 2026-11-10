@@ -1178,6 +1178,10 @@
         {
           "file": "app/tests/retention-core.test.mjs",
           "contains": "never exposes a delayed prompt before day 7"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: complete two due novel transfers one by one without merging or grading"
         }
       ]
     },
@@ -1509,6 +1513,10 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
         }
       ],
       "gap": "Cause-specific prompt exists in R08 repair only; no automated check that no toast/badge appears on every screen."
@@ -1709,6 +1717,10 @@
         {
           "file": "apps/web/e2e/writing-clinic.spec.ts",
           "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-02: a location-task repair remains about direction, without leaking its key"
         }
       ],
       "gap": "Flow enforced; S2-reviewed acceptable variants pending (0 published); 14/30-day novel transfer trial NOT RUN."
@@ -1795,9 +1807,13 @@
         {
           "file": "apps/web/src/storage/learnerRepository.test.ts",
           "contains": "stale writer (second tab) gets REVISION_CONFLICT and nothing is overwritten"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-07: wrong first attempt and repair text survive reload with NO answer key"
         }
       ],
-      "gap": "Committed steps survive reload/conflict; unsaved drafts are not persisted on every screen; no explicit pause control."
+      "gap": "Web cloze now has an independent paused draft and readback-verified autosave, but other LEARN skill screens and physical mobile kill/eviction durability are not covered."
     },
     {
       "id": "PSY-08",
@@ -2421,6 +2437,10 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "PSY-07: wrong first attempt and repair text survive reload with NO answer key"
         }
       ]
     },
@@ -3969,6 +3989,14 @@
         {
           "file": "apps/web/e2e/offline.spec.ts",
           "contains": "WEB-05: the app opens offline after one online visit; media is online_only until the learner saves a pack, then plays offline with ranges"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "LE-10: own earlier Finnish sentence remains hidden until delayed answer is durably saved"
+        },
+        {
+          "file": "apps/web/src/storage/learnerRepository.test.ts",
+          "contains": "atomically commits the finished mission and removes its draft; rejects replay"
         }
       ],
       "gap": "Screen reader (TalkBack/VoiceOver) and real devices not tested."
@@ -4074,7 +4102,7 @@
         },
         {
           "file": "apps/web/e2e/mission.spec.ts",
-          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+          "contains": "second tab with a stale snapshot never overwrites a first answer (REVISION_CONFLICT)"
         }
       ]
     },
@@ -5113,6 +5141,10 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
         }
       ]
     },
@@ -5273,6 +5305,10 @@
         {
           "file": "apps/web/src/storage/learnerRepository.test.ts",
           "contains": "a stale tab cannot erase progress it has not seen (REVISION_CONFLICT, nothing removed)"
+        },
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16: an unfinished mission is erasable but never falsely exported as completed"
         }
       ],
       "note": "Local export/erase in apps/web is tested; GDPR legal review, restore-from-export and Android Room parity are not done."
@@ -5420,6 +5456,10 @@
         {
           "file": "packages/domain/test/retention-parity.test.ts",
           "contains": "records match; duplicate, early, wrong-day and empty submissions fail in both"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "LE-10: own earlier Finnish sentence remains hidden until delayed answer is durably saved"
         }
       ],
       "gap": "Only the grammar writing stream exists."
@@ -7087,7 +7127,7 @@
         },
         {
           "file": "apps/web/e2e/mission.spec.ts",
-          "contains": "second tab with a stale snapshot never shows a fake 'saved' (REVISION_CONFLICT)"
+          "contains": "second tab with a stale snapshot never overwrites a first answer (REVISION_CONFLICT)"
         }
       ]
     },

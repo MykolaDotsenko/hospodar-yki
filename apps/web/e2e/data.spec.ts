@@ -10,8 +10,15 @@ async function oneMission(page: Page) {
   await page.getByRole("button", { name: /Навчання/ }).click();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  // Wait until the immutable first attempt was acknowledged before editing guided repair.
+  await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible();
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  // If an IndexedDB checkpoint is refused, report the actual on-screen error rather than a 30s missing-button timeout.
+  await expect.poll(async () => {
+    const error = await page.locator("#mission-error").count() ? await page.locator("#mission-error").textContent() : null;
+    return error ? `SAVE ERROR: ${error}` : await page.locator("#mission-title").textContent();
+  }).toContain("Що вийшло");
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
   await page.getByLabel(/Твоє власне речення/).fill("Menen kauppaan.");
   await page.getByRole("button", { name: "Зберегти місію" }).click();
@@ -97,4 +104,54 @@ test("a second tab's newer progress is never erased by a stale screen (REVISION_
   await expect(page.getByRole("alert")).toHaveText(/НЕ видалено.*іншій вкладці/);
   await page.reload();
   await expect(page.getByText(/Виконано місій: 2/)).toBeVisible();
+});
+
+test("LEARN-16: an unfinished mission is erasable but never falsely exported as completed", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kesken oleva luonnos");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  const stored = page.getByRole("list", { name: "Збережені дані" });
+  await expect(stored).toContainText("місій 0");
+  await expect(stored).toContainText("незавершених місій 1");
+  await expect(page.getByText(/не експортуються незавершені чернетки місій LEARN/)).toContainText("фото-місій");
+  await expect(page.getByLabel("Увесь прогрес навчання")).toBeEnabled();
+  const [dl] = await Promise.all([
+    page.waitForEvent("download"), page.getByRole("button", { name: "Завантажити мої дані (JSON)" }).click(),
+  ]);
+  const json = JSON.parse(readFileSync((await dl.path())!, "utf8"));
+  expect(json.counts.attempts).toBe(0);
+  expect(JSON.stringify(json)).not.toContain("kesken oleva luonnos");
+  await page.getByLabel("Увесь прогрес навчання").check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
+  await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
+  expect(await serious(page)).toEqual([]);
+});
+
+test("LEARN-16: stale data screen cannot erase a draft modified in a second tab", async ({ page, context }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await page.getByLabel("Впиши пропущену форму фінською").fill("Minä menen.");
+  await page.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("незавершених місій 1");
+  const second = await context.newPage();
+  await second.goto("./");
+  await second.getByRole("button", { name: /Навчання/ }).click();
+  await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen.");
+  await second.getByLabel("Впиши пропущену форму фінською").fill("Minä menen nyt.");
+  await second.getByRole("button", { name: "Зберегти та вийти" }).click();
+  await page.getByLabel("Увесь прогрес навчання").check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect(page.getByRole("alert")).toContainText("НЕ видалено");
+  await second.reload();
+  await second.getByRole("button", { name: /Навчання/ }).click();
+  await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen nyt.");
 });

@@ -41,6 +41,36 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     expect(b.getSnapshot().context.session!.index).toBe(1);
     expect(b.getSnapshot().context.session!.answers[first.id]).toBe("1");
   });
+  it("C-04 / EXAM-05: slow navigation stays on the old task until verified; reload before ACK sees old task", async () => {
+    const name = db(), actual = createExamRepository(name);
+    let release: (() => void) | undefined;
+    let delay = false;
+    const repo: ExamRepository = { ...actual, commit: async (session, revision, skills) => {
+      if (delay) { delay = false; await new Promise<void>(resolve => { release = resolve; }); }
+      return actual.commit(session, revision, skills);
+    } };
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-unacked-nav" });
+    await settled(a);
+    const first = a.getSnapshot().context.items[0]!;
+    a.send({ type: "ANSWER", itemId: first.id, value: "1", now: T0 + 500 });
+    delay = true;
+    a.send({ type: "GOTO", index: 1, now: T0 + 1000 });
+    expect(a.getSnapshot().matches("saving")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(0);
+    expect(a.getSnapshot().context.pendingNavigation!.index).toBe(1);
+    // No acknowledgement yet: a page reload MUST NOT pretend the destination was saved.
+    const beforeAck = await boot(createExamRepository(name));
+    expect(beforeAck.getSnapshot().context.session!.index).toBe(0);
+    release?.();
+    await settled(a);
+    expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(1);
+    expect(a.getSnapshot().context.pendingNavigation).toBeNull();
+    const afterAck = await boot(createExamRepository(name));
+    expect(afterAck.getSnapshot().context.session!.index).toBe(1);
+    expect(afterAck.getSnapshot().context.session!.answers[first.id]).toBe("1");
+  });
   it("EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade", async () => {
     const repo = createExamRepository(db());
     const a = await boot(repo);
@@ -85,11 +115,15 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     a.send({ type: "GOTO", index: 1, now: T0 + 2000 });
     await waitFor(a, s => s.matches("saveError"));
     expect(a.getSnapshot().context.error).toBe("QUOTA_OR_DISK_FULL");
+    expect(a.getSnapshot().context.session!.index).toBe(0); // failed pending navigation never becomes visible
+    expect(a.getSnapshot().context.pendingNavigation!.index).toBe(1);
     expect((await real.read())!.session.index).toBe(0);
     fail = false;
     a.send({ type: "RETRY" });
     await settled(a);
     expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.session!.index).toBe(1);
+    expect(a.getSnapshot().context.pendingNavigation).toBeNull();
     expect((await real.read())!.session.answers[it0.id]).toBe("2");
   });
   it("a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)", async () => {
@@ -238,5 +272,80 @@ describe("EXAM voice (E06) in the XState machine", () => {
     a.send({ type: "NEW_REHEARSAL" });
     await waitFor(a, s => s.matches("setup"));
     expect(pruned).toEqual(["sess-voice1"]);
+  });
+});
+
+
+describe("E07: composition-safe Finnish writing", () => {
+  it("never autosaves an unfinished IME composition, navigates or finishes; exact Unicode is committed on compositionend", async () => {
+    const name = db(), repo = createExamRepository(name), a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-ime", skills: ["writing"] });
+    await settled(a);
+    const item = a.getSnapshot().context.items[0]!;
+    expect(item.skill).toBe("writing");
+    const rev = (await repo.read())!.revision;
+    a.send({ type: "COMPOSE_START", itemId: item.id });
+    a.send({ type: "ANSWER", itemId: item.id, value: "partial", now: T0 + 1000 });
+    a.send({ type: "AUTOSAVE" });
+    a.send({ type: "GOTO", index: 0, now: T0 + 1000 });
+    a.send({ type: "REQUEST_FINISH" });
+    expect(a.getSnapshot().matches("active")).toBe(true);
+    expect(a.getSnapshot().context.composingItemId).toBe(item.id);
+    expect((await repo.read())!.revision).toBe(rev);
+    expect((await repo.read())!.session.answers[item.id]).toBeUndefined();
+    const exact = "Hyvää päivää! Kävin Töölössä. ysta\u0308vä ja äiti.";
+    a.send({ type: "COMPOSE_END", itemId: "wrong-item", value: "bad", now: T0 + 1100 });
+    expect(a.getSnapshot().context.composingItemId).toBe(item.id);
+    a.send({ type: "COMPOSE_END", itemId: item.id, value: exact, now: T0 + 1200 });
+    expect(a.getSnapshot().context.composingItemId).toBeNull();
+    expect(a.getSnapshot().context.session!.answers[item.id]).toBe(exact);
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    expect((await repo.read())!.session.answers[item.id]).toBe(exact);
+    const reopened = await boot(createExamRepository(name));
+    expect(reopened.getSnapshot().context.session!.answers[item.id]).toBe(exact);
+    a.send({ type: "REQUEST_FINISH" });
+    expect(a.getSnapshot().matches("confirming")).toBe(true);
+    a.send({ type: "CONFIRM_FINISH", now: T0 + 2000 });
+    await waitFor(a, s => s.matches("finished"));
+    expect((await repo.read())!.session.answers[item.id]).toBe(exact);
+    expect((await repo.history())[0]!.bySkill.writing.ungraded).toBe(1);
+  });
+  it("refuses composition claims on unrelated/non-writing items", async () => {
+    const repo = createExamRepository(db()), a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-guards", skills: ["reading"] });
+    await settled(a);
+    const id = a.getSnapshot().context.items[0]!.id;
+    a.send({ type: "COMPOSE_START", itemId: id });
+    expect(a.getSnapshot().context.composingItemId).toBeNull();
+    a.send({ type: "COMPOSE_END", itemId: id, value: "bad", now: T0 + 1000 });
+    expect(a.getSnapshot().context.session!.answers[id]).toBeUndefined();
+  });
+  it("edits made during an in-flight autosave remain dirty, including completed composition", async () => {
+    const name = db(), actual = createExamRepository(name);
+    let release: (() => void) | undefined;
+    let delay = false;
+    const repo: ExamRepository = { ...actual, commit: async (s, r, skills) => {
+      if (delay) { delay = false; await new Promise<void>(resolve => { release = resolve; }); }
+      return actual.commit(s, r, skills);
+    } };
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-e07-race", skills: ["writing"] });
+    await settled(a);
+    const id = a.getSnapshot().context.items[0]!.id;
+    a.send({ type: "ANSWER", itemId: id, value: "Old", now: T0 + 1000 });
+    delay = true;
+    a.send({ type: "AUTOSAVE" });
+    expect(a.getSnapshot().matches("autosaving")).toBe(true);
+    a.send({ type: "COMPOSE_START", itemId: id });
+    const exact = "Uusi teksti: yö, ä, ö.";
+    a.send({ type: "COMPOSE_END", itemId: id, value: exact, now: T0 + 2000 });
+    expect(a.getSnapshot().context.dirty).toBe(true);
+    release?.();
+    await waitFor(a, s => s.matches("active"));
+    expect(a.getSnapshot().context.dirty).toBe(true);
+    a.send({ type: "AUTOSAVE" });
+    await waitFor(a, s => s.matches("active") && !s.context.dirty);
+    expect((await actual.read())!.session.answers[id]).toBe(exact);
   });
 });

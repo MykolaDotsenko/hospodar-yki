@@ -11,7 +11,14 @@ async function open(page: Page) {
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
 }
 async function answerAll(page: Page) {
-  for (let i = 0; i < 4; i++) { await page.locator('input[name="lq"]').first().check(); await page.getByRole("button", { name: "Відповісти" }).click(); }
+  for (let i = 0; i < 4; i++) {
+    // Every change of question is visible ONLY after the IndexedDB checkpoint ACK.
+    await expect(page.getByText(`Питання ${i + 1} з 4`)).toBeVisible();
+    await page.locator('input[name="lq"]').first().check();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+    if (i < 3) await expect(page.getByText(`Питання ${i + 2} з 4`)).toBeVisible();
+    else await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
+  }
 }
 
 test("IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored", async ({ page }) => {
@@ -58,6 +65,6 @@ test("support before answering (transcript) is allowed for accessibility but sav
 test("slower speed keeps pitch and marks the attempt as supported", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "0,75× (підтримка)" }).click();
-  expect(await page.locator("audio").evaluate(a => [(a as HTMLAudioElement).playbackRate, (a as HTMLAudioElement).preservesPitch])).toEqual([0.75, true]);
+  await expect.poll(() => page.locator("audio").evaluate(a => [(a as HTMLAudioElement).playbackRate, (a as HTMLAudioElement).preservesPitch])).toEqual([0.75, true]);
   await expect(page.getByText(/З підтримкою відповіді зберігаються без оцінки/)).toBeVisible();
 });

@@ -40,7 +40,7 @@ export interface ErrorEntry { taskId: string; grammarTag: string; at: string; re
 export interface Diagnostic { skill: Skill; taskId: string; status: "scored" | "ungraded"; correct?: boolean; response: string; completedAt: string }
 export interface RetentionEntry {
   taskId: string; day: 7 | 14 | 30; status: "ungraded"; independent: true;
-  actualAgeDays?: number; lateByDays?: number; response: string; submittedAt: string;
+  actualAgeDays?: number; lateByDays?: number; promptVersion?: string; response: string; submittedAt: string;
 }
 export interface LearnerState {
   version: 1;

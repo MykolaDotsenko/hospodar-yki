@@ -4,14 +4,14 @@
 
 ## Current deliverable
 
-The runnable asset is `app/`, a browser-local prototype served with `python3 -m http.server 8080`. It is **not** a verified production deployment. `native/android/prototype/` contains Kotlin sources, not an Android app/Gradle project. A 3–4GB media library ([R05 plan](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged): ≈3.6GB compressed, Play ceiling 4GB), Play install-time packs and signed AAB do not currently exist.
+Two runnable Web implementations coexist: the legacy `app/` browser prototype served with `python3 -m http.server 8080`, and `apps/web/` React/Vite/TypeScript with XState EXAM, Dexie LEARN/EXAM, optional media packs and service worker. The new Web app is buildable and tested in CI but **not a verified production deployment**. Its Web v1 JSON export can restore **LEARN only** into an empty profile; EXAM history/recording bytes are not recovered by that path. `native/android/prototype/` contains Kotlin sources, not an Android app/Gradle project. A 3–4GB media library ([R05 plan](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged): ≈3.6GB compressed, Play ceiling 4GB), Play install-time packs and signed AAB do not currently exist.
 
 ## Web preview/release prerequisites (future)
 
 1. Confirm exact commit/tag, scope, release owner, licenses and human content review.
-2. Run all affected Node/Python tests and real Chromium IndexedDB tests; add E2E multi-browser and accessibility checks when React shell actually exists.
+2. Run all affected Node/Python/domain/Web tests and Chromium IndexedDB checks; React E2E already runs Chromium, Firefox, WebKit and axe in CI. Still require actual phones/screen readers, storage-pressure and offline/manual validation.
 3. Before changing storage: test export/import, V1→V2 migration, incompatible content hash/version, idempotent retry, browser quota failure, offline/lost-ACK and rollback.
-4. Build from reproducible locked dependencies **after** Vite scaffold exists. Keep environment secrets server-only; validate CDN caching, HTTPS, CSP and cache invalidation.
+4. Build the existing Vite workspace from frozen pnpm dependencies and verify artifacts before rollout. Keep environment secrets server-only; validate CDN caching, HTTPS, CSP and cache invalidation.
 5. Smoke test LEARN and EXAM in deployed Web, simulate storage/unavailable media, record exact version and results. Observe performance/errors without recording private raw answers.
 6. Roll back static assets after failure, but note that **schema/data downgrade requires a separately tested compatibility path**. Never imply that swapping a CDN file reverts user IndexedDB data.
 

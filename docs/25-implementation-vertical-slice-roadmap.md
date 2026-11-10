@@ -49,3 +49,19 @@ For upcoming G2/G5 UI, voice, SRS and Phaser work, apply [research program](../r
 Do **not** deploy two independent domain engines or score ungraded speaking/writing as an official YKI level. Do **not** block offline core on Supabase login or automatic multi-GB Web download. Do **not** remove the existing `app/` until critical flows, old exports, check/scores and data migrations are demonstrably equivalent. Checksum/version pin content to an in-progress attempt.
 
 **Acceptance case list:** [C-01…C-10](27-stack-architecture-compatibility-and-implementation-gates.md). **Legacy release gates:** [REL-01…REL-16](24-reliability-hardened-architecture-web-android.md), [ANDR-01…ANDR-18 / WEB-01…WEB-10](23-android-offline-game-and-3gb-media-architecture.md).
+
+## Web LEARN Reading slice — 09.11.2026 (part of G2, not G2 completion)
+
+`apps/web` now has **coded** v5 IndexedDB Reading checkpoints with reducer-validated restoration, phase write/readback ACK, stale-tab CAS and atomic completed evidence + draft deletion. New source/unit/E2E suites are identified in [execution plan](exec-plans/active/2026-11-09-durable-reading-draft.md). **CI remains to be verified independently** and G2 still needs broader Web/mobile accessibility and failure-mode evidence. G3–G6 Android, large media delivery, official YKI 2027, licensed/S2-final material and efficacy trials remain uncompleted; the old table above is a baseline, not a claim of latest implementation inventory.
+
+## LEARN Listening Web durability slice — 10.11.2026
+
+Implementation coded on its own feature branch: Dexie v6 `listeningDraft`, reducer-validated independent first answers, sticky accessibility support (always ungraded), serialized CAS/readback, atomic diagnostics + checkpoint removal, and privacy/delete/restore integration. Browser/device/Android release claims **not** warranted before independent CI and hardware evidence. [Plan + pending gates](exec-plans/active/2026-11-10-durable-listening-draft.md). G2 remains partial; G3–G6 unchanged.
+
+## LEARN Dialogue Web durability slice — 10.11.2026
+
+G2 Web implementation branch adds IndexedDB v7 dialogue checkpoints, reply-before-script reducer replay, no premature model reveal, serialized CAS/readback, and atomic ungraded role-play completion. Privacy/data erasure/export inventory and 3-engine browser verification remain explicit gates before declaring a merge. [Execution plan](exec-plans/active/2026-11-10-durable-dialogue-draft.md). Android native, S2 content review, measured effects and exact YKI 2027 fidelity remain unverified.
+
+## LEARN Picture Mission Web durability slice — 10.11.2026
+
+Scoped G2 Web checkpoint work, **not** a G2/G6 release: additive Dexie v8 picture drafts with lesson+licensed-photo fingerprint and pure reducer replay; unassisted response persisted before showing Finnish models/Ukrainian gloss; separate transfer without the picture; bounded autosave, exact Save & Exit, cross-tab CAS/readback, and atomic ungraded final diagnostics plus deletion. Explicit LEARN erase/import/restore fail-closed protections and portable export disclosure include unfinished photo work. [Execution plan, implementation and test locations](exec-plans/active/2026-11-10-durable-picture-mission-draft.md). Native Android, true media eviction/power-loss resilience, S2 review, measured learning and official YKI 2027 fidelity remain unverified.

@@ -9,7 +9,7 @@ import { downloadPack, isOfflineReady, loadManifest, packStatus, removePack, typ
 type Row = { pack: OfflinePack; state: PackState; cached: number };
 const STATE_UK: Record<PackState, string> = { downloaded: "збережено для офлайну", partial: "частково збережено", online_only: "лише з інтернетом" };
 const REASON_UK: Record<Exclude<DownloadResult, { ok: true }>["reason"], string> = {
-  NETWORK: "немає з'єднання", HTTP: "файл недоступний на сервері", SIZE_MISMATCH: "файл пошкоджено під час завантаження", HASH_MISMATCH: "файл не збігається з перевіреною версією", QUOTA_OR_DISK_FULL: "бракує місця на пристрої",
+  NETWORK: "немає з'єднання", HTTP: "файл недоступний на сервері", SIZE_MISMATCH: "файл пошкоджено під час завантаження", HASH_MISMATCH: "файл не збігається з перевіреною версією", QUOTA_OR_DISK_FULL: "бракує місця на пристрої", CACHE_READBACK_FAILED: "не вдалося перевірити файл у локальному кеші",
 };
 
 export function OfflineScreen({ onHome }: { onHome: () => void }) {
@@ -21,9 +21,15 @@ export function OfflineScreen({ onHome }: { onHome: () => void }) {
   const supported = typeof caches !== "undefined" && "serviceWorker" in navigator;
 
   async function refresh(m: OfflineManifest) {
-    setRows(await Promise.all(m.packs.map(async pack => ({ pack, ...(await packStatus(pack, caches)) }))));
-    const e = await navigator.storage?.estimate?.().catch(() => undefined);
-    setEstimate(e?.usage !== undefined && e.quota !== undefined ? { usage: e.usage, quota: e.quota } : null);
+    try {
+      const verified = await Promise.all(m.packs.map(async pack => ({ pack, ...(await packStatus(pack, caches)) })));
+      setRows(verified);
+      const e = await navigator.storage?.estimate?.().catch(() => undefined);
+      setEstimate(e?.usage !== undefined && e.quota !== undefined ? { usage: e.usage, quota: e.quota } : null);
+    } catch {
+      setRows([]); // Never keep showing a stale "downloaded" status after a failed verification.
+      setMessage({ text: "Не вдалося перевірити офлайн-файли в браузері. Не розраховуй на них без інтернету.", error: true });
+    }
   }
   useEffect(() => { void loadManifest().then(m => { setManifest(m); if (m && supported) void refresh(m); }); }, []);
 
