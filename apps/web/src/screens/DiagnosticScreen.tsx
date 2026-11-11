@@ -202,7 +202,7 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
         <>
           <h2 lang="fi">{v.text.title_fi}</h2>
           <div className="prompt" lang="fi">{v.text.text_fi}</div>
-          <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (pick === null) { setError(ERR_UK.INVALID_ANSWER!); return; }
+          <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (pick === null) { setMessage(ERR_UK.INVALID_ANSWER!); return; }
             void advance({ type: "ANSWER_READING", questionId: v.question!.id, optionIndex: pick }); }}>
             <fieldset className="choices-set">
               <legend><span className="muted">Питання {v.question.n} з {v.question.of} · </span><span lang="fi">{v.question.prompt_fi}</span></legend>
