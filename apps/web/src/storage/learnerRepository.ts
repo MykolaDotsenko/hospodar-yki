@@ -189,9 +189,12 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         result = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft, db.diagnosticDraft], async () => {
           if (await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count() || await db.diagnosticDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished LEARN exercise exists");
           const row = await db.learner.get("current");
-          // No merge: refuse if the new app already holds any learning history.
-          if (row && (row.state.attempts.length || row.state.diagnostics.length || Object.keys(row.state.cards).length || row.state.retention.length))
-            throw new StorageError("DESTINATION_NOT_EMPTY", "The new app already has progress");
+          // An existing blank learner row or an earlier import receipt is still
+          // owned data. After an ambiguous ACK, a retry must NOT append another
+          // receipt or silently re-import the same original into a blank profile.
+          // A deliberate LEARN wipe is the only route to a genuinely empty target.
+          if (row || await db.imports.count())
+            throw new StorageError("DESTINATION_NOT_EMPTY", "LEARN profile or import receipts already exist");
           const revision = (row?.revision ?? 0) + 1;
           const importedAt = new Date().toISOString();
           const receipt: ImportReceipt = { ...partial, importedAt, revision };
