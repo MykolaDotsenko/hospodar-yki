@@ -80,4 +80,4 @@ Scoped integrity hardening after v9 Diagnostic and browser storage inspection: l
 
 ## LEARN existing-content connection — 11.11.2026
 
-Scoped G2 Web slice: paraphrase, speaking reaction, opinion, contextual chunk and rektio banks become «Практика без підказки» cards (own answer first, model after, new situation; only the paraphrase choice scored). No new storage store, no SRS feed, no S2 approval, no Android. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--learn-практика-без-підказки-existing-banks-connected-g2-web).
+Scoped G2 Web slice: paraphrase, speaking reaction, opinion, contextual chunk and rektio banks become «Практика без підказки» cards (own answer first, model after, new situation; only the paraphrase choice scored). No new storage store, no S2 approval, no Android. Problem phrases (self-reported miss) join the existing 1/3/7/14/30 schedule. The traceability matrix gained a status for each of the 70 research methods and a `--next` report used as the first step of AI-assisted LEARN/EXAM work. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--learn-практика-без-підказки-existing-banks-connected-g2-web).

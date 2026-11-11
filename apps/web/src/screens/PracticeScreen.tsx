@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, practiceEvidence, practiceReducer, practiceView, startPractice, PRACTICE_MAX_CHARS,
+import { completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, PRACTICE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, practiceCards } from "../content/practice.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
@@ -19,9 +19,13 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
   const [card, setCard] = useState<PracticeCard | null>(null);
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
 
-  if (card) return <PracticeRun key={card.id} card={card} repository={repository} snapshot={snapshot} onSaved={onSaved}
-    onNext={() => { const pool = practiceCards.filter(c => c.kind === card.kind && c.id !== card.id && !done.has(`${c.id}-transfer`)); setCard(pool[0] ?? null); }}
-    onList={() => setCard(null)} />;
+  const due = practiceDue(snapshot.state, practiceCards);
+  const [runId, setRunId] = useState(0);                                  // a due card may be the same card again
+  const open = (c: PracticeCard | null) => { setCard(c); setRunId(n => n + 1); };
+
+  if (card) return <PracticeRun key={`${card.id}-${runId}`} card={card} review={card.id in snapshot.state.cards} repository={repository} snapshot={snapshot} onSaved={onSaved}
+    onNext={() => open(due.find(c => c.id !== card.id) ?? practiceCards.find(c => c.kind === card.kind && c.id !== card.id && !done.has(`${c.id}-transfer`)) ?? null)}
+    onList={() => open(null)} />;
 
   const meta = PRACTICE_KINDS.find(k => k.kind === kind);
   return (
@@ -30,6 +34,10 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
       <h1 id="pr-title">{meta ? meta.title : "Практика без підказки"}</h1>
       <p>Спершу твоя власна відповідь. Лише потім — зразок і пояснення. Наостанок — нова ситуація без зразка.</p>
       <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Тексти не оцінюються автоматично.</p>
+      {!meta && due.length > 0 && (
+        <p className="feedback" role="status">Сьогодні на повторення: <strong>{due.length}</strong> — фрази, які ти минулого разу не згадав(ла).{" "}
+          <button type="button" className="btn" onClick={() => open(due[0]!)}>Повторити</button></p>
+      )}
       {!meta ? (
         <ul className="choices" aria-label="Види практики">
           {PRACTICE_KINDS.map(k => {
@@ -45,7 +53,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
           <p className="muted">{meta.about}</p>
           <ul className="choices" aria-label={meta.title}>
             {practiceCards.filter(c => c.kind === kind).map((c, i) => (
-              <li key={c.id}><button type="button" className="choice" onClick={() => setCard(c)}>
+              <li key={c.id}><button type="button" className="choice" onClick={() => open(c)}>
                 <span>Картка {i + 1}</span>
                 <small>{c.group} · {done.has(`${c.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
               </button></li>
@@ -67,7 +75,7 @@ function Lines({ lines }: { lines: PracticeLine[] }) {
   ))}</dl>;
 }
 
-function PracticeRun({ card, repository, snapshot, onSaved, onNext, onList }: { card: PracticeCard; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onNext: () => void; onList: () => void }) {
+function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onList }: { card: PracticeCard; review: boolean; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onNext: () => void; onList: () => void }) {
   const [s, setS] = useState<PracticeSession>(() => startPractice(card));
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -92,8 +100,7 @@ function PracticeRun({ card, repository, snapshot, onSaved, onNext, onList }: { 
     catch { setError("Спершу напиши відповідь."); return; }
     busy.current = true; setSaving(true); setError(null);
     try {
-      let next = snapshot.state;
-      for (const ev of practiceEvidence(finished, card)) next = addDiagnostic(next, ev);
+      const next = completePractice(snapshot.state, finished, card);
       const committed = await repository.commit(next, snapshot.revision);
       const verified = await repository.read();                        // success only after a fresh, exact readback
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
@@ -111,6 +118,7 @@ function PracticeRun({ card, repository, snapshot, onSaved, onNext, onList }: { 
       <p className="eyebrow">Практика без підказки · {meta.title}</p>
       <h1 id="pr-run">{card.group}</h1>
       <p className="draft-note">Чернетка, ще не перевірена S2-викладачем</p>
+      {review && s.phase === "attempt" && <p className="muted">Повторення: згадай без зразка.</p>}
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
 
       {s.phase === "attempt" && (
@@ -146,7 +154,7 @@ function PracticeRun({ card, repository, snapshot, onSaved, onNext, onList }: { 
               ))}
             </div>
           )}
-          {v.needsJudgement && <p className="muted">Це самооцінка, не автоматична перевірка: правильних варіантів фінською буває кілька.</p>}
+          {v.needsJudgement && <p className="muted">Це самооцінка, не автоматична перевірка: правильних варіантів фінською буває кілька.{isSpacedKind(card) && " Якщо «частково» чи «інакше» — фраза повернеться на повторення (1, 3, 7, 14, 30 днів)."}</p>}
           {error && <p className="feedback error" role="alert">{error}</p>}
           <div className="actions"><button type="button" className="btn" onClick={() => step({ type: "CONTINUE" })}>Далі</button></div>
         </>
@@ -172,7 +180,9 @@ function PracticeRun({ card, repository, snapshot, onSaved, onNext, onList }: { 
         </form>
       )}
 
-      {saved && <p className="feedback" role="status">✅ Картку збережено на цьому пристрої. Тексти — без оцінки.</p>}
+      {saved && <p className="feedback" role="status">✅ Картку збережено на цьому пристрої. Тексти — без оцінки.
+        {isSpacedKind(card) && s.judged !== "same" && " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."}
+        {isSpacedKind(card) && s.judged === "same" && review && " Наступне повторення — через довший проміжок."}</p>}
       <div className="actions">
         {saved && <button type="button" className="btn" onClick={onNext}>Наступна картка</button>}
         <button type="button" className="btn secondary" disabled={saving} onClick={onList}>До списку карток</button>

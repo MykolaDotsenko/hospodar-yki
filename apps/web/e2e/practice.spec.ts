@@ -50,3 +50,34 @@ test("Phrase card: model hidden until own answer, self-comparison required befor
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
   await expect(page.getByText(/Картку збережено/)).toBeVisible();
 });
+
+test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalled one is never scheduled", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-11-11T09:00:00+02:00") });
+  await open(page, /Фрази для життя/);
+  await page.getByRole("textbox").fill("mennä Suomeen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Ystäväni muutti Suomeen.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Цю фразу повторимо завтра/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);      // not massed on the same day
+
+  await page.clock.setFixedTime(new Date("2026-11-12T09:00:00+02:00"));
+  await page.reload();
+  await expect(page.getByRole("button", { name: /Практика без підказки · повторити 1/ })).toBeVisible();
+  await page.getByRole("button", { name: /Практика без підказки/ }).click();
+  await page.getByRole("button", { name: "Повторити" }).click();
+  await expect(page.getByText("Повторення: згадай без зразка.")).toBeVisible();
+  await expect(page.getByText("muuttaa Suomeen")).toHaveCount(0);
+  await page.getByRole("textbox").fill("muuttaa Suomeen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Haluan muuttaa Suomeen ensi vuonna.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
+});

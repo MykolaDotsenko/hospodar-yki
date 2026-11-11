@@ -12,6 +12,7 @@
 - Data schemas, migration/export and rollback:
 - Web / Android parity (or NOT APPLICABLE):
 - Official YKI fidelity and learning/first-attempt semantics (or NOT APPLICABLE):
+- Research used: method id(s) / requirement ID(s) from `python3 scripts/validate_design_traceability.py --next`, and the status change in `design-traceability-v1.json` (or NOT APPLICABLE):
 
 ## Verification evidence
 
@@ -22,6 +23,7 @@
 | `node --test app/tests/*.test.mjs` | NOT RUN | |
 | `node --test packages/contracts/tests/*.test.mjs` | NOT RUN | |
 | `python3 scripts/validate_ai_docs.py` | NOT RUN | |
+| `python3 scripts/validate_design_traceability.py` (requirements + 70 methods) | NOT RUN | |
 | Relevant Python architecture/content validation | NOT RUN | |
 | Chromium IndexedDB / Web E2E / Android device as applicable | NOT RUN | |
 
@@ -34,6 +36,7 @@
 - [ ] Accessibility and offline behavior considered; not claimed verified without tests.
 - [ ] Canonical docs/status updated with working relative links; no conflicting duplicated rule.
 - [ ] Changed code has tests or explicit justification and residual risk.
+- [ ] LEARN/EXAM change cites a research method or requirement and updates its traced status; no `blocked_by` human gate (S2, licensed audio, raters) was faked.
 - [ ] No Android APK/AAB, PAD install or production claim without corresponding build/device evidence.
 
 ## Remaining risks and review requests

@@ -15,7 +15,7 @@
  * Finnish answers are never string-matched because valid variants exist (R03: never punish valid forms).
  * Every card is an editorial draft pending S2 review and must be shown as such.
  */
-import type { Skill } from "./learner.ts";
+import { addDiagnostic, dueCards, localDate, updateCard, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
 export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio";
 export type PracticeJudgement = "same" | "partly" | "different";
@@ -148,6 +148,29 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
     ...(card.kind === "paraphrase" ? [{ skill: "writing" as const, taskId: `${card.id}-recall`, status: "ungraded" as const, response: `[guided retell after feedback] ${s.recall}` }] : []),
     { skill: card.transferSkill, taskId: `${card.id}-transfer`, status: "ungraded" as const, response: `[new situation, no model shown] ${s.transfer}` },
   ];
+}
+
+/**
+ * Spaced retrieval of CONFIRMED problem phrases (method spaced-retrieval, research #27 PSY-04, and the
+ * chunk bank's own usage_rule: "add a chunk to the learner's personal SRS ONLY after explicit failure").
+ *  - a chunk/rektio card enters the 1/3/7/14/30 schedule only when the learner judged the first answer
+ *    "partly" or "different"; a card that was right at first sight is never scheduled (no bank flooding);
+ *  - on a later review "same" moves it one stage up, anything else returns it to day 1;
+ *  - the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level.
+ */
+export const isSpacedKind = (card: PracticeCard) => card.kind === "chunk" || card.kind === "rektio";
+export function completePractice(state: LearnerState, s: PracticeSession, card: PracticeCard, now: Date = new Date()): LearnerState {
+  let next = state;
+  for (const ev of practiceEvidence(s, card)) next = addDiagnostic(next, ev, now);
+  if (!isSpacedKind(card)) return next;
+  const known = state.cards[card.id];
+  const recalled = s.judged === "same";
+  if (!known && recalled) return next;
+  return { ...next, cards: { ...next.cards, [card.id]: updateCard(known, recalled, now) } };
+}
+/** Scheduled practice cards that are due today, oldest first; a late return is simply due (no penalty). */
+export function practiceDue<T extends PracticeCard>(state: LearnerState, cards: T[], today: LocalDate = localDate()): T[] {
+  return dueCards(state, today).map(c => cards.find(x => x.id === c.id && isSpacedKind(x))).filter((x): x is T => !!x);
 }
 
 /* ---------- adapters from the existing content files (single physical owners) ---------- */

@@ -12,8 +12,13 @@ must have an honest status:
   SUPERSEDED     — the newer rule that replaces it.
 No ID may be missing or invented; open product decisions must be listed with options.
 
+The matrix also carries `methods`: one honest status for EVERY method of the canonical registry
+(research/pedagogy/learning-methods-v1.json) — ENFORCED / PARTIAL / NOT_YET / EXCLUDED — so research on
+learning effectiveness cannot silently stay unused. `--next` prints what an AI agent should build next.
+
     python3 scripts/validate_design_traceability.py            # check (CI)
     python3 scripts/validate_design_traceability.py --report   # print coverage table
+    python3 scripts/validate_design_traceability.py --next     # research not yet used: what to build next
 Static only: it proves that tests exist and are referenced, not that the design teaches better.
 """
 from __future__ import annotations
@@ -159,21 +164,103 @@ def check(doc: dict, root: Path = ROOT) -> list[str]:
     return errors
 
 
+METHOD_STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "EXCLUDED"}
+BLOCKERS = {"S2_REVIEW", "LICENSED_HUMAN_AUDIO", "HUMAN_RATERS_OR_STUDY", "OTHER_LEARNERS_OR_TEACHER"}
+EXAM_FAMILIES = re.compile(r"^(EXAM(-PILLAR)?|EXV|YKI-FID|SIM|G-EX|E0[3567]-G|MOCK-VID)-?\d")
+CONTENT_GLOBS = ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json")
+CONTENT_USERS = ("apps/web/src/content/*.ts", "app/*.mjs", "app/*.html")
+
+
+def check_methods(doc: dict, registry: list[dict], root: Path = ROOT) -> list[str]:
+    """Every registry method has exactly one honest implementation status with checkable evidence."""
+    errors: list[str] = []
+    rows = doc.get("methods", [])
+    ids, reg = [m.get("id") for m in rows], [m["id"] for m in registry]
+    if len(set(ids)) != len(ids):
+        errors.append(f"methods: duplicate ids {[i for i, n in Counter(ids).items() if n > 1]}")
+    if sorted(set(reg) - set(ids)):
+        errors.append(f"methods in the registry without an implementation status: {sorted(set(reg) - set(ids))}")
+    if sorted(set(ids) - set(reg)):
+        errors.append(f"methods not in the canonical registry: {sorted(set(ids) - set(reg))}")
+    for m in rows:
+        mid, st, evidence = m.get("id"), m.get("status"), m.get("evidence", [])
+        if st not in METHOD_STATUSES:
+            errors.append(f"method {mid}: unknown status {st!r}"); continue
+        if st in ("ENFORCED", "PARTIAL"):
+            if not evidence:
+                errors.append(f"method {mid}: {st} needs at least one evidence item")
+            for e in evidence:
+                path = root / e.get("file", "")
+                if not path.is_file():
+                    errors.append(f"method {mid}: evidence file missing: {e.get('file')}")
+                elif not e.get("contains") or e["contains"] not in path.read_text(encoding="utf-8"):
+                    errors.append(f"method {mid}: evidence text not found in {e.get('file')}: {e.get('contains')!r}")
+        elif evidence:
+            errors.append(f"method {mid}: {st} must not list evidence (use PARTIAL)")
+        if st == "PARTIAL" and not m.get("gap"):
+            errors.append(f"method {mid}: PARTIAL needs a gap")
+        if st == "NOT_YET" and not m.get("plan"):
+            errors.append(f"method {mid}: NOT_YET needs a plan")
+        if st == "EXCLUDED" and not m.get("reason"):
+            errors.append(f"method {mid}: EXCLUDED needs a reason")
+        if "blocked_by" in m and (m["blocked_by"] not in BLOCKERS or st not in ("PARTIAL", "NOT_YET")):
+            errors.append(f"method {mid}: blocked_by must be one of {sorted(BLOCKERS)} on a PARTIAL/NOT_YET method")
+    return errors
+
+
+def unused_content(root: Path = ROOT) -> list[str]:
+    """Authored exercise/dictionary JSON that no app loads (report only: some files are indexes or drafts)."""
+    users = "".join(f.read_text(encoding="utf-8") for g in CONTENT_USERS for f in root.glob(g))
+    return sorted(f.relative_to(root).as_posix() for g in CONTENT_GLOBS for f in root.glob(g)
+                  if f.name not in users and f.name not in ("index.json", "available.json"))
+
+
+def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
+    """What research is not (fully) used yet, most valuable first. For humans and AI agents before LEARN/EXAM work."""
+    reg = {m["id"]: m for m in registry}
+    order = {"P0": 0, "P1": 1, "P2": 2}
+    open_rows = [m for m in doc.get("methods", []) if m["status"] in ("PARTIAL", "NOT_YET") and reg[m["id"]]["priority"] in order]
+    open_rows.sort(key=lambda m: (order[reg[m["id"]]["priority"]], -reg[m["id"]]["score"], m["id"]))
+    def line(m: dict) -> str:
+        r = reg[m["id"]]
+        return f"  {r['priority']} {r['score']:>3} {m['status']:<8} {m['id']}: {m.get('gap') or m.get('plan')}"
+    free = [m for m in open_rows if "blocked_by" not in m]
+    out = [f"LEARN methods buildable now, no human dependency ({len(free)}):"] + [line(m) for m in free]
+    for b in sorted(BLOCKERS):
+        rows = [m for m in open_rows if m.get("blocked_by") == b]
+        if rows:
+            out += [f"LEARN methods waiting for {b} ({len(rows)}):"] + [line(m) for m in rows]
+    exam = [r for r in doc["requirements"] if EXAM_FAMILIES.match(r["id"]) and r["status"] in ("PARTIAL", "NOT_YET")]
+    out += [f"EXAM simulator requirements not fully met ({len(exam)}):"] + [
+        f"  {r['status']:<8} {r['id']}: {r.get('gap') or r.get('plan')}" for r in exam]
+    files = unused_content(root)
+    out += [f"Authored content no app loads ({len(files)}):"] + [f"  {f}" for f in files]
+    c = Counter(m["status"] for m in doc.get("methods", []))
+    out.append(f"Methods: ENFORCED {c['ENFORCED']}, PARTIAL {c['PARTIAL']}, NOT_YET {c['NOT_YET']}, EXCLUDED {c['EXCLUDED']} of {len(registry)}. "
+               "ENFORCED means a test guards the rule, not a measured learning effect.")
+    return "\n".join(out)
+
+
 def summary(doc: dict) -> str:
     c = Counter(r["status"] for r in doc["requirements"])
     n = len(doc["requirements"])
     open_dec = sum(d["status"] == "OPEN" for d in doc.get("decisions", []))
+    m = Counter(x["status"] for x in doc.get("methods", []))
     return (f"{n} design/UX/pedagogy requirements: ENFORCED {c['ENFORCED']} ({100 * c['ENFORCED'] // n} %), PARTIAL {c['PARTIAL']}, "
-            f"NOT_YET {c['NOT_YET']}, STUDY_NOT_RUN {c['STUDY_NOT_RUN']}, SUPERSEDED {c['SUPERSEDED']}; open decisions {open_dec}")
+            f"NOT_YET {c['NOT_YET']}, STUDY_NOT_RUN {c['STUDY_NOT_RUN']}, SUPERSEDED {c['SUPERSEDED']}; open decisions {open_dec}; "
+            f"{sum(m.values())} learning methods: ENFORCED {m['ENFORCED']}, PARTIAL {m['PARTIAL']}, NOT_YET {m['NOT_YET']}, EXCLUDED {m['EXCLUDED']}")
 
 
 def main(argv: list[str]) -> int:
     doc = json.loads(MATRIX.read_text(encoding="utf-8"))
     texts, traced = repository_texts(), {r["id"] for r in doc["requirements"]}
-    errors = check(doc) + scan_definitions(texts, traced, set(doc.get("sources", [])))
+    registry = json.loads((ROOT / doc.get("method_registry", "research/pedagogy/learning-methods-v1.json")).read_text(encoding="utf-8"))["methods"]
+    errors = check(doc) + check_methods(doc, registry) + scan_definitions(texts, traced, set(doc.get("sources", [])))
     errors += [e for e in scan_mentions(texts, traced) if not any(e.split(" mentions ")[1].split(":")[0] in x for x in errors)]
     if errors:
         print("FAIL design traceability:\n  " + "\n  ".join(errors)); return 1
+    if "--next" in argv:
+        print(next_steps(doc, registry)); return 0
     if "--report" in argv:
         for r in doc["requirements"]:
             print(f"{r['status']:<14} {r['id']:<10} {r['summary']}")

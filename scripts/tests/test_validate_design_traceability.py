@@ -6,9 +6,14 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_design_traceability import ID, MATRIX, check, scan_definitions, scan_mentions  # noqa: E402
+from validate_design_traceability import ID, MATRIX, ROOT, check, check_methods, next_steps, scan_definitions, scan_mentions  # noqa: E402
 
 DOC = json.loads(MATRIX.read_text(encoding="utf-8"))
+REGISTRY = json.loads((ROOT / DOC["method_registry"]).read_text(encoding="utf-8"))["methods"]
+
+
+def method(doc, mid):
+    return next(m for m in doc["methods"] if m["id"] == mid)
 
 
 def find(doc, rid):
@@ -116,6 +121,58 @@ class CompletenessGateTests(unittest.TestCase):
     def test_evidence_rows_and_registers_are_allowed_with_a_reason(self):
         text = "| VD-07 [source](x) |\n| UIE-03 |\n| R06-E01 |\n| R11-S03 |\n| SD-04 |\n| Q-05 | risk |\n| A10-15 |"
         self.assertEqual(scan_definitions({"research/x.md": text}, set(), set()), [])
+
+class MethodCoverageTests(unittest.TestCase):
+    """Research on learning effectiveness cannot silently stay unused: every registry method has a status."""
+
+    def setUp(self):
+        self.doc = copy.deepcopy(DOC)
+
+    def test_repository_methods_pass_and_cover_the_whole_registry(self):
+        self.assertEqual(check_methods(self.doc, REGISTRY), [])
+        self.assertEqual(len(self.doc["methods"]), len(REGISTRY))
+
+    def test_method_without_status_fails(self):
+        self.doc["methods"] = [m for m in self.doc["methods"] if m["id"] != "spaced-retrieval"]
+        self.assertTrue(any("without an implementation status" in e and "spaced-retrieval" in e for e in check_methods(self.doc, REGISTRY)))
+
+    def test_new_registry_method_must_get_a_status(self):
+        self.assertTrue(any("brand-new-method" in e for e in check_methods(self.doc, REGISTRY + [{"id": "brand-new-method", "priority": "P0", "score": 90}])))
+
+    def test_invented_method_fails(self):
+        self.doc["methods"].append({"id": "magic-method", "status": "NOT_YET", "plan": "x"})
+        self.assertTrue(any("not in the canonical registry" in e for e in check_methods(self.doc, REGISTRY)))
+
+    def test_enforced_needs_real_test_text(self):
+        method(self.doc, "prompted-self-repair")["evidence"] = [{"file": "apps/web/e2e/mission.spec.ts", "contains": "a test title that does not exist"}]
+        self.assertTrue(any("evidence text not found" in e for e in check_methods(self.doc, REGISTRY)))
+        method(self.doc, "prompted-self-repair")["evidence"] = []
+        self.assertTrue(any("needs at least one evidence item" in e for e in check_methods(self.doc, REGISTRY)))
+
+    def test_partial_not_yet_and_excluded_need_their_text(self):
+        del method(self.doc, "spaced-retrieval")["gap"]
+        del method(self.doc, "dictogloss")["plan"]
+        del method(self.doc, "ai-voice-roleplay")["reason"]
+        errors = "\n".join(check_methods(self.doc, REGISTRY))
+        for text in ("PARTIAL needs a gap", "NOT_YET needs a plan", "EXCLUDED needs a reason"):
+            self.assertIn(text, errors)
+
+    def test_blocker_must_be_known_and_only_on_open_methods(self):
+        method(self.doc, "dictogloss")["blocked_by"] = "LAZINESS"
+        method(self.doc, "prompted-self-repair")["blocked_by"] = "S2_REVIEW"
+        self.assertEqual(sum("blocked_by must be" in e for e in check_methods(self.doc, REGISTRY)), 2)
+
+    def test_next_lists_buildable_gaps_by_priority_and_hides_done_or_excluded(self):
+        text = next_steps(self.doc, REGISTRY)
+        free = text.split("LEARN methods waiting for")[0]
+        self.assertIn("interleaving-grammar", free)
+        self.assertNotIn("finnish-quantity-dual-track", free)            # needs licensed human audio
+        self.assertNotIn("prompted-self-repair", text)                    # enforced
+        self.assertNotIn("hybrid-ai-teacher-loop", text)                  # excluded by product decision
+        self.assertLess(free.index(" P0 "), free.index(" P1 "))
+        self.assertIn("EXAM simulator requirements not fully met", text)
+        self.assertIn("learning/exercises/b1/themes/01-mina-ja-taustani.json", text)
+        self.assertNotIn("paraphrase-drills.json", text)                  # loaded by apps/web
 
 
 if __name__ == "__main__":

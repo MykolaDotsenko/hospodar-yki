@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, chunkCard, opinionCard, paraphraseCard, practiceEvidence, practiceReducer, practiceView,
+import { addDiagnostic, blankState, completePractice, dueCards, practiceDue, chunkCard, opinionCard, paraphraseCard, practiceEvidence, practiceReducer, practiceView,
   reactionCard, rektioCard, startPractice, validatePracticeCard, PracticeError, type PracticeCard } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
@@ -62,5 +62,36 @@ describe("practice without a hint: existing content now playable (research #26 G
   });
   it("evidence is unavailable before the card is finished", () => {
     expect(() => practiceEvidence(startPractice(chunks[1]!), chunks[1]!)).toThrow(PracticeError);
+  });
+  it("spaced retrieval: only a phrase the learner did NOT recall is scheduled; review 'same' climbs 1→3 days, a miss returns to day 1", () => {
+    const run = (c: PracticeCard, j: "same" | "partly" | "different") => {
+      let s = practiceReducer(startPractice(c), c, { type: "ANSWER", value: "vastaus" });
+      s = practiceReducer(practiceReducer(s, c, { type: "JUDGE", judgement: j }), c, { type: "CONTINUE" });
+      return practiceReducer(s, c, { type: "SUBMIT_TRANSFER", text: "Uusi lause." });
+    };
+    const c = chunks[0]!, day = (n: number) => new Date(2026, 10, 11 + n, 12);
+    let st = completePractice(blankState(), run(c, "same"), c, day(0));
+    expect(st.cards).toEqual({});                                             // right at first sight: never floods the SRS
+    expect(st.diagnostics).toHaveLength(2);
+    st = completePractice(st, run(rektio[0]!, "different"), rektio[0]!, day(0));
+    st = completePractice(st, run(c, "partly"), c, day(0));
+    expect(Object.keys(st.cards).sort()).toEqual([c.id, rektio[0]!.id].sort());
+    expect(st.cards[c.id]).toMatchObject({ stage: 0, due: "2026-11-12", failures: 1, lastCorrect: false });
+    expect(practiceDue(st, all, "2026-11-11")).toEqual([]);
+    expect(practiceDue(st, all, "2026-11-20").map(x => x.id).sort()).toEqual([c.id, rektio[0]!.id].sort());   // late return is just due
+    st = completePractice(st, run(c, "same"), c, day(1));
+    expect(st.cards[c.id]).toMatchObject({ stage: 1, due: "2026-11-13" });
+    st = completePractice(st, run(c, "same"), c, day(2));
+    expect(st.cards[c.id]).toMatchObject({ stage: 2, due: "2026-11-16" });
+    st = completePractice(st, run(c, "different"), c, day(5));
+    expect(st.cards[c.id]).toMatchObject({ stage: 0, due: "2026-11-17", failures: 2 });
+    expect(st.diagnostics.some(d => "correct" in d)).toBe(false);              // self-report schedules, never scores
+  });
+  it("paraphrase, reaction and opinion cards are never put on the SRS schedule", () => {
+    const c = reactions[0]!;
+    let s = practiceReducer(startPractice(c), c, { type: "ANSWER", value: "Kiitos." });
+    s = practiceReducer(practiceReducer(practiceReducer(s, c, { type: "JUDGE", judgement: "different" }), c, { type: "CONTINUE" }), c, { type: "SUBMIT_TRANSFER", text: "x" });
+    const st = completePractice(blankState(), s, c);
+    expect(dueCards(st, "2099-01-01")).toEqual([]);
   });
 });

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { dueCards, type LearnerState } from "@hospodar/domain";
+import { dueCards, practiceDue, type LearnerState } from "@hospodar/domain";
+import { practiceCards } from "./content/practice.ts";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
 import type { ExamRepository } from "./storage/examRepository.ts";
 import type { VoiceStore } from "./storage/voiceStore.ts";
@@ -95,6 +96,7 @@ function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, 
   const retDue = state ? delayedTransferQueue(state, transferBank).filter(q => q.due).length : 0;
   const done = state?.attempts.length ?? 0;
   const due = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
+  const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
   return (
     <section aria-labelledby="home-title">
       <h1 id="home-title">Що сьогодні робимо?</h1>
@@ -120,7 +122,7 @@ function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, 
         <button type="button" className="btn secondary" onClick={onWriting}>✍ Майстерня письма</button>
         <button type="button" className="btn secondary" onClick={onDialogue}>💬 Діалоги</button>
         <button type="button" className="btn secondary" onClick={onPictures}>📷 Фото-місії</button>
-        <button type="button" className="btn secondary" onClick={onPractice}>🗣 Практика без підказки</button>
+        <button type="button" className="btn secondary" onClick={onPractice}>🗣 Практика без підказки{phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}</button>
         <button type="button" className="btn secondary" onClick={onMedia}>🖼 Медіатека</button>
         <button type="button" className="btn secondary" onClick={onDiagnostic}>{state?.diagnostics.some(d => d.skill === "writing") ? "Стартова діагностика (ще раз)" : "Стартова діагностика"}</button>
         <button type="button" className="btn secondary" onClick={onProgress}>Мій прогрес</button>
