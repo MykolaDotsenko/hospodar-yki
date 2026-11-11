@@ -58,9 +58,16 @@ export function ImportScreen({ repository, current, onImported, onHome }: {
       setStatus({ kind: "done", receipt });
     } catch (e) {
       const code = String((e as { code?: string })?.code ?? "SAVE_FAILED");
-      setStatus({ kind: "error", message: code === "DESTINATION_NOT_EMPTY"
-        ? "У новому застосунку вже є прогрес. Об'єднання поки не підтримується — нічого не змінено."
-        : `Перенесення НЕ виконано (${code}). Нічого не змінено; оригінал у старій версії неушкоджений.` });
+      // The write may have committed before the fresh readback failed. Do not
+      // invite a blind retry or claim that no new-app data was changed.
+      const message = code === "DESTINATION_NOT_EMPTY"
+        ? "Новий профіль або квитанція перенесення вже існує. Ця спроба нічого не перезаписала. Перевір «Мої дані» перед іншими діями."
+        : code === "READBACK_MISMATCH" || code === "READ_FAILED"
+          ? `Не вдалося підтвердити перенесення (${code}). Запис МІГ відбутися. Не повторюй імпорт навмання: перевір прогрес і квитанцію у «Мої дані».`
+          : code === "QUOTA_OR_DISK_FULL"
+            ? "Недостатньо місця або перевищено квоту сховища. Перенесення не підтверджене; звільни місце й перевір прогрес перед повторенням."
+            : `Перенесення не підтверджене (${code}). Перевір «Мої дані» перед повторною спробою.`;
+      setStatus({ kind: "error", message: message + " Оригінал старої версії не змінено." });
     }
   }
 

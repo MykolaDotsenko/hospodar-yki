@@ -189,10 +189,14 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         result = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft, db.diagnosticDraft], async () => {
           if (await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count() || await db.diagnosticDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished LEARN exercise exists");
           const row = await db.learner.get("current");
-          // No merge: refuse if the new app already holds any learning history.
-          if (row && (row.state.attempts.length || row.state.diagnostics.length || Object.keys(row.state.cards).length || row.state.retention.length))
-            throw new StorageError("DESTINATION_NOT_EMPTY", "The new app already has progress");
-          const revision = (row?.revision ?? 0) + 1;
+          // An existing blank learner row or an earlier import receipt is still
+          // owned data. After an ambiguous ACK, a retry must NOT append another
+          // receipt or silently re-import the same original into a blank profile.
+          // A deliberate LEARN wipe is the only route to a genuinely empty target.
+          if (row || await db.imports.count())
+            throw new StorageError("DESTINATION_NOT_EMPTY", "LEARN profile or import receipts already exist");
+          // With an unowned target there is no pre-existing learner revision.
+          const revision = 1;
           const importedAt = new Date().toISOString();
           const receipt: ImportReceipt = { ...partial, importedAt, revision };
           await db.learner.put({ id: "current", revision, state, updatedAt: importedAt });
@@ -200,14 +204,25 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           return { snapshot: { state, revision }, receipt };
         });
       } catch (e) { throw mapError(e); }
-      // Read back in a fresh transaction: counts must match what was previewed.
-      const back = await db.learner.get("current");
-      const c = back?.state;
-      if (!c || back.revision !== result.receipt.revision || c.attempts.length !== partial.counts.attempts ||
-          c.diagnostics.length !== partial.counts.diagnostics || c.errors.length !== partial.counts.errors ||
-          c.retention.length !== partial.counts.retention || Object.keys(c.cards).length !== partial.counts.cards)
-        throw new StorageError("READBACK_MISMATCH", "Imported progress could not be verified");
-      return result;
+      // Read back BOTH sides of the committed transaction. A read failure after
+      // successful commit is ambiguous (never announce "nothing changed").
+      try {
+        const [back, receiptBack] = await db.transaction("r", db.learner, db.imports, async () =>
+          Promise.all([db.learner.get("current"), db.imports.get(result.receipt.id)]));
+        const imported = back?.state;
+        if (!imported || back.revision !== result.receipt.revision ||
+            JSON.stringify(receiptBack) !== JSON.stringify(result.receipt) ||
+            imported.attempts.length !== partial.counts.attempts ||
+            imported.diagnostics.length !== partial.counts.diagnostics ||
+            imported.errors.length !== partial.counts.errors ||
+            imported.retention.length !== partial.counts.retention ||
+            Object.keys(imported.cards).length !== partial.counts.cards)
+          throw new StorageError("READBACK_MISMATCH", "Import evidence or receipt could not be verified");
+        return result;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
     },
     async restoreWebLearn(state, imports, expectedRevision) {
       let snapshot: LearnerSnapshot;

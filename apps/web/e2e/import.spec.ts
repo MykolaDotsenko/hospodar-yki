@@ -61,3 +61,37 @@ test("a valid legacy export file imports the same way", async ({ page }) => {
   await page.getByRole("button", { name: "Перенести прогрес" }).click();
   await expect(page.getByText(/Перенесено й перевірено: 2 місій/)).toBeVisible();
 });
+
+test("quota abort after queued learner write leaves no partial import or receipt; retry succeeds", async ({ page }) => {
+  await seedOld(page, V1);
+  await page.addInitScript(() => {
+    const original = IDBObjectStore.prototype.put;
+    (window as unknown as { __importQuotaFault: boolean }).__importQuotaFault = false;
+    IDBObjectStore.prototype.put = function (...args) {
+      const flag = window as unknown as { __importQuotaFault: boolean };
+      if (this.name === "imports" && flag.__importQuotaFault) {
+        flag.__importQuotaFault = false;
+        this.transaction.abort();
+        throw new DOMException("Simulated quota exhaustion at receipt write", "QuotaExceededError");
+      }
+      return Reflect.apply(original, this, args) as IDBRequest;
+    };
+  });
+  await page.goto("./");
+  await page.getByRole("button", { name: "Перенести прогрес з попередньої версії" }).click();
+  await page.getByRole("button", { name: /Знайдено на цьому пристрої/ }).click();
+  await page.getByLabel("Я зберіг(-ла) копію оригіналу").check();
+  await page.evaluate(() => { (window as unknown as { __importQuotaFault: boolean }).__importQuotaFault = true; });
+  await page.getByRole("button", { name: "Перенести прогрес" }).click();
+  await expect(page.getByRole("alert")).toContainText("Недостатньо місця");
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:mvp:v1"))).toBe(V1);
+
+  // A rolled-back transaction must leave the original target truly empty.
+  // A second user-initiated attempt can then write ONE complete receipt.
+  await page.getByRole("button", { name: "Перенести прогрес" }).click();
+  await expect(page.getByText(/Перенесено й перевірено: 2 місій, 2 карток повторення, 1 діагностик/)).toBeVisible();
+  await page.getByRole("button", { name: "На головну" }).click();
+  await expect(page.getByText("Виконано місій:")).toContainText("2");
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("записів про перенесення з попередньої версії 1");
+});
