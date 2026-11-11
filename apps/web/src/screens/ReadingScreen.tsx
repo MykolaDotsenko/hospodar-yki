@@ -4,6 +4,7 @@ import { addDiagnostic, readingEvidence, readingReducer, readingView, startReadi
 import { readingItems } from "../content/reading.ts";
 import { readingPayload, validReadingDraft } from "../storage/readingDraft.ts";
 import type { LearnerRepository, ReadingDraftRow } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ReadingDraftRow | null; blocked: string | null };
@@ -129,7 +130,7 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
       if (id !== generation.current) return;
       void checkpoint(latest.current, inputRef.current).catch(e => {
         setStatus("error");
-        setError("Не вдалося автоматично зберегти відповідь (" + code(e) + "). Відповідь лишилася на екрані.");
+        setError("Автозбереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timer);
@@ -141,7 +142,7 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
   }
   function handleError(e: unknown) {
     setStatus("error");
-    setError("НЕ збережено (" + code(e) + "). Твої відповіді залишилися на екрані. Перевір іншу вкладку або спробуй знову.");
+    setError("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
   }
   async function transition(event: ReadingEvent) {
     if (busy.current) return;
