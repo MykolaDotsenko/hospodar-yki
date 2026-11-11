@@ -196,20 +196,21 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
       <p className="eyebrow">Навчання · стартова діагностика · крок {v.stepNumber} з 4</p>
       <h1 id="dg-title" ref={heading} tabIndex={-1}>{titles[s.step]}</h1>
       <p className="draft-note">Чернетка: завдання ще не перевірено S2-викладачем. Це не рівень CEFR чи YKI.</p>
+      {loaded.draft && s.step !== "summary" && <p className="feedback" role="status">Відновлено незавершену діагностику з цього пристрою.</p>}
 
       {s.step === "reading" && v.question && (
         <>
           <h2 lang="fi">{v.text.title_fi}</h2>
           <div className="prompt" lang="fi">{v.text.text_fi}</div>
           <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (pick === null) { setError(ERR_UK.INVALID_ANSWER!); return; }
-            if (act({ type: "ANSWER_READING", questionId: v.question!.id, optionIndex: pick })) setPick(null); }}>
+            void advance({ type: "ANSWER_READING", questionId: v.question!.id, optionIndex: pick }); }}>
             <fieldset className="choices-set">
               <legend><span className="muted">Питання {v.question.n} з {v.question.of} · </span><span lang="fi">{v.question.prompt_fi}</span></legend>
               {v.question.options.map((o, i) => (
-                <label key={`${v.question!.id}-${i}`} className="radio"><input type="radio" name="dq" checked={pick === i} onChange={() => setPick(i)} /> <span lang="fi">{o}</span></label>
+                <label key={`${v.question!.id}-${i}`} className="radio"><input type="radio" name="dq" checked={pick === i} onChange={() => setChoice(i)} /> <span lang="fi">{o}</span></label>
               ))}
             </fieldset>
-            {error && <p className="feedback error" role="alert">{error}</p>}
+            
             <div className="actions"><button type="submit" className="btn">Відповісти</button></div>
           </form>
           <p className="muted">Перша відповідь фіксується; пояснення — після всіх питань.</p>
@@ -226,43 +227,53 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
               </li>
             ))}
           </ol>
-          {saveError}
-          <div className="actions"><button type="button" className="btn" disabled={saving === "saving"} onClick={() => void saveAndContinue("reading")}>{saving === "saving" ? "Зберігаю…" : "Зберегти й далі: письмо"}</button></div>
+          <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void saveSkill("reading")}>{working ? "Зберігаю…" : "Зберегти й далі: письмо"}</button></div>
         </>
       )}
 
       {s.step === "writing" && (
-        <form onSubmit={(e: FormEvent) => { e.preventDefault(); act({ type: "SUBMIT_WRITING", text }); }} noValidate>
+        <form onSubmit={(e: FormEvent) => { e.preventDefault(); void advance({ type: "SUBMIT_WRITING", text: textRef.current }); }} noValidate>
           <div className="prompt" lang="fi">{v.writingTask.prompt_fi}</div>
           <p>Що має бути в тексті: <span lang="fi">{v.writingTask.points_fi.join(" · ")}</span>.</p>
           <label className="field" htmlFor="dg-writing">Твій текст фінською (без зразка; автоматично не оцінюється)</label>
-          <textarea id="dg-writing" className="answer" lang="fi" rows={6} maxLength={PRODUCTION_MAX_CHARS} value={text} onChange={e => setText(e.target.value)} />
-          {error && <p className="feedback error" role="alert">{error}</p>}
+          <textarea id="dg-writing" className="answer" lang="fi" rows={6} disabled={working} maxLength={PRODUCTION_MAX_CHARS} value={text} onChange={e => setTyped(e.target.value)} />
+          
           <div className="actions"><button type="submit" className="btn">Готово — перевірити себе</button></div>
         </form>
       )}
 
       {s.step === "writing_check" && (
-        <SelfCheck points={v.writingTask.points_fi} checked={v.writingChecked} onChange={p => act({ type: "SELF_CHECK", points: p })}
+        <SelfCheck points={v.writingTask.points_fi} checked={v.writingChecked} onChange={p => void advance({ type: "SELF_CHECK", points: p })}
           own={<div className="prompt transcript" lang="fi">{v.writing}</div>} legend="Що з цього є у твоєму тексті?">
-          {saveError}
-          <div className="actions"><button type="button" className="btn" disabled={saving === "saving"} onClick={() => void saveAndContinue("writing")}>{saving === "saving" ? "Зберігаю…" : "Зберегти без оцінки й далі: говоріння"}</button></div>
+          <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void saveSkill("writing")}>{working ? "Зберігаю…" : "Зберегти без оцінки й далі: говоріння"}</button></div>
         </SelfCheck>
       )}
 
-      {s.step === "speaking" && <Speaking task={v.speakingTask} text={text} setText={setText} error={error}
-        onSubmit={voiceRecorded => act({ type: "SUBMIT_SPEAKING", text, voiceRecorded })} />}
+      {s.step === "speaking" && <Speaking task={v.speakingTask} text={text} setText={setTyped} error={message}
+        onSubmit={voiceRecorded => void advance({ type: "SUBMIT_SPEAKING", text: textRef.current, voiceRecorded })} />}
 
       {s.step === "speaking_check" && (
-        <SelfCheck points={v.speakingTask.points_fi} checked={v.speakingChecked} onChange={p => act({ type: "SELF_CHECK", points: p })}
+        <SelfCheck points={v.speakingTask.points_fi} checked={v.speakingChecked} onChange={p => void advance({ type: "SELF_CHECK", points: p })}
           own={v.speaking.text ? <div className="prompt transcript" lang="fi">{v.speaking.text}</div> : <p className="muted">Голосовий запис зроблено (лише в цій вкладці, не зберігається).</p>}
           legend="Що з цього ти сказав(ла)?">
-          {saveError}
-          <div className="actions"><button type="button" className="btn" disabled={saving === "saving"} onClick={() => void saveAndContinue("speaking")}>{saving === "saving" ? "Зберігаю…" : "Зберегти без оцінки й завершити"}</button></div>
+          <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void saveSkill("speaking")}>{working ? "Зберігаю…" : "Зберегти без оцінки й завершити"}</button></div>
         </SelfCheck>
       )}
 
-      {s.step === "summary" && <Summary s={s} onHome={onHome} onListening={onListening} />}
+      {s.step !== "summary" && <>
+        {saveError}
+        <p className="muted" role="status">{saveStatus === "dirty" ? "Є незбережені зміни." : saveStatus === "saving" ? "Зберігаю локально…" :
+          saveStatus === "saved" ? "Чернетка збережена на пристрої." : saveStatus === "error" ? "Чернетку не підтверджено." :
+          "Збереження почнеться після відповіді."}</p>
+        {s.step === "speaking_check" && s.speaking.voiceRecorded &&
+          <p className="muted">Аудіо тимчасове: якщо вийти, голосову відповідь доведеться повторити. Аудіофайли не зберігаються.</p>}
+        <div className="actions">
+          <button type="button" className="btn secondary" disabled={working} onClick={() => void pause()}>Зберегти та вийти</button>
+          <button type="button" className="btn danger" disabled={working} onClick={() => void discard()}>Відкинути чернетку</button>
+        </div>
+        <p className="muted">Відкидання чернетки не видаляє вже записані результати попередніх кроків. Для повного видалення відкрий «Мої дані».</p>
+      </>}
+      {s.step === "summary" && <Summary s={s} onHome={onHome} onListening={onListening} />
     </section>
   );
 }
@@ -325,7 +336,7 @@ function Speaking({ task, text, setText, error, onSubmit }: {
       )}
       <label className="field" htmlFor="dg-speaking">{supported ? "Або (чи також) напиши свій усний план чи відповідь" : "Мікрофон недоступний — напиши свій усний план чи відповідь"}</label>
       <textarea id="dg-speaking" className="answer" lang="fi" rows={4} maxLength={PRODUCTION_MAX_CHARS} value={text} onChange={e => setText(e.target.value)} />
-      {error && <p className="feedback error" role="alert">{error}</p>}
+      
       <div className="actions"><button type="submit" className="btn" disabled={rec === "recording"}>Готово — перевірити себе</button></div>
     </form>
   );
