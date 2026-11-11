@@ -2023,6 +2023,10 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "Negotiation: partner asks to clarify → second wording before the script → confirm; reload keeps it; condition changes only after own role-play"
         }
       ],
       "gap": "Each skill has its own mission; no single integrated 4-skill mission; export/clear UI not in apps/web."
@@ -11514,14 +11518,18 @@
       "evidence": [
         {
           "file": "apps/web/e2e/dialogue.spec.ts",
-          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+          "contains": "Negotiation: partner asks to clarify → second wording before the script → confirm; reload keeps it; condition changes only after own role-play"
         },
         {
-          "file": "packages/domain/test/practice.test.ts",
-          "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+          "file": "packages/domain/test/dialogue.test.ts",
+          "contains": "partner did not understand: script line stays hidden and the dialogue cannot continue until the learner rephrases and confirms"
+        },
+        {
+          "file": "packages/domain/test/dialogue.test.ts",
+          "contains": "condition change appears only after the learner's own role-play; all productions saved ungraded"
         }
       ],
-      "gap": "Reply-first dialogues and reactions exist; no 'partner did not understand' turn or mid-dialogue condition change."
+      "gap": "All 9 dialogues now have a clarification request (second wording before the script, then self-confirmation) and a changed condition after the learner's own role-play. Gaps: the partner's moves are fixed editorial lines from a small S2-pending moves file (3 clarification requests, 4 condition changes), not reactions to what the learner actually wrote; text only, no audio."
     },
     {
       "id": "unseen-diagnostics",
@@ -11551,9 +11559,13 @@
         {
           "file": "packages/domain/test/practice.test.ts",
           "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+        },
+        {
+          "file": "packages/domain/test/dialogue.test.ts",
+          "contains": "every real dialogue gets a paired clarification and condition change at a learner turn; a broken pairing is refused"
         }
       ],
-      "gap": "18 reaction cards practise requests/refusals with a model after the attempt; no interlocutor change (friend → neighbour → employer) and no separate appropriateness feedback."
+      "gap": "18 reaction cards practise requests/refusals with a model after the attempt; two dialogues end with a 'now you speak to an official — say it more politely' condition change. No systematic interlocutor change (friend → neighbour → employer) and no separate appropriateness feedback."
     },
     {
       "id": "guided-corpus-discovery",

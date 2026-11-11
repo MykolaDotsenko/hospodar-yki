@@ -86,3 +86,7 @@ Scoped G2 Web slice: paraphrase, speaking reaction, opinion, contextual chunk an
 
 Scoped G2 Web slice (GL-03): reading, listening, writing and speaking each get day 7/14/30 checks on new withheld or first-exposure items, with missed/late tracking and keys only after a verified save. No schema change, no S2 approval, no Android. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--delayed-71430-checks-for-all-four-skills-gl-03).
 
+## LEARN dialogues with clarification and changed condition; human work queue — 11.11.2026
+
+Scoped G2 Web slice: the 9 dialogues gain a "partner did not understand → say it in other words → confirm" step and a changed condition after the learner's own role-play (S2-pending moves file, all productions ungraded, existing v7 checkpoint extended). `validate_design_traceability.py --human` lists the work only people can do. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--dialogues-with-a-clarification-request-and-a-changed-condition).
+
