@@ -191,6 +191,19 @@ describe("EXAM machine (XState) over the parity-tested domain policies", () => {
     await waitFor(a, s => s.matches("setup"));
     expect(await repo.history()).toHaveLength(1);
   });
+  it("TZ-EXAM-02: the attempt is pinned to its exam profile; the pin survives reload and is written to history", async () => {
+    const name = db(); const repo = createExamRepository(name);
+    const a = await boot(repo);
+    a.send({ type: "START", blueprintId: ids[0]!, minutes: 0, now: T0, sessionId: "sess-prof1", skills: ["reading"], profile: { id: "practice", hash: "0a1b2c3d" } });
+    await settled(a);
+    expect((await repo.read())!.session).toMatchObject({ profileId: "practice", profileHash: "0a1b2c3d" });
+    const b = await boot(createExamRepository(name));                       // reload: the pin is part of the checkpoint
+    expect(b.getSnapshot().context.session).toMatchObject({ profileId: "practice", profileHash: "0a1b2c3d" });
+    b.send({ type: "REQUEST_FINISH" });
+    b.send({ type: "CONFIRM_FINISH", now: T0 + 2000 });
+    await waitFor(b, s => s.matches("finished"));
+    expect((await repo.history())[0]).toMatchObject({ sessionId: "sess-prof1", profileId: "practice", profileHash: "0a1b2c3d" });
+  });
   it("a failed finish writes neither the checkpoint nor history; RETRY finishes once", async () => {
     const real = createExamRepository(db());
     let fail = true;

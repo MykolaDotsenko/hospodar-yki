@@ -145,3 +145,31 @@ test("E07: unfinished IME composition cannot finish writing; exact Finnish Unico
   expect(exported.exam.history[0].bySkill.writing.ungraded).toBe(1);
   expect(JSON.stringify(exported)).not.toMatch(/officialGrade|ykiPassPrediction/);
 });
+
+test("TZ-EXAM-03/04: three exam profiles with honest availability, six separate fidelity statuses, profile shown on every exam screen", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByRole("radio", { name: /Тренувальний/ })).toBeChecked();
+  await expect(page.getByRole("radio", { name: /За спостереженням демо OPH/ })).toBeDisabled();
+  await expect(page.getByRole("radio", { name: /Підтверджений іспит 2027/ })).toBeDisabled();
+  await expect(page.getByText(/Ще немає жодного спостереження демо OPH/)).toBeVisible();
+  await expect(page.getByText(/Підтверджено 0 з 18 критичних параметрів/)).toBeVisible();
+  const panel = page.locator(".exam-fidelity");
+  await expect(panel.locator("[data-dimension]")).toHaveCount(6);
+  await expect(panel.locator('[data-dimension="F4"]')).toContainText("не підтверджено");
+  await expect(panel.locator('[data-dimension="F5"]')).toContainText("не підтверджено");
+  await expect(panel.locator('[data-dimension="F6"]')).toContainText("не підтверджено");
+  await expect(panel).toContainText("0 з 18");
+  expect(await panel.innerText()).not.toMatch(/\d\s*%/);                                   // never one "accuracy" percentage
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText("Tehtävä 1 / 9")).toBeVisible();
+  await expect(page.getByTestId("exam-profile")).toHaveText("Profiili: Harjoitus");
+  await page.getByRole("button", { name: "Seuraava" }).click();
+  await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();
+  await expect(page.getByTestId("exam-profile")).toHaveText("Profiili: Harjoitus");
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();                            // resumed from the checkpoint
+  await expect(page.getByTestId("exam-profile")).toHaveText("Profiili: Harjoitus");         // the pinned profile survives reload
+});

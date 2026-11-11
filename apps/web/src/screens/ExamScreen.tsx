@@ -6,6 +6,9 @@ import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../co
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { ExamVoice, useVerifiedClip } from "./ExamVoice.tsx";
+import { ExamFidelity } from "./ExamFidelity.tsx";
+import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
+import { examProfileHash, profileAvailability, type ExamProfile } from "@hospodar/domain";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -42,10 +45,11 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
   const navBusy = busy || snap.matches("autosaving") || recording || snap.context.composingItemId !== null;
 
   if (snap.matches("loading")) return <section className="panel exam" aria-busy="true"><p>Ladataan…</p></section>;
-  if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId() })} onHome={onHome} />;
+  if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills, profile) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId(), profile: pinOf(profile) })} onHome={onHome} />;
 
   if (snap.matches("finished") || snap.matches("clearing")) {
     const r = scoreSession(items, session!);
+    const used = profileById(session!.profileId);
     return (
       <section className="panel exam" aria-labelledby="ex-res">
         <p className="eyebrow">02 · Симуляція YKI · harjoituskoe</p>
@@ -70,6 +74,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
           })}
         </ol>
         {error && <p className="feedback error" role="alert">Не вдалося очистити ({error}).</p>}
+        {used && <ExamFidelity profile={used} compact />}
         <div className="actions">
           <button type="button" className="btn" disabled={busy} onClick={() => actor.send({ type: "NEW_REHEARSAL" })}>Нова репетиція</button>
           <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
@@ -84,14 +89,18 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
   const go = (index: number) => actor.send({ type: "GOTO", index, now: Date.now() });
   const set = (value: string) => actor.send({ type: "ANSWER", itemId: item.id, value, now: Date.now() });
   const unanswered = items.filter(x => !(session!.answers[x.id] ?? "").trim() && !voiceEvidenceOf(session!, x.id)).length;
+  const pinned = profileById(session!.profileId);
+  const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
   return (
     <section className="panel exam" aria-labelledby="ex-item">
       <div className="exam-bar">
         <span className="pill">{snap.context.skills ? `Osakoeharjoitus: ${snap.context.skills.map(k => SKILL_FI[k]).join(", ")}` : "Harjoituskoe"} · epävirallinen</span>
+        <span className="pill" data-testid="exam-profile">Profiili: {pinned?.title_fi ?? "Harjoitus"}</span>
         <span aria-live="polite">Tehtävä {session!.index + 1} / {items.length}</span>
         {left !== null && <span className="pill" aria-live="off">Harjoitusaika {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")}</span>}
       </div>
       <h1 id="ex-item" ref={heading} tabIndex={-1} lang="fi">{SKILL_FI[item.skill]}</h1>
+      {changed && <p className="muted">Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
       {snap.matches("expired") ? (
         <div role="alert" className="exam-notice">
           <p lang="fi">Harjoitusaika päättyi. Vastauksia ei voi enää muuttaa.</p>
@@ -182,8 +191,11 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
   );
 }
 
-function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null) => void; onHome: () => void }) {
+function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null, profile: ExamProfile) => void; onHome: () => void }) {
   const [blueprint, setBlueprint] = useState(examBlueprints[0]!.id);
+  const now = new Date();
+  const [profileId, setProfileId] = useState(examProfiles.find(p => profileAvailability(p, examProfileFile, now).selectable)!.id);
+  const profile = profileById(profileId)!;
   const [minutes, setMinutes] = useState(0);
   const all: ExamSkill[] = ["reading", "listening", "writing", "speaking"];
   const [skills, setSkills] = useState<ExamSkill[]>(all);
@@ -196,6 +208,16 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
       <h1 id="ex-setup">Тренувальна репетиція</h1>
       <p className="qualification">Незалежна тренувальна репетиція. Не офіційний YKI і не відтворення цифрового іспиту 2027: офіційні таймінги, навігацію й правила прослуховування ще не підтверджено. Під час репетиції немає підказок; результати — лише після завершення.</p>
       {error && <p className="feedback error" role="alert">Не вдалося прочитати збережену репетицію ({error}).</p>}
+      <fieldset className="choices-set">
+        <legend>Режим точності</legend>
+        {examProfiles.map(p => {
+          const a = profileAvailability(p, examProfileFile, now);
+          return <label key={p.id} className="radio"><input type="radio" name="profile" disabled={!a.selectable} checked={profileId === p.id}
+            onChange={() => setProfileId(p.id)} /> {p.title_uk} <span lang="fi" className="muted">· {p.title_fi}</span>
+            {a.reason_uk && <><br /><small className="muted">{a.reason_uk}</small></>}</label>;
+        })}
+      </fieldset>
+      <ExamFidelity profile={profile} />
       <fieldset className="choices-set">
         <legend>Набір завдань</legend>
         {examBlueprints.map(b => <label key={b.id} className="radio"><input type="radio" name="bp" checked={blueprint === b.id} onChange={() => setBlueprint(b.id)} /> {b.title_uk}</label>)}
@@ -213,7 +235,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         {PRACTICE_LIMITS_MINUTES.map(m => <label key={m} className="radio"><input type="radio" name="tm" checked={minutes === m} onChange={() => setMinutes(m)} /> {m === 0 ? "Без таймера" : `${m} хв`}</label>)}
       </fieldset>
       <div className="actions">
-        <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null)}>Aloita · Почати</button>
+        <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null, profile)}>Aloita · Почати</button>
         <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
       </div>
       {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}

@@ -11235,35 +11235,78 @@
       "id": "TZ-EXAM-02",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Exam profile as data: every critical parameter has value|null, source, date, applies_to, confidence, reviewer",
-      "status": "NOT_YET",
-      "plan": "Build ExamProfile in packages/domain and make apps/web EXAM read behaviour from it; record the profile hash in attempt history."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "the repository file is valid: three profiles, every critical parameter listed, today all unknown (null)"
+        },
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "a value without a source, date, reviewer or the right scope is refused; a missing parameter must be written as null"
+        },
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "the profile hash changes when any sourced value changes, so a started attempt keeps the version it began with"
+        },
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "TZ-EXAM-02: the attempt is pinned to its exam profile; the pin survives reload and is written to history"
+        }
+      ]
     },
     {
       "id": "TZ-EXAM-03",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Three profiles: PRACTICE, OPH_DEMO_OBSERVED, LIVE_2027_VERIFIED (disabled until every critical field is sourced and tested)",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "today: practice selectable; OPH demo profile not selectable (no observation yet); live 2027 disabled"
+        },
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "live 2027: an OPH-demo observation does not count; every field needs a live-2027 source AND an E2E test"
+        },
+        {
           "file": "apps/web/e2e/exam.spec.ts",
-          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+          "contains": "TZ-EXAM-03/04: three exam profiles with honest availability, six separate fidelity statuses, profile shown on every exam screen"
         }
-      ],
-      "gap": "The practice timer is labelled unofficial; there is no profile model, no OPH_DEMO_OBSERVED profile and no visible profile name on every exam screen."
+      ]
     },
     {
       "id": "TZ-EXAM-04",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Fidelity panel: six separate F1–F6 statuses, verified critical / total, list of gaps; never one percentage",
-      "status": "NOT_YET",
-      "plan": "Render the six statuses and gap list before start and in results from the exam profile and evidence ledger."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "today: F4/F5 unverified for every profile, F3/F6 unverified, all 18 critical parameters listed as gaps"
+        },
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "F4/F5 follow the verified records of the chosen profile; F4/F5 cannot be declared, F3/F6 cannot be declared verified"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "TZ-EXAM-03/04: three exam profiles with honest availability, six separate fidelity statuses, profile shown on every exam screen"
+        }
+      ]
     },
     {
       "id": "TZ-EXAM-05",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Source freshness: OPH dates, demo links and rules rechecked at least every 30 days and before release",
-      "status": "NOT_YET",
-      "plan": "Store last-checked date in the profile; warn the learner and mark OPH_DEMO_OBSERVED stale when older than 30 days; the recheck itself is a manual human step."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-profile.test.ts",
+          "contains": "one real observation makes the OPH demo profile selectable; it turns stale after 30 days without a recheck"
+        }
+      ],
+      "gap": "The profile carries last_checked and is marked stale after 30 days; the recheck itself is a manual human step and nobody has done it yet (last_checked is null)."
     },
     {
       "id": "TZ-EXAM-06",

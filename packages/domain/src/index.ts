@@ -16,3 +16,4 @@ export * from "./dataExport.ts";
 export * from "./dataRestore.ts";
 export * from "./practice.ts";
 export * from "./skillRetention.ts";
+export * from "./examProfile.ts";
