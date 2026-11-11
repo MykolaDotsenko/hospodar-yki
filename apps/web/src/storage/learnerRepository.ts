@@ -5,6 +5,7 @@
  * (CONTRACTS rule 8). Separate DB name: never touches the legacy app's localStorage/IDB.
  */
 import Dexie, { type Table } from "dexie";
+import { isQuotaFailure } from "./browserStorageHealth.ts";
 import { blankState, type LearnerState, type WebRestoreImport } from "@hospodar/domain";
 import type { MissionDraftPayload } from "./missionDraft.ts";
 import type { ClinicDraftPayload } from "./clinicDraft.ts";
@@ -128,8 +129,7 @@ export interface LearnerRepository {
 
 function mapError(e: unknown): StorageError {
   if (e instanceof StorageError) return e;
-  const name = (e as { name?: string; inner?: { name?: string } })?.inner?.name ?? (e as { name?: string })?.name;
-  return new StorageError(name === "QuotaExceededError" ? "QUOTA_OR_DISK_FULL" : "SAVE_FAILED", String((e as Error)?.message ?? e));
+  return new StorageError(isQuotaFailure(e) ? "QUOTA_OR_DISK_FULL" : "SAVE_FAILED", String((e as Error)?.message ?? e));
 }
 
 export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRepository {
