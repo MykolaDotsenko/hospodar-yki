@@ -84,15 +84,17 @@ export function formatStorageMiB(bytes: number | null): string | null {
  * a non-standard name. Do not misclassify generic AbortError as disk-full.
  */
 export function isQuotaFailure(error: unknown): boolean {
+  const pending: unknown[] = [error];
   const seen = new Set<object>();
-  let node: unknown = error;
-  for (let depth = 0; depth < 8; depth++) {
-    if (!node || typeof node !== "object" || seen.has(node)) break;
-    seen.add(node);
+  let inspected = 0;
+  while (pending.length && inspected < 8) {
+    const node = pending.shift();
+    if (!node || typeof node !== "object" || seen.has(node)) continue;
+    seen.add(node); inspected++;
     const value = node as { name?: unknown; code?: unknown; inner?: unknown; cause?: unknown };
     if (value.name === "QuotaExceededError" || value.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
         value.code === 22 || value.code === 1014) return true;
-    node = value.inner ?? value.cause;
+    pending.push(value.inner, value.cause);
   }
   return false;
 }
