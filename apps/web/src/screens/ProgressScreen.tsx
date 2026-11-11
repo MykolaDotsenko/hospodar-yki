@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { delayedTransferQueue, dueCards, type LearnerState, type Skill } from "@hospodar/domain";
+import { delayedTransferQueue, dueCards, skillRetentionQueue, type LearnerState, type Skill } from "@hospodar/domain";
+import { skillRetentionBank } from "../content/skillRetention.ts";
 import { exercises } from "../content/cloze.ts";
 import { transferBank } from "../content/transfer.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
@@ -19,9 +20,11 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onReten
   const independent = a.filter(x => x.firstCorrect).length;
   const guided = a.filter(x => !x.firstCorrect && x.repairCorrect).length;
   const queue = delayedTransferQueue(state, transferBank);
-  const retDone = queue.reduce((n, q) => n + q.completed.length, 0);
-  const retMissed = queue.reduce((n, q) => n + q.missed.length, 0);
-  const retDue = queue.filter(q => q.due).length;
+  const skillQueue = skillRetentionQueue(state, skillRetentionBank);
+  const retDone = queue.reduce((n, q) => n + q.completed.length, 0) + skillQueue.reduce((n, q) => n + q.completed.length, 0);
+  const retMissed = queue.reduce((n, q) => n + q.missed.length, 0) + skillQueue.reduce((n, q) => n + q.missed.length, 0);
+  const retDue = queue.filter(q => q.due).length + skillQueue.filter(q => q.due).length;
+  const delayed = (taskId: string) => /^d(?:7|14|30)-/.test(taskId);
   const reviews = dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length;
   const actions = [
     ...(reviews ? [{ text: `Повторити ${reviews} заплановане(-их) завдання`, go: onLearn }] : []),
@@ -59,13 +62,17 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onReten
           <h2>Чотири навички</h2>
           <ul className="skill-lines">
             {SKILLS.map(s => {
-              const xs = state.diagnostics.filter(d => d.skill === s.id);
+              const xs = state.diagnostics.filter(d => d.skill === s.id && !delayed(d.taskId));
               const scored = xs.filter(d => d.status === "scored");
+              const later = state.diagnostics.filter(d => d.skill === s.id && delayed(d.taskId) && d.status === "scored");
+              const sq = skillQueue.find(q => q.skill === s.id)!;
               return (
                 <li key={s.id}><strong>{s.uk}</strong> <span lang="fi" className="muted">· {s.fi}</span><br />
                   {xs.length === 0 ? "Ще не тренувалося в цій версії." :
                     s.id === "writing" || s.id === "speaking" ? `${xs.length} без оцінки — відповіді збережено; оцінити може лише людина (викладач).` :
                     `${scored.filter(d => d.correct).length} з ${scored.length} перевірених відповідей правильні; ${xs.length - scored.length} без оцінки.`}
+                  {sq.completed.length > 0 && <><br />Відкладено (нове завдання через {sq.completed.join("/")} дн.): {s.id === "reading" || s.id === "listening"
+                    ? `${later.filter(d => d.correct).length} з ${later.length} перших відповідей правильні` : "збережено без оцінки"}</>}
                 </li>
               );
             })}
