@@ -35,7 +35,7 @@ MATRIX = ROOT / "docs/design/design-traceability-v1.json"
 ID = re.compile(r"\b(YTP-\d{2}|V3-AC-\d{2}|IV4-AC-\d{2}|V5-AC-\d{2}|MOCK-VID-\d{2}|R10-\d{2}|R-L\d{2}|E0[3567]-G\d{2}|R08-MOT-H\d{2}|R0[3-8]-H\d{2}|R04-T\d{2}|SD-H\d{2}|UX-I\d{2}|UX-S\d{2}|PSY-E\d{2}|IV2-AC-\d{2}|IV-AC-\d{2}|IV2-\d{2}|IV-\d{2}|EXV-\d{2}|A11Y-\d{2}|DESIGN-\d{2}a?|COLOR-\d{2}|UIO-\d{2}|UX-0[1-8]|SENS-\d{2}|MULTI-\d{2}|IV-REQ-\d{2}|A10-(?:0[1-9]|1[0-4])"
                 r"|COG-\d{2}|PSY-\d{2}|MEM-\d{2}|FEED-\d{2}|ATT-\d{2}|AUD-\d{2}|MSUI-\d{2}|SND-\d{2}|GAM-\d{2}|GL-\d{2}|R(?:0[1-9]|1[0-2])(?!-\d)"
                 r"|R[4-8]-\d{2}|R11-\d{2}|M3-\d{2}|SD-G\d{2}|QL-\d{2}|MOT-\d{2}"
-                r"|EXAM-PILLAR-\d{2}|EXAM-\d{2}|LEARN-\d{2}|LE-\d{2}|YKI-FID-\d{2}|CURATED-\d{2}|MODE-\d{2}|MVP-\d{2}|PER-\d{2}|SIM-\d{2}|AC-\d{2}"
+                r"|TZ-EXAM-\d{2}|EXAM-PILLAR-\d{2}|EXAM-\d{2}|LEARN-\d{2}|LE-\d{2}|YKI-FID-\d{2}|CURATED-\d{2}|MODE-\d{2}|MVP-\d{2}|PER-\d{2}|SIM-\d{2}|AC-\d{2}"
                 r"|ARCH-\d{2}|C-\d{2}|REL-\d{2}|ANDR-\d{2}|WEB-\d{2}|UC-\d{2}|G-EX-\d{2}|UX-L\d{2}|RANGE-\d{2}|MEDIA-IMG-\d{2}|GRAM-TENSE-\d{2}|RIGHTS-\d{2})\b")
 STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "STUDY_NOT_RUN", "SUPERSEDED"}
 
@@ -167,7 +167,7 @@ def check(doc: dict, root: Path = ROOT) -> list[str]:
 
 METHOD_STATUSES = {"ENFORCED", "PARTIAL", "NOT_YET", "EXCLUDED"}
 BLOCKERS = {"S2_REVIEW", "LICENSED_HUMAN_AUDIO", "HUMAN_RATERS_OR_STUDY", "OTHER_LEARNERS_OR_TEACHER"}
-EXAM_FAMILIES = re.compile(r"^(EXAM(-PILLAR)?|EXV|YKI-FID|SIM|G-EX|E0[3567]-G|MOCK-VID)-?\d")
+EXAM_FAMILIES = re.compile(r"^(TZ-EXAM|EXAM(-PILLAR)?|EXV|YKI-FID|SIM|G-EX|E0[3567]-G|MOCK-VID)-?\d")
 CONTENT_GLOBS = ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json")
 CONTENT_USERS = ("apps/web/src/content/*.ts", "app/*.mjs", "app/*.html")
 
