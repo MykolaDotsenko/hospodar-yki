@@ -11223,6 +11223,214 @@
       "summary": "Independent day-14/30 new-genre/recipient writing transfer vs matched baseline, blinded S2 raters",
       "status": "STUDY_NOT_RUN",
       "plan": "Controlled human study with blinded S2 raters; NOT RUN."
+    },
+    {
+      "id": "TZ-EXAM-01",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "OPH demo observation protocol: a person walks through all 4 digital demos and fills the 10.3 form",
+      "status": "NOT_YET",
+      "plan": "Human walkthrough of the four OPH Inspera demos with the 10.3 form (manual; automated access is blocked and task content must not be copied)."
+    },
+    {
+      "id": "TZ-EXAM-02",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Exam profile as data: every critical parameter has value|null, source, date, applies_to, confidence, reviewer",
+      "status": "NOT_YET",
+      "plan": "Build ExamProfile in packages/domain and make apps/web EXAM read behaviour from it; record the profile hash in attempt history."
+    },
+    {
+      "id": "TZ-EXAM-03",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Three profiles: PRACTICE, OPH_DEMO_OBSERVED, LIVE_2027_VERIFIED (disabled until every critical field is sourced and tested)",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        }
+      ],
+      "gap": "The practice timer is labelled unofficial; there is no profile model, no OPH_DEMO_OBSERVED profile and no visible profile name on every exam screen."
+    },
+    {
+      "id": "TZ-EXAM-04",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Fidelity panel: six separate F1–F6 statuses, verified critical / total, list of gaps; never one percentage",
+      "status": "NOT_YET",
+      "plan": "Render the six statuses and gap list before start and in results from the exam profile and evidence ledger."
+    },
+    {
+      "id": "TZ-EXAM-05",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Source freshness: OPH dates, demo links and rules rechecked at least every 30 days and before release",
+      "status": "NOT_YET",
+      "plan": "Store last-checked date in the profile; warn the learner and mark OPH_DEMO_OBSERVED stale when older than 30 days; the recheck itself is a manual human step."
+    },
+    {
+      "id": "TZ-EXAM-06",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Full exam: four subtests in verified order with task counts and families per the E03 blueprint; each subtest also standalone",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        }
+      ],
+      "gap": "Full and single-skill sessions exist only on two 9-item mini rehearsals; no full-length form (needs the S2-authored bank)."
+    },
+    {
+      "id": "TZ-EXAM-07",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Timing and transitions from the profile: subtest timers, preparation/response windows, automatic transitions, no pause, interrupted status",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-parity.test.ts",
+          "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        }
+      ],
+      "gap": "Monotonic practice timer with deadline refusal exists; no per-task preparation/response windows, no 'interrupted' status, and all durations are unverified practice values."
+    },
+    {
+      "id": "TZ-EXAM-08",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Navigation and locks exactly as the profile says: revisit, review, section lock after finish",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ],
+      "gap": "Persisted navigation without aids is tested; navigation rules are hard-coded practice behaviour, not profile-driven, and OPH behaviour is unknown."
+    },
+    {
+      "id": "TZ-EXAM-09",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Finnish-only exam interface (instructions, buttons, statuses), S2-reviewed; Ukrainian only before start and after finish",
+      "status": "NOT_YET",
+      "plan": "S2-reviewed Finnish instruction screens plus a content lint that rejects Ukrainian text or hints inside the exam (human S2 review needed)."
+    },
+    {
+      "id": "TZ-EXAM-10",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Listening as in the exam: sound check, playback rules from the profile, several human speakers with cleared rights, no transcript",
+      "status": "NOT_YET",
+      "plan": "Sound-check screen and profile-driven replay/pause/seek rules; licensed human recordings (human dependency); synthetic voice allowed only in PRACTICE."
+    },
+    {
+      "id": "TZ-EXAM-11",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Speaking as in the exam: mic check, prompt → signal → preparation → auto-start recording → response window → auto-stop",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        }
+      ],
+      "gap": "Consented local recording with hash readback exists (stubbed recorder in tests); no prompt/signal/preparation/response windows; real codecs and devices not tested (manual device testing needed)."
+    },
+    {
+      "id": "TZ-EXAM-12",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Writing as in the exam: editor without spellcheck, autocorrect or translation; ä/ö/å input; counter and paste per profile",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "E07: unfinished IME composition cannot finish writing; exact Finnish Unicode survives autosave, reload and final submission"
+        }
+      ],
+      "gap": "IME-safe exact text and immutability after finish are tested; spellcheck/autocorrect attributes, paste policy and counters are not specified by a profile or tested."
+    },
+    {
+      "id": "TZ-EXAM-13",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Reading as in the exam: text/question layout and paging per demo observation; MCQ-3, true/false, short open",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ],
+      "gap": "Objective reading items without aids are tested; layout and paging are not based on a demo observation."
+    },
+    {
+      "id": "TZ-EXAM-14",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Held-out item bank: original tasks written and reviewed by two S2 teachers, at least three full forms, exposure tracking",
+      "status": "NOT_YET",
+      "plan": "S2-authored bank (human) plus exposure tracking so a repeat mock serves an unseen form or says none is left."
+    },
+    {
+      "id": "TZ-EXAM-15",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Construct coverage: every form checked against 9 topics and 6 communicative functions (E03)",
+      "status": "NOT_YET",
+      "plan": "Coverage test over each form using the E03 audit; depends on the first full form."
+    },
+    {
+      "id": "TZ-EXAM-16",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Results without an invented level: objective counts only; production awaits human assessment; S2 rating package; level only after calibration",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/exam/examMachine.test.ts",
+          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        }
+      ],
+      "gap": "No grade is ever produced (tested); the human assessment package and double-marked calibration do not exist (needs S2 raters)."
+    },
+    {
+      "id": "TZ-EXAM-17",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Exam conditions: focused mode without app navigation, hints or sounds; headphone and mic check before start; updates never interrupt an attempt",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        }
+      ],
+      "gap": "No aids before finish and LEARN isolation are tested; no system-check screen for headphones/mic and no dedicated focus mode."
+    },
+    {
+      "id": "TZ-EXAM-18",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Reliability and accessibility matrix: three browsers, mobile browser, Android device, keyboard, screen reader, 200 % zoom",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ],
+      "gap": "Three desktop engines run in CI with reload/save-failure cases; mobile browser, Android device and screen reader are not run (manual device testing needed)."
+    },
+    {
+      "id": "TZ-EXAM-19",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "After the exam: error review happens separately in LEARN; unseen delayed retest on day 14 and 30",
+      "status": "NOT_YET",
+      "plan": "EXAM → separate LEARN review → delayed retest on unseen items, per the E01–E16 programme."
+    },
+    {
+      "id": "TZ-EXAM-20",
+      "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
+      "summary": "Rights and privacy: no OPH tasks copied, no 'official' claims, legal privacy review of voice recording",
+      "status": "NOT_YET",
+      "plan": "Written legal review (human) plus an automated check of marketing/UI strings for 'official YKI' claims."
     }
   ],
   "decisions": [
