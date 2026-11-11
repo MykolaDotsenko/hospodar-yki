@@ -203,14 +203,25 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           return { snapshot: { state, revision }, receipt };
         });
       } catch (e) { throw mapError(e); }
-      // Read back in a fresh transaction: counts must match what was previewed.
-      const back = await db.learner.get("current");
-      const c = back?.state;
-      if (!c || back.revision !== result.receipt.revision || c.attempts.length !== partial.counts.attempts ||
-          c.diagnostics.length !== partial.counts.diagnostics || c.errors.length !== partial.counts.errors ||
-          c.retention.length !== partial.counts.retention || Object.keys(c.cards).length !== partial.counts.cards)
-        throw new StorageError("READBACK_MISMATCH", "Imported progress could not be verified");
-      return result;
+      // Read back BOTH sides of the committed transaction. A read failure after
+      // successful commit is ambiguous (never announce "nothing changed").
+      try {
+        const [back, receiptBack] = await db.transaction("r", db.learner, db.imports, async () =>
+          Promise.all([db.learner.get("current"), db.imports.get(result.receipt.id)]));
+        const imported = back?.state;
+        if (!imported || back.revision !== result.receipt.revision ||
+            JSON.stringify(receiptBack) !== JSON.stringify(result.receipt) ||
+            imported.attempts.length !== partial.counts.attempts ||
+            imported.diagnostics.length !== partial.counts.diagnostics ||
+            imported.errors.length !== partial.counts.errors ||
+            imported.retention.length !== partial.counts.retention ||
+            Object.keys(imported.cards).length !== partial.counts.cards)
+          throw new StorageError("READBACK_MISMATCH", "Import evidence or receipt could not be verified");
+        return result;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
     },
     async restoreWebLearn(state, imports, expectedRevision) {
       let snapshot: LearnerSnapshot;
