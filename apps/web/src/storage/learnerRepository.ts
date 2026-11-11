@@ -12,6 +12,7 @@ import type { ReadingDraftPayload } from "./readingDraft.ts";
 import type { ListeningDraftPayload } from "./listeningDraft.ts";
 import type { DialogueDraftPayload } from "./dialogueDraft.ts";
 import type { PictureDraftPayload } from "./pictureDraft.ts";
+import type { DiagnosticDraftPayload } from "./diagnosticDraft.ts";
 
 export const WEB_DB_NAME = "hospodar-yki:web:v1";
 export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED";
@@ -37,6 +38,9 @@ export interface DialogueDraftRow extends DialogueDraftPayload {
 export interface PictureDraftRow extends PictureDraftPayload {
   id: "active"; revision: number; learnerRevision: number; savedAt: string;
 }
+export interface DiagnosticDraftRow extends DiagnosticDraftPayload {
+  id: "active"; revision: number; learnerRevision: number; savedAt: string;
+}
 /** Proof of what was imported from the legacy app: hash of the exact original bytes + counts. */
 export interface ImportReceipt {
   id: string; source: "legacy_v1_file" | "legacy_v1_this_device"; originalSha256: string; originalBytes: number;
@@ -53,6 +57,7 @@ class WebDb extends Dexie {
   listeningDraft!: Table<ListeningDraftRow, string>;
   dialogueDraft!: Table<DialogueDraftRow, string>;
   pictureDraft!: Table<PictureDraftRow, string>;
+  diagnosticDraft!: Table<DiagnosticDraftRow, string>;
   constructor(name: string) {
     super(name);
     this.version(1).stores({ learner: "id" });
@@ -63,6 +68,7 @@ class WebDb extends Dexie {
     this.version(6).stores({ learner: "id", imports: "id", missionDraft: "id", clinicDraft: "id", readingDraft: "id", listeningDraft: "id" }); // independent Listening drafts
     this.version(7).stores({ learner: "id", imports: "id", missionDraft: "id", clinicDraft: "id", readingDraft: "id", listeningDraft: "id", dialogueDraft: "id" }); // independent Dialogue drafts
     this.version(8).stores({ learner: "id", imports: "id", missionDraft: "id", clinicDraft: "id", readingDraft: "id", listeningDraft: "id", dialogueDraft: "id", pictureDraft: "id" }); // independent Picture Mission drafts
+    this.version(9).stores({ learner: "id", imports: "id", missionDraft: "id", clinicDraft: "id", readingDraft: "id", listeningDraft: "id", dialogueDraft: "id", pictureDraft: "id", diagnosticDraft: "id" }); // independent Diagnostic checkpoint
   }
 }
 
@@ -71,7 +77,7 @@ export interface LearnerRepository {
   read(): Promise<LearnerSnapshot>;
   commit(next: LearnerState, expectedRevision: number): Promise<LearnerSnapshot>;
   /** LEARN-16: erase progress AND import receipts in one transaction (CAS), then verify by readback. */
-  eraseAll(expectedRevision: number, expectedDraftRevision?: number, expectedClinicRevision?: number, expectedReadingRevision?: number, expectedListeningRevision?: number, expectedDialogueRevision?: number, expectedPictureRevision?: number): Promise<LearnerSnapshot>;
+  eraseAll(expectedRevision: number, expectedDraftRevision?: number, expectedClinicRevision?: number, expectedReadingRevision?: number, expectedListeningRevision?: number, expectedDialogueRevision?: number, expectedPictureRevision?: number, expectedDiagnosticRevision?: number): Promise<LearnerSnapshot>;
   /** Import legacy V1 progress into an EMPTY new-app profile, atomically with its receipt. */
   importLegacy(state: LearnerState, receipt: Omit<ImportReceipt, "revision" | "importedAt">): Promise<{ snapshot: LearnerSnapshot; receipt: ImportReceipt }>;
   /** Restore only LEARN from a validated new-Web JSON export into an empty profile (never EXAM/audio). */
@@ -113,6 +119,11 @@ export interface LearnerRepository {
   savePictureDraft(draft: PictureDraftPayload, expectedLearnerRevision: number, expectedDraftRevision: number): Promise<PictureDraftRow>;
   finishPictureDraft(next: LearnerState, expectedLearnerRevision: number, expectedDraftRevision: number, lessonId: string, exactTransfer: string): Promise<LearnerSnapshot>;
   discardPictureDraft(expectedLearnerRevision: number, expectedDraftRevision: number): Promise<void>;
+  readDiagnosticDraft(): Promise<DiagnosticDraftRow | null>;
+  saveDiagnosticDraft(draft: DiagnosticDraftPayload, expectedLearnerRevision: number, expectedDraftRevision: number): Promise<DiagnosticDraftRow>;
+  commitDiagnosticDraftStep(next: LearnerState, nextDraft: DiagnosticDraftPayload, skill: "reading" | "writing", expectedLearnerRevision: number, expectedDraftRevision: number): Promise<{ snapshot: LearnerSnapshot; draft: DiagnosticDraftRow }>;
+  finishDiagnosticDraft(next: LearnerState, expectedLearnerRevision: number, expectedDraftRevision: number, exactText: string, voiceOnly: boolean): Promise<LearnerSnapshot>;
+  discardDiagnosticDraft(expectedLearnerRevision: number, expectedDraftRevision: number): Promise<void>;
 }
 
 function mapError(e: unknown): StorageError {
@@ -142,9 +153,9 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         });
       } catch (e) { throw mapError(e); }
     },
-    async eraseAll(expectedRevision, expectedDraftRevision = 0, expectedClinicRevision = 0, expectedReadingRevision = 0, expectedListeningRevision = 0, expectedDialogueRevision = 0, expectedPictureRevision = 0) {
+    async eraseAll(expectedRevision, expectedDraftRevision = 0, expectedClinicRevision = 0, expectedReadingRevision = 0, expectedListeningRevision = 0, expectedDialogueRevision = 0, expectedPictureRevision = 0, expectedDiagnosticRevision = 0) {
       try {
-        await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft], async () => {
+        await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft, db.diagnosticDraft], async () => {
           const current = (await db.learner.get("current"))?.revision ?? 0;
           const activeDraftRevision = (await db.missionDraft.get("active"))?.revision ?? 0;
           const clinicRevision = (await db.clinicDraft.get("active"))?.revision ?? 0;
@@ -152,7 +163,8 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           const listeningRevision = (await db.listeningDraft.get("active"))?.revision ?? 0;
           const dialogueRevision = (await db.dialogueDraft.get("active"))?.revision ?? 0;
           const pictureRevision = (await db.pictureDraft.get("active"))?.revision ?? 0;
-          if (current !== expectedRevision || activeDraftRevision !== expectedDraftRevision || clinicRevision !== expectedClinicRevision || readingRevision !== expectedReadingRevision || listeningRevision !== expectedListeningRevision || dialogueRevision !== expectedDialogueRevision || pictureRevision !== expectedPictureRevision)
+          const diagnosticRevision = (await db.diagnosticDraft.get("active"))?.revision ?? 0;
+          if (current !== expectedRevision || activeDraftRevision !== expectedDraftRevision || clinicRevision !== expectedClinicRevision || readingRevision !== expectedReadingRevision || listeningRevision !== expectedListeningRevision || dialogueRevision !== expectedDialogueRevision || pictureRevision !== expectedPictureRevision || diagnosticRevision !== expectedDiagnosticRevision)
             throw new StorageError("REVISION_CONFLICT", "LEARN progress or draft changed in another tab");
           await db.learner.clear();
           await db.imports.clear();
@@ -162,19 +174,20 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           await db.listeningDraft.clear();
           await db.dialogueDraft.clear();
           await db.pictureDraft.clear();
+          await db.diagnosticDraft.clear();
         });
       } catch (e) { throw mapError(e); }
       if ((await db.learner.count()) !== 0 || (await db.imports.count()) !== 0 ||
           (await db.missionDraft.count()) !== 0 || (await db.clinicDraft.count()) !== 0 ||
-          (await db.readingDraft.count()) !== 0 || (await db.listeningDraft.count()) !== 0 || (await db.dialogueDraft.count()) !== 0 || (await db.pictureDraft.count()) !== 0)
+          (await db.readingDraft.count()) !== 0 || (await db.listeningDraft.count()) !== 0 || (await db.dialogueDraft.count()) !== 0 || (await db.pictureDraft.count()) !== 0 || (await db.diagnosticDraft.count()) !== 0)
         throw new StorageError("DELETE_NOT_VERIFIED", "Some progress is still stored");
       return { state: blankState(), revision: 0 };
     },
     async importLegacy(state, partial) {
       let result: { snapshot: LearnerSnapshot; receipt: ImportReceipt };
       try {
-        result = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft], async () => {
-          if (await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished LEARN exercise exists");
+        result = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft, db.diagnosticDraft], async () => {
+          if (await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count() || await db.diagnosticDraft.count()) throw new StorageError("DESTINATION_NOT_EMPTY", "An unfinished LEARN exercise exists");
           const row = await db.learner.get("current");
           // No merge: refuse if the new app already holds any learning history.
           if (row && (row.state.attempts.length || row.state.diagnostics.length || Object.keys(row.state.cards).length || row.state.retention.length))
@@ -199,12 +212,12 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
     async restoreWebLearn(state, imports, expectedRevision) {
       let snapshot: LearnerSnapshot;
       try {
-        snapshot = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft], async () => {
+        snapshot = await db.transaction("rw", [db.learner, db.imports, db.missionDraft, db.clinicDraft, db.readingDraft, db.listeningDraft, db.dialogueDraft, db.pictureDraft, db.diagnosticDraft], async () => {
           const row = await db.learner.get("current");
           if ((row?.revision ?? 0) !== expectedRevision)
             throw new StorageError("REVISION_CONFLICT", "The profile changed in another tab");
           // An existing blank row is still owned by another workflow. Never silently overwrite it.
-          if (row || await db.imports.count() || await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count())
+          if (row || await db.imports.count() || await db.missionDraft.count() || await db.clinicDraft.count() || await db.readingDraft.count() || await db.listeningDraft.count() || await db.dialogueDraft.count() || await db.pictureDraft.count() || await db.diagnosticDraft.count())
             throw new StorageError("DESTINATION_NOT_EMPTY", "Existing LEARN data or receipts must not be overwritten");
           const revision = 1;
           await db.learner.add({ id: "current", revision, state, updatedAt: new Date().toISOString() });
@@ -703,6 +716,123 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
         });
         if (await db.pictureDraft.get("active"))
           throw new StorageError("READBACK_MISMATCH", "Picture Mission draft deletion not confirmed");
+      } catch (e) { throw mapError(e); }
+    },
+
+
+    async readDiagnosticDraft() {
+      try { return (await db.diagnosticDraft.get("active")) ?? null; }
+      catch (e) { throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e)); }
+    },
+    async saveDiagnosticDraft(payload, expectedLearnerRevision, expectedDraftRevision) {
+      let stored: DiagnosticDraftRow;
+      try {
+        stored = await db.transaction("rw", db.learner, db.diagnosticDraft, async () => {
+          const learnerRevision = (await db.learner.get("current"))?.revision ?? 0;
+          const old = await db.diagnosticDraft.get("active");
+          if (learnerRevision !== expectedLearnerRevision ||
+              (old?.revision ?? 0) !== expectedDraftRevision ||
+              (old && (old.learnerRevision !== learnerRevision || old.session.baselineId !== payload.session.baselineId)))
+            throw new StorageError("REVISION_CONFLICT", "LEARN profile or Diagnostic checkpoint changed in another tab");
+          const row: DiagnosticDraftRow = { ...structuredClone(payload), id: "active",
+            revision: expectedDraftRevision + 1, learnerRevision, savedAt: new Date().toISOString() };
+          await db.diagnosticDraft.put(row);
+          return row;
+        });
+      } catch (e) { throw mapError(e); }
+      try {
+        const back = await db.diagnosticDraft.get("active");
+        if (JSON.stringify(back) !== JSON.stringify(stored))
+          throw new StorageError("READBACK_MISMATCH", "Diagnostic draft readback was not confirmed");
+        return stored;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
+    },
+    async commitDiagnosticDraftStep(next, payload, skill, expectedLearnerRevision, expectedDraftRevision) {
+      let result: { snapshot: LearnerSnapshot; draft: DiagnosticDraftRow };
+      try {
+        result = await db.transaction("rw", db.learner, db.diagnosticDraft, async () => {
+          const revision = (await db.learner.get("current"))?.revision ?? 0;
+          const old = await db.diagnosticDraft.get("active");
+          const expectedStep = skill === "reading" ? "reading_feedback" : "writing_check";
+          const nextStep = skill === "reading" ? "writing" : "speaking";
+          if (revision !== expectedLearnerRevision || !old ||
+              old.revision !== expectedDraftRevision || old.learnerRevision !== revision ||
+              old.session.step !== expectedStep || payload.session.step !== nextStep ||
+              old.session.baselineId !== payload.session.baselineId ||
+              old.contentFingerprint !== payload.contentFingerprint ||
+              payload.input !== "" || payload.pick !== null ||
+              !payload.session.saved.includes(skill) ||
+              payload.session.saved.length !== old.session.saved.length + 1)
+            throw new StorageError("REVISION_CONFLICT", "Diagnostic step changed or first attempt not confirmed");
+          const newRevision = revision + 1;
+          const now = new Date().toISOString();
+          const draft: DiagnosticDraftRow = { ...structuredClone(payload), id: "active",
+            revision: old.revision + 1, learnerRevision: newRevision, savedAt: now };
+          await db.learner.put({ id: "current", revision: newRevision, state: next, updatedAt: now });
+          await db.diagnosticDraft.put(draft);
+          return { snapshot: { state: next, revision: newRevision }, draft };
+        });
+      } catch (e) { throw mapError(e); }
+      try {
+        const [learn, draft] = await db.transaction("r", db.learner, db.diagnosticDraft,
+          async () => Promise.all([db.learner.get("current"), db.diagnosticDraft.get("active")]));
+        if (learn?.revision !== result.snapshot.revision ||
+            JSON.stringify(learn?.state) !== JSON.stringify(next) ||
+            JSON.stringify(draft) !== JSON.stringify(result.draft))
+          throw new StorageError("READBACK_MISMATCH", "Diagnostic step evidence and checkpoint are not confirmed");
+        return result;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
+    },
+    async finishDiagnosticDraft(next, expectedLearnerRevision, expectedDraftRevision, exactText, voiceOnly) {
+      let saved: LearnerSnapshot;
+      try {
+        saved = await db.transaction("rw", db.learner, db.diagnosticDraft, async () => {
+          const revision = (await db.learner.get("current"))?.revision ?? 0;
+          const old = await db.diagnosticDraft.get("active");
+          const speechAccepted = voiceOnly
+            ? old?.session.step === "speaking" && exactText === "" && old.input === ""
+            : old?.session.step === "speaking_check" && old.session.speaking.text === exactText && old.input === "";
+          if (revision !== expectedLearnerRevision || !old ||
+              old.revision !== expectedDraftRevision || old.learnerRevision !== revision ||
+              !old.session.saved.includes("reading") || !old.session.saved.includes("writing") ||
+              !speechAccepted)
+            throw new StorageError("REVISION_CONFLICT", "Diagnostic speaking evidence stale or not confirmed");
+          const newRevision = revision + 1;
+          await db.learner.put({ id: "current", revision: newRevision, state: next, updatedAt: new Date().toISOString() });
+          await db.diagnosticDraft.delete("active");
+          return { state: next, revision: newRevision };
+        });
+      } catch (e) { throw mapError(e); }
+      try {
+        const [learner, draft] = await db.transaction("r", db.learner, db.diagnosticDraft,
+          async () => Promise.all([db.learner.get("current"), db.diagnosticDraft.get("active")]));
+        if (learner?.revision !== saved.revision || draft ||
+            JSON.stringify(learner?.state) !== JSON.stringify(next))
+          throw new StorageError("READBACK_MISMATCH", "Completed Diagnostic evidence not confirmed");
+        return saved;
+      } catch (e) {
+        if (e instanceof StorageError) throw e;
+        throw new StorageError("READ_FAILED", String((e as Error)?.message ?? e));
+      }
+    },
+    async discardDiagnosticDraft(expectedLearnerRevision, expectedDraftRevision) {
+      try {
+        await db.transaction("rw", db.learner, db.diagnosticDraft, async () => {
+          const learnerRevision = (await db.learner.get("current"))?.revision ?? 0;
+          const old = await db.diagnosticDraft.get("active");
+          if (learnerRevision !== expectedLearnerRevision || !old ||
+              old.revision !== expectedDraftRevision || old.learnerRevision !== learnerRevision)
+            throw new StorageError("REVISION_CONFLICT", "Diagnostic draft changed in another tab");
+          await db.diagnosticDraft.delete("active");
+        });
+        if (await db.diagnosticDraft.get("active"))
+          throw new StorageError("READBACK_MISMATCH", "Diagnostic draft deletion not confirmed");
       } catch (e) { throw mapError(e); }
     },
 
