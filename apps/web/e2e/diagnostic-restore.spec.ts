@@ -107,3 +107,38 @@ test("Diagnostic v9: private unfinished text stays outside portable JSON and is 
   await page.reload(); await open(page);
   await expect(page.getByRole("heading", { name: "Читання" })).toBeVisible();
 });
+
+test("Diagnostic: injected IDB quota abort rolls back evidence AND phase; reload safely retries once", async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = IDBObjectStore.prototype.put;
+    (window as unknown as { __diagnosticQuotaFault: boolean }).__diagnosticQuotaFault = false;
+    IDBObjectStore.prototype.put = function (...args) {
+      const flag = window as unknown as { __diagnosticQuotaFault: boolean };
+      if (this.name === "diagnosticDraft" && flag.__diagnosticQuotaFault) {
+        flag.__diagnosticQuotaFault = false;
+        this.transaction.abort();
+        throw new DOMException("Simulated disk quota during atomic phase write", "QuotaExceededError");
+      }
+      return Reflect.apply(original, this, args) as IDBRequest;
+    };
+  });
+  await start(page);
+  await page.getByLabel("Tapaamispäivä").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Täydellinen kielitaito").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByRole("heading", { name: "Читання: що вийшло" })).toBeVisible();
+  await page.evaluate(() => { (window as unknown as { __diagnosticQuotaFault: boolean }).__diagnosticQuotaFault = true; });
+  await page.getByRole("button", { name: "Зберегти й далі: письмо" }).click();
+  await expect(page.getByRole("alert")).toContainText("QUOTA_OR_DISK_FULL");
+  await expect(page.getByRole("heading", { name: "Читання: що вийшло" })).toBeVisible();
+
+  // The previous learner write was queued but aborted when the next-stage
+  // draft write failed. Both records must still describe the OLD stage.
+  await page.reload(); await open(page);
+  await expect(page.getByRole("heading", { name: "Читання: що вийшло" })).toBeVisible();
+  await page.getByRole("button", { name: "Зберегти й далі: письмо" }).click();
+  await expect(page.getByRole("heading", { name: "Письмо" })).toBeVisible();
+  await exit(page); await resume(page);
+  await expect(page.getByRole("heading", { name: "Письмо" })).toBeVisible();
+});
