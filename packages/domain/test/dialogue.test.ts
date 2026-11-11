@@ -1,10 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { addDiagnostic, blankState, dialogueEvidence, dialogueReducer, dialogueView, startDialogue, validateDialogue,
-  DialogueError, type DialogueEvent, type DialogueItem, type DialogueSession } from "../src/index.ts";
+  withNegotiation, DialogueError, type DialogueEvent, type DialogueItem, type DialogueSession, type NegotiationMoves } from "../src/index.ts";
 
 const items: DialogueItem[] = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/contextual/dialogues-v1.json", import.meta.url), "utf8")).items;
 const D = items[0]!;
+const moves: NegotiationMoves = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/contextual/negotiation-moves-v1.json", import.meta.url), "utf8"));
+const negotiated = withNegotiation(items, moves);
+const N = negotiated[1]!;                                            // "Soitto huoltoyhtiöön"
 const run = (events: DialogueEvent[], s: DialogueSession = startDialogue(D)) => events.reduce((x, e) => dialogueReducer(x, D, e), s);
 /** Walk all turns: reply at learner turns (or skip every other one), then advance. */
 const walk = (): DialogueEvent[] => D.turns.flatMap((t, i): DialogueEvent[] => t.speaker === "A"
@@ -52,5 +55,67 @@ describe("dialogue mission: learner as speaker A (IV-REQ-07, COLOR-14, DEC-06)",
     for (const e of ev) st = addDiagnostic(st, e);
     expect(st.diagnostics.some(d => "correct" in d)).toBe(false);
     expect(dialogueView(done, D).scriptOnly).toBe(true);
+  });
+});
+
+describe("negotiation of meaning: clarification request and changed condition (negotiation-repair-dialogues)", () => {
+  const go = (events: DialogueEvent[], st: DialogueSession = startDialogue(N)) => events.reduce((x, e) => dialogueReducer(x, N, e), st);
+  const toRepair: DialogueEvent[] = [{ type: "REPLY", text: "Hei, ikkuna on rikki." }, { type: "NEXT_TURN" }, { type: "NEXT_TURN" }];
+  const afterTurns = (): DialogueEvent[] => [...toRepair, { type: "REPLY", text: "Viime viikolla." }, { type: "REPHRASE", text: "Huomasin sen seitsemän päivää sitten." },
+    { type: "JUDGE_REPAIR", judgement: "partly" }, { type: "NEXT_TURN" }, { type: "NEXT_TURN" },
+    { type: "REPLY", text: "Ei sovi." }, { type: "NEXT_TURN" }, { type: "NEXT_TURN" }, { type: "SKIP_REPLY" }, { type: "NEXT_TURN" }, { type: "NEXT_TURN" }];
+  const questions = (): DialogueEvent[] => N.questions.flatMap((q): DialogueEvent[] => [{ type: "ANSWER", questionId: q.id, text: "vastaus" }, { type: "JUDGE", questionId: q.id, judgement: "same" }]);
+
+  it("every real dialogue gets a paired clarification and condition change at a learner turn; a broken pairing is refused", () => {
+    expect(negotiated).toHaveLength(9);
+    for (const d of negotiated) {
+      expect(validateDialogue(d)).toBe(true);
+      expect(d.turns[d.negotiation!.repairTurn]!.speaker).toBe("A");
+      expect(moves.clarification_requests_fi).toContain(d.negotiation!.clarification_fi);
+      expect(moves.condition_changes_fi).toContain(d.negotiation!.condition_change_fi);
+    }
+    expect(() => withNegotiation(items, { ...moves, pairing: { [D.id]: { repair_turn: 1, clarification: 0, condition_change: 0 } } })).toThrow();
+    expect(() => withNegotiation(items, { ...moves, pairing: { [D.id]: { repair_turn: 2, clarification: 9, condition_change: 0 } } })).toThrow();
+  });
+  it("partner did not understand: script line stays hidden and the dialogue cannot continue until the learner rephrases and confirms", () => {
+    const replied = go([...toRepair, { type: "REPLY", text: "Viime viikolla." }]);
+    let v = dialogueView(replied, N);
+    expect(v).toMatchObject({ awaitingRephrase: true, awaitingRepairConfirm: false });
+    expect(v.lines[2]).toMatchObject({ text_fi: null, reply: "Viime viikolla.", clarification_fi: N.negotiation!.clarification_fi, repair: null });
+    expect(() => dialogueReducer(replied, N, { type: "NEXT_TURN" })).toThrow(/Clarify/);
+    expect(() => dialogueReducer(replied, N, { type: "REPHRASE", text: " " })).toThrow(/Write/);
+    expect(() => dialogueReducer(replied, N, { type: "JUDGE_REPAIR", judgement: "same" })).toThrow(DialogueError);
+    const said = dialogueReducer(replied, N, { type: "REPHRASE", text: "Huomasin sen seitsemän päivää sitten." });
+    v = dialogueView(said, N);
+    expect(v).toMatchObject({ awaitingRephrase: false, awaitingRepairConfirm: true });
+    expect(v.lines[2]).toMatchObject({ text_fi: N.turns[2]!.text_fi, repair: "Huomasin sen seitsemän päivää sitten." });
+    expect(() => dialogueReducer(said, N, { type: "REPHRASE", text: "uudestaan" })).toThrow(DialogueError);       // second wording frozen too
+    expect(() => dialogueReducer(said, N, { type: "NEXT_TURN" })).toThrow(/Clarify/);
+    const ok = dialogueReducer(said, N, { type: "JUDGE_REPAIR", judgement: "same" });
+    expect(dialogueReducer(ok, N, { type: "NEXT_TURN" }).turn).toBe(3);
+  });
+  it("no clarification at other turns or after a skipped reply", () => {
+    const first = go([{ type: "REPLY", text: "Hei." }]);
+    expect(dialogueView(first, N)).toMatchObject({ awaitingRephrase: false });
+    expect(() => dialogueReducer(first, N, { type: "REPHRASE", text: "x" })).toThrow(DialogueError);
+    const skipped = go([...toRepair, { type: "SKIP_REPLY" }]);
+    expect(dialogueView(skipped, N)).toMatchObject({ awaitingRephrase: false });
+    expect(dialogueView(skipped, N).lines[2]).toMatchObject({ text_fi: N.turns[2]!.text_fi, clarification_fi: null });
+    expect(dialogueReducer(skipped, N, { type: "NEXT_TURN" }).turn).toBe(3);
+  });
+  it("condition change appears only after the learner's own role-play; all productions saved ungraded", () => {
+    const rp = go([...afterTurns(), ...questions()]);
+    expect(rp.phase).toBe("roleplay");
+    expect(dialogueView(rp, N)).toMatchObject({ transfer_fi: N.roleplay_transfer_fi, change_fi: null, roleplay: null });
+    expect(() => dialogueReducer(rp, N, { type: "SUBMIT_TRANSFER", text: "x" })).toThrow(DialogueError);
+    const changed = dialogueReducer(rp, N, { type: "SUBMIT_ROLEPLAY", text: "Hei, korjaaja ei tullut eilen." });
+    expect(dialogueView(changed, N)).toMatchObject({ phase: "transfer", change_fi: N.negotiation!.condition_change_fi, roleplay: "Hei, korjaaja ei tullut eilen." });
+    const done = dialogueReducer(changed, N, { type: "SUBMIT_TRANSFER", text: "Valitettavasti se ei sovi. Kävisikö perjantai?" });
+    const ev = dialogueEvidence(done, N);
+    expect(ev.map(e => e.taskId)).toEqual([...N.questions.map(q => q.id), `${N.id}-repair`, `${N.id}-roleplay`, `${N.id}-change`]);
+    expect(ev.find(e => e.taskId.endsWith("-repair"))!.response).toContain("self-judged partly");
+    expect(ev.find(e => e.taskId.endsWith("-roleplay"))!.response).toContain("korjaaja ei tullut");
+    let st = blankState(); for (const e of ev) st = addDiagnostic(st, e);
+    expect(st.diagnostics.some(d => "correct" in d)).toBe(false);
   });
 });

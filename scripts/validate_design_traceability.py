@@ -19,6 +19,7 @@ learning effectiveness cannot silently stay unused. `--next` prints what an AI a
     python3 scripts/validate_design_traceability.py            # check (CI)
     python3 scripts/validate_design_traceability.py --report   # print coverage table
     python3 scripts/validate_design_traceability.py --next     # research not yet used: what to build next
+    python3 scripts/validate_design_traceability.py --human    # work only people can do: S2 review, audio, raters, studies
 Static only: it proves that tests exist and are referenced, not that the design teaches better.
 """
 from __future__ import annotations
@@ -212,7 +213,7 @@ def unused_content(root: Path = ROOT) -> list[str]:
     """Authored exercise/dictionary JSON that no app loads (report only: some files are indexes or drafts)."""
     users = "".join(f.read_text(encoding="utf-8") for g in CONTENT_USERS for f in root.glob(g))
     def loaded(f: Path) -> bool:                                   # by file name, or by an import.meta.glob of its folder
-        return f.name in users or f"{f.parent.name}/*.json" in users
+        return f"{f.parent.name}/{f.name}" in users or f"{f.parent.name}/*.json" in users
     return sorted(f.relative_to(root).as_posix() for g in CONTENT_GLOBS for f in root.glob(g)
                   if not loaded(f) and f.name not in ("index.json", "available.json"))
 
@@ -243,6 +244,47 @@ def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
     return "\n".join(out)
 
 
+HUMAN_GATE = re.compile(r"\bS2\b|human|manual|reviewer|rater|consent|legal|recording|walkthrough", re.I)
+
+
+def loaded_content(root: Path = ROOT) -> list[tuple[str, int]]:
+    """Exercise/dictionary JSON that learners can already meet, with its item count (all of it is S2-pending today)."""
+    unused, out = set(unused_content(root)), []
+    for g in CONTENT_GLOBS:
+        for f in sorted(root.glob(g)):
+            rel = f.relative_to(root).as_posix()
+            if rel in unused or f.name in ("index.json", "available.json"):
+                continue
+            data = json.loads(f.read_text(encoding="utf-8"))
+            rows = next((v for k, v in data.items() if k in ("items", "lessons", "exercises") and isinstance(v, list)), None) if isinstance(data, dict) else None
+            if rows is None and isinstance(data, dict):                       # e.g. a theme file: reading + speaking + writing + chunks
+                rows = [x for v in data.values() if isinstance(v, list) for x in v] or [data]
+            out.append((rel, len(rows) if rows is not None else 1))
+    return sorted(out, key=lambda x: -x[1])
+
+
+def human_queue(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
+    """Everything code cannot close. The product cannot be called effective before these are done (docs/28, R12)."""
+    reg = {m["id"]: m for m in registry}
+    content = loaded_content(root)
+    out = [f"1. S2 teacher review — content learners already see, none approved yet ({sum(n for _, n in content)} items in {len(content)} files):"]
+    out += [f"   {n:>4}  {f}" for f, n in content]
+    labels = {"S2_REVIEW": "2. Methods that need S2-reviewed or licensed content",
+              "LICENSED_HUMAN_AUDIO": "3. Methods that need licensed recordings of several human Finnish speakers",
+              "HUMAN_RATERS_OR_STUDY": "4. Methods that need calibrated human raters",
+              "OTHER_LEARNERS_OR_TEACHER": "5. Methods that need a partner or teacher"}
+    for b, label in labels.items():
+        rows = sorted((m for m in doc.get("methods", []) if m.get("blocked_by") == b), key=lambda m: -reg[m["id"]]["score"])
+        out += [f"{label} ({len(rows)}):"] + [f"   {reg[m['id']]['priority']} {reg[m['id']]['score']:>3} {m['id']}: {m.get('gap') or m.get('plan')}" for m in rows]
+    exam = [r for r in doc["requirements"] if EXAM_FAMILIES.match(r["id"]) and r["status"] in ("PARTIAL", "NOT_YET")
+            and HUMAN_GATE.search(str(r.get("gap") or r.get("plan")))]
+    out += [f"6. EXAM simulator gates that need a person ({len(exam)}):"] + [f"   {r['id']}: {r.get('gap') or r.get('plan')}" for r in exam]
+    studies = [r for r in doc["requirements"] if r["status"] == "STUDY_NOT_RUN"]
+    out += [f"7. Human studies not run: {len(studies)}. Until a consented, equal-time study with blind S2 scoring on day 14/30 exists, "
+            "no claim of better learning than competitors is allowed (R12, docs/28)."]
+    return "\n".join(out)
+
+
 def summary(doc: dict) -> str:
     c = Counter(r["status"] for r in doc["requirements"])
     n = len(doc["requirements"])
@@ -263,6 +305,8 @@ def main(argv: list[str]) -> int:
         print("FAIL design traceability:\n  " + "\n  ".join(errors)); return 1
     if "--next" in argv:
         print(next_steps(doc, registry)); return 0
+    if "--human" in argv:
+        print(human_queue(doc, registry)); return 0
     if "--report" in argv:
         for r in doc["requirements"]:
             print(f"{r['status']:<14} {r['id']:<10} {r['summary']}")

@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from validate_design_traceability import ID, MATRIX, ROOT, check, check_methods, next_steps, scan_definitions, scan_mentions  # noqa: E402
+from validate_design_traceability import ID, MATRIX, ROOT, check, check_methods, human_queue, next_steps, scan_definitions, scan_mentions  # noqa: E402
 
 DOC = json.loads(MATRIX.read_text(encoding="utf-8"))
 REGISTRY = json.loads((ROOT / DOC["method_registry"]).read_text(encoding="utf-8"))["methods"]
@@ -174,6 +174,15 @@ class MethodCoverageTests(unittest.TestCase):
         self.assertIn("learning/exercises/b1/feedback-rubrics.json", text)
         self.assertNotIn("themes/01-mina-ja-taustani.json", text)          # loaded through a folder glob
         self.assertNotIn("paraphrase-drills.json", text)                  # loaded by apps/web
+
+    def test_human_queue_names_what_only_people_can_close(self):
+        text = human_queue(self.doc, REGISTRY)
+        self.assertIn("S2 teacher review", text)
+        self.assertIn("knowledge/dictionaries/b1/contextual-chunks-v1.json", text)   # learners already see it
+        self.assertNotIn("feedback-rubrics.json", text)                              # not loaded → not in the review queue
+        self.assertIn("finnish-quantity-dual-track", text)                           # waits for human recordings
+        self.assertNotIn("interleaving-grammar", text)                               # buildable by code → not a human task
+        self.assertIn("Human studies not run", text)
 
 
 if __name__ == "__main__":

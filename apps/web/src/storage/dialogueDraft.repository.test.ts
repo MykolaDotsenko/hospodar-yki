@@ -18,7 +18,7 @@ function transfer() {
     s = dialogueReducer(s, item, { type: "ANSWER", questionId: q.id, text: own });
     s = dialogueReducer(s, item, { type: "JUDGE", questionId: q.id, judgement: "partly" });
   }
-  return s;
+  return dialogueReducer(s, item, { type: "SUBMIT_ROLEPLAY", text: "Hei, olen Oksana." });   // negotiation: own role-play precedes the changed condition
 }
 describe("Dexie v7 Dialogue checkpoint", () => {
   it("persists and reloads unfinished answers separately from completed learner history", async () => {
@@ -51,7 +51,7 @@ describe("Dexie v7 Dialogue checkpoint", () => {
     expect(committed.revision).toBe(1);
     const back = createLearnerRepository(n);
     expect(await back.readDialogueDraft()).toBeNull();
-    expect((await back.read()).state.diagnostics).toHaveLength(item.questions.length + 1);
+    expect((await back.read()).state.diagnostics).toHaveLength(item.questions.length + 2);                 // role-play + changed condition
     expect((await back.read()).state.diagnostics.every(ev => ev.status === "ungraded")).toBe(true);
     await expect(repo.finishDialogueDraft(state, 0, row.revision, item.id, own))
       .rejects.toMatchObject({ code: "REVISION_CONFLICT" });

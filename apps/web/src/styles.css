@@ -140,6 +140,7 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 .dialogue .line.mine { border-left: 4px solid var(--forest); }
 .dialogue .line.npc { border-left: 4px solid var(--navy); }
 .dialogue .line p { margin: 2px 0 0; overflow-wrap: anywhere; }
+.dialogue .line .npc-aside { margin-top: var(--space-sm); padding-left: var(--space-sm); border-left: 3px solid var(--navy); }
 .dialogue .who { font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
 .cue-label { font-weight: 800; color: var(--forest); }
 /* Media library: calm cards, credit always visible, media never wider than the screen (A10-03 reflow). */

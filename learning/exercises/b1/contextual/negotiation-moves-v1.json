@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-11-11",
+  "name": "Negotiation-of-meaning moves for the 9 functional dialogues",
+  "origin": "project_original_draft",
+  "review_status": "editorial_draft_pending_S2_review",
+  "is_official_exam_content": false,
+  "licensing": "Project-authored original prompts; not copied from any external YKI or textbook material.",
+  "rationale_uk": "Партнер у розмові не зрозумів → учень каже те саме іншими словами; після власного розіграшу ситуації умова змінюється, і учень пристосовується. Це інструкції до завдання, а не ключі: відповіді учня не оцінюються. Регістр (sinä/te) і добір пар має підтвердити S2-викладач.",
+  "clarification_requests_fi": [
+    "Anteeksi, en ihan ymmärtänyt. Voisitko sanoa sen toisin sanoin?",
+    "Anteeksi, en saanut selvää. Voisitko toistaa hitaammin ja lyhyemmin?",
+    "Hetkinen, mitä tarkoitat? Voisitko selittää vähän tarkemmin?"
+  ],
+  "condition_changes_fi": [
+    "Tilanne muuttuu: sinulla on kiire. Sano asiasi lyhyesti, yhdellä tai kahdella lauseella, ja kysy, voitteko jatkaa myöhemmin.",
+    "Tilanne muuttuu: toinen ehdottaa aikaa tai ratkaisua, joka ei sovi sinulle. Kieltäydy kohteliaasti, kerro syy ja ehdota toista vaihtoehtoa.",
+    "Tilanne muuttuu: puhut nyt virkailijan kanssa, et tuttavan. Sano sama asia kohteliaammin.",
+    "Tilanne muuttuu: toinen ei voi auttaa juuri nyt. Kysy, kuka voi auttaa tai milloin voit ottaa yhteyttä uudelleen."
+  ],
+  "pairing": {
+    "ctx-dialog-01": { "repair_turn": 2, "clarification": 0, "condition_change": 0 },
+    "ctx-dialog-02": { "repair_turn": 2, "clarification": 1, "condition_change": 1 },
+    "ctx-dialog-03": { "repair_turn": 2, "clarification": 2, "condition_change": 1 },
+    "ctx-dialog-04": { "repair_turn": 2, "clarification": 0, "condition_change": 3 },
+    "ctx-dialog-05": { "repair_turn": 2, "clarification": 1, "condition_change": 0 },
+    "ctx-dialog-06": { "repair_turn": 2, "clarification": 2, "condition_change": 3 },
+    "ctx-dialog-07": { "repair_turn": 2, "clarification": 0, "condition_change": 1 },
+    "ctx-dialog-08": { "repair_turn": 2, "clarification": 1, "condition_change": 2 },
+    "ctx-dialog-09": { "repair_turn": 2, "clarification": 2, "condition_change": 2 }
+  }
+}

@@ -68,7 +68,7 @@ export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repo
     <section className="panel" aria-labelledby="dl-title">
       <p className="eyebrow">Навчання · розмова</p>
       <h1 id="dl-title">Діалоги: твоя репліка</h1>
-      <p>Ти — один зі співрозмовників. Спершу пишеш свою репліку, потім бачиш, як сказано в сценарії — це один із можливих варіантів, не «правильна відповідь».</p>
+      <p>Ти — один зі співрозмовників. Спершу пишеш свою репліку, потім бачиш, як сказано в сценарії — це один із можливих варіантів, не «правильна відповідь». Одного разу співрозмовник тебе не зрозуміє й попросить сказати інакше, а наприкінці умова ситуації зміниться.</p>
       <p className="draft-note">Лише текст (запису ще немає) і чернетки, не перевірені S2-викладачем. Без автоматичної оцінки.</p>
       <ul className="choices" aria-label="Діалоги">
         {dialogues.map(d => (
@@ -101,7 +101,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
   const [error, setError] = useState<string | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const v = dialogueView(s, item);
-  useEffect(() => { heading.current?.focus(); }, [s.phase, s.turn, s.qIndex]);
+  useEffect(() => { heading.current?.focus(); }, [s.phase, s.turn, s.qIndex, s.repair, s.repairJudged]);
 
   function checkpoint(state: DialogueSession, input: string) {
     const payload = dialoguePayload(state, input, item);
@@ -196,7 +196,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
     } catch (e) { failed(e); }
     finally { busy.current = false; setWorking(false); }
   }
-  const title = { turns: "Розмова", questions: "Що ти зрозумів(ла)?", transfer: "Твоя ситуація", done: "Готово" }[s.phase];
+  const title = { turns: "Розмова", questions: "Що ти зрозумів(ла)?", roleplay: "Твоя ситуація", transfer: item.negotiation ? "Умова змінилася" : "Твоя ситуація", done: "Готово" }[s.phase];
 
   return (
     <section className="panel" aria-labelledby="dlg-title">
@@ -205,12 +205,14 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       {!v.reviewed && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершений діалог відновлено з цього пристрою.</p>}
 
-      {s.phase !== "transfer" && s.phase !== "done" && (
+      {s.phase !== "roleplay" && s.phase !== "transfer" && s.phase !== "done" && (
         <ol className="dialogue" aria-label="Репліки">
           {v.lines.map(l => (
             <li key={l.index} className={`line ${l.mine ? "mine" : "npc"}${l.evidence ? " evidence" : ""}`}>
               <span className="who">{l.mine ? "Ти" : "Співрозмовник"}</span>
               {l.mine && l.reply !== null && <p lang="fi">{l.reply || <span className="muted">(пропущено)</span>}</p>}
+              {l.clarification_fi && <p className="npc-aside"><span className="who">Співрозмовник не зрозумів: </span><span lang="fi">{l.clarification_fi}</span></p>}
+              {l.repair && <p lang="fi"><span className="muted" lang="uk">Ти іншими словами: </span>{l.repair}</p>}
               {l.text_fi !== null && (
                 <p lang="fi" className={l.mine ? "script" : undefined}>
                   {l.mine && <span className="muted">У сценарії: </span>}
@@ -232,9 +234,33 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
             <button type="button" className="btn secondary" disabled={working} onClick={() => void transition({ type: "SKIP_REPLY" })}>Пропустити й подивитися сценарій</button>
           </div>
         </form>
+      ) : v.awaitingRephrase ? (
+        <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "REPHRASE", text: inputRef.current }); }} noValidate>
+          <label className="field" htmlFor="dlg-rephrase">Скажи те саме фінською іншими словами або простіше (зразок побачиш після цього)</label>
+          <input id="dlg-rephrase" className="answer" lang="fi" autoComplete="off" disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <div className="actions"><button type="submit" className="btn" disabled={working}>Сказати інакше</button></div>
+        </form>
+      ) : v.awaitingRepairConfirm ? (
+        <fieldset className="choices-set">
+          <legend>Твій другий варіант передає той самий зміст, що й репліка у сценарії? <span className="muted">(оцінюєш ти — це не бал)</span></legend>
+          <div className="actions">
+            {(Object.keys(JUDGE_UK) as SelfJudgement[]).map(j => (
+              <button key={j} type="button" className="btn secondary" disabled={working} onClick={() => void transition({ type: "JUDGE_REPAIR", judgement: j })}>{JUDGE_UK[j]}</button>
+            ))}
+          </div>
+        </fieldset>
       ) : (
         <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void transition({ type: "NEXT_TURN" })}>Далі</button></div>
       ))}
+
+      {s.phase === "roleplay" && (
+        <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "SUBMIT_ROLEPLAY", text: inputRef.current }); }} noValidate>
+          <div className="prompt" lang="fi">{v.transfer_fi}</div>
+          <label className="field" htmlFor="dlg-roleplay">Твої репліки фінською (без оцінки). Після цього умова зміниться.</label>
+          <textarea id="dlg-roleplay" className="answer" lang="fi" rows={4} disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
+          <div className="actions"><button type="submit" className="btn" disabled={working}>Далі</button></div>
+        </form>
+      )}
 
       {s.phase === "questions" && v.question && (v.question.model_fi === null ? (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "ANSWER", questionId: v.question!.id, text: inputRef.current }); }} noValidate>
@@ -259,8 +285,14 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
 
       {s.phase === "transfer" && (
         <form onSubmit={e => void finish(e)} noValidate>
-          <div className="prompt" lang="fi">{v.transfer_fi}</div>
-          <label className="field" htmlFor="dlg-transfer">Твої репліки фінською (можна потім сказати вголос; без оцінки)</label>
+          {v.change_fi ? (
+            <>
+              <p className="muted">Ситуація: <span lang="fi">{v.transfer_fi}</span></p>
+              <p><strong>Ти сказав(ла):</strong> <span lang="fi">{v.roleplay}</span></p>
+              <div className="prompt" lang="fi">{v.change_fi}</div>
+            </>
+          ) : <div className="prompt" lang="fi">{v.transfer_fi}</div>}
+          <label className="field" htmlFor="dlg-transfer">{v.change_fi ? "Що ти скажеш тепер? Фінською, без оцінки" : "Твої репліки фінською (можна потім сказати вголос; без оцінки)"}</label>
           <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions"><button type="submit" className="btn" disabled={working}>{working ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
         </form>
@@ -279,7 +311,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою і твій план розмови.</p>
+          <p>✅ Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою{item.negotiation ? ", повторення іншими словами, твій план розмови і відповідь на змінену умову" : " і твій план розмови"}.</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку діалогів</button></div>
         </div>
       )}
