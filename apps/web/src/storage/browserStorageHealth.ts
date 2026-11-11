@@ -13,6 +13,7 @@ export interface StorageHost { storage?: StorageApiLike }
 
 export interface BrowserStorageReport {
   supported: boolean;
+  canRequestPersistence: boolean;
   persistence: "persistent" | "best-effort" | "unknown";
   usageBytes: number | null;
   quotaBytes: number | null;
@@ -35,7 +36,7 @@ function defaultHost(): StorageHost | null {
 /** A failed inspection must not be mistaken for either a grant or a denial. */
 export async function inspectBrowserStorage(host: StorageHost | null = defaultHost()): Promise<BrowserStorageReport> {
   const api = host?.storage;
-  if (!api) return { supported: false, persistence: "unknown", usageBytes: null, quotaBytes: null,
+  if (!api) return { supported: false, canRequestPersistence: false, persistence: "unknown", usageBytes: null, quotaBytes: null,
     headroomBytes: null, inspectionFailed: false, lowHeadroom: false };
   let persistence: BrowserStorageReport["persistence"] = "unknown";
   let usageBytes: number | null = null;
@@ -55,7 +56,7 @@ export async function inspectBrowserStorage(host: StorageHost | null = defaultHo
   }
   const headroomBytes = usageBytes !== null && quotaBytes !== null && quotaBytes >= usageBytes
     ? quotaBytes - usageBytes : null;
-  return { supported: true, persistence, usageBytes, quotaBytes, headroomBytes, inspectionFailed,
+  return { supported: true, canRequestPersistence: typeof api.persist === "function", persistence, usageBytes, quotaBytes, headroomBytes, inspectionFailed,
     lowHeadroom: headroomBytes !== null && headroomBytes < LOW_HEADROOM_BYTES };
 }
 
