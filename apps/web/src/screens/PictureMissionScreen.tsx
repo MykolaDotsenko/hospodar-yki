@@ -4,6 +4,7 @@ import { addDiagnostic, pictureEvidence, pictureReducer, pictureView, startPictu
 import { pictureMissions } from "../content/pictureMissions.ts";
 import { picturePayload, validPictureDraft } from "../storage/pictureDraft.ts";
 import type { LearnerRepository, PictureDraftRow } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 type Mission = (typeof pictureMissions)[number];
@@ -129,7 +130,7 @@ function PictureMission({ m, repository, snapshot, initialDraft, onSaved, onExit
       if (current !== generation.current) return;
       void checkpoint(latest.current, inputRef.current).catch(e => {
         setStatus("error");
-        setError("Автозбереження не вдалося (" + code(e) + "). Відповідь лишилася на екрані.");
+        setError("Автозбереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timer);
@@ -141,7 +142,7 @@ function PictureMission({ m, repository, snapshot, initialDraft, onSaved, onExit
   }
   function failed(e: unknown) {
     setStatus("error");
-    setError("НЕ збережено (" + code(e) + "). Відповідь лишилася тут. Перевір іншу вкладку або повтори.");
+    setError("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
   }
   async function nextStage(event: PictureEvent) {
     if (busy.current) return;

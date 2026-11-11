@@ -4,6 +4,7 @@ import { addDiagnostic, diagnosticEvidence, diagnosticReducer, diagnosticSummary
 import { baseline as B } from "../content/diagnostic.ts";
 import { diagnosticPayload, validDiagnosticDraft } from "../storage/diagnosticDraft.ts";
 import type { DiagnosticDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 const NEXT_UK = {
@@ -63,7 +64,7 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
   useEffect(() => { if (loaded.kind === "ready" && !loaded.blocked) heading.current?.focus(); }, [loaded.kind, s.step, s.readingIndex]);
   const setTyped = (t: string) => { textRef.current = t; setText(t); generation.current++; setMessage(null); setSaveStatus("dirty"); };
   const setChoice = (p: number) => { pickRef.current = p; setPick(p); generation.current++; setMessage(null); setSaveStatus("dirty"); };
-  const failure = (e: unknown) => { setSaveStatus("error"); setMessage("НЕ збережено (" + code(e) + "). Спроба лишилася на екрані; перевір іншу вкладку."); };
+  const failure = (e: unknown) => { setSaveStatus("error"); setMessage("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e)); };
   function checkpoint(session: DiagnosticSession, input: string, pick: number | null): Promise<void> {
     const payload = diagnosticPayload(session, input, pick, B);
     if (!validDiagnosticDraft(payload, B)) return Promise.reject(new Error("INVALID_DRAFT"));

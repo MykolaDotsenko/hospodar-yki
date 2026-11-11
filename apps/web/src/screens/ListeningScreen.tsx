@@ -4,6 +4,7 @@ import { addDiagnostic, listeningEvidence, listeningReducer, listeningView, star
 import { listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
 import type { LearnerRepository, ListeningDraftRow } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ListeningDraftRow | null; blocked: string | null };
@@ -137,7 +138,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
     const timer = setTimeout(() => {
       if (id !== generation.current) return;
       void checkpoint(latest.current, inputRef.current).catch(e => {
-        setStatus("error"); setError("Не вдалося автоматично зберегти роботу (" + code(e) + "). Відповідь лишилася на екрані.");
+        setStatus("error"); setError("Автозбереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timer);
@@ -147,7 +148,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
     inputRef.current = next; generation.current++; setValue(next); setStatus("dirty"); setError(null);
   }
   function handleError(e: unknown) {
-    setStatus("error"); setError("НЕ збережено (" + code(e) + "). Прогрес не змінено на екрані; перевір вкладки або спробуй ще раз.");
+    setStatus("error"); setError("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
   }
   async function transition(event: ListeningEvent, afterSaved?: () => void) {
     if (busy.current) return;

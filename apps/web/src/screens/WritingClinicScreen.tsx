@@ -4,6 +4,7 @@ import { addDiagnostic, clinicEvidence, clinicReducer, clinicView, startClinic, 
 import { clinicItems } from "../content/writingClinic.ts";
 import { clinicPayload, validClinicDraft } from "../storage/clinicDraft.ts";
 import type { ClinicDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ClinicDraftRow | null; blocked: string | null };
@@ -130,7 +131,7 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
     const timer = setTimeout(() => {
       if (id !== generation.current) return;
       void checkpoint(latest.current, inputRef.current).catch(e => {
-        setStatus("error"); setError("Не вдалося автоматично зберегти текст (" + code(e) + "). Текст лишився на екрані.");
+        setStatus("error"); setError("Автозбереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timer);
@@ -149,7 +150,7 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
   }
   function handleError(e: unknown) {
     setStatus("error");
-    setError("НЕ збережено (" + code(e) + "). Твої відповіді залишилися на екрані. Перевір іншу вкладку або спробуй знову.");
+    setError("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
   }
   async function advance(event: ClinicEvent, initialText = "") {
     if (busy.current) return;

@@ -4,6 +4,7 @@ import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import type { ExamRepository } from "../storage/examRepository.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { examContentVersion } from "../content/exam.ts";
+import { formatStorageMiB, inspectBrowserStorage, requestPersistentStorage, type BrowserStorageReport, type PersistenceRequest } from "../storage/browserStorageHealth.ts";
 
 /**
  * "Мої дані" (LEARN-16, WEB-07): see what is stored on this device, download all of it as one verified JSON file,
@@ -33,6 +34,27 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
   const [restoreConfirmed, setRestoreConfirmed] = useState(false);
   const [restoreStatus, setRestoreStatus] = useState<"idle" | "working" | "done" | { error: string }>("idle");
   const restoreChoice = useRef(0);
+  const [storageReport, setStorageReport] = useState<BrowserStorageReport | null>(null);
+  const [storageRequest, setStorageRequest] = useState<PersistenceRequest | "idle" | "requesting">("idle");
+  useEffect(() => {
+    let active = true;
+    // Inspection is read-only. Never ask for storage permission without a click.
+    void inspectBrowserStorage().then(report => { if (active) setStorageReport(report); });
+    return () => { active = false; };
+  }, []);
+  async function refreshStorageStatus() {
+    setStorageReport(await inspectBrowserStorage());
+    setStorageRequest("idle");
+  }
+  async function askPersistentStorage() {
+    if (!storageReport?.canRequestPersistence || storageReport.persistence === "persistent" || storageRequest === "requesting") return;
+    setStorageRequest("requesting");
+    // Called only by an explicit user click; never from mount, timers or effects.
+    const outcome = await requestPersistentStorage();
+    const verified = await inspectBrowserStorage();
+    setStorageReport(verified);
+    setStorageRequest(outcome);
+  }
 
   async function collect() {
     const [learn, imports, current, history, missionDraft, clinicDraft, readingDraft, listeningDraft, dialogueDraft, pictureDraft, diagnosticDraft] = await Promise.all([repository.read(), repository.listImports(), examRepository.read(), examRepository.history(), repository.readMissionDraft(), repository.readClinicDraft(), repository.readReadingDraft(), repository.readListeningDraft(), repository.readDialogueDraft(), repository.readPictureDraft(), repository.readDiagnosticDraft()]);
@@ -113,6 +135,35 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
       <p className="eyebrow">Приватність</p>
       <h1 id="data-title">Мої дані</h1>
       <p>Усе зберігається лише на цьому пристрої, у цьому браузері. Застосунок нічого не надсилає на сервер. Голос у навчанні не зберігається.</p>
+
+      <h2 id="local-storage-title">Надійність локального сховища</h2>
+      <p className="muted">Дані можуть зникнути після очищення браузера, у приватному режимі або через нестачу місця. Це перевірка умов зберігання, а не гарантія збереження.</p>
+      {storageReport === null ? <p role="status">Перевіряю стан сховища браузера…</p> :
+        !storageReport.supported ? <p role="status">Браузер не надає даних про режим зберігання. Статус невідомий.</p> : (
+        <div aria-labelledby="local-storage-title">
+          <p role="status">
+            {storageReport.persistence === "persistent" ? "Браузер підтвердив постійний режим зберігання для цього сайту." :
+              storageReport.persistence === "best-effort" ? "Режим best-effort: браузер може очистити локальні дані сайту за нестачі місця." :
+              "Режим зберігання не вдалося визначити."}
+          </p>
+          {storageReport.inspectionFailed && <p className="feedback warn" role="status">Частину параметрів сховища не вдалося прочитати. Відсутність відомостей не означає, що дані захищені.</p>}
+          {storageReport.usageBytes !== null && storageReport.quotaBytes !== null ?
+            <p className="muted">Орієнтовно використано {formatStorageMiB(storageReport.usageBytes)} з {formatStorageMiB(storageReport.quotaBytes)} квоти цього сайту. Цифри приблизні, стосуються всього сайту й не гарантують, що наступний запис вдасться.</p> :
+            <p className="muted">Оцінка обсягу сховища недоступна. Це не означає, що місце необмежене.</p>}
+          {storageReport.lowHeadroom && <p className="feedback warn" role="alert">За оцінкою браузера залишилося менше 64 МіБ. Нові записи можуть не зберегтися. Заверши незакінчені вправи, перевір копію завершеного прогресу й звільни місце.</p>}
+          {storageReport.persistence !== "persistent" && storageReport.canRequestPersistence && (
+            <div className="actions"><button type="button" className="btn secondary" disabled={storageRequest === "requesting"}
+              onClick={() => void askPersistentStorage()}>{storageRequest === "requesting" ? "Запитую в браузера…" : "Попросити постійне зберігання"}</button></div>
+          )}
+          {storageReport.persistence !== "persistent" && !storageReport.canRequestPersistence &&
+            <p className="muted">Цей браузер не підтримує запит на постійне зберігання через застосунок.</p>}
+        </div>
+      )}
+      {storageRequest === "denied" && <p className="feedback warn" role="status">Браузер не підтвердив постійне зберігання. Дані залишаються у звичайному режимі; їх не видалено.</p>}
+      {storageRequest === "unverified" && <p className="feedback warn" role="status">Запит виконано, але підтвердити результат неможливо. Не вважай дані захищеними.</p>}
+      {storageRequest === "error" && <p className="feedback error" role="alert">Запит завершився помилкою. Наявні дані не змінювалися.</p>}
+      <div className="actions"><button type="button" className="btn secondary" disabled={storageRequest === "requesting"} onClick={() => void refreshStorageStatus()}>Оновити стан сховища</button></div>
+      <p className="muted">Навіть постійний режим не захищає від видалення даних користувачем, перевстановлення браузера чи втрати пристрою. JSON-копія не включає незавершені чернетки й аудіофайли.</p>
 
       <h2>Що збережено</h2>
       {loaded === null ? <p className="muted">Читаю…</p> : "error" in loaded ? (

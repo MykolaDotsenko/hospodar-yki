@@ -62,7 +62,7 @@ test("LEARN-16/WEB-07: my data — verified JSON export, then separate typed-con
   expect(file.learn.state.attempts[0].transferText).toBe("Menen kauppaan.");
   expect(file.exam.history[0].bySkill.speaking.ungraded).toBe(1);
   expect(JSON.stringify(file)).not.toMatch(/officialGrade|ykiPass|predict/i);
-  await expect(page.getByRole("status")).toContainText(/Файл перевірено й завантажено/);
+  await expect(page.getByRole("status").filter({ hasText: /Файл перевірено й завантажено/ })).toBeVisible();
   await expect(page.locator("code.hash")).toHaveText(/^[0-9a-f]{64}$/);
 
   // EXAM erase: wrong word keeps the button disabled; the right one erases exam data only.

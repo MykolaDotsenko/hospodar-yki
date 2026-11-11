@@ -4,6 +4,7 @@ import { addDiagnostic, dialogueEvidence, dialogueReducer, dialogueView, startDi
 import { dialogues } from "../content/dialogues.ts";
 import { dialoguePayload, validDialogueDraft } from "../storage/dialogueDraft.ts";
 import type { LearnerRepository, DialogueDraftRow } from "../storage/learnerRepository.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
@@ -121,7 +122,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
     const timer = setTimeout(() => {
       if (id !== generation.current) return;
       void checkpoint(latest.current, inputRef.current).catch(e => {
-        setStatus("error"); setError("Автозбереження не вдалося (" + code(e) + "). Текст лишився на екрані.");
+        setStatus("error"); setError("Автозбереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timer);
@@ -132,7 +133,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
   }
   function failed(e: unknown) {
     setStatus("error");
-    setError("НЕ збережено (" + code(e) + "). Відповідь лишилася на екрані. Перевір іншу вкладку або спробуй знову.");
+    setError("Збереження не підтверджене (" + code(e) + "). " + writeFailureAdvice(e));
   }
   async function transition(event: DialogueEvent) {
     if (busy.current) return;

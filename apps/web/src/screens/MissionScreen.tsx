@@ -8,6 +8,7 @@ import { repairQuestionFor } from "../content/repairCues.ts";
 import { recommend, type Recommendation } from "../content/selection.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { clozeFingerprint, validMissionDraft, type MissionDraftPayload } from "../storage/missionDraft.ts";
+import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "answer", label: "Спроба" },
@@ -114,7 +115,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       void enqueueCheckpoint(mission, input).catch(e => {
         setDraftStatus("error");
         setError("Автозбереження не підтверджено (" +
-          String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). Текст залишається на екрані.");
+          String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). " + writeFailureAdvice(e));
       });
     }, 650);
     return () => clearTimeout(timeout);
@@ -165,9 +166,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     } catch (e) {
       const code = String((e as { code?: string })?.code ?? "SAVE_FAILED");
       setDraftStatus("error");
-      setError(code === "REVISION_CONFLICT" || code === "READBACK_MISMATCH"
-        ? "Не вдалося підтвердити запис (" + code + "). Онови сторінку й перевір прогрес перед повторною дією."
-        : "Не збережено (" + code + "). Спробуй знову, текст збережено на екрані.");
+      setError("Збереження не підтверджене (" + code + "). " + writeFailureAdvice(e));
     } finally { busy.current = false; setWorking(false); }
   }
 
@@ -188,7 +187,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
     } catch (e) {
       setDraftStatus("error");
       setError("Не вдалося зберегти чернетку (" +
-        String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). Залишаємося в місії.");
+        String((e as { code?: string })?.code ?? "SAVE_FAILED") + "). " + writeFailureAdvice(e));
     } finally { busy.current = false; setWorking(false); }
   }
 
