@@ -94,6 +94,12 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
     try { next = diagnosticReducer(current.current, B, event); }
     catch (e) { setMessage(e instanceof DiagnosticError ? ERR_UK[e.code] ?? "Цей крок недоступний." : "Цей крок недоступний."); return; }
     busy.current = true; setWorking(true); generation.current++; setMessage(null);
+    // Self-check is a private checkbox, not a correctness key or completed evidence.
+    // Update the controlled input synchronously for keyboard/Playwright accessibility;
+    // leave persistence status dirty until IndexedDB CAS + readback finishes.
+    if (event.type === "SELF_CHECK") {
+      current.current = next; setS(next); setSaveStatus("dirty");
+    }
     try {
       await queue.current;
       const voice = next.step === "speaking_check" && next.speaking.voiceRecorded;
