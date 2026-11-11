@@ -15,6 +15,8 @@ export interface ExamHistoryRecord {
   sessionId: string; blueprintId: string; contentVersion: string; skills: ExamSkill[] | null;
   startedAt: string; finishedAt: string; timeLimitMinutes: number;
   bySkill: Record<ExamSkill, { correct: number; objective: number; ungraded: number; unanswered: number }>;
+  /** TZ-EXAM-02: profile id + content hash the attempt ran on (absent for attempts before profiles existed). */
+  profileId?: string; profileHash?: string;
 }
 
 class ExamDb extends Dexie {

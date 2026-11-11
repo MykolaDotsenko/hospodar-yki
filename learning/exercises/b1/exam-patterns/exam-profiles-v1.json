@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-11-11",
+  "purpose_uk": "Профілі симулятора YKI як дані (docs/21 §10, TZ-EXAM-02…04). Кожен критичний параметр — запис із джерелом; невідоме лишається null і показується як тренувальне. Значення вносить лише людина за протоколом спостереження (TZ-EXAM-01) або з першоджерела OPH/JYU.",
+  "is_official_exam_content": false,
+  "stale_after_days": 30,
+  "dimensions": [
+    {
+      "dimension": "F1",
+      "status": "partial",
+      "basis_uk": "Чотири субтести, теми й комунікативні функції — за описами OPH (основа 2011 року). Відповідність цифровому іспиту 2027 не підтверджено; повних форм у застосунку немає."
+    },
+    {
+      "dimension": "F2",
+      "status": "partial",
+      "basis_uk": "Типи завдань (вибір із трьох, так/ні, відкрита відповідь, лист, діалог, монолог) — за історичними прикладами. У застосунку лише два короткі набори по 9 завдань."
+    },
+    {
+      "dimension": "F3",
+      "status": "unverified",
+      "basis_uk": "Жодне завдання не перевірене викладачем S2; аудіо переважно синтетичне, одним голосом."
+    },
+    {
+      "dimension": "F6",
+      "status": "unverified",
+      "basis_uk": "Письмо й говоріння не оцінюються; калібрування з подвійним оцінюванням людьми не проводилося."
+    }
+  ],
+  "profiles": [
+    {
+      "id": "practice",
+      "kind": "PRACTICE",
+      "version": "1.0.0",
+      "title_uk": "Тренувальний",
+      "title_fi": "Harjoitus",
+      "last_checked": null,
+      "records": [
+        {
+          "parameter": "structure.subtest_order",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.reading_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.listening_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.writing_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.speaking_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.on_expiry",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.back_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.review_screen",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.plays_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.pause_seek",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.prep_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.response_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.recording_start",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.rerecord_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.spellcheck",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.paste_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.counter",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "instructions.language",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        }
+      ]
+    },
+    {
+      "id": "oph-demo-observed",
+      "kind": "OPH_DEMO_OBSERVED",
+      "version": "0.0.0",
+      "title_uk": "За спостереженням демо OPH",
+      "title_fi": "OPH-demon mukaan",
+      "last_checked": null,
+      "records": [
+        {
+          "parameter": "structure.subtest_order",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.reading_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.listening_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.writing_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.speaking_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.on_expiry",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.back_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.review_screen",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.plays_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.pause_seek",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.prep_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.response_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.recording_start",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.rerecord_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.spellcheck",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.paste_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.counter",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "instructions.language",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        }
+      ]
+    },
+    {
+      "id": "live-2027-verified",
+      "kind": "LIVE_2027_VERIFIED",
+      "version": "0.0.0",
+      "title_uk": "Підтверджений іспит 2027",
+      "title_fi": "Vahvistettu 2027",
+      "last_checked": null,
+      "records": [
+        {
+          "parameter": "structure.subtest_order",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.reading_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.listening_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.writing_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.speaking_minutes",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "timing.on_expiry",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.back_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.review_screen",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.plays_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "listening.pause_seek",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.prep_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.response_seconds",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.recording_start",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "speaking.rerecord_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.spellcheck",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.paste_allowed",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "writing.counter",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "instructions.language",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        }
+      ]
+    }
+  ]
+}

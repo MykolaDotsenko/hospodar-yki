@@ -101,6 +101,8 @@ export interface ExamSession {
   version: number; blueprintId: string; timeLimitMinutes: number; startedAt: string; finishedAt: string | null;
   index: number; answers: Record<string, string>; voiceRecorded: Record<string, boolean>; voiceReceipts: Record<string, SpeakingReceipt>;
   voiceConsent: boolean; elapsedHighWaterMs: number; lastSavedAt: string; sessionId: string;
+  /** TZ-EXAM-02: the exam profile (id + content hash) this attempt started with; later profile edits never change it. */
+  profileId?: string; profileHash?: string;
 }
 const SESSION_ID = /^[a-zA-Z0-9_-]{3,60}$/;
 const TASK_ID = /^[a-z0-9_-]{1,110}$/i;
@@ -110,14 +112,16 @@ export function sessionIdOf(session: SessionLike | null | undefined): string {
   return "legacy-" + String(session?.startedAt || "").replace(/\D/g, "").slice(0, 40);
 }
 
-export function createSession(blueprintId: string, minutes = 0, now: Date = new Date(), sessionId: string | null = null): ExamSession {
+export function createSession(blueprintId: string, minutes = 0, now: Date = new Date(), sessionId: string | null = null,
+  profile: { id: string; hash: string } | null = null): ExamSession {
+  if (profile && !(/^[a-z0-9-]{3,60}$/.test(profile.id) && /^[0-9a-f]{8}$/.test(profile.hash))) throw new Error("Invalid exam profile");
   if (!/^yki-mini-[a-z0-9-]+$/.test(blueprintId)) throw new Error("Unknown blueprint id");
   if (!(PRACTICE_LIMITS_MINUTES as readonly number[]).includes(minutes)) throw new Error("Unsupported practice timer");
   if (Number.isNaN(now.getTime())) throw new Error("Invalid now");
   if (sessionId !== null && !SESSION_ID.test(sessionId)) throw new Error("Invalid session id");
   const base = { version: EXAM_STATE_VERSION, blueprintId, timeLimitMinutes: minutes, startedAt: now.toISOString(), finishedAt: null,
     index: 0, answers: {}, voiceRecorded: {}, voiceReceipts: {}, voiceConsent: false, elapsedHighWaterMs: 0, lastSavedAt: now.toISOString() };
-  return { ...base, sessionId: sessionId || sessionIdOf(base) };
+  return { ...base, sessionId: sessionId || sessionIdOf(base), ...(profile ? { profileId: profile.id, profileHash: profile.hash } : {}) };
 }
 
 export function loadSession(raw: string | null | undefined, blueprintIds: string[]): { session: ExamSession | null; recovered: boolean } {
@@ -142,7 +146,10 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
       for (const [id, r] of Object.entries(s.voiceReceipts))
         if (TASK_ID.test(id) && inspectSpeakingReceipt(r, { sessionId, taskId: id }).valid) voiceReceipts[id] = r as SpeakingReceipt;
     // Ephemeral (non-consented) recordings never survive a reload.
-    return { session: { ...s, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
+    const { profileId, profileHash, ...rest } = s;                       // a malformed profile pin is dropped, never trusted
+    const pinned = typeof profileId === "string" && /^[a-z0-9-]{3,60}$/.test(profileId) && typeof profileHash === "string" && /^[0-9a-f]{8}$/.test(profileHash)
+      ? { profileId, profileHash } : {};
+    return { session: { ...rest, ...pinned, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
   } catch {
     return { session: null, recovered: true };
   }

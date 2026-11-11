@@ -29,7 +29,7 @@ export interface ExamContext {
   pendingNavigation: ExamSession | null;
 }
 export type ExamEvent =
-  | { type: "START"; blueprintId: string; minutes: number; now: number; sessionId: string; skills?: ExamSkill[] | null }
+  | { type: "START"; blueprintId: string; minutes: number; now: number; sessionId: string; skills?: ExamSkill[] | null; profile?: { id: string; hash: string } | null }
   | { type: "ANSWER"; itemId: string; value: string; now: number }
   | { type: "COMPOSE_START"; itemId: string }
   | { type: "COMPOSE_END"; itemId: string; value: string; now: number }
@@ -65,7 +65,8 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
   const record = (c: ExamContext): ExamHistoryRecord => {
     const s = c.session!;
     return { sessionId: s.sessionId, blueprintId: s.blueprintId, contentVersion, skills: c.skills, startedAt: s.startedAt,
-      finishedAt: s.finishedAt!, timeLimitMinutes: s.timeLimitMinutes, bySkill: scoreSession(c.items, s).bySkill };
+      finishedAt: s.finishedAt!, timeLimitMinutes: s.timeLimitMinutes, bySkill: scoreSession(c.items, s).bySkill,
+      ...(s.profileId && s.profileHash ? { profileId: s.profileId, profileHash: s.profileHash } : {}) };
   };
   // An unconsented recording lived only in that page: after a reload it is gone, so it must not count as an answer.
   const restore = (cp: ExamCheckpoint) => ({ session: { ...cp.session, voiceRecorded: Object.fromEntries(Object.keys(cp.session.voiceReceipts ?? {}).map(k => [k, true])) },
@@ -110,7 +111,7 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
           START: { target: "saving", actions: assign(({ event }) => {
             const skills = normaliseSkills(event.skills);
             return { items: itemsFor(event.blueprintId, skills), skills, after: "active" as const, error: null, autosaveError: null, dirty: false,
-              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId), composingItemId: null, pendingNavigation: null };
+              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId, event.profile ?? null), composingItemId: null, pendingNavigation: null };
           }) },
         },
       },

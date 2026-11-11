@@ -90,3 +90,7 @@ Scoped G2 Web slice (GL-03): reading, listening, writing and speaking each get d
 
 Scoped G2 Web slice: the 9 dialogues gain a "partner did not understand → say it in other words → confirm" step and a changed condition after the learner's own role-play (S2-pending moves file, all productions ungraded, existing v7 checkpoint extended). `validate_design_traceability.py --human` lists the work only people can do. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--dialogues-with-a-clarification-request-and-a-changed-condition).
 
+## EXAM profile as data, three profiles, fidelity panel — 11.11.2026
+
+TZ-EXAM-02…04 of docs/21 §10: 18 critical exam parameters as sourced records (all `null` today), PRACTICE / OPH_DEMO_OBSERVED / LIVE_2027_VERIFIED profiles with honest availability, a six-status fidelity panel, and attempts pinned to their profile. Engine behaviour is not yet profile-driven. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--exam-profile-as-data-three-profiles-fidelity-panel-tz-exam-0204).
+
