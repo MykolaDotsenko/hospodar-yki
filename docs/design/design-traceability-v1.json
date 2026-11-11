@@ -1,6 +1,6 @@
 {
   "schema": "hospodar-design-traceability-v1",
-  "updated": "2026-11-03",
+  "updated": "2026-11-11",
   "purpose": "Every design/UX requirement from the canonical spec and research has an honest implementation status; ENFORCED and PARTIAL entries point to tests that exist. Checked by scripts/validate_design_traceability.py. Status describes the product, not a learning effect.",
   "sources": [
     "docs/15-two-modes-skill-scopes.md",
@@ -2019,6 +2019,10 @@
         {
           "file": "apps/web/e2e/dialogue.spec.ts",
           "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
         }
       ],
       "gap": "Each skill has its own mission; no single integrated 4-skill mission; export/clear UI not in apps/web."
@@ -3901,6 +3905,10 @@
         {
           "file": "apps/web/e2e/picture-mission.spec.ts",
           "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
         }
       ]
     },
@@ -5157,9 +5165,13 @@
         {
           "file": "packages/domain/test/r08-r06-parity.test.ts",
           "contains": "first-attempt evidence (meaning, form, error family) is identical to the reference"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "every real item of the five banks becomes a valid, unpublished card with a unique id"
         }
       ],
-      "gap": "Contextual cloze/R08 model exist; interleaving not built (COG-10)."
+      "gap": "Contextual cloze/R08 model exist; 132 contextual chunks + 40 rektio items are playable as own-answer → example → self-comparison → new-sentence cards in apps/web «Практика без підказки» (S2-pending, ungraded; a self-reported miss schedules the card on 1/3/7/14/30); interleaving not built (COG-10)."
     },
     {
       "id": "LEARN-09",
@@ -11294,6 +11306,713 @@
       "decided": "NPC — співрозмовник у завданні в редакційному стилі; декоративний маскот заборонено",
       "decided_on": "2026-11-03",
       "decided_by": "product owner"
+    }
+  ],
+  "method_registry": "research/pedagogy/learning-methods-v1.json",
+  "method_statuses": {
+    "ENFORCED": "the method's rule is in learner-facing code and a test fails if it is broken (for AVOID methods: the prohibition is tested)",
+    "PARTIAL": "part of the method is built and tested; gap stated",
+    "NOT_YET": "not built; plan stated; blocked_by names the human/rights dependency, absent = buildable now",
+    "EXCLUDED": "deliberately not built; reason cites the product decision"
+  },
+  "methods": [
+    {
+      "id": "spaced-retrieval",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Spaced retrieval: a phrase judged 'partly' returns the next day; a recalled one is never scheduled"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
+        },
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        }
+      ],
+      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated). Cloze items and self-reported problem chunks/rektio are scheduled; delayed 7/14/30 new-context checks exist only for grammar writing (GL-03)."
+    },
+    {
+      "id": "yki-constructive-alignment",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ],
+      "gap": "EXAM rehearsal covers 4 skills; the 9 theme files and can-do coverage map are not loaded or checked in the apps."
+    },
+    {
+      "id": "human-anchor-calibration",
+      "status": "NOT_YET",
+      "plan": "Blind double-marked S2 anchor set for writing/speaking (R04). Until then every production stays ungraded.",
+      "blocked_by": "HUMAN_RATERS_OR_STUDY"
+    },
+    {
+      "id": "task-based",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+        }
+      ],
+      "gap": "Short scenario tasks (dialogue, reaction, opinion with changed condition); no 20-minute multi-step scenario with task-success criteria."
+    },
+    {
+      "id": "error-bottleneck-deliberate",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
+        }
+      ],
+      "gap": "Errors are logged per grammar tag and repair cues are tag-specific; no targeted 3–5 prompt set per bottleneck with delayed re-test."
+    },
+    {
+      "id": "prompted-self-repair",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        }
+      ]
+    },
+    {
+      "id": "comprehensible-input",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "Small pool of texts/audio (S2-pending); no graded A2.2→B1+ library.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "feedback-uptake-not-rewriting",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        }
+      ]
+    },
+    {
+      "id": "task-repetition-transfer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
+        }
+      ]
+    },
+    {
+      "id": "balanced-deep-surface-feedback",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "explicit-context-grammar",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ],
+      "gap": "Contextual cloze with tag-specific repair; R08 meaning→form has 0 published items (14 drafts await S2).",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "metacognitive-listening",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        }
+      ]
+    },
+    {
+      "id": "negotiation-repair-dialogues",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+        }
+      ],
+      "gap": "Reply-first dialogues and reactions exist; no 'partner did not understand' turn or mid-dialogue condition change."
+    },
+    {
+      "id": "unseen-diagnostics",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        }
+      ],
+      "gap": "One starting diagnostic; no separate held-out bank or repeat every 2–4 weeks."
+    },
+    {
+      "id": "writing-revision",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "pragmatic-speech-acts",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+        }
+      ],
+      "gap": "18 reaction cards practise requests/refusals with a model after the attempt; no interlocutor change (friend → neighbour → employer) and no separate appropriateness feedback."
+    },
+    {
+      "id": "guided-corpus-discovery",
+      "status": "NOT_YET",
+      "plan": "3–5 licensed contexts → learner hypothesis → rule → new situation. Needs licensed, S2-checked example sets.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "hybrid-ai-teacher-loop",
+      "status": "EXCLUDED",
+      "reason": "Product principle 24.10.2026 (docs/15 CURATED): the learner path must work without generative AI; no AI tutor or AI-generated keys/grades in runtime."
+    },
+    {
+      "id": "kirja-puhe",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        }
+      ],
+      "gap": "One puhekieli video and dialect voices in the media library; no paired kirjakieli/puhekieli items with register tags.",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "multimedia-dual-code",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "peer-writing-with-prompts",
+      "status": "NOT_YET",
+      "plan": "Needs a partner or teacher; the product is local-first and single-user today.",
+      "blocked_by": "OTHER_LEARNERS_OR_TEACHER"
+    },
+    {
+      "id": "pre-task-planning",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/diagnostic.spec.ts",
+          "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        }
+      ],
+      "gap": "Speaking tasks accept a text plan; no explicit short planning step before free production."
+    },
+    {
+      "id": "chunk-learning",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Spaced retrieval: a phrase judged 'partly' returns the next day; a recalled one is never scheduled"
+        }
+      ],
+      "gap": "132 chunks + 40 rektio items playable as retrieval → example → new sentence, scheduled after self-reported failure; all S2-pending.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "evidence-guided-listening",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        }
+      ],
+      "gap": "Transcript and subtitles only after answering; evidence spans are highlighted in reading, not aligned in audio."
+    },
+    {
+      "id": "finnish-quantity-dual-track",
+      "status": "NOT_YET",
+      "plan": "Quantity minimal pairs (tuli/tuuli/tulli) perception + separate production. Needs S2-approved multi-talker human recordings with cleared rights (R05).",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "focus-on-form-trigger",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "wrong → repair without key → feedback with key → transfer → saved; survives reload"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
+        }
+      ]
+    },
+    {
+      "id": "graduated-task-sequencing",
+      "status": "NOT_YET",
+      "plan": "Add constraints step by step (time, addressee, missing info) to an existing task family; buildable on practice/dialogue items."
+    },
+    {
+      "id": "high-variability-phonetics",
+      "status": "NOT_YET",
+      "plan": "Identification training across several human voices with feedback (R05). Needs licensed multi-talker audio.",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "mobile-contextual-micropractice",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
+        }
+      ],
+      "gap": "Practice cards are 1–3 minute, optional and theme-filtered; no 'before a real situation' entry point."
+    },
+    {
+      "id": "structured-input-grammar",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ],
+      "gap": "R08 meaning-before-form flow is built and reviewer-previewable; 0 items published to learners.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "extensive-reading",
+      "status": "NOT_YET",
+      "plan": "Graded reading-for-meaning library. Needs licensed, levelled, S2-reviewed texts.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "finnish-morph-contrast",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R03/R08 reviewer preview: meaning → form → editor-tagged cause; learner progress untouched"
+        }
+      ],
+      "gap": "R08 separates case meaning, stem and rektio causes; contrast sets not published.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "real-world-interaction",
+      "status": "NOT_YET",
+      "plan": "Optional out-of-app mission with a private self-report (no tracking). Buildable; prompts need S2 wording check."
+    },
+    {
+      "id": "caption-fading",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "cefr-mediation-paraphrase",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
+        }
+      ],
+      "gap": "Paraphrase retell exists at sentence level; no 'read/hear a notice → explain to a friend' mediation task."
+    },
+    {
+      "id": "digital-task-literacy",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        }
+      ],
+      "gap": "Neutral computer-based rehearsal with labelled unofficial timer; OPH 2027 UI not verified (R02)."
+    },
+    {
+      "id": "productive-paraphrasing",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
+        }
+      ]
+    },
+    {
+      "id": "collaborative-writing",
+      "status": "NOT_YET",
+      "plan": "Needs other learners; single-user local-first product.",
+      "blocked_by": "OTHER_LEARNERS_OR_TEACHER"
+    },
+    {
+      "id": "corpus-collocation-noticing",
+      "status": "NOT_YET",
+      "plan": "Sorting licensed examples by collocation. Needs licensed corpus examples.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "holdout-item-bank-and-calibration",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        }
+      ],
+      "gap": "EXAM items are excluded from LEARN pools (reading, practice); no versioned exposure control or calibration."
+    },
+    {
+      "id": "learner-concept-map",
+      "status": "NOT_YET",
+      "plan": "Optional thesis map before speaking, then hidden. Buildable as a planning step."
+    },
+    {
+      "id": "uncertainty-aware-asr",
+      "status": "EXCLUDED",
+      "reason": "R04: no validated Finnish L2 ASR; speech stays ungraded with consented local recording only."
+    },
+    {
+      "id": "strategic-audio-notes",
+      "status": "NOT_YET",
+      "plan": "Optional time/place/action note fields after the first listen. Buildable in the listening mission."
+    },
+    {
+      "id": "autonomy-support-and-choice",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ]
+    },
+    {
+      "id": "information-gap-decisions",
+      "status": "NOT_YET",
+      "plan": "Scenario with hidden information and a consequence. Needs new S2-authored scenarios.",
+      "blocked_by": "S2_REVIEW"
+    },
+    {
+      "id": "phonemic-minimal-pairs",
+      "status": "NOT_YET",
+      "plan": "Depends on finnish-quantity-dual-track audio.",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "ai-voice-roleplay",
+      "status": "EXCLUDED",
+      "reason": "Product principle 24.10.2026 (docs/15 CURATED): the learner path must work without generative AI; no AI tutor or AI-generated keys/grades in runtime."
+    },
+    {
+      "id": "fsrs-scheduler-chunks",
+      "status": "NOT_YET",
+      "plan": "Keep the documented 1/3/7/14/30 heuristic until there is enough local review data; FSRS is opt-in future work (R06)."
+    },
+    {
+      "id": "glosses",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
+        }
+      ],
+      "gap": "Ukrainian gloss after the attempt in picture missions and phrase cards; no on-demand word gloss inside reading texts."
+    },
+    {
+      "id": "interleaving-grammar",
+      "status": "NOT_YET",
+      "plan": "After first explanation, mix confusable cases (talossa/talosta/taloon) — PSY-06, COG-10. Buildable on rektio/cloze tags."
+    },
+    {
+      "id": "yki-mock",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        }
+      ],
+      "gap": "Separate exam mode without aids; rules are labelled practice because OPH 2027 parameters are unverified."
+    },
+    {
+      "id": "self-regulation",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/retention-progress.spec.ts",
+          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        }
+      ]
+    },
+    {
+      "id": "visual-acoustic-speech-feedback",
+      "status": "NOT_YET",
+      "plan": "Waveform only with human-checked markers; depends on phonetics audio.",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "privacy-and-safe-personalization",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/data.spec.ts",
+          "contains": "LEARN-16/WEB-07: my data — verified JSON export, then separate typed-confirmation erase of EXAM and LEARN"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        }
+      ]
+    },
+    {
+      "id": "visual-scaffolds",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/picture-mission.spec.ts",
+          "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        }
+      ]
+    },
+    {
+      "id": "dictogloss",
+      "status": "NOT_YET",
+      "plan": "Listen → reconstruct → compare with delayed transcript. Buildable on existing listening lessons."
+    },
+    {
+      "id": "fluency-432",
+      "status": "NOT_YET",
+      "plan": "Optional repeated-telling timer for prepared learners; low priority, ungraded."
+    },
+    {
+      "id": "keyword-mnemonic-retrieval",
+      "status": "NOT_YET",
+      "plan": "Optional personal mnemonic on a problem chunk; buildable on SRS cards."
+    },
+    {
+      "id": "micro-missions",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/r06-r08.spec.ts",
+          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        }
+      ],
+      "gap": "Missions are short and optional; R08-MOT plan module is not wired into the app."
+    },
+    {
+      "id": "read-while-listen-scaffold",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "shadowing",
+      "status": "NOT_YET",
+      "plan": "Echo player with pauses and own local recording; needs human audio segments.",
+      "blocked_by": "LICENSED_HUMAN_AUDIO"
+    },
+    {
+      "id": "gamification",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/calm.spec.ts",
+          "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        }
+      ],
+      "gap": "Deliberately minimal: calm mode, no mascot, no streaks; optional meaningful choices only."
+    },
+    {
+      "id": "contrast-uk-fi",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
+        }
+      ],
+      "gap": "Ukrainian explanations with Finnish examples exist; no systematic UA↔FI contrast notes (R03: no verified UA-L1 error ranking)."
+    },
+    {
+      "id": "immersive-vr-roleplay",
+      "status": "EXCLUDED",
+      "reason": "P2 experimental; out of scope before Web/Android basics."
+    },
+    {
+      "id": "single-tts-only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "all 6 real lessons are valid and synthetic single-voice"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "human-voiced story is a listening mission with credit; options are not always in the first position"
+        }
+      ]
+    },
+    {
+      "id": "passive-listening-only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ]
+    },
+    {
+      "id": "isolated-word-lists-only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "every real item of the five banks becomes a valid, unpublished card with a unique id"
+        }
+      ]
+    },
+    {
+      "id": "ai-passive-rewrite-only",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded"
+        }
+      ]
+    },
+    {
+      "id": "instant-answer",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/mission.test.ts",
+          "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "refuses a card whose first screen already prints the expected Finnish answer"
+        }
+      ]
+    },
+    {
+      "id": "surprise-noise",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        }
+      ],
+      "gap": "No sound effects exist in apps/web and audio is learner-started; there is no dedicated 'no autoplay sound' test."
     }
   ]
 }

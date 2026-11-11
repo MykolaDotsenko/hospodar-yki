@@ -8,6 +8,7 @@ For pedagogical, audio, animation, color, focus, adaptive feedback or gameplay c
 
 ## One reproducible work loop
 
+0. **Research first (LEARN/EXAM work):** run `python3 scripts/validate_design_traceability.py --next` and pick the most valuable open method or exam requirement that fits the task; see the gate at the top of [AGENTS.md](../AGENTS.md). The matrix holds one status for each of the 70 registry methods (`ENFORCED` / `PARTIAL` / `NOT_YET` / `EXCLUDED`, optional `blocked_by` human dependency) next to the requirement statuses, and CI rejects a method without status or with evidence text that no test contains.
 1. **Orient:** read AGENTS and [INDEX](INDEX.md); inspect exact current main/head commit, nearby code/tests and relevant ADR/requirement. Identify whether a claim is IMPLEMENTED, PARTIAL, SOURCE_PROTOTYPE or TARGET.
 2. **Define acceptance:** state concrete user outcome, smallest affected modules, stable IDs, happy path, failure paths, compatibility/rollback and relevant YKI/rights/privacy constraints.
 3. **Plan proportional to risk:** quick local fix → inline short checklist; multi-file/data migration/platform/security work → [execution plan](exec-plans/README.md) committed with scope, evidence matrix and progress. No fictional progress, invented APIs or fabricated tests.
