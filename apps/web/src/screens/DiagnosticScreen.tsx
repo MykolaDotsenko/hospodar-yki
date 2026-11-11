@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "rea
 import { addDiagnostic, diagnosticEvidence, diagnosticReducer, diagnosticSummary, diagnosticView, startDiagnostic,
   DiagnosticError, PRODUCTION_MAX_CHARS, type DiagnosticEvent, type DiagnosticSession, type LearnerState } from "@hospodar/domain";
 import { baseline as B } from "../content/diagnostic.ts";
-import type { LearnerRepository } from "../storage/learnerRepository.ts";
+import { diagnosticPayload, validDiagnosticDraft } from "../storage/diagnosticDraft.ts";
+import type { DiagnosticDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
 
 type Snap = { state: LearnerState; revision: number };
 const NEXT_UK = {
@@ -12,6 +13,8 @@ const NEXT_UK = {
   listening_missions: "Аудіювання тут не перевірялося (запису ще немає) — спробуй місії «Аудіювання».",
   grammar_in_context: "Граматика в контексті: щоденна місія «Навчання».",
 } as const;
+type Loaded = { kind: "loading" } | { kind: "ready"; draft: DiagnosticDraftRow | null; blocked: string | null };
+const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 const ERR_UK: Record<string, string> = {
   TOO_SHORT: "Напиши щонайменше 20 символів — хоч кілька речень.",
   EMPTY_RESPONSE: "Запиши голос або напиши свій усний план.",
@@ -22,35 +25,169 @@ const ERR_UK: Record<string, string> = {
 export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onListening }: {
   repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void; onListening: () => void;
 }) {
+
   const [s, setS] = useState<DiagnosticSession>(() => startDiagnostic(B));
-  const latest = useRef(s); latest.current = s;
+  const current = useRef(s); current.current = s;
   const snap = useRef(snapshot); snap.current = snapshot;
-  const [text, setText] = useState("");
-  const [pick, setPick] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [saving, setSaving] = useState<"idle" | "saving" | { error: string }>("idle");
+  const [text, setText] = useState(""), textRef = useRef("");
+  const [pick, setPick] = useState<number | null>(null), pickRef = useRef<number | null>(null);
+  const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
+  const [working, setWorking] = useState(false), busy = useRef(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [discarding, setDiscarding] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "dirty" | "saving" | "saved" | "error">("idle");
+  const revision = useRef(0), savedPayload = useRef(""), generation = useRef(0);
+  const queue = useRef<Promise<void>>(Promise.resolve());
   const heading = useRef<HTMLHeadingElement>(null);
   const v = diagnosticView(s, B);
-  useEffect(() => { heading.current?.focus(); }, [s.step, s.readingIndex]);
-
-  const act = (e: DiagnosticEvent) => {
-    setError(null);
-    try { const n = diagnosticReducer(latest.current, B, e); latest.current = n; setS(n); return true; }
-    catch (err) { setError(err instanceof DiagnosticError ? ERR_UK[err.code] ?? "Цей крок зараз недоступний." : "Помилка."); return false; }
-  };
-  /** Persist this step's evidence BEFORE moving on; failure keeps the learner on the step with their text. */
-  async function saveAndContinue(skill: "reading" | "writing" | "speaking") {
-    setSaving("saving");
-    try {
-      let st = snap.current.state;
-      for (const ev of diagnosticEvidence(latest.current, B, skill)) st = addDiagnostic(st, ev);
-      const saved = await repository.commit(st, snap.current.revision);
-      snap.current = saved; onSaved(saved);
-      act({ type: "MARK_SAVED", skill }); act({ type: "CONTINUE" });
-      setText(""); setSaving("idle");
-    } catch (err) { setSaving({ error: String((err as { code?: string })?.code ?? "SAVE_FAILED") }); }
+  useEffect(() => {
+    let alive = true;
+    void repository.readDiagnosticDraft().then(row => {
+      if (!alive) return;
+      const invalid = row && (!validDiagnosticDraft({
+        session: row.session, input: row.input, pick: row.pick, contentFingerprint: row.contentFingerprint,
+      }, B) || row.learnerRevision !== snap.current.revision);
+      if (row && !invalid) {
+        current.current = row.session; setS(row.session);
+        textRef.current = row.input; setText(row.input);
+        pickRef.current = row.pick; setPick(row.pick);
+        revision.current = row.revision;
+        savedPayload.current = JSON.stringify(diagnosticPayload(row.session, row.input, row.pick, B));
+        setSaveStatus("saved");
+      }
+      setLoaded({ kind: "ready", draft: row, blocked: invalid ? "Несумісна або застаріла чернетка діагностики. Відповіді приховано; нічого не перезаписано." : null });
+    }).catch(e => { if (alive) { setLoadError(code(e)); setLoaded({ kind: "ready", draft: null, blocked: "Не вдалося прочитати чернетку. Дані не змінено." }); } });
+    return () => { alive = false; };
+  }, [repository]);
+  useEffect(() => { if (loaded.kind === "ready" && !loaded.blocked) heading.current?.focus(); }, [loaded.kind, s.step, s.readingIndex]);
+  const setTyped = (t: string) => { textRef.current = t; setText(t); generation.current++; setMessage(null); setSaveStatus("dirty"); };
+  const setChoice = (p: number) => { pickRef.current = p; setPick(p); generation.current++; setMessage(null); setSaveStatus("dirty"); };
+  const failure = (e: unknown) => { setSaveStatus("error"); setMessage("НЕ збережено (" + code(e) + "). Спроба лишилася на екрані; перевір іншу вкладку."); };
+  function checkpoint(session: DiagnosticSession, input: string, pick: number | null): Promise<void> {
+    const payload = diagnosticPayload(session, input, pick, B);
+    if (!validDiagnosticDraft(payload, B)) return Promise.reject(new Error("INVALID_DRAFT"));
+    const signature = JSON.stringify(payload);
+    const next = queue.current.then(async () => {
+      if (signature === savedPayload.current) return;
+      setSaveStatus("saving");
+      const row = await repository.saveDiagnosticDraft(payload, snap.current.revision, revision.current);
+      revision.current = row.revision; savedPayload.current = signature; setSaveStatus("saved");
+    });
+    queue.current = next.catch(() => {});
+    return next;
   }
-  const saveError = typeof saving === "object" && <p className="feedback error" role="alert">НЕ збережено ({saving.error}). Твоя відповідь лишилася тут — спробуй ще раз.</p>;
+  useEffect(() => {
+    if (loaded.kind !== "ready" || loaded.blocked || busy.current || s.step === "summary" ||
+        (s.step === "speaking_check" && s.speaking.voiceRecorded) ||
+        (s.step === "reading" && pick === null && revision.current === 0)) return;
+    const id = generation.current;
+    const timer = setTimeout(() => {
+      if (id !== generation.current) return;
+      void checkpoint(current.current, textRef.current, pickRef.current).catch(failure);
+    }, 650);
+    return () => clearTimeout(timer);
+  }, [loaded.kind, s, text, pick]);
+  async function advance(event: DiagnosticEvent) {
+    if (busy.current || loaded.kind !== "ready" || loaded.blocked) return;
+    let next: DiagnosticSession;
+    try { next = diagnosticReducer(current.current, B, event); }
+    catch (e) { setMessage(e instanceof DiagnosticError ? ERR_UK[e.code] ?? "Цей крок недоступний." : "Цей крок недоступний."); return; }
+    busy.current = true; setWorking(true); generation.current++; setMessage(null);
+    try {
+      await queue.current;
+      const voice = next.step === "speaking_check" && next.speaking.voiceRecorded;
+      const durable = voice ? (next.speaking.text ? { ...next, speaking: { ...next.speaking, voiceRecorded: false } }
+        : { ...next, step: "speaking" as const, speaking: { text: "", voiceRecorded: false }, speakingChecked: [] }) : next;
+      await checkpoint(durable, "", null);
+      current.current = next; setS(next); textRef.current = ""; setText(""); pickRef.current = null; setPick(null);
+    } catch (e) { failure(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function saveSkill(skill: "reading" | "writing" | "speaking") {
+    if (busy.current || loaded.kind !== "ready" || loaded.blocked) return;
+    const before = current.current;
+    let after: DiagnosticSession;
+    try { after = diagnosticReducer(diagnosticReducer(before, B, { type: "MARK_SAVED", skill }), B, { type: "CONTINUE" }); }
+    catch { setMessage("Цей крок недоступний."); return; }
+    busy.current = true; setWorking(true); generation.current++; setMessage(null);
+    try {
+      await queue.current;
+      let history = snap.current.state;
+      for (const ev of diagnosticEvidence(before, B, skill)) history = addDiagnostic(history, ev);
+      if (skill === "reading" || skill === "writing") {
+        await checkpoint(before, "", null);
+        const result = await repository.commitDiagnosticDraftStep(history,
+          diagnosticPayload(after, "", null, B), skill, snap.current.revision, revision.current);
+        revision.current = result.draft.revision; savedPayload.current = JSON.stringify(diagnosticPayload(after, "", null, B));
+        snap.current = result.snapshot; onSaved(result.snapshot);
+      } else {
+        const voiceOnly = before.speaking.voiceRecorded && !before.speaking.text;
+        if (!voiceOnly) await checkpoint(before.speaking.voiceRecorded
+          ? { ...before, speaking: { ...before.speaking, voiceRecorded: false } } : before, "", null);
+        const result = await repository.finishDiagnosticDraft(history, snap.current.revision, revision.current, before.speaking.text, voiceOnly);
+        snap.current = result; onSaved(result); revision.current = 0; savedPayload.current = "";
+      }
+      current.current = after; setS(after); textRef.current = ""; setText(""); pickRef.current = null; setPick(null); setSaveStatus("saved");
+    } catch (e) { failure(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function pause() {
+    if (busy.current || loaded.kind !== "ready" || loaded.blocked) return;
+    busy.current = true; setWorking(true); generation.current++; setMessage(null);
+    try {
+      await queue.current;
+      const before = current.current;
+      const voice = before.step === "speaking_check" && before.speaking.voiceRecorded;
+      const durable = voice ? (before.speaking.text
+        ? { ...before, speaking: { ...before.speaking, voiceRecorded: false } }
+        : { ...before, step: "speaking" as const, speaking: { text: "", voiceRecorded: false }, speakingChecked: [] }) : before;
+      const input = voice ? "" : textRef.current, pick = voice ? null : pickRef.current;
+      if (revision.current || input || pick !== null || durable.step !== "reading") {
+        await checkpoint(durable, input, pick);
+        const back = await repository.readDiagnosticDraft();
+        if (!back || back.revision !== revision.current ||
+            JSON.stringify(diagnosticPayload(back.session, back.input, back.pick, B)) !== JSON.stringify(diagnosticPayload(durable, input, pick, B)))
+          throw new Error("READBACK_MISMATCH");
+      }
+      onHome();
+    } catch (e) { failure(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function discard() {
+    if (busy.current || loaded.kind !== "ready" || loaded.blocked) return;
+    busy.current = true; setWorking(true); generation.current++; setMessage(null);
+    try {
+      await queue.current;
+      if (revision.current) await repository.discardDiagnosticDraft(snap.current.revision, revision.current);
+      onHome();
+    } catch (e) { failure(e); }
+    finally { busy.current = false; setWorking(false); }
+  }
+  async function discardBlocked() {
+    if (loaded.kind !== "ready" || !loaded.draft || discarding) return;
+    setDiscarding(true); setLoadError(null);
+    try {
+      await repository.discardDiagnosticDraft(snap.current.revision, loaded.draft.revision);
+      setLoaded({ kind: "ready", draft: null, blocked: null });
+      current.current = startDiagnostic(B); setS(current.current);
+      revision.current = 0; savedPayload.current = ""; textRef.current = ""; setText(""); pickRef.current = null; setPick(null);
+    } catch (e) { setLoadError(code(e)); }
+    finally { setDiscarding(false); }
+  }
+  if (loaded.kind === "loading") return <section className="panel" role="status">Читаю незавершену діагностику…</section>;
+  if (loaded.blocked) return <section className="panel" aria-labelledby="dg-blocked">
+    <h1 id="dg-blocked">Чернетка діагностики потребує уваги</h1>
+    <p className="feedback warn" role="alert">{loaded.blocked}</p>
+    {loadError && <p className="feedback error" role="alert">Помилка ({loadError}). Нічого не перезаписано.</p>}
+    <div className="actions">
+      {loaded.draft && <button type="button" className="btn danger"
+        disabled={discarding || loaded.draft.learnerRevision !== snap.current.revision}
+        onClick={() => void discardBlocked()}>Відкинути несумісну чернетку</button>}
+      <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
+    </div>
+  </section>;
+  const saveError = message && <p className="feedback error" role="alert">{message}</p>;
   const titles = { reading: "Читання", reading_feedback: "Читання: що вийшло", writing: "Письмо", writing_check: "Письмо: перевір себе",
     speaking: "Говоріння", speaking_check: "Говоріння: перевір себе", summary: "Що далі" };
 
