@@ -77,3 +77,7 @@ Scoped storage-quality work, **not** a claim that IndexedDB is a durable off-dev
 ## G2 Web transactional fault injection and legacy replay guard — 11.11.2026
 
 Scoped integrity hardening after v9 Diagnostic and browser storage inspection: legacy import now requires a truly unowned/empty destination (including blank learner and pre-existing receipts), verifies exact imported receipt alongside learner counts, and warns that post-commit readback failure is ambiguous rather than "nothing changed". Real `IDBObjectStore` abort tests inject quota/abort faults **between the two writes** of import and Diagnostic transactions; Web E2E injects and checks recovery in Chromium/Firefox/WebKit. See [fault matrix execution plan](exec-plans/active/2026-11-11-idb-abort-import-replay.md). All tests remain gated by PR CI. Physical OS kill, actual browser eviction, hardware disk pressure, Room and Android remain unverified.
+
+## LEARN existing-content connection — 11.11.2026
+
+Scoped G2 Web slice: paraphrase, speaking reaction, opinion, contextual chunk and rektio banks become «Практика без підказки» cards (own answer first, model after, new situation; only the paraphrase choice scored). No new storage store, no SRS feed, no S2 approval, no Android. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--learn-практика-без-підказки-existing-banks-connected-g2-web).
