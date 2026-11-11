@@ -171,7 +171,8 @@ class MethodCoverageTests(unittest.TestCase):
         self.assertNotIn("hybrid-ai-teacher-loop", text)                  # excluded by product decision
         self.assertLess(free.index(" P0 "), free.index(" P1 "))
         self.assertIn("EXAM simulator requirements not fully met", text)
-        self.assertIn("learning/exercises/b1/themes/01-mina-ja-taustani.json", text)
+        self.assertIn("learning/exercises/b1/feedback-rubrics.json", text)
+        self.assertNotIn("themes/01-mina-ja-taustani.json", text)          # loaded through a folder glob
         self.assertNotIn("paraphrase-drills.json", text)                  # loaded by apps/web
 
 

@@ -2040,9 +2040,29 @@
         {
           "file": "packages/domain/test/retention-parity.test.ts",
           "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        },
+        {
+          "file": "apps/web/e2e/skill-retention.spec.ts",
+          "contains": "GL-03 reading: day-7 check on a withheld text; first answers frozen; keys only after a durable save; not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/skill-retention.spec.ts",
+          "contains": "GL-03 listening: audio first, a lesson never met before; text support saves ungraded"
+        },
+        {
+          "file": "apps/web/e2e/skill-retention.spec.ts",
+          "contains": "GL-03 writing: withheld prompt, own text saved ungraded; task points appear only afterwards as self-check"
+        },
+        {
+          "file": "packages/domain/test/skill-retention.test.ts",
+          "contains": "missed windows are reported missed, never passed retroactively; late check is recorded as late"
+        },
+        {
+          "file": "packages/domain/test/skill-retention.test.ts",
+          "contains": "writing/speaking stay ungraded; task points appear only in the reveal as self-check"
         }
       ],
-      "gap": "Delayed checks exist only for grammar writing transfer; listening/reading/speaking delayed checks not built."
+      "gap": "All four skills now have day 7/14/30 checks on new items (reading: 3 withheld texts; writing/speaking: 3 withheld theme prompts each; listening: the first lesson this learner has not met, EXAM lessons excluded), missed/late recorded. Gaps: speaking is a typed plan, not a recorded voice; the listening pool is small (5 lessons, synthetic single voice + 1 human story) and runs out; all items S2-pending; no baseline-vs-delayed comparison per skill."
     },
     {
       "id": "GL-04",
@@ -11331,9 +11351,13 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "apps/web/e2e/skill-retention.spec.ts",
+          "contains": "GL-03 reading: day-7 check on a withheld text; first answers frozen; keys only after a durable save; not repeatable"
         }
       ],
-      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated). Cloze items and self-reported problem chunks/rektio are scheduled; delayed 7/14/30 new-context checks exist only for grammar writing (GL-03)."
+      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated). Cloze items and self-reported problem chunks/rektio are scheduled; delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool)."
     },
     {
       "id": "yki-constructive-alignment",

@@ -23,7 +23,8 @@ import { PracticeScreen } from "./screens/PracticeScreen.tsx";
 import { DataScreen } from "./screens/DataScreen.tsx";
 import { OfflineScreen } from "./screens/OfflineScreen.tsx";
 import { applyUpdate, onUpdateReady } from "./pwa/offline.ts";
-import { delayedTransferQueue } from "@hospodar/domain";
+import { delayedTransferQueue, skillRetentionQueue } from "@hospodar/domain";
+import { skillRetentionBank } from "./content/skillRetention.ts";
 import { transferBank } from "./content/transfer.ts";
 import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
 
@@ -93,7 +94,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
 }
 
 function Home({ state, onLearn, onImport, onRetention, onProgress, onListening, onDiagnostic, onWriting, onDialogue, onMedia, onPictures, onReading, onPractice, onExam, onData, onOffline }: { state: LearnerState | null; onLearn: () => void; onImport: () => void; onRetention: () => void; onProgress: () => void; onListening: () => void; onDiagnostic: () => void; onWriting: () => void; onDialogue: () => void; onMedia: () => void; onPictures: () => void; onReading: () => void; onPractice: () => void; onExam: () => void; onData: () => void; onOffline: () => void }) {
-  const retDue = state ? delayedTransferQueue(state, transferBank).filter(q => q.due).length : 0;
+  const retDue = state ? delayedTransferQueue(state, transferBank).filter(q => q.due).length + skillRetentionQueue(state, skillRetentionBank).filter(q => q.due).length : 0;
   const done = state?.attempts.length ?? 0;
   const due = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;

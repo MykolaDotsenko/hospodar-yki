@@ -211,8 +211,10 @@ def check_methods(doc: dict, registry: list[dict], root: Path = ROOT) -> list[st
 def unused_content(root: Path = ROOT) -> list[str]:
     """Authored exercise/dictionary JSON that no app loads (report only: some files are indexes or drafts)."""
     users = "".join(f.read_text(encoding="utf-8") for g in CONTENT_USERS for f in root.glob(g))
+    def loaded(f: Path) -> bool:                                   # by file name, or by an import.meta.glob of its folder
+        return f.name in users or f"{f.parent.name}/*.json" in users
     return sorted(f.relative_to(root).as_posix() for g in CONTENT_GLOBS for f in root.glob(g)
-                  if f.name not in users and f.name not in ("index.json", "available.json"))
+                  if not loaded(f) and f.name not in ("index.json", "available.json"))
 
 
 def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:

@@ -3,6 +3,7 @@ import { completedTransferReflection, delayedTransferQueue, recordDelayedTransfe
   type DelayedTransferReflection, type LearnerState } from "@hospodar/domain";
 import { transferBank } from "../content/transfer.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
+import { SkillChecks } from "./SkillChecks.tsx";
 
 /**
  * LE-10 / IV-REQ-03: independent 7/14/30-day retrieval, then optional
@@ -64,6 +65,7 @@ export function RetentionScreen({ repository, snapshot, onSaved, onHome }: {
     <section className="panel" aria-labelledby="ret-title">
       <p className="eyebrow">Навчання · відкладена перевірка</p>
       <h1 id="ret-title">Через 7 / 14 / 30 днів</h1>
+      <h2>Граматика в новій ситуації</h2>
       <p>Нова ситуація без підказки на ту саму тему, що й твоя місія. Відповідь зберігається, але <strong>автоматично не оцінюється</strong>.</p>
       <p className="muted">Навчальні завдання — чернетки, ще не схвалені викладачем фінської як другої мови (S2). Це не іспит YKI.</p>
 
@@ -108,6 +110,8 @@ export function RetentionScreen({ repository, snapshot, onSaved, onHome }: {
       ) : status !== "saved" && (
         <p role="status">{next ? `Наступна перевірка: через ${next.days} дн. (${next.tag}).` : "Відкладені перевірки з'являться через 7 днів після першої місії на цю тему."}</p>
       )}
+
+      <SkillChecks repository={repository} snapshot={snapshot} onSaved={onSaved} />
 
       <div className="actions">
         <button type="button" className="btn secondary" disabled={status === "saving"} onClick={onHome}>На головну</button>
