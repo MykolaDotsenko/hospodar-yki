@@ -273,7 +273,7 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
         </div>
         <p className="muted">Відкидання чернетки не видаляє вже записані результати попередніх кроків. Для повного видалення відкрий «Мої дані».</p>
       </>}
-      {s.step === "summary" && <Summary s={s} onHome={onHome} onListening={onListening} />
+      {s.step === "summary" && <Summary s={s} onHome={onHome} onListening={onListening} />}
     </section>
   );
 }
