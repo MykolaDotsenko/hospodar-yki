@@ -44,7 +44,8 @@ export async function inspectBrowserStorage(host: StorageHost | null = defaultHo
   let inspectionFailed = false;
   // Do not discard valid quota information just because persisted() failed (or vice versa).
   if (typeof api.persisted === "function") {
-    try { persistence = await api.persisted() ? "persistent" : "best-effort"; }
+    try { const verified = await api.persisted();
+      persistence = verified === true ? "persistent" : verified === false ? "best-effort" : "unknown"; }
     catch { inspectionFailed = true; }
   }
   if (typeof api.estimate === "function") {
@@ -70,7 +71,8 @@ export async function requestPersistentStorage(host: StorageHost | null = defaul
   try {
     await api.persist();
     if (typeof api.persisted !== "function") return "unverified";
-    return await api.persisted() ? "granted" : "denied";
+    const verified = await api.persisted();
+    return verified === true ? "granted" : verified === false ? "denied" : "unverified";
   } catch { return "error"; }
 }
 
