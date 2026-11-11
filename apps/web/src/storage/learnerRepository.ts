@@ -195,7 +195,8 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           // A deliberate LEARN wipe is the only route to a genuinely empty target.
           if (row || await db.imports.count())
             throw new StorageError("DESTINATION_NOT_EMPTY", "LEARN profile or import receipts already exist");
-          const revision = (row?.revision ?? 0) + 1;
+          // With an unowned target there is no pre-existing learner revision.
+          const revision = 1;
           const importedAt = new Date().toISOString();
           const receipt: ImportReceipt = { ...partial, importedAt, revision };
           await db.learner.put({ id: "current", revision, state, updatedAt: importedAt });
