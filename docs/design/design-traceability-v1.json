@@ -93,23 +93,33 @@
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "home follows the learner: after first practice the next step names the skill never practised, with the reason"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
         }
       ],
-      "gap": "Signature corner and typographic fingerprint are not checked automatically in apps/web; needs design review"
+      "gap": "Every mission type now carries the threshold route with its real steps and the skill accent (one shared component); the gold signature is limited to the Today hero and the two mode entries. The typographic fingerprint (Finnish phrase as the centre of the screen) is not built or checked; needs design review."
     },
     {
       "id": "DESIGN-03",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Four skill accents always with icon + name, never colour alone",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/validate_brand_identity.py",
           "contains": "assert contrast(data[\"accent\"],t[\"colors\"][\"surface\"]) >= 4.5, skill"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
         }
-      ],
-      "gap": "apps/web has only the grammar mission; skill UI not built",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "DESIGN-04",
@@ -212,9 +222,17 @@
         {
           "file": "scripts/validate_brand_identity.py",
           "contains": "len(t[\"attention_design\"][\"avoid_ai_sameness\"]) >= 5"
+        },
+        {
+          "file": "apps/web/src/ui/noEmoji.test.ts",
+          "contains": "no emoji pictograph in any UI source file"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
         }
       ],
-      "gap": "Visual review is manual; no screenshot diff"
+      "gap": "Emoji, gradients, glass blur and animation loops are now rejected by tests; composition and overall look still need manual visual review (no screenshot diff)."
     },
     {
       "id": "DESIGN-12",
@@ -600,6 +618,10 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
         }
       ]
     },
@@ -691,6 +713,14 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "home follows the learner: after first practice the next step names the skill never practised, with the reason"
+        },
+        {
+          "file": "packages/domain/test/today.test.ts",
+          "contains": "order follows the evidence: delayed check, then missed phrases, then scheduled grammar; at most three actions"
         }
       ]
     },
@@ -939,7 +969,7 @@
       "id": "SENS-07",
       "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
       "summary": "Skill colour plus icon/text, never colour-only",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/validate_brand_identity.py",
@@ -948,10 +978,12 @@
         {
           "file": "app/tests/r10-accessibility-contract.test.mjs",
           "contains": "focus retained as visible high-contrast 3px outline in forced-colors mode"
+        },
+        {
+          "file": "apps/web/e2e/home.spec.ts",
+          "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
         }
-      ],
-      "gap": "Skill UI not in apps/web",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      ]
     },
     {
       "id": "SENS-08",

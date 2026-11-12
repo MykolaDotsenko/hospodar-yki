@@ -5,6 +5,8 @@ import { dialogues } from "../content/dialogues.ts";
 import { dialoguePayload, validDialogueDraft } from "../storage/dialogueDraft.ts";
 import type { LearnerRepository, DialogueDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
@@ -65,8 +67,8 @@ export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repo
     initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   return (
-    <section className="panel" aria-labelledby="dl-title">
-      <p className="eyebrow">Навчання · розмова</p>
+    <section className="panel" data-accent="speaking" aria-labelledby="dl-title">
+      <Eyebrow accent="speaking">Навчання · розмова</Eyebrow>
       <h1 id="dl-title">Діалоги: твоя репліка</h1>
       <p>Ти — один зі співрозмовників. Спершу пишеш свою репліку, потім бачиш, як сказано в сценарії — це один із можливих варіантів, не «правильна відповідь». Одного разу співрозмовник тебе не зрозуміє й попросить сказати інакше, а наприкінці умова ситуації зміниться.</p>
       <p className="draft-note">Лише текст (запису ще немає) і чернетки, не перевірені S2-викладачем. Без автоматичної оцінки.</p>
@@ -199,9 +201,11 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
   const title = { turns: "Розмова", questions: "Що ти зрозумів(ла)?", roleplay: "Твоя ситуація", transfer: item.negotiation ? "Умова змінилася" : "Твоя ситуація", done: "Готово" }[s.phase];
 
   return (
-    <section className="panel" aria-labelledby="dlg-title">
-      <p className="eyebrow">Навчання · розмова · <span lang="fi">{item.title_fi}</span></p>
+    <section className="panel" data-accent="speaking" aria-labelledby="dlg-title">
+      <Eyebrow accent="speaking">Навчання · розмова · <span lang="fi">{item.title_fi}</span></Eyebrow>
       <h1 id="dlg-title" ref={heading} tabIndex={-1}>{title}</h1>
+      <ThresholdRoute steps={item.negotiation ? ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація", "Зміна умови"] : ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація"]}
+        current={item.negotiation ? { turns: 0, questions: 1, roleplay: 2, transfer: 3, done: 4 }[s.phase] : { turns: 0, questions: 1, roleplay: 2, transfer: 2, done: 3 }[s.phase]} accent="speaking" />
       {!v.reviewed && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершений діалог відновлено з цього пристрою.</p>}
 
@@ -311,7 +315,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою{item.negotiation ? ", повторення іншими словами, твій план розмови і відповідь на змінену умову" : " і твій план розмови"}.</p>
+          <p><Icon name="ok" /> Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою{item.negotiation ? ", повторення іншими словами, твій план розмови і відповідь на змінену умову" : " і твій план розмови"}.</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку діалогів</button></div>
         </div>
       )}

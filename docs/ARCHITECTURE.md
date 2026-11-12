@@ -137,3 +137,16 @@ Evidence: `packages/domain/test/dialogue.test.ts`, `apps/web/src/storage/dialogu
 
 Evidence: `packages/domain/test/exam-profile.test.ts`, `apps/web/src/exam/examMachine.test.ts`, `apps/web/e2e/exam.spec.ts`.
 
+## 2026-11-12 — front end: "Сьогодні" home, shared mission chrome, own icons
+
+Goal: replace the generic "wall of buttons + emoji + white cards" with the brand's own screen grammar (brand v0.3 «Поріг → Маршрут → Дія») and the research rules for interfaces (UIO-01 one main action, UIO-08 actionable progress, DESIGN-03 skill colour with icon and name, DESIGN-11 anti-sameness, COG-07 no decoration).
+
+- **Home** (`apps/web/src/screens/HomeScreen.tsx`): one recommended next step with a visible reason, chosen by the pure `todayPlan` in `packages/domain/src/today.ts` (due delayed check → phrases missed last time → grammar scheduled today → starting diagnostic for a new learner → a never-practised, otherwise the least-practised skill). Then the two mode entries, four skill tiles (constant colour + own icon + Ukrainian and Finnish name + text state, never a percentage), other exercises, and service links (progress, data, offline, import) moved out of the way.
+- **Mission chrome** (`apps/web/src/ui/MissionChrome.tsx`): one `Eyebrow` (skill icon + colour) and one `ThresholdRoute` used by every mission type — grammar, practice, dialogue, reading, listening, writing clinic, picture mission, diagnostic — showing the real steps of that task with a text state for screen readers. The panel carries the skill colour as a top rule.
+- **Icons** (`apps/web/src/ui/icons.tsx`): one hand-drawn SVG family (24 px grid, round 1.75 px stroke, `currentColor`, decorative with text labels). All emoji are removed; a test fails if one returns, and an E2E check rejects gradients, glass blur and animation loops.
+- Practice cards show Ukrainian theme names instead of internal keys; the exam-profile radio list no longer breaks its labels.
+
+No logic of tasks, storage or scoring changed. Not done yet: Finnish-first typography, a distinct exam skin, per-skill progress rows, entry by life situations (the remaining points of the plan). Whether the product became more recognisable needs a user test (DESIGN-06, DESIGN-15) — not run.
+
+Evidence: `packages/domain/test/today.test.ts`, `apps/web/e2e/home.spec.ts`, `apps/web/src/ui/noEmoji.test.ts`, `apps/web/src/content/practice.test.ts`; unchanged suites still pass.
+

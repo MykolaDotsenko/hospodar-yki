@@ -6,7 +6,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
 
 test("IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: "📷 Фото-місії" }).click();
+  await page.getByTestId("nav-pictures").click();
   await page.getByRole("button", { name: /Ринкова площа Турку/ }).click();
   await expect(page.getByRole("img", { name: /Turun kauppatori/ })).toBeVisible();
   await expect(page.getByText("Torilla voi ostaa ruokaa.")).toHaveCount(0);

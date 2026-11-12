@@ -58,13 +58,13 @@ test("speaking voice needs explicit consent; recording stays in the tab and only
   });
   await throughReading(page);
   await throughWriting(page);
-  const rec = page.getByRole("button", { name: "🎙 Почати запис" });
+  const rec = page.getByRole("button", { name: "Почати запис" });
   await expect(rec).toBeDisabled();
   expect(await page.evaluate(() => (window as unknown as { __gum: number }).__gum)).toBe(0);
   await page.getByLabel(/Дозволяю записати мій голос/).check();
   await rec.click();
   await expect(page.getByText("Іде запис…")).toBeVisible();
-  await page.getByRole("button", { name: "⏹ Зупинити" }).click();
+  await page.getByRole("button", { name: "Зупинити" }).click();
   await expect(page.locator("audio")).toHaveCount(1);
   await page.getByRole("button", { name: "Готово — перевірити себе" }).click();
   await expect(page.getByText(/Голосовий запис зроблено/)).toBeVisible();

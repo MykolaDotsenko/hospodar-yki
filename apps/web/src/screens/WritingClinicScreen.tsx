@@ -5,6 +5,7 @@ import { clinicItems } from "../content/writingClinic.ts";
 import { clinicPayload, validClinicDraft } from "../storage/clinicDraft.ts";
 import type { ClinicDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ClinicDraftRow | null; blocked: string | null };
@@ -66,8 +67,8 @@ export function WritingClinicScreen({ repository, snapshot, onSaved, onHome }: {
     initialDraft={resume ? loaded.draft : null} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   return (
-    <section className="panel" aria-labelledby="wc-title">
-      <p className="eyebrow">Навчання · письмо</p>
+    <section className="panel" data-accent="writing" aria-labelledby="wc-title">
+      <Eyebrow accent="writing">Навчання · письмо</Eyebrow>
       <h1 id="wc-title">Майстерня письма</h1>
       <p>Спершу пишеш сам(а), потім шукаєш проблеми в слабкій чернетці, бачиш зразок, переписуєш свій текст і пишеш новий — уже без зразка.</p>
       <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Письмо автоматично не оцінюється.</p>
@@ -247,9 +248,11 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
   );
 
   return (
-    <section className="panel" aria-labelledby="cl-title">
-      <p className="eyebrow">Навчання · майстерня письма · <span lang="fi">{item.title_fi}</span></p>
+    <section className="panel" data-accent="writing" aria-labelledby="cl-title">
+      <Eyebrow accent="writing">Навчання · майстерня письма · <span lang="fi">{item.title_fi}</span></Eyebrow>
       <h1 id="cl-title" ref={heading} tabIndex={-1}>{titles[s.phase]}</h1>
+      <ThresholdRoute steps={["Твій текст", "Розбір", "Переписування", "Нова ситуація"]}
+        current={{ write: 0, selfcheck: 0, spot: 1, issues: 1, model: 1, rewrite: 2, transfer: 3, done: 4 }[s.phase]} accent="writing" />
       <p className="draft-note">Чернетка: ще не перевірено S2-викладачем. Без автоматичної оцінки.</p>
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершену майстерню відновлено з перевіреної чернетки на цьому пристрої.</p>}
       {s.phase !== "done" && <p className="muted" role="status">

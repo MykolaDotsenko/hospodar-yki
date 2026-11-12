@@ -4,7 +4,7 @@ import { expect, test, type Page } from "@playwright/test";
 const FIRST_TEXT = "He tutustuvat toisiinsa.";
 const TRANSFER = "Hei! Haluaisin tulla kielikahvilaan keskiviikkona, koska haluan puhua enemmän.";
 async function openReading(page: Page) {
-  await page.getByRole("button", { name: "📖 Читання" }).click();
+  await page.getByTestId("nav-reading").click();
 }
 async function start(page: Page) {
   await page.goto("./");
@@ -94,6 +94,6 @@ test("Reading: privacy inventory, fail-closed restore and explicit erasure inclu
   await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
   await expect(page.getByRole("status").filter({ hasText: /Прогрес навчання видалено/ })).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "📖 Читання" }).click();
+  await page.getByTestId("nav-reading").click();
   await expect(page.getByRole("heading", { name: "Читання з доказами" })).toBeVisible();
 });

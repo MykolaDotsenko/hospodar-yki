@@ -7,7 +7,7 @@ const A1 = "Hei! Onko tässä kielikahvila?";
 
 test("IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: "💬 Діалоги" }).click();
+  await page.getByTestId("nav-speaking").click();
   await page.getByRole("button", { name: /Ensimmäinen kerta kielikahvilassa/ }).click();
   await expect(page.getByText(A1)).toHaveCount(0);
   await expect(page.getByText("Kyllä on, tervetuloa!")).toHaveCount(0);
@@ -54,7 +54,7 @@ test("IV-REQ-07 dialogue: learner replies first as speaker A; script line only a
 
 test("Negotiation: partner asks to clarify → second wording before the script → confirm; reload keeps it; condition changes only after own role-play", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: "💬 Діалоги" }).click();
+  await page.getByTestId("nav-speaking").click();
   await page.getByRole("button", { name: /Soitto huoltoyhtiöön/ }).click();
   await page.getByLabel(/Твоя репліка фінською/).fill("Hei, ikkunasta tulee kylmää ilmaa.");
   await page.getByRole("button", { name: "Сказати" }).click();
@@ -77,7 +77,7 @@ test("Negotiation: partner asks to clarify → second wording before the script 
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();                     // durable: reload cannot skip the confirmation
   await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "💬 Діалоги" }).click();
+  await page.getByTestId("nav-speaking").click();
   await expect(page.getByText(/Незавершений діалог відновлено/)).toBeVisible();
   await expect(page.getByText("Huomasin ongelman seitsemän päivää sitten.")).toBeVisible();
   await expect(page.getByRole("button", { name: "Далі" })).toHaveCount(0);

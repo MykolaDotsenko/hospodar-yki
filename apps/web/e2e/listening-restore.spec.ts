@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 const PREDICTION = "Luulen, että puhutaan vesikatkosta ja korjaustöistä.";
 async function choose(page: Page) {
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
 }
 async function start(page: Page) {
@@ -14,7 +14,7 @@ async function resume(page: Page) {
   // Only reload after the save-and-exit receipt, never race an in-flight IndexedDB transaction.
   await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
 }
 async function answerAll(page: Page) {
   for (let i = 0; i < 4; i++) {
@@ -70,7 +70,7 @@ test("LEARN Listening: exact prediction survives reload; no first answer or key 
   await page.getByRole("button", { name: "Зберегти результат" }).click();
   await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await expect(page.getByRole("heading", { name: "Обери запис" })).toBeVisible();
 });
 
@@ -113,10 +113,10 @@ test("LEARN Listening: stale second tab never advances the checkpoint or discard
   await start(page);
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   const stale = await context.newPage();
   await stale.goto("./");
-  await stale.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await stale.getByTestId("nav-listening").click();
   await expect(stale.getByRole("heading", { name: "Слухай" })).toBeVisible();
   await page.getByRole("button", { name: "Показати текст (підтримка)" }).click();
   await expect(page.locator(".transcript")).toBeVisible();
@@ -124,7 +124,7 @@ test("LEARN Listening: stale second tab never advances the checkpoint or discard
   await expect(stale.getByRole("alert")).toContainText("REVISION_CONFLICT");
   await expect(stale.locator(".transcript")).toHaveCount(0);
   await stale.reload();
-  await stale.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await stale.getByTestId("nav-listening").click();
   await expect(stale.locator(".transcript")).toBeVisible();
 });
 
@@ -140,6 +140,6 @@ test("LEARN Listening: data inventory and typed LEARN erase account for paused a
   await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
   await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await expect(page.getByRole("heading", { name: "Обери запис" })).toBeVisible();
 });

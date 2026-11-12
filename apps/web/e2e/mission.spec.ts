@@ -169,7 +169,7 @@ test("PSY-07: wrong first attempt and repair text survive reload with NO answer 
   await expect(page.getByLabel(/Твоє власне речення/)).toHaveValue("Menen tänään kauppaan.");
   await expect(page.locator(".learning-cue")).toHaveCount(0);
   await page.getByRole("button", { name: "Зберегти місію" }).click();
-  await expect(page.getByText(/✅ Збережено на цьому пристрої/)).toBeVisible();
+  await expect(page.getByText(/Збережено на цьому пристрої/)).toBeVisible();
   await page.reload();
   await expect(page.getByText("Виконано місій:")).toContainText("1");
   expect(await axe(page)).toEqual([]);

@@ -25,7 +25,19 @@ main { padding: var(--space-lg) var(--space-base) var(--space-xl); }
 main:focus { outline: none; }
 h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 750; letter-spacing: -.02em; margin: 0 0 var(--space-base); }
 h1:focus { outline: none; }
-.eyebrow { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); }
+.eyebrow { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); display: flex; align-items: center; gap: 6px; }
+.icon { flex: none; }
+/* One constant colour per skill, always together with its icon and name (DESIGN-03, COLOR-01: orientation, not a memory claim).
+   Colours come straight from the tokens; borders and fills reuse the element's own text colour (currentColor). */
+.panel[data-accent] { border-top: 4px solid var(--forest); }
+.eyebrow[data-accent="reading"], .threshold-route[data-accent="reading"], .skill-tile[data-accent="reading"] .skill-tile-head { color: var(--skill-reading); }
+.panel[data-accent="reading"] { border-top-color: var(--skill-reading); }
+.eyebrow[data-accent="listening"], .threshold-route[data-accent="listening"], .skill-tile[data-accent="listening"] .skill-tile-head { color: var(--skill-listening); }
+.panel[data-accent="listening"] { border-top-color: var(--skill-listening); }
+.eyebrow[data-accent="writing"], .threshold-route[data-accent="writing"], .skill-tile[data-accent="writing"] .skill-tile-head { color: var(--skill-writing); }
+.panel[data-accent="writing"] { border-top-color: var(--skill-writing); }
+.eyebrow[data-accent="speaking"], .threshold-route[data-accent="speaking"], .skill-tile[data-accent="speaking"] .skill-tile-head { color: var(--skill-speaking); }
+.panel[data-accent="speaking"] { border-top-color: var(--skill-speaking); }
 .muted { color: var(--muted); }
 h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .btn:disabled { opacity: 1; cursor: not-allowed; background: var(--surface-subtle); color: var(--muted); border-color: var(--stroke); }
@@ -48,14 +60,57 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .mode-number { font-size: .7rem; font-weight: 800; letter-spacing: .08em; color: var(--muted); }
 .mode-cta { margin-top: var(--space-sm); font-weight: 800; color: var(--forest); }
 
+/* "Сьогодні": the one recommended next step (UIO-01). The gold diagonal marks only this hero and the two mode entries. */
+.today { position: relative; background: var(--white); border: 1.5px solid var(--stroke); border-radius: 12px 25px 12px 12px; padding: var(--space-base) var(--space-lg) var(--space-base) 26px; margin: 0 0 var(--space-base); overflow: hidden; }
+.today::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--navy); }
+.today::after { content: ""; position: absolute; top: 18px; right: 14px; width: 15px; height: 5px; border-radius: 5px; background: var(--gold); transform: rotate(-45deg); }
+.today-kicker { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--navy); }
+.today-title { margin: 0; font-size: clamp(1.1rem, 2.6vw, 1.3rem); font-weight: 750; line-height: 1.35; max-width: 34em; }
+.today-why { margin: var(--space-xs) 0 0; color: var(--muted); max-width: 40em; }
+.today .actions { margin-top: var(--space-md); }
+.today-rest { list-style: none; margin: var(--space-base) 0 0; padding: 0; }
+.today-rest li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm) var(--space-base); padding: var(--space-sm) 0; border-top: 1px solid var(--stroke); }
+.today-rest li > span { flex: 1 1 16em; }
+.today-count { margin: var(--space-md) 0 0; font-size: .9rem; }
+
+/* Four skills: constant colour + icon + Ukrainian and Finnish name; state is text, never a percentage. */
+.skill-grid, .more-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); }
+.skill-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.more-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.skill-tile { width: 100%; height: 100%; min-height: 44px; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; padding: var(--space-md) var(--space-base); background: var(--white); color: var(--ink);
+  border: 1.5px solid var(--stroke); border-left: 6px solid var(--forest); border-radius: 12px; cursor: pointer; }
+.skill-tile:hover, .more-tile:hover { border-color: var(--navy); }
+.skill-tile[data-accent="reading"], .skill-tile[data-accent="reading"]:hover { border-left-color: var(--skill-reading); }
+.skill-tile[data-accent="listening"], .skill-tile[data-accent="listening"]:hover { border-left-color: var(--skill-listening); }
+.skill-tile[data-accent="writing"], .skill-tile[data-accent="writing"]:hover { border-left-color: var(--skill-writing); }
+.skill-tile[data-accent="speaking"], .skill-tile[data-accent="speaking"]:hover { border-left-color: var(--skill-speaking); }
+.skill-tile-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-sm); color: var(--forest); }
+.skill-tile-head strong { font-size: 1.1rem; color: var(--ink); }
+.skill-tile-fi { font-size: .85rem; font-weight: 700; }
+.skill-tile-what { font-size: .95rem; }
+.skill-tile small, .more-tile small { color: var(--muted); font-size: .85rem; }
+.more-tile { width: 100%; height: 100%; min-height: 56px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-base); background: var(--white); color: var(--navy);
+  border: 1.5px solid var(--stroke); border-radius: 10px; cursor: pointer; }
+.more-tile strong, .more-tile small { display: block; }
+.more-tile strong { color: var(--ink); }
+.utility { display: flex; flex-wrap: wrap; gap: 0 var(--space-lg); margin: var(--space-lg) 0 0; padding-top: var(--space-md); border-top: 1px solid var(--stroke); }
+.link-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--navy); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.feedback .icon, [role="status"] .icon { vertical-align: -0.2em; color: var(--forest); }
+.btn .icon { vertical-align: -0.2em; }
+
 .panel { background: var(--white); border: 1px solid var(--stroke); border-radius: 18px; padding: clamp(18px, 4vw, 32px); }
 
 /* ThresholdLine: real mission steps, never a readiness score. */
-.threshold-route { list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 0; margin: 0 0 var(--space-lg); }
-.threshold-segment { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 10px; background: var(--surface-subtle); color: var(--forest); font-size: .82rem; font-weight: 700; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%); }
+.threshold-route { color: var(--forest); list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 0; margin: 0 0 var(--space-lg); }
+.threshold-segment { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 10px; background: var(--surface-subtle); color: inherit; font-size: .82rem; font-weight: 700; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%); }
 .threshold-segment:first-child { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%); }
 .threshold-segment.completed { background: var(--route-learn-done); }
-.threshold-segment.current { background: var(--forest); color: var(--white); }
+.threshold-segment.current { background: currentColor; }
+.threshold-segment.current > * { color: var(--white); }
+/* A finished step is tinted with the same skill colour; the token tint stays as the fallback. */
+.threshold-route[data-accent] .threshold-segment.completed { background: color-mix(in srgb, currentColor 13%, var(--white)); }
+.radio-note { display: block; }
+.skill-lines dd { margin: 0 0 var(--space-sm); }
 .threshold-index { font-variant-numeric: tabular-nums; }
 .threshold-segment { min-width: 0; }
 .threshold-label { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
@@ -118,13 +173,16 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 [data-appearance="calm"] .mode-entry::after { display: none; }
 [data-appearance="calm"] .prompt { background: var(--white); }
 [data-appearance="calm"] .feedback, [data-appearance="calm"] .feedback.warn, [data-appearance="calm"] .feedback.error { background: var(--white); }
-[data-appearance="calm"] .threshold-segment.current { background: var(--white); color: var(--forest); outline: 2px solid var(--forest); outline-offset: -2px; }
-[data-appearance="calm"] .threshold-segment.completed { background: var(--white); }
+[data-appearance="calm"] .threshold-segment.current { background: var(--white); outline: 2px solid currentColor; outline-offset: -2px; }
+[data-appearance="calm"] .threshold-segment.current > * { color: inherit; }
+[data-appearance="calm"] .today::after { display: none; }
+[data-appearance="calm"] .today { background: var(--white); }
+[data-appearance="calm"] .threshold-segment.completed, [data-appearance="calm"] .threshold-route[data-accent] .threshold-segment.completed { background: var(--white); }
 [data-appearance="calm"] .learning-cue { background: var(--white); color: var(--cue-text); }
 [data-appearance="calm"] * { transition: none !important; animation: none !important; }
 
 /* The button's text colour changes immediately. Do not tween its background through low-contrast intermediate shades (WCAG 1.4.3). */
-@media (prefers-reduced-motion: no-preference) { .btn { transition: border-color var(--motion-micro); } .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: border-color var(--motion-micro); } .skill-tile, .more-tile { transition: border-color var(--motion-micro); } .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
 @media (forced-colors: active) {
   .threshold-segment.current { outline: 2px solid Highlight; }
   .learning-cue { background: Canvas; color: CanvasText; }

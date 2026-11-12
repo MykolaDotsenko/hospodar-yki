@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { voiceEvidenceOf, type ExamItem, type ExamSession, type SpeakingReceipt } from "@hospodar/domain";
 import type { ExamEvent } from "../exam/examMachine.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
+import { Icon } from "../ui/icons.tsx";
 
 /**
  * E06 speaking answer in the practice EXAM (port of the legacy app/exam.mjs flow):
@@ -118,7 +119,7 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
       {session.voiceConsent && hasStored && <p className="muted">Щоб відкликати згоду, спершу видали збережені записи.</p>}
       <div className="actions">
         <button type="button" className="btn secondary" disabled={disabled && !recording} onClick={() => void (recording ? stop() : start())}>
-          {recording ? "⏹ Зупинити запис" : evidence ? "Записати ще раз" : "🎙 Записати голос"}</button>
+          {recording ? <><Icon name="stop" /> Зупинити запис</> : evidence ? "Записати ще раз" : <><Icon name="mic" /> Записати голос</>}</button>
         {evidence === "stored" && !recording && !confirmDelete && <button type="button" className="btn secondary" disabled={disabled} onClick={() => setConfirmDelete(true)}>Видалити запис</button>}
         {confirmDelete && <>
           <button type="button" className="btn danger" disabled={disabled} onClick={() => void remove()}>Так, видалити запис</button>

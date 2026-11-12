@@ -9,6 +9,8 @@ import { recommend, type Recommendation } from "../content/selection.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { clozeFingerprint, validMissionDraft, type MissionDraftPayload } from "../storage/missionDraft.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "answer", label: "Спроба" },
@@ -238,22 +240,12 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
   );
 
   return (
-    <section className="panel" aria-labelledby="mission-title">
-      <p className="eyebrow">Навчання · граматика в контексті</p>
+    <section className="panel" data-accent="grammar" aria-labelledby="mission-title">
+      <Eyebrow accent="grammar">Навчання · граматика в контексті</Eyebrow>
       <h1 id="mission-title" ref={heading} tabIndex={-1}>
         {{ answer: "Твоя відповідь", repair: "Спробуй виправити сам(а)", feedback: "Що вийшло", transfer: "Скажи це про себе", done: "Місію завершено" }[mission.phase]}
       </h1>
-      <ol className="threshold-route" aria-label="Кроки місії">
-        {steps.map((s, i) => {
-          const status = i < current ? "completed" : i === current ? "current" : "upcoming";
-          return (
-            <li key={s.phase} className={`threshold-segment ${status}`} aria-current={status === "current" ? "step" : undefined}>
-              <span className="threshold-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              <span className="threshold-label">{s.label}<span className="visually-hidden">{status === "completed" ? " — пройдено" : status === "current" ? " — зараз" : " — попереду"}</span></span>
-            </li>
-          );
-        })}
-      </ol>
+      <ThresholdRoute steps={steps.map(x => x.label)} current={current < 0 ? steps.length : current} accent="grammar" label="Кроки місії" />
       {isDraft(task) && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
       {recovered && mission.phase !== "done" && <p className="feedback" role="status">Продовжуємо незавершену місію з останньої підтвердженої чернетки.</p>}
       {mission.phase !== "done" && <p className="muted" role="status">
@@ -329,7 +321,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
       {mission.phase === "done" && (
         <div aria-live="polite">
           {save.kind === "saving" && <p className="feedback" role="status">Зберігаю на пристрої…</p>}
-          {save.kind === "saved" && <p className="feedback" role="status">✅ Збережено на цьому пристрої. Перша спроба записана окремо від самовиправлення.</p>}
+          {save.kind === "saved" && <p className="feedback" role="status"><Icon name="ok" /> Збережено на цьому пристрої. Перша спроба записана окремо від самовиправлення.</p>}
           {save.kind === "saved" && (
             <div className="actions">
               <button type="button" className="btn" onClick={nextMission}>Наступна місія</button>

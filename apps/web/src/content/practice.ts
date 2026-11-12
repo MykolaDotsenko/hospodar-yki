@@ -26,6 +26,16 @@ const examIds = new Set((exam as unknown as { blueprints: { skill_blocks: { item
   .flatMap(b => b.skill_blocks.map(s => s.item_id)));
 
 export const practiceCards = cards.filter(c => !examIds.has(c.id));
+
+/** Learner-facing names of the banks' internal theme keys; case names of rektio items stay Finnish grammar terms. */
+const GROUP_UK: Record<string, string> = {
+  identity: "Я і моє життя", housing: "Житло", home: "Житло", services: "Послуги й покупки", shopping: "Послуги й покупки", culture: "Культура й дозвілля",
+  travel: "Подорожі й транспорт", transport: "Подорожі й транспорт", health: "Здоров'я", work: "Робота", environment: "Довкілля", society: "Суспільство",
+  functions: "Корисні звороти", education: "Навчання", leisure: "Дозвілля", official: "Офіційні справи", authorities: "Офіційні справи",
+  partitiivi: "partitiivi", partitiivi_context: "partitiivi (залежить від змісту)", elatiivi: "elatiivi", illatiivi: "illatiivi", allatiivi: "allatiivi", ablatiivi: "ablatiivi",
+  MA_infinitiivi_illatiivi: "MA-infinitiivi (illatiivi)",
+};
+export const groupLabel = (group: string) => GROUP_UK[group] ?? group;
 export const PRACTICE_KINDS: { kind: PracticeKind; title: string; about: string }[] = [
   { kind: "paraphrase", title: "Те саме іншими словами", about: "Обери речення з тим самим значенням, потім перекажи своїми словами." },
   { kind: "reaction", title: "Реакція в ситуації", about: "Коротка усна відповідь у побутовій ситуації: прохання, відмова, уточнення." },

@@ -5,6 +5,7 @@ import type { ExamRepository } from "../storage/examRepository.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { examContentVersion } from "../content/exam.ts";
 import { formatStorageMiB, inspectBrowserStorage, requestPersistentStorage, type BrowserStorageReport, type PersistenceRequest } from "../storage/browserStorageHealth.ts";
+import { Icon } from "../ui/icons.tsx";
 
 /**
  * "Мої дані" (LEARN-16, WEB-07): see what is stored on this device, download all of it as one verified JSON file,
@@ -205,7 +206,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
             {restoreStatus === "working" ? "Відновлюю…" : "Відновити навчання"}</button></div>
         </>
       )}
-      {restoreStatus === "done" && <p className="feedback" role="status">✅ Навчання відновлено та перечитано зі сховища. Перевір свій прогрес після перезавантаження.</p>}
+      {restoreStatus === "done" && <p className="feedback" role="status"><Icon name="ok" /> Навчання відновлено та перечитано зі сховища. Перевір свій прогрес після перезавантаження.</p>}
       {typeof restoreStatus === "object" && <p className="feedback error" role="alert">
         {restoreStatus.error === "REVISION_CONFLICT" ? "Відновлення заблоковано: прогрес змінився в іншій вкладці. Онови сторінку."
           : restoreStatus.error === "DESTINATION_NOT_EMPTY" ? "Відновлення заблоковано: профіль уже містить дані. Нічого не перезаписано."

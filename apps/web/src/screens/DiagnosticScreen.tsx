@@ -5,6 +5,8 @@ import { baseline as B } from "../content/diagnostic.ts";
 import { diagnosticPayload, validDiagnosticDraft } from "../storage/diagnosticDraft.ts";
 import type { DiagnosticDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const NEXT_UK = {
@@ -198,10 +200,12 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
   const titles = { reading: "Читання", reading_feedback: "Читання: що вийшло", writing: "Письмо", writing_check: "Письмо: перевір себе",
     speaking: "Говоріння", speaking_check: "Говоріння: перевір себе", summary: "Що далі" };
 
+  const dgAccent = s.step.startsWith("reading") ? "reading" as const : s.step.startsWith("writing") ? "writing" as const : s.step.startsWith("speaking") ? "speaking" as const : "grammar" as const;
   return (
-    <section className="panel" aria-labelledby="dg-title">
-      <p className="eyebrow">Навчання · стартова діагностика · крок {v.stepNumber} з 4</p>
+    <section className="panel" data-accent={dgAccent} aria-labelledby="dg-title">
+      <Eyebrow accent={dgAccent}>Навчання · стартова діагностика · крок {v.stepNumber} з 4</Eyebrow>
       <h1 id="dg-title" ref={heading} tabIndex={-1}>{titles[s.step]}</h1>
+      <ThresholdRoute steps={["Читання", "Письмо", "Говоріння", "Підсумок"]} current={v.stepNumber - 1} accent={dgAccent} />
       <p className="draft-note">Чернетка: завдання ще не перевірено S2-викладачем. Це не рівень CEFR чи YKI.</p>
       {loaded.draft && s.step !== "summary" && <p className="feedback" role="status">Відновлено незавершену діагностику з цього пристрою.</p>}
 
@@ -333,8 +337,8 @@ function Speaking({ task, text, setText, error, onSubmit }: {
             Дозволяю записати мій голос лише в цій вкладці. Запис ніде не зберігається і нікуди не надсилається.</label>
           <div className="actions">
             {rec !== "recording"
-              ? <button type="button" className="btn secondary" disabled={!consent} onClick={() => void start()}>{rec === "done" ? "Записати ще раз" : "🎙 Почати запис"}</button>
-              : <button type="button" className="btn secondary" onClick={() => recorder.current?.stop()}>⏹ Зупинити</button>}
+              ? <button type="button" className="btn secondary" disabled={!consent} onClick={() => void start()}>{rec === "done" ? "Записати ще раз" : <><Icon name="mic" /> Почати запис</>}</button>
+              : <button type="button" className="btn secondary" onClick={() => recorder.current?.stop()}><Icon name="stop" /> Зупинити</button>}
           </div>
           {rec === "recording" && <p role="status">Іде запис…</p>}
           {url && <><p className="muted">Послухай себе. Після виходу з цього кроку запис зникне.</p><audio controls src={url} /></>}
@@ -364,7 +368,7 @@ function Summary({ s, onHome, onListening }: { s: DiagnosticSession; onHome: () 
       <p className="qualification">Це не рівень CEFR, не бал і не прогноз YKI. Письмо та говоріння не оцінюються автоматично — їх може переглянути викладач.</p>
       <div className="actions">
         <button type="button" className="btn" onClick={onHome}>На головну</button>
-        <button type="button" className="btn secondary" onClick={onListening}>🎧 До аудіювання</button>
+        <button type="button" className="btn secondary" onClick={onListening}><Icon name="listening" /> До аудіювання</button>
       </div>
     </div>
   );

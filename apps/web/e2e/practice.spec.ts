@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 async function open(page: Page, kind: RegExp) {
   await page.goto("./");
-  await page.getByRole("button", { name: "🗣 Практика без підказки" }).click();
+  await page.getByTestId("nav-practice").click();
   await page.getByRole("button", { name: kind }).click();
   await page.getByRole("button", { name: /^Картка 1 / }).click();
 }
@@ -29,7 +29,7 @@ test("Paraphrase: frozen choice, key only after it, retell without options, veri
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
   await expect(page.getByText(/Картку збережено на цьому пристрої/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: "🗣 Практика без підказки" }).click();
+  await page.getByTestId("nav-practice").click();
   await expect(page.getByRole("button", { name: /Те саме іншими словами/ })).toContainText("пройдено 1 з 24");
 });
 
@@ -66,8 +66,8 @@ test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalle
 
   await page.clock.setFixedTime(new Date("2026-11-12T09:00:00+02:00"));
   await page.reload();
-  await expect(page.getByRole("button", { name: /Практика без підказки · повторити 1/ })).toBeVisible();
-  await page.getByRole("button", { name: /Практика без підказки/ }).click();
+  await expect(page.getByTestId("nav-practice").filter({ hasText: "повторити 1" })).toBeVisible();
+  await page.getByTestId("nav-practice").click();
   await page.getByRole("button", { name: "Повторити" }).click();
   await expect(page.getByText("Повторення: згадай без зразка.")).toBeVisible();
   await expect(page.getByText("muuttaa Suomeen")).toHaveCount(0);

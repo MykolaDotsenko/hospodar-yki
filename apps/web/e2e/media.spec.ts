@@ -5,7 +5,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
   .violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")).map(v => v.id);
 async function open(page: Page, tab: string) {
   await page.goto("./");
-  await page.getByRole("button", { name: "🖼 Медіатека" }).click();
+  await page.getByTestId("nav-media").click();
   await page.getByRole("tab", { name: tab }).click();
 }
 const noAutoplay = (page: Page) => page.locator("audio, video").evaluateAll(els =>
@@ -56,7 +56,7 @@ test("external sources are link-only cards: https, new tab, noopener, no iframe/
 
 test("human-voiced story is a listening mission with credit; options are not always in the first position", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await page.getByRole("button", { name: /Todellinen prinsessa/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await expect(page.getByText(/живий голос, один читець/)).toBeVisible();

@@ -4,7 +4,7 @@ import { expect, test, type Page } from "@playwright/test";
 const DRAFT = "Hei! Kylpyhuoneen seinässä on tumma läikkä. Voitteko tulla katsomaan?";
 const TRANSFER = "Hei! Keittiön ikkunasta vetää kylmää. Sopiiko huolto tiistaina tai torstaina?";
 async function openClinic(page: Page) {
-  await page.getByRole("button", { name: "✍ Майстерня письма" }).click();
+  await page.getByTestId("nav-writing").click();
 }
 async function start(page: Page) {
   await page.goto("./");

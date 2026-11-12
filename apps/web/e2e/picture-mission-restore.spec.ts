@@ -7,7 +7,7 @@ const TRANSFER = "Anteeksi, paljonko yksi omena maksaa?";
 const PRIVATE = "Tämä on minun keskeneräinen yksityinen kuvavastaukseni.";
 
 async function open(page: Page) {
-  await page.getByRole("button", { name: "📷 Фото-місії" }).click();
+  await page.getByTestId("nav-pictures").click();
 }
 async function start(page: Page) {
   await page.goto("./"); await open(page);

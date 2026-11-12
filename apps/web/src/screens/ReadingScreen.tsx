@@ -5,6 +5,8 @@ import { readingItems } from "../content/reading.ts";
 import { readingPayload, validReadingDraft } from "../storage/readingDraft.ts";
 import type { LearnerRepository, ReadingDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ReadingDraftRow | null; blocked: string | null };
@@ -69,8 +71,8 @@ export function ReadingScreen({ repository, snapshot, onSaved, onHome }: {
     initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   return (
-    <section className="panel" aria-labelledby="rd-title">
-      <p className="eyebrow">Навчання · читання</p>
+    <section className="panel" data-accent="reading" aria-labelledby="rd-title">
+      <Eyebrow accent="reading">Навчання · читання</Eyebrow>
       <h1 id="rd-title">Читання з доказами</h1>
       <p>Спершу відповідаєш сам(а). Потім бачиш відповіді й підсвічене місце в тексті, де це сказано.</p>
       <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Тексти, що є в симуляції YKI, тут не показуються.</p>
@@ -212,9 +214,10 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
   const title = { questions: "Прочитай і відповідай", feedback: "Що вийшло і де це в тексті",
     transfer: "Нове завдання — без тексту", done: "Готово" }[s.phase];
   return (
-    <section className="panel" aria-labelledby="rdm-title">
-      <p className="eyebrow">Навчання · читання · <span lang="fi">{item.title_fi}</span></p>
+    <section className="panel" data-accent="reading" aria-labelledby="rdm-title">
+      <Eyebrow accent="reading">Навчання · читання · <span lang="fi">{item.title_fi}</span></Eyebrow>
       <h1 id="rdm-title" ref={heading} tabIndex={-1}>{title}</h1>
+      <ThresholdRoute steps={["Питання", "Перевірка", "Нова ситуація"]} current={{ questions: 0, feedback: 1, transfer: 2, done: 3 }[s.phase]} accent="reading" />
       <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершене читання відновлено з цього пристрою.</p>}
       {v.showText && (
@@ -306,7 +309,7 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
       )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Збережено на цьому пристрої: відповіді з вибором — з першої спроби; відкриті відповіді й нове завдання — без оцінки.</p>
+          <p><Icon name="ok" /> Збережено на цьому пристрої: відповіді з вибором — з першої спроби; відкриті відповіді й нове завдання — без оцінки.</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку текстів</button></div>
         </div>
       )}
