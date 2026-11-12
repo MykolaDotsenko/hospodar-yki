@@ -184,3 +184,25 @@ Presentation only — no exam rule, timing, navigation or data changed. Evidence
 
 Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real devices, and a manual 400 % zoom and contrast review (R10-17/R10-18).
 
+### «Моє господарство» — the name made visible, with research-bounded game elements
+
+- **Meaning:** Hospodar = self-reliance in your own daily life (brand platform), so LEARN is organised as **nine everyday places**, one per YKI keskitaso theme (Я і моє життя … Суспільство). Each place has:
+  - a real-life goal («Бути тут господарем: …»);
+  - its real missions: reading, dialogue, writing and practice cards from LEARN pools that already exclude EXAM items;
+  - one optional real-life deed that the app never tracks.
+- **Game elements, only where research allows** (R08-MOT MOT-01…09, MOT-E03/E06/E09, GAM-01, UIO-09):
+  - places are never locked;
+  - the **door** opens after the first own attempt (the brand threshold with its golden step);
+  - a **key** is given only for a correct first independent answer, never for a later retry or guided repair;
+  - ungraded Finnish writing and speaking show as practice, never as a score;
+  - nothing decays or resets;
+  - no XP, streak, level, rank, percentage, mascot or sound;
+  - never in EXAM.
+- **Code:**
+  - pure logic in `packages/domain/src/places.ts`, tested in `test/places.test.ts`;
+  - content in `apps/web/src/content/places.ts`;
+  - UI in `screens/PlaceScreen.tsx` and `ui/PlaceGlyph.tsx`;
+  - E2E in `e2e/places.spec.ts`.
+- **Media budget:** the planned 3–4 GB offline packs (R05) are for licensed human audio and video. The game layer is static SVG (kilobytes). Richer illustration waits for one human-made style with cleared rights (DESIGN-07); no generated art.
+- **Not measured:** whether the place layer changes delayed independent Finnish outcomes (UIO-09 comparison, R08-MOT-H01) — NOT RUN.
+

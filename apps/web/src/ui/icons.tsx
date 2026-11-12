@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import type { Skill } from "@hospodar/domain";
 
 export type Accent = Skill | "grammar";
-export type IconName = Accent | "practice" | "photo" | "media" | "start" | "steps" | "ok" | "mic" | "stop";
+export type IconName = Accent | "practice" | "photo" | "media" | "start" | "steps" | "ok" | "mic" | "stop" | "key" | "home";
 
 const PATHS: Record<IconName, ReactNode> = {
   reading: <><path d="M12 6.5c-2.6-1.6-5.4-1.8-8-.9v13c2.6-.9 5.4-.7 8 .9" /><path d="M12 6.5c2.6-1.6 5.4-1.8 8-.9v13c-2.6-.9-5.4-.7-8 .9z" /></>,
@@ -22,6 +22,8 @@ const PATHS: Record<IconName, ReactNode> = {
   ok: <path d="M5 12.6l4.4 4.4L19 7.4" />,
   mic: <><rect x="9" y="3.5" width="6" height="10.5" rx="3" /><path d="M5.8 11.2a6.2 6.2 0 0 0 12.4 0M12 17.4V20.5" /></>,
   stop: <rect x="6.5" y="6.5" width="11" height="11" rx="2" />,
+  key: <><circle cx="8" cy="12" r="3.6" /><path d="M11.6 12h8.9M17.5 12v3M20.5 12v2.2" /></>,
+  home: <><path d="M4 11.2L12 4.5l8 6.7" /><path d="M6.3 9.6V19.5h11.4V9.6" /><path d="M10.2 19.5v-5h3.6v5" /></>,
 };
 
 export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {

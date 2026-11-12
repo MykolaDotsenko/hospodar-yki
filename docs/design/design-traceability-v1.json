@@ -753,8 +753,18 @@
       "id": "UIO-09",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Microgame only as a real communicative mission, tested against plain task",
-      "status": "NOT_YET",
-      "plan": "gameplay slice after R01 evidence"
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "every place offers at least two real communicative missions (a game element is always a real task)"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        }
+      ],
+      "gap": "Game layer («Моє господарство») is built only from real communicative missions; the comparison against the plain task (delayed independent Finnish outcome) is NOT RUN."
     },
     {
       "id": "UIO-10",
@@ -1369,7 +1379,7 @@
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Optional gamification; mascot/sounds opt-in experiment",
       "status": "NOT_YET",
-      "plan": "gameplay slice after R01 evidence"
+      "plan": "Gamification exists as the optional «Моє господарство» place layer (places.spec.ts); a mascot or sounds stay out unless run as an opt-in experiment after usability + delayed tests."
     },
     {
       "id": "IV-REQ-12",
@@ -2049,8 +2059,21 @@
       "id": "GAM-01",
       "source": "research/pedagogy/22-memory-attention-sensory-learning-evidence-2026-10.md",
       "summary": "Interactive mechanics must preserve the learning objective",
-      "status": "NOT_YET",
-      "plan": "No game mechanics built yet; when built, each must be a real communicative mission tested against the plain task (UIO-09)."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "every place offers at least two real communicative missions (a game element is always a real task)"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        }
+      ]
     },
     {
       "id": "GL-01",
@@ -2194,9 +2217,17 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
         }
       ],
-      "gap": "Choice, calm mode and honest progress exist; micro-mission game layer not built."
+      "gap": "Choice, calm mode, honest progress and the «Моє господарство» place layer (keys for verified first answers only) exist; the R08-MOT goal/time plan is not built."
     },
     {
       "id": "GL-07",
@@ -4380,7 +4411,7 @@
       "id": "MOT-01",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "LEARN only; no EXAM promotion/pressure; no official score",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "app/tests/r08-motivation-core.test.mjs",
@@ -4389,9 +4420,12 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
         }
-      ],
-      "gap": "No motivation/plan feature exists in apps/web (only the isolated reference app/r08-motivation-core.mjs)."
+      ]
     },
     {
       "id": "MOT-02",
@@ -4402,9 +4436,13 @@
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
         }
       ],
-      "gap": "Task choice exists; goal/time choice not built."
+      "gap": "Learner chooses a life place (goal) and a task; time/session-length choice is not built."
     },
     {
       "id": "MOT-03",
@@ -4435,6 +4473,10 @@
         {
           "file": "app/tests/r08-motivation-core.test.mjs",
           "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "no decay, streak or level: the same evidence gives the same result whatever the date (MOT-04/06)"
         }
       ]
     },
@@ -4463,6 +4505,10 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "no decay, streak or level: the same evidence gives the same result whatever the date (MOT-04/06)"
         }
       ]
     },
@@ -4479,6 +4525,10 @@
         {
           "file": "app/tests/r08-motivation-core.test.mjs",
           "contains": "only independently verified human productive task success is counted"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
         }
       ]
     },
@@ -4495,6 +4545,10 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "ungraded Finnish writing/speaking opens the door and counts as practice, never as a key (MOT-08)"
         }
       ]
     },
@@ -4507,6 +4561,10 @@
         {
           "file": "packages/domain/test/mission.test.ts",
           "contains": "wrong first answer → repair WITHOUT key → feedback; repair never rewrites the first attempt"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
         }
       ]
     },
@@ -11790,9 +11848,13 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "every place offers at least two real communicative missions (a game element is always a real task)"
         }
       ],
-      "gap": "EXAM rehearsal covers 4 skills; the 9 theme files and can-do coverage map are not loaded or checked in the apps."
+      "gap": "EXAM rehearsal covers 4 skills; the nine YKI themes now organise LEARN as places, but no can-do coverage map is checked."
     },
     {
       "id": "human-anchor-calibration",
@@ -12106,9 +12168,13 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "Phrase card: model hidden until own answer, self-comparison required before the new situation"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
         }
       ],
-      "gap": "Practice cards are 1–3 minute, optional and theme-filtered; no 'before a real situation' entry point."
+      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to; no time-of-day or 'right before' prompt."
     },
     {
       "id": "structured-input-grammar",
@@ -12142,8 +12208,14 @@
     },
     {
       "id": "real-world-interaction",
-      "status": "NOT_YET",
-      "plan": "Optional out-of-app mission with a private self-report (no tracking). Buildable; prompts need S2 wording check."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        }
+      ],
+      "gap": "Each place suggests one optional real-life deed in Ukrainian (editorial draft); nothing is tracked and there is no private self-report yet."
     },
     {
       "id": "caption-fading",
@@ -12354,9 +12426,17 @@
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+        },
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "every place offers at least two real communicative missions (a game element is always a real task)"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
         }
       ],
-      "gap": "Missions are short and optional; R08-MOT plan module is not wired into the app."
+      "gap": "Missions are short, optional and grouped by life place; the R08-MOT plan module is not wired into the app."
     },
     {
       "id": "read-while-listen-scaffold",
@@ -12381,9 +12461,17 @@
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "no decay, streak or level: the same evidence gives the same result whatever the date (MOT-04/06)"
         }
       ],
-      "gap": "Deliberately minimal: calm mode, no mascot, no streaks; optional meaningful choices only."
+      "gap": "«Моє господарство»: nine never-locked life places, a door per own attempt and a key per correct first independent answer; no XP, streak, level, rank, mascot or sound. Effect on delayed Finnish outcomes not measured."
     },
     {
       "id": "contrast-uk-fi",

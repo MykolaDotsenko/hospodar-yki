@@ -14,10 +14,11 @@ type Loaded = { kind: "loading" } | { kind: "ready"; draft: ReadingDraftRow | nu
 const JUDGE_UK: Record<ReadingJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
-export function ReadingScreen({ repository, snapshot, onSaved, onHome }: {
-  repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void;
+export function ReadingScreen({ repository, snapshot, onSaved, onHome, initialId }: {
+  repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void; initialId?: string | null;
 }) {
-  const [selected, setSelected] = useState<ReadingItem | null>(null);
+  // A place in «Моє господарство» may open one text directly; an unfinished draft still wins below.
+  const [selected, setSelected] = useState<ReadingItem | null>(() => readingItems.find(i => i.id === initialId) ?? null);
   const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [discarding, setDiscarding] = useState(false);

@@ -1,5 +1,7 @@
-import { delayedTransferQueue, dueCards, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
-  type LearnerState, type Skill, type TodayAction } from "@hospodar/domain";
+import { delayedTransferQueue, dueCards, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
+  type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
+import { placeIndex, places } from "../content/places.ts";
+import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
 import { exercises } from "../content/cloze.ts";
 import { practiceCards } from "../content/practice.ts";
 import { skillRetentionBank } from "../content/skillRetention.ts";
@@ -35,7 +37,7 @@ function describe(a: TodayAction): { title: string; why: string; cta: string; go
   }
 }
 
-export function HomeScreen({ state, go }: { state: LearnerState | null; go: (v: HomeTarget) => void }) {
+export function HomeScreen({ state, go, openPlace }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void }) {
   const done = state?.attempts.length ?? 0;
   const grammarDue = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
@@ -51,6 +53,8 @@ export function HomeScreen({ state, go }: { state: LearnerState | null; go: (v: 
     const later = q?.due ? " · відкладена перевірка сьогодні" : q?.anchorDate && q.nextDay ? ` · перевірка через ${q.nextDay - q.ageDays} дн.` : "";
     return saved + later;
   };
+  const estate = state ? placeProgress(state, placeIndex) : [];
+  const doors = estate.filter(p => p.doorOpen).length, keys = estate.reduce((n, p) => n + p.keys, 0);
   const more: { id: string; icon: IconName; label: string; note: string; to: HomeTarget }[] = [
     { id: "practice", icon: "practice", label: `Практика без підказки${phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}`, note: "Фрази, реакції, власна думка", to: "practice" },
     { id: "pictures", icon: "photo", label: "Фото-місії", note: "Опиши справжнє місце у Фінляндії", to: "pictures" },
@@ -91,6 +95,27 @@ export function HomeScreen({ state, go }: { state: LearnerState | null; go: (v: 
           <span className="mode-cta">Почати репетицію →</span>
         </button>
       </div>
+
+      {/* «Моє господарство»: the name made visible — life in Finland as nine places. Game elements only where research
+          allows them: free choice, never locked, a key only for a correct first independent answer, nothing decays (R08-MOT). */}
+      <nav className="estate" aria-labelledby="estate-title">
+        <h2 id="estate-title">Моє господарство у Фінляндії</h2>
+        <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
+          ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
+        <ul className="estate-grid">
+          {places.map(pl => {
+            const p = estate.find(x => x.place === pl.id);
+            return (
+              <li key={pl.id}><button type="button" className="place-tile" data-testid={`place-${pl.id}`} data-door={p?.doorOpen ? "open" : "closed"} onClick={() => openPlace(pl.id)}>
+                <PlaceGlyph open={Boolean(p?.doorOpen)} />
+                <span className="place-tile-text"><strong>{pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
+                  <small>{p?.doorOpen ? <><Icon name="key" size={15} /> ключів: {p.keys} · спроб фінською: {p.practice}</> : "Двері ще зачинені"}</small></span>
+              </button></li>
+            );
+          })}
+        </ul>
+        <p className="muted estate-count">Відчинено дверей: <strong>{doors}</strong> з {places.length} · ключів: <strong>{keys}</strong></p>
+      </nav>
 
       <nav aria-labelledby="skills-title">
         <h2 id="skills-title">Чотири навички</h2>

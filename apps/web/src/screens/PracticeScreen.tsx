@@ -17,9 +17,10 @@ const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAIL
  * then a new situation. Only the finished card is saved (verified readback); an unfinished card is
  * short and is NOT kept across reloads — the screen says so.
  */
-export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void }) {
-  const [kind, setKind] = useState<PracticeKind | null>(null);
-  const [card, setCard] = useState<PracticeCard | null>(null);
+export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialCardId }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void; initialCardId?: string | null }) {
+  const start = practiceCards.find(c => c.id === initialCardId) ?? null;   // opened from a place in «Моє господарство»
+  const [kind, setKind] = useState<PracticeKind | null>(start?.kind ?? null);
+  const [card, setCard] = useState<PracticeCard | null>(start);
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
 
   const due = practiceDue(snapshot.state, practiceCards);

@@ -14,8 +14,8 @@ const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за зм
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: DialogueDraftRow | null; blocked: string | null };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
-export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void }) {
-  const [selected, setSelected] = useState<DialogueItem | null>(null);
+export function DialogueScreen({ repository, snapshot, onSaved, onHome, initialId }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void; initialId?: string | null }) {
+  const [selected, setSelected] = useState<DialogueItem | null>(() => dialogues.find(d => d.id === initialId) ?? null);
   const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [discarding, setDiscarding] = useState(false);

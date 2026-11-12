@@ -13,10 +13,10 @@ type Loaded = { kind: "loading" } | { kind: "ready"; draft: ClinicDraftRow | nul
 const FOCUS_UK: Record<string, string> = { clarity: "зрозумілість", grammar: "граматика", register: "стиль", vocabulary: "лексика", content: "зміст", coherence: "зв'язність" };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
-export function WritingClinicScreen({ repository, snapshot, onSaved, onHome }: {
-  repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void;
+export function WritingClinicScreen({ repository, snapshot, onSaved, onHome, initialId }: {
+  repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void; initialId?: string | null;
 }) {
-  const [selected, setSelected] = useState<ClinicItem | null>(null);
+  const [selected, setSelected] = useState<ClinicItem | null>(() => clinicItems.find(i => i.id === initialId) ?? null);
   const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [discarding, setDiscarding] = useState(false);
