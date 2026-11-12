@@ -7,6 +7,7 @@ import type { LearnerRepository, PictureDraftRow } from "../storage/learnerRepos
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Mission = (typeof pictureMissions)[number];
@@ -74,7 +75,7 @@ export function PictureMissionScreen({ repository, snapshot, onSaved, onHome }: 
       <Eyebrow accent="speaking">Навчання · фото-місії</Eyebrow>
       <h1 id="pm-title">Фото-місії</h1>
       <p>Спершу сам(а) описуєш фото фінською. Потім бачиш приклади й український переклад. Наостанок — нова ситуація без фото й перекладу.</p>
-      <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Відповіді не оцінюються автоматично.</p>
+      <TrustNote many>Відповіді не оцінюються автоматично.</TrustNote>
       <ul className="choices" aria-label="Фото-місії">
         {pictureMissions.map(x => (
           <li key={x.lesson.lesson_id}><button type="button" className="choice" onClick={() => setSelected(x)}>
@@ -212,7 +213,7 @@ function PictureMission({ m, repository, snapshot, initialDraft, onSaved, onExit
       <Eyebrow accent="speaking">Навчання · фото-місія · {lesson.level}</Eyebrow>
       <h1 id="pmm-title" ref={heading} tabIndex={-1}>{title}</h1>
       <ThresholdRoute steps={["Твій опис", "Приклади", "Нова ситуація"]} current={{ look: 0, support: 1, transfer: 2, done: 3 }[s.phase]} accent="speaking" />
-      <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>
+      <TrustNote />
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершену фото-місію відновлено з цього пристрою.</p>}
       {v.showPicture && (
         <figure className="media-card picture-figure">

@@ -22,7 +22,7 @@ import { PracticeScreen } from "./screens/PracticeScreen.tsx";
 import { DataScreen } from "./screens/DataScreen.tsx";
 import { OfflineScreen } from "./screens/OfflineScreen.tsx";
 import { applyUpdate, onUpdateReady } from "./pwa/offline.ts";
-import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
+import { applyAppearance, applyTheme, readAppearance, readTheme, type Appearance, type Theme } from "./appearance.ts";
 
 type View = "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "exam" | "data" | "offline";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
@@ -34,6 +34,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const [loadError, setLoadError] = useState<string | null>(null);
   const [appearance, setAppearance] = useState<Appearance>(readAppearance);
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
+  const [theme, setTheme] = useState<Theme>(readTheme);
+  useEffect(() => { applyTheme(theme); }, [theme]);
   // DESIGN-12: the exam has its own neutral skin; LEARN keeps the expressive one. Presentation only.
   useEffect(() => { document.documentElement.dataset.mode = view === "exam" ? "exam" : "learn"; }, [view]);
   const [updateReady, setUpdateReady] = useState(false);
@@ -84,6 +86,10 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
       </main>
       <footer className="wrap footer">
         <p>Незалежний навчальний застосунок, не пов'язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.</p>
+        <p className="theme-choice"><label htmlFor="theme">Тема</label>{" "}
+          <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
+            <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
+          </select></p>
         <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>
       </footer>
     </>

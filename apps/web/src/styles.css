@@ -4,9 +4,14 @@
 
 :root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.5; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1rem; line-height: 1.5; }   /* rem, not px: the learner's own browser text size wins (WCAG 1.4.4, R10-05) */
 a { color: var(--navy); text-underline-offset: 3px; }
-button, input, textarea { font: inherit; }
+button, input, textarea, select { font: inherit; }
+input[type="file"] { max-width: 100%; }
+/* R10-05: at 320 px with 200 % text a long Finnish word must wrap, never widen the page. Fieldsets default to min-width:min-content. */
+fieldset { min-width: 0; }
+main, h1, h2, h3, legend, .radio, .choice, .btn { overflow-wrap: anywhere; }   /* breaks only where a word cannot fit */
+main .pill { white-space: normal; }   /* R10-16: the native file picker never widens the page at 360 px */
 :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
 .wrap { max-width: 860px; margin: 0 auto; padding: 0 var(--space-base); }
 .skip { position: absolute; left: -9999px; top: 0; background: var(--white); padding: var(--space-sm); z-index: 5; }
@@ -44,6 +49,7 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .radio { display: flex; gap: var(--space-sm); align-items: center; min-height: 44px; }
 .qualification, .footer p { color: var(--muted); font-size: .88rem; }
 .footer { padding-bottom: var(--space-xl); }
+.theme-choice select { min-height: 44px; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); }
 
 /* Mode gateway: two equal entries, one gold diagonal signature each (DESIGN-08/12). */
 .mode-gateway { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin: var(--space-base) 0; }
@@ -161,7 +167,7 @@ code.hash { overflow-wrap: anywhere; word-break: break-all; font-size: .85em; }
 .choice small { color: var(--muted); }
 .reviewer-banner { margin: 0 0 var(--space-base); padding: var(--space-sm) var(--space-md); border-left: 4px solid var(--navy); background: var(--exam-tint); border-radius: 8px; font-weight: 700; }
 /* Progress: tabs and skill lines (UX-05) */
-.tabs { display: flex; gap: var(--space-sm); margin: var(--space-sm) 0 var(--space-base); }
+.tabs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-sm) 0 var(--space-base); }
 .tab { min-height: 44px; padding: 8px 16px; border: 1.5px solid var(--stroke); border-radius: 10px; background: var(--white); color: var(--ink); font-weight: 700; cursor: pointer; }
 .tab[aria-selected="true"] { border-color: var(--navy); color: var(--navy); box-shadow: inset 0 -3px 0 var(--navy); }
 .skill-lines { list-style: none; padding: 0; display: grid; gap: var(--space-sm); }
@@ -175,7 +181,6 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 
 @media (max-width: 560px) {
   .mode-gateway { grid-template-columns: 1fr; }
-  .fidelity-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .threshold-route { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8em), 1fr)); }
   .threshold-segment, .threshold-segment:first-child { clip-path: none; border-radius: 6px; }
   .topbar-inner .pill { display: none; }
@@ -244,6 +249,8 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .threshold-route[data-accent="exam"] { color: var(--navy); }
 .threshold-route[data-accent="exam"] .threshold-segment { font-size: .85rem; }
 .fidelity-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; }
+/* Declared after the base rule so it actually wins (R10-16: was dead CSS, six cramped cells overflowed at 360 px). */
+@media (max-width: 560px) { .fidelity-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .fidelity-strip li { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: var(--space-sm); border: 1px solid var(--stroke); border-top: 4px solid var(--stroke); background: var(--white); }
 .fidelity-strip li[data-status="partial"] { border-top-color: var(--navy); border-top-style: dashed; }
 .fidelity-strip li[data-status="verified"] { border-top-color: var(--navy); }

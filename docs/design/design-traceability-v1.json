@@ -1,6 +1,6 @@
 {
   "schema": "hospodar-design-traceability-v1",
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "purpose": "Every design/UX requirement from the canonical spec and research has an honest implementation status; ENFORCED and PARTIAL entries point to tests that exist. Checked by scripts/validate_design_traceability.py. Status describes the product, not a learning effect.",
   "sources": [
     "docs/15-two-modes-skill-scopes.md",
@@ -158,9 +158,21 @@
         {
           "file": "app/tests/r10-accessibility-contract.test.mjs",
           "contains": "focus retained as visible high-contrast 3px outline in forced-colors mode"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "DESIGN-05/R10-14 forced colours (Chromium): controls keep visible borders, focus stays visible, statuses remain text"
         }
       ],
-      "gap": "Forced-colors and screen readers not tested in apps/web; high-contrast variant not built",
+      "gap": "Screen readers (TalkBack/VoiceOver/NVDA) and real devices not tested; forced colours emulated in Chromium only.",
       "plan": "R10 manual device/screen-reader matrix"
     },
     {
@@ -275,7 +287,7 @@
       "id": "DESIGN-14",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "WCAG 2.2 AA: 4.5:1 / 3:1, targets ≥24 px (CTA ≥44 px)",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/tests/test_validate_design_tokens.py",
@@ -288,9 +300,16 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "Real axe on every screen state and screen readers still partial"
+      ]
     },
     {
       "id": "DESIGN-15",
@@ -1542,7 +1561,7 @@
       "id": "COG-05",
       "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
       "summary": "One contextual prompt per trigger ('why this case?'), no generic badges/toasts",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "packages/domain/test/r08-r06-parity.test.ts",
@@ -1555,9 +1574,16 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "COG-05: repair asks about the actual grammar tag, not generic location for verb valency"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "AC-43 / COG-05: after feedback the single form cue never borrows a skill colour, and only one cue and one status note show"
         }
-      ],
-      "gap": "Cause-specific prompt exists in R08 repair only; no automated check that no toast/badge appears on every screen."
+      ]
     },
     {
       "id": "COG-06",
@@ -1583,14 +1609,17 @@
       "id": "COG-07",
       "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
       "summary": "No seductive details: story/graphics only if they carry meaning; no decorative lesson animation",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "Calm mode removes decoration; no test asserts that default lesson screens have no decorative animation beyond token micro-transitions."
+      ]
     },
     {
       "id": "COG-08",
@@ -1662,9 +1691,13 @@
         {
           "file": "packages/domain/test/retention-parity.test.ts",
           "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
       ],
-      "gap": "The new app sends no reminders and has no streaks (so nothing pushes at night); opt-in reminders are not built and no test asserts absence of streak UI."
+      "gap": "No streaks, loss framing or notification prompts on any screen (guarded); opt-in reminders and a study-hours setting are not built."
     },
     {
       "id": "COG-13",
@@ -2603,7 +2636,7 @@
       "id": "R7-08",
       "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
       "summary": "Safe cold start and R06 selection with manual override; no streak punishment",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
@@ -2612,9 +2645,12 @@
         {
           "file": "app/tests/r08-motivation-core.test.mjs",
           "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "No automated apps/web check that streak/punishment UI is absent (none exists)."
+      ]
     },
     {
       "id": "R7-09",
@@ -2678,14 +2714,17 @@
       "id": "R7-12",
       "source": "research/ux/21-r07-meaningful-interactive-finnish-ux-2026-10.md",
       "summary": "Reduced motion + static alternatives; pause/stop/hide",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "Calm mode tested; no automated prefers-reduced-motion test."
+      ]
     },
     {
       "id": "R7-13",
@@ -3802,14 +3841,17 @@
       "id": "SD-G04",
       "source": "research/design/19-r05-sound-visual-design-transfer-2026-10.md",
       "summary": "OS reduced motion + calm mode; moving content user-controlled",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "No automated prefers-reduced-motion test."
+      ]
     },
     {
       "id": "SD-G05",
@@ -3864,9 +3906,21 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G08 theme choice: explicit light or dark wins over the system and persists; the exam keeps its own neutral skin in dark"
+        },
+        {
+          "file": "scripts/tests/test_validate_design_tokens.py",
+          "contains": "def test_dark_low_contrast_pair_fails"
         }
       ],
-      "gap": "Dark theme not built; Screen reader (TalkBack/VoiceOver) and real devices not tested."
+      "gap": "Dark palette built and AA-checked on every screen; screen readers (TalkBack/VoiceOver) and real devices not tested."
     },
     {
       "id": "SD-G09",
@@ -4356,14 +4410,17 @@
       "id": "MOT-03",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "Default 0 notifications and 0 invasive tracking; opt-in only",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "app/tests/r08-motivation-core.test.mjs",
           "contains": "reference prototype not active or sending notifications"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "apps/web sends no notifications; no automated apps/web assertion."
+      ]
     },
     {
       "id": "MOT-04",
@@ -4385,14 +4442,17 @@
       "id": "MOT-05",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "No automatic public standings, social comparison or pay-to-win",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "None exist; no explicit test."
+      ]
     },
     {
       "id": "MOT-06",
@@ -6557,9 +6617,13 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
       ],
-      "gap": "Calm mode only; no simple/rich media-density control; no reduced-motion test."
+      "gap": "Calm mode, theme and OS reduced motion are honoured (reduced motion guarded); no simple/rich media-density control."
     },
     {
       "id": "IV2-10",
@@ -6724,14 +6788,17 @@
       "id": "IV2-AC-11",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Reduced motion and pause/stop/hide remove moving content",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "No automated prefers-reduced-motion test."
+      ]
     },
     {
       "id": "IV2-AC-12",
@@ -7134,14 +7201,17 @@
       "id": "IV-AC-11",
       "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
       "summary": "prefers-reduced-motion and calm mode remove optional animation without losing content",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "No automated prefers-reduced-motion test."
+      ]
     },
     {
       "id": "IV-AC-12",
@@ -7156,9 +7226,17 @@
         {
           "file": "apps/web/e2e/dialogue.spec.ts",
           "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
       ],
-      "gap": "Automatic token contrast + text labels; manual contrast review not recorded."
+      "gap": "Automatic contrast in light and dark on every screen + text labels; a manual contrast review is not recorded."
     },
     {
       "id": "IV-AC-13",
@@ -7258,14 +7336,21 @@
       "id": "A11Y-04",
       "source": "research/design/18-multisensory-learning-interface-evidence-2026-10.md",
       "summary": "Motion only user-triggered with a static equivalent; reduced motion; calm",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
           "contains": "DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
         }
-      ],
-      "gap": "No motion exists beyond micro-transitions; no prefers-reduced-motion test."
+      ]
     },
     {
       "id": "A11Y-05",
@@ -7785,14 +7870,17 @@
       "id": "AC-43",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Skill category colour never equals the correct-ending colour",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/tests/test_validate_design_tokens.py",
           "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "AC-43 / COG-05: after feedback the single form cue never borrows a skill colour, and only one cue and one status note show"
         }
-      ],
-      "gap": "Colour roles separated statically in tokens; no rendered check (COLOR-17)."
+      ]
     },
     {
       "id": "AC-44",
@@ -10517,7 +10605,7 @@
       "id": "R10-01",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "Correct UA/fi language attributes, landmarks and skip link on every entry point",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/focus.spec.ts",
@@ -10526,9 +10614,12 @@
         {
           "file": "apps/web/e2e/mission.spec.ts",
           "contains": "empty answer is refused with an accessible error; keyboard-only flow works"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "lang='fi' used on Finnish text; no automated check of every element."
+      ]
     },
     {
       "id": "R10-02",
@@ -10551,7 +10642,7 @@
       "id": "R10-03",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "Strong 3:1 focus indicator never fully hidden (WCAG 2.4.11)",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/tests/test_validate_design_tokens.py",
@@ -10560,9 +10651,12 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "Focus contrast checked statically; 'not obscured' not tested (A10-06)."
+      ]
     },
     {
       "id": "R10-04",
@@ -10589,9 +10683,13 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "320 px: media library reflows without horizontal page scroll"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
       ],
-      "gap": "400 % zoom and manual checks not done."
+      "gap": "Every screen reflows at 320/360/390 px and at 320 px with 200 % text (automated overflow check); a manual check that nothing is clipped at real 400 % browser zoom is not recorded."
     },
     {
       "id": "R10-06",
@@ -10609,14 +10707,17 @@
       "id": "R10-07",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "Targets meet 2.5.8 (24 px) and 44 px for major actions",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/tests/test_validate_design_tokens.py",
           "contains": "def test_repository_state_passes"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
-      ],
-      "gap": "Min-height 44 px in CSS; no rendered target-size test."
+      ]
     },
     {
       "id": "R10-08",
@@ -10716,7 +10817,7 @@
       "id": "R10-14",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "Reduced motion and high contrast; no mandatory GPU/canvas; meaningful alt text",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/calm.spec.ts",
@@ -10725,9 +10826,20 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "pictures: alt text, credit + licence link, ungraded description; uncaptioned video never playable (A11Y-03); illustrations credited"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "SD-G04/R7-12 reduced motion and SD-G08 dark theme: no transition anywhere, dark palette, AA contrast on every screen"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "DESIGN-05/R10-14 forced colours (Chromium): controls keep visible borders, focus stays visible, statuses remain text"
         }
-      ],
-      "gap": "No reduced-motion or forced-colours rendered test."
+      ]
     },
     {
       "id": "R10-15",
@@ -10754,7 +10866,7 @@
       "id": "R10-16",
       "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md",
       "summary": "320/360/390 px, several browsers and forced colours verified on rendered pages",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/mission.spec.ts",
@@ -10763,9 +10875,16 @@
         {
           "file": ".github/workflows/validate-web-app.yml",
           "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "DESIGN-05/R10-14 forced colours (Chromium): controls keep visible borders, focus stays visible, statuses remain text"
         }
-      ],
-      "gap": "Forced colours and 360/390 px not tested."
+      ]
     },
     {
       "id": "R10-17",
@@ -10787,9 +10906,13 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "IV-REQ-04: learner-started audio first; no text or key before answering; keys then transcript+subtitles; scored"
+        },
+        {
+          "file": "apps/web/e2e/research-design.spec.ts",
+          "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
         }
       ],
-      "gap": "Manual accessibility audit not recorded."
+      "gap": "axe WCAG 2.2 A/AA runs on every screen in light and dark; the manual accessibility audit is not recorded."
     },
     {
       "id": "R10-19",

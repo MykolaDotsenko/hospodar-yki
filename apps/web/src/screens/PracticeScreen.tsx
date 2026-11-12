@@ -6,6 +6,7 @@ import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<PracticeJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інакше" };
@@ -35,7 +36,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
       <Eyebrow accent="grammar">Навчання · практика без підказки</Eyebrow>
       <h1 id="pr-title">{meta ? meta.title : "Практика без підказки"}</h1>
       <p>Спершу твоя власна відповідь. Лише потім — зразок і пояснення. Наостанок — нова ситуація без зразка.</p>
-      <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Тексти не оцінюються автоматично.</p>
+      <TrustNote many>Тексти не оцінюються автоматично.</TrustNote>
       {!meta && due.length > 0 && (
         <p className="feedback" role="status">Сьогодні на повторення: <strong>{due.length}</strong> — фрази, які ти минулого разу не згадав(ла).{" "}
           <button type="button" className="btn" onClick={() => open(due[0]!)}>Повторити</button></p>
@@ -121,7 +122,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       <Eyebrow accent={card.attemptSkill}>Практика без підказки · {meta.title}</Eyebrow>
       <h1 id="pr-run"{...(card.kind === "rektio" ? { lang: "fi" } : {})}>{groupLabel(card.group)}</h1>
       <ThresholdRoute steps={routeSteps} current={routeSteps.length === 4 ? { attempt: 0, reveal: 1, recall: 2, transfer: 3, done: 4 }[s.phase] : { attempt: 0, reveal: 1, recall: 1, transfer: 2, done: 3 }[s.phase]} accent={card.attemptSkill} />
-      <p className="draft-note">Чернетка, ще не перевірена S2-викладачем</p>
+      <TrustNote />
       {review && s.phase === "attempt" && <p className="muted">Повторення: згадай без зразка.</p>}
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
 

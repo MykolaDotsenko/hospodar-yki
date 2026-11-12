@@ -7,6 +7,7 @@ import type { LearnerRepository, DialogueDraftRow } from "../storage/learnerRepo
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
@@ -71,7 +72,7 @@ export function DialogueScreen({ repository, snapshot, onSaved, onHome }: { repo
       <Eyebrow accent="speaking">Навчання · розмова</Eyebrow>
       <h1 id="dl-title">Діалоги: твоя репліка</h1>
       <p>Ти — один зі співрозмовників. Спершу пишеш свою репліку, потім бачиш, як сказано в сценарії — це один із можливих варіантів, не «правильна відповідь». Одного разу співрозмовник тебе не зрозуміє й попросить сказати інакше, а наприкінці умова ситуації зміниться.</p>
-      <p className="draft-note">Лише текст (запису ще немає) і чернетки, не перевірені S2-викладачем. Без автоматичної оцінки.</p>
+      <TrustNote many>Лише текст, запису ще немає. Без автоматичної оцінки.</TrustNote>
       <ul className="choices" aria-label="Діалоги">
         {dialogues.map(d => (
           <li key={d.id}><button type="button" className="choice" onClick={() => setSelected(d)}>
@@ -206,7 +207,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       <h1 id="dlg-title" ref={heading} tabIndex={-1}>{title}</h1>
       <ThresholdRoute steps={item.negotiation ? ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація", "Зміна умови"] : ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація"]}
         current={item.negotiation ? { turns: 0, questions: 1, roleplay: 2, transfer: 3, done: 4 }[s.phase] : { turns: 0, questions: 1, roleplay: 2, transfer: 2, done: 3 }[s.phase]} accent="speaking" />
-      {!v.reviewed && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
+      {!v.reviewed && <TrustNote />}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершений діалог відновлено з цього пристрою.</p>}
 
       {s.phase !== "roleplay" && s.phase !== "transfer" && s.phase !== "done" && (

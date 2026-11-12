@@ -7,6 +7,7 @@ import type { LearnerRepository, ReadingDraftRow } from "../storage/learnerRepos
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ReadingDraftRow | null; blocked: string | null };
@@ -75,7 +76,7 @@ export function ReadingScreen({ repository, snapshot, onSaved, onHome }: {
       <Eyebrow accent="reading">Навчання · читання</Eyebrow>
       <h1 id="rd-title">Читання з доказами</h1>
       <p>Спершу відповідаєш сам(а). Потім бачиш відповіді й підсвічене місце в тексті, де це сказано.</p>
-      <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Тексти, що є в симуляції YKI, тут не показуються.</p>
+      <TrustNote many>Тексти, що є в симуляції YKI, тут не показуються.</TrustNote>
       <ul className="choices" aria-label="Тексти">
         {readingItems.map(i => (
           <li key={i.id}><button type="button" className="choice" onClick={() => setSelected(i)}>
@@ -218,7 +219,7 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
       <Eyebrow accent="reading">Навчання · читання · <span lang="fi">{item.title_fi}</span></Eyebrow>
       <h1 id="rdm-title" ref={heading} tabIndex={-1}>{title}</h1>
       <ThresholdRoute steps={["Питання", "Перевірка", "Нова ситуація"]} current={{ questions: 0, feedback: 1, transfer: 2, done: 3 }[s.phase]} accent="reading" />
-      <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>
+      <TrustNote />
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершене читання відновлено з цього пристрою.</p>}
       {v.showText && (
         <div className="prompt reading-text" lang="fi">

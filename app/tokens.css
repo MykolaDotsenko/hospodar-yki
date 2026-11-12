@@ -38,3 +38,60 @@
   --motion-micro:180ms;
   --motion-max:250ms;
 }
+/* SD-G08 dark palette: only on pages that opt in (html[data-theme-support="dark"]). */
+@media (prefers-color-scheme: dark){
+:root[data-theme-support="dark"]:not([data-theme="light"]){
+  color-scheme:dark;
+  --ink:#E6ECE7;
+  --navy:#9CC3F5;
+  --gold:#D9A84E;
+  --paper:#111915;
+  --forest:#8FCBB3;
+  --stroke:#34423B;
+  --muted:#A8B6AE;
+  --red:#F2958F;
+  --white:#18221D;
+  --learn-tint:#1C2B24;
+  --exam-tint:#1B2533;
+  --skill-reading:#6CCAD5;
+  --skill-listening:#C2A9EE;
+  --skill-writing:#EBAA7C;
+  --skill-speaking:#7FD3A0;
+  --input-border:#7F9188;
+  --surface-subtle:#151E1A;
+  --warn-tint:#33291A;
+  --error-tint:#36201F;
+  --route-track:#2B3731;
+  --route-learn-done:#244036;
+  --route-exam-done:#22344C;
+  --cue-bg:#3E3415;
+  --cue-text:#FFE7A6;
+}
+}
+:root[data-theme-support="dark"][data-theme="dark"]{
+  color-scheme:dark;
+  --ink:#E6ECE7;
+  --navy:#9CC3F5;
+  --gold:#D9A84E;
+  --paper:#111915;
+  --forest:#8FCBB3;
+  --stroke:#34423B;
+  --muted:#A8B6AE;
+  --red:#F2958F;
+  --white:#18221D;
+  --learn-tint:#1C2B24;
+  --exam-tint:#1B2533;
+  --skill-reading:#6CCAD5;
+  --skill-listening:#C2A9EE;
+  --skill-writing:#EBAA7C;
+  --skill-speaking:#7FD3A0;
+  --input-border:#7F9188;
+  --surface-subtle:#151E1A;
+  --warn-tint:#33291A;
+  --error-tint:#36201F;
+  --route-track:#2B3731;
+  --route-learn-done:#244036;
+  --route-exam-done:#22344C;
+  --cue-bg:#3E3415;
+  --cue-text:#FFE7A6;
+}

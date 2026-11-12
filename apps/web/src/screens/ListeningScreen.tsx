@@ -7,6 +7,7 @@ import type { LearnerRepository, ListeningDraftRow } from "../storage/learnerRep
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ListeningDraftRow | null; blocked: string | null };
@@ -258,7 +259,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
       <h1 id="lm-title" ref={heading} tabIndex={-1}>{titles[s.phase]}</h1>
       <ThresholdRoute steps={["Прогноз", "Слухання", "Питання", "Перевірка", "З текстом"]} current={{ predict: 0, listen: 1, questions: 2, feedback: 3, review: 4, done: 5 }[s.phase]} accent="listening" />
-      {lesson.teacher_review !== "approved" && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
+      {lesson.teacher_review !== "approved" && <TrustNote />}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершене аудіювання відновлено з цього пристрою.</p>}
       {s.phase === "predict" && (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition(inputRef.current.trim()

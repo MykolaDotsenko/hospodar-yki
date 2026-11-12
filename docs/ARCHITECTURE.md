@@ -157,3 +157,30 @@ Evidence: `packages/domain/test/today.test.ts`, `apps/web/e2e/home.spec.ts`, `ap
 
 Presentation only — no exam rule, timing, navigation or data changed. Evidence: `apps/web/e2e/design.spec.ts`.
 
+## 2026-11-12 — design research conformance on every rendered screen
+
+- **Rendered guards, every screen** (`apps/web/e2e/research-design.spec.ts`, 16 screen states from home to an exam item, 3 engines in CI):
+  - landmarks, skip link and `lang`: the page is `uk`, and every Finnish surface is `fi`;
+  - axe WCAG 2.2 A/AA;
+  - targets: at least 24 px, main actions at least 44 px;
+  - reflow at 390/360/320 px and at 320 px with 200 % text;
+  - focus is never covered or off screen (WCAG 2.4.11);
+  - under `prefers-reduced-motion` nothing moves;
+  - only token micro-transitions run, never keyframe or looping animation;
+  - no streaks, XP, standings or loss framing, no notification prompt, no request to another origin;
+  - in forced colours (Chromium), controls keep their edges and focus stays visible;
+  - after feedback, the single form cue never uses a skill colour.
+- **Dark theme** (SD-G08, SD-06):
+  - `brand/tokens.json` `colors_dark` defines the same roles with lighter tints of the same hues;
+  - `validate_design_tokens.py` re-checks every contrast pair on it and emits the palette only for pages that opt in with `html[data-theme-support="dark"]`, so the legacy `app/` stays light;
+  - the theme follows the system or the learner's choice (footer: «Тема»), stored per viewer as a convenience.
+- **One place for status disclaimers:** `ui/TrustNote.tsx` replaces 15 hand-written notes with one wording, look and position, at most one per screen state, never in EXAM.
+- **Fixed by the new guards:**
+  - `body` font size in `rem`, so the browser's own text size wins;
+  - a long Finnish word no longer widens the page (`fieldset` min-width, `overflow-wrap` in `main`);
+  - the mobile fidelity-strip rule was declared before its base rule and never applied;
+  - the file picker on «Мої дані» widened the page at 360 px;
+  - an R08 transfer prompt lacked `lang="fi"`.
+
+Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real devices, and a manual 400 % zoom and contrast review (R10-17/R10-18).
+
