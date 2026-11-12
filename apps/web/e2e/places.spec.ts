@@ -56,7 +56,7 @@ test("Господар persona: guides on home and place screens only — never 
   await expect(guide.locator("figcaption")).toContainText("Я Господар");                // first visit greeting, real text
   await expect(guide.locator("svg")).toHaveAttribute("aria-hidden", "true");
   await page.getByTestId("place-housing").click();
-  await expect(guide).toContainText("Двері поки зачинені");
+  await expect(guide).toContainText("Ці двері чекають на твою першу спробу");
 
   // Inside a task: answer step and feedback — no persona (COG-07, IV-14).
   await page.getByRole("button", { name: /Діалог · / }).click();

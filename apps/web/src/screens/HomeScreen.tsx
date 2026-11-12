@@ -1,4 +1,4 @@
-import { delayedTransferQueue, dueCards, HOSPODAR_HOME, hospodarMoment, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
+import { delayedTransferQueue, dueCards, hospodarHome, hospodarMoment, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
   type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
 import { placeIndex, places } from "../content/places.ts";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
@@ -101,7 +101,7 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
           allows them: free choice, never locked, a key only for a correct first independent answer, nothing decays (R08-MOT). */}
       <nav className="estate" aria-labelledby="estate-title">
         <h2 id="estate-title">Моє господарство у Фінляндії</h2>
-        {guide && state && <Hospodar says={HOSPODAR_HOME[hospodarMoment(state, new Date())]} />}
+        {guide && state && <Hospodar says={hospodarHome(hospodarMoment(state, new Date()), new Date())} />}
         <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
           ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
         <ul className="estate-grid">

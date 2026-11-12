@@ -314,14 +314,16 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .hospodar-says::before { content: ""; position: absolute; left: -8px; bottom: 18px; width: 14px; height: 14px; background: var(--white);
   border-left: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); transform: rotate(45deg); }
 .hz-shirt { fill: var(--white); }
-.hz-embroidery { stroke: var(--forest); stroke-width: 1.75; }
-.hz-collar { stroke: var(--gold); stroke-width: 2.5; }
-.hz-belt { stroke: var(--forest); stroke-width: 4.5; }
-.hz-key { stroke: var(--gold); stroke-width: 2.75; }
+.hz-embroidery { stroke: var(--forest); stroke-width: 1.6; }
+.hz-collar { stroke: var(--gold); stroke-width: 2.25; }
+.hz-vest { fill: var(--forest); }
+.hz-belt { stroke: var(--gold); stroke-width: 4; fill: none; }
+.hz-key { stroke: var(--gold); stroke-width: 2.25; }
 .hz-face { fill: var(--surface-subtle); }
-.hz-moustache { stroke-width: 3; }
+.hz-moustache { fill: var(--muted); stroke-width: 1.75; }
 .hz-hat { fill: var(--warn-tint); stroke: var(--gold); }
 .hz-band { stroke: var(--forest); stroke-width: 3.5; }
+.hz-boots { fill: currentColor; }
 .guide-choice label { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
 @media (max-width: 560px) { .hospodar-figure { width: 64px; height: 77px; } .hospodar-says::before { bottom: 14px; } }
 .hz-trousers { fill: var(--surface-subtle); }

@@ -205,9 +205,9 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - E2E in `e2e/places.spec.ts`.
 - **Media budget:** the planned 3–4 GB offline packs (R05) are for licensed human audio and video. The game layer is static SVG (kilobytes). Richer illustration waits for one human-made style with cleared rights (DESIGN-07); no generated art.
 - **Not measured:** whether the place layer changes delayed independent Finnish outcomes (UIO-09 comparison, R08-MOT-H01) — NOT RUN.
-- **Persona «Господар»** (DEC-06 revised by the owner on 12.11.2026): a Ukrainian householder in a straw hat (бриль) and an embroidered shirt (вишиванка) in brand colours, holding a key.
+- **Persona «Господар»** (DEC-06 revised by the owner on 12.11.2026): a **master and mentor** (сенсей, владник) of his own life in Finland and of YKI. He looks like a kind village uncle from a cartoon (original design): a big round head, a straw hat, a big moustache, a round belly in a вишиванка with a крайка belt, a кептар in brand colours and boots; he holds a ring of keys.
   - **Where he appears:** only on Home («Моє господарство») and on place screens. He is never shown during an answer or in feedback, and never in EXAM.
-  - **What he says:** a greeting, a guilt-free welcome back after a break of 3 or more days, and how doors and keys work. He never praises or rates an answer.
+  - **What he says:** a greeting, a guilt-free welcome back after a break of 3 or more days, a daily «наука майстра», and how doors and keys work. Each «наука» names a rule the app enforces (retrieval before the model, spacing, self-repair, speaking aloud, delayed new-situation checks). He never praises or rates an answer and never promises a YKI pass.
   - **Presentation:** static and silent. The learner can hide him in the footer, and calm mode also hides him.
   - **Code:** `packages/domain/src/hospodar.ts` (`test/hospodar.test.ts`) and `apps/web/src/ui/Hospodar.tsx`. The drawing is a **temporary code silhouette** until a human illustrator delivers the final character (DESIGN-07).
 
