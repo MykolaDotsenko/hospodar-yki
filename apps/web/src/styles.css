@@ -308,22 +308,37 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 }
 /* «Господар» persona — TEMPORARY silhouette until the illustrator (DESIGN-07). Static, beside real text, outside tasks only. */
 .hospodar { display: flex; align-items: flex-end; gap: var(--space-md); margin: 0 0 var(--space-base); }
-.hospodar-figure { flex: none; color: var(--navy); }
+.hospodar-figure { flex: none; }
 .hospodar-says { position: relative; margin: 0 0 var(--space-lg); padding: var(--space-md) var(--space-base); background: var(--white); color: var(--ink);
   border: 1px solid var(--stroke); border-radius: 14px; max-width: 34em; font-size: 1.02rem; }
 .hospodar-says::before { content: ""; position: absolute; left: -8px; bottom: 18px; width: 14px; height: 14px; background: var(--white);
   border-left: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); transform: rotate(45deg); }
-.hz-shirt { fill: var(--white); }
-.hz-embroidery { stroke: var(--forest); stroke-width: 1.6; }
-.hz-collar { stroke: var(--gold); stroke-width: 2.25; }
-.hz-vest { fill: var(--forest); }
-.hz-belt { stroke: var(--gold); stroke-width: 4; fill: none; }
-.hz-key { stroke: var(--gold); stroke-width: 2.25; }
-.hz-face { fill: var(--surface-subtle); }
-.hz-moustache { fill: var(--muted); stroke-width: 1.75; }
-.hz-hat { fill: var(--warn-tint); stroke: var(--gold); }
-.hz-band { stroke: var(--forest); stroke-width: 3.5; }
-.hz-boots { fill: currentColor; }
+/* Illustration colours: persona_* tokens only, identical in light and dark (an illustration keeps its own colours). */
+.hp-line { stroke: var(--persona-line); stroke-width: 1.1; }
+.hp-linen { fill: var(--persona-linen); }
+.hp-fold { stroke: var(--persona-linen-shade); stroke-width: 1.4; }
+.hp-stitch-band { stroke: var(--persona-stitch); stroke-width: 5; stroke-dasharray: 2.2 1.6; stroke-linecap: butt; }
+.hp-stitch-cuff { stroke: var(--persona-stitch); stroke-width: 3.4; stroke-dasharray: 1.6 1.2; stroke-linecap: butt; }
+.hp-gold-thread { stroke: var(--persona-gold); stroke-width: 1.1; }
+.hp-belt { fill: var(--persona-gold); stroke: var(--persona-line); stroke-width: 1; }
+.hp-belt-thread { stroke: var(--persona-stitch); stroke-width: 1.6; stroke-dasharray: 2 2; stroke-linecap: butt; }
+.hp-vest { fill: var(--persona-vest); }
+.hp-vest-shade { fill: var(--persona-vest-shade); }
+.hp-collar { fill: var(--persona-stitch); }
+.hp-gold-ring { stroke: var(--persona-gold); stroke-width: 1.7; }
+.hp-gold-key { stroke: var(--persona-gold); stroke-width: 1.9; }
+.hp-skin { fill: var(--persona-skin); }
+.hp-skin-shade { fill: var(--persona-skin-shade); }
+.hp-cheek { fill: var(--persona-skin-shade); opacity: .45; }
+.hp-hair { fill: var(--persona-hair); }
+.hp-brow { stroke: var(--persona-hair); stroke-width: 2.1; }
+.hp-eye-white { fill: var(--persona-linen); }
+.hp-pupil { fill: var(--persona-line); }
+.hp-crease { stroke: var(--persona-line); stroke-width: .8; opacity: .55; }
+.hp-strand { stroke: var(--persona-line); stroke-width: .7; opacity: .35; }
+.hp-straw { fill: var(--persona-straw); }
+.hp-straw-shade { fill: var(--persona-straw-shade); }
+.hp-band { fill: var(--persona-vest); }
+.hp-weave { stroke: var(--persona-straw-shade); stroke-width: .9; }
 .guide-choice label { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
-@media (max-width: 560px) { .hospodar-figure { width: 64px; height: 77px; } .hospodar-says::before { bottom: 14px; } }
-.hz-trousers { fill: var(--surface-subtle); }
+@media (max-width: 560px) { .hospodar-figure { width: 76px; height: 95px; } .hospodar-says::before { bottom: 14px; } }
