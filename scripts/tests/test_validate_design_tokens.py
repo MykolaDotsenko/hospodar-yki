@@ -48,6 +48,20 @@ class DesignTokenTests(unittest.TestCase):
         self.tokens["colors"]["muted"] = "#9BAAA2"  # the old input-border grey: 2.4:1 on white
         self.assertTrue(any(e.startswith("contrast muted on surface") for e in self.errors()))
 
+    def test_dark_low_contrast_pair_fails(self):
+        self.tokens["colors_dark"]["muted"] = "#4A5650"  # readable grey in light, unreadable on the dark surface
+        self.assertTrue(any(e.startswith("dark: contrast muted on surface") for e in self.errors()))
+
+    def test_dark_palette_must_cover_every_role(self):
+        del self.tokens["colors_dark"]["reading"]
+        self.assertTrue(any("colors_dark must define exactly the roles" in e for e in self.errors()))
+
+    def test_dark_palette_is_opt_in_so_the_legacy_app_stays_light(self):
+        css = render_css(self.tokens)
+        self.assertIn('@media (prefers-color-scheme: dark){\n:root[data-theme-support="dark"]:not([data-theme="light"])', css)
+        self.assertIn(':root[data-theme-support="dark"][data-theme="dark"]', css)
+        self.assertNotIn("data-theme-support", (ROOT / "app/index.html").read_text(encoding="utf-8"))
+
     def test_input_border_meets_non_text_minimum(self):
         self.tokens["colors"]["input_border"] = "#9BAAA2"
         self.assertTrue(any("input_border" in e and "1.4.11" in e for e in self.errors()))

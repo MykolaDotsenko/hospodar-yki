@@ -10,6 +10,9 @@ async function axe(page: Page) {
 }
 async function startMission(page: Page) {
   await page.goto("./");
+  // Wait until the learner's progress is loaded: the "next step" block then appears above the mode entries,
+  // and a click sent before that layout shift can land on another button.
+  await expect(page.locator(".today")).toBeVisible();
   await page.getByRole("button", { name: /Навчання/ }).click();
   await expect(page.getByRole("heading", { name: "Твоя відповідь" })).toBeVisible();
 }

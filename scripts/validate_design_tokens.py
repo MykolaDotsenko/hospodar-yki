@@ -12,6 +12,9 @@ Checks (STATIC only — no rendered-screen, screen-reader or device verification
   4. Every declared contrast pair meets its WCAG 2.2 minimum.
   5. DESIGN-01a colour roles: reading surfaces never get a saturated fill, and the
      learning cue only uses the feedback-cue tokens.
+  6. SD-G08 dark palette: colors_dark defines exactly the same roles, and every declared
+     contrast pair is re-checked on it. It is emitted only for pages that opt in with
+     html[data-theme-support="dark"] (apps/web), so the legacy app keeps its light look.
 """
 from __future__ import annotations
 
@@ -56,6 +59,12 @@ def render_css(tokens: dict) -> str:
     lines.append(f"  --motion-micro:{tokens['motion']['micro_ms']}ms;")
     lines.append(f"  --motion-max:{tokens['motion']['max_ms']}ms;")
     lines.append("}")
+    dark = tokens.get("colors_dark")
+    if dark:
+        props = "".join(f"\n  {prop}:{dark[role]};" for role, prop in mapping.items() if role in dark)
+        lines.append("/* SD-G08 dark palette: only on pages that opt in (html[data-theme-support=\"dark\"]). */")
+        lines.append(f"@media (prefers-color-scheme: dark){{\n:root[data-theme-support=\"dark\"]:not([data-theme=\"light\"]){{\n  color-scheme:dark;{props}\n}}\n}}")
+        lines.append(f":root[data-theme-support=\"dark\"][data-theme=\"dark\"]{{\n  color-scheme:dark;{props}\n}}")
     return "\n".join(lines) + "\n"
 
 
@@ -104,14 +113,23 @@ def check(tokens: dict, generated: str, css_files: dict[str, str]) -> list[str]:
             if used not in defined:
                 errors.append(f"{name}: var({used}) is not defined by brand/tokens.json")
 
-    for pair in tokens["contrast_pairs"]:
-        try:
-            value = contrast(colors[pair["fg"]], colors[pair["bg"]])
-        except KeyError as missing:
-            errors.append(f"contrast pair uses unknown colour {missing}")
-            continue
-        if value < pair["min"]:
-            errors.append(f"contrast {pair['fg']} on {pair['bg']} = {value:.2f} < {pair['min']} ({pair['use']})")
+    palettes = {"light": colors}
+    if "colors_dark" in tokens:
+        dark = tokens["colors_dark"]
+        if set(dark) != set(colors):
+            errors.append(f"colors_dark must define exactly the roles of colors (differs: {sorted(set(dark) ^ set(colors))})")
+            return errors
+        palettes["dark"] = dark
+    for theme, palette in palettes.items():
+        for pair in tokens["contrast_pairs"]:
+            try:
+                value = contrast(palette[pair["fg"]], palette[pair["bg"]])
+            except KeyError as missing:
+                errors.append(f"contrast pair uses unknown colour {missing}")
+                continue
+            if value < pair["min"]:
+                prefix = "" if theme == "light" else "dark: "
+                errors.append(f"{prefix}contrast {pair['fg']} on {pair['bg']} = {value:.2f} < {pair['min']} ({pair['use']})")
 
     roles = tokens["color_roles"]
     surface_props = {mapping[r] for r in roles["reading_surface"]["tokens"]}
@@ -152,8 +170,9 @@ def main(argv: list[str]) -> int:
     if errors:
         print("FAIL design tokens:\n  " + "\n  ".join(errors))
         return 1
+    themes = 2 if "colors_dark" in tokens else 1
     print(f"PASS: app CSS colours come only from brand/tokens.json; {len(tokens['contrast_pairs'])} "
-          "contrast pairs meet WCAG 2.2 minimums; reading surfaces stay calm (static check only)")
+          f"contrast pairs meet WCAG 2.2 minimums in {themes} palette(s); reading surfaces stay calm (static check only)")
     return 0
 
 

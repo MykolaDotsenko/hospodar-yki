@@ -157,3 +157,57 @@ Evidence: `packages/domain/test/today.test.ts`, `apps/web/e2e/home.spec.ts`, `ap
 
 Presentation only — no exam rule, timing, navigation or data changed. Evidence: `apps/web/e2e/design.spec.ts`.
 
+## 2026-11-12 — design research conformance on every rendered screen
+
+- **Rendered guards, every screen** (`apps/web/e2e/research-design.spec.ts`, 16 screen states from home to an exam item, 3 engines in CI):
+  - landmarks, skip link and `lang`: the page is `uk`, and every Finnish surface is `fi`;
+  - axe WCAG 2.2 A/AA;
+  - targets: at least 24 px, main actions at least 44 px;
+  - reflow at 390/360/320 px and at 320 px with 200 % text;
+  - focus is never covered or off screen (WCAG 2.4.11);
+  - under `prefers-reduced-motion` nothing moves;
+  - only token micro-transitions run, never keyframe or looping animation;
+  - no streaks, XP, standings or loss framing, no notification prompt, no request to another origin;
+  - in forced colours (Chromium), controls keep their edges and focus stays visible;
+  - after feedback, the single form cue never uses a skill colour.
+- **Dark theme** (SD-G08, SD-06):
+  - `brand/tokens.json` `colors_dark` defines the same roles with lighter tints of the same hues;
+  - `validate_design_tokens.py` re-checks every contrast pair on it and emits the palette only for pages that opt in with `html[data-theme-support="dark"]`, so the legacy `app/` stays light;
+  - the theme follows the system or the learner's choice (footer: «Тема»), stored per viewer as a convenience.
+- **One place for status disclaimers:** `ui/TrustNote.tsx` replaces 15 hand-written notes with one wording, look and position, at most one per screen state, never in EXAM.
+- **Fixed by the new guards:**
+  - `body` font size in `rem`, so the browser's own text size wins;
+  - a long Finnish word no longer widens the page (`fieldset` min-width, `overflow-wrap` in `main`);
+  - the mobile fidelity-strip rule was declared before its base rule and never applied;
+  - the file picker on «Мої дані» widened the page at 360 px;
+  - an R08 transfer prompt lacked `lang="fi"`.
+
+Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real devices, and a manual 400 % zoom and contrast review (R10-17/R10-18).
+
+### «Моє господарство» — the name made visible, with research-bounded game elements
+
+- **Meaning:** Hospodar = self-reliance in your own daily life (brand platform), so LEARN is organised as **nine everyday places**, one per YKI keskitaso theme (Я і моє життя … Суспільство). Each place has:
+  - a real-life goal («Бути тут господарем: …»);
+  - its real missions: reading, dialogue, writing and practice cards from LEARN pools that already exclude EXAM items;
+  - one optional real-life deed that the app never tracks.
+- **Game elements, only where research allows** (R08-MOT MOT-01…09, MOT-E03/E06/E09, GAM-01, UIO-09):
+  - places are never locked;
+  - the **door** opens after the first own attempt (the brand threshold with its golden step);
+  - a **key** is given only for a correct first independent answer, never for a later retry or guided repair;
+  - ungraded Finnish writing and speaking show as practice, never as a score;
+  - nothing decays or resets;
+  - no XP, streak, level, rank, percentage, mascot or sound;
+  - never in EXAM.
+- **Code:**
+  - pure logic in `packages/domain/src/places.ts`, tested in `test/places.test.ts`;
+  - content in `apps/web/src/content/places.ts`;
+  - UI in `screens/PlaceScreen.tsx` and `ui/PlaceGlyph.tsx`;
+  - E2E in `e2e/places.spec.ts`.
+- **Media budget:** the planned 3–4 GB offline packs (R05) are for licensed human audio and video. The game layer is static SVG (kilobytes). Richer illustration waits for one human-made style with cleared rights (DESIGN-07); no generated art.
+- **Not measured:** whether the place layer changes delayed independent Finnish outcomes (UIO-09 comparison, R08-MOT-H01) — NOT RUN.
+- **Persona «Господар»** (DEC-06 revised by the owner on 12.11.2026): a **master and mentor** (сенсей, владник) of his own life in Finland and of YKI. He is drawn as a semi-realistic half-length portrait of a village householder (original design, not a cartoon or caricature): human proportions, a kind weathered face with a grey moustache, a straw hat, a linen вишиванка with shoulder bands, a кептар and a крайка belt in brand colours; he holds a ring of keys. The illustration uses the `persona_*` colour tokens, which are the same in the light and dark palettes.
+  - **Where he appears:** only on Home («Моє господарство») and on place screens. He is never shown during an answer or in feedback, and never in EXAM.
+  - **What he says:** a greeting, a guilt-free welcome back after a break of 3 or more days, a daily «наука майстра», and how doors and keys work. Each «наука» names a rule the app enforces (retrieval before the model, spacing, self-repair, speaking aloud, delayed new-situation checks). He never praises or rates an answer and never promises a YKI pass.
+  - **Presentation:** static and silent. The learner can hide him in the footer, and calm mode also hides him.
+  - **Code:** `packages/domain/src/hospodar.ts` (`test/hospodar.test.ts`) and `apps/web/src/ui/Hospodar.tsx`. The drawing is a **temporary code silhouette** until a human illustrator delivers the final character (DESIGN-07).
+

@@ -7,6 +7,7 @@ import type { DiagnosticDraftRow, LearnerRepository } from "../storage/learnerRe
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const NEXT_UK = {
@@ -206,7 +207,7 @@ export function DiagnosticScreen({ repository, snapshot, onSaved, onHome, onList
       <Eyebrow accent={dgAccent}>Навчання · стартова діагностика · крок {v.stepNumber} з 4</Eyebrow>
       <h1 id="dg-title" ref={heading} tabIndex={-1}>{titles[s.step]}</h1>
       <ThresholdRoute steps={["Читання", "Письмо", "Говоріння", "Підсумок"]} current={v.stepNumber - 1} accent={dgAccent} />
-      <p className="draft-note">Чернетка: завдання ще не перевірено S2-викладачем. Це не рівень CEFR чи YKI.</p>
+      <TrustNote>Це не рівень CEFR чи YKI.</TrustNote>
       {loaded.draft && s.step !== "summary" && <p className="feedback" role="status">Відновлено незавершену діагностику з цього пристрою.</p>}
 
       {s.step === "reading" && v.question && (

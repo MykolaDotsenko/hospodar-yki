@@ -18,3 +18,5 @@ export * from "./practice.ts";
 export * from "./skillRetention.ts";
 export * from "./examProfile.ts";
 export * from "./today.ts";
+export * from "./places.ts";
+export * from "./hospodar.ts";

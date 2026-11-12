@@ -5,6 +5,7 @@ import { listeningMediaFor, skillRetentionBank } from "../content/skillRetention
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const SKILL_UK: Record<Skill, string> = { reading: "Читання", listening: "Аудіювання", writing: "Письмо", speaking: "Говоріння" };
@@ -82,7 +83,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
   return (
     <section className="feedback" aria-labelledby="skc-title">
       <h2 id="skc-title">{SKILL_UK[skill]} · перевірка дня {day}</h2>
-      <p className="draft-note">Чернетка, ще не перевірена S2-викладачем · не іспит YKI</p>
+      <TrustNote>Не іспит YKI.</TrustNote>
       {check.kind === "objective" && <p lang="fi"><strong>{check.item.title_fi}</strong></p>}
       {v.showReadingText && check.kind === "objective" && <div className="prompt reading-text" lang="fi">{check.item.text_fi}</div>}
       {skill === "listening" && media && !saved && (

@@ -11,6 +11,7 @@ import { clozeFingerprint, validMissionDraft, type MissionDraftPayload } from ".
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "answer", label: "Спроба" },
@@ -246,7 +247,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
         {{ answer: "Твоя відповідь", repair: "Спробуй виправити сам(а)", feedback: "Що вийшло", transfer: "Скажи це про себе", done: "Місію завершено" }[mission.phase]}
       </h1>
       <ThresholdRoute steps={steps.map(x => x.label)} current={current < 0 ? steps.length : current} accent="grammar" label="Кроки місії" />
-      {isDraft(task) && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
+      {isDraft(task) && <TrustNote />}
       {recovered && mission.phase !== "done" && <p className="feedback" role="status">Продовжуємо незавершену місію з останньої підтвердженої чернетки.</p>}
       {mission.phase !== "done" && <p className="muted" role="status">
         {draftStatus === "saving" ? "Зберігаю чернетку…" :

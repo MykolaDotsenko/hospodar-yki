@@ -102,3 +102,7 @@ Scoped G2 Web presentation slice (no task logic or storage change): one recommen
 
 Presentation slice: Finnish task as the largest text with a skill-coloured rule and hyphenation; the exam gets its own neutral skin, a subtest route and a compact six-cell fidelity strip. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-12--finnish-first-typography-and-a-distinct-exam-skin).
 
+## Front end: design research conformance and dark theme — 12.11.2026
+
+Design research conformance slice: rendered accessibility/calm/privacy guards on every screen, an AA-checked dark theme, one status-note component. «Моє господарство»: nine never-locked life places with honest doors and keys (no XP/streaks); its learning effect is not measured. Screen readers and real devices still need people. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-12--design-research-conformance-on-every-rendered-screen).
+

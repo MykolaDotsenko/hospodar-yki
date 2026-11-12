@@ -82,7 +82,7 @@ export function R08MissionScreen({ task, preview, onExit }: { task: R08Task; pre
 
       {view.phase === "transfer" && (
         <form onSubmit={submit} noValidate>
-          <p className="prompt">{view.transferPromptFi}</p>
+          <p className="prompt" lang="fi">{view.transferPromptFi}</p>
           <label className="field" htmlFor="r08-transfer">Твоє речення фінською (без зразка, не оцінюється автоматично)</label>
           <textarea id="r08-transfer" className="answer" lang="fi" rows={3} maxLength={1600} value={input} onChange={e => setInput(e.target.value)} />
           {error && <p className="feedback error" role="alert">{error}</p>}

@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
 import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
+import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Tab = "voices" | "video" | "pictures" | "illustrations" | "links";
@@ -20,7 +21,7 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
       <p className="eyebrow">Навчання · медіатека</p>
       <h1 id="md-title">Медіатека</h1>
       <p>Лише матеріали з перевіреними правами: автор і ліцензія вказані біля кожного. Нічого не вмикається само — ти запускаєш відтворення.</p>
-      <p className="draft-note">Ще не перевірено S2-викладачем. Нотатки зберігаються без оцінки.</p>
+      <TrustNote many>Нотатки зберігаються без оцінки.</TrustNote>
       <div className="tabs media-tabs" role="tablist" aria-label="Тип матеріалу">
         {TABS.map(([id, label]) => <button key={id} type="button" role="tab" aria-selected={tab === id} className="tab" onClick={() => setTab(id)}>{label}</button>)}
       </div>
