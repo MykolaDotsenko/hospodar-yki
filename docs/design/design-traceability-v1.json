@@ -10761,9 +10761,13 @@
         {
           "file": "apps/web/e2e/exam-voice.spec.ts",
           "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "TZ-EXAM-11: timed speaking task — preparation countdown, recording starts by itself, the response window ends it; times are labelled as practice"
         }
       ],
-      "gap": "Consented recording exists in apps/web; no audio cue → preparation → response windows (OPH 2027 timings unverified)."
+      "gap": "Audio cue → preparation → auto recording → response window built and practice-labelled (TZ-EXAM-11 test); exact OPH 2027 windows unverified, so practice only."
     },
     {
       "id": "MOCK-VID-08",
@@ -11428,9 +11432,13 @@
         {
           "file": "app/tests/e06-speaking-evidence-policy.test.mjs",
           "contains": "Practice speech phases are explicit; no historic seconds become 2027 rules"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "TZ-EXAM-11: timed speaking task — preparation countdown, recording starts by itself, the response window ends it; times are labelled as practice"
         }
       ],
-      "gap": "Practice-only disclaimer; OPH 2027 windows unverified."
+      "gap": "Practice-only disclaimer shown in the timed speaking flow; verified profile records would replace the practice windows; OPH 2027 windows unverified."
     },
     {
       "id": "E06-G09",
@@ -11720,9 +11728,17 @@
         {
           "file": "apps/web/e2e/exam-voice.spec.ts",
           "contains": "E06: without consent a recording is page-only and does not survive reload; with consent it is stored, verified and listenable after finishing (ungraded)"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "TZ-EXAM-11: timed speaking task — preparation countdown, recording starts by itself, the response window ends it; times are labelled as practice"
+        },
+        {
+          "file": "apps/web/e2e/exam-voice.spec.ts",
+          "contains": "TZ-EXAM-11: a denied microphone ends the timed task honestly after preparation; nothing is claimed"
         }
       ],
-      "gap": "Consented local recording with hash readback exists (stubbed recorder in tests); no prompt/signal/preparation/response windows; real codecs and devices not tested (manual device testing needed)."
+      "gap": "Timed flow built (apps/web ExamVoice): preparation countdown → signal → recording starts by itself → response window auto-stops; learner may cancel or stop early; denied mic ends it honestly. Windows come from verified profile records speaking.prep_seconds/response_seconds, else labelled practice 30 s/60 s (OPH 2027 values unverified). Still missing: mic/headphone check before start (TZ-EXAM-17), real-device mic test (stubbed recorder in CI)."
     },
     {
       "id": "TZ-EXAM-12",

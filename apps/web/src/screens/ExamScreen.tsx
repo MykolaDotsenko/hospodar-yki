@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createActor, type SnapshotFrom } from "xstate";
-import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf , learnFocus, localDate, preferredBlueprint, repeatedSkills, retestPlan, setStatuses } from "@hospodar/domain";
+import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf , learnFocus, localDate, preferredBlueprint, repeatedSkills, retestPlan, setStatuses , speakingWindows } from "@hospodar/domain";
 import { createExamMachine } from "../exam/examMachine.ts";
 import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../content/exam.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
@@ -131,7 +131,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
             onComposeStart={() => actor.send({ type: "COMPOSE_START", itemId: item.id })}
             onComposeEnd={value => actor.send({ type: "COMPOSE_END", itemId: item.id, value, now: Date.now() })}
             disabled={busy || snap.matches("saveError")} />
-          {item.skill === "speaking" && <ExamVoice item={item} session={session!} revision={snap.context.revision} voiceStore={voiceStore}
+          {item.skill === "speaking" && <ExamVoice item={item} session={session!} revision={snap.context.revision} voiceStore={voiceStore} windows={speakingWindows(pinned)}
             send={e => actor.send(e)} disabled={busy || snap.matches("autosaving")} onRecording={setRecording} />}
         </>
       )}
