@@ -150,3 +150,10 @@ No logic of tasks, storage or scoring changed. Not done yet: Finnish-first typog
 
 Evidence: `packages/domain/test/today.test.ts`, `apps/web/e2e/home.spec.ts`, `apps/web/src/ui/noEmoji.test.ts`, `apps/web/src/content/practice.test.ts`; unchanged suites still pass.
 
+## 2026-11-12 — Finnish-first typography and a distinct exam skin
+
+- **Finnish first** (brand §3.4, PSY-03): the Finnish task (`.prompt[lang=fi]`) is the largest and calmest text on the screen and carries the threshold rule in the skill's colour; Finnish answer fields, options and dialogue lines are a step above body size; Ukrainian field labels step back; long Finnish compounds hyphenate on narrow screens (`hyphens: auto` on `[lang=fi]` inside `main`). Reading passages get a comfortable measure (≤ 42em).
+- **Exam skin** (DESIGN-12): `App` sets `html[data-mode="exam"|"learn"]`. The exam uses a cool neutral page instead of cream, a navy top rule, no gold signature and no skill colours; the threshold route shows the **subtests of the session** (Tekstin ymmärtäminen → Puheen ymmärtäminen → Kirjoittaminen → Puhuminen), never learning steps. The fidelity panel becomes a compact strip of six labelled cells with the status in text; the basis of each status and the list of unverified parameters are behind two disclosure toggles.
+
+Presentation only — no exam rule, timing, navigation or data changed. Evidence: `apps/web/e2e/design.spec.ts`.
+

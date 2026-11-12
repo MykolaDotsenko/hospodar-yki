@@ -101,9 +101,13 @@
         {
           "file": "apps/web/e2e/home.spec.ts",
           "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "Finnish first: the Finnish task is the largest text, carries the skill-coloured rule and hyphenates; Ukrainian helpers step back"
         }
       ],
-      "gap": "Every mission type now carries the threshold route with its real steps and the skill accent (one shared component); the gold signature is limited to the Today hero and the two mode entries. The typographic fingerprint (Finnish phrase as the centre of the screen) is not built or checked; needs design review."
+      "gap": "Threshold route with real steps and skill accent on every mission type; gold signature only on the Today hero and the two mode entries; Finnish-first typography now tested (largest text, skill-coloured rule, hyphenation). Overall composition still needs manual design review; recognisability is a user study (DESIGN-06/15)."
     },
     {
       "id": "DESIGN-03",
@@ -238,15 +242,17 @@
       "id": "DESIGN-12",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Learn more expressive, exam calmer; exam hides gateway/SRS",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "scripts/validate_brand_identity.py",
           "contains": "gateway.hidden=Boolean(exam.session && !exam.session.finishedAt)"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-12 exam skin: neutral page, navy subtest route, compact six-cell fidelity strip; LEARN keeps its own look"
         }
-      ],
-      "gap": "Covered in legacy EXAM only; EXAM not yet in apps/web",
-      "plan": "G2-c EXAM engine in apps/web"
+      ]
     },
     {
       "id": "DESIGN-13",
@@ -1774,6 +1780,10 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "pictures: alt text, credit + licence link, ungraded description; uncaptioned video never playable (A11Y-03); illustrations credited"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "Finnish first: the Finnish task is the largest text, carries the skill-coloured rule and hyphenates; Ukrainian helpers step back"
         }
       ],
       "gap": "Screen reader and real mobile devices not tested; matched-design comprehension trial NOT RUN."
@@ -11324,6 +11334,10 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "TZ-EXAM-03/04: three exam profiles with honest availability, six separate fidelity statuses, profile shown on every exam screen"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-12 exam skin: neutral page, navy subtest route, compact six-cell fidelity strip; LEARN keeps its own look"
         }
       ]
     },
