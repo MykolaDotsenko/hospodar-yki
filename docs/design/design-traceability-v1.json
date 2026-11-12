@@ -1682,8 +1682,18 @@
       "id": "COG-10",
       "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
       "summary": "Block a form first, later interleave only similar Finnish cases where discrimination helps",
-      "status": "NOT_YET",
-      "plan": "After S2 publishes R08 items: blocked first exposure, then targeted -ssa/-sta/-Vn interleaving in R06 ranking (PSY-06)."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "the set holds only never-seen tasks, interleaved across forms with the most-missed form first"
+        },
+        {
+          "file": "apps/web/src/content/workshop.test.ts",
+          "contains": "every grammar tag of the cloze bank belongs to exactly one family of confusable forms"
+        }
+      ],
+      "gap": "Interleaving is limited to families of similar forms and starts only after the learner has met them in ordinary missions; it is not yet part of the R06 ranking."
     },
     {
       "id": "COG-11",
@@ -1882,8 +1892,18 @@
       "id": "PSY-06",
       "source": "research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md",
       "summary": "Precision interleaving of talossa/talosta/taloon after first teaching",
-      "status": "NOT_YET",
-      "plan": "Requires published R08 items; equal-time blocked-vs-interleaved comparison (PSY-E04) before claiming benefit."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "the set holds only never-seen tasks, interleaved across forms with the most-missed form first"
+        },
+        {
+          "file": "apps/web/e2e/workshop.spec.ts",
+          "contains": "workshop: two wrong FIRST answers make a family a weak spot; the set mixes NEW tasks of confusable forms; a delayed check comes after 7 days"
+        }
+      ],
+      "gap": "Confusable forms (e.g. -ssa/-sta/-Vn) are interleaved in workshop sets after the learner's own errors, on S2-pending cloze tasks; R08 items are unpublished and the equal-time blocked-vs-interleaved comparison (PSY-E04) is NOT RUN."
     },
     {
       "id": "PSY-07",
@@ -4086,9 +4106,13 @@
         {
           "file": "packages/domain/test/retention-parity.test.ts",
           "contains": "a missed day-7 window is reported missed on day 14, never passed retroactively"
+        },
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "a first answer given ≥ 7 days after the previous practice is reported as delayed evidence — not as mastery"
         }
       ],
-      "gap": "Delayed checks only for grammar writing transfer (GL-03)."
+      "gap": "Delayed 7/14/30 checks on new items exist for all four skills and for workshop families; 30-day grammar evidence and a held-out bank remain partial."
     },
     {
       "id": "QL-05",
@@ -8039,8 +8063,21 @@
       "id": "AC-50",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Contrastive mix of similar constructions after initial learning; seedable",
-      "status": "NOT_YET",
-      "plan": "With COG-10 / PSY-06."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "the set holds only never-seen tasks, interleaved across forms with the most-missed form first"
+        },
+        {
+          "file": "apps/web/src/content/workshop.test.ts",
+          "contains": "every grammar tag of the cloze bank belongs to exactly one family of confusable forms"
+        },
+        {
+          "file": "apps/web/e2e/workshop.spec.ts",
+          "contains": "workshop: two wrong FIRST answers make a family a weak spot; the set mixes NEW tasks of confusable forms; a delayed check comes after 7 days"
+        }
+      ]
     },
     {
       "id": "AC-51",
@@ -11912,9 +11949,26 @@
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
+        },
+        {
+          "file": "apps/web/e2e/workshop.spec.ts",
+          "contains": "workshop: two wrong FIRST answers make a family a weak spot; the set mixes NEW tasks of confusable forms; a delayed check comes after 7 days"
+        },
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "a family becomes a bottleneck only after wrong FIRST answers on two different tasks"
+        },
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "seven calendar days after the last practice the next new task is a delayed check; earlier it is not"
+        },
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "a first answer given ≥ 7 days after the previous practice is reported as delayed evidence — not as mastery"
         }
       ],
-      "gap": "Errors are logged per grammar tag and repair cues are tag-specific; no targeted 3–5 prompt set per bottleneck with delayed re-test."
+      "gap": "«Майстерня слабких місць»: a family is a weak spot after wrong first answers on 2+ tasks; a set of up to 5 never-seen tasks mixed across confusable forms; a delayed check on a new task 7 days after the last practice. The families draw on 28 S2-pending cloze tasks (3–8 per family), so new tasks run out fast — more S2-reviewed tasks are needed.",
+      "blocked_by": "S2_REVIEW"
     },
     {
       "id": "prompted-self-repair",
@@ -12119,9 +12173,25 @@
         {
           "file": "apps/web/e2e/diagnostic.spec.ts",
           "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "is optional, offered once before the first answer, and only for opinion monologues"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "the plan is hidden while answering, never shows the model, and returns only next to the model for self-comparison"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "planning never changes the evidence status: the answer stays ungraded, the plan text is not stored"
         }
       ],
-      "gap": "Speaking tasks accept a text plan; no explicit short planning step before free production."
+      "gap": "Opinion cards offer an optional, untimed own plan (main idea, two reasons, an example) before speaking; it is hidden while answering and comes back next to the model. Dialogue role-play and the writing clinic have no planning step yet."
     },
     {
       "id": "chunk-learning",
@@ -12312,8 +12382,18 @@
     },
     {
       "id": "learner-concept-map",
-      "status": "NOT_YET",
-      "plan": "Optional thesis map before speaking, then hidden. Buildable as a planning step."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "the plan is hidden while answering, never shows the model, and returns only next to the model for self-comparison"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+        }
+      ],
+      "gap": "A three-slot text map (main idea, reasons, example) before an opinion monologue, hidden while answering; not a visual map and not yet offered before dialogues or writing."
     },
     {
       "id": "uncertainty-aware-asr",
@@ -12374,8 +12454,22 @@
     },
     {
       "id": "interleaving-grammar",
-      "status": "NOT_YET",
-      "plan": "After first explanation, mix confusable cases (talossa/talosta/taloon) — PSY-06, COG-10. Buildable on rektio/cloze tags."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/bottleneck.test.ts",
+          "contains": "the set holds only never-seen tasks, interleaved across forms with the most-missed form first"
+        },
+        {
+          "file": "apps/web/e2e/workshop.spec.ts",
+          "contains": "workshop: two wrong FIRST answers make a family a weak spot; the set mixes NEW tasks of confusable forms; a delayed check comes after 7 days"
+        },
+        {
+          "file": "apps/web/src/content/workshop.test.ts",
+          "contains": "every grammar tag of the cloze bank belongs to exactly one family of confusable forms"
+        }
+      ],
+      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); ordinary mission scheduling (R06) and the rektio practice cards are not interleaved."
     },
     {
       "id": "yki-mock",

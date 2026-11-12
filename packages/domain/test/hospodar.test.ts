@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { blankState, HOSPODAR_TEACHINGS, hospodarAtPlace, hospodarHome, hospodarMoment, hospodarTeaching, type LearnerState } from "../src/index.ts";
+import { blankState, HOSPODAR_TEACHINGS, HOSPODAR_WORKSHOP, hospodarAtPlace, hospodarHome, hospodarMoment, hospodarTeaching, type LearnerState } from "../src/index.ts";
 
 const at = (iso: string): LearnerState => ({ ...blankState(), diagnostics: [{ skill: "reading", taskId: "x-q1", status: "scored", correct: true, response: "", completedAt: iso }] });
 const now = new Date("2026-11-12T08:00:00");
@@ -17,7 +17,7 @@ describe("Господар — master and mentor: guides outside the task, never
     expect(HOSPODAR_TEACHINGS.every(t => t.startsWith("Наука майстра:"))).toBe(true);
   });
   it("his words never praise or rate, never pressure or promise a YKI pass, and contain no streak, XP, level or score", () => {
-    const all = [hospodarHome("first_visit", now), hospodarHome("welcome_back", now), ...HOSPODAR_TEACHINGS, hospodarAtPlace(true), hospodarAtPlace(false)].join(" ");
+    const all = [hospodarHome("first_visit", now), hospodarHome("welcome_back", now), ...HOSPODAR_TEACHINGS, hospodarAtPlace(true), hospodarAtPlace(false), HOSPODAR_WORKSHOP].join(" ");
     expect(all).not.toMatch(/молодець|чудово|супер|відмінно|стрік|\bXP\b|рівень|\bбал|рейтинг|не втрать|ти пропустив|шкода|складеш|гарантую/i);
     expect(hospodarHome("welcome_back", now)).toMatch(/не рахує пропущених днів/);
   });

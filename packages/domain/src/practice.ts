@@ -36,13 +36,28 @@ export interface PracticeCard {
   transfer: PracticeLine;
   reviewStatus: string;                 // never "published" today: S2 review pending
 }
-export type PracticePhase = "attempt" | "reveal" | "recall" | "transfer" | "done";
+export type PracticePhase = "plan" | "attempt" | "reveal" | "recall" | "transfer" | "done";
 export interface PracticeSession {
   cardId: string; phase: PracticePhase; first: string; judged: PracticeJudgement | null; recall: string; transfer: string;
+  /** Optional own pre-task plan (opinion cards only): hidden while answering, shown again for self-comparison. Never scored or stored. */
+  plan?: string;
 }
+
+/**
+ * Pre-task planning (methods pre-task-planning, learner-concept-map; research #26/#27): before a monologue the learner
+ * may jot a short own plan. It disappears while they answer — they speak from memory, not by reading notes — and
+ * comes back next to the model so they can see what they managed to say. Optional, untimed, ungraded, never stored.
+ */
+export const PLAN_FRAME_UK: readonly string[] = Object.freeze([
+  "Головна думка: що ти про це думаєш?",
+  "Дві причини: чому саме так?",
+  "Приклад із життя: коли ти це бачив(ла) чи робив(ла)?",
+]);
+export const canPlan = (card: PracticeCard) => card.kind === "opinion";
 export type PracticeEvent =
   | { type: "ANSWER"; value: string } | { type: "JUDGE"; judgement: PracticeJudgement }
-  | { type: "CONTINUE" } | { type: "SUBMIT_RECALL"; text: string } | { type: "SUBMIT_TRANSFER"; text: string };
+  | { type: "CONTINUE" } | { type: "SUBMIT_RECALL"; text: string } | { type: "SUBMIT_TRANSFER"; text: string }
+  | { type: "START_PLAN" } | { type: "SUBMIT_PLAN"; text: string };
 
 export const PRACTICE_MAX_CHARS = 1200;
 export class PracticeError extends Error {
@@ -88,6 +103,15 @@ export function practiceReducer(s: PracticeSession, card: PracticeCard, e: Pract
   if (card.id !== s.cardId) throw new TypeError("Card mismatch");
   const no = (): never => { throw new PracticeError("NOT_ALLOWED", `${e.type} not allowed in ${s.phase}`); };
   switch (e.type) {
+    case "START_PLAN": {
+      if (s.phase !== "attempt" || !canPlan(card) || s.plan !== undefined) return no();   // only before the first answer, once
+      return { ...s, phase: "plan" };
+    }
+    case "SUBMIT_PLAN": {
+      if (s.phase !== "plan") return no();
+      const plan = String(e.text ?? "").trim().slice(0, PRACTICE_MAX_CHARS);   // an empty plan = "without a plan"
+      return { ...s, plan, phase: "attempt" };
+    }
     case "ANSWER": {
       if (s.phase !== "attempt") return no();                              // first answer frozen
       if (card.choice) {
@@ -123,7 +147,11 @@ export function practiceView(s: PracticeSession, card: PracticeCard) {
   const correct = card.choice && s.first !== "" ? Number(s.first) === card.choice.correct_index : null;
   return {
     phase: s.phase,
-    prompt: s.phase === "attempt" || reveal ? card.prompt : [],
+    prompt: s.phase === "plan" || s.phase === "attempt" || reveal ? card.prompt : [],
+    canPlan: s.phase === "attempt" && canPlan(card) && s.plan === undefined,
+    planFrame_uk: s.phase === "plan" ? PLAN_FRAME_UK : null,
+    planHidden: s.phase === "attempt" && !!s.plan,                         // the plan is out of sight while answering
+    plan: reveal && s.plan ? s.plan : null,                                // back only for self-comparison
     options_fi: s.phase === "attempt" && card.choice ? card.choice.options_fi : null,
     first: s.phase === "attempt" ? null : card.choice ? card.choice.options_fi[Number(s.first)] ?? null : s.first,
     correct: reveal ? correct : null,
@@ -142,7 +170,8 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
   const first = card.choice
     ? { skill: "reading" as const, taskId: card.id, status: "scored" as const, correct: Number(s.first) === card.choice.correct_index,
         response: card.choice.options_fi[Number(s.first)] ?? "" }
-    : { skill: card.attemptSkill, taskId: card.id, status: "ungraded" as const, response: `[own first answer; self-compared ${s.judged ?? "none"}] ${s.first}` };
+    : { skill: card.attemptSkill, taskId: card.id, status: "ungraded" as const,
+        response: `[own first answer${s.plan ? ", after an own plan (hidden while answering)" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
   return [
     first,
     ...(card.kind === "paraphrase" ? [{ skill: "writing" as const, taskId: `${card.id}-recall`, status: "ungraded" as const, response: `[guided retell after feedback] ${s.recall}` }] : []),

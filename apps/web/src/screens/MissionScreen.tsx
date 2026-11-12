@@ -29,13 +29,20 @@ export function selectExercise(state: LearnerState): { exercise: ClozeExercise; 
 
 type SaveStatus = { kind: "idle" } | { kind: "saving" } | { kind: "saved" } | { kind: "error"; code: string };
 
-export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
+export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTaskId, workshop }: {
   repository: LearnerRepository;
   snapshot: { state: LearnerState; revision: number };
   onSaved: (s: { state: LearnerState; revision: number }) => void;
   onHome: () => void;
+  /** Opened from «Майстерня слабких місць»: this exact new task; an unfinished draft still wins below. */
+  initialTaskId?: string | null;
+  workshop?: { label: string; onBack: () => void };
 }) {
-  const [initial] = useState(() => selectExercise(snapshot.state));
+  const [initial] = useState(() => {
+    const ranked = selectExercise(snapshot.state);
+    const forced = initialTaskId ? exercises.find(e => e.id === initialTaskId) : undefined;
+    return forced ? { exercise: forced, options: ranked.options } : ranked;
+  });
   const [task, setTask] = useState(initial.exercise);
   const [options, setOptions] = useState(initial.options);
   const [choosing, setChoosing] = useState(false);
@@ -242,7 +249,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
 
   return (
     <section className="panel" data-accent="grammar" aria-labelledby="mission-title">
-      <Eyebrow accent="grammar">Навчання · граматика в контексті</Eyebrow>
+      <Eyebrow accent="grammar">{workshop ? "Майстерня слабких місць · граматика" : "Навчання · граматика в контексті"}</Eyebrow>
       <h1 id="mission-title" ref={heading} tabIndex={-1}>
         {{ answer: "Твоя відповідь", repair: "Спробуй виправити сам(а)", feedback: "Що вийшло", transfer: "Скажи це про себе", done: "Місію завершено" }[mission.phase]}
       </h1>
@@ -325,7 +332,9 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome }: {
           {save.kind === "saved" && <p className="feedback" role="status"><Icon name="ok" /> Збережено на цьому пристрої. Перша спроба записана окремо від самовиправлення.</p>}
           {save.kind === "saved" && (
             <div className="actions">
-              <button type="button" className="btn" onClick={nextMission}>Наступна місія</button>
+              {workshop
+                ? <button type="button" className="btn" onClick={workshop.onBack}>{workshop.label}</button>
+                : <button type="button" className="btn" onClick={nextMission}>Наступна місія</button>}
               <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
             </div>
           )}

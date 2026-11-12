@@ -1,6 +1,7 @@
-import { delayedTransferQueue, dueCards, hospodarHome, hospodarMoment, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
+import { delayedTransferQueue, dueCards, hospodarHome, hospodarMoment, localDate, placeProgress, workshopStatus, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
   type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
 import { placeIndex, places } from "../content/places.ts";
+import { FAMILIES, workshopItems } from "../content/workshop.ts";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
 import { Hospodar } from "../ui/Hospodar.tsx";
 import { exercises } from "../content/cloze.ts";
@@ -10,7 +11,7 @@ import { transferBank } from "../content/transfer.ts";
 import { Icon, type IconName } from "../ui/icons.tsx";
 import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
 
-export type HomeTarget = "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
+export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
 const SKILL_VIEW: Record<Skill, HomeTarget> = { reading: "reading", listening: "listening", writing: "writing", speaking: "dialogue" };
 const SKILL_WHAT: Record<Skill, string> = {
@@ -56,7 +57,11 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
   };
   const estate = state ? placeProgress(state, placeIndex) : [];
   const doors = estate.filter(p => p.doorOpen).length, keys = estate.reduce((n, p) => n + p.keys, 0);
+  const workshop = state ? workshopStatus(state, FAMILIES, workshopItems, localDate()) : [];
+  const weakSpots = workshop.filter(w => w.isBottleneck).length, retestToday = workshop.some(w => w.retestDue);
   const more: { id: string; icon: IconName; label: string; note: string; to: HomeTarget }[] = [
+    { id: "workshop", icon: "grammar", label: `Майстерня слабких місць${retestToday ? " · перевірка сьогодні" : weakSpots ? ` · слабких місць: ${weakSpots}` : ""}`,
+      note: "Нові завдання впереміш на твої повторювані помилки", to: "workshop" },
     { id: "practice", icon: "practice", label: `Практика без підказки${phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}`, note: "Фрази, реакції, власна думка", to: "practice" },
     { id: "pictures", icon: "photo", label: "Фото-місії", note: "Опиши справжнє місце у Фінляндії", to: "pictures" },
     { id: "media", icon: "media", label: "Медіатека", note: "Живі голоси й відео з джерелами", to: "media" },

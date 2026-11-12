@@ -211,3 +211,34 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - **Presentation:** static and silent. The learner can hide him in the footer, and calm mode also hides him.
   - **Code:** `packages/domain/src/hospodar.ts` (`test/hospodar.test.ts`) and `apps/web/src/ui/Hospodar.tsx`. The drawing is a **temporary code silhouette** until a human illustrator delivers the final character (DESIGN-07).
 
+## 2026-11-12 — «Майстерня слабких місць»: deliberate practice with interleaving and a delayed check
+
+- **What it does** (methods error-bottleneck-deliberate, interleaving-grammar; PSY-06, COG-10, AC-50, GL-03):
+  - **Weak spot:** a family of confusable forms (location cases, rektio, past tense, verb forms, nominal forms) becomes a weak spot when the learner's **first** answer was wrong on two or more different tasks. A later correct retry or a guided repair never clears it.
+  - **Practice set:** up to 5 tasks the learner has **never seen**, mixed across the family's forms — the most-missed form first, then round-robin.
+  - **Delayed check:** seven days after the last practice in a family, the next new task is a delayed check without hints. Its first answer is shown as delayed evidence («через N дн. на новому завданні: правильно з першої спроби / ще не так»), never as mastery, a level or a YKI estimate.
+- **Code:**
+  - pure logic in `packages/domain/src/bottleneck.ts` (`test/bottleneck.test.ts`);
+  - families of forms and learner-facing names (Finnish grammar terms stay Finnish, the rest is Ukrainian) in `apps/web/src/content/workshop.ts`;
+  - the screen in `screens/WorkshopScreen.tsx`, with Господар outside the task;
+  - the mission opens a given new task and returns to the workshop (`MissionScreen` `initialTaskId` / `workshop`);
+  - E2E in `e2e/workshop.spec.ts`; the screen is also part of the design audit.
+- **Data:** no schema change. Everything is derived from existing `attempts` (first attempt per task, local calendar days).
+- **Limits:**
+  - The families draw on the 28 S2-pending cloze tasks (3–8 per family), so sets run out quickly. No Finnish task or key was written for this; when fewer than three new tasks remain, the set is marked thin.
+  - Rektio practice cards and the ordinary R06 schedule are not interleaved yet.
+  - The equal-time blocked-vs-interleaved comparison (PSY-E04) is NOT RUN.
+
+## 2026-11-12 — pre-task planning before an opinion monologue
+
+- **What it does** (methods pre-task-planning, learner-concept-map):
+  - Before answering an opinion card, the learner may write a short own plan: main idea, two reasons, an example from life. Optional, untimed, ungraded.
+  - The plan **disappears while answering**, so the learner speaks from memory and does not read notes, and it comes back only next to the model for self-comparison.
+  - The plan text is never stored; the evidence only notes that a plan was used.
+  - Quick reactions stay spontaneous, without a plan.
+- **Code:**
+  - phase `plan` and events `START_PLAN` / `SUBMIT_PLAN` in `packages/domain/src/practice.ts`, tests in `test/practice.test.ts`;
+  - UI in `PracticeScreen`;
+  - E2E in `practice.spec.ts`; the screen is also in the design audit.
+- **Not yet:** planning before dialogue role-play and the writing clinic. The effect on fluency or complexity is not measured.
+
