@@ -205,4 +205,9 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - E2E in `e2e/places.spec.ts`.
 - **Media budget:** the planned 3–4 GB offline packs (R05) are for licensed human audio and video. The game layer is static SVG (kilobytes). Richer illustration waits for one human-made style with cleared rights (DESIGN-07); no generated art.
 - **Not measured:** whether the place layer changes delayed independent Finnish outcomes (UIO-09 comparison, R08-MOT-H01) — NOT RUN.
+- **Persona «Господар»** (DEC-06 revised by the owner on 12.11.2026): a Ukrainian householder in a straw hat (бриль) and an embroidered shirt (вишиванка) in brand colours, holding a key.
+  - **Where he appears:** only on Home («Моє господарство») and on place screens. He is never shown during an answer or in feedback, and never in EXAM.
+  - **What he says:** a greeting, a guilt-free welcome back after a break of 3 or more days, and how doors and keys work. He never praises or rates an answer.
+  - **Presentation:** static and silent. The learner can hide him in the footer, and calm mode also hides him.
+  - **Code:** `packages/domain/src/hospodar.ts` (`test/hospodar.test.ts`) and `apps/web/src/ui/Hospodar.tsx`. The drawing is a **temporary code silhouette** until a human illustrator delivers the final character (DESIGN-07).
 

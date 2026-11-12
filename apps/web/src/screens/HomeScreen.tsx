@@ -1,7 +1,8 @@
-import { delayedTransferQueue, dueCards, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
+import { delayedTransferQueue, dueCards, HOSPODAR_HOME, hospodarMoment, placeProgress, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
   type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
 import { placeIndex, places } from "../content/places.ts";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
+import { Hospodar } from "../ui/Hospodar.tsx";
 import { exercises } from "../content/cloze.ts";
 import { practiceCards } from "../content/practice.ts";
 import { skillRetentionBank } from "../content/skillRetention.ts";
@@ -37,7 +38,7 @@ function describe(a: TodayAction): { title: string; why: string; cta: string; go
   }
 }
 
-export function HomeScreen({ state, go, openPlace }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void }) {
+export function HomeScreen({ state, go, openPlace, guide = false }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean }) {
   const done = state?.attempts.length ?? 0;
   const grammarDue = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
@@ -100,6 +101,7 @@ export function HomeScreen({ state, go, openPlace }: { state: LearnerState | nul
           allows them: free choice, never locked, a key only for a correct first independent answer, nothing decays (R08-MOT). */}
       <nav className="estate" aria-labelledby="estate-title">
         <h2 id="estate-title">Моє господарство у Фінляндії</h2>
+        {guide && state && <Hospodar says={HOSPODAR_HOME[hospodarMoment(state, new Date())]} />}
         <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
           ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
         <ul className="estate-grid">

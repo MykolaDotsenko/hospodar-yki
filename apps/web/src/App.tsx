@@ -24,7 +24,7 @@ import { OfflineScreen } from "./screens/OfflineScreen.tsx";
 import { applyUpdate, onUpdateReady } from "./pwa/offline.ts";
 import { PlaceScreen } from "./screens/PlaceScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
-import { applyAppearance, applyTheme, readAppearance, readTheme, type Appearance, type Theme } from "./appearance.ts";
+import { applyAppearance, applyGuide, applyTheme, readAppearance, readGuide, readTheme, type Appearance, type Theme } from "./appearance.ts";
 
 type View = "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "exam" | "data" | "offline";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
@@ -42,6 +42,9 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
   const [theme, setTheme] = useState<Theme>(readTheme);
   useEffect(() => { applyTheme(theme); }, [theme]);
+  const [guide, setGuide] = useState<boolean>(readGuide);
+  useEffect(() => { applyGuide(guide); }, [guide]);
+  const showGuide = guide && appearance !== "calm";            // never in EXAM or inside a task: only Home and place screens receive it
   // DESIGN-12: the exam has its own neutral skin; LEARN keeps the expressive one. Presentation only.
   useEffect(() => { document.documentElement.dataset.mode = view === "exam" ? "exam" : "learn"; }, [view]);
   const [updateReady, setUpdateReady] = useState(false);
@@ -70,8 +73,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             <button type="button" className="btn secondary" onClick={applyUpdate}>Оновити зараз</button></div>
         )}
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
-        {view === "home" && <HomeScreen state={snapshot?.state ?? null} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
-        {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} onHome={() => goTo("home")}
+        {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
+        {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => setView("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={setSnapshot} onHome={() => setView("home")} />}
@@ -98,6 +101,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
           <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
             <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
           </select></p>
+        <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> Показувати Господаря</label></p>
         <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>
       </footer>
     </>

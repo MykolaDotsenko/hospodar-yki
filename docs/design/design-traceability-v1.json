@@ -1378,8 +1378,18 @@
       "id": "IV-REQ-11",
       "source": "docs/11-mvp-product-requirements.md",
       "summary": "Optional gamification; mascot/sounds opt-in experiment",
-      "status": "NOT_YET",
-      "plan": "Gamification exists as the optional «Моє господарство» place layer (places.spec.ts); a mascot or sounds stay out unless run as an opt-in experiment after usability + delayed tests."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господар persona: guides on home and place screens only — never while answering, in feedback or in EXAM; hide and calm mode remove him"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        }
+      ],
+      "gap": "Gamification = «Моє господарство» place layer + persona outside tasks; no sounds; the opt-in experiment against a plain version (delayed outcome) is NOT RUN."
     },
     {
       "id": "IV-REQ-12",
@@ -7102,8 +7112,18 @@
       "id": "IV-14",
       "source": "research/ux/18-interactive-visual-learning-evidence-2026-10.md",
       "summary": "Fun interruptions/mascot only as an opt-in experiment",
-      "status": "NOT_YET",
-      "plan": "Decorative mascot excluded by DEC-06; any sound/surprise only as an opt-in experiment after usability + delayed tests."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "Господар persona: guides on home and place screens only — never while answering, in feedback or in EXAM; hide and calm mode remove him"
+        },
+        {
+          "file": "packages/domain/test/hospodar.test.ts",
+          "contains": "his words never praise or rate, never pressure, and contain no streak, XP, level or score"
+        }
+      ],
+      "gap": "Persona «Господар» is shown outside tasks by owner decision (DEC-06 revised), static and silent, hideable; it is not yet run as the opt-in experiment with delayed recall/fatigue measures; final illustration by a human pending (DESIGN-07)."
     },
     {
       "id": "IV-AC-01",
@@ -11793,21 +11813,25 @@
     },
     {
       "id": "DEC-06",
-      "question": "NPC у місті vs заборона маскота",
+      "question": "NPC у місті, маскот і бренд-персонаж «Господар»",
       "options": [
-        "NPC — співрозмовник у завданні в редакційному стилі; маскот заборонено",
-        "без NPC"
+        "NPC — співрозмовник у завданні; маскот заборонено",
+        "NPC — співрозмовник у завданні + бренд-персонаж «Господар» поза завданнями (без похвал і нагород, не під час відповіді/фідбеку, не в EXAM, можна приховати)",
+        "персонаж скрізь, включно із завданнями й реакціями на відповіді"
       ],
-      "recommendation": "NPC як співрозмовник, не маскот",
+      "recommendation": "NPC як співрозмовник у завданні; «Господар» лише поза завданнями",
       "status": "DECIDED",
       "affects": [
-        "UIO-09",
+        "DESIGN-11",
+        "IV-14",
+        "IV-REQ-11",
         "SENS-09",
-        "DESIGN-11"
+        "UIO-09"
       ],
-      "decided": "NPC — співрозмовник у завданні в редакційному стилі; декоративний маскот заборонено",
-      "decided_on": "2026-11-03",
-      "decided_by": "product owner"
+      "decided": "NPC — співрозмовник у завданні; бренд-персонаж «Господар» (український господар, що дає раду з YKI) показується поза завданнями: головна, «Моє господарство», екрани місць; без похвал, нагород і анімацій; не під час відповіді, не у фідбеку, не в EXAM; можна приховати, спокійний режим ховає. Малюнок — тимчасовий силует до ілюстратора (DESIGN-07).",
+      "decided_on": "2026-11-12",
+      "decided_by": "product owner (in chat, 12.11.2026)",
+      "history": "Запис від 03.11.2026 («декоративний маскот заборонено») був сформульований AI-сесією без явного рішення власника; власник уточнив 12.11.2026."
     }
   ],
   "method_registry": "research/pedagogy/learning-methods-v1.json",

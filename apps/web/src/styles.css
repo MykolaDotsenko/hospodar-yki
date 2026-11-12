@@ -306,3 +306,22 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
   .place-tile { flex-direction: column; align-items: flex-start; gap: var(--space-xs); padding: var(--space-sm); }
   .place-tile .place-glyph { width: 36px; height: 36px; }
 }
+/* «Господар» persona — TEMPORARY silhouette until the illustrator (DESIGN-07). Static, beside real text, outside tasks only. */
+.hospodar { display: flex; align-items: flex-end; gap: var(--space-md); margin: 0 0 var(--space-base); }
+.hospodar-figure { flex: none; color: var(--navy); }
+.hospodar-says { position: relative; margin: 0 0 var(--space-lg); padding: var(--space-md) var(--space-base); background: var(--white); color: var(--ink);
+  border: 1px solid var(--stroke); border-radius: 14px; max-width: 34em; font-size: 1.02rem; }
+.hospodar-says::before { content: ""; position: absolute; left: -8px; bottom: 18px; width: 14px; height: 14px; background: var(--white);
+  border-left: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); transform: rotate(45deg); }
+.hz-shirt { fill: var(--white); }
+.hz-embroidery { stroke: var(--forest); stroke-width: 1.75; }
+.hz-collar { stroke: var(--gold); stroke-width: 2.5; }
+.hz-belt { stroke: var(--forest); stroke-width: 4.5; }
+.hz-key { stroke: var(--gold); stroke-width: 2.75; }
+.hz-face { fill: var(--surface-subtle); }
+.hz-moustache { stroke-width: 3; }
+.hz-hat { fill: var(--warn-tint); stroke: var(--gold); }
+.hz-band { stroke: var(--forest); stroke-width: 3.5; }
+.guide-choice label { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
+@media (max-width: 560px) { .hospodar-figure { width: 64px; height: 77px; } .hospodar-says::before { bottom: 14px; } }
+.hz-trousers { fill: var(--surface-subtle); }

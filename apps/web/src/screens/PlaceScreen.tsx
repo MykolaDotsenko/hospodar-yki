@@ -1,15 +1,16 @@
-import { placeProgress, type LearnerState, type PlaceId } from "@hospodar/domain";
+import { hospodarAtPlace, placeProgress, type LearnerState, type PlaceId } from "@hospodar/domain";
 import { placeIndex, places, practiceIdsOf, type Quest, type QuestView } from "../content/places.ts";
 import { Icon } from "../ui/icons.tsx";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
+import { Hospodar } from "../ui/Hospodar.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
 
 /**
  * One place of «Моє господарство»: what being "господар" here means in real life, the real missions
  * of this place, the honest keys and the open door. Never locked; nothing decays (R08-MOT, GAM-01).
  */
-export function PlaceScreen({ id, state, open, onHome }: {
-  id: PlaceId; state: LearnerState; open: (view: QuestView, itemId: string) => void; onHome: () => void;
+export function PlaceScreen({ id, state, open, onHome, guide = false }: {
+  id: PlaceId; state: LearnerState; open: (view: QuestView, itemId: string) => void; onHome: () => void; guide?: boolean;
 }) {
   const place = places.find(p => p.id === id)!;
   const progress = placeProgress(state, placeIndex).find(p => p.place === id)!;
@@ -43,6 +44,8 @@ export function PlaceScreen({ id, state, open, onHome }: {
         <div><dt><Icon name="key" size={18} /> Ключі</dt><dd data-testid="place-keys">{progress.keys} <span className="muted">— правильні перші відповіді без підказки</span></dd></div>
         <div><dt>Спроби фінською</dt><dd>{progress.practice} <span className="muted">— твої тексти й відповіді без оцінки; це теж практика</span></dd></div>
       </dl>
+
+      {guide && <Hospodar size={80} says={hospodarAtPlace(progress.doorOpen)} />}
 
       <h2>Справи тут</h2>
       <ul className="choices" aria-label={`Справи: ${place.title_uk}`}>

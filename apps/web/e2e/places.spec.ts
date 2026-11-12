@@ -48,3 +48,39 @@ test("Господарство: nine places, never locked; a door opens after th
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.locator(".estate, .place-tile, .place-glyph")).toHaveCount(0);
 });
+
+test("Господар persona: guides on home and place screens only — never while answering, in feedback or in EXAM; hide and calm mode remove him", async ({ page }) => {
+  await page.goto("./");
+  const guide = page.locator("figure.hospodar");
+  await expect(guide).toHaveCount(1);
+  await expect(guide.locator("figcaption")).toContainText("Я Господар");                // first visit greeting, real text
+  await expect(guide.locator("svg")).toHaveAttribute("aria-hidden", "true");
+  await page.getByTestId("place-housing").click();
+  await expect(guide).toContainText("Двері поки зачинені");
+
+  // Inside a task: answer step and feedback — no persona (COG-07, IV-14).
+  await page.getByRole("button", { name: /Діалог · / }).click();
+  await expect(guide).toHaveCount(0);
+  await page.goto("./");
+  await page.getByRole("button", { name: /Навчання/ }).click();
+  await expect(guide).toHaveCount(0);
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(guide).toHaveCount(0);
+
+  // EXAM: never (MOT-15, UIO-10).
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(guide).toHaveCount(0);
+
+  // One click hides him, and it persists; calm mode hides him too.
+  await page.goto("./");
+  await page.getByLabel("Показувати Господаря").uncheck();
+  await expect(guide).toHaveCount(0);
+  await page.reload();
+  await expect(guide).toHaveCount(0);
+  await page.getByLabel("Показувати Господаря").check();
+  await expect(guide).toHaveCount(1);
+  await page.getByRole("button", { name: "Спокійний режим" }).click();
+  await expect(guide).toHaveCount(0);
+});
