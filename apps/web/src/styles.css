@@ -10,8 +10,6 @@ button, input, textarea, select { font: inherit; }
 input[type="file"] { max-width: 100%; }
 /* R10-05: at 320 px with 200 % text a long Finnish word must wrap, never widen the page. Fieldsets default to min-width:min-content. */
 fieldset { min-width: 0; }
-/* WebKit (like old Edge/IE) does not wrap <legend> text by default: a long Finnish question widened the page by 126 px at 390 px. */
-legend { display: table; max-width: 100%; white-space: normal; }
 main, h1, h2, h3, legend, .radio, .choice, .btn { overflow-wrap: anywhere; }   /* breaks only where a word cannot fit */
 main .pill { white-space: normal; }   /* R10-16: the native file picker never widens the page at 360 px */
 :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }

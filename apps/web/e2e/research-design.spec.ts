@@ -49,6 +49,18 @@ async function visit(page: Page, s: Screen) {
   await page.waitForTimeout(50);
 }
 
+/** Names the innermost elements that stick out past the viewport, so a reflow failure in any engine points at its cause. */
+const tooWide = (page: Page) => page.evaluate(() => {
+  const W = document.documentElement.clientWidth;
+  const out = (e: Element) => e.getBoundingClientRect().right > W + 0.5;
+  const name = (e: Element) => `${e.tagName.toLowerCase()}${e.className && typeof e.className === "string" ? "." + e.className.trim().split(/\s+/).join(".") : ""}`;
+  const leaves = [...document.querySelectorAll("body *")].filter(e => out(e) && ![...e.children].some(out))
+    .slice(0, 6).map(e => `${name(e)} right=${Math.round(e.getBoundingClientRect().right)} w=${Math.round(e.getBoundingClientRect().width)} "${(e.textContent ?? "").trim().slice(0, 40)}"`);
+  const scrollers = [...document.querySelectorAll("body *")].filter(e => e.scrollWidth > e.clientWidth + 1 && e.clientWidth > 0 && getComputedStyle(e).overflowX === "visible")
+    .slice(-4).map(e => `${name(e)} ${e.scrollWidth}/${e.clientWidth}`);
+  return `[${leaves.join(" | ")}] scroll:[${scrollers.join(" | ")}]`;
+});
+
 /** Engagement theatre the research rejects (R7-08, MOT-05, COG-12, GAM): streaks, XP, standings, loss framing. */
 const THEATRE = /стрік|streak|днів поспіль|\bXP\b|очки досвіду|рейтинг|лідерборд|leaderboard|бейдж|badge|нагород|медал|ти втратиш|не втрать|🔥/i;
 
@@ -135,11 +147,11 @@ test("R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 
       for (const width of [390, 360, 320]) {
         await page.setViewportSize({ width, height: 800 });
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-        expect(overflow, `${s.name} @ ${width}px`).toBeLessThanOrEqual(0);
+        expect(overflow, `${s.name} @ ${width}px — too wide: ${overflow > 0 ? await tooWide(page) : ""}`).toBeLessThanOrEqual(0);
       }
       const big = await page.addStyleTag({ content: "html{font-size:200%}" });
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-      expect(overflow, `${s.name} @ 320px + 200 % text`).toBeLessThanOrEqual(0);
+      expect(overflow, `${s.name} @ 320px + 200 % text — too wide: ${overflow > 0 ? await tooWide(page) : ""}`).toBeLessThanOrEqual(0);
       await big.evaluate(e => e.remove());
     });
   }
