@@ -81,3 +81,33 @@ test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalle
   await page.getByRole("button", { name: "До списку карток" }).click();
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
 });
+
+test("pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan", async ({ page }) => {
+  await open(page, /Моя думка/);
+  await expect(page.locator(".threshold-route [aria-current=step]")).toContainText("План і відповідь");
+  await page.getByRole("button", { name: "Скласти план (за бажанням)" }).click();
+  await expect(page.locator(".plan-frame li")).toHaveCount(3);
+  await expect(page.getByText(/Фрази для структури/)).toHaveCount(0);                  // no scaffold while planning
+  await axe(page);
+  await page.getByLabel(/Твій план/).fill("pääajatus: hyvä · syy 1: aikaa · esimerkki");
+  await page.getByRole("button", { name: "План готовий — відповідати" }).click();
+  await expect(page.getByRole("status")).toContainText("План сховано");
+  await expect(page.getByText("pääajatus: hyvä", { exact: false })).toHaveCount(0);   // out of sight while answering
+  await expect(page.getByRole("button", { name: "Скласти план (за бажанням)" })).toHaveCount(0);
+  await page.getByLabel(/Скажи вголос/).fill("Minusta se on hyvä, koska säästän aikaa.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.locator(".plan-back")).toContainText("pääajatus: hyvä");           // back for self-comparison
+  await expect(page.getByText(/Фрази для структури/)).toBeVisible();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await expect(page.locator(".plan-back")).toHaveCount(0);                              // not in the new situation
+  await page.getByRole("textbox").fill("Kirjoitan lyhyesti mielipiteeni.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await page.getByRole("button", { name: "Інші види практики" }).click();
+  await page.getByRole("button", { name: /Реакція в ситуації/ }).click();
+  await page.getByRole("button", { name: /^Картка 1 / }).click();
+  await expect(page.getByRole("button", { name: "Скласти план (за бажанням)" })).toHaveCount(0);
+});

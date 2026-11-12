@@ -115,17 +115,44 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
     } finally { busy.current = false; setSaving(false); }
   }
   const meta = PRACTICE_KINDS.find(k => k.kind === card.kind)!;
-  const routeSteps = card.kind === "paraphrase" ? ["Твій вибір", "Пояснення", "Своїми словами", "Нова ситуація"] : ["Твоя відповідь", "Зразок", "Нова ситуація"];
+  const planning = card.kind === "opinion";                                // pre-task planning only before a monologue
+  const routeSteps = card.kind === "paraphrase" ? ["Твій вибір", "Пояснення", "Своїми словами", "Нова ситуація"]
+    : planning ? ["План і відповідь", "Зразок", "Нова ситуація"] : ["Твоя відповідь", "Зразок", "Нова ситуація"];
+  // The optional plan shares the first step with the answer, so a skipped plan is never announced as "done".
+  const routeIndex = card.kind === "paraphrase" ? { plan: 0, attempt: 0, reveal: 1, recall: 2, transfer: 3, done: 4 }[s.phase]
+    : { plan: 0, attempt: 0, reveal: 1, recall: 1, transfer: 2, done: 3 }[s.phase];
   const speaking = card.transferSkill === "speaking";
 
   return (
     <section className="panel" data-accent={card.attemptSkill} aria-labelledby="pr-run">
       <Eyebrow accent={card.attemptSkill}>Практика без підказки · {meta.title}</Eyebrow>
       <h1 id="pr-run"{...(card.kind === "rektio" ? { lang: "fi" } : {})}>{groupLabel(card.group)}</h1>
-      <ThresholdRoute steps={routeSteps} current={routeSteps.length === 4 ? { attempt: 0, reveal: 1, recall: 2, transfer: 3, done: 4 }[s.phase] : { attempt: 0, reveal: 1, recall: 1, transfer: 2, done: 3 }[s.phase]} accent={card.attemptSkill} />
+      <ThresholdRoute steps={routeSteps} current={routeIndex} accent={card.attemptSkill} />
       <TrustNote />
       {review && s.phase === "attempt" && <p className="muted">Повторення: згадай без зразка.</p>}
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
+
+      {s.phase === "plan" && v.planFrame_uk && (
+        <form className="plan-step" onSubmit={e => { e.preventDefault(); step({ type: "SUBMIT_PLAN", text: value }); }} noValidate>
+          <p>Короткий план перед тим, як говорити. Без таймера й без оцінки. Коли почнеш відповідати, план сховається: говори з пам'яті, а не з нотаток.</p>
+          <ol className="plan-frame">{v.planFrame_uk.map(q => <li key={q}>{q}</li>)}</ol>
+          <label className="field" htmlFor="pr-plan">Твій план — ключові слова будь-якою мовою</label>
+          <textarea id="pr-plan" className="plan-notes" rows={3} maxLength={PRACTICE_MAX_CHARS} value={value} onChange={e => setValue(e.target.value)} />
+          <div className="actions">
+            <button type="submit" className="btn">План готовий — відповідати</button>
+            <button type="button" className="btn secondary" onClick={() => step({ type: "SUBMIT_PLAN", text: "" })}>Без плану</button>
+          </div>
+        </form>
+      )}
+
+      {s.phase === "attempt" && v.canPlan && (
+        <div className="actions">
+          <button type="button" className="btn secondary" onClick={() => step({ type: "START_PLAN" })}>Скласти план (за бажанням)</button>
+        </div>
+      )}
+      {s.phase === "attempt" && v.planHidden && (
+        <p className="muted" role="status">План сховано — говори з пам'яті. Після відповіді він повернеться поруч зі зразком.</p>
+      )}
 
       {s.phase === "attempt" && (
         <form onSubmit={e => { e.preventDefault(); step({ type: "ANSWER", value }); }} noValidate>
@@ -151,6 +178,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       {s.phase === "reveal" && v.reveal && (
         <>
           <p><strong>Твоя відповідь:</strong> <span lang="fi">{v.first}</span></p>
+          {v.plan && <p className="plan-back"><strong>Твій план:</strong> {v.plan}<br /><span className="muted">Порівняй: що з плану ти встиг(ла) сказати, а що можна додати?</span></p>}
           {v.key_fi !== null && <p className="feedback" role="status"><strong>{v.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{v.key_fi}</span></p>}
           <Lines lines={v.reveal} />
           {v.needsJudgement && (

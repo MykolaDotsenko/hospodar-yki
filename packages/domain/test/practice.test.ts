@@ -95,3 +95,40 @@ describe("practice without a hint: existing content now playable (research #26 G
     expect(dueCards(st, "2099-01-01")).toEqual([]);
   });
 });
+
+describe("pre-task planning on opinion cards (methods pre-task-planning, learner-concept-map)", () => {
+  const card = opinions[0]!;
+  it("is optional, offered once before the first answer, and only for opinion monologues", () => {
+    const s = startPractice(card);
+    expect(practiceView(s, card).canPlan).toBe(true);
+    expect(practiceView(startPractice(reactions[0]!), reactions[0]!).canPlan).toBe(false);          // quick reactions stay spontaneous
+    expect(() => practiceReducer(startPractice(reactions[0]!), reactions[0]!, { type: "START_PLAN" })).toThrow(/not allowed/);
+    const planned = practiceReducer(practiceReducer(s, card, { type: "START_PLAN" }), card, { type: "SUBMIT_PLAN", text: "" });
+    expect(practiceView(planned, card).canPlan).toBe(false);                                             // "without a plan" ends the offer
+    expect(() => practiceReducer(planned, card, { type: "START_PLAN" })).toThrow(/not allowed/);
+  });
+  it("the plan is hidden while answering, never shows the model, and returns only next to the model for self-comparison", () => {
+    let s = practiceReducer(startPractice(card), card, { type: "START_PLAN" });
+    const planning = practiceView(s, card);
+    expect(planning.planFrame_uk).toHaveLength(3);
+    expect(planning.reveal).toBeNull();                                                                  // no scaffold while planning
+    s = practiceReducer(s, card, { type: "SUBMIT_PLAN", text: "Etätyö hyvä: aikaa, ei matkoja; esimerkki: kotona" });
+    const answering = practiceView(s, card);
+    expect(answering).toMatchObject({ phase: "attempt", planHidden: true, plan: null });
+    s = practiceReducer(s, card, { type: "ANSWER", value: "Minusta etätyö on hyvä, koska säästän aikaa." });
+    expect(practiceView(s, card).plan).toContain("Etätyö hyvä");
+    expect(practiceView(s, card).reveal).not.toBeNull();
+  });
+  it("planning never changes the evidence status: the answer stays ungraded, the plan text is not stored", () => {
+    let s = practiceReducer(startPractice(card), card, { type: "START_PLAN" });
+    s = practiceReducer(s, card, { type: "SUBMIT_PLAN", text: "salainen suunnitelma" });
+    s = practiceReducer(s, card, { type: "ANSWER", value: "Minusta se on hyvä." });
+    s = practiceReducer(s, card, { type: "JUDGE", judgement: "partly" });
+    s = practiceReducer(s, card, { type: "CONTINUE" });
+    s = practiceReducer(s, card, { type: "SUBMIT_TRANSFER", text: "Kirjoitan esimiehelle." });
+    const [first] = practiceEvidence(s, card);
+    expect(first).toMatchObject({ status: "ungraded" });
+    expect(first!.response).toContain("after an own plan");
+    expect(JSON.stringify(practiceEvidence(s, card))).not.toContain("salainen suunnitelma");
+  });
+});

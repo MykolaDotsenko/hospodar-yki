@@ -229,3 +229,16 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - Rektio practice cards and the ordinary R06 schedule are not interleaved yet.
   - The equal-time blocked-vs-interleaved comparison (PSY-E04) is NOT RUN.
 
+## 2026-11-12 — pre-task planning before an opinion monologue
+
+- **What it does** (methods pre-task-planning, learner-concept-map):
+  - Before answering an opinion card, the learner may write a short own plan: main idea, two reasons, an example from life. Optional, untimed, ungraded.
+  - The plan **disappears while answering**, so the learner speaks from memory and does not read notes, and it comes back only next to the model for self-comparison.
+  - The plan text is never stored; the evidence only notes that a plan was used.
+  - Quick reactions stay spontaneous, without a plan.
+- **Code:**
+  - phase `plan` and events `START_PLAN` / `SUBMIT_PLAN` in `packages/domain/src/practice.ts`, tests in `test/practice.test.ts`;
+  - UI in `PracticeScreen`;
+  - E2E in `practice.spec.ts`; the screen is also in the design audit.
+- **Not yet:** planning before dialogue role-play and the writing clinic. The effect on fluency or complexity is not measured.
+

@@ -27,6 +27,11 @@ const SCREENS: Screen[] = [
     await p.getByRole("button", { name: /Те саме іншими словами/ }).click();
     await p.getByRole("button", { name: /^Картка 1 / }).click();
   }) },
+  { name: "opinion card: own plan", open: nav("practice", async p => {
+    await p.getByRole("button", { name: /Моя думка/ }).click();
+    await p.getByRole("button", { name: /^Картка 1 / }).click();
+    await p.getByRole("button", { name: "Скласти план (за бажанням)" }).click();
+  }) },
   { name: "picture mission", open: nav("pictures", firstChoice) },
   { name: "media library", open: nav("media") },
   { name: "place (Моє господарство)", open: async p => { await p.getByTestId("place-housing").click(); } },

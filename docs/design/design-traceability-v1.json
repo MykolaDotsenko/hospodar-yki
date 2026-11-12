@@ -12173,9 +12173,25 @@
         {
           "file": "apps/web/e2e/diagnostic.spec.ts",
           "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "is optional, offered once before the first answer, and only for opinion monologues"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "the plan is hidden while answering, never shows the model, and returns only next to the model for self-comparison"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "planning never changes the evidence status: the answer stays ungraded, the plan text is not stored"
         }
       ],
-      "gap": "Speaking tasks accept a text plan; no explicit short planning step before free production."
+      "gap": "Opinion cards offer an optional, untimed own plan (main idea, two reasons, an example) before speaking; it is hidden while answering and comes back next to the model. Dialogue role-play and the writing clinic have no planning step yet."
     },
     {
       "id": "chunk-learning",
@@ -12366,8 +12382,18 @@
     },
     {
       "id": "learner-concept-map",
-      "status": "NOT_YET",
-      "plan": "Optional thesis map before speaking, then hidden. Buildable as a planning step."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "the plan is hidden while answering, never shows the model, and returns only next to the model for self-comparison"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+        }
+      ],
+      "gap": "A three-slot text map (main idea, reasons, example) before an opinion monologue, hidden while answering; not a visual map and not yet offered before dialogues or writing."
     },
     {
       "id": "uncertainty-aware-asr",

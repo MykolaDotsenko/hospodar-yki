@@ -352,3 +352,7 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .workshop-family h2 { font-size: 1.1rem; margin: 0 0 var(--space-xs); }
 .workshop-family p { margin: var(--space-xs) 0; }
 .workshop-flag strong { color: var(--forest); }
+/* Pre-task planning: a quiet frame, no timer; the plan returns only next to the model (pre-task-planning). */
+.plan-frame { margin: var(--space-sm) 0 var(--space-md); padding-left: 1.4em; color: var(--muted); }
+.plan-back { padding: var(--space-sm) var(--space-md); border-left: 3px solid var(--stroke); }
+textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1.1rem; }   /* any language: no lang="fi" */
