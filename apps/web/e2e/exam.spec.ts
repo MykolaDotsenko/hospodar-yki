@@ -26,7 +26,7 @@ test("EXAM rehearsal (XState): no aids before finish, persisted navigation survi
   await page.getByRole("button", { name: "Seuraava" }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();
   // A visible next task now implies the checkpoint was committed AND reread, not a pending transition.
-  await expect(page.getByText("Tallennettu.")).toBeVisible();
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();          // resumed from the persisted checkpoint
@@ -77,7 +77,7 @@ test("EXAM-03 subtest (speaking only) + draft autosave survives reload without n
   await expect(page.getByText("Tehtävä 1 / 1")).toBeVisible();
   await expect(page.locator(".pill", { hasText: "Osakoeharjoitus: Puhuminen · epävirallinen" })).toBeVisible();
   await page.getByRole("textbox").fill("Valitettavasti en pääse torstaina. Sopisiko perjantai kello kymmenen?");
-  await expect(page.getByText("Tallennettu.")).toBeVisible({ timeout: 5000 });        // autosaved, no navigation
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible({ timeout: 5000 });        // autosaved, no navigation
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByRole("textbox")).toHaveValue("Valitettavasti en pääse torstaina. Sopisiko perjantai kello kymmenen?");
@@ -129,7 +129,7 @@ test("E07: unfinished IME composition cannot finish writing; exact Finnish Unico
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
   await editor.dispatchEvent("compositionend", { data: "ä" });
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeEnabled();
-  await expect(page.getByText("Tallennettu.")).toBeVisible({ timeout: 8000 });
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible({ timeout: 8000 });
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByRole("textbox")).toHaveValue(exact);

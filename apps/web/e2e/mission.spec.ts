@@ -71,6 +71,7 @@ test("wrong → repair without key → feedback with key → transfer → saved;
 
 test("empty answer is refused with an accessible error; keyboard-only flow works", async ({ page }) => {
   await page.goto("./");
+  await expect(page.locator(".today")).toBeVisible();      // progress loaded: the tab order no longer shifts under the keyboard
   for (let i = 0; i < 8; i++) {                       // reach the learn entry with Tab only
     await page.keyboard.press("Tab");
     if ((await page.evaluate(() => document.activeElement?.textContent ?? "")).includes("Навчання")) break;
