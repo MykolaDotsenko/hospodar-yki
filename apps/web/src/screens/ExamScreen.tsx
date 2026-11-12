@@ -7,6 +7,7 @@ import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepositor
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { ExamVoice, useVerifiedClip } from "./ExamVoice.tsx";
 import { ExamFidelity } from "./ExamFidelity.tsx";
+import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { examProfileHash, profileAvailability, type ExamProfile } from "@hospodar/domain";
 
@@ -90,6 +91,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
   const set = (value: string) => actor.send({ type: "ANSWER", itemId: item.id, value, now: Date.now() });
   const unanswered = items.filter(x => !(session!.answers[x.id] ?? "").trim() && !voiceEvidenceOf(session!, x.id)).length;
   const pinned = profileById(session!.profileId);
+  const subtests = items.map(x => x.skill).filter((k, i, a) => a.indexOf(k) === i);         // order of this session
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
   return (
     <section className="panel exam" aria-labelledby="ex-item">
@@ -99,6 +101,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
         <span aria-live="polite">Tehtävä {session!.index + 1} / {items.length}</span>
         {left !== null && <span className="pill" aria-live="off">Harjoitusaika {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")}</span>}
       </div>
+      <ThresholdRoute steps={subtests.map(k => SKILL_FI[k])} current={subtests.indexOf(item.skill)} accent="exam" label="Osakokeet · субтести" />
       <h1 id="ex-item" ref={heading} tabIndex={-1} lang="fi">{SKILL_FI[item.skill]}</h1>
       {changed && <p className="muted">Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
       {snap.matches("expired") ? (

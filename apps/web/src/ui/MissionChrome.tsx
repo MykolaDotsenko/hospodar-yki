@@ -16,7 +16,8 @@ export function Eyebrow({ accent, children }: { accent: Accent; children: ReactN
 }
 
 /** `current` ≥ steps.length means every step is done (no current step is announced). */
-export function ThresholdRoute({ steps, current, accent, label = "Кроки завдання" }: { steps: string[]; current: number; accent: Accent; label?: string }) {
+/** In EXAM the same form shows the subtests of the session, never learning steps (brand §3.2); accent "exam" = neutral navy. */
+export function ThresholdRoute({ steps, current, accent, label = "Кроки завдання" }: { steps: string[]; current: number; accent: Accent | "exam"; label?: string }) {
   return (
     <ol className="threshold-route" data-accent={accent} aria-label={label}>
       {steps.map((text, i) => {

@@ -98,3 +98,7 @@ TZ-EXAM-02…04 of docs/21 §10: 18 critical exam parameters as sourced records 
 
 Scoped G2 Web presentation slice (no task logic or storage change): one recommended next step with its reason, four skill tiles in constant colours, the threshold route on every mission type, an own SVG icon family instead of emoji. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-12--front-end-сьогодні-home-shared-mission-chrome-own-icons).
 
+## Front end: Finnish-first typography and exam skin — 12.11.2026
+
+Presentation slice: Finnish task as the largest text with a skill-coloured rule and hyphenation; the exam gets its own neutral skin, a subtest route and a compact six-cell fidelity strip. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-12--finnish-first-typography-and-a-distinct-exam-skin).
+

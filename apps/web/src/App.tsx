@@ -34,6 +34,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const [loadError, setLoadError] = useState<string | null>(null);
   const [appearance, setAppearance] = useState<Appearance>(readAppearance);
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
+  // DESIGN-12: the exam has its own neutral skin; LEARN keeps the expressive one. Presentation only.
+  useEffect(() => { document.documentElement.dataset.mode = view === "exam" ? "exam" : "learn"; }, [view]);
   const [updateReady, setUpdateReady] = useState(false);
   useEffect(() => onUpdateReady(setUpdateReady), []);
 
