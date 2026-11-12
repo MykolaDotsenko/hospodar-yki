@@ -124,6 +124,8 @@ test("R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 
       const hidden: string[] = [];
       for (let i = 0; i < 30; i++) {
         await page.keyboard.press("Tab");
+        // Let the engine finish scrolling the newly focused control into view (WebKit does it a frame later).
+        await page.evaluate(() => new Promise(done => requestAnimationFrame(() => requestAnimationFrame(() => done(null)))));
         const r = await page.evaluate(() => {
           const el = document.activeElement as HTMLElement | null;
           if (!el || el === document.body) return null;
