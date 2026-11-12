@@ -30,6 +30,7 @@ const SCREENS: Screen[] = [
   { name: "picture mission", open: nav("pictures", firstChoice) },
   { name: "media library", open: nav("media") },
   { name: "place (Моє господарство)", open: async p => { await p.getByTestId("place-housing").click(); } },
+  { name: "workshop (слабкі місця)", open: async p => { await p.getByTestId("nav-workshop").click(); } },
   { name: "diagnostic", open: nav("diagnostic") },
   { name: "progress", open: link("Мій прогрес") },
   { name: "my data", open: link("Мої дані: копія й видалення") },

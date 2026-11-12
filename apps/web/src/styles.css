@@ -345,3 +345,10 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .hp-weave { stroke: var(--persona-straw-shade); stroke-width: .9; }
 .guide-choice label { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
 @media (max-width: 560px) { .hospodar-figure { width: 76px; height: 95px; } .hospodar-says::before { bottom: 14px; } }
+/* Майстерня слабких місць: a calm list; the bottleneck is said in words, the rule only reinforces it (A10). */
+.workshop-list { list-style: none; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-md); }
+.workshop-family { padding: var(--space-md) var(--space-base); border: 1px solid var(--stroke); border-left: 4px solid var(--stroke); border-radius: 12px; background: var(--white); }
+.workshop-family[data-bottleneck="yes"] { border-left-color: var(--forest); }
+.workshop-family h2 { font-size: 1.1rem; margin: 0 0 var(--space-xs); }
+.workshop-family p { margin: var(--space-xs) 0; }
+.workshop-flag strong { color: var(--forest); }
