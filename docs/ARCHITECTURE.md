@@ -242,3 +242,17 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - E2E in `practice.spec.ts`; the screen is also in the design audit.
 - **Not yet:** planning before dialogue role-play and the writing clinic. The effect on fluency or complexity is not measured.
 
+## 2026-11-12 — exam conditions: Finnish-only attempt, no writing aids, no "official" claims
+
+- **Inside an attempt** (`section[data-exam-attempt]`, `translate="no"`):
+  - task text, buttons, route step states and the recording controls are Finnish;
+  - Ukrainian is allowed only in marked system notices (`data-system-notice`: privacy, voice consent, save failures), which the learner must understand for their data's sake;
+  - `e2e/exam-conditions.spec.ts` checks every task of a full rehearsal (EXV-14, TZ-EXAM-09, EXAM-05).
+- **Answer fields** switch off spellcheck, autocorrect, autocapitalize, autocomplete, browser translation and common writing-assistant hooks (TZ-EXAM-12, EXAM-PILLAR-04). IME composition and exact Unicode are unchanged.
+- **Claims:** `src/ui/claims.test.ts` fails on any UI sentence that calls the app or its result the official YKI without a negation (TZ-EXAM-20, automated part).
+- **Not done:**
+  - S2 review of the Finnish interface strings;
+  - a Finnish instruction screen before the start;
+  - paste and counter policy, which waits for the OPH demo walkthrough (TZ-EXAM-01);
+  - the legal review.
+

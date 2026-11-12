@@ -15,6 +15,11 @@ export function Eyebrow({ accent, children }: { accent: Accent; children: ReactN
   return <p className="eyebrow" data-accent={accent}><Icon name={accent} size={18} /> <span>{children}</span></p>;
 }
 
+/** Screen-reader step states; inside the exam the whole interface is Finnish (EXAM-05, TZ-EXAM-09). */
+const STATE = {
+  uk: { completed: " — пройдено", current: " — зараз", upcoming: " — попереду" },
+  fi: { completed: " — tehty", current: " — nyt", upcoming: " — tulossa" },
+} as const;
 /** `current` ≥ steps.length means every step is done (no current step is announced). */
 /** In EXAM the same form shows the subtests of the session, never learning steps (brand §3.2); accent "exam" = neutral navy. */
 export function ThresholdRoute({ steps, current, accent, label = "Кроки завдання" }: { steps: string[]; current: number; accent: Accent | "exam"; label?: string }) {
@@ -25,7 +30,7 @@ export function ThresholdRoute({ steps, current, accent, label = "Кроки з�
         return (
           <li key={text} className={`threshold-segment ${status}`} aria-current={status === "current" ? "step" : undefined}>
             <span className="threshold-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-            <span className="threshold-label">{text}<span className="visually-hidden">{status === "completed" ? " — пройдено" : status === "current" ? " — зараз" : " — попереду"}</span></span>
+            <span className="threshold-label">{text}<span className="visually-hidden" {...(accent === "exam" ? { lang: "fi" } : {})}>{STATE[accent === "exam" ? "fi" : "uk"][status]}</span></span>
           </li>
         );
       })}

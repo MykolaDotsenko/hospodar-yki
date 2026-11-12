@@ -4927,9 +4927,17 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "EXV-14 / TZ-EXAM-09: every task screen of a full rehearsal is Finnish-only outside marked system notices, and never browser-translated"
+        },
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "TZ-EXAM-12: exam answer fields switch off spellcheck, autocorrect, autocomplete, translation and writing assistants"
         }
       ],
-      "gap": "No aids before finish; pre-start explanation is Ukrainian, not an S2-reviewed Finnish instruction screen."
+      "gap": "No aids before finish; no browser translation, spellcheck, autocorrect or writing assistants in answer fields; pre-start explanation is Ukrainian, not an S2-reviewed Finnish instruction screen."
     },
     {
       "id": "EXAM-PILLAR-05",
@@ -5087,9 +5095,13 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "EXV-14 / TZ-EXAM-09: every task screen of a full rehearsal is Finnish-only outside marked system notices, and never browser-translated"
         }
       ],
-      "gap": "Item labels and buttons are Finnish, but the pre-start explanation is Ukrainian; no S2-reviewed Finnish instruction screen yet."
+      "gap": "Item labels, buttons, route and recording controls are Finnish inside the attempt (guarded); the pre-start explanation is Ukrainian and no S2-reviewed Finnish instruction screen exists yet."
     },
     {
       "id": "EXAM-06",
@@ -6541,8 +6553,13 @@
       "id": "EXV-14",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Finnish instruction screen with a Ukrainian hint is rejected for EXAM",
-      "status": "NOT_YET",
-      "plan": "Content lint for EXAM instruction screens (language + hint check) in the apps/web EXAM slice."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "EXV-14 / TZ-EXAM-09: every task screen of a full rehearsal is Finnish-only outside marked system notices, and never browser-translated"
+        }
+      ]
     },
     {
       "id": "EXV-15",
@@ -11639,8 +11656,14 @@
       "id": "TZ-EXAM-09",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Finnish-only exam interface (instructions, buttons, statuses), S2-reviewed; Ukrainian only before start and after finish",
-      "status": "NOT_YET",
-      "plan": "S2-reviewed Finnish instruction screens plus a content lint that rejects Ukrainian text or hints inside the exam (human S2 review needed)."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "EXV-14 / TZ-EXAM-09: every task screen of a full rehearsal is Finnish-only outside marked system notices, and never browser-translated"
+        }
+      ],
+      "gap": "Inside an attempt the interface is Finnish (route states, recording controls, statuses); Ukrainian appears only in marked system notices (privacy, consent, save failures) — enforced on every task of a full rehearsal. The Finnish strings are not yet S2-reviewed and the pre-start explanation is Ukrainian."
     },
     {
       "id": "TZ-EXAM-10",
@@ -11671,9 +11694,13 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "E07: unfinished IME composition cannot finish writing; exact Finnish Unicode survives autosave, reload and final submission"
+        },
+        {
+          "file": "apps/web/e2e/exam-conditions.spec.ts",
+          "contains": "TZ-EXAM-12: exam answer fields switch off spellcheck, autocorrect, autocomplete, translation and writing assistants"
         }
       ],
-      "gap": "IME-safe exact text and immutability after finish are tested; spellcheck/autocorrect attributes, paste policy and counters are not specified by a profile or tested."
+      "gap": "Spellcheck, autocorrect, autocomplete, browser translation and writing-assistant hooks are off; IME-safe exact text and immutability after finish are tested. Paste policy and a character/word counter are not set because the OPH 2027 editor behaviour is unverified."
     },
     {
       "id": "TZ-EXAM-13",
@@ -11756,8 +11783,14 @@
       "id": "TZ-EXAM-20",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Rights and privacy: no OPH tasks copied, no 'official' claims, legal privacy review of voice recording",
-      "status": "NOT_YET",
-      "plan": "Written legal review (human) plus an automated check of marketing/UI strings for 'official YKI' claims."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/src/ui/claims.test.ts",
+          "contains": "no UI source states or implies that the app is the official YKI"
+        }
+      ],
+      "gap": "An automated check rejects any UI sentence that calls the app or its results the official YKI without a negation; the written legal review of rights and voice privacy remains a human step."
     }
   ],
   "decisions": [

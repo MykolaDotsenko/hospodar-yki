@@ -94,16 +94,16 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
   const subtests = items.map(x => x.skill).filter((k, i, a) => a.indexOf(k) === i);         // order of this session
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
   return (
-    <section className="panel exam" aria-labelledby="ex-item">
+    <section className="panel exam" aria-labelledby="ex-item" translate="no" data-exam-attempt>
       <div className="exam-bar">
         <span className="pill">{snap.context.skills ? `Osakoeharjoitus: ${snap.context.skills.map(k => SKILL_FI[k]).join(", ")}` : "Harjoituskoe"} · epävirallinen</span>
         <span className="pill" data-testid="exam-profile">Profiili: {pinned?.title_fi ?? "Harjoitus"}</span>
         <span aria-live="polite">Tehtävä {session!.index + 1} / {items.length}</span>
         {left !== null && <span className="pill" aria-live="off">Harjoitusaika {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")}</span>}
       </div>
-      <ThresholdRoute steps={subtests.map(k => SKILL_FI[k])} current={subtests.indexOf(item.skill)} accent="exam" label="Osakokeet · субтести" />
+      <ThresholdRoute steps={subtests.map(k => SKILL_FI[k])} current={subtests.indexOf(item.skill)} accent="exam" label="Osakokeet" />
       <h1 id="ex-item" ref={heading} tabIndex={-1} lang="fi">{SKILL_FI[item.skill]}</h1>
-      {changed && <p className="muted">Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
+      {changed && <p className="muted" data-system-notice>Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
       {snap.matches("expired") ? (
         <div role="alert" className="exam-notice">
           <p lang="fi">Harjoitusaika päättyi. Vastauksia ei voi enää muuttaa.</p>
@@ -128,9 +128,9 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
         </>
       )}
       <p className="muted exam-save" aria-live="polite">{snap.context.composingItemId ? "Syöttö kesken — viimeistele teksti ennen tallennusta." : snap.matches("saving") ? "Tallennetaan siirtymää…" : snap.matches("saveError") ? "Tallennus epäonnistui." : snap.matches("autosaving") ? "Tallennetaan luonnosta…" : snap.context.dirty ? "Luonnos tallentuu pian." : "Tallennettu."}</p>
-      {snap.context.autosaveError && <p className="feedback error" role="alert">Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
+      {snap.context.autosaveError && <p className="feedback error" role="alert" data-system-notice>Чернетку НЕ збережено ({snap.context.autosaveError}). Наступний перехід спробує ще раз — не закривай вкладку.</p>}
       {snap.matches("saveError") && (
-        <div className="feedback error" role="alert"><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>
+        <div className="feedback error" role="alert" data-system-notice><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>
           <button type="button" className="btn" onClick={() => actor.send({ type: "RETRY" })}>Спробувати ще раз</button></div>
       )}
       {(snap.matches("active") || snap.matches("saving") || snap.matches("saveError") || snap.matches("autosaving")) && (
@@ -181,7 +181,11 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
         <>
           <p className="exam-prompt" lang="fi">{item.prompt}</p>
           <label className="field" htmlFor={`ex-${item.id}`} lang="fi">{item.skill === "speaking" ? "Kirjoita puheenvuorosi suunnitelma (puhetta ei arvioida automaattisesti)" : "Vastauksesi"}</label>
+          {/* Exam discipline (EXAM-PILLAR-04, TZ-EXAM-12): no spellcheck, autocorrect, autocomplete, browser translation or
+              writing-assistant extensions — the text is the learner's own. Exact Unicode and IME composition are kept. */}
           <textarea id={`ex-${item.id}`} className="answer" lang="fi" rows={item.skill === "writing" ? 8 : 4}
+            spellCheck={false} autoCorrect="off" autoCapitalize="off" autoComplete="off" translate="no"
+            data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false"
             maxLength={12000} value={compositionDraft ?? answer} disabled={disabled}
             onChange={e => composing.current ? setCompositionDraft(e.currentTarget.value) : onAnswer(e.currentTarget.value)}
             onCompositionStart={e => { if (item.skill !== "writing") return; composing.current = true;

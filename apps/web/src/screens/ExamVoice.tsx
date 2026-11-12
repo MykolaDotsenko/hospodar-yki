@@ -110,26 +110,26 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
   const playUrl = storedUrl ?? ephemeralUrl;
   return (
     <div className="exam-voice">
-      <p className="muted">Можна відповісти вголос. Мікрофон вмикається лише після натискання. Голос <strong>ніколи не надсилається</strong> на сервер і не оцінюється автоматично.</p>
-      <label className="radio">
+      <p className="muted" data-system-notice>Можна відповісти вголос. Мікрофон вмикається лише після натискання. Голос <strong>ніколи не надсилається</strong> на сервер і не оцінюється автоматично.</p>
+      <label className="radio" data-system-notice>
         <input type="checkbox" checked={session.voiceConsent} disabled={disabled || recording || (session.voiceConsent && hasStored)}
           onChange={e => send({ type: "CONSENT", consent: e.target.checked, now: Date.now() })} />
         <span>Зберігати мої голосові записи в цьому браузері, доки я їх не видалю або не почну нову репетицію.</span>
       </label>
-      {session.voiceConsent && hasStored && <p className="muted">Щоб відкликати згоду, спершу видали збережені записи.</p>}
+      {session.voiceConsent && hasStored && <p className="muted" data-system-notice>Щоб відкликати згоду, спершу видали збережені записи.</p>}
       <div className="actions">
         <button type="button" className="btn secondary" disabled={disabled && !recording} onClick={() => void (recording ? stop() : start())}>
-          {recording ? <><Icon name="stop" /> Зупинити запис</> : evidence ? "Записати ще раз" : <><Icon name="mic" /> Записати голос</>}</button>
-        {evidence === "stored" && !recording && !confirmDelete && <button type="button" className="btn secondary" disabled={disabled} onClick={() => setConfirmDelete(true)}>Видалити запис</button>}
+          {recording ? <><Icon name="stop" /> Lopeta nauhoitus</> : evidence ? "Nauhoita uudelleen" : <><Icon name="mic" /> Nauhoita vastaus</>}</button>
+        {evidence === "stored" && !recording && !confirmDelete && <button type="button" className="btn secondary" disabled={disabled} onClick={() => setConfirmDelete(true)}>Poista nauhoite</button>}
         {confirmDelete && <>
-          <button type="button" className="btn danger" disabled={disabled} onClick={() => void remove()}>Так, видалити запис</button>
-          <button type="button" className="btn secondary" onClick={() => setConfirmDelete(false)}>Скасувати</button>
+          <button type="button" className="btn danger" disabled={disabled} onClick={() => void remove()}>Kyllä, poista nauhoite</button>
+          <button type="button" className="btn secondary" onClick={() => setConfirmDelete(false)}>Peruuta</button>
         </>}
       </div>
-      {recording && <p className="voice-status warn" role="status">Іде запис. Зупини його, перш ніж переходити до іншого завдання.</p>}
-      {message && <p className={message.tone === "error" ? "feedback error" : `voice-status${message.tone === "warn" ? " warn" : ""}`} role={message.tone === "error" ? "alert" : "status"}>{message.text}</p>}
-      {playUrl && !recording && <figure className="player"><figcaption>{storedUrl ? "Твій збережений запис" : "Твій запис (лише на цій сторінці)"}</figcaption>
-        <audio controls src={playUrl} aria-label="Прослухати свою усну відповідь" /></figure>}
+      {recording && <p className="voice-status warn" role="status" lang="fi">Nauhoitus käynnissä. Lopeta se ennen kuin siirryt toiseen tehtävään.</p>}
+      {message && <p className={message.tone === "error" ? "feedback error" : `voice-status${message.tone === "warn" ? " warn" : ""}`} role={message.tone === "error" ? "alert" : "status"} data-system-notice>{message.text}</p>}
+      {playUrl && !recording && <figure className="player"><figcaption lang="fi">{storedUrl ? "Tallennettu nauhoitteesi" : "Nauhoitteesi (vain tällä sivulla)"}</figcaption>
+        <audio controls src={playUrl} aria-label="Kuuntele vastauksesi" /></figure>}
     </div>
   );
 }
