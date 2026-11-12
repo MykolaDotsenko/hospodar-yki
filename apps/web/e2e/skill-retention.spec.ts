@@ -8,7 +8,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
 
 /** A paraphrase card leaves reading (scored choice) and writing (retell, transfer) evidence = both skills start counting. */
 async function paraphraseCard(page: Page) {
-  await page.getByRole("button", { name: /Практика без підказки/ }).click();
+  await page.getByTestId("nav-practice").click();
   await page.getByRole("button", { name: /Те саме іншими словами/ }).click();
   await page.getByRole("button", { name: /^Картка 1 / }).click();
   await page.getByLabel("Liike palvelee asiakkaita eri aikoihin ensi viikosta lähtien.").check();
@@ -81,7 +81,7 @@ test("GL-03 writing: withheld prompt, own text saved ungraded; task points appea
 test("GL-03 listening: audio first, a lesson never met before; text support saves ungraded", async ({ page }) => {
   await page.clock.install({ time: T0 });
   await page.goto("./");
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));

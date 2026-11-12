@@ -6,7 +6,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
 
 test("IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: "📖 Читання" }).click();
+  await page.getByTestId("nav-reading").click();
   await expect(page.getByRole("button", { name: /Kirjaston kielikahvila/ })).toBeVisible();
   // EXAM-11: texts used by the mini YKI rehearsals are not offered in LEARN
   await expect(page.getByRole("button", { name: /Taloyhtiön|Asukas|ctx-reading-02/ })).toHaveCount(0);

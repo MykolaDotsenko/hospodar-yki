@@ -4,6 +4,7 @@ import { recordSkillCheck, skillCheckReducer, skillCheckReveal, skillCheckView, 
 import { listeningMediaFor, skillRetentionBank } from "../content/skillRetention.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const SKILL_UK: Record<Skill, string> = { reading: "Читання", listening: "Аудіювання", writing: "Письмо", speaking: "Говоріння" };
@@ -133,7 +134,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
 
       {reveal && (
         <>
-          <p role="status">✅ Перевірку збережено на цьому пристрої.</p>
+          <p role="status"><Icon name="ok" /> Перевірку збережено на цьому пристрої.</p>
           {reveal.kind === "objective" ? (
             <>
               {reveal.supported && <p className="muted">З показаним текстом — збережено без оцінки.</p>}

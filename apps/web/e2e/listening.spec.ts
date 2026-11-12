@@ -6,7 +6,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
 const startedPlaying = (page: Page) => page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
 async function open(page: Page) {
   await page.goto("./");
-  await page.getByRole("button", { name: "🎧 Аудіювання" }).click();
+  await page.getByTestId("nav-listening").click();
   await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
 }

@@ -4,6 +4,8 @@ import { completedTransferReflection, delayedTransferQueue, recordDelayedTransfe
 import { transferBank } from "../content/transfer.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { SkillChecks } from "./SkillChecks.tsx";
+import { Eyebrow } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 /**
  * LE-10 / IV-REQ-03: independent 7/14/30-day retrieval, then optional
@@ -62,8 +64,8 @@ export function RetentionScreen({ repository, snapshot, onSaved, onHome }: {
     setStatus("idle");
   }
   return (
-    <section className="panel" aria-labelledby="ret-title">
-      <p className="eyebrow">Навчання · відкладена перевірка</p>
+    <section className="panel" data-accent="grammar" aria-labelledby="ret-title">
+      <Eyebrow accent="grammar">Навчання · відкладена перевірка</Eyebrow>
       <h1 id="ret-title">Через 7 / 14 / 30 днів</h1>
       <h2>Граматика в новій ситуації</h2>
       <p>Нова ситуація без підказки на ту саму тему, що й твоя місія. Відповідь зберігається, але <strong>автоматично не оцінюється</strong>.</p>
@@ -71,7 +73,7 @@ export function RetentionScreen({ repository, snapshot, onSaved, onHome }: {
 
       {status === "saved" && (
         <>
-          <p className="feedback" role="status">✅ Відповідь збережено на цьому пристрої (без оцінки).</p>
+          <p className="feedback" role="status"><Icon name="ok" /> Відповідь збережено на цьому пристрої (без оцінки).</p>
           {reflection && (
             <section className="feedback" aria-label="Порівняння власних відповідей">
               <h2>Порівняй власні речення</h2>

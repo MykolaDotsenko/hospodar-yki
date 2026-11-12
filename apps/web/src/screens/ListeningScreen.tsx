@@ -5,6 +5,8 @@ import { listeningLessons, mediaFor, type LessonCredit } from "../content/listen
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
 import type { LearnerRepository, ListeningDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ListeningDraftRow | null; blocked: string | null };
@@ -69,8 +71,8 @@ export function ListeningScreen({ repository, snapshot, onSaved, onHome }: {
     initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.filter(d => d.skill === "listening").map(d => d.taskId));
   return (
-    <section className="panel" aria-labelledby="lst-title">
-      <p className="eyebrow">Навчання · аудіювання</p>
+    <section className="panel" data-accent="listening" aria-labelledby="lst-title">
+      <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
       <h1 id="lst-title">Обери запис</h1>
       <p className="muted">Більшість записів синтезовано одним голосом (Piper TTS); «живий голос» — читання людиною (LibriVox, суспільне надбання). Ніщо ще не перевірено S2-викладачем і не є автентичним мовленням YKI.</p>
       <ul className="choices" aria-label="Аудіозаписи">
@@ -232,7 +234,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
     feedback: "Що вийшло", review: "Послухай ще раз із текстом", done: "Готово" };
   const player = v.showPlayer && media.audio && (
     <div className="audio-box">
-      <p className="audio-label">🎧 <span lang="fi">{lesson.title_fi}</span> · {v.synthetic ? "синтетичний голос, один диктор" : "живий голос, один читець (літературний текст, не розмовна B1)"}</p>
+      <p className="audio-label"><Icon name="listening" /> <span lang="fi">{lesson.title_fi}</span> · {v.synthetic ? "синтетичний голос, один диктор" : "живий голос, один читець (літературний текст, не розмовна B1)"}</p>
       {credit && <p className="muted">Читає {credit.credit} · {credit.licence}{credit.source && <> · <a href={credit.source} target="_blank" rel="noopener noreferrer">джерело</a></>}</p>}
       <audio ref={audioRef} controls preload="none" src={media.audio}
         onPlay={() => { if (["listen", "questions", "review"].includes(latest.current.phase)) void transition({ type: "AUDIO_STARTED" }); }}>
@@ -252,9 +254,10 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
     </div>
   );
   return (
-    <section className="panel" aria-labelledby="lm-title">
-      <p className="eyebrow">Навчання · аудіювання</p>
+    <section className="panel" data-accent="listening" aria-labelledby="lm-title">
+      <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
       <h1 id="lm-title" ref={heading} tabIndex={-1}>{titles[s.phase]}</h1>
+      <ThresholdRoute steps={["Прогноз", "Слухання", "Питання", "Перевірка", "З текстом"]} current={{ predict: 0, listen: 1, questions: 2, feedback: 3, review: 4, done: 5 }[s.phase]} accent="listening" />
       {lesson.teacher_review !== "approved" && <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершене аудіювання відновлено з цього пристрою.</p>}
       {s.phase === "predict" && (
@@ -329,7 +332,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Збережено на цьому пристрої. {v.independent ? "Самостійні відповіді записано окремо для аудіювання." : "Відповіді з підтримкою збережено без оцінки."}</p>
+          <p><Icon name="ok" /> Збережено на цьому пристрої. {v.independent ? "Самостійні відповіді записано окремо для аудіювання." : "Відповіді з підтримкою збережено без оцінки."}</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку записів</button></div>
         </div>
       )}

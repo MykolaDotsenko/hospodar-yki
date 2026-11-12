@@ -1,9 +1,11 @@
 import { useRef, useState, type FormEvent } from "react";
 import { completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, PRACTICE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
-import { PRACTICE_KINDS, practiceCards } from "../content/practice.ts";
+import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<PracticeJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інакше" };
@@ -29,8 +31,8 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
 
   const meta = PRACTICE_KINDS.find(k => k.kind === kind);
   return (
-    <section className="panel" aria-labelledby="pr-title">
-      <p className="eyebrow">Навчання · практика без підказки</p>
+    <section className="panel" data-accent="grammar" aria-labelledby="pr-title">
+      <Eyebrow accent="grammar">Навчання · практика без підказки</Eyebrow>
       <h1 id="pr-title">{meta ? meta.title : "Практика без підказки"}</h1>
       <p>Спершу твоя власна відповідь. Лише потім — зразок і пояснення. Наостанок — нова ситуація без зразка.</p>
       <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Тексти не оцінюються автоматично.</p>
@@ -55,7 +57,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome }: { repo
             {practiceCards.filter(c => c.kind === kind).map((c, i) => (
               <li key={c.id}><button type="button" className="choice" onClick={() => open(c)}>
                 <span>Картка {i + 1}</span>
-                <small>{c.group} · {done.has(`${c.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
+                <small>{groupLabel(c.group)} · {done.has(`${c.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
               </button></li>
             ))}
           </ul>
@@ -111,12 +113,14 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
     } finally { busy.current = false; setSaving(false); }
   }
   const meta = PRACTICE_KINDS.find(k => k.kind === card.kind)!;
+  const routeSteps = card.kind === "paraphrase" ? ["Твій вибір", "Пояснення", "Своїми словами", "Нова ситуація"] : ["Твоя відповідь", "Зразок", "Нова ситуація"];
   const speaking = card.transferSkill === "speaking";
 
   return (
-    <section className="panel" aria-labelledby="pr-run">
-      <p className="eyebrow">Практика без підказки · {meta.title}</p>
-      <h1 id="pr-run">{card.group}</h1>
+    <section className="panel" data-accent={card.attemptSkill} aria-labelledby="pr-run">
+      <Eyebrow accent={card.attemptSkill}>Практика без підказки · {meta.title}</Eyebrow>
+      <h1 id="pr-run"{...(card.kind === "rektio" ? { lang: "fi" } : {})}>{groupLabel(card.group)}</h1>
+      <ThresholdRoute steps={routeSteps} current={routeSteps.length === 4 ? { attempt: 0, reveal: 1, recall: 2, transfer: 3, done: 4 }[s.phase] : { attempt: 0, reveal: 1, recall: 1, transfer: 2, done: 3 }[s.phase]} accent={card.attemptSkill} />
       <p className="draft-note">Чернетка, ще не перевірена S2-викладачем</p>
       {review && s.phase === "attempt" && <p className="muted">Повторення: згадай без зразка.</p>}
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
@@ -180,7 +184,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
         </form>
       )}
 
-      {saved && <p className="feedback" role="status">✅ Картку збережено на цьому пристрої. Тексти — без оцінки.
+      {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
         {isSpacedKind(card) && s.judged !== "same" && " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."}
         {isSpacedKind(card) && s.judged === "same" && review && " Наступне повторення — через довший проміжок."}</p>}
       <div className="actions">

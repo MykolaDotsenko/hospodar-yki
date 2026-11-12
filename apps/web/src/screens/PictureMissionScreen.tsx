@@ -5,6 +5,8 @@ import { pictureMissions } from "../content/pictureMissions.ts";
 import { picturePayload, validPictureDraft } from "../storage/pictureDraft.ts";
 import type { LearnerRepository, PictureDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { Icon } from "../ui/icons.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Mission = (typeof pictureMissions)[number];
@@ -68,8 +70,8 @@ export function PictureMissionScreen({ repository, snapshot, onSaved, onHome }: 
     initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   return (
-    <section className="panel" aria-labelledby="pm-title">
-      <p className="eyebrow">Навчання · фото-місії</p>
+    <section className="panel" data-accent="speaking" aria-labelledby="pm-title">
+      <Eyebrow accent="speaking">Навчання · фото-місії</Eyebrow>
       <h1 id="pm-title">Фото-місії</h1>
       <p>Спершу сам(а) описуєш фото фінською. Потім бачиш приклади й український переклад. Наостанок — нова ситуація без фото й перекладу.</p>
       <p className="draft-note">Чернетки: ще не перевірено S2-викладачем. Відповіді не оцінюються автоматично.</p>
@@ -206,9 +208,10 @@ function PictureMission({ m, repository, snapshot, initialDraft, onSaved, onExit
   }
   const title = { look: "Що на фото?", support: "Приклади й переклад", transfer: "Нова ситуація — без фото", done: "Готово" }[s.phase];
   return (
-    <section className="panel" aria-labelledby="pmm-title">
-      <p className="eyebrow">Навчання · фото-місія · {lesson.level}</p>
+    <section className="panel" data-accent="speaking" aria-labelledby="pmm-title">
+      <Eyebrow accent="speaking">Навчання · фото-місія · {lesson.level}</Eyebrow>
       <h1 id="pmm-title" ref={heading} tabIndex={-1}>{title}</h1>
+      <ThresholdRoute steps={["Твій опис", "Приклади", "Нова ситуація"]} current={{ look: 0, support: 1, transfer: 2, done: 3 }[s.phase]} accent="speaking" />
       <p className="draft-note">Чернетка: ще не перевірено S2-викладачем.</p>
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершену фото-місію відновлено з цього пристрою.</p>}
       {v.showPicture && (
@@ -255,7 +258,7 @@ function PictureMission({ m, repository, snapshot, initialDraft, onSaved, onExit
       )}
       {s.phase === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Збережено на цьому пристрої без оцінки: перша спроба й відповідь у новій ситуації.</p>
+          <p><Icon name="ok" /> Збережено на цьому пристрої без оцінки: перша спроба й відповідь у новій ситуації.</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку фото-місій</button></div>
         </div>
       )}

@@ -45,7 +45,7 @@ test("E06: without consent a recording is page-only and does not survive reload;
   await noLearningAids(page);
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
-  await expect(page.getByRole("button", { name: "🎙 Записати голос" })).toBeVisible();   // nothing claimed after reload
+  await expect(page.getByRole("button", { name: "Записати голос" })).toBeVisible();   // nothing claimed after reload
 
   await consent(page).check();
   await expect(page.getByText("Tallennettu.")).toBeVisible();
@@ -94,7 +94,7 @@ test("E06: a stored recording can be deleted, and a recording whose bytes vanish
   await page.reload();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.getByRole("alert")).toContainText("Збережений запис не знайдено або він пошкоджений");
-  await expect(page.getByRole("button", { name: "🎙 Записати голос" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Записати голос" })).toBeVisible();
   await page.getByRole("button", { name: "Lopeta koe" }).click();
   await expect(page.getByText(/Vastaamatta: 1/)).toBeVisible();
 });
@@ -105,7 +105,7 @@ test("E06: a denied microphone is reported honestly; the text plan remains the a
       value: { getUserMedia: async () => { throw new DOMException("denied", "NotAllowedError"); } } });
   });
   await speakingOnly(page);
-  await page.getByRole("button", { name: "🎙 Записати голос" }).click();
+  await page.getByRole("button", { name: "Записати голос" }).click();
   await expect(page.getByText(/Немає дозволу на мікрофон/)).toBeVisible();
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeEnabled();
   await page.getByRole("textbox").fill("Haluaisin siirtää aikaa perjantaille.");

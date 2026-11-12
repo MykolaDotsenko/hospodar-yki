@@ -8,7 +8,7 @@ const MODEL_START = "Huomasin kylpyhuoneen seinässä tumman läikän";
 
 async function toTransfer(page: Page) {
   await page.goto("./");
-  await page.getByRole("button", { name: "✍ Майстерня письма" }).click();
+  await page.getByTestId("nav-writing").click();
   await page.getByRole("button", { name: /Kosteusvaurio epäilyttää/ }).click();
   await expect(page.getByText(MODEL_START)).toHaveCount(0);
   await expect(page.getByText("Minulla on huono seinä")).toHaveCount(0);

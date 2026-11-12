@@ -6,7 +6,7 @@ const FIRST = "Hei, haluan harjoitella suomea uudessa kielikahvilassa.";
 const DRAFT = "Tämä on yksityinen keskeneräinen vastaus dialogiin.";
 
 async function open(page: Page) {
-  await page.getByRole("button", { name: "💬 Діалоги" }).click();
+  await page.getByTestId("nav-speaking").click();
 }
 async function start(page: Page) {
   await page.goto("./"); await open(page);

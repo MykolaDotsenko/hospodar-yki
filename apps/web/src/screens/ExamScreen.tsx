@@ -213,8 +213,9 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         {examProfiles.map(p => {
           const a = profileAvailability(p, examProfileFile, now);
           return <label key={p.id} className="radio"><input type="radio" name="profile" disabled={!a.selectable} checked={profileId === p.id}
-            onChange={() => setProfileId(p.id)} /> {p.title_uk} <span lang="fi" className="muted">· {p.title_fi}</span>
-            {a.reason_uk && <><br /><small className="muted">{a.reason_uk}</small></>}</label>;
+            onChange={() => setProfileId(p.id)} />
+            <span>{p.title_uk} <span lang="fi" className="muted">· {p.title_fi}</span>
+              {a.reason_uk && <small className="muted radio-note">{a.reason_uk}</small>}</span></label>;
         })}
       </fieldset>
       <ExamFidelity profile={profile} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { inspectLegacyProgress, LEGACY_REASON_UK, STORAGE_KEY, type LearnerState, type LegacyInspection } from "@hospodar/domain";
 import type { ImportReceipt, LearnerRepository } from "../storage/learnerRepository.ts";
+import { Icon } from "../ui/icons.tsx";
 
 /**
  * G2-b: explicit, consented import of legacy LEARN V1 progress (R11 rules).
@@ -133,7 +134,7 @@ export function ImportScreen({ repository, current, onImported, onHome }: {
       {status.kind === "error" && <p className="feedback error" role="alert">{status.message}</p>}
       {status.kind === "done" && (
         <div className="feedback" role="status">
-          <p>✅ Перенесено й перевірено: {status.receipt.counts.attempts} місій, {status.receipt.counts.cards} карток повторення, {status.receipt.counts.diagnostics} діагностик.</p>
+          <p><Icon name="ok" /> Перенесено й перевірено: {status.receipt.counts.attempts} місій, {status.receipt.counts.cards} карток повторення, {status.receipt.counts.diagnostics} діагностик.</p>
           <p className="muted">Квитанція: SHA-256 оригіналу {status.receipt.originalSha256.slice(0, 12)}…, {new Date(status.receipt.importedAt).toLocaleString("uk-UA")}.</p>
         </div>
       )}
