@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createActor, type SnapshotFrom } from "xstate";
-import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf } from "@hospodar/domain";
+import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf , learnFocus, localDate, preferredBlueprint, repeatedSkills, retestPlan, setStatuses } from "@hospodar/domain";
 import { createExamMachine } from "../exam/examMachine.ts";
 import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../content/exam.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
@@ -17,7 +17,7 @@ const SKILL_UK: Record<ExamItem["skill"], string> = { reading: "Читання",
 const newId = () => "sess-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 type Machine = ReturnType<typeof createExamMachine>;
 
-export function ExamScreen({ repository, voiceStore, onHome }: { repository: ExamRepository; voiceStore: VoiceStore; onHome: () => void }) {
+export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { repository: ExamRepository; voiceStore: VoiceStore; onHome: () => void; onLearn?: (skill: ExamSkill) => void }) {
   const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id), examContentVersion, voiceStore)), [repository, voiceStore]);
   const [snap, setSnap] = useState<SnapshotFrom<Machine>>(() => actor.getSnapshot());
   useEffect(() => { const sub = actor.subscribe(setSnap); actor.start(); return () => { sub.unsubscribe(); actor.stop(); }; }, [actor]);
@@ -42,6 +42,11 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
     pruned.current = session.sessionId;
     void voiceStore.pruneSession(session.sessionId, Object.values(session.voiceReceipts ?? {}).map(r => r.storageKey)).catch(() => {});
   }, [snap, session, voiceStore]);
+  // EXAM-10: an attempt found unfinished on opening is an interrupted rehearsal that continues — never "failed".
+  const resumed = useRef<{ sessionId: string; index: number } | null | undefined>(undefined);
+  if (resumed.current === undefined && !snap.matches("loading")) {
+    resumed.current = session && !session.finishedAt && !snap.matches("setup") ? { sessionId: session.sessionId, index: session.index } : null;
+  }
   const busy = snap.matches("saving") || snap.matches("finishing") || snap.matches("clearing") || snap.matches("loading");
   const navBusy = busy || snap.matches("autosaving") || recording || snap.context.composingItemId !== null;
 
@@ -74,6 +79,7 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
               {d.voice === "stored" && <StoredVoice receipt={session!.voiceReceipts[d.id]!} voiceStore={voiceStore} onUnverified={() => actor.send({ type: "VOICE_UNVERIFIED", itemId: d.id })} />}</li>;
           })}
         </ol>
+        <NextSteps bySkill={r.bySkill} repository={repository} onLearn={onLearn} />
         {error && <p className="feedback error" role="alert">Не вдалося очистити ({error}).</p>}
         {used && <ExamFidelity profile={used} compact />}
         <div className="actions">
@@ -103,6 +109,8 @@ export function ExamScreen({ repository, voiceStore, onHome }: { repository: Exa
       </div>
       <ThresholdRoute steps={subtests.map(k => SKILL_FI[k])} current={subtests.indexOf(item.skill)} accent="exam" label="Osakokeet" />
       <h1 id="ex-item" ref={heading} tabIndex={-1} lang="fi">{SKILL_FI[item.skill]}</h1>
+      {resumed.current && resumed.current.sessionId === session!.sessionId && resumed.current.index === session!.index &&
+        <p className="exam-resumed" role="status" lang="fi">Jatkat keskeytynyttä harjoitusta. Vastauksesi on tallennettu.</p>}
       {changed && <p className="muted" data-system-notice>Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
       {snap.matches("expired") ? (
         <div role="alert" className="exam-notice">
@@ -209,12 +217,28 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
   const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
   useEffect(() => { repository.history().then(setHistory, () => setHistory([])); }, [repository]);
   const partial = skills.length > 0 && skills.length < all.length;
+  // TZ-EXAM-14/19, EXV-03: offer a set never seen for the chosen skills; a repeat is allowed but always named as one.
+  const ids = examBlueprints.map(b => b.id);
+  const statuses = history ? setStatuses(history, ids, skills) : [];
+  const [picked, setPicked] = useState(false);
+  useEffect(() => {
+    if (!history || picked) return;
+    const unseen = preferredBlueprint(history, ids, skills);
+    if (unseen) setBlueprint(unseen);
+  }, [history, skills, picked]);   // eslint-disable-line react-hooks/exhaustive-deps
+  const chosen = statuses.find(st => st.blueprintId === blueprint);
+  const repeat = chosen ? skills.filter(k => chosen.seen.includes(k)) : [];
+  const plan = history ? retestPlan(history, ids, localDate()) : null;
+  const titleOf = (id: string | null) => examBlueprints.find(b => b.id === id)?.title_uk ?? "";
   return (
     <section className="panel exam" aria-labelledby="ex-setup">
       <p className="eyebrow">02 · Симуляція YKI</p>
       <h1 id="ex-setup">Тренувальна репетиція</h1>
       <p className="qualification">Незалежна тренувальна репетиція. Не офіційний YKI і не відтворення цифрового іспиту 2027: офіційні таймінги, навігацію й правила прослуховування ще не підтверджено. Під час репетиції немає підказок; результати — лише після завершення.</p>
       {error && <p className="feedback error" role="alert">Не вдалося прочитати збережену репетицію ({error}).</p>}
+      {plan?.due && <p className="feedback warn" role="status" data-testid="exam-retest">Сьогодні — повторна перевірка: минуло 14 днів після репетиції {uaDate(plan.lastOn!)}. Незнайомий набір: {titleOf(plan.unseenBlueprint)}.</p>}
+      {plan && !plan.due && plan.retestOn && !plan.noneLeft && <p className="muted" data-testid="exam-retest">Повторна перевірка на незнайомому наборі ({titleOf(plan.unseenBlueprint)}) — з {uaDate(plan.retestOn)}, через 14 днів після останньої репетиції.</p>}
+      {plan?.noneLeft && <p className="muted" data-testid="exam-retest">Незнайомих наборів для цих навичок більше немає. Повторна репетиція покаже знайомі завдання; нові набори з'являться разом із банком завдань, перевіреним S2-викладачами.</p>}
       <fieldset className="choices-set">
         <legend>Режим точності</legend>
         {examProfiles.map(p => {
@@ -228,7 +252,12 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
       <ExamFidelity profile={profile} />
       <fieldset className="choices-set">
         <legend>Набір завдань</legend>
-        {examBlueprints.map(b => <label key={b.id} className="radio"><input type="radio" name="bp" checked={blueprint === b.id} onChange={() => setBlueprint(b.id)} /> {b.title_uk}</label>)}
+        {examBlueprints.map(b => {
+          const st = statuses.find(x => x.blueprintId === b.id);
+          return <label key={b.id} className="radio"><input type="radio" name="bp" checked={blueprint === b.id} onChange={() => { setPicked(true); setBlueprint(b.id); }} />
+            <span>{b.title_uk}<small className="muted radio-note">{!st || st.seen.length === 0 ? "ще не бачив(ла)" : `уже бачив(ла): ${st.seen.map(k => SKILL_UK[k]).join(", ")}`}</small></span></label>;
+        })}
+        {repeat.length > 0 && <p className="feedback warn" role="status">Ці завдання ({repeat.map(k => SKILL_UK[k]).join(", ")}) ти вже бачив(ла). Результат покаже повторення знайомого, а не нову перевірку.</p>}
       </fieldset>
       <fieldset className="choices-set">
         <legend>Навички (усі 4 — повна репетиція; частина — окремий тренувальний субтест)</legend>
@@ -255,6 +284,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
 
 /** Attempt history (EXAM-09): objective counts per skill, ungraded counted separately; never a grade or pass prediction. */
 export function ExamHistoryList({ history }: { history: ExamHistoryRecord[] | null }) {
+  const repeats = history ? repeatedSkills(history) : new Map<string, ExamSkill[]>();
   return (
     <>
       {history === null ? <p className="muted">Завантаження…</p> : history.length === 0 ? <p className="muted">Ще немає завершених репетицій.</p> : (
@@ -262,7 +292,8 @@ export function ExamHistoryList({ history }: { history: ExamHistoryRecord[] | nu
           {history.map(h => (
             <li key={h.sessionId}>
               <strong>{new Date(h.finishedAt).toLocaleDateString("uk-UA")}</strong> · {examBlueprints.find(b => b.id === h.blueprintId)?.title_uk ?? h.blueprintId}
-              {h.skills ? ` · ${h.skills.map(k => SKILL_UK[k]).join(", ")}` : " · усі 4 навички"}<br />
+              {h.skills ? ` · ${h.skills.map(k => SKILL_UK[k]).join(", ")}` : " · усі 4 навички"}
+              {(repeats.get(h.sessionId) ?? []).length > 0 && <> · <em>повторення знайомого: {repeats.get(h.sessionId)!.map(k => SKILL_UK[k]).join(", ")}</em></>}<br />
               {(Object.keys(h.bySkill) as ExamSkill[]).filter(k => h.bySkill[k].objective || h.bySkill[k].ungraded).map(k =>
                 `${SKILL_UK[k]}: ${h.bySkill[k].objective ? `${h.bySkill[k].correct}/${h.bySkill[k].objective} із ключем` : ""}${h.bySkill[k].ungraded ? `${h.bySkill[k].objective ? ", " : ""}${h.bySkill[k].ungraded} без оцінки` : ""}`).join(" · ") || "без відповідей"}
               <br /><small className="muted">Версія завдань: {h.contentVersion}. Не прогноз складання YKI.</small>
@@ -280,3 +311,36 @@ function StoredVoice({ receipt, voiceStore, onUnverified }: { receipt: SpeakingR
   return url ? <figure className="player"><figcaption>Твій запис ({Math.max(1, Math.round(receipt.durationMs / 1000))} с) · без оцінки: оцінити може лише людина</figcaption>
     <audio controls src={url} aria-label="Прослухати свою усну відповідь" /></figure> : null;
 }
+
+const uaDate = (d: string) => d.split("-").reverse().join(".");
+
+/**
+ * TZ-EXAM-19, AC-20: after a rehearsal, review happens in LEARN on other material (exam tasks never appear there), and
+ * 14 days later an unseen set is the delayed re-check. Counts only — never a level, a grade or a pass prediction.
+ */
+function NextSteps({ bySkill, repository, onLearn }: { bySkill: Parameters<typeof learnFocus>[0]; repository: ExamRepository; onLearn?: (skill: ExamSkill) => void }) {
+  const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
+  useEffect(() => { repository.history().then(setHistory, () => setHistory([])); }, [repository]);
+  const focus = learnFocus(bySkill);
+  const plan = history ? retestPlan(history, examBlueprints.map(b => b.id), localDate()) : null;
+  const title = examBlueprints.find(b => b.id === plan?.unseenBlueprint)?.title_uk;
+  return (
+    <section className="exam-next" aria-labelledby="ex-next">
+      <h2 id="ex-next">Що далі</h2>
+      {focus.length === 0 ? <p>У завданнях із ключем помилок і пропусків немає. Письмо й говоріння тут не оцінювалися.</p> : (
+        <ul className="skill-lines" aria-label="Розбір у Навчанні">
+          {focus.map(f => (
+            <li key={f.skill}><strong>{SKILL_UK[f.skill]}</strong>{" — "}
+              {[f.wrong ? `неправильно: ${f.wrong}` : "", f.unanswered ? `без відповіді: ${f.unanswered}` : "", f.ungraded ? `без оцінки: ${f.ungraded}` : ""].filter(Boolean).join(", ")}.
+              {" "}Тренуй у Навчанні на інших завданнях: ці завдання іспиту там не з'являються.
+              {onLearn && <div className="actions"><button type="button" className="btn secondary" onClick={() => onLearn(f.skill)}>Тренувати: {SKILL_UK[f.skill].toLowerCase()}</button></div>}
+            </li>
+          ))}
+        </ul>
+      )}
+      {plan?.retestOn && !plan.noneLeft && <p data-testid="exam-next-retest">Повторна перевірка на незнайомому наборі ({title}) — з {uaDate(plan.retestOn)}, через 14 днів.</p>}
+      {plan?.noneLeft && <p className="muted" data-testid="exam-next-retest">Незнайомих наборів для цих навичок більше немає; повторна репетиція покаже знайомі завдання.</p>}
+    </section>
+  );
+}
+

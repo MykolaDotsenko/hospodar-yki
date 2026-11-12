@@ -256,3 +256,21 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - paste and counter policy, which waits for the OPH demo walkthrough (TZ-EXAM-01);
   - the legal review.
 
+## 2026-11-12 — the YKI preparation cycle around the rehearsal
+
+- **Exposure** (TZ-EXAM-14 exposure part, EXV-03, EXAM-09/11):
+  - exposure is tracked per set **and** skill, derived from the finished-attempt history (no schema change);
+  - setup defaults to a set never seen for the chosen skills and labels each set as unseen or already seen;
+  - a repeat is allowed, but the setup and the history name it as a repeat of familiar material, never as a new check;
+  - when no unseen set is left, the app says so instead of recycling tasks.
+- **Interrupted, not failed** (EXAM-10): an unfinished attempt found on opening continues with the Finnish notice «Jatkat keskeytynyttä harjoitusta. Vastauksesi on tallennettu.».
+- **After the rehearsal** (TZ-EXAM-19, AC-20):
+  - «Що далі» lists, per skill, wrong and unanswered keyed tasks and ungraded productions, with a button into the matching LEARN area — on other material, since exam tasks never appear in LEARN;
+  - 14 days after the latest rehearsal, an unseen set is offered as the delayed re-check;
+  - counts only, never a level, a grade or a pass prediction.
+- **Code:**
+  - `packages/domain/src/examPrep.ts` (`test/examPrep.test.ts`);
+  - `ExamScreen` (setup, history, `NextSteps`, resume notice);
+  - `e2e/exam-prep.spec.ts`.
+- **Limits:** only two mini sets exist. A real cycle needs the held-out bank of original full forms reviewed by two S2 teachers (TZ-EXAM-14, human).
+

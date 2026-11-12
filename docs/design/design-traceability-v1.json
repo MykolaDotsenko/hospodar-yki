@@ -5156,15 +5156,19 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
         }
       ],
-      "gap": "History records date, set, scope, content version and per-skill objective counts; there is no unseen item bank yet, so repeated mocks reuse the same items."
+      "gap": "History records date, set, scope, content version and per-skill objective counts, and labels repeats of familiar material; there is no unseen item bank yet beyond the two mini sets."
     },
     {
       "id": "EXAM-10",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Never lose writing; interruption marked 'interrupted', not 'failed'",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
@@ -5177,9 +5181,12 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "a failed save never moves on: the learner stays with their answer and can retry"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "results lead into LEARN on other material; an interrupted rehearsal continues with a Finnish notice (EXAM-10)"
         }
-      ],
-      "gap": "Drafts autosave and survive reload; an explicit 'interrupted' status (vs finished) is not modelled."
+      ]
     },
     {
       "id": "EXAM-11",
@@ -5194,9 +5201,17 @@
         {
           "file": "packages/domain/test/reading.test.ts",
           "contains": "EXAM-11: texts used by an EXAM blueprint never enter the LEARN pool"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "exposure is per set AND skill: a speaking-only subtest exposes only speaking of that set"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "a repeat on a familiar set is labelled with exactly the skills it repeated (EXV-03)"
         }
       ],
-      "gap": "Pool separation enforced for audio assets by content hash; no held-out item bank exists."
+      "gap": "LEARN and EXAM pools are separated (audio by content hash, reading/practice pools exclude exam items) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists."
     },
     {
       "id": "EXAM-12",
@@ -6387,7 +6402,7 @@
       "id": "EXV-03",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "An item reused in training is never marked unseen in exam assessment",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "app/tests/e05-listening-asset-gate.test.mjs",
@@ -6396,9 +6411,16 @@
         {
           "file": "packages/domain/test/reading.test.ts",
           "contains": "EXAM-11: texts used by an EXAM blueprint never enter the LEARN pool"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "a repeat on a familiar set is labelled with exactly the skills it repeated (EXV-03)"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
         }
-      ],
-      "gap": "Audio pools separated by content hash; no held-out item bank exists."
+      ]
     },
     {
       "id": "EXV-04",
@@ -7679,8 +7701,21 @@
       "id": "AC-20",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Completed exam → explained practice plan; exam items not reused unseen",
-      "status": "NOT_YET",
-      "plan": "After the apps/web EXAM."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "results lead into LEARN on other material; an interrupted rehearsal continues with a Finnish notice (EXAM-10)"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "LEARN focus lists only skills with wrong or unanswered keyed tasks or ungraded productions — counts, no grade"
+        }
+      ]
     },
     {
       "id": "AC-21",
@@ -7695,9 +7730,13 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
         }
       ],
-      "gap": "Content version and per-skill metrics recorded; tasks repeat because no unseen bank exists; never a YKI prediction."
+      "gap": "Content version and per-skill metrics recorded; repeats of familiar sets are labelled; tasks repeat once the two mini sets are used; never a YKI prediction."
     },
     {
       "id": "AC-22",
@@ -11719,8 +11758,22 @@
       "id": "TZ-EXAM-14",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Held-out item bank: original tasks written and reviewed by two S2 teachers, at least three full forms, exposure tracking",
-      "status": "NOT_YET",
-      "plan": "S2-authored bank (human) plus exposure tracking so a repeat mock serves an unseen form or says none is left."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "exposure is per set AND skill: a speaking-only subtest exposes only speaking of that set"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "the default set is the first one still unseen for the chosen skills; none left → null (never recycled silently)"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
+        }
+      ],
+      "gap": "Exposure is tracked per set and skill; a repeat mock serves an unseen set or says none is left, and repeats are labelled. The held-out bank of original S2-reviewed full forms does not exist (human)."
     },
     {
       "id": "TZ-EXAM-15",
@@ -11776,8 +11829,26 @@
       "id": "TZ-EXAM-19",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "After the exam: error review happens separately in LEARN; unseen delayed retest on day 14 and 30",
-      "status": "NOT_YET",
-      "plan": "EXAM → separate LEARN review → delayed retest on unseen items, per the E01–E16 programme."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "after a rehearsal: LEARN review per skill, the next rehearsal defaults to an UNSEEN set, a repeat is named as one, day 14 offers the re-check"
+        },
+        {
+          "file": "apps/web/e2e/exam-prep.spec.ts",
+          "contains": "results lead into LEARN on other material; an interrupted rehearsal continues with a Finnish notice (EXAM-10)"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "14 calendar days after the latest rehearsal an unseen set is the delayed re-check; when none is left the plan says so"
+        },
+        {
+          "file": "packages/domain/test/examPrep.test.ts",
+          "contains": "LEARN focus lists only skills with wrong or unanswered keyed tasks or ungraded productions — counts, no grade"
+        }
+      ],
+      "gap": "After a rehearsal the results list a LEARN review per skill on other material (exam tasks never appear in LEARN), and 14 days after the latest rehearsal a set still unseen for those skills is offered as the delayed re-check. Only two mini sets exist, so the cycle ends quickly; the E01–E16 programme with an S2 bank is not built."
     },
     {
       "id": "TZ-EXAM-20",
