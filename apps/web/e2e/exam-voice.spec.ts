@@ -48,7 +48,7 @@ test("E06: without consent a recording is page-only and does not survive reload;
   await expect(page.getByRole("button", { name: "Nauhoita vastaus" })).toBeVisible();   // nothing claimed after reload
 
   await consent(page).check();
-  await expect(page.getByText("Tallennettu.")).toBeVisible();
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible();
   await record(page);
   await expect(page.getByText(/Запис збережено лише на цьому пристрої й перевірено \(3 КБ/)).toBeVisible();
   await expect(consent(page)).toBeDisabled();                                          // withdraw only after deleting
@@ -76,7 +76,7 @@ test("E06: without consent a recording is page-only and does not survive reload;
 test("E06: a stored recording can be deleted, and a recording whose bytes vanished is dropped with a clear message", async ({ page }) => {
   await speakingOnly(page);
   await consent(page).check();
-  await expect(page.getByText("Tallennettu.")).toBeVisible();
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible();
   await record(page);
   await expect(page.getByText(/Запис збережено лише на цьому пристрої/)).toBeVisible();
   await page.getByRole("button", { name: "Poista nauhoite" }).click();
