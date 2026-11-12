@@ -160,8 +160,11 @@ code.hash { overflow-wrap: anywhere; word-break: break-all; font-size: .85em; }
 .why summary { cursor: pointer; font-weight: 800; color: var(--navy); min-height: 24px; }
 .why ul { margin: var(--space-sm) 0; padding-left: 1.2em; }
 .choices { list-style: none; padding: 0; margin: var(--space-md) 0 0; display: grid; gap: var(--space-sm); }
-.choices-set { border: 0; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-sm); }
-.choices-set legend { font-weight: 800; margin-bottom: var(--space-sm); float: left; width: 100%; padding: 0; }   /* float = not a "rendered legend": WebKit then wraps a long Finnish question instead of widening the page (R10-16) */
+/* Block, not grid: WebKit sizes a fieldset grid column to max-content, so a long Finnish question never wrapped (R10-16). */
+.choices-set { border: 0; padding: 0; margin: var(--space-base) 0; display: block; }
+.choices-set > * + * { margin-top: var(--space-sm); }
+.choices-set > legend + * { clear: left; margin-top: 0; }
+.choices-set legend { font-weight: 800; margin-bottom: var(--space-base); float: left; width: 100%; padding: 0; }   /* float = not a "rendered legend": WebKit then wraps a long Finnish question instead of widening the page (R10-16) */
 .choice { width: 100%; min-height: 44px; display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 10px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); cursor: pointer; }
 .choice:hover { border-color: var(--navy); }
 .choice small { color: var(--muted); }
