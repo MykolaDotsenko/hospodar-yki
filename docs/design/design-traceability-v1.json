@@ -11824,9 +11824,17 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "apps/web/e2e/exam-device.spec.ts",
+          "contains": "device check: a test tone the learner confirms and a 3-second mic level check; nothing recorded, the mic is switched off"
+        },
+        {
+          "file": "packages/domain/test/deviceCheck.test.ts",
+          "contains": "asks only for the devices the chosen skills need"
         }
       ],
-      "gap": "No aids before finish and LEARN isolation are tested; no system-check screen for headphones/mic and no dedicated focus mode."
+      "gap": "No aids before finish, LEARN isolation and an advisory headphone/mic check before the start are tested (tone + learner report; 3 s loudness metering, never recorded; never blocks — typed plan remains). Still missing: dedicated focus mode without app navigation, update-never-interrupts proof on a real device, real-device mic/headphone testing (CI uses a Web Audio fake microphone)."
     },
     {
       "id": "TZ-EXAM-18",

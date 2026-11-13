@@ -270,6 +270,9 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .exam-voice { margin: var(--space-base) 0; padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; }
 .voice-status { border-left: 4px solid var(--navy); padding: 10px 14px; margin: var(--space-sm) 0; background: var(--surface-subtle); color: var(--ink); }
 .voice-status.warn { border-left-color: var(--gold); background: var(--warn-tint); }
+.device-row { border-top: 1px solid var(--stroke); padding-top: var(--space-sm); margin-top: var(--space-sm); }
+.device-row p { margin: var(--space-xs) 0; }
+.device-check meter { inline-size: min(100%, 12rem); block-size: 1rem; vertical-align: middle; margin-inline-start: var(--space-sm); }
 .exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
 .exam-save { font-size: .85rem; margin: var(--space-sm) 0 0; }
 .exam-history small { display: block; }

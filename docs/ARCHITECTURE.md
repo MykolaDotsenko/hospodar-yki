@@ -284,3 +284,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Windows:** `packages/domain/src/examSpeaking.ts` (`speakingWindows`, `speakingPhase`) take `speaking.prep_seconds` / `speaking.response_seconds` from the pinned exam profile only when those records are verified; otherwise practice windows 30 s / 60 s, shown as «Harjoitusajat — virallisia vuoden 2027 aikoja ei ole vahvistettu». No OPH 2027 value is invented.
 - **Evidence:** `packages/domain/test/examSpeaking.test.ts`; `apps/web/e2e/exam-voice.spec.ts` (fake recorder + Playwright clock: countdown, auto-start, auto-stop, cancel, early stop, denied mic).
 - **Not done:** mic/headphone check before the start (TZ-EXAM-17); per-task windows; real-device microphone and codec testing (CI uses a stubbed recorder); verified OPH 2027 windows (human walkthrough).
+
+## 2026-11-13 — device check before the rehearsal (TZ-EXAM-17, headphone/mic part)
+
+- **Where:** the rehearsal setup, block «Перевірка пристрою · Laitetarkistus», shown only for the devices the chosen skills need (listening → headphones, speaking → microphone).
+- **Headphones:** a 1.5 s test tone, then the learner reports «Чую звук» / «Не чую»; the app cannot hear the room, so it never claims more.
+- **Microphone:** 3 s loudness metering (`AnalyserNode` → `byteRms` → `micResult`), then the tracks are stopped. Nothing is recorded, stored or sent (the E2E asserts no `MediaRecorder` and one stopped track).
+- **Advisory:** it never blocks the start; unconfirmed devices are listed next to the start button. Without a microphone the typed plan remains the speaking answer path. No OPH device-check procedure is claimed.
+- **Code:** `packages/domain/src/deviceCheck.ts` (`test/deviceCheck.test.ts`), `apps/web/src/screens/ExamDeviceCheck.tsx`, `apps/web/e2e/exam-device.spec.ts` (Web Audio fake microphone; skipped only on an engine without a MediaStream destination).
+- **Not done:** focus mode without app navigation; real-device microphone/headphone testing; the official 2027 device check (OPH demo walkthrough, human).

@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createActor, type SnapshotFrom } from "xstate";
-import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf , learnFocus, localDate, preferredBlueprint, repeatedSkills, retestPlan, setStatuses , speakingWindows } from "@hospodar/domain";
+import { remainingSeconds, scoreSession, PRACTICE_LIMITS_MINUTES, type ExamItem, type ExamSkill, type SpeakingReceipt, voiceEvidenceOf , learnFocus, localDate, preferredBlueprint, repeatedSkills, retestPlan, setStatuses , speakingWindows, devicesPending, type DeviceResults } from "@hospodar/domain";
 import { createExamMachine } from "../exam/examMachine.ts";
 import { audioUrlFor, examBlueprints, examContentVersion, itemsFor } from "../content/exam.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { ExamVoice, useVerifiedClip } from "./ExamVoice.tsx";
 import { ExamFidelity } from "./ExamFidelity.tsx";
+import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { examProfileHash, profileAvailability, type ExamProfile } from "@hospodar/domain";
@@ -230,6 +231,9 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
   const repeat = chosen ? skills.filter(k => chosen.seen.includes(k)) : [];
   const plan = history ? retestPlan(history, ids, localDate()) : null;
   const titleOf = (id: string | null) => examBlueprints.find(b => b.id === id)?.title_uk ?? "";
+  // TZ-EXAM-17: headphone and microphone check before the start (advisory; never blocks — the typed plan remains).
+  const [devices, setDevices] = useState<DeviceResults>({ headphones: "unchecked", microphone: "unchecked" });
+  const pending = skills.length ? devicesPending(partial ? skills : null, devices) : [];
   return (
     <section className="panel exam" aria-labelledby="ex-setup">
       <p className="eyebrow">02 · Симуляція YKI</p>
@@ -271,6 +275,8 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         <legend>Тренувальний таймер (не офіційний)</legend>
         {PRACTICE_LIMITS_MINUTES.map(m => <label key={m} className="radio"><input type="radio" name="tm" checked={minutes === m} onChange={() => setMinutes(m)} /> {m === 0 ? "Без таймера" : `${m} хв`}</label>)}
       </fieldset>
+      {skills.length > 0 && <ExamDeviceCheck skills={partial ? skills : null} results={devices} onResults={setDevices} />}
+      {pending.length > 0 && <p className="muted" data-testid="device-pending">Ще не підтверджено: {pending.map(d => d === "headphones" ? "навушники" : "мікрофон").join(", ")}. Почати можна й так, але перевірка вбереже від технічної проблеми посеред завдання.</p>}
       <div className="actions">
         <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null, profile)}>Aloita · Почати</button>
         <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
