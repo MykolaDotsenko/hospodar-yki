@@ -26,12 +26,16 @@ import { PlaceScreen } from "./screens/PlaceScreen.tsx";
 import { WorkshopScreen } from "./screens/WorkshopScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
 import { applyAppearance, applyGuide, applyTheme, readAppearance, readGuide, readTheme, type Appearance, type Theme } from "./appearance.ts";
+import { readUiLocale, storeUiLocale, tr, type UiLocale } from "./uiLocale.ts";
 
 type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "exam" | "data" | "offline";
 const initialView = (): View => (location.hash === "#review" ? "review" : "home");
 
 export function App({ repository, examRepository, voiceStore, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; voiceStore: VoiceStore; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
+  const [locale, setLocale] = useState<UiLocale>(readUiLocale);
+  const L = (uk: string, nl: string) => tr(locale, uk, nl);
+  useEffect(() => { storeUiLocale(locale); }, [locale]);
   // «Моє господарство»: the open place, and one item a place asked a screen to open directly.
   const [place, setPlace] = useState<PlaceId | null>(null);
   const [startId, setStartId] = useState<string | null>(null);
@@ -59,24 +63,29 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
 
   return (
     <>
-      <header className="topbar">
+      <header className="topbar" lang={locale}>
         <div className="wrap topbar-inner">
           <a className="brand" href="./" onClick={e => { e.preventDefault(); goTo("home"); }}>
             <img className="brand-mark" src={markUrl} alt="" width={46} height={46} />
-            <span><strong>Hospodar YKI</strong><small>Фінська для життя. Впевненість для YKI.</small></span>
+            <span><strong>Hospodar YKI</strong><small>{L("Фінська для життя. Впевненість для YKI.", "Fins voor het dagelijks leven. Zelfvertrouwen voor YKI.")}</small></span>
           </a>
           <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
-            onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>
-          <span className="pill" aria-live="polite">{view === "exam" ? "02 · Симуляція YKI" : view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "data" ? "Мої дані" : view === "offline" ? "Офлайн" : view === "place" ? "Моє господарство" : view === "workshop" ? "01 · Навчання" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" || view === "practice" ? "01 · Навчання" : "Головна"}</span>
+            onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>{L("Спокійний режим", "Rustige weergave")}</button>
+          <label className="language-choice">{L("Мова інтерфейсу", "Interfacetaal")}{" "}
+            <select aria-label={L("Мова інтерфейсу", "Interfacetaal")} value={locale} onChange={e => setLocale(e.target.value as UiLocale)}>
+              <option value="uk">Українська</option><option value="nl">Nederlands (bèta)</option>
+            </select>
+          </label>
+          <span className="pill" aria-live="polite">{view === "exam" ? L("02 · Симуляція YKI", "02 · YKI-oefenexamen") : view === "mission" || view === "workshop" || view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" || view === "practice" ? L("01 · Навчання", "01 · Leren") : view === "review" ? L("Рецензент S2", "S2-review") : view === "import" || view === "progress" ? L("Прогрес", "Voortgang") : view === "data" ? L("Мої дані", "Mijn gegevens") : view === "offline" ? L("Офлайн", "Offline") : view === "place" ? L("Моє господарство", "Mijn leefwereld") : L("Головна", "Start")}</span>
         </div>
       </header>
-      <main id="main" className="wrap" tabIndex={-1}>
+      <main id="main" className="wrap" lang={view === "home" ? locale : "uk"} tabIndex={-1}>
         {updateReady && view !== "exam" && (                                   // WEB-06 update guard: never offered inside the exam
-          <div className="feedback" role="status"><p>Доступна нова версія застосунку. Прогрес збережено на пристрої й не зміниться.</p>
-            <button type="button" className="btn secondary" onClick={applyUpdate}>Оновити зараз</button></div>
+          <div className="feedback" role="status"><p>{L("Доступна нова версія застосунку. Прогрес збережено на пристрої й не зміниться.", "Er is een nieuwe versie beschikbaar. Je voortgang blijft op dit apparaat bewaard.")}</p>
+            <button type="button" className="btn secondary" onClick={applyUpdate}>{L("Оновити зараз", "Nu bijwerken")}</button></div>
         )}
-        {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
-        {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
+        {loadError && <p className="feedback error" role="alert">{L("Не вдалося прочитати локальний прогрес", "Lokale voortgang kon niet worden geladen")} ({loadError}). {L("Навчання працює, але нічого не буде збережено.", "Oefenen kan nog, maar resultaten worden niet opgeslagen.")}</p>}
+        {view === "home" && <HomeScreen state={snapshot?.state ?? null} locale={locale} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
@@ -101,14 +110,15 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             initialTaskId={startId} workshop={fromWorkshop ? { label: "До майстерні слабких місць", onBack: () => goTo("workshop") } : undefined} />
         )}
       </main>
-      <footer className="wrap footer">
-        <p>Незалежний навчальний застосунок, не пов'язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.</p>
-        <p className="theme-choice"><label htmlFor="theme">Тема</label>{" "}
+      <footer className="wrap footer" lang={locale}>
+        <p>{L("Незалежний навчальний застосунок, не пов'язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.", "Onafhankelijke leerapp, niet verbonden aan OPH/JYU. Geen officieel YKI-examen. Voortgang wordt alleen op dit apparaat opgeslagen.")}</p>
+        <p className="theme-choice"><label htmlFor="theme">{L("Тема", "Thema")}</label>{" "}
           <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
-            <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
+            <option value="system">{L("Як у системі", "Systeem")}</option><option value="light">{L("Світла", "Licht")}</option><option value="dark">{L("Темна", "Donker")}</option>
           </select></p>
-        <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> Показувати Господаря</label></p>
-        <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>
+        <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> {L("Показувати Господаря", "Toon de gids")}</label></p>
+        <p><a href="#review">{L("Режим рецензента S2 (для викладачів)", "S2-reviewmodus (voor docenten)")}</a>{learnerR08Tasks.length === 0 && L(" · завдання «значення → форма» з'являться після рецензії", " · oefeningen verschijnen na controle")}</p>
+        {locale === "nl" && <p role="note">Nederlands is nog in bèta: het startscherm en de navigatie zijn vertaald. Oefeningen, andere schermen en de YKI-simulatie blijven in het Oekraïens en Fins.</p>}
       </footer>
     </>
   );
