@@ -1,5 +1,5 @@
-import { useRef, useState, type FormEvent } from "react";
-import { activeConstraints, addDiagnostic, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpEvidence, stepUpFor, PRACTICE_MAX_CHARS, STEP_UP_MAX_CHARS, type StepUpCheck,
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { activeConstraints, addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpEvidence, stepUpFor, PRACTICE_MAX_CHARS, STEP_UP_MAX_CHARS, type StepUpCheck,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
@@ -214,6 +214,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
         </form>
       )}
 
+      {saved && card.kind === "opinion" && s.phase === "done" && <RepeatedTelling card={card} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
       {saved && stepUpFor(card) && s.phase === "done" && <StepUp card={card} situation={card.transfer} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
 
       {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
@@ -299,6 +300,74 @@ function StepUp({ card, situation, repository, snapshot, onSaved }: {
           <button type="button" className="btn secondary" disabled={saving} onClick={() => setStopped(true)}>Досить на сьогодні</button>
         </div>
       </form>
+    </section>
+  );
+}
+
+const FEEL_UK: Record<FluencyFeel, string> = { easier: "Легше", same: "Так само", harder: "Важче" };
+
+/**
+ * Repeated telling 4/3/2 (fluency-432): optional, after a saved opinion card. Tell the same opinion aloud three times
+ * with less time each round (practice 120/90/60 s). Nothing is recorded; only the learner's report is saved, ungraded.
+ */
+function RepeatedTelling({ card, repository, snapshot, onSaved }: { card: PracticeCard; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void }) {
+  const [round, setRound] = useState<number | null>(null);         // null = not started
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [, tick] = useState(0);
+  const [finishedRounds, setFinishedRounds] = useState(0);
+  const [feel, setFeel] = useState<FluencyFeel | null>(null);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    if (startedAt === null) return;
+    const t = setInterval(() => tick(x => x + 1), 250);
+    return () => clearInterval(t);
+  }, [startedAt]);
+  const left = round !== null && startedAt !== null ? fluencySecondsLeft(round, startedAt, Date.now()) : null;
+  useEffect(() => { if (left === 0) { setStartedAt(null); setFinishedRounds(n => Math.max(n, (round ?? 0) + 1)); } }, [left, round]);
+  const total = FLUENCY_ROUNDS_SECONDS.length;
+  const mmss = (x: number) => `${Math.floor(x / 60)}:${String(x % 60).padStart(2, "0")}`;
+
+  async function save() {
+    if (!feel) { setError("Познач, як було в останньому раунді."); return; }
+    setError(null);
+    try {
+      const next = addDiagnostic(snapshot.state, fluencyEvidence(card.id, finishedRounds, feel, card.transferSkill === "writing" ? "writing" : "speaking"));
+      const committed = await repository.commit(next, snapshot.revision);
+      const verified = await repository.read();
+      if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
+        throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
+      onSaved(verified); setSaved(true);
+    } catch (err) { setError(`Не збережено (${code(err)}). ${writeFailureAdvice(err)}`); }
+  }
+
+  if (saved) return <p className="voice-status" role="status" data-testid="fluency-done">Збережено лише твою оцінку раундів. Мовлення не записувалося й не оцінювалося.</p>;
+  if (round === null) return (
+    <section className="stepup" aria-labelledby="fluency-title">
+      <h2 id="fluency-title">Розповісти тричі, щоразу коротше (4/3/2)</h2>
+      <p>За бажанням: скажи свою думку вголос ще раз — тричі, і щоразу часу менше ({FLUENCY_ROUNDS_SECONDS.join(" / ")} с; тренувальні значення). Без нотаток і без зразка. Нічого не записується.</p>
+      <div className="actions"><button type="button" className="btn secondary" onClick={() => { setRound(0); setStartedAt(Date.now()); }}>Почати перший раунд</button></div>
+    </section>
+  );
+  const running = startedAt !== null;
+  return (
+    <section className="stepup" aria-labelledby="fluency-title">
+      <h2 id="fluency-title">Раунд {round + 1} з {total}</h2>
+      {running && left !== null && <p className="voice-status" role="status" data-testid="fluency-timer">Говори вголос. Залишилось {mmss(left)}.</p>}
+      {!running && finishedRounds === round + 1 && round + 1 < total && (
+        <div className="actions"><button type="button" className="btn secondary" onClick={() => { setRound(round + 1); setStartedAt(Date.now()); }}>Наступний раунд ({FLUENCY_ROUNDS_SECONDS[round + 1]} с)</button></div>
+      )}
+      {running && <div className="actions"><button type="button" className="btn secondary" onClick={() => { setStartedAt(null); setFinishedRounds(round + 1); }}>Я закінчив(ла) раніше</button></div>}
+      {!running && finishedRounds >= 1 && (
+        <fieldset className="choices-set">
+          <legend>Як тобі говорилося в останньому раунді порівняно з першим? <span className="muted">(самооцінка — не оцінка)</span></legend>
+          {(Object.keys(FEEL_UK) as FluencyFeel[]).map(k => (
+            <label key={k} className="radio"><input type="radio" name="fluency-feel" checked={feel === k} onChange={() => setFeel(k)} /> {FEEL_UK[k]}</label>
+          ))}
+          <div className="actions"><button type="button" className="btn" onClick={() => void save()}>{finishedRounds < total ? "Зберегти й зупинитися" : "Зберегти"}</button></div>
+        </fieldset>
+      )}
+      {error && <p className="feedback error" role="alert">{error}</p>}
     </section>
   );
 }

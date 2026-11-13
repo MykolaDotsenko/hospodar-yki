@@ -151,3 +151,34 @@ test("graduated task sequencing: after a saved reaction card, the same situation
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("без оцінки");
 });
+
+test("repeated telling 4/3/2 after an opinion card: three rounds aloud with shrinking practice time, nothing recorded, only the learner's report saved", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-11-13T09:00:00+02:00") });
+  await open(page, /Моя думка/);
+  await page.getByRole("textbox").fill("Mielestäni etätyö on hyvä, koska säästän aikaa.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Minusta kirjasto on tärkeä, koska siellä voi opiskella rauhassa.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Розповісти тричі, щоразу коротше/ })).toBeVisible();
+  await axe(page);
+
+  await page.clock.pauseAt(new Date("2026-11-13T09:10:00+02:00"));
+  await page.getByRole("button", { name: "Почати перший раунд" }).click();
+  await expect(page.getByTestId("fluency-timer")).toContainText("2:00");
+  await page.clock.runFor(120_500);
+  await expect(page.getByTestId("fluency-timer")).toHaveCount(0);
+  await page.getByRole("button", { name: "Наступний раунд (90 с)" }).click();
+  await expect(page.getByTestId("fluency-timer")).toContainText("1:30");
+  await page.getByRole("button", { name: "Я закінчив(ла) раніше" }).click();
+  await page.getByRole("button", { name: "Наступний раунд (60 с)" }).click();
+  await expect(page.getByTestId("fluency-timer")).toContainText("1:00");
+  await page.clock.runFor(60_500);
+  await page.getByRole("button", { name: "Зберегти" }).last().click();
+  await expect(page.getByRole("alert")).toContainText("Познач");
+  await page.getByLabel("Легше").check();
+  await page.getByRole("button", { name: "Зберегти" }).last().click();
+  await expect(page.getByTestId("fluency-done")).toContainText("Мовлення не записувалося");
+});

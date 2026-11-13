@@ -12723,8 +12723,18 @@
     },
     {
       "id": "fluency-432",
-      "status": "NOT_YET",
-      "plan": "Optional repeated-telling timer for prepared learners; low priority, ungraded."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "repeated telling 4/3/2 after an opinion card: three rounds aloud with shrinking practice time, nothing recorded, only the learner's report saved"
+        },
+        {
+          "file": "packages/domain/test/fluency.test.ts",
+          "contains": "saves only the learner's report — speech is never recorded or graded"
+        }
+      ],
+      "gap": "Optional repeated telling after a saved opinion card: the same opinion aloud three times with shrinking practice windows (120/90/60 s, a shortened 4/3/2 labelled practice), early stop allowed; speech is not recorded; only the learner's report of the last round is saved, ungraded. No listener (classic 4/3/2 tells to a new partner each round), no fluency measure (speech rate, pauses) and no measured effect."
     },
     {
       "id": "keyword-mnemonic-retrieval",

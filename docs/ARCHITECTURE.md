@@ -344,3 +344,10 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Fix found on the way:** listening E2E selectors are now scoped to the «Аудіозаписи» list, since a lesson title now also appears in the dictogloss list.
 - **Code:** `packages/domain/src/dictogloss.ts` (`parseVttCues`, reducer, `markShared`, `nextDictoglossCue`; `test/dictogloss.test.ts`), `content/listening.ts` (`cuesFor`), `screens/DictoglossRun.tsx`, `e2e/dictogloss.spec.ts`.
 - **Not done:** pair or group reconstruction (classic dictogloss), multi-talker human audio, teacher feedback.
+
+## 2026-11-13 — repeated telling 4/3/2 after opinion cards (fluency-432)
+
+- **Flow:** after a saved «Моя думка» card, «Розповісти тричі, щоразу коротше (4/3/2)»: the same opinion aloud three times with shrinking time — practice windows 120 / 90 / 60 s (a shortened 4/3/2 for B1 monologues, labelled practice). A countdown per round; «Я закінчив(ла) раніше» ends a round early; the learner may stop after any round.
+- **Nothing recorded:** the microphone is not used. Only the learner's report of how the last round felt (easier / same / harder) is saved, ungraded (`<card>-fluency-432`).
+- **Code:** `packages/domain/src/fluency.ts` (`FLUENCY_ROUNDS_SECONDS`, `fluencySecondsLeft`, `fluencyEvidence`; `test/fluency.test.ts`), `PracticeScreen` (`RepeatedTelling`), `e2e/practice.spec.ts` (frozen Playwright clock).
+- **Not done:** a different listener each round (classic 4/3/2), any fluency measure, a measured effect.
