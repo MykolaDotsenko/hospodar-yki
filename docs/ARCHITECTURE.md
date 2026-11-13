@@ -319,3 +319,11 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Code:** `packages/domain/src/writingClinic.ts` (`CLINIC_PLAN_FRAME_UK`, `clinicEvidence(..., { planned })`), `WritingClinicScreen`, `e2e/writing-clinic.spec.ts`.
 - **Dialogue role-play (2026-11-13):** the same optional plan before the learner's first own role-play reply, with a frame line for a repair move («Що скажеш, якщо тебе не зрозуміють»). Speaking-like: hidden while replying, back after the reply next to what they said; the role-play evidence is labelled "after an own plan". Code: `dialogue.ts` (`DIALOGUE_PLAN_FRAME_UK`, `dialogueEvidence(..., { planned })`), `DialogueScreen`, `e2e/dialogue.spec.ts`.
 - **Not done:** any measured effect on fluency or complexity.
+
+## 2026-11-13 — graduated task sequencing on practice cards (graduated-task-sequencing)
+
+- **Flow:** after a reaction or opinion card is saved, «Ускладнити (за бажанням)» repeats the same situation in up to three steps, adding one constraint per step and keeping the earlier ones: reaction — brief → polite to an unknown official → specific (time, place or reason); opinion — a second reason → another view and why you still disagree → an own example.
+- **No new keys:** constraints are Ukrainian instructions over the card's existing situation; no Finnish model or answer key is added.
+- **Evidence:** each step is the learner's own Finnish text, saved ungraded (`<card>-step-<constraint>`) with their self-check (yes / partly / not yet) through the usual commit + verified readback. Optional and stoppable at any step; nothing locks or counts as a level.
+- **Code:** `packages/domain/src/graduated.ts` (`stepUpFor`, `activeConstraints`, `stepUpEvidence`; `test/graduated.test.ts`), `PracticeScreen` (`StepUp`), `e2e/practice.spec.ts`.
+- **Not done:** graduated steps on dialogues and writing; adapting the next constraint to the learner's own performance (needs a grader/human rater).

@@ -370,3 +370,7 @@ textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(-
 .scenario { border-left: 4px solid var(--navy); padding-left: var(--space-md); margin: var(--space-md) 0; }
 .scenario-steps { padding-left: 1.4rem; display: grid; gap: var(--space-xs); }
 .scenario-steps li[data-status="todo"] { color: var(--ink); }
+/* Graduated task sequencing: same situation, constraints added one at a time */
+.stepup { border-left: 4px solid var(--stroke); padding-left: var(--space-md); margin: var(--space-md) 0; }
+.stepup-constraints { padding-left: 1.4rem; display: grid; gap: var(--space-xs); }
+.stepup-constraints li[data-new="yes"] { font-weight: 700; }

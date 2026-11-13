@@ -26,3 +26,4 @@ export * from "./examSpeaking.ts";
 export * from "./deviceCheck.ts";
 export * from "./coverage.ts";
 export * from "./scenario.ts";
+export * from "./graduated.ts";

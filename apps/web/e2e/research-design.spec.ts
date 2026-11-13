@@ -235,6 +235,7 @@ test("AC-43 / COG-05: after feedback the single form cue never borrows a skill c
   await expect(page.locator("[data-trust-note]")).toHaveCount(1);                       // one status note, in one place
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();   // the repair step renders before a new answer
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();

@@ -20,6 +20,7 @@ test("DESIGN-16 calm mode: fewer fills, no decoration, same content and answer p
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
   await expect(page.locator(".learning-cue")).toHaveCount(0);                 // COLOR-18: same key policy
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();   // the repair step renders before a new answer
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjastoon");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   const cue = page.locator(".learning-cue");

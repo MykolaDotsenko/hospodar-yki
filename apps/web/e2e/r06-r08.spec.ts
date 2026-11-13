@@ -26,6 +26,7 @@ test("R06: an item answered wrongly is not re-served the same day (spacing, not 
   const first = await page.locator(".prompt[lang=fi]").textContent();
   await page.getByLabel("Впиши пропущену форму фінською").fill("väärä");
   await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();   // the repair step renders before a new answer
   await page.getByLabel("Впиши пропущену форму фінською").fill("väärä");
   await page.getByRole("button", { name: "Перевірити ще раз" }).click();
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();

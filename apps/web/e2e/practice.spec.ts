@@ -111,3 +111,43 @@ test("pre-task planning (opinion): optional own plan, hidden while answering, ba
   await page.getByRole("button", { name: /^Картка 1 / }).click();
   await expect(page.getByRole("button", { name: "Скласти план (за бажанням)" })).toHaveCount(0);
 });
+
+test("graduated task sequencing: after a saved reaction card, the same situation again with one more constraint per step; ungraded self-check; stoppable", async ({ page }) => {
+  await open(page, /Реакція в ситуації/);
+  await page.getByRole("textbox").fill("Anteeksi, voisitteko auttaa?");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await expect(page.getByRole("button", { name: /Ускладнити/ })).toHaveCount(0);            // only after the card is saved
+  await page.getByRole("textbox").fill("Hei, voisitko auttaa minua hetken?");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+
+  await page.getByRole("button", { name: "Ускладнити (за бажанням)" }).click();
+  const constraints = page.getByTestId("stepup-constraints").locator("li");
+  await expect(constraints).toHaveCount(1);
+  await expect(constraints.first()).toContainText("Коротко");
+  await page.getByRole("button", { name: "Зберегти крок" }).click();
+  await expect(page.getByRole("alert")).toContainText("Спершу напиши");
+  await page.getByLabel(/Твоя відповідь фінською/).fill("Voisitko auttaa?");
+  await page.getByRole("button", { name: "Зберегти крок" }).click();
+  await expect(page.getByRole("alert")).toContainText("Познач");                              // self-check required, never auto-graded
+  await page.getByLabel("Так").check();
+  await axe(page);
+  await page.getByRole("button", { name: "Зберегти крок" }).click();
+
+  await expect(page.getByRole("heading", { name: "Ускладнення 2 з 3" })).toBeVisible();
+  await expect(constraints).toHaveCount(2);                                                   // the earlier constraint stays
+  await expect(constraints.nth(1)).toContainText("нова умова");
+  await page.getByLabel(/Твоя відповідь фінською/).fill("Anteeksi, voisitteko auttaa minua?");
+  await page.getByLabel("Частково").check();
+  await page.getByRole("button", { name: "Зберегти крок" }).click();
+  await expect(page.getByRole("heading", { name: "Ускладнення 3 з 3" })).toBeVisible();
+  await page.getByRole("button", { name: "Досить на сьогодні" }).click();
+  await expect(page.getByTestId("stepup-done")).toContainText("Ускладнень пройдено: 2 з 3");
+  expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал/);
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("без оцінки");
+});
