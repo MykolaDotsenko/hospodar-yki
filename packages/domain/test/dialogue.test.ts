@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, dialogueEvidence, dialogueReducer, dialogueView, startDialogue, validateDialogue,
+import { addDiagnostic, blankState, dialogueEvidence, DIALOGUE_PLAN_FRAME_UK, DIALOGUE_PLAN_MAX_CHARS, dialogueReducer, dialogueView, startDialogue, validateDialogue,
   withNegotiation, DialogueError, type DialogueEvent, type DialogueItem, type DialogueSession, type NegotiationMoves } from "../src/index.ts";
 
 const items: DialogueItem[] = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/contextual/dialogues-v1.json", import.meta.url), "utf8")).items;
@@ -117,5 +117,23 @@ describe("negotiation of meaning: clarification request and changed condition (n
     expect(ev.find(e => e.taskId.endsWith("-roleplay"))!.response).toContain("korjaaja ei tullut");
     let st = blankState(); for (const e of ev) st = addDiagnostic(st, e);
     expect(st.diagnostics.some(d => "correct" in d)).toBe(false);
+  });
+});
+
+describe("dialogue: optional own plan before the role-play (pre-task-planning)", () => {
+  it("frame: goal, key phrases, and a repair move for when the partner does not understand — Ukrainian, no Finnish model", () => {
+    expect(DIALOGUE_PLAN_FRAME_UK).toHaveLength(3);
+    expect(DIALOGUE_PLAN_FRAME_UK[2]).toMatch(/не зрозуміють/);
+    for (const l of DIALOGUE_PLAN_FRAME_UK) expect(l).not.toMatch(/[äö]/i);
+    expect(DIALOGUE_PLAN_MAX_CHARS).toBeGreaterThan(100);
+  });
+  it("the role-play evidence says it followed an own plan; still ungraded, the plan text itself is not evidence", () => {
+    let s = startDialogue(D);
+    s = { ...s, phase: "done", transfer: "Haluaisin varata ajan." };
+    const plain = dialogueEvidence(s, D).find(e => e.taskId === `${D.id}-roleplay`)!;
+    const planned = dialogueEvidence(s, D, { planned: true }).find(e => e.taskId === `${D.id}-roleplay`)!;
+    expect(plain.response).toMatch(/^\[role-play plan, text\] /);
+    expect(planned.response).toMatch(/^\[role-play plan, text; after an own plan \(hidden while replying\)\] Haluaisin/);
+    expect(planned.status).toBe("ungraded");
   });
 });
