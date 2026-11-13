@@ -378,3 +378,5 @@ textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(-
 .audio-notes { margin: var(--space-sm) 0; }
 .audio-notes summary { cursor: pointer; font-weight: 700; min-height: 24px; }
 input.plan-notes { width: 100%; padding: 8px 12px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1rem; }
+/* Dictogloss: shared word forms are marked quietly (not a score) */
+mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bottom: 2px solid var(--stroke); padding: 0 1px; }

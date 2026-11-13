@@ -82,7 +82,7 @@ test("GL-03 listening: audio first, a lesson never met before; text support save
   await page.clock.install({ time: T0 });
   await page.goto("./");
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
+  await page.getByRole("list", { name: "Аудіозаписи" }).getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
   await page.getByRole("button", { name: "До питань" }).click();

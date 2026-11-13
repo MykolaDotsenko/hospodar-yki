@@ -335,3 +335,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Privacy:** session only; not in the persisted listening draft, exports or scores.
 - **Code:** `packages/domain/src/listening.ts` (`AUDIO_NOTE_FIELDS_UK`), `ListeningScreen`, `e2e/listening.spec.ts`.
 - **Not done:** notes in the EXAM rehearsal (OPH 2027 note-taking rules are unverified, so nothing is added there) and in the delayed checks.
+
+## 2026-11-13 — dictogloss on listening lessons (dictogloss)
+
+- **Flow:** «Диктоглос: відтвори уривок» on the listening screen. One ~10 s segment of a LEARN listening lesson (its own subtitle cue): heard at most twice → reconstructed in Finnish from memory → only then the transcript of that segment. Next time the next segment of the lesson.
+- **Feedback, not a score:** words of the original that occur in the learner's text in the identical form are marked; a different but valid form or a synonym is not marked, and the screen says so. No number, percentage or level. The learner judges how much of the content they reconstructed (most / main / little).
+- **Evidence:** saved ungraded (`dictogloss-<lesson>-<n>`, listening) through commit + verified readback. Exam lessons are excluded (LEARN pool only).
+- **Fix found on the way:** listening E2E selectors are now scoped to the «Аудіозаписи» list, since a lesson title now also appears in the dictogloss list.
+- **Code:** `packages/domain/src/dictogloss.ts` (`parseVttCues`, reducer, `markShared`, `nextDictoglossCue`; `test/dictogloss.test.ts`), `content/listening.ts` (`cuesFor`), `screens/DictoglossRun.tsx`, `e2e/dictogloss.spec.ts`.
+- **Not done:** pair or group reconstruction (classic dictogloss), multi-talker human audio, teacher feedback.

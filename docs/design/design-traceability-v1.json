@@ -12708,8 +12708,18 @@
     },
     {
       "id": "dictogloss",
-      "status": "NOT_YET",
-      "plan": "Listen → reconstruct → compare with delayed transcript. Buildable on existing listening lessons."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/dictogloss.spec.ts",
+          "contains": "dictogloss: listen (max twice) → write from memory → only then the original, shared word forms marked, ungraded; next time the next segment"
+        },
+        {
+          "file": "packages/domain/test/dictogloss.test.ts",
+          "contains": "the transcript stays hidden until the own reconstruction; at most two listens; writing needs a listen first"
+        }
+      ],
+      "gap": "Dictogloss on the LEARN listening lessons' own subtitle cues (~10 s segments): at most two listens, reconstruction in Finnish from memory, transcript only after, identical word forms marked as process feedback (a different valid form is not marked — never a score), saved ungraded with the learner's own judgement; next time the next segment. Individual only (classic dictogloss reconstructs in pairs/groups), synthetic single-voice audio, no teacher feedback on the reconstruction."
     },
     {
       "id": "fluency-432",

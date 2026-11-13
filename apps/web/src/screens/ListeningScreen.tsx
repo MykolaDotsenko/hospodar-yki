@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
+import { addDiagnostic, nextDictoglossCue, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
   type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, ListeningError } from "@hospodar/domain";
-import { listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
+import { cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
+import { DictoglossRun } from "./DictoglossRun.tsx";
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
 import type { LearnerRepository, ListeningDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
@@ -22,6 +23,7 @@ export function ListeningScreen({ repository, snapshot, onSaved, onHome, initial
   const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [discarding, setDiscarding] = useState(false);
+  const [dicto, setDicto] = useState<{ lesson: ListeningLesson; cue: number } | null>(null);
   useEffect(() => {
     let alive = true;
     void repository.readListeningDraft().then(row => {
@@ -72,7 +74,13 @@ export function ListeningScreen({ repository, snapshot, onSaved, onHome, initial
   const clear = () => { setSelected(null); setLoaded({ kind: "ready", draft: null, blocked: null }); };
   if (lesson) return <ListeningMission key={lesson.id} lesson={lesson} repository={repository} snapshot={snapshot}
     initialDraft={resume ? loaded.draft : null} onSaved={onSaved} onExit={clear} onHome={onHome} />;
+  if (dicto) {
+    const cues = cuesFor(dicto.lesson);
+    return <DictoglossRun key={`${dicto.lesson.id}-${dicto.cue}`} lesson={dicto.lesson} cue={cues[dicto.cue]!} cueIndex={dicto.cue} cueCount={cues.length}
+      audioUrl={mediaFor(dicto.lesson).audio} repository={repository} snapshot={snapshot} onSaved={onSaved} onExit={() => setDicto(null)} />;
+  }
   const done = new Set(snapshot.state.diagnostics.filter(d => d.skill === "listening").map(d => d.taskId));
+  const dictoLessons = listeningLessons.filter(l => cuesFor(l).length > 0);
   return (
     <section className="panel" data-accent="listening" aria-labelledby="lst-title">
       <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
@@ -85,6 +93,19 @@ export function ListeningScreen({ repository, snapshot, onSaved, onHome, initial
             <small>{/tts/i.test(l.narrators_type) ? "синтетичний голос" : "живий голос"} · {Math.round(l.duration_seconds / 60 * 10) / 10} хв · {l.questions.length} питання{l.questions.every(q => done.has(q.id)) ? " · уже прослухано" : ""}</small>
           </button></li>
         ))}
+      </ul>
+      <h2>Диктоглос: відтвори уривок</h2>
+      <p className="muted">Короткий уривок (~10 с) — послухай до двох разів, запиши фінською з пам'яті, потім порівняй з оригіналом. Без оцінки.</p>
+      <ul className="choices" aria-label="Диктоглос">
+        {dictoLessons.map(l => {
+          const n = cuesFor(l).length, next = nextDictoglossCue(done, l.id, n);
+          return (
+            <li key={l.id}><button type="button" className="choice" disabled={next === null} onClick={() => next !== null && setDicto({ lesson: l, cue: next })}>
+              <span lang="fi">{l.title_fi}</span>
+              <small>{next === null ? `усі ${n} уривків відтворено` : `уривок ${next + 1} з ${n}`}</small>
+            </button></li>
+          );
+        })}
       </ul>
       <div className="actions"><button type="button" className="btn secondary" onClick={onHome}>На головну</button></div>
     </section>

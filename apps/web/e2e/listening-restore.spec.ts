@@ -4,7 +4,7 @@ import { expect, test, type Page } from "@playwright/test";
 const PREDICTION = "Luulen, että puhutaan vesikatkosta ja korjaustöistä.";
 async function choose(page: Page) {
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
+  await page.getByRole("list", { name: "Аудіозаписи" }).getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
 }
 async function start(page: Page) {
   await page.goto("./");

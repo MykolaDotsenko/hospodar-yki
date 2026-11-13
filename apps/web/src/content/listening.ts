@@ -1,5 +1,5 @@
 /** Listening lessons + their media, read from the single physical owners (learning/, assets/audio). */
-import { admitMedia, shuffleOptions, validateListeningLesson, type ListeningLesson } from "@hospodar/domain";
+import { admitMedia, parseVttCues, shuffleOptions, validateListeningLesson, type ListeningLesson, type VttCue } from "@hospodar/domain";
 import data from "../../../../learning/exercises/b1/audio-long/lessons.json";
 import stories from "../../../../learning/exercises/b1/audio-long/human-stories.json";
 import exam from "../../../../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json";
@@ -30,3 +30,10 @@ const vtt = import.meta.glob("../../../../assets/audio/long/b1/*.vtt", { query: 
 const txt = import.meta.glob(["../../../../assets/audio/long/b1/*.txt", "../../../../assets/audio/human/short-stories/*.txt"], { query: "?raw", import: "default", eager: true }) as Record<string, string>;
 const find = (m: Record<string, string>, repoPath?: string) => repoPath ? Object.entries(m).find(([k]) => k.endsWith("/" + repoPath))?.[1] ?? null : null;
 export const mediaFor = (l: ListeningLesson) => ({ audio: find(audio, l.path), subtitles: find(vtt, l.subtitles_path), transcript: find(txt, l.transcript_path) });
+
+/** Subtitle cues of a lesson (its own transcript chunks with timing) — the segments for dictogloss. */
+const vttRaw = import.meta.glob("../../../../assets/audio/long/b1/*.vtt", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
+export const cuesFor = (l: ListeningLesson): VttCue[] => {
+  const raw = find(vttRaw, l.subtitles_path);
+  return raw ? parseVttCues(raw) : [];
+};
