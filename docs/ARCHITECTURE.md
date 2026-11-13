@@ -274,3 +274,13 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - `e2e/exam-prep.spec.ts`.
 - **Limits:** only two mini sets exist. A real cycle needs the held-out bank of original full forms reviewed by two S2 teachers (TZ-EXAM-14, human).
 
+
+## 2026-11-12 — speaking as in the exam: timed task (TZ-EXAM-11, MOCK-VID-07, E06-G08)
+
+- **Flow** in `ExamVoice`: «Aloita ajastettu tehtävä» → preparation countdown «Valmistautumisaika m:ss» → short signal (Web Audio, silent if unavailable; the countdown text is the primary cue) → recording starts by itself → «Vastausaika» countdown → the recording stops by itself.
+  - The learner may cancel during preparation or stop the recording early; a denied or missing microphone ends the timed task with the existing honest notice.
+  - The microphone still starts only because of the learner's own action (starting the timed task); the Ukrainian privacy notice says so.
+  - Consent, verified local storage and «ungraded» stay exactly as in E06; the manual record button stays.
+- **Windows:** `packages/domain/src/examSpeaking.ts` (`speakingWindows`, `speakingPhase`) take `speaking.prep_seconds` / `speaking.response_seconds` from the pinned exam profile only when those records are verified; otherwise practice windows 30 s / 60 s, shown as «Harjoitusajat — virallisia vuoden 2027 aikoja ei ole vahvistettu». No OPH 2027 value is invented.
+- **Evidence:** `packages/domain/test/examSpeaking.test.ts`; `apps/web/e2e/exam-voice.spec.ts` (fake recorder + Playwright clock: countdown, auto-start, auto-stop, cancel, early stop, denied mic).
+- **Not done:** mic/headphone check before the start (TZ-EXAM-17); per-task windows; real-device microphone and codec testing (CI uses a stubbed recorder); verified OPH 2027 windows (human walkthrough).

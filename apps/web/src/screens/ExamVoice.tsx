@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { voiceEvidenceOf, type ExamItem, type ExamSession, type SpeakingReceipt } from "@hospodar/domain";
+import { speakingPhase, voiceEvidenceOf, type ExamItem, type ExamSession, type SpeakingPhase, type SpeakingReceipt, type SpeakingWindows } from "@hospodar/domain";
 import type { ExamEvent } from "../exam/examMachine.ts";
 import type { VoiceStore } from "../storage/voiceStore.ts";
 import { Icon } from "../ui/icons.tsx";
@@ -36,8 +36,23 @@ export function useVerifiedClip(receipt: SpeakingReceipt | undefined, voiceStore
   return url;
 }
 
-export function ExamVoice({ item, session, revision, voiceStore, send, disabled, onRecording }: {
+/** A short signal before the response window (exam-like cue). Silent if the browser has no Web Audio. */
+function signal() {
+  try {
+    const Ctx = (window as unknown as { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }).AudioContext
+      ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx(), osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.frequency.value = 880; gain.gain.value = 0.08; osc.connect(gain).connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 0.25); osc.onended = () => void ctx.close();
+  } catch { /* the countdown text is the primary cue */ }
+}
+const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+export function ExamVoice({ item, session, revision, voiceStore, send, disabled, onRecording, windows }: {
   item: ExamItem; session: ExamSession; revision: number; voiceStore: VoiceStore; send: Send; disabled: boolean; onRecording: (r: boolean) => void;
+  /** TZ-EXAM-11: preparation and response windows (profile-verified or labelled practice). */
+  windows?: SpeakingWindows;
 }) {
   const receipt = session.voiceReceipts?.[item.id];
   const evidence = voiceEvidenceOf(session, item.id);
@@ -46,6 +61,7 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
   const [confirmDelete, setConfirmDelete] = useState(false);
   const rec = useRef<{ recorder: MediaRecorder; stream: MediaStream; startedAt: number } | null>(null);
   const [recording, setRecording] = useState(false);
+  const [timedStart, setTimedStart] = useState<number | null>(null);     // timed task start (ms), see below
   const storedUrl = useVerifiedClip(receipt, voiceStore, () => {
     send({ type: "VOICE_UNVERIFIED", itemId: item.id });
     setMessage({ tone: "error", text: "Збережений запис не знайдено або він пошкоджений (можливо, дані браузера очищено). Усна відповідь більше не позначена як виконана." });
@@ -60,11 +76,11 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
   async function start() {
     setMessage(null); setConfirmDelete(false);
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
-      setMessage({ tone: "warn", text: "Цей браузер не підтримує запис. Можна відповісти текстовим планом нижче." }); return;
+      setTimedStart(null); setMessage({ tone: "warn", text: "Цей браузер не підтримує запис. Можна відповісти текстовим планом нижче." }); return;
     }
     let stream: MediaStream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-    catch { setMessage({ tone: "warn", text: "Немає дозволу на мікрофон. Альтернатива — текстовий план нижче." }); return; }
+    catch { setTimedStart(null); setMessage({ tone: "warn", text: "Немає дозволу на мікрофон. Альтернатива — текстовий план нижче." }); return; }
     const mime = pickMime();
     const recorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
     const chunks: Blob[] = [];
@@ -77,7 +93,7 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
   async function finish(recorder: MediaRecorder, stream: MediaStream, chunks: Blob[]) {
     stream.getTracks().forEach(t => t.stop());
     const durationMs = performance.now() - (rec.current?.startedAt ?? performance.now());
-    rec.current = null; setRec(false);
+    rec.current = null; setRec(false); setTimedStart(null);                 // any end of recording also ends a timed task
     const blob = chunks.length ? new Blob(chunks, { type: recorder.mimeType || chunks[0]!.type || "audio/webm" }) : null;
     if (!blob || blob.size === 0) { setMessage({ tone: "error", text: "Не вдалося створити запис (0 байт). Усна відповідь не зарахована." }); return; }
     const now = Date.now();
@@ -96,6 +112,25 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
     send({ type: "VOICE_EPHEMERAL", itemId: item.id, now });
   }
   function stop() { const r = rec.current; if (r && r.recorder.state !== "inactive") r.recorder.stop(); }
+
+  // Timed task (TZ-EXAM-11): preparation → signal → recording starts by itself → response window ends it.
+  // The microphone still starts only because the learner started the timed task.
+  const [, tick] = useState(0);
+  useEffect(() => {
+    if (timedStart === null) return;
+    const t = setInterval(() => tick(x => x + 1), 250);
+    return () => clearInterval(t);
+  }, [timedStart]);
+  const timed = windows && timedStart !== null ? speakingPhase(windows, timedStart, Date.now()) : null;
+  const lastPhase = useRef<SpeakingPhase | null>(null);
+  useEffect(() => {
+    if (!timed) { lastPhase.current = null; return; }
+    if (timed.phase !== lastPhase.current) {
+      if (timed.phase === "respond") { signal(); void start(); }
+      if (timed.phase === "over") { stop(); setTimedStart(null); }
+      lastPhase.current = timed.phase;
+    }
+  });
   async function remove() {
     if (!receipt) return;
     try {
@@ -110,15 +145,30 @@ export function ExamVoice({ item, session, revision, voiceStore, send, disabled,
   const playUrl = storedUrl ?? ephemeralUrl;
   return (
     <div className="exam-voice">
-      <p className="muted" data-system-notice>Можна відповісти вголос. Мікрофон вмикається лише після натискання. Голос <strong>ніколи не надсилається</strong> на сервер і не оцінюється автоматично.</p>
+      <p className="muted" data-system-notice>Можна відповісти вголос. Мікрофон вмикається лише після твоєї дії: кнопки запису або старту завдання з таймером (тоді — сам, коли мине час на підготовку). Голос <strong>ніколи не надсилається</strong> на сервер і не оцінюється автоматично.</p>
       <label className="radio" data-system-notice>
         <input type="checkbox" checked={session.voiceConsent} disabled={disabled || recording || (session.voiceConsent && hasStored)}
           onChange={e => send({ type: "CONSENT", consent: e.target.checked, now: Date.now() })} />
         <span>Зберігати мої голосові записи в цьому браузері, доки я їх не видалю або не почну нову репетицію.</span>
       </label>
       {session.voiceConsent && hasStored && <p className="muted" data-system-notice>Щоб відкликати згоду, спершу видали збережені записи.</p>}
+      {windows && !recording && timedStart === null && (
+        <p className="muted" lang="fi">{windows.source === "practice"
+          ? `Ajastettu harjoitus: valmistautuminen ${windows.prepSeconds} s, vastaus ${windows.responseSeconds} s. Harjoitusajat — virallisia vuoden 2027 aikoja ei ole vahvistettu.`
+          : `Ajat profiilista: valmistautuminen ${windows.prepSeconds} s, vastaus ${windows.responseSeconds} s.`}</p>
+      )}
+      {timed?.phase === "prep" && (
+        <p className="voice-status" role="status" lang="fi" data-testid="speaking-timer">Valmistautumisaika {mmss(timed.secondsLeft)}. Nauhoitus alkaa automaattisesti merkkiäänen jälkeen.</p>
+      )}
+      {timed?.phase === "respond" && recording && (
+        <p className="voice-status warn" role="status" lang="fi" data-testid="speaking-timer">Vastausaika {mmss(timed.secondsLeft)}.</p>
+      )}
       <div className="actions">
-        <button type="button" className="btn secondary" disabled={disabled && !recording} onClick={() => void (recording ? stop() : start())}>
+        {windows && !recording && timedStart === null && (
+          <button type="button" className="btn secondary" disabled={disabled} onClick={() => { setMessage(null); lastPhase.current = null; setTimedStart(Date.now()); }}>Aloita ajastettu tehtävä</button>
+        )}
+        {timed?.phase === "prep" && <button type="button" className="btn secondary" onClick={() => setTimedStart(null)}>Peruuta ajastus</button>}
+        <button type="button" className="btn secondary" disabled={(disabled && !recording) || timed?.phase === "prep"} onClick={() => void (recording ? stop() : start())}>
           {recording ? <><Icon name="stop" /> Lopeta nauhoitus</> : evidence ? "Nauhoita uudelleen" : <><Icon name="mic" /> Nauhoita vastaus</>}</button>
         {evidence === "stored" && !recording && !confirmDelete && <button type="button" className="btn secondary" disabled={disabled} onClick={() => setConfirmDelete(true)}>Poista nauhoite</button>}
         {confirmDelete && <>
