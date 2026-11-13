@@ -111,13 +111,13 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         )}
       </main>
       <footer className="wrap footer" lang={locale}>
-        <p>{L("Незалежний навчальний застосунок, не пов\u0027язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.", "Onafhankelijke leerapp, niet verbonden aan OPH/JYU. Geen officieel YKI-examen. Voortgang wordt alleen op dit apparaat opgeslagen.")}</p>
+        <p>{L("Незалежний навчальний застосунок, не пов'язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.", "Onafhankelijke leerapp, niet verbonden aan OPH/JYU. Geen officieel YKI-examen. Voortgang wordt alleen op dit apparaat opgeslagen.")}</p>
         <p className="theme-choice"><label htmlFor="theme">{L("Тема", "Thema")}</label>{" "}
           <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
             <option value="system">{L("Як у системі", "Systeem")}</option><option value="light">{L("Світла", "Licht")}</option><option value="dark">{L("Темна", "Donker")}</option>
           </select></p>
         <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> {L("Показувати Господаря", "Toon de gids")}</label></p>
-        <p><a href="#review">{L("Режим рецензента S2 (для викладачів)", "S2-reviewmodus (voor docenten)")}</a>{learnerR08Tasks.length === 0 && L(" · завдання «значення → форма» з\u0027являться після рецензії", " · oefeningen verschijnen na controle")}</p>
+        <p><a href="#review">{L("Режим рецензента S2 (для викладачів)", "S2-reviewmodus (voor docenten)")}</a>{learnerR08Tasks.length === 0 && L(" · завдання «значення → форма» з'являться після рецензії", " · oefeningen verschijnen na controle")}</p>
         {locale === "nl" && <p role="note">Nederlands is nog in bèta: het startscherm en de navigatie zijn vertaald. Oefeningen, andere schermen en de YKI-simulatie blijven in het Oekraïens en Fins.</p>}
       </footer>
     </>
