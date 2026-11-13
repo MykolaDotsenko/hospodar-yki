@@ -310,3 +310,11 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **«Ціла справа»:** on a place screen, one life situation as ordered steps: understand (reading → listening) → say (dialogue) → write (writing clinic), one existing LEARN item per skill, offered only where all three exist (services, travel, work, society). A step is done after the learner's own attempt; listening done only with text support shows as "with support". Completing it means "done yourself" — never a grade.
 - **Code:** `packages/domain/src/scenario.ts` (`buildScenario`, `scenarioProgress`; `test/scenario.test.ts`), `content/places.ts` (`Place.scenario`), `PlaceScreen`, `e2e/scenario.spec.ts`.
 - **Not done:** 20-minute scenarios with roles and conditions that change across steps; per-step task-success criteria for writing/speaking (needs human raters); new non-exam listening for housing and work.
+
+## 2026-11-13 — own plan before writing in the writing clinic (pre-task-planning)
+
+- **Flow:** in the clinic's first step the learner may open «Спершу скласти план (за бажанням)»: a short Ukrainian frame (addressee and purpose; each task point in 1–3 words; opening and closing) and a free plan box. «Без плану» skips it; it is offered once.
+- **Writing is not speaking:** unlike the opinion monologue, the plan stays in view while writing (an outline), disappears during self-check and spotting, and comes back next to the model for self-comparison. It is never offered in the new-situation transfer, which stays independent.
+- **Privacy and evidence:** the plan lives in the screen session only — not in the persisted clinic draft (whose shape is strictly validated) and not in exports. The draft evidence is labelled "after an own plan"; still ungraded.
+- **Code:** `packages/domain/src/writingClinic.ts` (`CLINIC_PLAN_FRAME_UK`, `clinicEvidence(..., { planned })`), `WritingClinicScreen`, `e2e/writing-clinic.spec.ts`.
+- **Not done:** planning before dialogue role-play; any measured effect on fluency or complexity.
