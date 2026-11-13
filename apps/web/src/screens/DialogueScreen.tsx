@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, dialogueEvidence, dialogueReducer, dialogueView, startDialogue, DialogueError, DIALOGUE_MAX_CHARS,
+import { addDiagnostic, dialogueEvidence, dialogueReducer, dialogueView, startDialogue, DialogueError, DIALOGUE_MAX_CHARS, DIALOGUE_PLAN_FRAME_UK, DIALOGUE_PLAN_MAX_CHARS,
   type DialogueEvent, type DialogueItem, type DialogueSession, type LearnerState, type SelfJudgement } from "@hospodar/domain";
 import { dialogues } from "../content/dialogues.ts";
 import { dialoguePayload, validDialogueDraft } from "../storage/dialogueDraft.ts";
@@ -104,6 +104,29 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
   const [error, setError] = useState<string | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const v = dialogueView(s, item);
+  // Optional own plan before the first own production (pre-task-planning): session only, hidden while replying, back after.
+  const production = item.negotiation ? "roleplay" : "transfer";
+  const [planStep, setPlanStep] = useState<"none" | "editing" | "done">("none");
+  const [plan, setPlan] = useState("");
+  const ownPlan = planStep === "done" && plan.trim() ? plan.trim() : null;
+  const planForm = (
+    <form className="plan-step" onSubmit={e => { e.preventDefault(); setPlanStep("done"); }} noValidate>
+      <div className="prompt" lang="fi">{v.transfer_fi}</div>
+      <p>Короткий план перед розмовою. Без таймера й без оцінки. Коли почнеш відповідати, план сховається: говори з пам'яті. Він не зберігається — лише на цей раз.</p>
+      <ol className="plan-frame">{DIALOGUE_PLAN_FRAME_UK.map(q => <li key={q}>{q}</li>)}</ol>
+      <label className="field" htmlFor="dlg-plan">Твій план — ключові слова будь-якою мовою</label>
+      <textarea id="dlg-plan" className="plan-notes" rows={3} maxLength={DIALOGUE_PLAN_MAX_CHARS} value={plan} onChange={e => setPlan(e.target.value)} />
+      <div className="actions">
+        <button type="submit" className="btn">План готовий — говорити</button>
+        <button type="button" className="btn secondary" onClick={() => { setPlan(""); setPlanStep("done"); }}>Без плану</button>
+      </div>
+    </form>
+  );
+  const planOffer = s.phase === production && planStep === "none" && !text && (
+    <div className="actions"><button type="button" className="btn secondary" onClick={() => setPlanStep("editing")}>Спершу скласти план (за бажанням)</button></div>
+  );
+  const planHiddenNote = s.phase === production && ownPlan && <p className="muted" data-testid="dialogue-plan-hidden">Твій план сховано, поки відповідаєш. Він повернеться після твоєї відповіді.</p>;
+  const planBack = ownPlan && <p className="plan-back" data-testid="dialogue-plan"><strong>Твій план:</strong> {ownPlan}<br /><span className="muted">Порівняй: що з плану ти сказав(ла), а що можна додати?</span></p>;
   useEffect(() => { heading.current?.focus(); }, [s.phase, s.turn, s.qIndex, s.repair, s.repairJudged]);
 
   function checkpoint(state: DialogueSession, input: string) {
@@ -164,7 +187,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       await queue.current;
       await checkpoint(latest.current, exact);
       let st = snap.current.state;
-      for (const ev of dialogueEvidence(next, item)) st = addDiagnostic(st, ev);
+      for (const ev of dialogueEvidence(next, item, { planned: Boolean(ownPlan) })) st = addDiagnostic(st, ev);
       const saved = await repository.finishDialogueDraft(st, snap.current.revision, draftRevision.current, item.id, exact);
       snap.current = saved; onSaved(saved);
       draftRevision.current = 0; lastWritten.current = "";
@@ -258,9 +281,11 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
         <div className="actions"><button type="button" className="btn" disabled={working} onClick={() => void transition({ type: "NEXT_TURN" })}>Далі</button></div>
       ))}
 
-      {s.phase === "roleplay" && (
+      {s.phase === production && planStep === "editing" && planForm}
+      {s.phase === "roleplay" && planStep !== "editing" && (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void transition({ type: "SUBMIT_ROLEPLAY", text: inputRef.current }); }} noValidate>
           <div className="prompt" lang="fi">{v.transfer_fi}</div>
+          {planOffer}{planHiddenNote}
           <label className="field" htmlFor="dlg-roleplay">Твої репліки фінською (без оцінки). Після цього умова зміниться.</label>
           <textarea id="dlg-roleplay" className="answer" lang="fi" rows={4} disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions"><button type="submit" className="btn" disabled={working}>Далі</button></div>
@@ -288,15 +313,16 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
         </div>
       ))}
 
-      {s.phase === "transfer" && (
+      {s.phase === "transfer" && !(production === "transfer" && planStep === "editing") && (
         <form onSubmit={e => void finish(e)} noValidate>
           {v.change_fi ? (
             <>
               <p className="muted">Ситуація: <span lang="fi">{v.transfer_fi}</span></p>
               <p><strong>Ти сказав(ла):</strong> <span lang="fi">{v.roleplay}</span></p>
+              {planBack}
               <div className="prompt" lang="fi">{v.change_fi}</div>
             </>
-          ) : <div className="prompt" lang="fi">{v.transfer_fi}</div>}
+          ) : <><div className="prompt" lang="fi">{v.transfer_fi}</div>{planOffer}{planHiddenNote}</>}
           <label className="field" htmlFor="dlg-transfer">{v.change_fi ? "Що ти скажеш тепер? Фінською, без оцінки" : "Твої репліки фінською (можна потім сказати вголос; без оцінки)"}</label>
           <textarea id="dlg-transfer" className="answer" lang="fi" rows={4} disabled={working} maxLength={DIALOGUE_MAX_CHARS} value={text} onChange={e => changeText(e.target.value)} />
           <div className="actions"><button type="submit" className="btn" disabled={working}>{working ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
@@ -317,6 +343,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       {s.phase === "done" && (
         <div className="feedback" role="status">
           <p><Icon name="ok" /> Збережено на цьому пристрої без оцінки: відповіді на питання з твоєю самооцінкою{item.negotiation ? ", повторення іншими словами, твій план розмови і відповідь на змінену умову" : " і твій план розмови"}.</p>
+          {!item.negotiation && planBack}
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку діалогів</button></div>
         </div>
       )}

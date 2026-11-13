@@ -12349,9 +12349,13 @@
         {
           "file": "packages/domain/test/writing-clinic.test.ts",
           "contains": "a draft written after an own plan is labelled so; still ungraded, and the plan text is never stored as evidence"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "pre-task planning before the role-play: optional own plan with a repair move, hidden while replying, back after the reply"
         }
       ],
-      "gap": "Optional, untimed own plan before opinion monologues (hidden while speaking, back next to the model) and before writing in the writing clinic (an outline in view while writing, back next to the model; not offered in the independent new-situation transfer; session only, never stored or scored; the draft is labelled as written after a plan). Dialogue role-play has no planning step yet; effect on fluency/complexity not measured."
+      "gap": "Optional, untimed own plan in all three production places: before opinion monologues and before the dialogue role-play (hidden while answering, back next to the model / own reply; the dialogue frame includes a repair move for when the partner does not understand) and before writing in the writing clinic (an outline in view while writing, back next to the model). Never offered in independent transfers of the writing clinic; session only, never stored or scored; evidence labelled as after a plan. Effect on fluency/complexity not measured (needs a controlled study)."
     },
     {
       "id": "chunk-learning",

@@ -146,15 +146,27 @@ export function dialogueView(s: DialogueSession, d: DialogueItem) {
   };
 }
 
+/**
+ * Optional own plan before the role-play (pre-task-planning; research #26/#27). Speaking-like: the plan is hidden while the
+ * learner gives their replies and comes back after it (next to what they said) for self-comparison. One line prepares a
+ * repair move — what to say if the partner does not understand (negotiation-repair-dialogues). Session only; never scored.
+ */
+export const DIALOGUE_PLAN_FRAME_UK: readonly string[] = Object.freeze([
+  "Чого ти хочеш досягти в цій розмові — одним рядком.",
+  "2–3 ключові слова чи фрази, які знадобляться.",
+  "Що скажеш, якщо тебе не зрозуміють (інакше, простіше).",
+]);
+export const DIALOGUE_PLAN_MAX_CHARS = 600;
+
 /** Comprehension answers are open and semantic → ungraded with the learner's self-judgement; transfer → speaking plan, ungraded. */
-export function dialogueEvidence(s: DialogueSession, d: DialogueItem) {
+export function dialogueEvidence(s: DialogueSession, d: DialogueItem, opts: { planned?: boolean } = {}) {
   if (s.phase !== "done") throw new DialogueError("NOT_ALLOWED", "Not finished");
   return [
     ...d.questions.filter(q => q.id in s.answers).map(q => ({ skill: "reading" as const, taskId: q.id, status: "ungraded" as const,
       response: `[dialogue; self-judged ${s.judged[q.id] ?? "none"}] ${s.answers[q.id]}` })),
     ...(s.repair ? [{ skill: "speaking" as const, taskId: `${d.id}-repair`, status: "ungraded" as const,
       response: `[said again after a clarification request; self-judged ${s.repairJudged ?? "none"}] ${s.repair}` }] : []),
-    { skill: "speaking" as const, taskId: `${d.id}-roleplay`, status: "ungraded" as const, response: `[role-play plan, text] ${d.negotiation ? s.roleplay : s.transfer}` },
+    { skill: "speaking" as const, taskId: `${d.id}-roleplay`, status: "ungraded" as const, response: `[role-play plan, text${opts.planned ? "; after an own plan (hidden while replying)" : ""}] ${d.negotiation ? s.roleplay : s.transfer}` },
     ...(d.negotiation ? [{ skill: "speaking" as const, taskId: `${d.id}-change`, status: "ungraded" as const, response: `[adapted to a changed condition] ${s.transfer}` }] : []),
   ];
 }

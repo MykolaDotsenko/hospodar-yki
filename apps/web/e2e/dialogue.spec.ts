@@ -110,3 +110,41 @@ test("Negotiation: partner asks to clarify → second wording before the script 
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("3 без оцінки");
 });
+
+test("pre-task planning before the role-play: optional own plan with a repair move, hidden while replying, back after the reply", async ({ page }) => {
+  const PLAN = "tavoite: esittäytyä; sanat: uusi, harjoitella; jos ei ymmärrä: puhu hitaammin";
+  await page.goto("./");
+  await page.getByTestId("nav-speaking").click();
+  await page.getByRole("button", { name: /Ensimmäinen kerta kielikahvilassa/ }).click();
+  await page.getByLabel(/Твоя репліка фінською/).fill("Hei! Olen uusi täällä.");
+  await page.getByRole("button", { name: "Сказати" }).click();
+  for (let i = 0; i < 3; i++) {
+    await page.getByRole("button", { name: "Далі" }).click();
+    await page.getByRole("button", { name: "Далі" }).click();
+    await page.getByRole("button", { name: "Пропустити й подивитися сценарій" }).click();
+  }
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByLabel(/Miksi Oksana tuli/).fill("Hän haluaa puhua suomea.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByLabel(/Pitääkö ryhmään/).fill("Ei tarvitse.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await expect(page.getByRole("heading", { name: "Твоя ситуація" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Спершу скласти план (за бажанням)" }).click();
+  await expect(page.locator(".plan-frame li")).toHaveCount(3);
+  await expect(page.locator(".plan-frame")).toContainText("якщо тебе не зрозуміють");
+  await expect(page.getByLabel(/Твої репліки фінською/)).toHaveCount(0);
+  expect(await serious(page)).toEqual([]);
+  await page.getByLabel(/Твій план/).fill(PLAN);
+  await page.getByRole("button", { name: "План готовий — говорити" }).click();
+  await expect(page.getByTestId("dialogue-plan-hidden")).toBeVisible();                      // speak from memory
+  await expect(page.getByText(PLAN)).toHaveCount(0);
+  await page.getByLabel(/Твої репліки фінською/).fill("Hei, olen Oksana. Voisitko puhua vähän hitaammin?");
+  await page.getByRole("button", { name: "Далі" }).click();
+  await expect(page.getByRole("heading", { name: "Умова змінилася" })).toBeVisible();
+  await expect(page.getByTestId("dialogue-plan")).toContainText(PLAN);                       // back for self-comparison
+  await expect(page.getByRole("button", { name: /скласти план/ })).toHaveCount(0);          // offered once, before the first reply
+});
