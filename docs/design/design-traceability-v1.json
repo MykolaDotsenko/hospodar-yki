@@ -12410,8 +12410,18 @@
     },
     {
       "id": "graduated-task-sequencing",
-      "status": "NOT_YET",
-      "plan": "Add constraints step by step (time, addressee, missing info) to an existing task family; buildable on practice/dialogue items."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "graduated task sequencing: after a saved reaction card, the same situation again with one more constraint per step; ungraded self-check; stoppable"
+        },
+        {
+          "file": "packages/domain/test/graduated.test.ts",
+          "contains": "only reaction and opinion cards have a sequence; it grows by one constraint per step and keeps the earlier ones"
+        }
+      ],
+      "gap": "After a saved reaction/opinion card the learner may redo the same situation with constraints added one at a time and kept (reaction: brief → polite to an official → specific; opinion: second reason → counter-view → own example). Ukrainian instructions only, no new Finnish keys; each step saved ungraded with a self-check; optional and stoppable. Not yet on dialogues/writing, constraints are not adapted to the learner's own performance (no grader), and quality of the harder situation is not assessed (needs human raters)."
     },
     {
       "id": "high-variability-phonetics",
