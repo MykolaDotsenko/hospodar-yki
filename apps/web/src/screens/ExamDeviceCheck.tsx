@@ -12,6 +12,9 @@ type Ctor = typeof AudioContext;
 const audioContext = (): Ctor | undefined =>
   (window as unknown as { AudioContext?: Ctor }).AudioContext ?? (window as unknown as { webkitAudioContext?: Ctor }).webkitAudioContext;
 const MIC_TEST_MS = 3000;
+/** An audio device that never starts leaves `resume()` pending forever (seen in headless Firefox): never wait on it unbounded. */
+const settle = (p: Promise<unknown>, ms: number) =>
+  Promise.race([p.catch(() => undefined), new Promise<void>(r => window.setTimeout(r, ms))]);
 
 export function ExamDeviceCheck({ skills, results, onResults }: {
   skills: ExamSkill[] | null; results: DeviceResults; onResults: (r: DeviceResults) => void;
@@ -31,7 +34,7 @@ export function ExamDeviceCheck({ skills, results, onResults }: {
     if (!Ctx) { setToneState("asked"); return; }
     try {
       const ctx = new Ctx(), osc = ctx.createOscillator(), gain = ctx.createGain();
-      await ctx.resume().catch(() => undefined);
+      void settle(ctx.resume(), 1000);
       osc.frequency.value = 523; gain.gain.value = 0.12; osc.connect(gain).connect(ctx.destination);
       setToneState("playing");
       let done = false;
@@ -56,7 +59,12 @@ export function ExamDeviceCheck({ skills, results, onResults }: {
     cleanup.current = stopAll;
     try {
       ctx = new Ctx();
-      await ctx.resume().catch(() => undefined);
+      await settle(ctx.resume(), 1500);
+      if (ctx.state !== "running") {                       // metering a stopped audio engine would wrongly read as silence
+        stopAll(); set({ microphone: "problem" });
+        setMicNote("Браузер не запустив обробку звуку, тож гучність виміряти не вдалося. Спробуй ще раз або відповідай у говорінні текстовим планом.");
+        return;
+      }
       const analyser = ctx.createAnalyser(); analyser.fftSize = 1024;
       ctx.createMediaStreamSource(stream).connect(analyser);
       const buf = new Uint8Array(analyser.fftSize);

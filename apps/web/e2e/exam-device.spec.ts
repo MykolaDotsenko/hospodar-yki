@@ -14,7 +14,8 @@ async function fakeMic(page: Page, loud: boolean) {
     if (Real) Object.defineProperty(window, "MediaRecorder", { configurable: true, value: class extends Real { constructor(...a: ConstructorParameters<typeof MediaRecorder>) { super(...a); mic.recorders++; } } });
     Object.defineProperty(navigator, "mediaDevices", { configurable: true, value: { getUserMedia: async () => {
       mic.calls++;
-      const ctx = new AudioContext(); await ctx.resume().catch(() => undefined);
+      const ctx = new AudioContext();
+      await Promise.race([ctx.resume().catch(() => undefined), new Promise(r => setTimeout(r, 1000))]);
       const osc = ctx.createOscillator(), gain = ctx.createGain(), dest = ctx.createMediaStreamDestination();
       gain.gain.value = isLoud ? 0.8 : 0; osc.connect(gain).connect(dest); osc.start();
       const stream = dest.stream;
@@ -23,9 +24,17 @@ async function fakeMic(page: Page, loud: boolean) {
     } } });
   }, loud);
 }
-/** The fake microphone needs a Web Audio stream destination; an engine without one cannot run the metered path. */
+/** The fake microphone needs a running Web Audio engine with a stream destination (a CI machine without an audio
+ *  device leaves the engine suspended). Where it cannot run, the metered path cannot be exercised in this engine. */
 async function streamable(page: Page) {
-  return page.evaluate(() => typeof AudioContext !== "undefined" && "createMediaStreamDestination" in AudioContext.prototype);
+  return page.evaluate(async () => {
+    if (typeof AudioContext === "undefined" || !("createMediaStreamDestination" in AudioContext.prototype)) return false;
+    const ctx = new AudioContext();
+    await Promise.race([ctx.resume().catch(() => undefined), new Promise(r => setTimeout(r, 1000))]);
+    const running = ctx.state === "running";
+    void ctx.close().catch(() => undefined);
+    return running;
+  });
 }
 async function openSetup(page: Page) {
   await page.goto("./");
@@ -38,7 +47,7 @@ const check = (page: Page) => page.locator("fieldset.device-check");
 test("device check: a test tone the learner confirms and a 3-second mic level check; nothing recorded, the mic is switched off", async ({ page }) => {
   await fakeMic(page, true);
   await openSetup(page);
-  test.skip(!(await streamable(page)), "this engine has no Web Audio MediaStream destination for the fake microphone");
+  test.skip(!(await streamable(page)), "this engine cannot run Web Audio here (no audio device), so the fake microphone cannot be metered");
   await expect(check(page)).toContainText("нічого не записується, не зберігається й не надсилається");
   await expect(page.getByTestId("device-pending")).toContainText("навушники, мікрофон");
   expect(await serious(page)).toEqual([]);
@@ -60,7 +69,7 @@ test("device check: a test tone the learner confirms and a 3-second mic level ch
 test("device check: silence and a 'not heard' report stay visible problems, but never block the start", async ({ page }) => {
   await fakeMic(page, false);
   await openSetup(page);
-  test.skip(!(await streamable(page)), "this engine has no Web Audio MediaStream destination for the fake microphone");
+  test.skip(!(await streamable(page)), "this engine cannot run Web Audio here (no audio device), so the fake microphone cannot be metered");
   await page.getByRole("button", { name: "Програти тестовий звук" }).click();
   await page.getByRole("button", { name: "Не чую" }).click({ timeout: 10_000 });
   await expect(page.getByText(/Звук не чути: перевір гучність/)).toBeVisible();
@@ -90,4 +99,25 @@ test("a denied microphone is reported honestly in the device check", async ({ pa
   await page.getByRole("button", { name: "Перевірити мікрофон" }).click();
   await expect(page.getByText(/Немає дозволу на мікрофон/)).toBeVisible();
   await expect(check(page).locator("[data-device=microphone]")).toHaveAttribute("data-result", "problem");
+});
+
+test("an audio engine that never starts: the tone still leads to the learner's own report, and the mic check says it could not measure (no false 'silence')", async ({ page }) => {
+  await page.addInitScript(() => {
+    const Base = (window as unknown as { BaseAudioContext?: { prototype: object } }).BaseAudioContext;
+    if (Base) Object.defineProperty(Base.prototype, "state", { configurable: true, get: () => "suspended" });
+    if (window.AudioContext) AudioContext.prototype.resume = () => new Promise<void>(() => {});   // pending forever
+    let stopped = 0;
+    (window as unknown as { __stopped: () => number }).__stopped = () => stopped;
+    Object.defineProperty(navigator, "mediaDevices", { configurable: true,
+      value: { getUserMedia: async () => ({ getTracks: () => [{ stop() { stopped++; } }] }) } });
+  });
+  await openSetup(page);
+  await page.getByRole("button", { name: "Програти тестовий звук" }).click();
+  await page.getByRole("button", { name: "Чую звук" }).click({ timeout: 10_000 });
+  await expect(check(page).locator("[data-device=headphones]")).toHaveAttribute("data-result", "ok");
+  await page.getByRole("button", { name: "Перевірити мікрофон" }).click();
+  await expect(page.getByText(/Браузер не запустив обробку звуку/)).toBeVisible({ timeout: 10_000 });
+  await expect(page.getByText(/Мікрофон не вловив голосу/)).toHaveCount(0);
+  await expect(check(page).locator("[data-device=microphone]")).toHaveAttribute("data-result", "problem");
+  expect(await page.evaluate(() => (window as unknown as { __stopped: () => number }).__stopped())).toBe(1);   // mic switched off
 });
