@@ -43,3 +43,32 @@ test("IV-REQ-05 reading: answer first; keys + exact evidence span with label onl
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Читання$/ }) })).toContainText("1 з 2 перевірених відповідей правильні; 1 без оцінки");
 });
+
+test("mediation after reading: explain the notice in Ukrainian to a friend without Finnish; no model, own self-check, ungraded", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-reading").click();
+  await page.getByRole("button", { name: /Kirjaston kielikahvila/ }).click();
+  await page.getByLabel("Ei tarvitse").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Väärin").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel(/Mitä tehdään tapaamisen alussa/).fill("He tutustuvat toisiinsa.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі: написати" }).click();
+  await expect(page.getByRole("button", { name: /Українською — другові/ })).toHaveCount(0);        // only after the own reading work is saved
+  await page.getByLabel(/Твій текст фінською/).fill("Hei! Haluaisin tulla kielikahvilaan keskiviikkona.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+
+  await page.getByRole("button", { name: /Українською — другові/ }).click();
+  await expect(page.getByLabel("Твоє пояснення українською")).toBeVisible();
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(page.getByRole("alert")).toContainText("Спершу напиши");
+  await page.getByLabel("Твоє пояснення українською").fill("У бібліотеці з наступного місяця мовне кафе по середах о 17, безкоштовно й без запису.");
+  await page.getByLabel("Коли й де?").check();
+  await page.getByLabel("Що людині треба зробити?").check();
+  await page.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(page.getByTestId("mediation-done")).toContainText("без оцінки");
+  expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал:/);
+});

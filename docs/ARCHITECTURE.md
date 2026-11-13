@@ -344,3 +344,17 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Fix found on the way:** listening E2E selectors are now scoped to the «Аудіозаписи» list, since a lesson title now also appears in the dictogloss list.
 - **Code:** `packages/domain/src/dictogloss.ts` (`parseVttCues`, reducer, `markShared`, `nextDictoglossCue`; `test/dictogloss.test.ts`), `content/listening.ts` (`cuesFor`), `screens/DictoglossRun.tsx`, `e2e/dictogloss.spec.ts`.
 - **Not done:** pair or group reconstruction (classic dictogloss), multi-talker human audio, teacher feedback.
+
+## 2026-11-13 — repeated telling 4/3/2 after opinion cards (fluency-432)
+
+- **Flow:** after a saved «Моя думка» card, «Розповісти тричі, щоразу коротше (4/3/2)»: the same opinion aloud three times with shrinking time — practice windows 120 / 90 / 60 s (a shortened 4/3/2 for B1 monologues, labelled practice). A countdown per round; «Я закінчив(ла) раніше» ends a round early; the learner may stop after any round.
+- **Nothing recorded:** the microphone is not used. Only the learner's report of how the last round felt (easier / same / harder) is saved, ungraded (`<card>-fluency-432`).
+- **Code:** `packages/domain/src/fluency.ts` (`FLUENCY_ROUNDS_SECONDS`, `fluencySecondsLeft`, `fluencyEvidence`; `test/fluency.test.ts`), `PracticeScreen` (`RepeatedTelling`), `e2e/practice.spec.ts` (frozen Playwright clock).
+- **Not done:** a different listener each round (classic 4/3/2), any fluency measure, a measured effect.
+
+## 2026-11-13 — mediation after reading (cefr-mediation-paraphrase)
+
+- **Flow:** after a LEARN reading text is saved, «Поясни комусь, що тут написано» (optional): choose the audience — in Ukrainian to a friend who reads no Finnish, or in simpler Finnish to a neighbour — and write the explanation with the text available again behind «Текст ще раз». A three-question self-check (who/what, when/where, what to do).
+- **No model, no key:** nothing is compared automatically. Evidence is saved ungraded (`<item>-mediation`): a Ukrainian relay as reading comprehension, simpler Finnish as writing; commit + verified readback. EXAM texts never appear (LEARN pool only).
+- **Code:** `packages/domain/src/mediation.ts` (`MEDIATION_MODES`, `MEDIATION_CHECK_UK`, `mediationEvidence`; `test/mediation.test.ts`), `screens/MediationStep.tsx`, `ReadingScreen`, `e2e/reading.spec.ts`.
+- **Not done:** mediation after listening; human feedback on the accuracy of the relay.

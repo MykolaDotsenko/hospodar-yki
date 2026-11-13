@@ -12502,9 +12502,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
+        },
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "mediation after reading: explain the notice in Ukrainian to a friend without Finnish; no model, own self-check, ungraded"
+        },
+        {
+          "file": "packages/domain/test/mediation.test.ts",
+          "contains": "ungraded evidence: a Ukrainian relay counts as reading comprehension, simpler Finnish as writing; the self-check is counted, never scored"
         }
       ],
-      "gap": "Paraphrase retell exists at sentence level; no 'read/hear a notice → explain to a friend' mediation task."
+      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. Not yet after listening ('hear a notice → explain'), and no human feedback on whether the relay is accurate."
     },
     {
       "id": "digital-task-literacy",
@@ -12723,8 +12731,18 @@
     },
     {
       "id": "fluency-432",
-      "status": "NOT_YET",
-      "plan": "Optional repeated-telling timer for prepared learners; low priority, ungraded."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "repeated telling 4/3/2 after an opinion card: three rounds aloud with shrinking practice time, nothing recorded, only the learner's report saved"
+        },
+        {
+          "file": "packages/domain/test/fluency.test.ts",
+          "contains": "saves only the learner's report — speech is never recorded or graded"
+        }
+      ],
+      "gap": "Optional repeated telling after a saved opinion card: the same opinion aloud three times with shrinking practice windows (120/90/60 s, a shortened 4/3/2 labelled practice), early stop allowed; speech is not recorded; only the learner's report of the last round is saved, ungraded. No listener (classic 4/3/2 tells to a new partner each round), no fluency measure (speech rate, pauses) and no measured effect."
     },
     {
       "id": "keyword-mnemonic-retrieval",
