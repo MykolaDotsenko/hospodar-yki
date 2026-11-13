@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, listeningEvidence, listeningReducer, listeningView, startListening, validateListeningLesson,
+import { addDiagnostic, blankState, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening, validateListeningLesson,
   ListeningError, type ListeningLesson } from "../src/index.ts";
 
 const lessons: ListeningLesson[] = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/audio-long/lessons.json", import.meta.url), "utf8")).lessons;
@@ -49,5 +49,13 @@ describe("listening mission (IV-REQ-04)", () => {
     expect(() => listeningReducer(s, L, { type: "ANSWER", questionId: L.questions[1]!.id, optionIndex: 9 })).toThrow(ListeningError);
     expect(() => listeningReducer(s, L, { type: "OPEN_REVIEW" })).toThrow(/not allowed/);
     expect(() => listeningEvidence(s, L)).toThrow();
+  });
+});
+
+describe("strategic audio notes (strategic-audio-notes)", () => {
+  it("three prompts for the learner's own notes — when, where, what — in Ukrainian, with a short limit", () => {
+    expect(AUDIO_NOTE_FIELDS_UK.map(f => f.id)).toEqual(["when", "where", "what"]);
+    for (const f of AUDIO_NOTE_FIELDS_UK) expect(f.label_uk).not.toMatch(/[äö]/i);
+    expect(AUDIO_NOTE_MAX_CHARS).toBeGreaterThanOrEqual(100);
   });
 });

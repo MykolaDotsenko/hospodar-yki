@@ -374,3 +374,7 @@ textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(-
 .stepup { border-left: 4px solid var(--stroke); padding-left: var(--space-md); margin: var(--space-md) 0; }
 .stepup-constraints { padding-left: 1.4rem; display: grid; gap: var(--space-xs); }
 .stepup-constraints li[data-new="yes"] { font-weight: 700; }
+/* Strategic audio notes: quiet, optional, like exam note paper */
+.audio-notes { margin: var(--space-sm) 0; }
+.audio-notes summary { cursor: pointer; font-weight: 700; min-height: 24px; }
+input.plan-notes { width: 100%; padding: 8px 12px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1rem; }

@@ -327,3 +327,11 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Evidence:** each step is the learner's own Finnish text, saved ungraded (`<card>-step-<constraint>`) with their self-check (yes / partly / not yet) through the usual commit + verified readback. Optional and stoppable at any step; nothing locks or counts as a level.
 - **Code:** `packages/domain/src/graduated.ts` (`stepUpFor`, `activeConstraints`, `stepUpEvidence`; `test/graduated.test.ts`), `PracticeScreen` (`StepUp`), `e2e/practice.spec.ts`.
 - **Not done:** graduated steps on dialogues and writing; adapting the next constraint to the learner's own performance (needs a grader/human rater).
+
+## 2026-11-13 — strategic audio notes in the listening mission (strategic-audio-notes)
+
+- **Flow:** while listening and answering, «Мої нотатки під час слухання (за бажанням)» opens three short fields: when, where, what is happening or has to be done. Any language. The notes stay in view while answering and come back next to the keys for self-comparison; they are not editable after the answers.
+- **Independence:** the notes are the learner's own processing, like note paper in an exam — not outside support — so the answers stay independent and scored (unlike transcript or slower speed).
+- **Privacy:** session only; not in the persisted listening draft, exports or scores.
+- **Code:** `packages/domain/src/listening.ts` (`AUDIO_NOTE_FIELDS_UK`), `ListeningScreen`, `e2e/listening.spec.ts`.
+- **Not done:** notes in the EXAM rehearsal (OPH 2027 note-taking rules are unverified, so nothing is added there) and in the delayed checks.

@@ -68,3 +68,24 @@ test("slower speed keeps pitch and marks the attempt as supported", async ({ pag
   await expect.poll(() => page.locator("audio").evaluate(a => [(a as HTMLAudioElement).playbackRate, (a as HTMLAudioElement).preservesPitch])).toEqual([0.75, true]);
   await expect(page.getByText(/З підтримкою відповіді зберігаються без оцінки/)).toBeVisible();
 });
+
+test("strategic audio notes: optional own notes while listening and answering, back next to the keys; answers stay independent and scored", async ({ page }) => {
+  await open(page);
+  await expect(page.locator("details.audio-notes")).toBeVisible();
+  await page.locator("details.audio-notes summary").click();
+  await page.getByLabel(/Коли\?/).fill("lauantaina");
+  await page.getByLabel(/Що відбувається/).fill("väärä väri, palautus");
+  expect(await serious(page)).toEqual([]);
+  await startedPlaying(page);
+  await page.getByRole("button", { name: "До питань" }).click();
+  await expect(page.getByLabel(/Коли\?/)).toHaveValue("lauantaina");                          // in view while answering
+  await answerAll(page);
+  await expect(page.getByTestId("audio-notes-back")).toContainText("lauantaina");
+  await expect(page.getByTestId("audio-notes-back")).toContainText("väärä väri, palautus");
+  await expect(page.locator("details.audio-notes")).toHaveCount(0);                           // notes are not editable after the answers
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();          // own notes are not "support"
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li", { hasText: "Аудіювання" })).toContainText("з 4 перевірених відповідей правильні; 0 без оцінки");
+});
