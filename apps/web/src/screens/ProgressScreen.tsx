@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { delayedTransferQueue, dueCards, skillRetentionQueue, type LearnerState, type Skill } from "@hospodar/domain";
+import { delayedTransferQueue, dueCards, skillRetentionQueue, type LearnerState, type PlaceId, type Skill } from "@hospodar/domain";
 import { skillRetentionBank } from "../content/skillRetention.ts";
 import { exercises } from "../content/cloze.ts";
 import { transferBank } from "../content/transfer.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import { ExamHistoryList } from "./ExamScreen.tsx";
+import { YkiMap } from "./YkiMap.tsx";
 
 const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [
   { id: "reading", uk: "Читання", fi: "Tekstin ymmärtäminen" }, { id: "listening", uk: "Аудіювання", fi: "Puheen ymmärtäminen" },
@@ -12,7 +13,7 @@ const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [
 ];
 
 /** UX-05 / UIO-08 / IV-REQ-09: separate signals per skill, actionable next steps, no %, no level. */
-export function ProgressScreen({ state, examRepository, onHome, onLearn, onRetention }: { state: LearnerState; examRepository: ExamRepository; onHome: () => void; onLearn: () => void; onRetention: () => void }) {
+export function ProgressScreen({ state, examRepository, onHome, onLearn, onRetention, onPlace }: { state: LearnerState; examRepository: ExamRepository; onHome: () => void; onLearn: () => void; onRetention: () => void; onPlace?: (id: PlaceId) => void }) {
   const [tab, setTab] = useState<"learn" | "exam">("learn");
   const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
   useEffect(() => { examRepository.history().then(setHistory, () => setHistory([])); }, [examRepository]);
@@ -78,6 +79,7 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onReten
             })}
           </ul>
           <p className="muted">Це твої відповіді на цьому пристрої, а не рівень B1 і не прогноз YKI.</p>
+          <YkiMap state={state} onPlace={onPlace} />
         </div>
       )}
       <div className="actions"><button type="button" className="btn secondary" onClick={onHome}>На головну</button></div>

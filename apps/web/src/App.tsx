@@ -78,7 +78,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
         {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
-          open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : "reading", id)} />}
+          open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={setSnapshot} onHome={() => goTo("home")} />}
         {view === "exam" && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
@@ -90,9 +90,9 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "dialogue" && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "writing" && snapshot && <WritingClinicScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "diagnostic" && snapshot && <DiagnosticScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={() => goTo("listening")} />}
-        {view === "listening" && snapshot && <ListeningScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "listening" && snapshot && <ListeningScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "retention" && snapshot && <RetentionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
-        {view === "progress" && snapshot && <ProgressScreen state={snapshot.state} examRepository={examRepository} onHome={() => goTo("home")} onLearn={() => goTo("mission")} onRetention={() => goTo("retention")} />}
+        {view === "progress" && snapshot && <ProgressScreen state={snapshot.state} examRepository={examRepository} onHome={() => goTo("home")} onLearn={() => goTo("mission")} onRetention={() => goTo("retention")} onPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "import" && snapshot && <ImportScreen repository={repository} current={snapshot} onImported={setSnapshot} onHome={() => goTo("home")} />}
         {view === "review" && <ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} />}
         {view === "workshop" && snapshot && <WorkshopScreen state={snapshot.state} guide={showGuide} onHome={() => goTo("home")} open={id => goTo("mission", id, true)} />}

@@ -16,7 +16,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
   const progress = placeProgress(state, placeIndex).find(p => p.place === id)!;
   const tried = (prefix: string) => state.diagnostics.some(d => d.taskId === prefix || d.taskId.startsWith(`${prefix}-`));
   const status = (q: Quest) => {
-    if (q.view !== "practice") return tried(q.itemId) ? "ти вже пробував(ла)" : "ще не пробував(ла)";
+    if (q.view !== "practice") return tried(q.taskPrefix ?? q.itemId) ? "ти вже пробував(ла)" : "ще не пробував(ла)";
     const ids = practiceIdsOf(id, q.practiceKind!);
     return `карток: ${ids.length} · пройдено ${ids.filter(tried).length}`;
   };

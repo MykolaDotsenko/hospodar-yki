@@ -24,3 +24,4 @@ export * from "./bottleneck.ts";
 export * from "./examPrep.ts";
 export * from "./examSpeaking.ts";
 export * from "./deviceCheck.ts";
+export * from "./coverage.ts";

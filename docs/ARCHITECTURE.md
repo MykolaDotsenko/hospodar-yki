@@ -294,3 +294,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Code:** `packages/domain/src/deviceCheck.ts` (`test/deviceCheck.test.ts`), `apps/web/src/screens/ExamDeviceCheck.tsx`, `apps/web/e2e/exam-device.spec.ts` (Web Audio fake microphone; the two metered tests skip only where the engine cannot run Web Audio, e.g. Firefox on a CI machine without an audio device; a separate test covers that suspended-engine path on every engine).
 - **Robustness:** `AudioContext.resume()` is never awaited unbounded (it stays pending forever without an audio device); a tone that cannot play still leads to the learner's report, and a suspended engine is reported as «could not measure», never as silence.
 - **Not done:** focus mode without app navigation; real-device microphone/headphone testing; the official 2027 device check (OPH demo walkthrough, human).
+
+## 2026-11-13 — YKI preparation map: 9 themes × 4 skills (yki-constructive-alignment)
+
+- **Map:** «Мій прогрес» shows a table of the nine YKI keskitaso themes (the «Господарство» places) × reading, listening, writing, speaking. A cell shows LEARN tasks tried / available (`1/3`) and keys (correct first answers). Counts only — no percentage, level, grade or pass prediction. Exam tasks never count (they are not in LEARN pools).
+- **Skill per item:** `PlaceItem.skill` — reading texts and paraphrase cards → reading; long listening lessons → listening; writing clinic → writing; dialogues, reactions and opinions → speaking (typed today). Vocabulary and rektio cards train no single skill and stay off the map.
+- **Found and fixed:** the six long listening lessons belonged to no place (their combined topic keys were unknown). They are now quests in their places and open the lesson directly.
+- **Coverage check:** `apps/web/src/content/places.test.ts` keeps the content gaps as an explicit register (7 of 36 cells) that may only shrink, and requires every place to have a receptive and a productive skill. An empty cell is shown as missing material, never as the learner's weakness.
+- **Code:** `packages/domain/src/coverage.ts` (`coverageMap`, `SKILL_CAN_DO_UK`; `test/coverage.test.ts`), `apps/web/src/screens/YkiMap.tsx`, `apps/web/e2e/yki-map.spec.ts`.
+- **Not done:** filling the 7 gaps (S2-authored listening/writing material); can-do per genre measured on unseen tasks (held-out S2 bank); recorded speech in LEARN speaking cells.
