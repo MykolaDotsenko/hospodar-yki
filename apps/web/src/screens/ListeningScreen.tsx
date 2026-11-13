@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, listeningEvidence, listeningReducer, listeningView, startListening,
+import { addDiagnostic, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
   type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, ListeningError } from "@hospodar/domain";
 import { listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
@@ -98,6 +98,9 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
   const [s, setS] = useState<ListeningSession>(() => initialDraft?.session ?? startListening(lesson));
   const latest = useRef(s); latest.current = s;
   const snap = useRef(snapshot); snap.current = snapshot;
+  // strategic-audio-notes: the learner's own notes; session only, never stored or scored.
+  const [notes, setNotes] = useState<Record<"when" | "where" | "what", string>>({ when: "", where: "", what: "" });
+  const [notesOpen, setNotesOpen] = useState(false);
   const [value, setValue] = useState(initialDraft?.input ?? "");
   const inputRef = useRef(initialDraft?.input ?? "");
   const draftRevision = useRef(initialDraft?.revision ?? 0);
@@ -256,6 +259,20 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       {!v.independent && s.phase !== "review" && s.phase !== "done" && <p className="muted">З підтримкою відповіді зберігаються без оцінки — це не помилка.</p>}
     </div>
   );
+  const hasNotes = Object.values(notes).some(n => n.trim());
+  const notesBox = (
+    <details className="audio-notes" open={notesOpen} onToggle={e => setNotesOpen((e.currentTarget as HTMLDetailsElement).open)}>
+      <summary>Мої нотатки під час слухання (за бажанням)</summary>
+      <p className="muted">Як на папері під час іспиту: занотуй коротко, будь-якою мовою. Це твої нотатки, а не підказка, — відповіді лишаються самостійними. Нотатки не зберігаються.</p>
+      {AUDIO_NOTE_FIELDS_UK.map(f => (
+        <div key={f.id}>
+          <label className="field" htmlFor={`note-${f.id}`}>{f.label_uk}</label>
+          <input id={`note-${f.id}`} className="plan-notes" autoComplete="off" maxLength={AUDIO_NOTE_MAX_CHARS} value={notes[f.id]}
+            onChange={e => setNotes(n => ({ ...n, [f.id]: e.target.value }))} />
+        </div>
+      ))}
+    </details>
+  );
   return (
     <section className="panel" data-accent="listening" aria-labelledby="lm-title">
       <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
@@ -278,6 +295,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       )}
       {player}
       {v.showTranscript && media.transcript && <div className="prompt transcript" lang="fi">{media.transcript}</div>}
+      {(s.phase === "listen" || s.phase === "questions") && notesBox}
       {s.phase === "listen" && (
         <>
           <p>Прослухай запис повністю, не поспішай. Питання з'являться після цього.</p>
@@ -304,6 +322,13 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       )}
       {v.results && s.phase !== "done" && (
         <>
+          {hasNotes && (
+            <div className="plan-back" data-testid="audio-notes-back">
+              <strong>Твої нотатки:</strong>
+              <ul>{AUDIO_NOTE_FIELDS_UK.filter(f => notes[f.id].trim()).map(f => <li key={f.id}>{f.label_uk.split(" (")[0]} {notes[f.id].trim()}</li>)}</ul>
+              <span className="muted">Порівняй: що з потрібного ти встиг(ла) занотувати?</span>
+            </div>
+          )}
           <ol className="skill-lines">
             {v.results.map(r => (
               <li key={r.id}><span lang="fi">{r.prompt_fi}</span><br />

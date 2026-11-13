@@ -12576,8 +12576,18 @@
     },
     {
       "id": "strategic-audio-notes",
-      "status": "NOT_YET",
-      "plan": "Optional time/place/action note fields after the first listen. Buildable in the listening mission."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "strategic audio notes: optional own notes while listening and answering, back next to the keys; answers stay independent and scored"
+        },
+        {
+          "file": "packages/domain/test/listening.test.ts",
+          "contains": "three prompts for the learner's own notes — when, where, what — in Ukrainian, with a short limit"
+        }
+      ],
+      "gap": "Optional own notes (when / where / what) while listening and answering in the LEARN listening mission, like exam note paper; own processing, not support, so answers stay independent and scored; shown back next to the keys; session only, never stored or scored. Not offered in the EXAM rehearsal (OPH 2027 note-taking rules unverified) nor in the delayed checks; no guidance on note quality."
     },
     {
       "id": "autonomy-support-and-choice",

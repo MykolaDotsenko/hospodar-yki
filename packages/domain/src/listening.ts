@@ -27,6 +27,19 @@ export type ListeningEvent =
   | { type: "BEGIN_QUESTIONS" } | { type: "ANSWER"; questionId: string; optionIndex: number }
   | { type: "OPEN_REVIEW" } | { type: "FINISH" };
 
+/**
+ * Strategic audio notes (method strategic-audio-notes): while listening and answering, the learner may jot what they
+ * heard under three prompts — the kind of notes a test-taker makes on paper. They are the learner's own processing, not
+ * outside support, so answers stay independent; the notes come back next to the keys for self-comparison.
+ * Session only: never stored, exported or scored.
+ */
+export const AUDIO_NOTE_FIELDS_UK: readonly { id: "when" | "where" | "what"; label_uk: string }[] = Object.freeze([
+  { id: "when", label_uk: "Коли? (день, час, дата)" },
+  { id: "where", label_uk: "Де? (місце, адреса)" },
+  { id: "what", label_uk: "Що відбувається або що треба зробити?" },
+]);
+export const AUDIO_NOTE_MAX_CHARS = 200;
+
 export class ListeningError extends Error {
   constructor(public readonly code: "AUDIO_NOT_STARTED" | "NOT_ALLOWED" | "INVALID_ANSWER", m: string) { super(m); this.name = "ListeningError"; }
 }
