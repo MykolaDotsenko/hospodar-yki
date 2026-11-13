@@ -1,5 +1,5 @@
-import { hospodarAtPlace, placeProgress, type LearnerState, type PlaceId } from "@hospodar/domain";
-import { placeIndex, places, practiceIdsOf, type Quest, type QuestView } from "../content/places.ts";
+import { hospodarAtPlace, placeProgress, scenarioProgress, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
+import { placeIndex, places, practiceIdsOf, viewOfSkill, type Quest, type QuestView } from "../content/places.ts";
 import { Icon } from "../ui/icons.tsx";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
 import { Hospodar } from "../ui/Hospodar.tsx";
@@ -26,6 +26,11 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
     open("practice", ids.find(c => !tried(c)) ?? ids[0]!);
   };
 
+  const scenario = place.scenario ? scenarioProgress(state, place.scenario) : null;
+  const verb: Record<YkiSkill, string> = { reading: "Зрозумій текст", listening: "Зрозумій на слух", speaking: "Скажи", writing: "Напиши" };
+  const titleOfStep = (itemId: string) => place.quests.find(q => q.itemId === itemId)?.title ?? itemId;
+  const stepStatus = { todo: "ще не пробував(ла)", done: "зроблено самостійно", supported: "зроблено з підтримкою тексту" } as const;
+
   return (
     <section className="panel place" aria-labelledby="place-title">
       <p className="eyebrow"><Icon name="home" size={18} /> <span>Моє господарство</span></p>
@@ -46,6 +51,26 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
       </dl>
 
       {guide && <Hospodar size={80} says={hospodarAtPlace(progress.doorOpen)} />}
+
+      {scenario && (
+        <section className="scenario" aria-labelledby="scenario-title" data-complete={scenario.complete ? "yes" : "no"}>
+          <h2 id="scenario-title">Ціла справа: від розуміння до дії</h2>
+          <p>Одна життєва ситуація цього місця по кроках: спершу зрозуміти, потім сказати, потім написати.</p>
+          <ol className="scenario-steps">
+            {scenario.steps.map((st, i) => (
+              <li key={st.itemId} data-status={st.status}>
+                <span>{verb[st.skill]} · <span lang="fi">{titleOfStep(st.itemId)}</span></span>
+                <small className="muted"> — {stepStatus[st.status]}{scenario.next === i ? " · наступний крок" : ""}</small>
+              </li>
+            ))}
+          </ol>
+          {scenario.next !== null
+            ? <button type="button" className="btn secondary" onClick={() => { const st = scenario.steps[scenario.next!]!; open(viewOfSkill(st.skill), st.itemId); }}>
+                {scenario.next === 0 ? "Почати справу" : `Продовжити: крок ${scenario.next + 1} з ${scenario.steps.length}`}</button>
+            : <p className="voice-status" role="status" data-testid="scenario-done">
+                Справу пройдено від початку до кінця{scenario.independent ? "" : " (аудіювання — з підтримкою тексту; спробуй ще раз без неї)"}. Письмо й говоріння не оцінюються автоматично — це твоя самостійна спроба, не оцінка.</p>}
+        </section>
+      )}
 
       <h2>Справи тут</h2>
       <ul className="choices" aria-label={`Справи: ${place.title_uk}`}>

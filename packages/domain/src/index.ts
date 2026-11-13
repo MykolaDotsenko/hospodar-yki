@@ -25,3 +25,4 @@ export * from "./examPrep.ts";
 export * from "./examSpeaking.ts";
 export * from "./deviceCheck.ts";
 export * from "./coverage.ts";
+export * from "./scenario.ts";

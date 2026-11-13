@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, clinicEvidence, clinicReducer, clinicView, draftSentences, startClinic, validateClinicItem, wordDiff,
+import { addDiagnostic, blankState, clinicEvidence, CLINIC_PLAN_FRAME_UK, CLINIC_PLAN_MAX_CHARS, clinicReducer, clinicView, draftSentences, startClinic, validateClinicItem, wordDiff,
   ClinicError, type ClinicEvent, type ClinicItem, type ClinicSession } from "../src/index.ts";
 
 const items: ClinicItem[] = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/high-yield/writing-repair-clinic.json", import.meta.url), "utf8")).items;
@@ -52,5 +52,22 @@ describe("writing clinic: draft → feedback → rewrite → new task (IV-REQ-07
     let st = blankState();
     for (const e of evs) st = addDiagnostic(st, e);
     expect(st.diagnostics.every(d => d.status === "ungraded" && !("correct" in d))).toBe(true);
+  });
+});
+
+describe("writing clinic: optional own plan before writing (pre-task-planning)", () => {
+  it("offers a short Ukrainian frame (addressee/purpose, task points, opening/closing), not a Finnish model", () => {
+    expect(CLINIC_PLAN_FRAME_UK).toHaveLength(3);
+    for (const line of CLINIC_PLAN_FRAME_UK) expect(line).not.toMatch(/[äö]/i);
+    expect(CLINIC_PLAN_MAX_CHARS).toBeGreaterThan(100);
+  });
+  it("a draft written after an own plan is labelled so; still ungraded, and the plan text is never stored as evidence", () => {
+    const I = items[0]!;
+    let s = startClinic(I);
+    s = clinicReducer(s, I, { type: "SUBMIT_DRAFT", text: "Hyvä vastaanottaja, kirjoitan teille ongelmasta." });
+    const [planned] = clinicEvidence(s, I, "draft", { planned: true });
+    expect(planned).toMatchObject({ status: "ungraded" });
+    expect(planned!.response).toMatch(/^\[independent draft after an own plan; self-check 0\//);
+    expect(clinicEvidence(s, I, "draft")[0]!.response).toMatch(/^\[independent draft; self-check/);
   });
 });

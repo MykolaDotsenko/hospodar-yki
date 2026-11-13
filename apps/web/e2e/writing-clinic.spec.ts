@@ -66,3 +66,42 @@ test("final save conflict keeps the learner on the new-task step with their text
   await expect(page.getByRole("heading", { name: "Нова ситуація — без зразка" })).toBeVisible();
   await expect(page.getByLabel(/Твій новий текст/)).toHaveValue(T);
 });
+
+test("pre-task planning: an optional own plan before writing stays in view while writing, comes back next to the model, and is absent in the new situation", async ({ page }) => {
+  const PLAN = "huoltoyhtiölle: läikkä, kauanko, milloin kotona";
+  await page.goto("./");
+  await page.getByTestId("nav-writing").click();
+  await page.getByRole("button", { name: /Kosteusvaurio epäilyttää/ }).click();
+  await page.getByRole("button", { name: "Спершу скласти план (за бажанням)" }).click();
+  await expect(page.locator(".plan-frame li")).toHaveCount(3);
+  await expect(page.getByLabel(/Твій текст фінською/)).toHaveCount(0);                     // plan first, then the text
+  expect(await serious(page)).toEqual([]);
+  await page.getByLabel(/Твій план/).fill(PLAN);
+  await page.getByRole("button", { name: "План готовий — писати" }).click();
+  await expect(page.getByTestId("clinic-plan")).toContainText(PLAN);                          // an outline in view while writing
+  await page.getByLabel(/Твій текст фінською/).fill(DRAFT);
+  await page.getByRole("button", { name: "Готово — перевірити себе" }).click();
+  await expect(page.getByTestId("clinic-plan")).toHaveCount(0);                                // not during self-check / spotting
+  await page.getByLabel("paikka").check();
+  await page.getByRole("button", { name: "Зберегти чернетку й далі" }).click();
+  await page.getByRole("button", { name: "Показати, що варто змінити" }).click();
+  await page.getByRole("button", { name: "Далі: зразок" }).click();
+  await expect(page.getByText(MODEL_START)).toBeVisible();
+  await expect(page.getByTestId("clinic-plan")).toContainText(PLAN);                          // back for self-comparison
+  await page.getByRole("button", { name: "Переписати свій текст" }).click();
+  await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
+  await expect(page.getByRole("heading", { name: "Нова ситуація — без зразка" })).toBeVisible();
+  await expect(page.getByTestId("clinic-plan")).toHaveCount(0);                                // independent: no plan, no model
+  await expect(page.getByRole("button", { name: /скласти план/ })).toHaveCount(0);
+});
+
+test("planning is optional: 'Без плану' goes straight to writing with no plan box", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-writing").click();
+  await page.getByRole("button", { name: /Kosteusvaurio epäilyttää/ }).click();
+  await page.getByRole("button", { name: "Спершу скласти план (за бажанням)" }).click();
+  await page.getByRole("button", { name: "Без плану" }).click();
+  await expect(page.getByLabel(/Твій текст фінською/)).toBeVisible();
+  await expect(page.getByTestId("clinic-plan")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /скласти план/ })).toHaveCount(0);           // offered once
+});

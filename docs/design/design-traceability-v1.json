@@ -5209,6 +5209,10 @@
         {
           "file": "packages/domain/test/examPrep.test.ts",
           "contains": "a repeat on a familiar set is labelled with exactly the skills it repeated (EXV-03)"
+        },
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "the LEARN listening pool never contains a lesson an EXAM blueprint uses (EXAM-11)"
         }
       ],
       "gap": "LEARN and EXAM pools are separated (audio by content hash, reading/practice pools exclude exam items) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists."
@@ -12055,7 +12059,7 @@
           "contains": "counts only FIRST attempts: a later correct retry adds no key; ungraded production is practice, not success"
         }
       ],
-      "gap": "A 9 themes × 4 skills map is built and checked: every LEARN item carries its YKI skill; the six long listening lessons now live in their places; content gaps are an explicit register that may only shrink (7 of 36 cells: identity/culture/society listening, identity/culture/health/environment writing) — filling them needs S2-authored material. Per-skill can-do lines are an editorial summary, not OPH criteria. Still missing: can-do per genre measured on unseen tasks (needs the held-out S2 bank), and speaking cells count typed role-play/reactions, not recorded speech."
+      "gap": "A 9 themes × 4 skills map is built and checked: every LEARN item carries its YKI skill; the six long listening lessons now live in their places; content gaps are an explicit register that may only shrink (9 of 36 cells: identity/housing/culture/work/society listening, identity/culture/health/environment writing — housing and work listening became gaps when the two EXAM listening lessons were held out of LEARN) — filling them needs S2-authored material. Per-skill can-do lines are an editorial summary, not OPH criteria. Still missing: can-do per genre measured on unseen tasks (needs the held-out S2 bank), and speaking cells count typed role-play/reactions, not recorded speech."
     },
     {
       "id": "human-anchor-calibration",
@@ -12074,9 +12078,17 @@
         {
           "file": "packages/domain/test/practice.test.ts",
           "contains": "free text kinds: model hidden until own answer, self-comparison required, transfer without model, never scored"
+        },
+        {
+          "file": "apps/web/e2e/scenario.spec.ts",
+          "contains": "whole task in a place: ordered steps, the first opens its lesson directly, an own attempt moves the task to the next step"
+        },
+        {
+          "file": "packages/domain/test/scenario.test.ts",
+          "contains": "orders understand → say → write, one item per skill; no scenario without understanding, speaking AND writing"
         }
       ],
-      "gap": "Short scenario tasks (dialogue, reaction, opinion with changed condition); no 20-minute multi-step scenario with task-success criteria."
+      "gap": "«Ціла справа» per place: one life situation as understand (reading/listening) → say (dialogue) → write (clinic), built from existing S2-pending LEARN items in 4 places (services, travel, work, society); a step is done after an own attempt, text-supported listening is shown as supported, success = done yourself, never a grade. Still missing: a 20-minute scenario with roles and changing conditions across steps, and explicit task-success criteria checked per step (writing/speaking stay ungraded until human raters)."
     },
     {
       "id": "error-bottleneck-deliberate",
@@ -12329,9 +12341,17 @@
         {
           "file": "packages/domain/test/practice.test.ts",
           "contains": "planning never changes the evidence status: the answer stays ungraded, the plan text is not stored"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "pre-task planning: an optional own plan before writing stays in view while writing, comes back next to the model, and is absent in the new situation"
+        },
+        {
+          "file": "packages/domain/test/writing-clinic.test.ts",
+          "contains": "a draft written after an own plan is labelled so; still ungraded, and the plan text is never stored as evidence"
         }
       ],
-      "gap": "Opinion cards offer an optional, untimed own plan (main idea, two reasons, an example) before speaking; it is hidden while answering and comes back next to the model. Dialogue role-play and the writing clinic have no planning step yet."
+      "gap": "Optional, untimed own plan before opinion monologues (hidden while speaking, back next to the model) and before writing in the writing clinic (an outline in view while writing, back next to the model; not offered in the independent new-situation transfer; session only, never stored or scored; the draft is labelled as written after a plan). Dialogue role-play has no planning step yet; effect on fluency/complexity not measured."
     },
     {
       "id": "chunk-learning",

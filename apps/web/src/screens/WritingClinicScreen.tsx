@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, clinicEvidence, clinicReducer, clinicView, startClinic, ClinicError, CLINIC_MAX_CHARS,
+import { addDiagnostic, clinicEvidence, clinicReducer, clinicView, startClinic, ClinicError, CLINIC_MAX_CHARS, CLINIC_PLAN_FRAME_UK, CLINIC_PLAN_MAX_CHARS,
   type ClinicEvent, type ClinicItem, type ClinicSession, type LearnerState } from "@hospodar/domain";
 import { clinicItems } from "../content/writingClinic.ts";
 import { clinicPayload, validClinicDraft } from "../storage/clinicDraft.ts";
@@ -105,6 +105,10 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
   const [error, setError] = useState<string | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const v = clinicView(s, item);
+  // Optional own plan (pre-task-planning): session only, never stored or scored; in view while writing, back next to the model.
+  const [planStep, setPlanStep] = useState<"none" | "editing" | "done">("none");
+  const [plan, setPlan] = useState("");
+  const ownPlan = planStep === "done" && plan.trim() ? plan.trim() : null;
   useEffect(() => { heading.current?.focus(); }, [s.phase]);
 
   function currentText() {
@@ -175,7 +179,7 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
       const current = latest.current;
       next = clinicReducer(clinicReducer(current, item, { type: "DRAFT_SAVED" }), item, { type: "CONTINUE" });
       newState = snap.current.state;
-      for (const ev of clinicEvidence(current, item, "draft")) newState = addDiagnostic(newState, ev);
+      for (const ev of clinicEvidence(current, item, "draft", { planned: Boolean(ownPlan) })) newState = addDiagnostic(newState, ev);
     } catch (e) { setError("Не вдалося підготувати запис (" + code(e) + ")."); return; }
     busy.current = true; setWorking(true); generation.current++; setError(null); setStatus("saving");
     try {
@@ -263,12 +267,31 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
       </p>}
       {error && <p className="feedback error" role="alert">{error}</p>}
 
-      {(s.phase === "write" || s.phase === "transfer") && (
+      {s.phase === "write" && planStep === "editing" && (
+        <form className="plan-step" onSubmit={e => { e.preventDefault(); setPlanStep("done"); }} noValidate>
+          <div className="prompt" lang="fi">{v.prompt_fi}</div>
+          <p>Короткий план перед письмом. Без таймера й без оцінки. План буде видно, поки пишеш, і повернеться поруч зі зразком. Він не зберігається — лише на цей раз.</p>
+          <ol className="plan-frame">{CLINIC_PLAN_FRAME_UK.map(q => <li key={q}>{q}</li>)}</ol>
+          <p>Пункти завдання: <span lang="fi">{v.required.join(" · ")}</span></p>
+          <label className="field" htmlFor="cl-plan">Твій план — ключові слова будь-якою мовою</label>
+          <textarea id="cl-plan" className="plan-notes" rows={4} maxLength={CLINIC_PLAN_MAX_CHARS} value={plan} onChange={e => setPlan(e.target.value)} />
+          <div className="actions">
+            <button type="submit" className="btn">План готовий — писати</button>
+            <button type="button" className="btn secondary" onClick={() => { setPlan(""); setPlanStep("done"); }}>Без плану</button>
+          </div>
+        </form>
+      )}
+
+      {(s.phase === "transfer" || (s.phase === "write" && planStep !== "editing")) && (
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); if (s.phase === "write")
           void advance({ type: "SUBMIT_DRAFT", text: currentText() });
           else void finish(); }} noValidate>
           <div className="prompt" lang="fi">{v.prompt_fi}</div>
           {s.phase === "write" && <p>Що має бути в тексті: <span lang="fi">{v.required.join(" · ")}</span>.</p>}
+          {s.phase === "write" && planStep === "none" && !text && (
+            <div className="actions"><button type="button" className="btn secondary" onClick={() => setPlanStep("editing")}>Спершу скласти план (за бажанням)</button></div>
+          )}
+          {s.phase === "write" && ownPlan && <div className="plan-back" data-testid="clinic-plan"><strong>Твій план:</strong> {ownPlan}</div>}
           {textarea(s.phase === "write" ? "cl-draft" : "cl-transfer",
             s.phase === "write" ? "Твій текст фінською (зразок з'явиться пізніше)" : "Твій новий текст фінською (зразка й чернетки тут немає)")}
           <div className="actions"><button type="submit" className="btn" disabled={working}>{s.phase === "write" ? "Готово — перевірити себе" : working ? "Зберігаю…" : "Зберегти й завершити"}</button></div>
@@ -324,6 +347,8 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
           <p className="muted">{v.model.note_uk}</p>
           <h2>Твій текст</h2>
           <div className="prompt transcript" lang="fi">{v.ownDraft}</div>
+          {ownPlan && <><h2>Твій план</h2><p className="plan-back" data-testid="clinic-plan">{ownPlan}</p>
+            <p className="muted">Порівняй: чи все з плану є в тексті й у зразку? Це самоперевірка, не оцінка.</p></>}
           <div className="actions"><button type="button" className="btn" disabled={working}
             onClick={() => void advance({ type: "CONTINUE" }, v.ownDraft ?? "")}>Переписати свій текст</button></div>
         </>

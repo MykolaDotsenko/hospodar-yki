@@ -27,6 +27,18 @@ export type ClinicEvent =
   | { type: "MARK"; sentences: number[] } | { type: "CONTINUE" }
   | { type: "SUBMIT_REWRITE"; text: string } | { type: "SUBMIT_TRANSFER"; text: string };
 
+/**
+ * Optional own pre-task plan before writing (pre-task-planning, learner-concept-map; research #26/#27). Unlike the spoken
+ * monologue, a writer keeps an outline in view while writing; it is NOT offered in the new-situation transfer (independent)
+ * and comes back next to the model for self-comparison. Never scored and never stored (session only).
+ */
+export const CLINIC_PLAN_FRAME_UK: readonly string[] = Object.freeze([
+  "Кому пишеш і навіщо — одним рядком.",
+  "Кожен пункт завдання — 1–3 слова (фінською або українською).",
+  "Як почнеш і як закінчиш текст.",
+]);
+export const CLINIC_PLAN_MAX_CHARS = 600;
+
 export const CLINIC_MIN_CHARS = 20;
 export const CLINIC_MAX_CHARS = 1600;
 export class ClinicError extends Error {
@@ -125,11 +137,11 @@ export function clinicView(s: ClinicSession, item: ClinicItem) {
 }
 
 /** All three texts are ungraded writing evidence, labelled by how independent they were. */
-export function clinicEvidence(s: ClinicSession, item: ClinicItem, which: "draft" | "final") {
+export function clinicEvidence(s: ClinicSession, item: ClinicItem, which: "draft" | "final", opts: { planned?: boolean } = {}) {
   const ev = (taskId: string, label: string, t: string) => ({ skill: "writing" as const, taskId, status: "ungraded" as const, response: `[${label}] ${t}` });
   if (which === "draft") {
     if (!s.draft) throw new ClinicError("NOT_ALLOWED", "No draft");
-    return [ev(item.id, `independent draft; self-check ${s.checked.length}/${item.required.length}`, s.draft)];
+    return [ev(item.id, `independent draft${opts.planned ? " after an own plan" : ""}; self-check ${s.checked.length}/${item.required.length}`, s.draft)];
   }
   if (s.phase !== "done") throw new ClinicError("NOT_ALLOWED", "Clinic not finished");
   return [ev(`${item.id}-rewrite`, "guided rewrite after model", s.rewrite), ev(`${item.id}-transfer`, "new task, no model shown", s.transfer)];
