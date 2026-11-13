@@ -12502,9 +12502,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "Paraphrase: frozen choice, key only after it, retell without options, verified save survives reload"
+        },
+        {
+          "file": "apps/web/e2e/reading.spec.ts",
+          "contains": "mediation after reading: explain the notice in Ukrainian to a friend without Finnish; no model, own self-check, ungraded"
+        },
+        {
+          "file": "packages/domain/test/mediation.test.ts",
+          "contains": "ungraded evidence: a Ukrainian relay counts as reading comprehension, simpler Finnish as writing; the self-check is counted, never scored"
         }
       ],
-      "gap": "Paraphrase retell exists at sentence level; no 'read/hear a notice → explain to a friend' mediation task."
+      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. Not yet after listening ('hear a notice → explain'), and no human feedback on whether the relay is accurate."
     },
     {
       "id": "digital-task-literacy",

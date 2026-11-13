@@ -351,3 +351,10 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Nothing recorded:** the microphone is not used. Only the learner's report of how the last round felt (easier / same / harder) is saved, ungraded (`<card>-fluency-432`).
 - **Code:** `packages/domain/src/fluency.ts` (`FLUENCY_ROUNDS_SECONDS`, `fluencySecondsLeft`, `fluencyEvidence`; `test/fluency.test.ts`), `PracticeScreen` (`RepeatedTelling`), `e2e/practice.spec.ts` (frozen Playwright clock).
 - **Not done:** a different listener each round (classic 4/3/2), any fluency measure, a measured effect.
+
+## 2026-11-13 — mediation after reading (cefr-mediation-paraphrase)
+
+- **Flow:** after a LEARN reading text is saved, «Поясни комусь, що тут написано» (optional): choose the audience — in Ukrainian to a friend who reads no Finnish, or in simpler Finnish to a neighbour — and write the explanation with the text available again behind «Текст ще раз». A three-question self-check (who/what, when/where, what to do).
+- **No model, no key:** nothing is compared automatically. Evidence is saved ungraded (`<item>-mediation`): a Ukrainian relay as reading comprehension, simpler Finnish as writing; commit + verified readback. EXAM texts never appear (LEARN pool only).
+- **Code:** `packages/domain/src/mediation.ts` (`MEDIATION_MODES`, `MEDIATION_CHECK_UK`, `mediationEvidence`; `test/mediation.test.ts`), `screens/MediationStep.tsx`, `ReadingScreen`, `e2e/reading.spec.ts`.
+- **Not done:** mediation after listening; human feedback on the accuracy of the relay.

@@ -7,6 +7,7 @@ import type { LearnerRepository, ReadingDraftRow } from "../storage/learnerRepos
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
+import { MediationStep } from "./MediationStep.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
 
 type Snap = { state: LearnerState; revision: number };
@@ -312,6 +313,7 @@ function Reading({ item, repository, snapshot, initialDraft, onSaved, onExit, on
       {s.phase === "done" && (
         <div className="feedback" role="status">
           <p><Icon name="ok" /> Збережено на цьому пристрої: відповіді з вибором — з першої спроби; відкриті відповіді й нове завдання — без оцінки.</p>
+          <MediationStep itemId={item.id} title_fi={item.title_fi} text_fi={item.text_fi} repository={repository} snapshot={snap.current} onSaved={s2 => { snap.current = s2; onSaved(s2); }} />
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку текстів</button></div>
         </div>
       )}
