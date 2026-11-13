@@ -7,7 +7,7 @@ const startedPlaying = (page: Page) => page.locator("audio").evaluate(a => a.dis
 async function open(page: Page) {
   await page.goto("./");
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
+  await page.getByRole("list", { name: "Аудіозаписи" }).getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
 }
 async function answerAll(page: Page) {
