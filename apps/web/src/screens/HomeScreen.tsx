@@ -30,20 +30,37 @@ const SKILL_WHAT_NL: Record<Skill, string> = {
   speaking: "Dialogen met vervolgvragen en veranderende situaties",
 };
 
-/** What the learner reads for each recommended step: the action, why now, and the button. Never a level or a score. */
-function describe(a: TodayAction): { title: string; why: string; cta: string; go: HomeTarget } {
+/** Action, timing and rationale remain the same in both locales; only presentation changes. */
+function describe(a: TodayAction, locale: UiLocale): { title: string; why: string; cta: string; go: HomeTarget } {
+  const L = (uk: string, nl: string) => tr(locale, uk, nl);
   switch (a.kind) {
-    case "delayed_check": return { title: "Сьогодні є відкладена перевірка: нове завдання без підказки.", go: "retention", cta: "Пройти",
-      why: "Чому зараз: минуло 7, 14 або 30 днів після заняття. Так видно, що справді залишилося в пам'яті." };
-    case "phrase_review": return { title: `Повтори фрази, які минулого разу не вдалося згадати: ${a.count}.`, go: "practice", cta: "Повторити фрази",
-      why: "Чому зараз: настав запланований день повторення саме цих фраз." };
-    case "grammar_review": return { title: `Повтори граматичні завдання, заплановані на сьогодні: ${a.count}.`, go: "mission", cta: "Повторити граматику",
-      why: "Чому зараз: настав запланований день повторення цих завдань." };
-    case "diagnostic": return { title: "Почни з короткого знайомства: по одному завданню на читання, письмо й говоріння.", go: "diagnostic", cta: "Почати діагностику",
-      why: "Чому з цього: так застосунок побачить твої перші відповіді. Рівень чи оцінку він не визначає." };
-    case "skill_practice": return { title: `Потренуй ${ACCUSATIVE[a.skill!]}.`, go: SKILL_VIEW[a.skill!], cta: `Тренувати ${ACCUSATIVE[a.skill!]}`,
-      why: a.reason === "never_practised" ? "Чому це: з цієї навички ще немає жодної твоєї відповіді."
-        : `Чому це: тут найменше практики серед чотирьох навичок — збережено відповідей: ${a.count}.` };
+    case "delayed_check": return {
+      title: L("Сьогодні є відкладена перевірка: нове завдання без підказки.", "Vandaag staat een herhaling zonder hints klaar."),
+      go: "retention", cta: L("Пройти", "Start"),
+      why: L("Чому зараз: минуло 7, 14 або 30 днів після заняття. Так видно, що справді залишилося в пам'яті.", "Waarom nu? Er zijn 7, 14 of 30 dagen verstreken. Zo zie je wat je echt hebt onthouden."),
+    };
+    case "phrase_review": return {
+      title: L(`Повтори фрази, які минулого разу не вдалося згадати: ${a.count}.`, `Herhaal de zinnen die je laatst niet kon ophalen: ${a.count}.`),
+      go: "practice", cta: L("Повторити фрази", "Zinnen herhalen"),
+      why: L("Чому зараз: настав запланований день повторення саме цих фраз.", "Waarom nu? Vandaag staan deze zinnen gepland voor herhaling."),
+    };
+    case "grammar_review": return {
+      title: L(`Повтори граматичні завдання, заплановані на сьогодні: ${a.count}.`, `Herhaal de grammaticataken voor vandaag: ${a.count}.`),
+      go: "mission", cta: L("Повторити граматику", "Grammatica herhalen"),
+      why: L("Чому зараз: настав запланований день повторення цих завдань.", "Waarom nu? Deze taken staan vandaag gepland voor herhaling."),
+    };
+    case "diagnostic": return {
+      title: L("Почни з короткого знайомства: по одному завданню на читання, письмо й говоріння.", "Begin met een korte kennismaking: een opdracht voor lezen, schrijven en spreken."),
+      go: "diagnostic", cta: L("Почати діагностику", "Kennismaking starten"),
+      why: L("Чому з цього: так застосунок побачить твої перші відповіді. Рівень чи оцінку він не визначає.", "Waarom eerst dit? De app ziet je eerste antwoorden, maar bepaalt geen niveau of cijfer."),
+    };
+    case "skill_practice": return {
+      title: L(`Потренуй ${ACCUSATIVE[a.skill!]}.`, `Oefen ${SKILL_NL[a.skill!].toLowerCase()}.`),
+      go: SKILL_VIEW[a.skill!], cta: L(`Тренувати ${ACCUSATIVE[a.skill!]}`, `${SKILL_NL[a.skill!]} oefenen`),
+      why: a.reason === "never_practised"
+        ? L("Чому це: з цієї навички ще немає жодної твоєї відповіді.", "Waarom? Voor deze vaardigheid heb je nog geen antwoorden opgeslagen.")
+        : L(`Чому це: тут найменше практики серед чотирьох навичок — збережено відповідей: ${a.count}.`, `Waarom? Dit is je minst geoefende vaardigheid: ${a.count} antwoorden opgeslagen.`),
+    };
   }
 }
 
@@ -57,11 +74,11 @@ export function HomeScreen({ state, go, openPlace, guide = false, locale = "uk" 
   const practice = state ? skillPracticeCounts(state) : { reading: 0, listening: 0, writing: 0, speaking: 0 };
   const plan = state ? todayPlan({ delayedDue, phrasesDue, grammarDue, practice,
     hasAnyEvidence: state.attempts.length > 0 || state.diagnostics.length > 0 }) : [];
-  const [first, ...rest] = plan.map(describe);
+  const [first, ...rest] = plan.map(a => describe(a, locale));
   const tileState = (skill: Skill) => {
     const q = skillQueue.find(x => x.skill === skill);
-    const saved = practice[skill] ? `Збережено відповідей: ${practice[skill]}` : "Ще не тренувалося";
-    const later = q?.due ? " · відкладена перевірка сьогодні" : q?.anchorDate && q.nextDay ? ` · перевірка через ${q.nextDay - q.ageDays} дн.` : "";
+    const saved = practice[skill] ? L(`Збережено відповідей: ${practice[skill]}`, `Opgeslagen antwoorden: ${practice[skill]}`) : L("Ще не тренувалося", "Nog niet geoefend");
+    const later = q?.due ? L(" · відкладена перевірка сьогодні", " · herhaling vandaag") : q?.anchorDate && q.nextDay ? L(` · перевірка через ${q.nextDay - q.ageDays} дн.`, ` · herhaling over ${q.nextDay - q.ageDays} dagen`) : "";
     return saved + later;
   };
   const estate = state ? placeProgress(state, placeIndex) : [];
@@ -69,12 +86,21 @@ export function HomeScreen({ state, go, openPlace, guide = false, locale = "uk" 
   const workshop = state ? workshopStatus(state, FAMILIES, workshopItems, localDate()) : [];
   const weakSpots = workshop.filter(w => w.isBottleneck).length, retestToday = workshop.some(w => w.retestDue);
   const more: { id: string; icon: IconName; label: string; note: string; to: HomeTarget }[] = [
-    { id: "workshop", icon: "grammar", label: `Майстерня слабких місць${retestToday ? " · перевірка сьогодні" : weakSpots ? ` · слабких місць: ${weakSpots}` : ""}`,
-      note: "Нові завдання впереміш на твої повторювані помилки", to: "workshop" },
-    { id: "practice", icon: "practice", label: `Практика без підказки${phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}`, note: "Фрази, реакції, власна думка", to: "practice" },
-    { id: "pictures", icon: "photo", label: "Фото-місії", note: "Опиши справжнє місце у Фінляндії", to: "pictures" },
-    { id: "media", icon: "media", label: "Медіатека", note: "Живі голоси й відео з джерелами", to: "media" },
-    { id: "diagnostic", icon: "start", label: state?.diagnostics.some(d => d.skill === "writing") ? "Стартова діагностика (ще раз)" : "Стартова діагностика", note: "Короткі завдання без оцінки рівня", to: "diagnostic" },
+    { id: "workshop", icon: "grammar",
+      label: L(`Майстерня слабких місць${retestToday ? " · перевірка сьогодні" : weakSpots ? ` · слабких місць: ${weakSpots}` : ""}`,
+        `Werkplaats voor lastige punten${retestToday ? " · controle vandaag" : weakSpots ? ` · aandachtspunten: ${weakSpots}` : ""}`),
+      note: L("Нові завдання впереміш на твої повторювані помилки", "Gevarieerde taken voor fouten die je vaak maakt"), to: "workshop" },
+    { id: "practice", icon: "practice",
+      label: L(`Практика без підказки${phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}`,
+        `Oefenen zonder hints${phrasesDue > 0 ? ` · ${phrasesDue} herhalen` : ""}`),
+      note: L("Фрази, реакції, власна думка", "Zinnen, reacties en je eigen mening"), to: "practice" },
+    { id: "pictures", icon: "photo", label: L("Фото-місії", "Foto-opdrachten"),
+      note: L("Опиши справжнє місце у Фінляндії", "Beschrijf een echte plek in Finland"), to: "pictures" },
+    { id: "media", icon: "media", label: L("Медіатека", "Mediabibliotheek"),
+      note: L("Живі голоси й відео з джерелами", "Echte stemmen en video's met bronvermelding"), to: "media" },
+    { id: "diagnostic", icon: "start",
+      label: state?.diagnostics.some(d => d.skill === "writing") ? L("Стартова діагностика (ще раз)", "Kennismaking (opnieuw)") : L("Стартова діагностика", "Kennismaking"),
+      note: L("Короткі завдання без оцінки рівня", "Korte opdrachten zonder niveaucijfer"), to: "diagnostic" },
   ];
 
   return (
