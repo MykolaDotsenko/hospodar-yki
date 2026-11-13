@@ -10,6 +10,7 @@ import { skillRetentionBank } from "../content/skillRetention.ts";
 import { transferBank } from "../content/transfer.ts";
 import { Icon, type IconName } from "../ui/icons.tsx";
 import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
+import { tr, type UiLocale } from "../uiLocale.ts";
 
 export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
@@ -21,6 +22,13 @@ const SKILL_WHAT: Record<Skill, string> = {
   speaking: "Діалоги з уточненнями і зміною умов",
 };
 const ACCUSATIVE: Record<Skill, string> = { reading: "читання", listening: "аудіювання", writing: "письмо", speaking: "говоріння" };
+const SKILL_NL: Record<Skill, string> = { reading: "Lezen", listening: "Luisteren", writing: "Schrijven", speaking: "Spreken" };
+const SKILL_WHAT_NL: Record<Skill, string> = {
+  reading: "Teksten en vragen: eerst antwoorden, daarna het bewijs in de tekst zoeken",
+  listening: "Audio: eerst luisteren en antwoorden, daarna de transcriptie",
+  writing: "Schrijfwerkplaats: jouw tekst, feedback en een nieuwe situatie",
+  speaking: "Dialogen met vervolgvragen en veranderende situaties",
+};
 
 /** What the learner reads for each recommended step: the action, why now, and the button. Never a level or a score. */
 function describe(a: TodayAction): { title: string; why: string; cta: string; go: HomeTarget } {
@@ -39,7 +47,8 @@ function describe(a: TodayAction): { title: string; why: string; cta: string; go
   }
 }
 
-export function HomeScreen({ state, go, openPlace, guide = false }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean }) {
+export function HomeScreen({ state, go, openPlace, guide = false, locale = "uk" }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean; locale?: UiLocale }) {
+  const L = (uk: string, nl: string) => tr(locale, uk, nl);
   const done = state?.attempts.length ?? 0;
   const grammarDue = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
@@ -70,68 +79,67 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
 
   return (
     <section aria-labelledby="home-title">
-      <h1 id="home-title">Що сьогодні робимо?</h1>
+      <h1 id="home-title">{L("Що сьогодні робимо?", "Wat gaan we vandaag doen?")}</h1>
 
       {first && (
         <section className="today" aria-labelledby="today-title">
-          <h2 id="today-title" className="today-kicker">Твій наступний крок</h2>
+          <h2 id="today-title" className="today-kicker">{L("Твій наступний крок", "Jouw volgende stap")}</h2>
           <p className="today-title">{first.title}</p>
           <p className="today-why">{first.why}</p>
           <div className="actions"><button type="button" className="btn" onClick={() => go(first.go)}>{first.cta}</button></div>
           {rest.length > 0 && (
-            <ul className="today-rest" aria-label="Також на сьогодні">
+            <ul className="today-rest" aria-label={L("Також на сьогодні", "Ook voor vandaag")}>
               {rest.map(r => <li key={r.cta}><span>{r.title}</span> <button type="button" className="btn secondary" onClick={() => go(r.go)}>{r.cta}</button></li>)}
             </ul>
           )}
-          <p className="muted today-count" aria-live="polite">Виконано місій: <strong>{done}</strong> · на повторення сьогодні: <strong>{grammarDue}</strong></p>
+          <p className="muted today-count" aria-live="polite">{L("Виконано місій:", "Voltooide opdrachten:")} <strong>{done}</strong> · {L("на повторення сьогодні:", "vandaag te herhalen:")} <strong>{grammarDue}</strong></p>
         </section>
       )}
 
       <div className="mode-gateway">
         <button type="button" className="mode-entry mode-entry-learn" onClick={() => go("mission")}>
           <span className="mode-number">01</span>
-          <strong>Навчання</strong>
-          <small>Граматика в контексті: спершу власна відповідь, потім підказка й самовиправлення.</small>
-          <span className="mode-cta">{done ? "Продовжити" : "Почати місію"} →</span>
+          <strong>{L("Навчання", "Leren")}</strong>
+          <small>{L("Граматика в контексті: спершу власна відповідь, потім підказка й самовиправлення.", "Grammatica in context: eerst zelf antwoorden, daarna hints en zelfcorrectie.")}</small>
+          <span className="mode-cta">{done ? L("Продовжити", "Verdergaan") : L("Почати місію", "Opdracht starten")} →</span>
         </button>
         <button type="button" className="mode-entry mode-entry-exam" onClick={() => go("exam")} aria-describedby="exam-note">
           <span className="mode-number">02</span>
-          <strong>Симуляція YKI</strong>
-          <small id="exam-note">Тренувальна репетиція з 4 навичок, без підказок. Не офіційний YKI: правила цифрового іспиту 2027 ще не підтверджено.</small>
-          <span className="mode-cta">Почати репетицію →</span>
+          <strong>{L("Симуляція YKI", "YKI-oefenexamen")}</strong>
+          <small id="exam-note">{L("Тренувальна репетиція з 4 навичок, без підказок. Не офіційний YKI: правила цифрового іспиту 2027 ще не підтверджено.", "Oefenexamen met vier vaardigheden, zonder hints. Niet officieel: de regels voor het digitale YKI-examen van 2027 zijn nog niet bevestigd.")}</small>
+          <span className="mode-cta">{L("Почати репетицію", "Oefenexamen starten")} →</span>
         </button>
       </div>
 
       {/* «Моє господарство»: the name made visible — life in Finland as nine places. Game elements only where research
           allows them: free choice, never locked, a key only for a correct first independent answer, nothing decays (R08-MOT). */}
       <nav className="estate" aria-labelledby="estate-title">
-        <h2 id="estate-title">Моє господарство у Фінляндії</h2>
+        <h2 id="estate-title">{L("Моє господарство у Фінляндії", "Mijn leefwereld in Finland")}</h2>
         {guide && state && <Hospodar says={hospodarHome(hospodarMoment(state, new Date()), new Date())} />}
-        <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
-          ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
+        <p className="estate-about">{L("Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби, ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.", "Kies een plek uit het dagelijks leven. Na je eerste poging gaat de deur open; elk juist eerste antwoord zonder hints geeft een sleutel. Niets zit op slot en je verliest geen sleutels.")}</p>
         <ul className="estate-grid">
           {places.map(pl => {
             const p = estate.find(x => x.place === pl.id);
             return (
               <li key={pl.id}><button type="button" className="place-tile" data-testid={`place-${pl.id}`} data-door={p?.doorOpen ? "open" : "closed"} onClick={() => openPlace(pl.id)}>
                 <PlaceGlyph open={Boolean(p?.doorOpen)} />
-                <span className="place-tile-text"><strong>{pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
-                  <small>{p?.doorOpen ? <><Icon name="key" size={15} /> ключів: {p.keys} · спроб фінською: {p.practice}</> : "Двері ще зачинені"}</small></span>
+                <span className="place-tile-text"><strong lang={locale === "nl" ? "fi" : "uk"}>{locale === "nl" ? pl.title_fi : pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
+                  <small>{p?.doorOpen ? <><Icon name="key" size={15} /> {L("ключів:", "sleutels:")} {p.keys} · {L("спроб фінською:", "pogingen in het Fins:")} {p.practice}</> : L("Двері ще зачинені", "Deur nog niet geopend")}</small></span>
               </button></li>
             );
           })}
         </ul>
-        <p className="muted estate-count">Відчинено дверей: <strong>{doors}</strong> з {places.length} · ключів: <strong>{keys}</strong></p>
+        <p className="muted estate-count">{L("Відчинено дверей:", "Geopende deuren:")} <strong>{doors}</strong> {L("з", "van")} {places.length} · {L("ключів:", "sleutels:")} <strong>{keys}</strong></p>
       </nav>
 
       <nav aria-labelledby="skills-title">
-        <h2 id="skills-title">Чотири навички</h2>
+        <h2 id="skills-title">{L("Чотири навички", "Vier vaardigheden")}</h2>
         <ul className="skill-grid">
           {(Object.keys(SKILL_VIEW) as Skill[]).map(skill => (
             <li key={skill}>
               <button type="button" className="skill-tile" data-accent={skill} data-testid={`nav-${skill}`} onClick={() => go(SKILL_VIEW[skill])}>
-                <span className="skill-tile-head"><Icon name={skill} size={24} /><strong>{SKILL_UK[skill]}</strong><span lang="fi" className="skill-tile-fi">{SKILL_FI[skill]}</span></span>
-                <span className="skill-tile-what">{SKILL_WHAT[skill]}</span>
+                <span className="skill-tile-head"><Icon name={skill} size={24} /><strong>{locale === "nl" ? SKILL_NL[skill] : SKILL_UK[skill]}</strong><span lang="fi" className="skill-tile-fi">{SKILL_FI[skill]}</span></span>
+                <span className="skill-tile-what">{locale === "nl" ? SKILL_WHAT_NL[skill] : SKILL_WHAT[skill]}</span>
                 <small>{tileState(skill)}</small>
               </button>
             </li>
@@ -140,7 +148,7 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
       </nav>
 
       <nav aria-labelledby="more-title">
-        <h2 id="more-title">Ще вправи</h2>
+        <h2 id="more-title">{L("Ще вправи", "Meer oefeningen")}</h2>
         <ul className="more-grid">
           {more.map(m => (
             <li key={m.id}><button type="button" className="more-tile" data-testid={`nav-${m.id}`} onClick={() => go(m.to)}>
@@ -150,13 +158,13 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
         </ul>
       </nav>
 
-      <nav className="utility" aria-label="Прогрес і дані">
-        <button type="button" className="link-btn" onClick={() => go("progress")}><Icon name="steps" size={18} /> Мій прогрес</button>
-        <button type="button" className="link-btn" onClick={() => go("data")}>Мої дані: копія й видалення</button>
-        <button type="button" className="link-btn" onClick={() => go("offline")}>Офлайн-доступ</button>
-        <button type="button" className="link-btn" onClick={() => go("import")}>Перенести прогрес з попередньої версії</button>
+      <nav className="utility" aria-label={L("Прогрес і дані", "Voortgang en gegevens")}>
+        <button type="button" className="link-btn" onClick={() => go("progress")}><Icon name="steps" size={18} /> {L("Мій прогрес", "Mijn voortgang")}</button>
+        <button type="button" className="link-btn" onClick={() => go("data")}>{L("Мої дані: копія й видалення", "Mijn gegevens: back-up en verwijderen")}</button>
+        <button type="button" className="link-btn" onClick={() => go("offline")}>{L("Офлайн-доступ", "Offline toegang")}</button>
+        <button type="button" className="link-btn" onClick={() => go("import")}>{L("Перенести прогрес з попередньої версії", "Voortgang uit vorige versie importeren")}</button>
       </nav>
-      <p className="qualification">Навчання дозволяє підказки після твоєї відповіді — симуляція їх приховує. Вправи — чернетки, ще не перевірені викладачем фінської як другої мови (S2).</p>
+      <p className="qualification">{L("Навчання дозволяє підказки після твоєї відповіді — симуляція їх приховує. Вправи — чернетки, ще не перевірені викладачем фінської як другої мови (S2).", "Tijdens het leren kun je na je antwoord hints krijgen; tijdens het oefenexamen niet. De oefeningen zijn concepten die nog niet door een docent Fins als tweede taal (S2) zijn beoordeeld.")}</p>
     </section>
   );
 }
