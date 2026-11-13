@@ -11824,9 +11824,17 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "apps/web/e2e/exam-device.spec.ts",
+          "contains": "device check: a test tone the learner confirms and a 3-second mic level check; nothing recorded, the mic is switched off"
+        },
+        {
+          "file": "packages/domain/test/deviceCheck.test.ts",
+          "contains": "asks only for the devices the chosen skills need"
         }
       ],
-      "gap": "No aids before finish and LEARN isolation are tested; no system-check screen for headphones/mic and no dedicated focus mode."
+      "gap": "No aids before finish, LEARN isolation and an advisory headphone/mic check before the start are tested (tone + learner report; 3 s loudness metering, never recorded; never blocks — typed plan remains). Still missing: dedicated focus mode without app navigation, update-never-interrupts proof on a real device, real-device mic/headphone testing (CI uses a Web Audio fake microphone)."
     },
     {
       "id": "TZ-EXAM-18",
@@ -12033,9 +12041,21 @@
         {
           "file": "apps/web/src/content/places.test.ts",
           "contains": "every place offers at least two real communicative missions (a game element is always a real task)"
+        },
+        {
+          "file": "apps/web/src/content/places.test.ts",
+          "contains": "YKI preparation map: 9 themes × 4 skills is checked; content gaps are an explicit register that may only shrink"
+        },
+        {
+          "file": "apps/web/e2e/yki-map.spec.ts",
+          "contains": "YKI map: 9 themes × 4 skills, honest content gaps, counts only — and a listening lesson opened from its place fills its cell"
+        },
+        {
+          "file": "packages/domain/test/coverage.test.ts",
+          "contains": "counts only FIRST attempts: a later correct retry adds no key; ungraded production is practice, not success"
         }
       ],
-      "gap": "EXAM rehearsal covers 4 skills; the nine YKI themes now organise LEARN as places, but no can-do coverage map is checked."
+      "gap": "A 9 themes × 4 skills map is built and checked: every LEARN item carries its YKI skill; the six long listening lessons now live in their places; content gaps are an explicit register that may only shrink (7 of 36 cells: identity/culture/society listening, identity/culture/health/environment writing) — filling them needs S2-authored material. Per-skill can-do lines are an editorial summary, not OPH criteria. Still missing: can-do per genre measured on unseen tasks (needs the held-out S2 bank), and speaking cells count typed role-play/reactions, not recorded speech."
     },
     {
       "id": "human-anchor-calibration",

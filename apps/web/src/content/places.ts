@@ -7,11 +7,12 @@
  * Life goals and real-life deeds are Ukrainian editorial drafts (no Finnish answer keys); the app never
  * tracks the deeds (MOT-03). Status: draft, not S2-reviewed.
  */
-import { buildPlaceIndex, placeOfTheme, PLACE_IDS, type PlaceId, type PlaceItem, type PracticeKind } from "@hospodar/domain";
+import { buildPlaceIndex, placeOfTheme, PLACE_IDS, type PlaceId, type PlaceItem, type PracticeKind, type YkiSkill } from "@hospodar/domain";
 import { readingItems } from "./reading.ts";
 import { dialogues } from "./dialogues.ts";
 import { clinicItems } from "./writingClinic.ts";
 import { PRACTICE_KINDS, practiceCards } from "./practice.ts";
+import { listeningLessons } from "./listening.ts";
 
 const themeFiles = import.meta.glob("../../../../learning/exercises/b1/themes/*.json", { eager: true, import: "default" }) as Record<string, { id: string; title_fi: string; title_uk: string }>;
 const THEME_FILE: Record<PlaceId, string> = {
@@ -37,8 +38,9 @@ const LIFE: Record<PlaceId, { goal_uk: string; deed_uk: string }> = {
   society: { goal_uk: "Впоратися з офіційними справами: Kela, курси, онлайн-послуги міста.", deed_uk: "Відкрий сайт свого міста фінською й знайди одну сторінку, яка тобі справді потрібна." },
 };
 
-export type QuestView = "reading" | "dialogue" | "writing" | "practice";
-export interface Quest { view: QuestView; itemId: string; kindUk: string; title: string; titleLang: "fi" | "uk"; practiceKind?: PracticeKind; count?: number }
+export type QuestView = "reading" | "listening" | "dialogue" | "writing" | "practice";
+export interface Quest { view: QuestView; itemId: string; kindUk: string; title: string; titleLang: "fi" | "uk"; practiceKind?: PracticeKind; count?: number;
+  /** Evidence task ids start with this when it differs from itemId (listening questions). */ taskPrefix?: string }
 export interface Place { id: PlaceId; title_fi: string; title_uk: string; goal_uk: string; deed_uk: string; quests: Quest[] }
 
 const readingPlace = (id: string): PlaceId | null => placeOfTheme(id.split("-").pop());          // ctx-reading-01-identity
@@ -48,23 +50,38 @@ const indexItems: PlaceItem[] = [];
 const questsBy = new Map<PlaceId, Quest[]>(PLACE_IDS.map(p => [p, []]));
 for (const r of readingItems) {
   const p = readingPlace(r.id); if (!p) continue;
-  indexItems.push({ itemId: r.id, place: p });
+  indexItems.push({ itemId: r.id, place: p, skill: "reading" });
   questsBy.get(p)!.push({ view: "reading", itemId: r.id, kindUk: "Читання", title: r.title_fi, titleLang: "fi" });
 }
 for (const d of dialogues) {
   const p = placeOfTheme(themeOf(d)); if (!p) continue;
-  indexItems.push({ itemId: d.id, place: p });
+  indexItems.push({ itemId: d.id, place: p, skill: "speaking" });          // role-play replies (typed today)
   questsBy.get(p)!.push({ view: "dialogue", itemId: d.id, kindUk: "Діалог", title: d.title_fi, titleLang: "fi" });
 }
 for (const c of clinicItems) {
   const p = placeOfTheme((c as unknown as { topic?: string }).topic); if (!p) continue;
-  indexItems.push({ itemId: c.id, place: p });
+  indexItems.push({ itemId: c.id, place: p, skill: "writing" });
   questsBy.get(p)!.push({ view: "writing", itemId: c.id, kindUk: "Письмо", title: c.title_fi, titleLang: "fi" });
 }
+/** Long listening lessons: question ids share one prefix (b1long-1-q1…), which is the evidence key. */
+const questionPrefix = (ids: string[]) => {
+  const prefixes = new Set(ids.map(id => id.replace(/-q\d+$/, "")));
+  if (prefixes.size !== 1) throw new Error(`listening questions do not share one prefix: ${ids.join(", ")}`);
+  return [...prefixes][0]!;
+};
+for (const l of listeningLessons) {
+  const p = placeOfTheme((l as unknown as { topic?: string }).topic); if (!p) continue;      // literature stories belong to no place
+  const prefix = questionPrefix(l.questions.map(q => q.id));
+  indexItems.push({ itemId: prefix, place: p, skill: "listening" });
+  questsBy.get(p)!.push({ view: "listening", itemId: l.id, taskPrefix: prefix, kindUk: "Аудіювання", title: l.title_fi, titleLang: "fi" });
+}
+/** Practice kinds → the YKI skill they train; vocabulary and rektio cards train no single skill. */
+const PRACTICE_SKILL: Partial<Record<PracticeKind, YkiSkill>> = { paraphrase: "reading", reaction: "speaking", opinion: "speaking" };
 const practiceBy = new Map<string, { place: PlaceId; kind: PracticeKind; ids: string[] }>();
 for (const c of practiceCards) {
   const p = placeOfTheme(c.group); if (!p) continue;                     // grammar groups (cases) belong to no place
-  indexItems.push({ itemId: c.id, place: p });
+  const skill = PRACTICE_SKILL[c.kind];
+  indexItems.push({ itemId: c.id, place: p, ...(skill ? { skill } : {}) });
   const key = `${p}:${c.kind}`;
   if (!practiceBy.has(key)) practiceBy.set(key, { place: p, kind: c.kind, ids: [] });
   practiceBy.get(key)!.ids.push(c.id);

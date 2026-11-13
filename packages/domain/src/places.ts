@@ -28,24 +28,28 @@ const ALIASES: Record<string, PlaceId> = {
   work: "work",
   environment: "environment",
   society: "society", official: "society", authorities: "society", courses: "society", education: "society",
+  // Combined topic keys of the long listening lessons → the place their situation belongs to (editorial).
+  education_work: "work", shopping_services: "services", community_environment: "environment", health_leisure: "health",
 };
 export function placeOfTheme(key: string | null | undefined): PlaceId | null {
   return key ? ALIASES[key] ?? null : null;
 }
 
 /** One LEARN content item that belongs to a place. Every evidence taskId of the item starts with `itemId`. */
-export interface PlaceItem { itemId: string; place: PlaceId }
+export interface PlaceItem { itemId: string; place: PlaceId; /** The YKI skill it trains; none for vocabulary/grammar-only cards. */ skill?: YkiSkill }
+export const YKI_SKILLS = ["reading", "listening", "writing", "speaking"] as const;
+export type YkiSkill = typeof YKI_SKILLS[number];
 export interface PlaceIndex { readonly items: readonly PlaceItem[] }
 
 export function buildPlaceIndex(items: PlaceItem[]): PlaceIndex {
-  const seen = new Map<string, PlaceId>();
+  const seen = new Map<string, PlaceItem>();
   for (const i of items) {
     const prev = seen.get(i.itemId);
-    if (prev && prev !== i.place) throw new Error(`item ${i.itemId} is assigned to two places`);
-    seen.set(i.itemId, i.place);
+    if (prev && (prev.place !== i.place || prev.skill !== i.skill)) throw new Error(`item ${i.itemId} is assigned to two places or skills`);
+    seen.set(i.itemId, { itemId: i.itemId, place: i.place, ...(i.skill ? { skill: i.skill } : {}) });
   }
   // Longest id first, so "x-10" is never swallowed by "x-1".
-  return Object.freeze({ items: Object.freeze([...seen].map(([itemId, place]) => ({ itemId, place })).sort((a, b) => b.itemId.length - a.itemId.length)) });
+  return Object.freeze({ items: Object.freeze([...seen.values()].sort((a, b) => b.itemId.length - a.itemId.length)) });
 }
 
 /** The item a piece of evidence belongs to: exact id or id followed by "-". */

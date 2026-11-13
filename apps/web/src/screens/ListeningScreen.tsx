@@ -13,10 +13,12 @@ type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ListeningDraftRow | null; blocked: string | null };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
-export function ListeningScreen({ repository, snapshot, onSaved, onHome }: {
+export function ListeningScreen({ repository, snapshot, onSaved, onHome, initialId }: {
   repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void;
+  /** Opened from a place: start this lesson (an unfinished draft still wins and is resumed first). */
+  initialId?: string | null;
 }) {
-  const [selected, setSelected] = useState<ListeningLesson | null>(null);
+  const [selected, setSelected] = useState<ListeningLesson | null>(() => listeningLessons.find(l => l.id === initialId) ?? null);
   const [loaded, setLoaded] = useState<Loaded>({ kind: "loading" });
   const [loadError, setLoadError] = useState<string | null>(null);
   const [discarding, setDiscarding] = useState(false);

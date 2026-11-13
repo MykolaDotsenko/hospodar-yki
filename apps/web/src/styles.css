@@ -270,6 +270,9 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .exam-voice { margin: var(--space-base) 0; padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; }
 .voice-status { border-left: 4px solid var(--navy); padding: 10px 14px; margin: var(--space-sm) 0; background: var(--surface-subtle); color: var(--ink); }
 .voice-status.warn { border-left-color: var(--gold); background: var(--warn-tint); }
+.device-row { border-top: 1px solid var(--stroke); padding-top: var(--space-sm); margin-top: var(--space-sm); }
+.device-row p { margin: var(--space-xs) 0; }
+.device-check meter { inline-size: min(100%, 12rem); block-size: 1rem; vertical-align: middle; margin-inline-start: var(--space-sm); }
 .exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
 .exam-save { font-size: .85rem; margin: var(--space-sm) 0 0; }
 .exam-history small { display: block; }
@@ -356,3 +359,10 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .plan-frame { margin: var(--space-sm) 0 var(--space-md); padding-left: 1.4em; color: var(--muted); }
 .plan-back { padding: var(--space-sm) var(--space-md); border-left: 3px solid var(--stroke); }
 textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1.1rem; }   /* any language: no lang="fi" */
+/* YKI preparation map: 9 themes × 4 skills (counts only, no colour-coded judgement) */
+.yki-map-scroll { max-width: 100%; overflow-x: auto; }
+.yki-map-table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+.yki-map-table th, .yki-map-table td { border-bottom: 1px solid var(--stroke); padding: var(--space-xs) var(--space-sm); text-align: left; vertical-align: top; }
+.yki-map-table thead th { font-size: .85rem; }
+.yki-map-table td[data-cell="gap"] { color: var(--muted); }
+.linkish { background: none; border: 0; padding: 0; min-height: 24px; color: var(--navy); text-decoration: underline; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }

@@ -115,17 +115,29 @@ test("E06: a denied microphone is reported honestly; the text plan remains the a
   await expect(page.getByText(/Твій запис/)).toHaveCount(0);
 });
 
+/** Playwright's installed clock keeps running in real time; the timed tests freeze it so slow engines cannot eat the window. */
+const T_INSTALL = new Date("2026-11-12T09:00:00+02:00");
+const T_PAUSE = new Date("2026-11-12T09:10:00+02:00");
+
 test("TZ-EXAM-11: timed speaking task — preparation countdown, recording starts by itself, the response window ends it; times are labelled as practice", async ({ page }) => {
-  await page.clock.install({ time: new Date("2026-11-12T09:00:00+02:00") });
+  await page.clock.install({ time: T_INSTALL });
   await speakingOnly(page);
   await expect(page.getByText(/Harjoitusajat — virallisia vuoden 2027 aikoja ei ole vahvistettu/)).toBeVisible();
-  await page.getByRole("button", { name: "Aloita ajastettu tehtävä" }).click();
   const timer = page.getByTestId("speaking-timer");
+  // Accessibility of the preparation screen first (axe needs running timers), then cancel and replay on a frozen clock.
+  await page.getByRole("button", { name: "Aloita ajastettu tehtävä" }).click();
+  await expect(timer).toContainText(/Valmistautumisaika 0:[0-3]\d/);
+  await noLearningAids(page);
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Peruuta ajastus" }).click();
+
+  await page.clock.pauseAt(T_PAUSE);                                                          // only runFor moves exam time
+  await page.getByRole("button", { name: "Aloita ajastettu tehtävä" }).click();
   await expect(timer).toContainText("Valmistautumisaika 0:30");
   await expect(page.getByRole("button", { name: /Nauhoita vastaus/ })).toBeDisabled();       // no early start during preparation
   await expect(page.getByText("Nauhoitus käynnissä.")).toHaveCount(0);                          // the mic is not on while preparing
-  await noLearningAids(page);
-  expect(await serious(page)).toEqual([]);
+  await page.waitForTimeout(1_500);                                                           // real time passes (slow CI); the exam clock must not
+  await expect(timer).toContainText("Valmistautumisaika 0:30");
 
   await page.clock.runFor(29_000);
   await expect(timer).toContainText("Valmistautumisaika 0:01");
@@ -134,6 +146,7 @@ test("TZ-EXAM-11: timed speaking task — preparation countdown, recording start
   await expect(timer).toContainText(/Vastausaika [01]:\d\d/);
   await expect(page.getByRole("button", { name: "Lopeta koe" })).toBeDisabled();
   await page.clock.runFor(60_000);
+  await page.clock.runFor(1_000);                                                             // the recorder's queued onstop
   await expect(page.getByText("Nauhoitus käynnissä.")).toHaveCount(0);                          // the response window ended it
   await expect(page.getByText(/Запис НЕ збережено: згоди на збереження немає/)).toBeVisible();
   await expect(timer).toHaveCount(0);
@@ -142,8 +155,9 @@ test("TZ-EXAM-11: timed speaking task — preparation countdown, recording start
 });
 
 test("TZ-EXAM-11: the timed task can be cancelled during preparation and stopped early", async ({ page }) => {
-  await page.clock.install({ time: new Date("2026-11-12T09:00:00+02:00") });
+  await page.clock.install({ time: T_INSTALL });
   await speakingOnly(page);
+  await page.clock.pauseAt(T_PAUSE);                                                          // only runFor moves exam time
   await page.getByRole("button", { name: "Aloita ajastettu tehtävä" }).click();
   await page.getByRole("button", { name: "Peruuta ajastus" }).click();
   await expect(page.getByTestId("speaking-timer")).toHaveCount(0);
@@ -154,6 +168,7 @@ test("TZ-EXAM-11: the timed task can be cancelled during preparation and stopped
   await page.clock.runFor(31_000);
   await expect(page.getByText("Nauhoitus käynnissä.")).toBeVisible();
   await page.getByRole("button", { name: /Lopeta nauhoitus/ }).click();                         // the learner may finish early
+  await page.clock.runFor(1_000);                                                             // the recorder's queued onstop
   await expect(page.getByText("Nauhoitus käynnissä.")).toHaveCount(0);
   await expect(page.getByTestId("speaking-timer")).toHaveCount(0);
 });
@@ -163,8 +178,9 @@ test("TZ-EXAM-11: a denied microphone ends the timed task honestly after prepara
     Object.defineProperty(navigator, "mediaDevices", { configurable: true,
       value: { getUserMedia: async () => { throw new DOMException("denied", "NotAllowedError"); } } });
   });
-  await page.clock.install({ time: new Date("2026-11-12T09:00:00+02:00") });
+  await page.clock.install({ time: T_INSTALL });
   await speakingOnly(page);
+  await page.clock.pauseAt(T_PAUSE);                                                          // only runFor moves exam time
   await page.getByRole("button", { name: "Aloita ajastettu tehtävä" }).click();
   await page.clock.runFor(31_000);
   await expect(page.getByText(/Немає дозволу на мікрофон/)).toBeVisible();
