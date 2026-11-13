@@ -26,8 +26,8 @@ main .pill { white-space: normal; }   /* R10-16: the native file picker never wi
 .brand-mark { width: 46px; height: 46px; flex: none; }
 /* Display-language preference is opt-in and must remain usable at 320 px / zoomed text. */
 .topbar-inner { flex-wrap: wrap; padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
-.language-choice { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: .85rem; font-weight: 700; color: var(--ink); }
-.language-choice select { min-height: 44px; max-width: 100%; border: 1.5px solid var(--input-border); border-radius: 10px; padding: 0 var(--space-sm); color: var(--ink); background: var(--white); }
+.language-choice { display: flex; flex: 1 1 100%; width: 100%; min-width: 0; max-width: 100%; align-items: center; flex-wrap: wrap; gap: 6px; overflow-wrap: anywhere; font-size: .85rem; font-weight: 700; color: var(--ink); }
+.language-choice select { display: block; flex: 0 1 100%; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; min-height: 44px; border: 1.5px solid var(--input-border); border-radius: 10px; padding: 0 var(--space-sm); color: var(--ink); background: var(--white); }
 @media (max-width: 460px) { .topbar .brand { width: 100%; } .topbar-inner > .pill { white-space: normal; } }
 
 .pill { border: 1px solid var(--stroke); border-radius: var(--radius-pill); padding: 4px 12px; font-size: .85rem; font-weight: 700; background: var(--surface-subtle); white-space: nowrap; }
