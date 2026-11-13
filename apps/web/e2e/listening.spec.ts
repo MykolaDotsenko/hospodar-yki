@@ -7,7 +7,7 @@ const startedPlaying = (page: Page) => page.locator("audio").evaluate(a => a.dis
 async function open(page: Page) {
   await page.goto("./");
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
+  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
 }
 async function answerAll(page: Page) {
@@ -35,10 +35,10 @@ test("IV-REQ-04: learner-started audio first; no text or key before answering; k
   expect(await serious(page)).toEqual([]);
   await answerAll(page);
   await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
-  await expect(page.locator(".learning-cue").first()).toHaveText("Rikkoutunut vesiputki");
+  await expect(page.locator(".learning-cue").first()).toHaveText("Takin väri");
   await expect(page.locator("audio track")).toHaveCount(0);
   await page.getByRole("button", { name: /Послухати ще раз із текстом/ }).click();
-  await expect(page.locator(".transcript")).toContainText("Tiistaiaamuna Liisa");
+  await expect(page.locator(".transcript")).toContainText("Sofia oli tilannut");
   await expect(page.locator("audio track[kind=subtitles]")).toHaveCount(1);
   expect(await serious(page)).toEqual([]);
   await page.getByRole("button", { name: "Зберегти результат" }).click();
@@ -51,7 +51,7 @@ test("IV-REQ-04: learner-started audio first; no text or key before answering; k
 test("support before answering (transcript) is allowed for accessibility but saved ungraded", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "Показати текст (підтримка)" }).click();
-  await expect(page.locator(".transcript")).toContainText("Tiistaiaamuna");
+  await expect(page.locator(".transcript")).toContainText("Sofia oli tilannut");
   await expect(page.getByText(/З підтримкою відповіді зберігаються без оцінки/)).toBeVisible();
   await page.getByRole("button", { name: "До питань" }).click();
   await answerAll(page);

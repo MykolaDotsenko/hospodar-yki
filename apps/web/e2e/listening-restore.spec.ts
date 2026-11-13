@@ -4,7 +4,7 @@ import { expect, test, type Page } from "@playwright/test";
 const PREDICTION = "Luulen, että puhutaan vesikatkosta ja korjaustöistä.";
 async function choose(page: Page) {
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
+  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
 }
 async function start(page: Page) {
   await page.goto("./");
@@ -66,7 +66,7 @@ test("LEARN Listening: exact prediction survives reload; no first answer or key 
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
   await resume(page);
   await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
-  await expect(page.locator(".learning-cue").first()).toHaveText("Rikkoutunut vesiputki");
+  await expect(page.locator(".learning-cue").first()).toHaveText("Takin väri");
   await page.getByRole("button", { name: "Зберегти результат" }).click();
   await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
   await page.reload();
@@ -78,10 +78,10 @@ test("LEARN Listening: persisted transcript support stays ungraded after reload 
   await start(page);
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await page.getByRole("button", { name: "Показати текст (підтримка)" }).click();
-  await expect(page.locator(".transcript")).toContainText("Tiistaiaamuna");
+  await expect(page.locator(".transcript")).toContainText("Sofia oli tilannut");
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
   await resume(page);
-  await expect(page.locator(".transcript")).toContainText("Tiistaiaamuna");
+  await expect(page.locator(".transcript")).toContainText("Sofia oli tilannut");
   await expect(page.getByText(/З підтримкою відповіді зберігаються без оцінки/)).toBeVisible();
   await page.getByRole("button", { name: "До питань" }).click();
   await answerAll(page);

@@ -2,6 +2,7 @@
 import { admitMedia, shuffleOptions, validateListeningLesson, type ListeningLesson } from "@hospodar/domain";
 import data from "../../../../learning/exercises/b1/audio-long/lessons.json";
 import stories from "../../../../learning/exercises/b1/audio-long/human-stories.json";
+import exam from "../../../../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json";
 
 type Story = { id: string; title_fi: string; audio_path: string; transcript_path: string; duration_seconds: number; narrator: string;
   rights: string; audio_source: string; teacher_review: string; questions: { prompt_fi: string; options_fi: string[]; correct_index: number }[] };
@@ -19,7 +20,11 @@ const human: (ListeningLesson & { credit: LessonCredit })[] = (stories as unknow
   return validateListeningLesson(lesson) ? [lesson] : [];
 });
 
-export const listeningLessons: (ListeningLesson & { credit?: LessonCredit })[] = [...(data as unknown as { lessons: ListeningLesson[] }).lessons, ...human];
+/** Every lesson, incl. those an EXAM blueprint uses (for banks that exclude exam ids themselves). */
+export const allListeningLessons: (ListeningLesson & { credit?: LessonCredit })[] = [...(data as unknown as { lessons: ListeningLesson[] }).lessons, ...human];
+const examIds = new Set((exam as unknown as { blueprints: { skill_blocks: { item_id: string }[] }[] }).blueprints.flatMap(b => b.skill_blocks.map(x => x.item_id)));
+/** The LEARN listening pool: never a lesson an EXAM blueprint uses (EXAM-11 held-out isolation). */
+export const listeningLessons = allListeningLessons.filter(l => !examIds.has(l.id));
 const audio = import.meta.glob(["../../../../assets/audio/long/b1/*.ogg", "../../../../assets/audio/human/short-stories/*.mp3"], { query: "?url", import: "default", eager: true }) as Record<string, string>;
 const vtt = import.meta.glob("../../../../assets/audio/long/b1/*.vtt", { query: "?url", import: "default", eager: true }) as Record<string, string>;
 const txt = import.meta.glob(["../../../../assets/audio/long/b1/*.txt", "../../../../assets/audio/human/short-stories/*.txt"], { query: "?raw", import: "default", eager: true }) as Record<string, string>;

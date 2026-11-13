@@ -82,7 +82,7 @@ test("GL-03 listening: audio first, a lesson never met before; text support save
   await page.clock.install({ time: T0 });
   await page.goto("./");
   await page.getByTestId("nav-listening").click();
-  await page.getByRole("button", { name: /Vesikatko ja huoltokäynti/ }).click();
+  await page.getByRole("button", { name: /Kun verkkokaupan tilaus meni pieleen/ }).click();
   await page.getByRole("button", { name: "Пропустити й слухати" }).click();
   await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
   await page.getByRole("button", { name: "До питань" }).click();
@@ -98,7 +98,7 @@ test("GL-03 listening: audio first, a lesson never met before; text support save
   await page.clock.setFixedTime(DAY7);
   await openChecks(page);
   await page.locator(".skill-lines li", { hasText: "Аудіювання" }).getByRole("button", { name: "Пройти перевірку дня 7" }).click();
-  await expect(page.getByText("Vesikatko ja huoltokäynti")).toHaveCount(0);              // a lesson never met, not the known one
+  await expect(page.getByText("Kun verkkokaupan tilaus meni pieleen")).toHaveCount(0);              // a lesson never met, not the known one
   await expect(page.locator('input[name="skq"]').first()).toBeDisabled();                 // audio first
   await expect(page.locator(".transcript")).toHaveCount(0);
   await page.getByRole("button", { name: "Показати текст (тоді без оцінки)" }).click();
