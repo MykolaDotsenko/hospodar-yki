@@ -23,6 +23,11 @@ const SKILL_WHAT: Record<Skill, string> = {
 };
 const ACCUSATIVE: Record<Skill, string> = { reading: "читання", listening: "аудіювання", writing: "письмо", speaking: "говоріння" };
 const SKILL_NL: Record<Skill, string> = { reading: "Lezen", listening: "Luisteren", writing: "Schrijven", speaking: "Spreken" };
+const PLACE_NL: Record<PlaceId, string> = {
+  identity: "Over mij", housing: "Wonen", services: "Winkels en diensten", culture: "Cultuur",
+  travel: "Reizen", health: "Gezondheid en welzijn", work: "Werk",
+  environment: "Milieu en natuur", society: "Samenleving",
+};
 const SKILL_WHAT_NL: Record<Skill, string> = {
   reading: "Teksten en vragen: eerst antwoorden, daarna het bewijs in de tekst zoeken",
   listening: "Audio: eerst luisteren en antwoorden, daarna de transcriptie",
@@ -149,7 +154,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, locale = "uk" 
             return (
               <li key={pl.id}><button type="button" className="place-tile" data-testid={`place-${pl.id}`} data-door={p?.doorOpen ? "open" : "closed"} onClick={() => openPlace(pl.id)}>
                 <PlaceGlyph open={Boolean(p?.doorOpen)} />
-                <span className="place-tile-text"><strong lang={locale === "nl" ? "fi" : "uk"}>{locale === "nl" ? pl.title_fi : pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
+                <span className="place-tile-text"><strong lang={locale}>{locale === "nl" ? PLACE_NL[pl.id] : pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
                   <small>{p?.doorOpen ? <><Icon name="key" size={15} /> {L("ключів:", "sleutels:")} {p.keys} · {L("спроб фінською:", "pogingen in het Fins:")} {p.practice}</> : L("Двері ще зачинені", "Deur nog niet geopend")}</small></span>
               </button></li>
             );
