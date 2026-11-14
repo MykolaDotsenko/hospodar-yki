@@ -7,6 +7,7 @@ import type { ClinicDraftRow, LearnerRepository } from "../storage/learnerReposi
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { StepUp } from "./StepUp.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ClinicDraftRow | null; blocked: string | null };
@@ -380,6 +381,10 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
           <p className="muted">{v.diff.some(p => p.kind !== "same") ? "Підкреслене — додано, закреслене — прибрано." : "Ти не змінив(ла) текст."} Переписаний текст — керована спроба (після зразка); новий текст — самостійний. Усе збережено без оцінки.</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку завдань</button></div>
         </div>
+      )}
+      {s.phase === "done" && (                                         // graduated-task-sequencing: the same message, richer each step
+        <StepUp card={{ id: item.id, kind: "clinic", transferSkill: "writing" }} situation={{ label_uk: "Завдання", text: item.prompt_fi, lang: "fi" }}
+          repository={repository} snapshot={snap.current} onSaved={s2 => { snap.current = s2; onSaved(s2); }} />
       )}
     </section>
   );

@@ -13,7 +13,7 @@ describe("graduated task sequencing: same situation, constraints added one at a 
     expect(() => activeConstraints(card, 3)).toThrow();
   });
   it("constraints are Ukrainian instructions, never a Finnish model answer", () => {
-    for (const k of ["reaction", "opinion"] as const) for (const c of stepUpFor({ kind: k })!) {
+    for (const k of ["reaction", "opinion", "clinic", "dialogue"] as const) for (const c of stepUpFor({ kind: k })!) {
       expect(c.uk + c.check_uk).not.toMatch(/[äöå]/i);
     }
   });
@@ -23,5 +23,15 @@ describe("graduated task sequencing: same situation, constraints added one at a 
     expect(ev.response).toMatch(/^\[graduated step 2\/3: brief\+polite; self-check partly\] Voisitteko/);
     expect(() => stepUpEvidence(card, 0, "  ", "yes")).toThrow();
     expect(() => stepUpEvidence(card, 0, "Hei", "maybe" as never)).toThrow();
+  });
+  it("the writing clinic and dialogue role-plays have their own sequences (own text grows; no model, no key)", () => {
+    expect(stepUpFor({ kind: "clinic" })!.map(c => c.id)).toEqual(["detail", "linked", "close"]);
+    expect(stepUpFor({ kind: "dialogue" })!.map(c => c.id)).toEqual(["reason", "question", "next-step"]);
+    for (const k of ["clinic", "dialogue"] as const) for (const c of stepUpFor({ kind: k })!) expect(c.uk).toMatch(/[а-яіїєґ]/i);
+    const w = stepUpEvidence({ id: "clinic-01", kind: "clinic", transferSkill: "writing" }, 0, "Olen kotona tiistaina kello 17.", "yes");
+    expect(w).toMatchObject({ skill: "writing", taskId: "clinic-01-step-detail", status: "ungraded" });
+    const d = stepUpEvidence({ id: "ctx-dialog-01", kind: "dialogue", transferSkill: "speaking" }, 2, "Voisimmeko jatkaa huomenna?", "partly");
+    expect(d).toMatchObject({ skill: "speaking", taskId: "ctx-dialog-01-step-next-step", status: "ungraded" });
+    expect(d.response).toMatch(/^\[graduated step 3\/3: reason\+question\+next-step; self-check partly\]/);
   });
 });
