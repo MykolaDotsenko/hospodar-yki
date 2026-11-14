@@ -33,7 +33,9 @@ function line(q: SkillRetentionStatus): string {
   if (!q.anchorDate) return "Почнеться через 7 днів після першого заняття з цієї навички.";
   const parts = [`Виконано: ${q.completed.length ? q.completed.map(d => `день ${d}`).join(", ") : "ще нічого"}`];
   if (q.missed.length) parts.push(`пропущено: ${q.missed.map(d => `день ${d}`).join(", ")} (не зараховується заднім числом)`);
-  if (q.unavailable) parts.push(`вікно дня ${q.unavailable} відкрите, але нових записів, яких ти не чув(ла), більше немає — перевірку не підмінюємо знайомим`);
+  if (q.unavailable) parts.push(q.skill === "listening"
+    ? `вікно дня ${q.unavailable} відкрите, але нових записів, яких ти не чув(ла), більше немає — перевірку не підмінюємо знайомим`
+    : `вікно дня ${q.unavailable} відкрите, але перевіреного викладачем S2 завдання для нього поки немає — чернетку не підставляємо`);
   else if (!q.due && q.nextDay) parts.push(`наступна — через ${q.nextDay - q.ageDays} дн.`);
   else if (!q.due && !q.nextDay && !q.unavailable) parts.push("усі три перевірки пройдено або їхні вікна минули");
   return parts.join(" · ");

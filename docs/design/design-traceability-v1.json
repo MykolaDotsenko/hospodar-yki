@@ -2122,9 +2122,37 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "pictures: alt text, credit + licence link, ungraded description; uncaptioned video never playable (A11Y-03); illustrations credited"
+        },
+        {
+          "file": "apps/web/src/content/release.test.ts",
+          "contains": "in a release build no pool holds an unpublished item (today nothing is published, so every pool is empty)"
+        },
+        {
+          "file": "apps/web/src/content/release.test.ts",
+          "contains": "a published item does reach the release pool, and the draft next to it does not"
+        },
+        {
+          "file": "packages/domain/test/release.test.ts",
+          "contains": "a release pool holds only published items — S2-approved but unpublished, drafts, withdrawn and bare claims stay out"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "release build: every learning section and the YKI rehearsal show «Ще не перевірено» instead of drafts"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "every unpublished task a learner opens carries the draft label"
+        },
+        {
+          "file": "scripts/tests/test_validate_publish_reviewed.py",
+          "contains": "def test_publishing_approves_the_markers_and_keeps_the_reviewed_hash"
+        },
+        {
+          "file": "scripts/tests/test_validate_publish_reviewed.py",
+          "contains": "def test_an_item_no_review_can_lift_is_not_published"
         }
       ],
-      "gap": "Gate and rights checks exist; 0 items are S2-published — every learner item is shown as a labelled draft."
+      "gap": "Release gate built end to end: S2 reviewer workspace → decisions file (apply_review_decisions.py, s2_reviewed) → editor publishes (publish_reviewed.py, published) → a release build (VITE_HOSPODAR_CHANNEL=release) gives learners only published items, EXAM forms only when all their tasks are published; the beta build labels every draft. 0 items are S2-reviewed or published yet: the human S2 review is the open step."
     },
     {
       "id": "GL-02",
@@ -3074,9 +3102,17 @@
         {
           "file": "packages/domain/test/r08-r06-parity.test.ts",
           "contains": "extensions are off by default: labelled drafts excluded unless explicitly allowed"
+        },
+        {
+          "file": "apps/web/src/content/release.test.ts",
+          "contains": "in a release build no pool holds an unpublished item (today nothing is published, so every pool is empty)"
+        },
+        {
+          "file": "packages/domain/test/release.test.ts",
+          "contains": "a release pool holds only published items — S2-approved but unpublished, drafts, withdrawn and bare claims stay out"
         }
       ],
-      "gap": "Legacy cloze drafts are ranked only via the explicit, labelled allowLabelledDrafts extension; 0 S2-published items; all learner content is a labelled draft."
+      "gap": "In a release build the ranker gets only S2-published tasks and labelled drafts are not allowed; the beta build still ranks labelled drafts via allowLabelledDrafts. 0 items published; rights/offline filters unchanged."
     },
     {
       "id": "R6-04",
@@ -4072,9 +4108,29 @@
         {
           "file": "apps/web/e2e/reviewer.spec.ts",
           "contains": "every unit's browser hash equals the repository hash (one file format, one hash, in every engine)"
+        },
+        {
+          "file": "apps/web/src/content/release.test.ts",
+          "contains": "in a release build no pool holds an unpublished item (today nothing is published, so every pool is empty)"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "release build: every learning section and the YKI rehearsal show «Ще не перевірено» instead of drafts"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "every unpublished task a learner opens carries the draft label"
+        },
+        {
+          "file": "scripts/tests/test_validate_publish_reviewed.py",
+          "contains": "def test_publishing_approves_the_markers_and_keeps_the_reviewed_hash"
+        },
+        {
+          "file": "scripts/tests/test_validate_publish_reviewed.py",
+          "contains": "def test_an_item_no_review_can_lift_is_not_published"
         }
       ],
-      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode built (a release build shows only S2-published items; none yet); EXAM items are reviewed separately."
     },
     {
       "id": "QL-02",
@@ -4764,7 +4820,7 @@
           "contains": "every content file a LEARN screen loads is reviewable here, except EXAM-only files"
         }
       ],
-      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode built (a release build shows only S2-published items; none yet); EXAM items are reviewed separately."
     },
     {
       "id": "CURATED-02",
@@ -5816,7 +5872,7 @@
           "contains": "every unit's browser hash equals the repository hash (one file format, one hash, in every engine)"
         }
       ],
-      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode built (a release build shows only S2-published items; none yet); EXAM items are reviewed separately."
     },
     {
       "id": "YKI-FID-01",
@@ -8086,7 +8142,7 @@
           "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
         }
       ],
-      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode built (a release build shows only S2-published items; none yet); EXAM items are reviewed separately."
     },
     {
       "id": "AC-43",
@@ -8731,7 +8787,7 @@
           "contains": "every content file a LEARN screen loads is reviewable here, except EXAM-only files"
         }
       ],
-      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode built (a release build shows only S2-published items; none yet); EXAM items are reviewed separately."
     },
     {
       "id": "REL-01",
@@ -9535,9 +9591,17 @@
         {
           "file": "scripts/tests/test_validate_content_publication.py",
           "contains": "def test_approval_claim_without_card_fails"
+        },
+        {
+          "file": "apps/web/src/content/release.test.ts",
+          "contains": "in a release build no pool holds an unpublished item (today nothing is published, so every pool is empty)"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "release build: every learning section and the YKI rehearsal show «Ще не перевірено» instead of drafts"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "A release build offers an EXAM form only when every task it uses is S2-published (none today); EXAM forms are reviewed outside the LEARN workspace, and that sealed review process does not exist yet."
     },
     {
       "id": "G-EX-04",

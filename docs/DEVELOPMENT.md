@@ -43,7 +43,10 @@ pnpm -r typecheck
 pnpm --filter @hospodar/web test          # Dexie repository
 pnpm --filter @hospodar/web dev           # http://localhost:5173/
 cd apps/web && E2E_BROWSERS=chromium pnpm exec playwright test   # CI runs chromium,firefox,webkit
+VITE_HOSPODAR_CHANNEL=release pnpm --filter @hospodar/web build    # release build: only S2-published content, no #review
 ```
+
+**Build channels (14.11.2026):** without `VITE_HOSPODAR_CHANNEL` (or with any value other than `release`) the build is **beta**: every draft is shown and labelled «Чернетка: ще не перевірено S2-викладачем», and the S2 reviewer workspace `#review` is available. A **release** build keeps only items whose `review_card.status` is `published` in every learner pool, shows «Ще не перевірено» for a section with none, and has no reviewer workspace. Playwright builds both (ports 4173 and 4174; `e2e/release.spec.ts` uses the release one).
 
 The legacy `app/` keeps working with the commands above; the two apps store progress separately until the planned G2-b import.
 

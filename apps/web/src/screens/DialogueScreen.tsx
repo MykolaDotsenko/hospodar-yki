@@ -8,6 +8,7 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { isPublishedItem } from "../content/release.ts";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<SelfJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інше" };
@@ -230,7 +231,7 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       <h1 id="dlg-title" ref={heading} tabIndex={-1}>{title}</h1>
       <ThresholdRoute steps={item.negotiation ? ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація", "Зміна умови"] : ["Розмова", "Що ти зрозумів(ла)", "Твоя ситуація"]}
         current={item.negotiation ? { turns: 0, questions: 1, roleplay: 2, transfer: 3, done: 4 }[s.phase] : { turns: 0, questions: 1, roleplay: 2, transfer: 2, done: 3 }[s.phase]} accent="speaking" />
-      {!v.reviewed && <TrustNote />}
+      {!isPublishedItem(item) && <TrustNote />}
       {initialDraft && s.phase !== "done" && <p className="feedback" role="status">Незавершений діалог відновлено з цього пристрою.</p>}
 
       {s.phase !== "roleplay" && s.phase !== "transfer" && s.phase !== "done" && (

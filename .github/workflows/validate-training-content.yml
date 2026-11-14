@@ -16,6 +16,8 @@ on:
       - 'scripts/tests/test_validate_content_publication.py'
       - 'scripts/apply_review_decisions.py'
       - 'scripts/tests/test_validate_review_decisions.py'
+      - 'scripts/publish_reviewed.py'
+      - 'scripts/tests/test_validate_publish_reviewed.py'
       - '.github/workflows/validate-training-content.yml'
   pull_request:
     paths:
@@ -32,6 +34,8 @@ on:
       - 'scripts/tests/test_validate_content_publication.py'
       - 'scripts/apply_review_decisions.py'
       - 'scripts/tests/test_validate_review_decisions.py'
+      - 'scripts/publish_reviewed.py'
+      - 'scripts/tests/test_validate_publish_reviewed.py'
 permissions:
   contents: read
 jobs:
@@ -53,3 +57,4 @@ jobs:
           python3 scripts/validate_content_publication.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_content_publication.py' -v
           python3 -m unittest discover -s scripts/tests -p 'test_validate_review_decisions.py' -v
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_publish_reviewed.py' -v

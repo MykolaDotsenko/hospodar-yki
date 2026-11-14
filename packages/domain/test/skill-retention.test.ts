@@ -111,3 +111,15 @@ describe("delayed 7/14/30 checks for all four skills (GL-03)", () => {
     expect(delayedTransferQueue(next, read("learning/exercises/b1/grammar/delayed-transfer-v1.json"), at("2026-11-08T12:00:00+02:00"))).toEqual([]);
   });
 });
+
+describe("an empty bank (release build with too few published items)", () => {
+  it("a window that opens without an item is reported unavailable, never as a due check without an item", () => {
+    const empty: SkillRetentionBank = { ...bank, reading: [], listening: [], writing: [], speaking: [] };
+    const s = learned(["reading", "listening", "writing", "speaking"]);
+    for (const st of skillRetentionQueue(s, empty, at("2026-11-08T12:00:00+02:00"))) {
+      expect(st.due, st.skill).toBeNull();
+      expect(st.unavailable, st.skill).toBe(7);
+    }
+  });
+});
+

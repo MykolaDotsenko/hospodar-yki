@@ -1,6 +1,7 @@
 /** Content is read from its single physical owner in learning/exercises (bundled at build). */
 import type { ClozeTask } from "@hospodar/domain";
 import cloze from "../../../../learning/exercises/b1/grammar/contextual-cloze.json";
+import { learnerPool } from "./release.ts";
 
 export interface ClozeExercise extends ClozeTask {
   id: string;
@@ -14,6 +15,7 @@ export interface ClozeExercise extends ClozeTask {
   teacher_review?: string;
   review_card?: { status?: string };
 }
-export const exercises = (cloze as { exercises: ClozeExercise[] }).exercises;
+/** Release builds keep only S2-published tasks (content/release.ts). */
+export const exercises = learnerPool((cloze as { exercises: ClozeExercise[] }).exercises);
 /** No item in the repository is S2-published yet (validate_content_publication.py). */
 export const isDraft = (e: ClozeExercise) => e.review_card?.status !== "published";

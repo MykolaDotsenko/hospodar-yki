@@ -89,9 +89,12 @@ export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "r
     let check: SkillCheckItem | null = null;
     if (open) {
       const idx = TRANSFER_DAYS.indexOf(open);
-      if (skill === "reading") check = { kind: "objective", item: bank.reading[idx]! };
-      else if (skill === "writing") check = { kind: "production", item: bank.writing[idx]! };
-      else if (skill === "speaking") check = { kind: "production", item: bank.speaking[idx]! };
+      // A bank without an item for this window (e.g. a release build with too few S2-published items) means the
+      // check is unavailable — never a check object without an item.
+      const objective = skill === "reading" ? bank.reading[idx] : undefined;
+      const production = skill === "writing" ? bank.writing[idx] : skill === "speaking" ? bank.speaking[idx] : undefined;
+      if (skill === "reading") check = objective ? { kind: "objective", item: objective } : null;
+      else if (skill === "writing" || skill === "speaking") check = production ? { kind: "production", item: production } : null;
       else { const fresh = bank.listening.find(l => !met(state, l)); check = fresh ? { kind: "objective", item: fresh } : null; }
     }
     return {
