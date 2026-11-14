@@ -41,4 +41,14 @@ An item may say it is approved/published **only** through a `review_card` object
 
 Rules: the reviewer is a qualified **human** S2 teacher (AI drafts never sign a card); `transcript_reviewed` is `null` only when the item has no audio; ND/NC/link-only sources can never be published as bundled content; a `published` item may not keep fields such as `pending…`, `script_only…`, `not_valid…`; editing a reviewed item changes its hash and requires a new review. No personal data in `reviewer_id`. The check is static: it cannot verify the reviewer's identity or Finnish quality.
 
+### Reviewing in the app and applying decisions (14.11.2026)
+
+1. The S2 reviewer opens `#review` in the web app, enters a pseudonymous id (letters, digits, `_ . -`; no name or e-mail) and works bank by bank: «Пройти як учень» walks the task on the real learner screen in a throwaway sandbox (learner progress is not touched), the unit page shows every stored field with keys, variants and models marked.
+2. **Approve** needs every card field above; **return** needs at least one category and a concrete reason. An incomplete approval is refused in the app and again by the script.
+3. The reviewer downloads the decisions file and hands it to the editor, who runs `python3 scripts/apply_review_decisions.py FILE --dry-run`, then without `--dry-run`, then the content validators, and commits. The script refuses any item whose hash changed after the reviewer saw it (review again), any unknown file or id, and writes nothing unless every decision is valid.
+4. An approval becomes a card with status `s2_reviewed`; the item itself is not changed. A return becomes a `draft` card with `s2_review.decision = "returned"`, reviewer, date, categories and reason; the author fixes the item, and it goes through review again.
+5. `published` (clearing an item's own `pending…` markers) and the release build that shows learners only published items are a separate step. EXAM items are not reviewed in this workspace.
+
+Content hashes are shared with the browser: integral floats count as integers, and decimals below 1e-4 are refused (`content_hash` raises), so the app and the script always agree.
+
 **Source of truth:** [learning/CONTRIBUTING](../../learning/CONTRIBUTING.md), [source rights/verification](../../sources/learning/06-sources-and-verification.md), [YouTube rules](../../sources/youtube/README.md), [YKI evidence](../14-digital-yki-fidelity-spec.md), [W3C captions/transcripts](https://www.w3.org/WAI/media/av/).

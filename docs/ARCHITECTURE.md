@@ -17,6 +17,7 @@ app/index.html ── app/app.mjs ── app/core.mjs ── learning/exercises/
 app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active app storage)
 apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
      └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore; v3 separate cloze draft)
+     └── S2 reviewer: throwaway Dexie DBs hospodar-yki:review-sandbox:<time>-<id> (deleted after each walk) + localStorage hospodar-yki:review-decisions:v1
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -364,3 +365,13 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **CSP:** `apps/web/csp-plugin.ts` adds a same-origin Content-Security-Policy and `no-referrer` as `<meta>` to the **built** `index.html` (the dev server is exempt: Vite HMR inlines scripts). No inline or eval code, no third-party origins; `blob:` only for images and media such as local recordings. `e2e/csp.spec.ts` asserts the policy and zero violations across the main screens. Tests that need 200 % text use CSSOM instead of injected `<style>`.
 - **E2E helper:** `e2e/helpers.ts` `openLearn()` waits for Home's loaded progress before clicking «Навчання» (Home re-lays out when progress loads; an early click raced on CI Firefox).
 - **Plan:** the ordered development plan lives in [29 — ТЗ](29-tz-development-plan.md). No deployment pipeline exists.
+
+## 2026-11-14 — S2 reviewer workspace for every LEARN bank (docs/29 stage 1, code queue 1)
+
+- **What:** `#review` is now a workspace for all 20 LEARN banks (449 review units: cloze, R08 drafts, the five practice banks incl. 132 chunks and 40 rektio, dialogues and partner moves, reading, writing clinic, listening lessons and the human story, picture missions, the diagnostic reading and listening (its writing and speaking prompts belong to EXAM and are held out), delayed-check banks, the nine theme files, LibriVox excerpts, legacy A1 audio-visual). A gate warns learners first, because the unit page shows keys, accepted variants and models.
+- **Walk as a learner without touching progress:** «Пройти як учень» renders the real learner screen (MissionScreen, PracticeScreen, ReadingScreen …) on the real repository code, but on a throwaway IndexedDB database per walk (`storage/reviewSandbox.ts`), deleted when the walk ends; leftovers older than 12 h are cleaned. The learner database is never opened by the workspace (E2E reads it before and after).
+- **Decision:** approve only with a complete review card (level, skills, communicative outcome, redistributable source, key and variants checked, transcript checked when there is audio, version, pseudonymous reviewer id, date) or return with categories and a reason — `packages/domain/src/review.ts` mirrors `scripts/validate_content_publication.py`. Decisions stay in this browser (read back after every write) until downloaded as `hospodar-review-decisions-v1`.
+- **Into the repository:** `python3 scripts/apply_review_decisions.py FILE [--dry-run]` — all or nothing: known content file, exactly one item with the id, item hash still the one the reviewer saw; approve → card `s2_reviewed` with the item untouched; return → `draft` card with who/when/why; the whole publication gate must pass afterwards or every file is restored. The browser hash (`canonicalReviewJson` + `crypto.subtle`) equals the Python hash for every unit in every engine (E2E); integral floats are written as integers on both sides and sub-1e-4 decimals are refused on both.
+- **Gate widened:** the publication gate now also covers `knowledge/dictionaries/**` (chunks, rektio); a returned draft card must name reviewer, date, categories and reason. `negotiation-moves-v1.json` got a root `id` so it can carry a card.
+- **Not done:** no item is reviewed (needs a human S2 teacher); `published` and the release mode «learners get only published» are the next step (code queue 2); EXAM items are excluded here and reviewed in their own sealed process (stage 4); the app cannot verify that a reviewer is a qualified S2 teacher.
+

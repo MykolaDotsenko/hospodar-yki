@@ -380,3 +380,16 @@ textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(-
 input.plan-notes { width: 100%; padding: 8px 12px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1rem; }
 /* Dictogloss: shared word forms are marked quietly (not a score) */
 mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bottom: 2px solid var(--stroke); padding: 0 1px; }
+/* S2 reviewer workspace (docs/29 stage 1): every stored field is readable; keys, variants and models stand out. */
+.review-fields { display: grid; gap: var(--space-xs); margin: 0 0 var(--space-base); padding-left: var(--space-sm); border-left: 2px solid var(--stroke); }
+.review-fields div { display: grid; grid-template-columns: minmax(8rem, 14rem) 1fr; gap: var(--space-sm); align-items: baseline; }
+.review-fields dt { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
+.review-fields dd { margin: 0; overflow-wrap: anywhere; }
+.review-fields ol { margin: 0; padding-left: 1.5rem; }
+.review-key { background: var(--warn-tint); border-radius: 6px; padding: 2px 6px; }
+.review-key > dt { color: var(--ink); font-weight: 700; }
+.review-key .draft-note { margin: 0 0 0 6px; }
+.review-text { white-space: pre-wrap; }
+.review-decision { margin-top: var(--space-lg); padding-top: var(--space-base); border-top: 1px solid var(--stroke); }
+.review-decision select { display: block; min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); }
+@media (max-width: 560px) { .review-fields div { grid-template-columns: 1fr; gap: 0; } }

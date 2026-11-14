@@ -8,13 +8,15 @@ reviewed answer variants / transcript, version and a content hash of the reviewe
 
     python3 scripts/validate_content_publication.py           # check (CI)
     python3 scripts/validate_content_publication.py --hash FILE ITEM_ID   # print hash for a card
+    echo '[{"file": F, "id": I}]' | python3 scripts/validate_content_publication.py --hash-items   # many, as JSON
 
 Fails when:
   * any review/status field claims approval/publication without a valid card;
   * a card is incomplete, uses a non-redistributable licence, or its content_hash no longer
     matches the item (edited after review -> must be re-reviewed);
   * a card says published while a field on the same item still says pending / script-only /
-    not valid for assessment.
+    not valid for assessment;
+  * a draft card records a reviewer's return without the reviewer, date, category or reason.
 Static only: it cannot prove that the named reviewer exists or that the Finnish is correct.
 """
 from __future__ import annotations
@@ -26,7 +28,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTENT_GLOB = "learning/exercises/**/*.json"
+CONTENT_GLOBS = ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json")
 SCHEMA = "hospodar-review-card-v1"
 STATUSES = {"draft", "s2_reviewed", "published", "withdrawn"}
 REVIEWED = {"s2_reviewed", "published"}
@@ -39,10 +41,31 @@ CLAIM = re.compile(r"(^|_)(approved|published|s2_reviewed|s2_approved|teacher_ap
 NEGATION = re.compile(r"pending|not|never|unverified|draft|needs|without|until", re.I)
 BLOCKING_VALUES = re.compile(r"pending|script_only|not_valid|unverified|needs_|draft", re.I)
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+RETURN_CATEGORIES = {"key", "finnish", "meaning", "level", "ukrainian", "audio", "rights", "other"}
+REVIEWER_ID = re.compile(r"[A-Za-z0-9_.-]{2,64}")
+
+
+def _shared_numbers(v):
+    """Integral floats are written as integers, as JavaScript does (the S2 reviewer workspace hashes in the browser:
+    packages/domain/src/review.ts canonicalReviewJson). Non-integers below 1e-4 print differently in the two languages,
+    so they are refused rather than hashed inconsistently."""
+    if isinstance(v, float):
+        if v != v or v in (float("inf"), float("-inf")):
+            raise ValueError("non-finite number in content")
+        if v.is_integer():
+            return int(v)
+        if abs(v) < 1e-4:
+            raise ValueError(f"number {v!r} has no shared canonical form")
+        return v
+    if isinstance(v, dict):
+        return {k: _shared_numbers(x) for k, x in v.items()}
+    if isinstance(v, list):
+        return [_shared_numbers(x) for x in v]
+    return v
 
 
 def content_hash(item: dict) -> str:
-    body = {k: v for k, v in item.items() if k != "review_card"}
+    body = _shared_numbers({k: v for k, v in item.items() if k != "review_card"})
     canonical = json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return "sha256:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
@@ -63,7 +86,20 @@ def card_errors(item: dict) -> list[str]:
     if status not in STATUSES:
         e.append(f"status must be one of {sorted(STATUSES)}")
     if status not in REVIEWED:
-        return e  # drafts/withdrawn may be partial
+        rev = card.get("s2_review") or {}
+        if status == "draft" and rev.get("decision") == "returned":   # a reviewer's return must say who, when and why
+            if rev.get("reviewer_role") != "S2_teacher" or not REVIEWER_ID.fullmatch(str(rev.get("reviewer_id", ""))):
+                e.append("returned card needs s2_review.reviewer_role S2_teacher and a pseudonymous reviewer_id")
+            if not DATE.match(str(rev.get("reviewed_at", ""))):
+                e.append("returned card needs s2_review.reviewed_at YYYY-MM-DD")
+            cats = rev.get("return_categories")
+            if not isinstance(cats, list) or not cats or not set(cats) <= RETURN_CATEGORIES:
+                e.append(f"returned card needs return_categories from {sorted(RETURN_CATEGORIES)}")
+            if not isinstance(rev.get("reason_uk"), str) or len(rev["reason_uk"].strip()) < 10:
+                e.append("returned card needs reason_uk (what to fix)")
+            if not re.fullmatch(r"sha256:[0-9a-f]{64}", str(card.get("content_hash", ""))):
+                e.append("returned card needs the content_hash the reviewer saw")
+        return e  # other drafts/withdrawn may be partial
     if card.get("level") not in LEVELS:
         e.append("level must be one of A1.3…B2.1")
     skills = card.get("skills")
@@ -83,7 +119,7 @@ def card_errors(item: dict) -> list[str]:
         e.append("s2_review.decision must be approved")
     if rev.get("reviewer_role") != "S2_teacher":
         e.append("s2_review.reviewer_role must be S2_teacher (human)")
-    if not re.fullmatch(r"[A-Za-z0-9_.-]{2,64}", str(rev.get("reviewer_id", ""))):
+    if not REVIEWER_ID.fullmatch(str(rev.get("reviewer_id", ""))):
         e.append("s2_review.reviewer_id is required (pseudonymous id, no personal data)")
     if not DATE.match(str(rev.get("reviewed_at", ""))):
         e.append("s2_review.reviewed_at must be YYYY-MM-DD")
@@ -139,20 +175,30 @@ def check(files: dict[str, object]) -> tuple[list[str], dict]:
 
 def load_files() -> dict[str, object]:
     return {str(p.relative_to(ROOT)): json.loads(p.read_text(encoding="utf-8"))
-            for p in sorted(ROOT.glob(CONTENT_GLOB))}
+            for g in CONTENT_GLOBS for p in sorted(ROOT.glob(g))}
+
+
+ID_KEYS = ("id", "lesson_id", "task_id")        # an item's identity, as the content files name it
+
+
+def items_with_id(node, item_id, out=None):
+    """Every object in a content file whose id/lesson_id/task_id is item_id (review cards are never searched)."""
+    out = [] if out is None else out
+    if isinstance(node, dict):
+        if any(node.get(k) == item_id for k in ID_KEYS):
+            out.append(node)
+        for k, v in node.items():
+            if k != "review_card":
+                items_with_id(v, item_id, out)
+    elif isinstance(node, list):
+        for v in node:
+            items_with_id(v, item_id, out)
+    return out
 
 
 def find_item(node, item_id):
-    if isinstance(node, dict):
-        if node.get("id") == item_id:
-            return node
-        node = list(node.values())
-    if isinstance(node, list):
-        for v in node:
-            hit = find_item(v, item_id)
-            if hit is not None:
-                return hit
-    return None
+    hits = items_with_id(node, item_id)
+    return hits[0] if hits else None
 
 
 def main(argv: list[str]) -> int:
@@ -163,6 +209,16 @@ def main(argv: list[str]) -> int:
         if item is None:
             print("item not found"); return 2
         print(content_hash(item)); return 0
+    if argv[:1] == ["--hash-items"]:                     # parity check for the browser workspace and review tooling
+        out = []
+        cache: dict[str, object] = {}
+        for req in json.loads(sys.stdin.read()):
+            if req["file"] not in cache:
+                cache[req["file"]] = json.loads((ROOT / req["file"]).read_text(encoding="utf-8"))
+            hits = items_with_id(cache[req["file"]], req["id"])
+            out.append({"file": req["file"], "id": req["id"], "matches": len(hits),
+                        "hash": content_hash(hits[0]) if len(hits) == 1 else None})
+        print(json.dumps(out, ensure_ascii=False)); return 0
     errors, s = check(load_files())
     if errors:
         print("FAIL content publication gate:\n  " + "\n  ".join(errors)); return 1

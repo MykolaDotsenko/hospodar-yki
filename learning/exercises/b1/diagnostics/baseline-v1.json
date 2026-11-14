@@ -6,6 +6,7 @@
   "is_official_exam_content": false,
   "usage_note_uk": "Діагностика з новими завданнями. Без аудіозапису script-only listening не можна використовувати для визначення аудитивного рівня. Жодні бали не прирівнюються до офіційного YKI 3.",
   "reading": {
+    "id": "b1-diagnostic-v1-reading",
     "kind": "reading_comprehension",
     "title_fi": "Kielikahvilan uusi aikataulu",
     "text_fi": "Kielikahvila kokoontui aiemmin keskiviikkoisin, mutta marraskuusta alkaen tapaamiset järjestetään maanantaisin kello 17–18.30. Ensimmäinen tapaaminen on 2. marraskuuta. Tilaisuus on maksuton eikä ennakkoilmoittautumista tarvita. Halutessaan osallistuja voi ottaa mukaan oman keskusteluaiheen. Järjestäjät muistuttavat, että paikalla harjoitellaan suomea yhdessä, joten täydellistä kielitaitoa ei odoteta.",
@@ -35,6 +36,7 @@
     ]
   },
   "listening": {
+    "id": "b1-diagnostic-v1-listening",
     "kind": "script_based_listening",
     "audio_status": "script_only_no_recording_yet",
     "scoring_status": "NOT_VALID_FOR_LISTENING_DIAGNOSIS_UNTIL_RECORDED",
