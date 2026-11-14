@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EXAM_ITEM_IDS, EXAM_ONLY_FILES, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
+import { containsExamItem, EXAM_ITEM_IDS, EXAM_ONLY_FILES, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
 import { exercises } from "./cloze.ts";
 import { practiceCards } from "./practice.ts";
 import { dialogues } from "./dialogues.ts";
@@ -28,9 +28,13 @@ describe("S2 reviewer workspace banks (docs/29 stage 1, QL-01)", () => {
       expect(covered, f).toBe(true);
     }
   });
-  it("no EXAM item is ever listed (EXAM-11): exam forms are reviewed in their own sealed process", () => {
+  it("no EXAM item is ever listed (EXAM-11), not even nested inside a unit: exam forms are reviewed in their own sealed process", () => {
     expect(EXAM_ITEM_IDS.size).toBeGreaterThan(0);
-    for (const { u } of units) expect(EXAM_ITEM_IDS.has(u.id), u.id).toBe(false);
+    const nestedIds = (v: unknown): string[] => Array.isArray(v) ? v.flatMap(nestedIds)
+      : v && typeof v === "object" ? Object.entries(v as Record<string, unknown>).flatMap(([k, x]) => (typeof x === "string" && /^(id|lesson_id|task_id|item_id)$/.test(k) ? [x] : nestedIds(x))) : [];
+    for (const { u } of units) for (const id of nestedIds(u.item)) expect(EXAM_ITEM_IDS.has(id), `${u.file}#${u.id} contains ${id}`).toBe(false);
+    for (const { u } of units) expect(JSON.stringify(u.item)).not.toMatch(/"d-[ws][12]"/);              // the diagnostic's exam prompts
+    expect(containsExamItem({ parts: [{ id: "d-w2" }] })).toBe(true);
     for (const { u } of units) expect(EXAM_ONLY_FILES).not.toContain(u.file);
     expect(reviewBanks.reduce((n, b) => n + b.heldOutForExam, 0)).toBeGreaterThan(0);          // the filter is doing real work
   });

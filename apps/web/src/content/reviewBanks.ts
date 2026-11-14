@@ -51,12 +51,24 @@ const labelOf = (item: Json) => {
   return unitId(item);
 };
 const unit = (file: string) => (item: Json): ReviewUnit => ({ file, id: unitId(item), item, label: labelOf(item) });
-function rows(json: unknown, key: string, file: string): { units: ReviewUnit[]; heldOutForExam: number } {
-  const all = ((json as Json)[key] as Json[]).filter(x => x && typeof x === "object" && unitId(x));
-  const learn = all.filter(x => !EXAM_ITEM_IDS.has(unitId(x)));
+/** True when the item or anything nested in it is an EXAM item — such a unit would expose it, so it is held out whole. */
+export function containsExamItem(v: unknown): boolean {
+  if (Array.isArray(v)) return v.some(containsExamItem);
+  if (!v || typeof v !== "object") return false;
+  const o = v as Json;
+  if (["id", "lesson_id", "task_id", "item_id"].some(k => typeof o[k] === "string" && EXAM_ITEM_IDS.has(o[k] as string))) return true;
+  return Object.values(o).some(containsExamItem);
+}
+function units(file: string, candidates: unknown[]): { units: ReviewUnit[]; heldOutForExam: number } {
+  const all = candidates.filter((x): x is Json => Boolean(x) && typeof x === "object" && Boolean(unitId(x as Json)));
+  const learn = all.filter(x => !containsExamItem(x));
   return { units: learn.map(unit(file)), heldOutForExam: all.length - learn.length };
 }
-const root = (json: unknown, file: string) => ({ units: [unit(file)(json as Json)], heldOutForExam: 0 });
+const rows = (json: unknown, key: string, file: string) => units(file, (json as Json)[key] as unknown[]);
+const root = (json: unknown, file: string) => units(file, [json]);
+/** A file whose parts are separate tasks (the diagnostic): each part is a unit, so an EXAM part never rides along. */
+const parts = (json: unknown, keys: string[], file: string) =>
+  units(file, keys.flatMap(k => { const v = (json as Json)[k]; return Array.isArray(v) ? v : [v]; }));
 
 const B1 = "learning/exercises/b1";
 const ORIGINAL = { kind: "project_original", license: "project_original" } as const;
@@ -64,7 +76,7 @@ const themeFiles = import.meta.glob("../../../../learning/exercises/b1/themes/*.
 const themeUnits = Object.entries(themeFiles).sort(([a], [b]) => a.localeCompare(b)).flatMap(([path, t]) => {
   const file = `${B1}/themes/${path.split("/").pop()}`;
   const parts = [t.reading, t.listening, ...(t.speaking as Json[]), ...(t.writing as Json[]), ...(t.chunks as Json[])] as Json[];
-  return parts.filter(p => p && unitId(p) && !EXAM_ITEM_IDS.has(unitId(p))).map(unit(file));
+  return parts.filter(p => p && unitId(p) && !containsExamItem(p)).map(unit(file));
 });
 
 export const reviewBanks: ReviewBank[] = [
@@ -111,9 +123,9 @@ export const reviewBanks: ReviewBank[] = [
   { id: "picture", title_uk: "Місії з фото", skills: ["writing", "vocabulary"], audio: false, source: ORIGINAL,
     where_uk: "Місії з фото (лише ті, для яких є допущене фото)", walk: { screen: "pictures", perItem: false },
     ...rows(pictures, "items", "learning/exercises/a1/image-led/lessons.json") },
-  { id: "diagnostic", title_uk: "Стартова діагностика", skills: ["reading", "writing", "speaking"], audio: false, source: ORIGINAL,
-    where_uk: "Діагностика", walk: { screen: "diagnostic", perItem: false },
-    ...root(baseline, `${B1}/diagnostics/baseline-v1.json`) },
+  { id: "diagnostic", title_uk: "Стартова діагностика: читання й аудіювання", skills: ["reading"], audio: false, source: ORIGINAL,
+    where_uk: "Діагностика (письмо й говоріння діагностики входять у пробний іспит і тут не показуються)", walk: { screen: "diagnostic", perItem: false },
+    ...parts(baseline, ["reading", "listening", "writing", "speaking"], `${B1}/diagnostics/baseline-v1.json`) },
   { id: "transfer", title_uk: "Відкладене перенесення граматики", skills: ["writing"], audio: false, source: ORIGINAL,
     where_uk: "Відкладена перевірка через 7/14/30 днів (тут показано повністю)", walk: null,
     ...rows(transfer, "items", `${B1}/grammar/delayed-transfer-v1.json`) },
