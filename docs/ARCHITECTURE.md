@@ -384,3 +384,9 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Publishing:** `scripts/publish_reviewed.py` moves `s2_reviewed` → `published` and approves the item's own pending markers; review-status markers are excluded from the content hash in both languages (`REVIEW_MARKER_KEYS`), so the card still certifies the reviewed content. Items with `script_only`/`NOT_VALID` markers (text-only dialogues, script-only listening) cannot be published until recorded or editorially changed and reviewed again.
 - **Not done:** the release bundle still contains draft JSON (runtime filter); Ukrainian guidance texts (repair cues, place deeds, can-do lines) are editorial UI copy, not per-item reviewed content.
 
+## 2026-11-14 — EXAM-11: the starting diagnostic no longer shows EXAM prompts
+
+- **Problem:** the LEARN starting diagnostic showed the baseline file's writing and speaking tasks `d-w1`/`d-s1`, which EXAM mini rehearsal A uses (and `d-w2`/`d-s2` belong to rehearsal B), so a learner met the exam prompt before the exam.
+- **Fix:** `apps/web/src/content/diagnostic.ts` keeps the baseline's reading block and takes the writing and speaking tasks from the theme files (`DIAGNOSTIC_PRODUCTION_IDS`: a formal message about language courses, a call to move an appointment) — neither is used by an EXAM blueprint or by the withheld delayed checks (`content/diagnostic.test.ts`, which fails on the old diagnostic). The draft fingerprint covers the whole diagnostic, so an unfinished draft from before is reported incompatible and offered for explicit discard; saved diagnostic records keep their old task ids.
+- **Not done:** the legacy `app/` diagnostic still shows `d-w1`/`d-s1` (legacy app, not developed further).
+
