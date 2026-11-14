@@ -12415,9 +12415,17 @@
         {
           "file": "packages/domain/test/dialogue.test.ts",
           "contains": "every real dialogue gets a paired clarification and condition change at a learner turn; a broken pairing is refused"
+        },
+        {
+          "file": "packages/domain/test/pragmatics.test.ts",
+          "contains": "evidence is ungraded, per listener, and carries the self-check as a count — never a score"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "interlocutor change (pragmatic-speech-acts): after a saved reaction card, the same situation for a friend, a neighbour and an official; separate appropriateness self-check; own replies side by side; ungraded"
         }
       ],
-      "gap": "18 reaction cards practise requests/refusals with a model after the attempt; two dialogues end with a 'now you speak to an official — say it more politely' condition change. No systematic interlocutor change (friend → neighbour → employer) and no separate appropriateness feedback."
+      "gap": "After any saved reaction card (18) the learner may say the same situation to a friend, a neighbour and an official in turn, each with a separate appropriateness self-check in Ukrainian (register, not content), saved ungraded, and then sees the own three replies side by side. Cues are an editorial draft pending S2 review (incl. how widely «sinä» is used with officials); appropriateness is self-reported only — no human feedback on it yet — and the ladder is not yet on dialogues."
     },
     {
       "id": "guided-corpus-discovery",

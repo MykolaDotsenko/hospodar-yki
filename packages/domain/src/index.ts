@@ -32,3 +32,4 @@ export * from "./fluency.ts";
 export * from "./mediation.ts";
 export * from "./review.ts";
 export * from "./release.ts";
+export * from "./pragmatics.ts";

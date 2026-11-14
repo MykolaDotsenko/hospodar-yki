@@ -390,3 +390,10 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Fix:** `apps/web/src/content/diagnostic.ts` keeps the baseline's reading block and takes the writing and speaking tasks from the theme files (`DIAGNOSTIC_PRODUCTION_IDS`: a formal message about language courses, a call to move an appointment) — neither is used by an EXAM blueprint or by the withheld delayed checks (`content/diagnostic.test.ts`, which fails on the old diagnostic). The draft fingerprint covers the whole diagnostic, so an unfinished draft from before is reported incompatible and offered for explicit discard; saved diagnostic records keep their old task ids.
 - **Not done:** the legacy `app/` diagnostic still shows `d-w1`/`d-s1` (legacy app, not developed further).
 
+## 2026-11-14 — interlocutor change in speech acts (pragmatic-speech-acts)
+
+- **Flow:** after a saved «Реакція в ситуації» card, «Різні співрозмовники (за бажанням)»: the card's own situation for a friend, a neighbour the learner barely knows, and an official or employer, in turn. Each step: a Ukrainian cue for that listener, the learner's own Finnish reply, then a separate appropriateness self-check (three register questions, not content); saved ungraded through commit + verified readback before the next listener; stoppable. At the end the learner's own replies are shown side by side to notice what changed.
+- **No invented rule:** the screen says many people in Finland use «sinä» with officials too; cues are an editorial draft pending S2 review. No model answer, no key, no score; the self-check is stored as a count (`<card>-register-<listener>`).
+- **Code:** `packages/domain/src/pragmatics.ts` (`INTERLOCUTOR_LADDER`, `interlocutorEvidence`; `test/pragmatics.test.ts`), `screens/InterlocutorShift.tsx`, `PracticeScreen`, `e2e/practice.spec.ts`.
+- **Not done:** the ladder on dialogues; human feedback on appropriateness.
+
