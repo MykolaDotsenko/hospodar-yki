@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 async function axe(page: Page) {
   const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
@@ -8,7 +9,7 @@ async function axe(page: Page) {
 
 test("R06: mission explains why it was chosen and lets the learner pick another", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByText("Чому це завдання зараз?").click();          // collapsed: the Finnish task stays the focus
   await expect(page.getByText("Ти ще не пробував(-ла) це завдання.")).toBeVisible();
   await expect(page.getByText(/без оцінки рівня/)).toBeVisible();
@@ -22,7 +23,7 @@ test("R06: mission explains why it was chosen and lets the learner pick another"
 
 test("R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   const first = await page.locator(".prompt[lang=fi]").textContent();
   await page.getByLabel("Впиши пропущену форму фінською").fill("väärä");
   await page.getByRole("button", { name: "Перевірити" }).click();

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 /**
  * Design research conformance, checked on the RENDERED app — every screen, not a sample.
@@ -17,7 +18,7 @@ const link = (name: string) => async (p: Page) => { await p.getByRole("button", 
 
 const SCREENS: Screen[] = [
   { name: "home", open: async () => {} },
-  { name: "cloze mission", open: async p => { await p.getByRole("button", { name: /Навчання/ }).click(); } },
+  { name: "cloze mission", open: async p => { await openLearn(p); } },
   { name: "reading list", open: nav("reading") },
   { name: "reading item", open: nav("reading", firstChoice) },
   { name: "listening item", open: nav("listening", firstChoice) },
@@ -231,7 +232,7 @@ test("DESIGN-05/R10-14 forced colours (Chromium): controls keep visible borders,
 
 test("AC-43 / COG-05: after feedback the single form cue never borrows a skill colour, and only one cue and one status note show", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.locator("[data-trust-note]")).toHaveCount(1);                       // one status note, in one place
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();

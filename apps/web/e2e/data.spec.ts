@@ -1,13 +1,14 @@
 import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 /** Reports the failing element too, so a browser-specific violation is diagnosable from the CI log alone. */
 const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze())
   .violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")).map(v => `${v.id}: ${v.nodes.map(n => n.target.join(" ")).join(", ")}`);
 
 async function oneMission(page: Page) {
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
   // Wait until the immutable first attempt was acknowledged before editing guided repair.
@@ -108,7 +109,7 @@ test("a second tab's newer progress is never erased by a stale screen (REVISION_
 
 test("LEARN-16: an unfinished mission is erasable but never falsely exported as completed", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByLabel("Впиши пропущену форму фінською").fill("kesken oleva luonnos");
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
   await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
@@ -128,7 +129,7 @@ test("LEARN-16: an unfinished mission is erasable but never falsely exported as 
   await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
   await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
   await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
   expect(await serious(page)).toEqual([]);
@@ -136,14 +137,14 @@ test("LEARN-16: an unfinished mission is erasable but never falsely exported as 
 
 test("LEARN-16: stale data screen cannot erase a draft modified in a second tab", async ({ page, context }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByLabel("Впиши пропущену форму фінською").fill("Minä menen.");
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
   await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
   await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("незавершених місій 1");
   const second = await context.newPage();
   await second.goto("./");
-  await second.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(second);
   await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen.");
   await second.getByLabel("Впиши пропущену форму фінською").fill("Minä menen nyt.");
   await second.getByRole("button", { name: "Зберегти та вийти" }).click();
@@ -152,6 +153,6 @@ test("LEARN-16: stale data screen cannot erase a draft modified in a second tab"
   await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
   await expect(page.getByRole("alert")).toContainText("НЕ видалено");
   await second.reload();
-  await second.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(second);
   await expect(second.getByLabel("Впиши пропущену форму фінською")).toHaveValue("Minä menen nyt.");
 });

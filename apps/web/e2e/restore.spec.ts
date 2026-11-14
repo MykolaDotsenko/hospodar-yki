@@ -1,10 +1,11 @@
 import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 /** User-level recovery of a NEW Web export, never a legacy V1 file. */
 async function oneMission(page: Page) {
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
   await expect(page.getByRole("button", { name: "Перевірити ще раз" })).toBeVisible(); // first-answer ACK
