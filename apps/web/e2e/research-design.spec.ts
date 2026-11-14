@@ -157,10 +157,10 @@ test("R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
         expect(overflow, `${s.name} @ ${width}px — too wide: ${overflow > 0 ? await tooWide(page) : ""}`).toBeLessThanOrEqual(0);
       }
-      const big = await page.addStyleTag({ content: "html{font-size:200%}" });
+      await page.evaluate(() => { document.documentElement.style.fontSize = "200%"; });   // CSSOM: the built app's CSP blocks injected <style>
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow, `${s.name} @ 320px + 200 % text — too wide: ${overflow > 0 ? await tooWide(page) : ""}`).toBeLessThanOrEqual(0);
-      await big.evaluate(e => e.remove());
+      await page.evaluate(() => { document.documentElement.style.fontSize = ""; });
     });
   }
   expect(await page.evaluate(() => (window as unknown as { __notify: number }).__notify)).toBe(0);

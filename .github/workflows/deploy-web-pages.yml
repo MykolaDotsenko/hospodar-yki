@@ -1,0 +1,65 @@
+name: Deploy web app to GitHub Pages (opt-in)
+# Builds apps/web on every push to main (and on demand) and uploads it as a Pages artifact.
+# Publishing is OFF until the repository owner both enables Pages (Settings → Pages → Source: GitHub Actions)
+# and sets the repository variable DEPLOY_PAGES=true. Without that, nothing becomes public.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'packages/domain/**'
+      - 'learning/**'
+      - 'knowledge/**'
+      - 'assets/**'
+      - 'app/tokens.css'
+      - 'brand/tokens.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/deploy-web-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install locked dependencies (pnpm via corepack)
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Domain tests and strict TypeScript
+        run: |
+          pnpm --filter @hospodar/domain test
+          pnpm -r typecheck
+      - name: Build
+        run: pnpm --filter @hospodar/web build
+      - name: Release guards on the built files
+        working-directory: apps/web/dist
+        run: |
+          grep -q 'http-equiv="Content-Security-Policy"' index.html
+          test -f sw.js && test -f manifest.webmanifest && test -f offline-manifest.json
+          find . -name "*.map" -delete          # sources stay private; maps are for local debugging only
+          touch .nojekyll
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: apps/web/dist
+  deploy:
+    needs: build
+    if: vars.DEPLOY_PAGES == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

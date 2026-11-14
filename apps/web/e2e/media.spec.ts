@@ -68,7 +68,8 @@ test("320 px: media library reflows without horizontal page scroll", async ({ pa
   for (const tab of ["Живі голоси", "Відео", "Фото-ситуації", "Ілюстрації", "Зовнішні джерела"]) {
     await open(page, tab);
     // Wide fallback font: CI font metrics differ from local ones; long Finnish words must still wrap.
-    await page.addStyleTag({ content: '*{font-family:"DejaVu Sans Mono",monospace !important;letter-spacing:.02em}' });
+    // Constructed stylesheet: the built app's CSP blocks injected <style> tags, not CSSOM.
+    await page.evaluate(() => { const s = new CSSStyleSheet(); s.replaceSync('*{font-family:"DejaVu Sans Mono",monospace !important;letter-spacing:.02em}'); document.adoptedStyleSheets = [...document.adoptedStyleSheets, s]; });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   }
 });

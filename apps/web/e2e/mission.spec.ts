@@ -107,7 +107,7 @@ test("second tab with a stale snapshot never overwrites a first answer (REVISION
 test("320 px wide and 200% text: no horizontal page scroll", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
   await startMission(page);
-  await page.addStyleTag({ content: "html{font-size:200%}" });
+  await page.evaluate(() => { document.documentElement.style.fontSize = "200%"; });   // 200 % text (CSSOM: allowed by the app's CSP)
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
