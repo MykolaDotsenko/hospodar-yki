@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { addDiagnostic, interlocutorEvidence, INTERLOCUTOR_LADDER, REGISTER_MAX_CHARS, REGISTER_NOTE_UK,
+import { addDiagnostic, interlocutorEvidence, INTERLOCUTOR_LADDER, REGISTER_MAX_CHARS, REGISTER_NOTE_UK, SAME_ACT_UK,
   type LearnerState, type PracticeCard, type PracticeLine } from "@hospodar/domain";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
@@ -64,7 +64,7 @@ export function InterlocutorShift({ card, situation, repository, snapshot, onSav
   return (
     <section className="stepup" aria-labelledby="register-title">
       <h2 id="register-title">Співрозмовник {index + 1} з {INTERLOCUTOR_LADDER.length}: {step.who_uk}</h2>
-      {index === 0 && <p className="muted">{REGISTER_NOTE_UK}</p>}
+      {index === 0 && <p className="muted">{SAME_ACT_UK} {REGISTER_NOTE_UK}</p>}
       <p className={situation.lang === "fi" ? "prompt" : undefined} lang={situation.lang}>{situation.text}</p>
       <p data-testid="register-cue"><strong>{step.cue_uk}</strong></p>
       <form onSubmit={e => void save(e)} noValidate>

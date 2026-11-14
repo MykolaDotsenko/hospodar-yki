@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hasInterlocutorLadder, interlocutorEvidence, INTERLOCUTOR_LADDER, REGISTER_NOTE_UK } from "../src/index.ts";
+import { hasInterlocutorLadder, interlocutorEvidence, INTERLOCUTOR_LADDER, REGISTER_NOTE_UK, SAME_ACT_UK } from "../src/index.ts";
 
 const reaction = { id: "react-01", kind: "reaction" as const, attemptSkill: "speaking" as const };
 
@@ -11,6 +11,11 @@ describe("interlocutor change in speech acts (pragmatic-speech-acts)", () => {
       expect(s.cue_uk).toMatch(/[а-яіїєґ]/i);
     }
     expect(REGISTER_NOTE_UK).toMatch(/«sinä»/);                     // no fake rule: sinä is common with officials too
+  });
+  it("checks are about register, never about the goal — they fit apologies, refusals, explanations and questions alike", () => {
+    const all = INTERLOCUTOR_LADDER.flatMap(s => [s.cue_uk, ...s.checks_uk]).join(" ");
+    expect(all).not.toMatch(/прохання|попроси|що тобі потрібно|причин/i);         // no goal smuggled into a register check
+    expect(SAME_ACT_UK).toMatch(/вибачення.*відмова.*пояснення/);
   });
   it("only reaction cards have the ladder", () => {
     expect(hasInterlocutorLadder({ kind: "reaction" })).toBe(true);
