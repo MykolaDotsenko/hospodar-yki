@@ -45,9 +45,9 @@ test("Diagnostic v9: independent answers, text, self-check and skill-evidence ar
   await expect(page.getByLabel(/Твій текст фінською/)).toHaveValue(WRITTEN);
   await page.getByRole("button", { name: "Готово — перевірити себе" }).click();
   await expect(page.getByRole("heading", { name: "Письмо: перевір себе" })).toBeVisible();
-  await page.getByLabel("kielitaito").check();
+  await page.getByLabel("oma kielitaso").check();
   await exit(page); await resume(page);
-  await expect(page.getByLabel("kielitaito")).toBeChecked();
+  await expect(page.getByLabel("oma kielitaso")).toBeChecked();
   await page.getByRole("button", { name: /Зберегти без оцінки й далі/ }).click();
   await expect(page.getByRole("heading", { name: "Говоріння" })).toBeVisible();
   await page.getByLabel(/усний план/).fill(SPOKEN);

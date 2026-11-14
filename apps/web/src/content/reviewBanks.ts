@@ -124,7 +124,7 @@ export const reviewBanks: ReviewBank[] = [
     where_uk: "Місії з фото (лише ті, для яких є допущене фото)", walk: { screen: "pictures", perItem: false },
     ...rows(pictures, "items", "learning/exercises/a1/image-led/lessons.json") },
   { id: "diagnostic", title_uk: "Стартова діагностика: читання й аудіювання", skills: ["reading"], audio: false, source: ORIGINAL,
-    where_uk: "Діагностика (письмо й говоріння діагностики входять у пробний іспит і тут не показуються)", walk: { screen: "diagnostic", perItem: false },
+    where_uk: "Діагностика: читання (письмо й говоріння діагностики — завдання з банку «Теми YKI»; власні d-w/d-s цього файлу належать пробному іспиту)", walk: { screen: "diagnostic", perItem: false },
     ...parts(baseline, ["reading", "listening", "writing", "speaking"], `${B1}/diagnostics/baseline-v1.json`) },
   { id: "transfer", title_uk: "Відкладене перенесення граматики", skills: ["writing"], audio: false, source: ORIGINAL,
     where_uk: "Відкладена перевірка через 7/14/30 днів (тут показано повністю)", walk: null,

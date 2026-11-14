@@ -19,7 +19,7 @@ async function throughWriting(page: Page) {
   await expect(page.getByRole("alert")).toContainText("щонайменше 20 символів");
   await page.getByLabel(/Твій текст фінською/).fill("Hei! Puhun suomea vähän. Sopiiko maanantai? Paljonko kurssi maksaa?");
   await page.getByRole("button", { name: "Готово — перевірити себе" }).click();
-  await page.getByLabel("kielitaito").check();
+  await page.getByLabel("oma kielitaso").check();
   await page.getByRole("button", { name: /Зберегти без оцінки й далі/ }).click();
 }
 
@@ -33,7 +33,7 @@ test("UX-06 diagnostic: reading keys only after answers; writing/speaking ungrad
   await expect(page.getByRole("alert")).toContainText("Запиши голос або напиши");
   await page.getByLabel(/усний план/).fill("Valitettavasti en pääse torstaina. Sopisiko perjantai tai maanantai?");
   await page.getByRole("button", { name: "Готово — перевірити себе" }).click();
-  await page.getByLabel("ensimmäinen ehdotus").check();
+  await page.getByLabel("uusi toivottu aika").check();
   await page.getByRole("button", { name: /Зберегти без оцінки й завершити/ }).click();
   const summary = page.getByRole("status");
   await expect(summary).toContainText("1 з 2 з першої спроби — замало питань для висновку");

@@ -5305,9 +5305,13 @@
         {
           "file": "apps/web/src/content/places.test.ts",
           "contains": "the LEARN listening pool never contains a lesson an EXAM blueprint uses (EXAM-11)"
+        },
+        {
+          "file": "apps/web/src/content/diagnostic.test.ts",
+          "contains": "no task the LEARN diagnostic shows is used by an EXAM blueprint — not even the baseline file's own production tasks"
         }
       ],
-      "gap": "LEARN and EXAM pools are separated (audio by content hash, reading/practice pools exclude exam items) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists."
+      "gap": "LEARN and EXAM pools are separated (audio by content hash; reading, practice and listening pools exclude exam items; the apps/web starting diagnostic uses theme tasks, not the mini rehearsals' d-w/d-s prompts) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists, and the legacy app/ diagnostic still shows d-w1/d-s1."
     },
     {
       "id": "EXAM-12",
