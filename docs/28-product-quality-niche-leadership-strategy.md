@@ -146,6 +146,8 @@
 
 ## 10. Найближчі задачі, що дають найбільший приріст якості
 
+**Оновлення 14.11.2026:** чинний порядок робіт для всього продукту — у [ТЗ: план розробки](29-tz-development-plan.md) (вісім етапів, черга PR і черга для людей). Таблиця нижче лишається обґрунтуванням перших кроків; її механізми 1–3 мають реалізацію з тестами, а людська рецензія S2 і перегляд демо OPH ще не проведені.
+
 | Порядок | Конкретна задача | Acceptance |
 | --- | --- | --- |
 | **1** | Описати **content review card** для кожного опублікованого lesson/audio/item: рівень, communication outcome, source/licence, S2, answer variants, transcript, version | Validator не випускає `published` без обов'язкових полів; S2 може затвердити чи повернути **Gate built 03.11.2026:** `scripts/validate_content_publication.py` + 11 tests in CI; format in [CONTENT-AUTHORING](guides/CONTENT-AUTHORING.md). 0 items published — S2 review itself NOT DONE. |
