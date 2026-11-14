@@ -23,12 +23,32 @@ import { DataScreen } from "./screens/DataScreen.tsx";
 import { OfflineScreen } from "./screens/OfflineScreen.tsx";
 import { applyUpdate, onUpdateReady } from "./pwa/offline.ts";
 import { PlaceScreen } from "./screens/PlaceScreen.tsx";
+import { NotReviewedYet } from "./screens/NotReviewedYet.tsx";
+import { IN_RELEASE } from "./content/release.ts";
+import { exercises } from "./content/cloze.ts";
+import { practiceCards } from "./content/practice.ts";
+import { dialogues } from "./content/dialogues.ts";
+import { readingItems } from "./content/reading.ts";
+import { clinicItems } from "./content/writingClinic.ts";
+import { listeningLessons } from "./content/listening.ts";
+import { pictureMissions } from "./content/pictureMissions.ts";
+import { diagnosticAvailable } from "./content/diagnostic.ts";
+import { examBlueprints } from "./content/exam.ts";
 import { WorkshopScreen } from "./screens/WorkshopScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
 import { applyAppearance, applyGuide, applyTheme, readAppearance, readGuide, readTheme, type Appearance, type Theme } from "./appearance.ts";
 
 type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "exam" | "data" | "offline";
-const initialView = (): View => (location.hash === "#review" ? "review" : "home");
+/** The S2 reviewer workspace exists only in beta builds: a release build never shows keys or drafts. */
+const initialView = (): View => (location.hash === "#review" && !IN_RELEASE ? "review" : "home");
+/** Release build: a learner screen whose pool has no S2-published item shows «Ще не перевірено» instead. */
+const EMPTY_IN_RELEASE: Partial<Record<View, boolean>> = IN_RELEASE ? {
+  mission: exercises.length === 0, workshop: exercises.length === 0, practice: practiceCards.length === 0, dialogue: dialogues.length === 0,
+  reading: readingItems.length === 0, writing: clinicItems.length === 0, listening: listeningLessons.length === 0,
+  pictures: pictureMissions.length === 0, diagnostic: !diagnosticAvailable, exam: examBlueprints.length === 0,
+} : {};
+/** Release build: how many S2-published learner tasks this build carries (shown on Home, so an empty build says so). */
+const RELEASED_TASKS = exercises.length + practiceCards.length + dialogues.length + readingItems.length + clinicItems.length + listeningLessons.length + pictureMissions.length;
 
 export function App({ repository, examRepository, voiceStore, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; voiceStore: VoiceStore; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
@@ -75,28 +95,33 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
           <div className="feedback" role="status"><p>Доступна нова версія застосунку. Прогрес збережено на пристрої й не зміниться.</p>
             <button type="button" className="btn secondary" onClick={applyUpdate}>Оновити зараз</button></div>
         )}
+        {EMPTY_IN_RELEASE[view] && <NotReviewedYet onHome={() => goTo("home")} />}
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
+        {view === "home" && IN_RELEASE && (
+          <p className="feedback" role="status" data-testid="release-notice">Збірка випуску: тут лише завдання, перевірені викладачем S2 (зараз {RELEASED_TASKS}).
+            {RELEASED_TASKS === 0 && " Поки що жодного — розділи покажуть «Ще не перевірено»."}</p>
+        )}
         {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={setSnapshot} onHome={() => goTo("home")} />}
-        {view === "exam" && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
+        {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
           onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} />}
-        {view === "reading" && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
-        {view === "practice" && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
-        {view === "pictures" && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
+        {view === "practice" && !EMPTY_IN_RELEASE.practice && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
+        {view === "pictures" && !EMPTY_IN_RELEASE.pictures && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
-        {view === "dialogue" && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
-        {view === "writing" && snapshot && <WritingClinicScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
-        {view === "diagnostic" && snapshot && <DiagnosticScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={() => goTo("listening")} />}
-        {view === "listening" && snapshot && <ListeningScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
+        {view === "dialogue" && !EMPTY_IN_RELEASE.dialogue && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
+        {view === "writing" && !EMPTY_IN_RELEASE.writing && snapshot && <WritingClinicScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
+        {view === "diagnostic" && !EMPTY_IN_RELEASE.diagnostic && snapshot && <DiagnosticScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={() => goTo("listening")} />}
+        {view === "listening" && !EMPTY_IN_RELEASE.listening && snapshot && <ListeningScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "retention" && snapshot && <RetentionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "progress" && snapshot && <ProgressScreen state={snapshot.state} examRepository={examRepository} onHome={() => goTo("home")} onLearn={() => goTo("mission")} onRetention={() => goTo("retention")} onPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "import" && snapshot && <ImportScreen repository={repository} current={snapshot} onImported={setSnapshot} onHome={() => goTo("home")} />}
-        {view === "review" && <ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} />}
-        {view === "workshop" && snapshot && <WorkshopScreen state={snapshot.state} guide={showGuide} onHome={() => goTo("home")} open={id => goTo("mission", id, true)} />}
-        {view === "mission" && snapshot && (
+        {view === "review" && !IN_RELEASE && <ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} />}
+        {view === "workshop" && !EMPTY_IN_RELEASE.workshop && snapshot && <WorkshopScreen state={snapshot.state} guide={showGuide} onHome={() => goTo("home")} open={id => goTo("mission", id, true)} />}
+        {view === "mission" && !EMPTY_IN_RELEASE.mission && snapshot && (
           <MissionScreen key={startId ?? "ranked"} repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")}
             initialTaskId={startId} workshop={fromWorkshop ? { label: "До майстерні слабких місць", onBack: () => goTo("workshop") } : undefined} />
         )}
@@ -108,7 +133,9 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
           </select></p>
         <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> Показувати Господаря</label></p>
-        <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>
+        {IN_RELEASE
+          ? <p data-channel="release">Збірка випуску: лише завдання, перевірені викладачем S2.</p>
+          : <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>}
       </footer>
     </>
   );

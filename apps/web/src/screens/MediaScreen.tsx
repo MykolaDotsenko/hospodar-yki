@@ -3,6 +3,7 @@ import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
 import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { IN_RELEASE } from "../content/release.ts";
 
 type Snap = { state: LearnerState; revision: number };
 type Tab = "voices" | "video" | "pictures" | "illustrations" | "links";
@@ -129,7 +130,7 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
                 <li key={l.id} className="media-card">
                   <h3 lang="fi">{l.title}</h3>
                   <p className="muted">{l.creator}{l.cefr_estimate ? ` · орієнтовно ${l.cefr_estimate} (оцінка редакції)` : ""}</p>
-                  {l.original_question_seeds?.length ? (
+                  {l.original_question_seeds?.length && !IN_RELEASE ? (                 /* draft Finnish questions: beta builds only */
                     <><p>Питання до перегляду (чернетки):</p><ul lang="fi">{l.original_question_seeds.map(q => <li key={q.id}>{q.prompt_fi}</li>)}</ul></>
                   ) : null}
                   <p><a className="btn secondary" href={l.url} target="_blank" rel="noopener noreferrer">Відкрити на {l.host} ↗</a></p>

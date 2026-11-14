@@ -10,6 +10,7 @@ import pictureManifest from "../../../../assets/images/pictures/available.json";
 import illustrationManifest from "../../../../assets/images/illustrations/library.json";
 import librivoxManifest from "../../../../learning/exercises/b1/audio-training/librivox-human.json";
 import youtube from "../../../../sources/youtube/youtube-catalog.json";
+import { learnerPool } from "./release.ts";
 
 const files = import.meta.glob([
   "../../../../assets/audio/open/**/*.{ogg,mp3}", "../../../../assets/audio/segments/**/*.ogg", "../../../../assets/audio/human/librivox/**/*.ogg",
@@ -46,7 +47,7 @@ export const segmentsOf = (parentPath: string) => audio.filter(a => a.kind === "
 
 type LibriVoxEntry = MediaEntry & { work: string; writer: string; duration_seconds: number; boundary_start: string; boundary_end: string; level_hint: string;
   questions: { kind: string; prompt_fi: string }[] };
-const librivox = admit((librivoxManifest as unknown as { items: LibriVoxEntry[] }).items);
+const librivox = admit(learnerPool((librivoxManifest as unknown as { items: LibriVoxEntry[] }).items));   // release: S2-published excerpts only
 /** Grouped by work → narrator → parts (parts cut at detected pauses in read speech). */
 export const librivoxWorks = [...new Set(librivox.map(l => l.work))].map(work => {
   const parts = librivox.filter(l => l.work === work);

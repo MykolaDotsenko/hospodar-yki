@@ -4,9 +4,18 @@ import mini from "../../../../learning/exercises/b1/exam-patterns/mini-rehearsal
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
 import listening from "../../../../learning/exercises/b1/audio-long/lessons.json";
 import baseline from "../../../../learning/exercises/b1/diagnostics/baseline-v1.json";
+import { learnerPool } from "./release.ts";
 
-export const examBlueprints = (mini as unknown as { blueprints: (ExamBlueprint & { id: string; title_uk: string; audience: string })[] }).blueprints;
 const content = { reading, listening, baseline } as unknown as ExamContent;
+type StoredBlock = { skill: string; item_id: string };
+/** The stored items a form uses: a release build offers a form only when every one of them is S2-published. */
+const storedItemsOf = (b: { skill_blocks: StoredBlock[] }): unknown[] => b.skill_blocks.map(s => {
+  const c = content as unknown as { reading: { items: { id: string }[] }; listening: { lessons: { id: string }[] }; baseline: Record<string, { id: string }[]> };
+  return s.skill === "reading" ? c.reading.items.find(i => i.id === s.item_id)
+    : s.skill === "listening" ? c.listening.lessons.find(i => i.id === s.item_id)
+    : c.baseline[s.skill]?.find(i => i.id === s.item_id);
+});
+export const examBlueprints = learnerPool((mini as unknown as { blueprints: (ExamBlueprint & { id: string; title_uk: string; audience: string; skill_blocks: StoredBlock[] })[] }).blueprints, storedItemsOf);
 /** Items of a blueprint, optionally restricted to a subset of skills (single-subtest practice, EXAM-03). */
 export const itemsFor = (blueprintId: string, skills: ExamSkill[] | null = null): ExamItem[] => {
   const b = examBlueprints.find(x => x.id === blueprintId);

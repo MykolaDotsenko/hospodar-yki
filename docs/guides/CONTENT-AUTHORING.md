@@ -47,7 +47,7 @@ Rules: the reviewer is a qualified **human** S2 teacher (AI drafts never sign a 
 2. **Approve** needs every card field above; **return** needs at least one category and a concrete reason. An incomplete approval is refused in the app and again by the script.
 3. The reviewer downloads the decisions file and hands it to the editor, who runs `python3 scripts/apply_review_decisions.py FILE --dry-run`, then without `--dry-run`, then the content validators, and commits. The script refuses any item whose hash changed after the reviewer saw it (review again), any unknown file or id, and writes nothing unless every decision is valid.
 4. An approval becomes a card with status `s2_reviewed`; the item itself is not changed. A return becomes a `draft` card with `s2_review.decision = "returned"`, reviewer, date, categories and reason; the author fixes the item, and it goes through review again.
-5. `published` (clearing an item's own `pending…` markers) and the release build that shows learners only published items are a separate step. EXAM items are not reviewed in this workspace.
+5. Only a `published` card reaches learners in a **release build** (`VITE_HOSPODAR_CHANNEL=release`, see [DEVELOPMENT](../DEVELOPMENT.md)); the beta build shows everything with a draft label. Moving `s2_reviewed` → `published` (and the item's own `pending…` markers) is the next code step. EXAM items are not reviewed in this workspace.
 
 Content hashes are shared with the browser: integral floats count as integers, and decimals below 1e-4 are refused (`content_hash` raises), so the app and the script always agree.
 

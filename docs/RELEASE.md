@@ -9,6 +9,7 @@ Two runnable Web implementations coexist: the legacy `app/` browser prototype se
 ## Built-app hardening (2026-11-14)
 
 - **CSP:** the built `index.html` carries a strict same-origin Content-Security-Policy and `no-referrer` (`apps/web/csp-plugin.ts`); `apps/web/e2e/csp.spec.ts` asserts the policy and zero violations across the main screens. A `<meta>` CSP cannot set `frame-ancestors`; a header-capable host is needed for that.
+- **Release channel:** a release build is made with `VITE_HOSPODAR_CHANNEL=release`. Every learner pool then keeps only S2-`published` items (an EXAM form only when all its tasks are published), a section with none says «Ще не перевірено», draft labels disappear, and the reviewer workspace is not reachable (`apps/web/e2e/release.spec.ts`). Today 0 items are published, so a release build carries no learning content. The JSON bundle still contains the draft files (filtering happens at runtime), so a release build must not be presented as having drafts removed from its download.
 - **No deployment pipeline exists.** Hosting and publication are an owner decision at the last stage of the [development plan](29-tz-development-plan.md#етап-8-випуск); source maps must not be published with a release.
 
 ## Web preview/release prerequisites (future)

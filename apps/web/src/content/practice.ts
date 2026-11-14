@@ -11,8 +11,9 @@ import opinions from "../../../../learning/exercises/b1/high-yield/opinion-argum
 import chunks from "../../../../knowledge/dictionaries/b1/contextual-chunks-v1.json";
 import rektio from "../../../../knowledge/dictionaries/b1/rektio-v1.json";
 import exam from "../../../../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json";
+import { learnerPool } from "./release.ts";
 
-const items = <T,>(x: unknown) => (x as { items: T[] }).items;
+const items = <T,>(x: unknown) => learnerPool((x as { items: T[] }).items);          // release builds: S2-published only
 const cards: PracticeCard[] = [
   ...items<ParaphraseItem>(paraphrase).map(paraphraseCard),
   ...items<ReactionItem>(reactions).map(reactionCard),
