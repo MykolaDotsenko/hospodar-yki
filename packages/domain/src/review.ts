@@ -140,15 +140,23 @@ export function parseReviewDecisionsFile(raw: unknown): ReviewDecision[] | null 
 }
 
 /**
- * Canonical JSON of an item without its review_card — byte-identical to
+ * Canonical JSON of an item without its review_card and review-status markers — byte-identical to
  * `json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(",", ":"))` in
  * scripts/validate_content_publication.py (which also writes integral floats as integers). Numbers whose text differs
  * between the two languages (non-integers below 1e-4) are refused on both sides, so a hash can never silently disagree.
  */
 export function canonicalReviewJson(item: Record<string, unknown>): string {
-  const { review_card: _card, ...body } = item;
+  const body: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(item)) if (k !== "review_card" && !(REVIEW_MARKER_KEYS as readonly string[]).includes(k)) body[k] = v;
   return canonical(body);
 }
+/**
+ * An item's own review-status markers: metadata about the review, not content a learner sees. They are not hashed, so
+ * publishing (pending → approved value) keeps the hash the S2 reviewer approved. Mirrors REVIEW_MARKER_KEYS in
+ * scripts/validate_content_publication.py.
+ */
+export const REVIEW_MARKER_KEYS = ["teacher_review", "teacher_audio_review", "linguistic_review", "quality_status", "review_status",
+  "meaning_review_status", "answerKeyReviewed"] as const;
 function canonical(v: unknown): string {
   if (v === null || typeof v === "boolean" || typeof v === "string") return JSON.stringify(v);
   if (typeof v === "number") {

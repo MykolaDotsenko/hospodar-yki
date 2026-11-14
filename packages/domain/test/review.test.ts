@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   canonicalReviewJson, formatSha256, itemReviewStatus, parseReviewDecisionsFile, reviewDecisionErrors, reviewDecisionsFile, upsertDecision,
-  validReviewerId, REVIEW_DECISIONS_SCHEMA, type ReviewDecision,
+  validReviewerId, REVIEW_DECISIONS_SCHEMA, REVIEW_MARKER_KEYS, type ReviewDecision,
 } from "../src/index.ts";
 
 const HASH = "sha256:" + "a".repeat(64);
@@ -71,6 +71,14 @@ describe("canonical item JSON (parity with scripts/validate_content_publication.
   it("drops the review card, sorts keys, compact separators, keeps Finnish letters unescaped", () => {
     const item = { prompt_fi: "Asun ___ (Helsinki).", id: "x", review_card: { status: "draft" }, nested: { b: [1, 2.5, true, null], a: "ä\"\n" } };
     expect(canonicalReviewJson(item)).toBe('{"id":"x","nested":{"a":"ä\\"\\n","b":[1,2.5,true,null]},"prompt_fi":"Asun ___ (Helsinki)."}');
+  });
+  it("review-status markers are metadata, not content: publishing may approve them without changing the hash", () => {
+    const item = { id: "x", prompt_fi: "Olen ___ (kauppa).", review_status: "editorial_draft_pending_S2_review", answerKeyReviewed: false, teacher_review: "pending" };
+    const published = { ...item, review_status: "approved_S2", answerKeyReviewed: true, teacher_review: "approved" };
+    expect(canonicalReviewJson(published)).toBe(canonicalReviewJson(item));
+    expect(canonicalReviewJson(item)).toBe('{"id":"x","prompt_fi":"Olen ___ (kauppa)."}');
+    expect(canonicalReviewJson({ ...item, prompt_fi: "Olen ___ (koulu)." })).not.toBe(canonicalReviewJson(item));
+    expect(REVIEW_MARKER_KEYS).toEqual(["teacher_review", "teacher_audio_review", "linguistic_review", "quality_status", "review_status", "meaning_review_status", "answerKeyReviewed"]);
   });
   it("refuses numbers whose text differs between JavaScript and Python", () => {
     expect(() => canonicalReviewJson({ x: 0.00001 })).toThrow(/canonical/);

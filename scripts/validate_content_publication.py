@@ -64,8 +64,15 @@ def _shared_numbers(v):
     return v
 
 
+# An item's own review-status markers are metadata about the review, not content a learner sees. They are left out of
+# the hash, so publishing (which turns "pending…" into the approved value) keeps the hash the S2 reviewer approved.
+# Mirrored by REVIEW_MARKER_KEYS in packages/domain/src/review.ts.
+REVIEW_MARKER_KEYS = ("teacher_review", "teacher_audio_review", "linguistic_review", "quality_status", "review_status",
+                      "meaning_review_status", "answerKeyReviewed")
+
+
 def content_hash(item: dict) -> str:
-    body = _shared_numbers({k: v for k, v in item.items() if k != "review_card"})
+    body = _shared_numbers({k: v for k, v in item.items() if k != "review_card" and k not in REVIEW_MARKER_KEYS})
     canonical = json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return "sha256:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
