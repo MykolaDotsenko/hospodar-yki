@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 /** DESIGN-04/08/10, UIO-01, UX-02/07, COLOR-11, A10-07/08, SENS-05/12 — checked on every mission step. */
 async function stepChecks(page: Page) {
@@ -19,7 +20,7 @@ async function stepChecks(page: Page) {
 test("focus budget and orientation hold on every mission step", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByText("Навчання дозволяє підказки після твоєї відповіді — симуляція їх приховує.", { exact: false })).toBeVisible(); // UX-07
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await stepChecks(page);                                                           // answer
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 // First unattempted exercise for a fresh profile: b1-g-001 "Huomenna menen ___ (kirjasto)." → kirjastoon
 const KEY = "kirjastoon";
@@ -10,10 +11,7 @@ async function axe(page: Page) {
 }
 async function startMission(page: Page) {
   await page.goto("./");
-  // Wait until the learner's progress is loaded: the "next step" block then appears above the mode entries,
-  // and a click sent before that layout shift can land on another button.
-  await expect(page.locator(".today")).toBeVisible();
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);   // waits for Home's progress (layout shift) before clicking
   await expect(page.getByRole("heading", { name: "Твоя відповідь" })).toBeVisible();
 }
 
@@ -89,7 +87,7 @@ test("second tab with a stale snapshot never overwrites a first answer (REVISION
   const other = await context.newPage();
   await startMission(page);
   await other.goto("./");
-  await other.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(other);
   await page.getByLabel("Впиши пропущену форму фінською").fill(KEY);
   await page.getByRole("button", { name: "Перевірити" }).click();
   await expect(page.getByText("Правильно з першої спроби.")).toBeVisible();
@@ -99,7 +97,7 @@ test("second tab with a stale snapshot never overwrites a first answer (REVISION
   await expect(other.getByRole("heading", { name: "Твоя відповідь" })).toBeVisible();
   await expect(other.locator(".learning-cue")).toHaveCount(0);
   await other.reload();
-  await other.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(other);
   await expect(other.getByText("Правильно з першої спроби.")).toBeVisible();
   await expect(other.locator(".learning-cue")).toHaveText(KEY);
 });
@@ -107,7 +105,7 @@ test("second tab with a stale snapshot never overwrites a first answer (REVISION
 test("320 px wide and 200% text: no horizontal page scroll", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
   await startMission(page);
-  await page.addStyleTag({ content: "html{font-size:200%}" });
+  await page.evaluate(() => { document.documentElement.style.fontSize = "200%"; });   // 200 % text (CSSOM: allowed by the app's CSP)
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
@@ -153,7 +151,7 @@ test("PSY-07: wrong first attempt and repair text survive reload with NO answer 
   await page.getByRole("button", { name: "Зберегти та вийти" }).click();
   await expect(page.getByText(/Виконано місій: 0/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.getByText(/Продовжуємо незавершену місію/)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();
   await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("kirjasto**");
@@ -168,7 +166,7 @@ test("PSY-07: wrong first attempt and repair text survive reload with NO answer 
   expect(await storedClozeInput(page)).toBe("Menen tänään kauppaan."); // actual IDB bytes, not toast
   await page.reload();
   expect(await storedClozeInput(page)).toBe("Menen tänään kauppaan.");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.getByRole("heading", { name: "Скажи це про себе" })).toBeVisible();
   await expect(page.getByLabel(/Твоє власне речення/)).toHaveValue("Menen tänään kauppaan.");
   await expect(page.locator(".learning-cue")).toHaveCount(0);
@@ -184,13 +182,13 @@ test("LEARN-07: autonomous answer field autosaves after a pause; discard is deli
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjast");
   await expect(page.getByText(/Чернетку збережено на цьому пристрої/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("kirjast");
   await expect(page.getByText(/Продовжуємо незавершену місію/)).toBeVisible();
   await page.getByRole("button", { name: "Відкинути чернетку та почати заново" }).click();
   await expect(page.getByLabel("Впиши пропущену форму фінською")).toHaveValue("");
   await page.reload();
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
   await expect(page.getByText(/Виконано місій: 0/)).toHaveCount(0); // mission view, not Home statistics
 });

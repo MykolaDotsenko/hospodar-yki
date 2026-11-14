@@ -77,7 +77,7 @@ The core [ARCHITECTURE](ARCHITECTURE.md), [CONTRACTS](CONTRACTS.md), [TESTING](T
 | Where does critical data live? | [24 — reliability decision](24-reliability-hardened-architecture-web-android.md) | **TARGET** Web Dexie/IndexedDB, Android Kotlin Room |
 | Why this stack? | [22 — stack ADR](22-optimal-stack-and-architecture-adr-2026-10.md) | **ACCEPTED DESIGN**, not deployed React/Phaser |
 | Android packaging/2D media? | [23 — distribution/game ADR](23-android-offline-game-and-3gb-media-architecture.md) | **TARGET** install-time PAD, licensed media only |
-| Which work next? | [25 — G0–G6 roadmap](25-implementation-vertical-slice-roadmap.md) | **PARTIAL** G0; G1–G6 not complete |
+| Which work next? | [29 — ТЗ: development plan in eight stages](29-tz-development-plan.md) for product order; [25 — G0–G6 roadmap](25-implementation-vertical-slice-roadmap.md) for platform gates | **TARGET** plan; **PARTIAL** G0, G1–G6 not complete |
 | Exam and official YKI fidelity? | [14 — digital fidelity](14-digital-yki-fidelity-spec.md) + [21 — executable exam spec](21-digital-yki-exam-simulator-executable-spec.md) | **TARGET**, 2027 unknowns explicit |
 | Content and rights? | [../learning/CONTRIBUTING.md](../learning/CONTRIBUTING.md) + [06 — verification](../sources/learning/06-sources-and-verification.md) | Human-reviewed, rights-aware content process |
 

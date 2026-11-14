@@ -1,12 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 const T0 = new Date("2026-11-03T09:00:00+02:00");
 const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze())
   .violations.filter(v => ["serious", "critical"].includes(v.impact ?? "")).map(v => v.id);
 
 async function wrongMission(page: Page) {
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
   // Phase becomes repair only after the first IndexedDB checkpoint ACK.

@@ -358,3 +358,9 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **No model, no key:** nothing is compared automatically. Evidence is saved ungraded (`<item>-mediation`): a Ukrainian relay as reading comprehension, simpler Finnish as writing; commit + verified readback. EXAM texts never appear (LEARN pool only).
 - **Code:** `packages/domain/src/mediation.ts` (`MEDIATION_MODES`, `MEDIATION_CHECK_UK`, `mediationEvidence`; `test/mediation.test.ts`), `screens/MediationStep.tsx`, `ReadingScreen`, `e2e/reading.spec.ts`.
 - **Not done:** mediation after listening; human feedback on the accuracy of the relay.
+
+## 2026-11-14 — strict CSP in the built web app; E2E entry helper
+
+- **CSP:** `apps/web/csp-plugin.ts` adds a same-origin Content-Security-Policy and `no-referrer` as `<meta>` to the **built** `index.html` (the dev server is exempt: Vite HMR inlines scripts). No inline or eval code, no third-party origins; `blob:` only for images and media such as local recordings. `e2e/csp.spec.ts` asserts the policy and zero violations across the main screens. Tests that need 200 % text use CSSOM instead of injected `<style>`.
+- **E2E helper:** `e2e/helpers.ts` `openLearn()` waits for Home's loaded progress before clicking «Навчання» (Home re-lays out when progress loads; an early click raced on CI Firefox).
+- **Plan:** the ordered development plan lives in [29 — ТЗ](29-tz-development-plan.md). No deployment pipeline exists.

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 const bg = (page: Page, sel: string) => page.locator(sel).first().evaluate(e => getComputedStyle(e).backgroundColor);
 const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze())
@@ -7,7 +8,7 @@ const serious = async (page: Page) => (await new AxeBuilder({ page }).withTags([
 
 test("DESIGN-16 calm mode: fewer fills, no decoration, same content and answer policy; persists", async ({ page }) => {
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   const standardPrompt = await bg(page, ".prompt");
   const text = await page.locator("main").innerText();
   await page.getByRole("button", { name: "Спокійний режим" }).click();

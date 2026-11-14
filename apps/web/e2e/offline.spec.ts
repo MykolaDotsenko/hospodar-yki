@@ -67,8 +67,9 @@ test("WEB-06: a new version waits; it is never offered during the exam, only out
 
   await page.getByRole("button", { name: "На головну" }).or(page.locator(".brand")).first().click();
   await expect(page.getByText("Доступна нова версія застосунку")).toBeVisible();
-  await page.getByRole("button", { name: "Оновити зараз" }).click();
-  await page.waitForLoadState("load");
+  const reloaded = page.waitForEvent("load");                                                // the reload of the NEW document
+  await page.getByRole("button", { name: "Оновити зараз" }).click();                         // (waitForLoadState would resolve on the old page)
+  await reloaded;
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
   expect(await page.evaluate(() => navigator.serviceWorker.controller!.scriptURL)).toContain("deploy=e2e");   // the new version controls the page

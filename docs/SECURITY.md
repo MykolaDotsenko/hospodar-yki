@@ -23,7 +23,8 @@
 6. **AI prompt injection / content poisoning:** third-party learning texts and AI responses are untrusted **data**; never follow embedded instructions to reveal credentials, disable policies or run tools. Bound AI-generated feedback to editorial rubrics, quote/source identifiers, user consent and human-review paths.
 7. **Auth/sync future:** optional EU-region hosting choice; least-privilege RLS, tenant-isolation tests, rate limits, server-side secrets, encrypted transport and deletion/export policies **before** rollout.
 8. **Licensing/privacy:** do not download and ship YouTube/official YKI recordings without explicit distribution rights. Keep source-license ledger and video/subtitle attribution; separately record human language review.
-9. **Accessible safety:** errors understandable, reduced-motion/keyboard/reader support, no hidden destructive data reset, no misleading "saved" or "official grade" claims.
+9. **Content-Security-Policy (Web build):** strict same-origin policy as `<meta>` in the built app (no inline/eval, no third-party origins; `blob:` only for media and images such as local recordings), `no-referrer`; source maps must not be published with a release. Tested by `apps/web/e2e/csp.spec.ts`. `frame-ancestors` needs a host that sends headers.
+10. **Accessible safety:** errors understandable, reduced-motion/keyboard/reader support, no hidden destructive data reset, no misleading "saved" or "official grade" claims.
 
 ## Practical PR review questions
 

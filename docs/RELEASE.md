@@ -6,6 +6,11 @@
 
 Two runnable Web implementations coexist: the legacy `app/` browser prototype served with `python3 -m http.server 8080`, and `apps/web/` React/Vite/TypeScript with XState EXAM, Dexie LEARN/EXAM, optional media packs and service worker. The new Web app is buildable and tested in CI but **not a verified production deployment**. Its Web v1 JSON export can restore **LEARN only** into an empty profile; EXAM history/recording bytes are not recovered by that path. `native/android/prototype/` contains Kotlin sources, not an Android app/Gradle project. A 3–4GB media library ([R05 plan](23-android-offline-game-and-3gb-media-architecture.md#r05-follow-up-28102026--storage-ceiling-increased-implementation-unchanged): ≈3.6GB compressed, Play ceiling 4GB), Play install-time packs and signed AAB do not currently exist.
 
+## Built-app hardening (2026-11-14)
+
+- **CSP:** the built `index.html` carries a strict same-origin Content-Security-Policy and `no-referrer` (`apps/web/csp-plugin.ts`); `apps/web/e2e/csp.spec.ts` asserts the policy and zero violations across the main screens. A `<meta>` CSP cannot set `frame-ancestors`; a header-capable host is needed for that.
+- **No deployment pipeline exists.** Hosting and publication are an owner decision at the last stage of the [development plan](29-tz-development-plan.md#етап-8-випуск); source maps must not be published with a release.
+
 ## Web preview/release prerequisites (future)
 
 1. Confirm exact commit/tag, scope, release owner, licenses and human content review.

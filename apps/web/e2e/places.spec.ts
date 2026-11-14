@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { openLearn } from "./helpers.ts";
 
 /** «Моє господарство» — the name made visible, with game elements only where research allows (R08-MOT, GAM-01, UIO-09). */
 test("Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer", async ({ page }) => {
@@ -62,7 +63,7 @@ test("Господар persona: guides on home and place screens only — never 
   await page.getByRole("button", { name: /Діалог · / }).click();
   await expect(guide).toHaveCount(0);
   await page.goto("./");
-  await page.getByRole("button", { name: /Навчання/ }).click();
+  await openLearn(page);
   await expect(guide).toHaveCount(0);
   await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");
   await page.getByRole("button", { name: "Перевірити" }).click();
