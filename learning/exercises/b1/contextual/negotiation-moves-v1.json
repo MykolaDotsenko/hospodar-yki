@@ -1,5 +1,6 @@
 {
   "schema_version": "1.0.0",
+  "id": "negotiation-moves-v1",
   "created_at": "2026-11-11",
   "name": "Negotiation-of-meaning moves for the 9 functional dialogues",
   "origin": "project_original_draft",
@@ -19,14 +20,50 @@
     "Tilanne muuttuu: toinen ei voi auttaa juuri nyt. Kysy, kuka voi auttaa tai milloin voit ottaa yhteyttä uudelleen."
   ],
   "pairing": {
-    "ctx-dialog-01": { "repair_turn": 2, "clarification": 0, "condition_change": 0 },
-    "ctx-dialog-02": { "repair_turn": 2, "clarification": 1, "condition_change": 1 },
-    "ctx-dialog-03": { "repair_turn": 2, "clarification": 2, "condition_change": 1 },
-    "ctx-dialog-04": { "repair_turn": 2, "clarification": 0, "condition_change": 3 },
-    "ctx-dialog-05": { "repair_turn": 2, "clarification": 1, "condition_change": 0 },
-    "ctx-dialog-06": { "repair_turn": 2, "clarification": 2, "condition_change": 3 },
-    "ctx-dialog-07": { "repair_turn": 2, "clarification": 0, "condition_change": 1 },
-    "ctx-dialog-08": { "repair_turn": 2, "clarification": 1, "condition_change": 2 },
-    "ctx-dialog-09": { "repair_turn": 2, "clarification": 2, "condition_change": 2 }
+    "ctx-dialog-01": {
+      "repair_turn": 2,
+      "clarification": 0,
+      "condition_change": 0
+    },
+    "ctx-dialog-02": {
+      "repair_turn": 2,
+      "clarification": 1,
+      "condition_change": 1
+    },
+    "ctx-dialog-03": {
+      "repair_turn": 2,
+      "clarification": 2,
+      "condition_change": 1
+    },
+    "ctx-dialog-04": {
+      "repair_turn": 2,
+      "clarification": 0,
+      "condition_change": 3
+    },
+    "ctx-dialog-05": {
+      "repair_turn": 2,
+      "clarification": 1,
+      "condition_change": 0
+    },
+    "ctx-dialog-06": {
+      "repair_turn": 2,
+      "clarification": 2,
+      "condition_change": 3
+    },
+    "ctx-dialog-07": {
+      "repair_turn": 2,
+      "clarification": 0,
+      "condition_change": 1
+    },
+    "ctx-dialog-08": {
+      "repair_turn": 2,
+      "clarification": 1,
+      "condition_change": 2
+    },
+    "ctx-dialog-09": {
+      "repair_turn": 2,
+      "clarification": 2,
+      "condition_change": 2
+    }
   }
 }

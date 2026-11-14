@@ -1,6 +1,6 @@
 {
   "schema": "hospodar-design-traceability-v1",
-  "updated": "2026-11-12",
+  "updated": "2026-11-14",
   "purpose": "Every design/UX requirement from the canonical spec and research has an honest implementation status; ENFORCED and PARTIAL entries point to tests that exist. Checked by scripts/validate_design_traceability.py. Status describes the product, not a learning effect.",
   "sources": [
     "docs/15-two-modes-skill-scopes.md",
@@ -4048,9 +4048,33 @@
         {
           "file": "packages/domain/test/r08-r06-parity.test.ts",
           "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "walking a task saves only into a throwaway sandbox: learner progress is never written and the sandbox is deleted"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "an approval without the required card fields is refused; complete decisions survive a reload and download as a file the repository script accepts"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_an_item_edited_after_review_must_be_reviewed_again"
+        },
+        {
+          "file": "apps/web/src/content/reviewBanks.test.ts",
+          "contains": "every content file a LEARN screen loads is reviewable here, except EXAM-only files"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "every unit's browser hash equals the repository hash (one file format, one hash, in every engine)"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
     },
     {
       "id": "QL-02",
@@ -4726,9 +4750,21 @@
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "an approval without the required card fields is refused; complete decisions survive a reload and download as a file the repository script accepts"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
+        },
+        {
+          "file": "apps/web/src/content/reviewBanks.test.ts",
+          "contains": "every content file a LEARN screen loads is reviewable here, except EXAM-only files"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
     },
     {
       "id": "CURATED-02",
@@ -5762,9 +5798,25 @@
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "walking a task saves only into a throwaway sandbox: learner progress is never written and the sandbox is deleted"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_an_item_edited_after_review_must_be_reviewed_again"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "every unit's browser hash equals the repository hash (one file format, one hash, in every engine)"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
     },
     {
       "id": "YKI-FID-01",
@@ -8024,9 +8076,17 @@
         {
           "file": "packages/domain/test/r08-r06-parity.test.ts",
           "contains": "learner trials refuse drafts (S2 gate); reviewer preview is explicit and marked"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "an approval without the required card fields is refused; complete decisions survive a reload and download as a file the repository script accepts"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
     },
     {
       "id": "AC-43",
@@ -8657,9 +8717,21 @@
         {
           "file": "packages/domain/test/media.test.ts",
           "contains": "every repo media entry used by apps/web is admitted, exists on disk, and hashes match where recorded"
+        },
+        {
+          "file": "apps/web/e2e/reviewer.spec.ts",
+          "contains": "an approval without the required card fields is refused; complete decisions survive a reload and download as a file the repository script accepts"
+        },
+        {
+          "file": "scripts/tests/test_validate_review_decisions.py",
+          "contains": "def test_approval_without_a_required_card_field_is_refused_and_nothing_is_written"
+        },
+        {
+          "file": "apps/web/src/content/reviewBanks.test.ts",
+          "contains": "every content file a LEARN screen loads is reviewable here, except EXAM-only files"
         }
       ],
-      "gap": "0 S2-published items; all learner content is a labelled draft."
+      "gap": "S2 reviewer workspace built (apps/web #review): every LEARN bank, walkable on the real learner screen in a throwaway sandbox, keys and variants beside it; approve only with a complete review card or return with a reason; decisions file applied by scripts/apply_review_decisions.py only if the item hash is unchanged. 0 items S2-reviewed yet: needs a human S2 teacher (docs/29 human queue 1). Release mode (learners get only published items) not built yet; EXAM items are reviewed separately."
     },
     {
       "id": "REL-01",

@@ -1,6 +1,14 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { openLearn } from "./helpers.ts";
+import { openLearn, openReviewer } from "./helpers.ts";
+
+/** Workspace → R08 bank → the draft → walk it as a learner (the unit page itself shows keys, the walk must not). */
+async function walkR08(page: Page, prompt: RegExp) {
+  await openReviewer(page);
+  await page.getByRole("button", { name: "Значення → форма (R08, чернетки)" }).click();
+  await page.getByRole("button", { name: prompt }).click();
+  await page.getByRole("button", { name: "Пройти як учень" }).click();
+}
 
 async function axe(page: Page) {
   const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
@@ -42,7 +50,7 @@ test("R03/R08 reviewer preview: meaning → form → editor-tagged cause; learne
   await page.goto("./#review");
   await expect(page.getByRole("note")).toContainText("не показуються учням");
   expect(await axe(page)).toEqual([]);
-  await page.getByRole("button", { name: /Olen ___ \(kauppa\)/ }).click();
+  await walkR08(page, /Olen ___ \(kauppa\)/);
   await expect(page.getByRole("note")).toContainText("не для учнів");
   await expect(page.locator("body")).not.toContainText("kaupassa");                 // key hidden before feedback
   await page.getByRole("button", { name: /куди\?/ }).click();                         // wrong meaning on purpose
@@ -70,8 +78,7 @@ test("R03/R08 reviewer preview: meaning → form → editor-tagged cause; learne
 });
 
 test("R08 unknown wrong form is 'unclassified', never guessed", async ({ page }) => {
-  await page.goto("./#review");
-  await page.getByRole("button", { name: /Olen ___ \(kauppa\)/ }).click();
+  await walkR08(page, /Olen ___ \(kauppa\)/);
   await page.getByRole("button", { name: /де\?/ }).click();
   await page.getByLabel(/Впиши форму слова/).fill("kaupassax");
   await page.getByRole("button", { name: "Перевірити" }).click();

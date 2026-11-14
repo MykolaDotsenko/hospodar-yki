@@ -132,7 +132,8 @@ function mapError(e: unknown): StorageError {
   return new StorageError(isQuotaFailure(e) ? "QUOTA_OR_DISK_FULL" : "SAVE_FAILED", String((e as Error)?.message ?? e));
 }
 
-export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRepository {
+/** `close()` releases the connection — the S2 reviewer sandbox closes its throwaway database before deleting it. */
+export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRepository & { close(): void } {
   const db = new WebDb(dbName);
   return {
     async read() {
@@ -850,6 +851,6 @@ export function createLearnerRepository(dbName: string = WEB_DB_NAME): LearnerRe
           throw new StorageError("READBACK_MISMATCH", "Diagnostic draft deletion not confirmed");
       } catch (e) { throw mapError(e); }
     },
-
+    close() { db.close(); },
   };
 }

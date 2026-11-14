@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'learning/exercises/**'
+      - 'knowledge/dictionaries/**'
       - 'assets/audio/library.json'
       - 'assets/audio/available.json'
       - 'assets/images/pictures/available.json'
@@ -13,10 +14,13 @@ on:
       - 'scripts/validate_training_content.mjs'
       - 'scripts/validate_content_publication.py'
       - 'scripts/tests/test_validate_content_publication.py'
+      - 'scripts/apply_review_decisions.py'
+      - 'scripts/tests/test_validate_review_decisions.py'
       - '.github/workflows/validate-training-content.yml'
   pull_request:
     paths:
       - 'learning/exercises/**'
+      - 'knowledge/dictionaries/**'
       - 'assets/audio/library.json'
       - 'assets/audio/available.json'
       - 'assets/images/pictures/available.json'
@@ -26,6 +30,8 @@ on:
       - 'scripts/validate_training_content.mjs'
       - 'scripts/validate_content_publication.py'
       - 'scripts/tests/test_validate_content_publication.py'
+      - 'scripts/apply_review_decisions.py'
+      - 'scripts/tests/test_validate_review_decisions.py'
 permissions:
   contents: read
 jobs:
@@ -46,3 +52,4 @@ jobs:
         run: |
           python3 scripts/validate_content_publication.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_content_publication.py' -v
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_review_decisions.py' -v
