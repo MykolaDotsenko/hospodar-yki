@@ -152,6 +152,59 @@ test("graduated task sequencing: after a saved reaction card, the same situation
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("без оцінки");
 });
 
+test("interlocutor change (pragmatic-speech-acts): after a saved reaction card, the same situation for a friend, a neighbour and an official; separate appropriateness self-check; own replies side by side; ungraded", async ({ page }) => {
+  await open(page, /Реакція в ситуації/);
+  await page.getByRole("textbox").fill("Anteeksi, voisitteko auttaa?");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await expect(page.getByRole("button", { name: /Різні співрозмовники/ })).toHaveCount(0);   // only after the card is saved
+  await page.getByRole("textbox").fill("Hei, voisitko auttaa minua hetken?");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+
+  await page.getByRole("button", { name: "Різні співрозмовники (за бажанням)" }).click();
+  await expect(page.getByRole("heading", { name: "Співрозмовник 1 з 3: Друг або подруга" })).toBeVisible();
+  await expect(page.getByText(/багато хто й в установах звертається на «sinä»/)).toBeVisible();   // no invented register rule
+  await expect(page.getByTestId("register-cue")).toContainText("другові");
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+  await expect(page.getByRole("alert")).toContainText("Спершу напиши");
+  const reply = page.getByLabel(/Твоя відповідь фінською для цієї людини/);
+  await reply.fill("Moi, autatko mua vähän?");
+  await page.getByLabel("Звертаєшся на «sinä»?").check();
+  await page.getByLabel("Коротко, без офіційних формул?").check();
+  await axe(page);
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+
+  await expect(page.getByRole("heading", { name: /Співрозмовник 2 з 3: Сусід/ })).toBeVisible();
+  await expect(reply).toHaveValue("");
+  await reply.fill("Hei! Voisitko auttaa minua hetken? Minulla on painava laatikko.");
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+  await expect(page.getByRole("heading", { name: /Співрозмовник 3 з 3: Службовець/ })).toBeVisible();
+  await reply.fill("Hyvää päivää. Voisitteko auttaa minua lomakkeen kanssa? Kiitos.");
+  await page.getByLabel(/Ввічлива форма/).check();
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+
+  const compare = page.getByTestId("register-compare");
+  await expect(compare).toContainText("Moi, autatko mua vähän?");
+  await expect(compare).toContainText("Hyvää päivää. Voisitteko auttaa");
+  await expect(compare.locator("dd[lang=fi]")).toHaveCount(3);
+  await expect(compare.getByRole("status")).toContainText("Збережено без оцінки: 3 з 3");
+  expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал/);
+  await axe(page);
+
+  const saved = await page.evaluate(() => new Promise<string[]>((done, fail) => {
+    const req = indexedDB.open("hospodar-yki:web:v1");
+    req.onerror = () => fail(req.error);
+    req.onsuccess = () => {
+      const get = req.result.transaction("learner").objectStore("learner").get("current");
+      get.onsuccess = () => { req.result.close(); done(((get.result?.state?.diagnostics ?? []) as { taskId: string; status: string; response?: string }[])
+        .filter(d => d.taskId.includes("-register-")).map(d => `${d.taskId.replace(/^.*-register-/, "")}:${d.status}:${/self-check (\d)\/3/.exec(d.response ?? "")?.[1]}`)); };
+    };
+  }));
+  expect(saved).toEqual(["friend:ungraded:2", "neighbour:ungraded:0", "official:ungraded:1"]);
+});
+
 test("repeated telling 4/3/2 after an opinion card: three rounds aloud with shrinking practice time, nothing recorded, only the learner's report saved", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-11-13T09:00:00+02:00") });
   await open(page, /Моя думка/);

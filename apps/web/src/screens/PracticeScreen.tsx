@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { activeConstraints, addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpEvidence, stepUpFor, PRACTICE_MAX_CHARS, STEP_UP_MAX_CHARS, type StepUpCheck,
+import { activeConstraints, addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpEvidence, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, STEP_UP_MAX_CHARS, type StepUpCheck,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
@@ -7,6 +7,7 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { InterlocutorShift } from "./InterlocutorShift.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const JUDGE_UK: Record<PracticeJudgement, string> = { same: "Те саме за змістом", partly: "Частково", different: "Інакше" };
@@ -216,6 +217,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
 
       {saved && card.kind === "opinion" && s.phase === "done" && <RepeatedTelling card={card} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
       {saved && stepUpFor(card) && s.phase === "done" && <StepUp card={card} situation={card.transfer} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
+      {saved && hasInterlocutorLadder(card) && s.phase === "done" && card.prompt[0] && <InterlocutorShift card={card} situation={card.prompt[0]} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
 
       {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
         {isSpacedKind(card) && s.judged !== "same" && " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."}
