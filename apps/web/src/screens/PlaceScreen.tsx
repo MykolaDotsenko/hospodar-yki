@@ -1,4 +1,6 @@
-import { hospodarAtPlace, placeProgress, scenarioProgress, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
+import { useState } from "react";
+import { deedDoneOn, hospodarAtPlace, localDate, markDeed, placeProgress, scenarioProgress, unmarkDeed, type DeedLog, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
+import { readDeeds, writeDeeds } from "../storage/deeds.ts";
 import { placeIndex, places, practiceIdsOf, viewOfSkill, type Quest, type QuestView } from "../content/places.ts";
 import { Icon } from "../ui/icons.tsx";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
@@ -84,9 +86,38 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
 
       <h2>Справа в реальному житті</h2>
       <p>{place.deed_uk}</p>
-      <p className="muted">Необов'язково. Застосунок цього не відстежує й не перевіряє — це твоя справа, не завдання.</p>
+      <DeedMark place={place.id} />
 
       <div className="actions"><button type="button" className="btn secondary" onClick={onHome}>На головну</button></div>
     </section>
   );
 }
+
+/**
+ * real-world-interaction: an optional private mark that the learner did the deed in real life. Only on this device,
+ * never graded or counted, never part of progress or export; removable.
+ */
+function DeedMark({ place }: { place: PlaceId }) {
+  const [log, setLog] = useState(readDeeds);
+  const [error, setError] = useState<string | null>(null);
+  const done = deedDoneOn(log, place);
+  const save = (next: DeedLog) => {
+    try { writeDeeds(next); setLog(next); setError(null); }
+    catch { setError("Браузер не зберіг позначку. Нічого не змінено."); }
+  };
+  return (
+    <div className="deed" data-testid="deed">
+      {done
+        ? <p className="voice-status" role="status">Ти позначив(ла): зроблено {new Date(`${done}T12:00:00`).toLocaleDateString("uk-UA")}.</p>
+        : null}
+      <p className="muted">Необов'язково. Застосунок цього не перевіряє. Позначка приватна: лише на цьому пристрої, без оцінки, не входить у прогрес, рівень чи копію даних.</p>
+      <div className="actions">
+        {done
+          ? <button type="button" className="btn secondary" onClick={() => save(unmarkDeed(log, place))}>Зняти позначку</button>
+          : <button type="button" className="btn secondary" onClick={() => save(markDeed(log, place, localDate()))}>Я зробив(ла) це в житті</button>}
+      </div>
+      {error && <p className="feedback error" role="alert">{error}</p>}
+    </div>
+  );
+}
+
