@@ -455,7 +455,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - Reasons cite only saved evidence or the learner's own choice: never practised / least practised (saved answers, i.e. exposure), due today, re-test due, chosen skill/place.
   - No level, score, readiness, streak, timer or notification.
   - Writing and speaking stay ungraded.
-  - A block counts as done only from evidence saved after the plan was made.
+  - A block counts as done only from evidence saved after the plan was made, and only from the task's final evidence (reading `-transfer`, writing-clinic `-transfer`, dialogue `-roleplay`, listening questions written at the end). A writing draft saved before the model and rewrite marks the task as tried, never as done.
 - **Storage:** none. The plan lives in App memory for the page visit (MOT-11); a reload forgets it; erasing or importing LEARN data closes it. Candidates come only from LEARN pools that already exclude EXAM items and, in a release build, unpublished items.
 - **Code:** `packages/domain/src/sessionPlan.ts` (`planSession`, `blockProgress`, `skillExposure`; `test/session-plan.test.ts`), `apps/web/src/content/session.ts` (+ `session.test.ts`), `screens/SessionPlanPanel.tsx`, `HomeScreen`, `App`, `e2e/session-plan.spec.ts`.
 - **Not done:**

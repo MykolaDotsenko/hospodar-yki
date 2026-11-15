@@ -28,12 +28,18 @@ export const NEW_TASK_RESERVE = 10;
 export const MAX_NEW_TASKS = 3;
 
 export type EvidenceStore = "attempts" | "diagnostics" | "retention";
-/** One thing to do; it counts as done once the learner saves evidence for `prefix` in `store` after the plan was made. */
-export interface PlanItem { kind: "delayed" | "phrase" | "grammar" | "weak" | "task"; id: string; store: EvidenceStore; prefix: string }
+/**
+ * One thing to do. `prefix` keys any evidence of it (used to tell a task already tried); the item counts as done once the
+ * learner saves evidence for `done` in `store` after the plan was made — the FINAL step, so a task paused after its first
+ * part (e.g. a writing draft saved before the model, rewrite and new situation) is never shown as done.
+ */
+export interface PlanItem { kind: "delayed" | "phrase" | "grammar" | "weak" | "task"; id: string; store: EvidenceStore; prefix: string; done: string }
 export interface SessionTask {
   id: string; skill: YkiSkill; place: PlaceId | null; minutes: number;
   /** Evidence task ids of this task start with this (listening questions share one prefix). */
   prefix: string;
+  /** Evidence written only when the whole task is finished (e.g. `<id>-transfer`); defaults to `prefix`. */
+  donePrefix?: string;
   /** "published" in a release build; drafts are planned only where the build already shows labelled drafts. */
   published: boolean;
   examOnly?: boolean;
@@ -94,9 +100,9 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
 
   // 1. Повторення: delayed checks → phrases → grammar, within the review budget.
   const queue: PlanItem[] = [
-    ...candidates.review.delayed.map(d => ({ kind: "delayed" as const, id: d.id, store: "retention" as const, prefix: d.prefix })),
-    ...candidates.review.phrases.map(id => ({ kind: "phrase" as const, id, store: "diagnostics" as const, prefix: id })),
-    ...candidates.review.grammar.map(id => ({ kind: "grammar" as const, id, store: "attempts" as const, prefix: id })),
+    ...candidates.review.delayed.map(d => ({ kind: "delayed" as const, id: d.id, store: "retention" as const, prefix: d.prefix, done: d.prefix })),
+    ...candidates.review.phrases.map(id => ({ kind: "phrase" as const, id, store: "diagnostics" as const, prefix: id, done: id })),
+    ...candidates.review.grammar.map(id => ({ kind: "grammar" as const, id, store: "attempts" as const, prefix: id, done: id })),
   ];
   const seenReview = new Set<string>();
   const reviewQueue = queue.filter(i => !seenReview.has(`${i.kind}:${i.id}`) && seenReview.add(`${i.kind}:${i.id}`));
@@ -121,7 +127,7 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
   const weak = candidates.weakSpot;
   if (weak && weak.set.length > 0 && remaining - reserve >= WEAK_SPOT_MINUTES) {
     blocks.push({ kind: "weak_spot", minutes: WEAK_SPOT_MINUTES, skill: null, place: null, family: weak.family, later: 0, exposure: null,
-      items: weak.set.map(id => ({ kind: "weak" as const, id, store: "attempts" as const, prefix: id })),
+      items: weak.set.map(id => ({ kind: "weak" as const, id, store: "attempts" as const, prefix: id, done: id })),
       reasons: [weak.retestDue ? "WEAK_SPOT_RETEST_DUE" : "WEAK_SPOT"] });
     remaining -= WEAK_SPOT_MINUTES;
   }
@@ -155,7 +161,7 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
     if (choice.skill) reasons.push("CHOSEN_SKILL");
     if (choice.place) reasons.push("CHOSEN_PLACE");
     blocks.push({ kind: "new_task", minutes: task.minutes, skill: task.skill, place: task.place, family: null, later: 0, exposure: exposure[task.skill], reasons,
-      items: [{ kind: "task", id: task.id, store: "diagnostics", prefix: task.prefix }] });
+      items: [{ kind: "task", id: task.id, store: "diagnostics", prefix: task.prefix, done: task.donePrefix ?? task.prefix }] });
     planned.add(task.id); usedSkills.add(task.skill); remaining -= task.minutes; newCount += 1;
   }
 
@@ -170,9 +176,9 @@ export function blockProgress(block: SessionBlock, state: Pick<LearnerState, "at
   if (!Number.isFinite(t0)) throw new TypeError("Invalid plan time");
   const after = (at: unknown) => typeof at === "string" && Date.parse(at) >= t0;
   const doneItem = (i: PlanItem) =>
-    i.store === "attempts" ? (state.attempts ?? []).some(a => a.taskId === i.prefix && after(a.completedAt))
-      : i.store === "diagnostics" ? (state.diagnostics ?? []).some(d => matches(d.taskId, i.prefix) && after(d.completedAt))
-        : (state.retention ?? []).some(r => r.taskId === i.prefix && after(r.submittedAt));
+    i.store === "attempts" ? (state.attempts ?? []).some(a => a.taskId === i.done && after(a.completedAt))
+      : i.store === "diagnostics" ? (state.diagnostics ?? []).some(d => matches(d.taskId, i.done) && after(d.completedAt))
+        : (state.retention ?? []).some(r => r.taskId === i.done && after(r.submittedAt));
   const pending = block.items.filter(i => !doneItem(i));
   const done = block.items.length - pending.length;
   return { done, of: block.items.length, complete: block.items.length > 0 && pending.length === 0, pending };

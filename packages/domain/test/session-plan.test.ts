@@ -98,6 +98,18 @@ describe("session plan on 10, 20 or 30 minutes (DEC-01; docs/29 stage 3)", () =>
     expect(blockProgress(fresh!, s, p.createdAt).complete).toBe(true);
     expect(() => blockProgress(review!, s, "not a date")).toThrow();
   });
+  it("a new task is done only after its final step: a saved first writing draft is 'tried', not 'done' (repair and transfer still ahead)", () => {
+    const writing = TASKS.map(t => t.skill === "writing" ? { ...t, donePrefix: `${t.id}-transfer` } : t);
+    const p = plan(blankState(), cands({ tasks: writing }), { minutes: 20, skill: "writing" });
+    const block = p.blocks[0]!, later = new Date("2026-11-16T09:05:00+02:00");
+    let s = said(blankState(), "writing", block.items[0]!.id, later);                           // WritingClinicScreen.persistFirst: draft only
+    expect(blockProgress(block, s, p.createdAt).complete).toBe(false);
+    expect(plan(s, cands({ tasks: writing }), { minutes: 20, skill: "writing" }).blocks.map(b => b.items[0]!.id)).not.toContain(block.items[0]!.id);
+    s = said(s, "writing", `${block.items[0]!.id}-rewrite`, later);
+    expect(blockProgress(block, s, p.createdAt).complete).toBe(false);
+    s = said(s, "writing", `${block.items[0]!.id}-transfer`, later);
+    expect(blockProgress(block, s, p.createdAt).complete).toBe(true);
+  });
   it("an empty build or an empty device gives an honest empty plan, never invented tasks", () => {
     expect(plan(blankState(), cands({ tasks: [] }), { minutes: 20 })).toMatchObject({ blocks: [], total: 0, missing: null });
   });

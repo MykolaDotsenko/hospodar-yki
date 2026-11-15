@@ -22,13 +22,19 @@ export const TASK_MINUTES: Readonly<Record<YkiSkill, number>> = Object.freeze({ 
 export type SessionView = "reading" | "listening" | "writing" | "dialogue";
 export interface SessionTaskInfo extends SessionTask { title_fi: string; view: SessionView }
 
+/**
+ * Evidence written only when a whole task is finished — what marks a plan block done. Reading, listening and dialogues
+ * save all their evidence at the end; the writing clinic saves the first draft early (WritingClinicScreen.persistFirst),
+ * so only its `-transfer` (after model and rewrite) finishes it.
+ */
+const DONE_SUFFIX: Readonly<Record<YkiSkill, string>> = Object.freeze({ reading: "-transfer", listening: "", writing: "-transfer", speaking: "-roleplay" });
 /** Listening evidence is keyed by the shared prefix of the lesson's question ids (b1long-1-q1 → b1long-1). */
 const listeningPrefix = (l: { id: string; questions: { id: string }[] }) => {
   const prefixes = new Set(l.questions.map(q => q.id.replace(/-q\d+$/, "")));
   return prefixes.size === 1 ? [...prefixes][0]! : l.id;
 };
 const info = (item: unknown, id: string, skill: YkiSkill, view: SessionView, title_fi: string, prefix: string): SessionTaskInfo => ({
-  id, skill, view, title_fi, prefix, minutes: TASK_MINUTES[skill], place: placeOfTask(placeIndex, prefix)?.place ?? null,
+  id, skill, view, title_fi, prefix, donePrefix: `${prefix}${DONE_SUFFIX[skill]}`, minutes: TASK_MINUTES[skill], place: placeOfTask(placeIndex, prefix)?.place ?? null,
   published: isPublishedItem(item as never),
 });
 export const sessionTasks: SessionTaskInfo[] = [
