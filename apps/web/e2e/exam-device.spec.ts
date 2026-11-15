@@ -12,6 +12,11 @@ async function fakeMic(page: Page, loud: boolean) {
     const mic = (window as unknown as { __mic: { calls: number; stopped: number; recorders: number } }).__mic;
     const Real = window.MediaRecorder;
     if (Real) Object.defineProperty(window, "MediaRecorder", { configurable: true, value: class extends Real { constructor(...a: ConstructorParameters<typeof MediaRecorder>) { super(...a); mic.recorders++; } } });
+    // Count stops on the prototype, keyed by track id: a JS wrapper of a track can be garbage-collected and re-created
+    // by the engine (seen in WebKit), which drops a `stop` override set on the wrapper object itself.
+    const fakeTrackIds = new Set<string>();
+    const protoStop = MediaStreamTrack.prototype.stop;
+    MediaStreamTrack.prototype.stop = function (this: MediaStreamTrack) { if (fakeTrackIds.has(this.id)) mic.stopped++; return protoStop.call(this); };
     Object.defineProperty(navigator, "mediaDevices", { configurable: true, value: { getUserMedia: async () => {
       mic.calls++;
       const ctx = new AudioContext();
@@ -19,7 +24,7 @@ async function fakeMic(page: Page, loud: boolean) {
       const osc = ctx.createOscillator(), gain = ctx.createGain(), dest = ctx.createMediaStreamDestination();
       gain.gain.value = isLoud ? 0.8 : 0; osc.connect(gain).connect(dest); osc.start();
       const stream = dest.stream;
-      for (const t of stream.getTracks()) { const stop = t.stop.bind(t); t.stop = () => { mic.stopped++; stop(); }; }
+      for (const t of stream.getTracks()) fakeTrackIds.add(t.id);
       return stream;
     } } });
   }, loud);
