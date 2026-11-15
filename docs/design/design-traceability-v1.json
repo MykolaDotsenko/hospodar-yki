@@ -12682,9 +12682,17 @@
         {
           "file": "packages/domain/test/mediation.test.ts",
           "contains": "ungraded evidence: a Ukrainian relay counts as reading comprehension, simpler Finnish as writing; the self-check is counted, never scored"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "mediation after listening: explain what you heard to a friend without Finnish; recording stays to replay, no transcript, no model, ungraded"
+        },
+        {
+          "file": "packages/domain/test/mediation.test.ts",
+          "contains": "after listening, a Ukrainian relay counts as listening comprehension; simpler Finnish stays writing; both ungraded"
         }
       ],
-      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. Not yet after listening ('hear a notice → explain'), and no human feedback on whether the relay is accurate."
+      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text or listening lesson the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. After listening the relay is of what was heard: no transcript in the step, the same recording stays for a learner-started replay; a Ukrainian relay is stored as ungraded listening evidence. Missing: human feedback on whether the relay is accurate (a teacher or peer, not a model), and mediation after a dialogue or a longer multi-speaker recording."
     },
     {
       "id": "digital-task-literacy",

@@ -48,6 +48,37 @@ test("IV-REQ-04: learner-started audio first; no text or key before answering; k
   await expect(page.locator(".skill-lines li", { hasText: "Аудіювання" })).toContainText("з 4 перевірених відповідей правильні; 0 без оцінки");
 });
 
+test("mediation after listening: explain what you heard to a friend without Finnish; recording stays to replay, no transcript, no model, ungraded", async ({ page }) => {
+  await open(page);
+  await expect(page.getByRole("button", { name: /Українською — другові/ })).toHaveCount(0);   // only after the own listening work is saved
+  await startedPlaying(page);
+  await page.getByRole("button", { name: "До питань" }).click();
+  await answerAll(page);
+  await expect(page.getByRole("button", { name: /Українською — другові/ })).toHaveCount(0);
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
+
+  await expect(page.getByRole("heading", { name: /Поясни комусь, що ти почув/ })).toBeVisible();
+  await page.getByRole("button", { name: "Українською — другові, який не розуміє фінської" }).click();
+  await expect(page.locator(".transcript")).toHaveCount(0);                                    // relay what was heard, not a text to read
+  expect(await page.locator("audio").evaluate(a => (a as HTMLAudioElement).autoplay || !(a as HTMLAudioElement).paused)).toBe(false);
+  await expect(page.locator("audio")).toHaveCount(1);                                          // the same recording, learner-started replay
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(page.getByRole("alert")).toContainText("Спершу напиши");
+  await page.getByLabel("Твоє пояснення українською").fill("Софія замовила куртку онлайн, прийшла не того кольору; повернути можна через пункт видачі.");
+  await page.getByLabel("Хто або що?").check();
+  await page.getByLabel("Що людині треба зробити?").check();
+  await page.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(page.getByTestId("mediation-done")).toContainText("без оцінки");
+  expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал:/);
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  // The relay is kept as ungraded listening evidence; the four checked answers stay exactly as they were.
+  await expect(page.locator(".skill-lines li", { hasText: "Аудіювання" })).toContainText("з 4 перевірених відповідей правильні; 1 без оцінки");
+});
+
 test("support before answering (transcript) is allowed for accessibility but saved ungraded", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "Показати текст (підтримка)" }).click();
