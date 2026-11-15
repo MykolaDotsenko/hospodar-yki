@@ -10,3 +10,15 @@
 Before publishing a Web release or Android PAD pack, verify the **specific asset**'s provenance, attribution, license compatibility and redistribution scope (including commercial use and derivative limitations). If unclear, ship a link rather than a copy. See [content guide](docs/guides/CONTENT-AUTHORING.md), [source verification](sources/learning/06-sources-and-verification.md), [media owner README](assets/README.md) and [security policy](docs/SECURITY.md).
 
 When a maintainer chooses a code license, put it in `LICENSE` and add per-media notices/REUSE attribution where needed. Do **not** silently relicense third-party content.
+
+## Bundled typefaces (apps/web)
+
+The web app bundles two typefaces. Both come from npm, are not committed to this repository, and are built into the app shell so they work offline.
+
+| Typeface | Used for | Package | Licence | Copyright |
+| --- | --- | --- | --- | --- |
+| Arsenal | Ukrainian interface text | `@fontsource/arsenal` 5.3.0 | SIL Open Font License 1.1 | The Arsenal Project Authors (Andrij Shevchenko) |
+| Finlandica | Finnish text | `@fontsource-variable/finlandica` 5.3.0 | SIL Open Font License 1.1 | The Finlandica Project Authors |
+
+The OFL allows bundling and redistribution with software, and forbids selling the fonts on their own. The licence text ships inside each package (`LICENSE`). The fonts keep their own names (no modified versions are produced). Using Finlandica is a typographic choice only: the app is independent and states that it is not an official OPH/JYU product.
+

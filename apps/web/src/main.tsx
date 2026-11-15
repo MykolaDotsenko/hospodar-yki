@@ -5,6 +5,7 @@ import { App } from "./App.tsx";
 import { createLearnerRepository } from "./storage/learnerRepository.ts";
 import { createExamRepository } from "./storage/examRepository.ts";
 import { createVoiceStore } from "./storage/voiceStore.ts";
+import "./fonts.css";
 import "./styles.css";
 import { registerServiceWorker } from "./pwa/offline.ts";
 

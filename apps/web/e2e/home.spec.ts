@@ -22,7 +22,7 @@ test("UIO-01 home: one recommended next step with its reason; four skills with c
     await expect(t.locator("svg.icon")).toHaveCount(1);                                      // never colour alone
     await expect(t).toContainText("Ще не тренувалося");
   }
-  const colours = await tiles.evaluateAll(els => els.map(e => getComputedStyle(e).borderLeftColor));
+  const colours = await tiles.evaluateAll(els => els.map(e => getComputedStyle(e).borderTopColor));   // the rule each skill hangs from
   expect(new Set(colours).size).toBe(4);                                                    // one constant colour per skill
   const small = await page.locator("main button:visible").evaluateAll(els => els.filter(e => e.getBoundingClientRect().height < 44).map(e => e.textContent));
   expect(small).toEqual([]);                                                                 // ≥44 px targets

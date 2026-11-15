@@ -105,9 +105,21 @@
         {
           "file": "apps/web/e2e/design.spec.ts",
           "contains": "Finnish first: the Finnish task is the largest text, carries the skill-coloured rule and hyphenates; Ukrainian helpers step back"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "the signature cut belongs to the screen's one main sheet only (next step / plan on Home, the task sheet elsewhere)"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "two voices: Ukrainian guidance in Arsenal, Finnish in Finlandica — bundled files only, nothing fetched from another origin"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen"
         }
       ],
-      "gap": "Threshold route with real steps and skill accent on every mission type; gold signature only on the Today hero and the two mode entries; Finnish-first typography now tested (largest text, skill-coloured rule, hyphenation). Overall composition still needs manual design review; recognisability is a user study (DESIGN-06/15)."
+      "gap": "Threshold route with real steps and skill accent on every mission type. The H-mark's own geometry — the bottom-right cut with the gold step along it — marks exactly one sheet per screen (next step / plan on Home, the task sheet elsewhere; none in the exam or in calm mode); the two mode entries keep a small gold step. Two typefaces give the two languages their own voice (Arsenal for Ukrainian, Finlandica for Finnish). Finnish-first typography is tested (largest text, skill-coloured rule above it, hyphenation). Overall composition still needs a human design review; recognisability without the logo is a user study (DESIGN-06/15)."
     },
     {
       "id": "DESIGN-03",
@@ -246,9 +258,25 @@
         {
           "file": "apps/web/e2e/home.spec.ts",
           "contains": "UIO-01 home: one recommended next step with its reason; four skills with constant colour, icon, Ukrainian and Finnish name"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "no box carries an accent stripe down its left edge (the commonest generated-UI callout)"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "surfaces are square: the only rounded shapes are the gold steps, which copy the round stroke ends of the H-mark"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "no uppercase tracked labels, no drop shadows, no gradients, glass or animation loops"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen"
         }
       ],
-      "gap": "Emoji, gradients, glass blur and animation loops are now rejected by tests; composition and overall look still need manual visual review (no screenshot diff)."
+      "gap": "Rejected by tests in apps/web: emoji, gradients, glass blur, animation loops, drop shadows, accent stripes down the left edge of a box, rounded cards and pill shapes, uppercase tracked labels; rendered Home, task and exam screens are checked for these, and lists are ruled rows instead of card grids (brand identity §9, 15.11.2026). Still open: review by a human designer (no screenshot diff), one human-made illustration style (DESIGN-07), and the legacy app/ keeps its earlier look."
     },
     {
       "id": "DESIGN-12",
