@@ -58,6 +58,35 @@ test("WEB-07: restore LEARN after explicit empty-profile check; preserve indepen
   });
 });
 
+test("keyword-mnemonic-retrieval: a problem phrase's own memory cue is exported, survives erase → restore → reload with its schedule", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: /Фрази для життя/ }).click();
+  await page.getByRole("button", { name: /^Картка 1 / }).click();
+  await page.getByRole("textbox").fill("mennä Suomeen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Інакше" }).click();
+  await page.getByLabel(/Своя зачіпка для пам'яті/).fill("мітла мете до Суомі");
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Ystäväni muutti Suomeen.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Твою зачіпку збережено/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await page.getByRole("button", { name: "На головну" }).click();
+
+  const backup = await exportText(page);
+  const cards = Object.values(JSON.parse(backup).learn.state.cards) as Array<{ ownCue?: string; stage: number; due: string }>;
+  expect(cards).toEqual([expect.objectContaining({ ownCue: "мітла мете до Суомі", stage: 0 })]);
+  await eraseLearn(page);
+  await upload(page, backup);
+  await page.getByLabel(/Підтверджую відновлення тільки LEARN/).check();
+  await page.getByRole("button", { name: "Відновити навчання" }).click();
+  await expect(page.getByText(/Навчання відновлено та перечитано зі сховища/)).toBeVisible();
+  await page.reload();
+  const again = Object.values(JSON.parse(await exportText(page)).learn.state.cards);
+  expect(again).toEqual(cards);                                                     // cue and schedule exactly as before
+});
+
 test("rejects tampered and foreign files; refuses silent merge with existing learning data", async ({ page }) => {
   await page.goto("./");
   await oneMission(page);

@@ -151,7 +151,7 @@ class MethodCoverageTests(unittest.TestCase):
 
     def test_partial_not_yet_and_excluded_need_their_text(self):
         del method(self.doc, "spaced-retrieval")["gap"]
-        del method(self.doc, "keyword-mnemonic-retrieval")["plan"]
+        del method(self.doc, "fsrs-scheduler-chunks")["plan"]
         del method(self.doc, "ai-voice-roleplay")["reason"]
         errors = "\n".join(check_methods(self.doc, REGISTRY))
         for text in ("PARTIAL needs a gap", "NOT_YET needs a plan", "EXCLUDED needs a reason"):

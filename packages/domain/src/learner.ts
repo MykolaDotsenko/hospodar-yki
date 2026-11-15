@@ -22,6 +22,28 @@ export interface Card {
   failures: number;
   lastCorrect: boolean;
   lastReviewed: string;
+  /**
+   * Optional: the learner's OWN memory cue for a problem phrase (method keyword-mnemonic-retrieval). Their words, any
+   * language; shown again only when they ask for it during a review; never a key, never scored, never changes the
+   * schedule. Web-only field added 15.11.2026 without a version bump: older states simply have no cue; the legacy
+   * app/core.mjs never writes one and its reader drops it (documented in the parity test).
+   */
+  ownCue?: string;
+}
+export const OWN_CUE_MAX_CHARS = 200;
+/** A stored cue is already normalised: 1–200 characters, one line, no surrounding spaces. */
+export const isOwnCue = (v: unknown): v is string =>
+  typeof v === "string" && v.length > 0 && v.length <= OWN_CUE_MAX_CHARS && v.trim() === v && !/\p{Cc}/u.test(v);
+/** The learner's text as a stored cue: control characters and runs of spaces become one space; empty = no cue. */
+export function normaliseOwnCue(text: unknown): string | null {
+  const v = String(text ?? "").replace(/[\p{Cc}\s]+/gu, " ").trim().slice(0, OWN_CUE_MAX_CHARS).trim();
+  return v ? v : null;
+}
+/** Set, replace or (empty text) remove the own cue of a card; the schedule is untouched. */
+export function withOwnCue(card: Card, text: unknown): Card {
+  const { ownCue: _old, ...rest } = card;
+  const cue = normaliseOwnCue(text);
+  return cue ? { ...rest, ownCue: cue } : rest;
 }
 /** The learner's FIRST independent answer is recorded here and never rewritten (LE-01). */
 export interface MissionAttempt {
@@ -80,6 +102,8 @@ export function readState(raw: string | null | undefined): { state: LearnerState
         failures: isInt(card.failures) ? Math.max(0, card.failures) : 0,
         lastCorrect: card.lastCorrect === true,
         lastReviewed: typeof card.lastReviewed === "string" ? card.lastReviewed : "",
+        // A malformed cue is dropped, never the card: the schedule matters more than a note.
+        ...(isOwnCue(card.ownCue) ? { ownCue: card.ownCue } : {}),
       };
     }
     const retention = (Array.isArray(s.retention) ? s.retention : []).filter((x: unknown): x is RetentionEntry =>
@@ -134,7 +158,7 @@ const clipped = (value: unknown) => String(value ?? "").trim().slice(0, MAX_TEXT
 
 /** A failed FIRST independent answer resets to stage 0 even if guided repair later succeeds. */
 export function updateCard(previous: Partial<Card> | null | undefined, firstCorrect: boolean, now: Date = new Date()): Card {
-  const prior = previous && typeof previous === "object" ? previous : { stage: 0, reviews: 0, failures: 0 };
+  const prior: Partial<Card> = previous && typeof previous === "object" ? previous : { stage: 0, reviews: 0, failures: 0 };
   const priorStage = prior.stage ?? 0;
   const stage = firstCorrect ? Math.min(priorStage + 1, INTERVAL_DAYS.length) : 0;
   const interval = firstCorrect ? INTERVAL_DAYS[stage - 1]! : INTERVAL_DAYS[0];
@@ -145,6 +169,7 @@ export function updateCard(previous: Partial<Card> | null | undefined, firstCorr
     failures: (prior.failures || 0) + (firstCorrect ? 0 : 1),
     lastCorrect: Boolean(firstCorrect),
     lastReviewed: localDate(now),
+    ...(isOwnCue(prior.ownCue) ? { ownCue: prior.ownCue } : {}),   // the learner's own cue survives every review
   };
 }
 export function dueCards(state: LearnerState, today: LocalDate = localDate()): Array<Card & { id: string }> {

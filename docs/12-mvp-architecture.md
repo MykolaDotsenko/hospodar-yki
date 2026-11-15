@@ -40,7 +40,8 @@ type LearnerStateV1 = {
     firstCorrect: boolean; repairCorrect?: boolean; transferText: string;
     completedAt: string; skill: "grammar"; }>;
   cards: Record<string, { stage: number; due: string; reviews: number;
-    failures: number; lastCorrect: boolean; lastReviewed: string }>;
+    failures: number; lastCorrect: boolean; lastReviewed: string;
+    ownCue?: string /* new web app only (15.11.2026): learner's own memory cue; legacy app ignores it */ }>;
   diagnostics: Array<{ skill: "reading"|"listening"|"speaking"|"writing";
     taskId: string; correct?: boolean; status: "scored"|"ungraded";
     completedAt: string }>;

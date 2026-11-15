@@ -414,3 +414,23 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Code:** `packages/domain/src/deeds.ts` (`parseDeedLog`, `markDeed`, `unmarkDeed`; `test/deeds.test.ts`), `storage/deeds.ts` (readback-verified write, verified clear, `updateDeeds`, `onDeedsChanged`), `PlaceScreen` (`DeedMark`), `DataScreen`, `e2e/places.spec.ts`.
 - **Not done:** a private reflection on how the deed went; any measure of transfer to real communication.
 
+
+## 2026-11-15 — own memory cue on a problem phrase (keyword-mnemonic-retrieval)
+
+- **Flow:** after a phrase or rektio card is judged «Частково» or «Інакше» (so it enters the 1/3/7/14/30 schedule), «Своя зачіпка для пам'яті (за бажанням)» lets the learner write a sound-alike word, an image or a situation, in any language. A phrase judged «Те саме» on first sight gets no field: the method's limitation says not to make a mnemonic for every word. On the next review the cue stays hidden. «Показати мою зачіпку (за бажанням)» shows it before answering, and the text the learner has already typed is kept. After the phrase is shown again the cue can be edited or cleared. Then comes the existing new-sentence transfer.
+- **Honest evidence:** the cue is the learner's own note. It is never a key, never scored, and never changes the schedule. A first answer given after opening the cue is saved as `[own first answer, after opening own memory cue; …]`, still ungraded and self-compared.
+- **Safe schema change:** `Card.ownCue?: string`. The field is optional, normalised (one line, 1–200 characters, no surrounding spaces) and has no version bump.
+  - `readState` keeps a valid cue and drops a malformed one; the card and its schedule are always kept.
+  - `updateCard` carries the cue through every review.
+  - States and exports from before the change read and restore unchanged.
+  - Export → restore is lossless.
+  - `inspectWebLearnBackup` admits `ownCue` as the only extra card field, and only in normalised form. Anything else fails closed (`UNSAFE_LEARN_DATA`).
+  - The legacy `app/core.mjs` never writes the field and its reader drops it; the parity divergence is pinned in `test/own-cue.test.ts`.
+  - The V1 legacy import stays strict: legacy data has no cue.
+  - Erasing LEARN data erases the cues with the cards.
+- **Code:** `packages/domain/src/learner.ts` (`OWN_CUE_MAX_CHARS`, `isOwnCue`, `normaliseOwnCue`, `withOwnCue`), `practice.ts` (`SHOW_CUE`, `SET_CUE`, `completePractice`), `dataRestore.ts`, `test/own-cue.test.ts`, `screens/PracticeScreen.tsx`, `e2e/practice.spec.ts`, `e2e/restore.spec.ts`.
+- **Not done:**
+  - cues for grammar-mission cards or for words met in reading;
+  - guidance on cue quality;
+  - fading: opening the cue does not change scheduling;
+  - the 14-day recall/use study (the evidence is one EFL experiment).

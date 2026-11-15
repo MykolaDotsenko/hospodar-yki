@@ -15,7 +15,7 @@
  * Finnish answers are never string-matched because valid variants exist (R03: never punish valid forms).
  * Every card is an editorial draft pending S2 review and must be shown as such.
  */
-import { addDiagnostic, dueCards, localDate, updateCard, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
+import { addDiagnostic, dueCards, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
 export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio";
 export type PracticeJudgement = "same" | "partly" | "different";
@@ -41,6 +41,13 @@ export interface PracticeSession {
   cardId: string; phase: PracticePhase; first: string; judged: PracticeJudgement | null; recall: string; transfer: string;
   /** Optional own pre-task plan (opinion cards only): hidden while answering, shown again for self-comparison. Never scored or stored. */
   plan?: string;
+  /**
+   * Own memory cue (keyword-mnemonic-retrieval; chunk/rektio only). `cue`: the text the learner typed after seeing the
+   * phrase (undefined = not touched, "" = remove). `cueShown`: on a review the learner opened their stored cue before
+   * answering — the first answer is then labelled as made with their own cue.
+   */
+  cue?: string;
+  cueShown?: true;
 }
 
 /**
@@ -57,7 +64,8 @@ export const canPlan = (card: PracticeCard) => card.kind === "opinion";
 export type PracticeEvent =
   | { type: "ANSWER"; value: string } | { type: "JUDGE"; judgement: PracticeJudgement }
   | { type: "CONTINUE" } | { type: "SUBMIT_RECALL"; text: string } | { type: "SUBMIT_TRANSFER"; text: string }
-  | { type: "START_PLAN" } | { type: "SUBMIT_PLAN"; text: string };
+  | { type: "START_PLAN" } | { type: "SUBMIT_PLAN"; text: string }
+  | { type: "SHOW_CUE" } | { type: "SET_CUE"; text: string };
 
 export const PRACTICE_MAX_CHARS = 1200;
 export class PracticeError extends Error {
@@ -111,6 +119,14 @@ export function practiceReducer(s: PracticeSession, card: PracticeCard, e: Pract
       if (s.phase !== "plan") return no();
       const plan = String(e.text ?? "").trim().slice(0, PRACTICE_MAX_CHARS);   // an empty plan = "without a plan"
       return { ...s, plan, phase: "attempt" };
+    }
+    case "SHOW_CUE": {
+      if (s.phase !== "attempt" || !isSpacedKind(card)) return no();      // before the first answer only, on problem phrases
+      return s.cueShown ? s : { ...s, cueShown: true };
+    }
+    case "SET_CUE": {
+      if (s.phase !== "reveal" || !isSpacedKind(card)) return no();       // after seeing the phrase, never before the answer
+      return { ...s, cue: String(e.text ?? "").slice(0, OWN_CUE_MAX_CHARS) };
     }
     case "ANSWER": {
       if (s.phase !== "attempt") return no();                              // first answer frozen
@@ -171,7 +187,7 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
     ? { skill: "reading" as const, taskId: card.id, status: "scored" as const, correct: Number(s.first) === card.choice.correct_index,
         response: card.choice.options_fi[Number(s.first)] ?? "" }
     : { skill: card.attemptSkill, taskId: card.id, status: "ungraded" as const,
-        response: `[own first answer${s.plan ? ", after an own plan (hidden while answering)" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
+        response: `[own first answer${s.plan ? ", after an own plan (hidden while answering)" : ""}${s.cueShown ? ", after opening own memory cue" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
   return [
     first,
     ...(card.kind === "paraphrase" ? [{ skill: "writing" as const, taskId: `${card.id}-recall`, status: "ungraded" as const, response: `[guided retell after feedback] ${s.recall}` }] : []),
@@ -185,7 +201,9 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
  *  - a chunk/rektio card enters the 1/3/7/14/30 schedule only when the learner judged the first answer
  *    "partly" or "different"; a card that was right at first sight is never scheduled (no bank flooding);
  *  - on a later review "same" moves it one stage up, anything else returns it to day 1;
- *  - the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level.
+ *  - the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level;
+ *  - an own memory cue typed after seeing the phrase is kept with a SCHEDULED card only (no mnemonic for a phrase the
+ *    learner already knew: keyword-mnemonic-retrieval limitation "not for every word"); "" removes it.
  */
 export const isSpacedKind = (card: PracticeCard) => card.kind === "chunk" || card.kind === "rektio";
 export function completePractice(state: LearnerState, s: PracticeSession, card: PracticeCard, now: Date = new Date()): LearnerState {
@@ -195,7 +213,8 @@ export function completePractice(state: LearnerState, s: PracticeSession, card: 
   const known = state.cards[card.id];
   const recalled = s.judged === "same";
   if (!known && recalled) return next;
-  return { ...next, cards: { ...next.cards, [card.id]: updateCard(known, recalled, now) } };
+  const updated = updateCard(known, recalled, now);
+  return { ...next, cards: { ...next.cards, [card.id]: s.cue === undefined ? updated : withOwnCue(updated, s.cue) } };
 }
 /** Scheduled practice cards that are due today, oldest first; a late return is simply due (no penalty). */
 export function practiceDue<T extends PracticeCard>(state: LearnerState, cards: T[], today: LocalDate = localDate()): T[] {
