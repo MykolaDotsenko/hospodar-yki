@@ -15,7 +15,7 @@ test("Finnish first: the Finnish task is the largest text, carries the skill-col
   expect(fi).toBeGreaterThan(option);
   expect(option).toBeGreaterThan(16);                                                   // Finnish options above body size
   expect(fi).toBeGreaterThan(label);
-  const rule = await px(page, ".prompt[lang=fi]", "border-left-color");
+  const rule = await px(page, ".prompt[lang=fi]", "border-top-color");
   const skill = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--skill-reading").trim());
   const hex = (rgb: string) => "#" + (rgb.match(/\d+/g) ?? []).slice(0, 3).map(n => Number(n).toString(16).padStart(2, "0")).join("").toUpperCase();
   expect(hex(rule)).toBe(skill.toUpperCase());                                          // threshold rule in the skill colour
@@ -50,3 +50,41 @@ test("DESIGN-12 exam skin: neutral page, navy subtest route, compact six-cell fi
   await page.locator(".brand").click();
   await expect(page.locator("html")).toHaveAttribute("data-mode", "learn");
 });
+
+test("DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen", async ({ page }) => {
+  const external: string[] = [];
+  page.on("request", r => { if (/^https?:/.test(r.url()) && !r.url().startsWith("http://127.0.0.1:")) external.push(r.url()); });
+  await page.goto("./");
+  await expect(page.locator(".today")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  // Two voices: Ukrainian in Arsenal, Finnish in Finlandica — real loaded faces, not a fallback.
+  const faces = await page.evaluate(() => [...document.fonts].filter(f => f.status === "loaded").map(f => f.family.replace(/"/g, "")));
+  expect(new Set(faces)).toEqual(new Set(["Arsenal", "Finlandica"]));
+  expect(await px(page, "h1", "font-family")).toMatch(/^"?Arsenal/);
+  expect(await px(page, ".skill-tile-fi[lang=fi]", "font-family")).toMatch(/^"?Finlandica/);
+  expect(external).toEqual([]);                                                       // nothing fetched from another origin
+
+  const audit = () => page.evaluate(() => {
+    const els = [...document.querySelectorAll<HTMLElement>("body *")].filter(e => e.getClientRects().length > 0);
+    const round = els.filter(e => parseFloat(getComputedStyle(e).borderTopLeftRadius) > 0 && !e.matches("input[type=radio], input[type=checkbox], audio, video, meter")).map(e => e.className || e.tagName);
+    const stripes = els.filter(e => { const c = getComputedStyle(e); return parseFloat(c.borderLeftWidth) >= 3 && parseFloat(c.borderLeftWidth) > parseFloat(c.borderRightWidth); }).map(e => e.className || e.tagName);
+    const upper = els.filter(e => getComputedStyle(e).textTransform === "uppercase").map(e => e.className || e.tagName);
+    const cuts = els.filter(e => getComputedStyle(e).clipPath.includes("polygon") && !e.matches(".threshold-segment")).map(e => e.className);
+    const gold = els.filter(e => { const a = getComputedStyle(e, "::after"); return e.matches(".today, .panel") && a.display !== "none" && a.content !== "none" && a.transform !== "none"; }).length;
+    return { round, stripes, upper, cuts, gold };
+  });
+  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["today"], gold: 1 });     // Home: the next-step sheet carries the cut
+  await page.getByTestId("nav-reading").click();
+  await page.locator(".choice").first().click();
+  await expect(page.locator(".prompt[lang=fi]")).toBeVisible();
+  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["panel"], gold: 1 });     // a task: the task sheet carries it
+  expect(await px(page, ".prompt[lang=fi]", "font-family")).toMatch(/^"?Finlandica/);
+  expect(await serious(page)).toEqual([]);
+
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-mode", "exam");
+  const exam = await audit();
+  expect([exam.round, exam.stripes, exam.upper, exam.cuts, exam.gold]).toEqual([[], [], [], [], 0]);   // DESIGN-12: a plain sheet, no gold in the exam
+});
+

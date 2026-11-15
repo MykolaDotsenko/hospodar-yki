@@ -1,12 +1,22 @@
 /* Colours come ONLY from brand/tokens.json → app/tokens.css (validate_design_tokens.py).
-   DESIGN-01a: saturated colour for orientation; calm surfaces behind Finnish text. */
+   DESIGN-01a: saturated colour for orientation; calm surfaces behind Finnish text.
+
+   Form language (brand identity §9, DESIGN-11): a household ledger, not a dashboard.
+   - Surfaces are square and hang from rules; lists are ruled rows, not grids of rounded cards.
+   - No accent stripe down the left edge of a box, no pill shapes, no uppercase tracked labels.
+   - Exactly one block per screen carries the H-mark's own signature: the diagonal cut at the bottom right with the
+     gold step beside it (.today). The two mode entries keep a small gold step; nothing else is decorated.
+   - Two voices: Ukrainian guidance in Arsenal, Finnish in Finlandica (fonts.css).
+   apps/web/src/design-language.test.ts fails when one of these rules is broken. */
 @import "../../../app/tokens.css";
 
-:root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+:root { color-scheme: light; font-family: "Arsenal", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; font-synthesis-weight: none; }
+/* Finnish — the language being learned — always speaks in its own typeface, wherever it appears. */
+[lang="fi"] { font-family: "Finlandica", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1rem; line-height: 1.5; }   /* rem, not px: the learner's own browser text size wins (WCAG 1.4.4, R10-05) */
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1.0625rem; line-height: 1.5; }   /* rem, not px: the learner's own browser text size wins (WCAG 1.4.4, R10-05) */
 a { color: var(--navy); text-underline-offset: 3px; }
-button, input, textarea, select { font: inherit; }
+button, input, textarea, select { font: inherit; border-radius: 0; }   /* square on every engine (iOS rounds controls by default) */
 input[type="file"] { max-width: 100%; }
 /* R10-05: at 320 px with 200 % text a long Finnish word must wrap, never widen the page. Fieldsets default to min-width:min-content. */
 fieldset { min-width: 0; }
@@ -18,19 +28,21 @@ main .pill { white-space: normal; }   /* R10-16: the native file picker never wi
 .skip:focus { left: var(--space-sm); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.topbar { background: var(--white); border-bottom: 1px solid var(--stroke); }
+.topbar { border-bottom: 2px solid var(--ink); }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); min-height: 76px; }
 .brand { display: flex; align-items: center; gap: var(--space-md); text-decoration: none; color: var(--navy); }
 .brand strong, .brand small { display: block; line-height: 1.2; }
 .brand small { color: var(--muted); font-size: .8rem; margin-top: 4px; }
 .brand-mark { width: 46px; height: 46px; flex: none; }
-.pill { border: 1px solid var(--stroke); border-radius: var(--radius-pill); padding: 4px 12px; font-size: .85rem; font-weight: 700; background: var(--surface-subtle); white-space: nowrap; }
+.brand strong { font-size: 1.2rem; }
+/* A plain ruled label (mode, timer). The class name is historical: nothing here is pill-shaped. */
+.pill { border: 1px solid var(--ink); padding: 3px 10px; font-size: .9rem; font-weight: 700; white-space: nowrap; }
 
 main { padding: var(--space-lg) var(--space-base) var(--space-xl); }
 main:focus { outline: none; }
-h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 750; letter-spacing: -.02em; margin: 0 0 var(--space-base); }
+h1 { font-size: clamp(1.7rem, 4.6vw, 2.4rem); font-weight: 700; line-height: 1.15; margin: 0 0 var(--space-base); }
 h1:focus { outline: none; }
-.eyebrow { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); display: flex; align-items: center; gap: 6px; }
+.eyebrow { margin: 0 0 var(--space-xs); font-size: .95rem; font-weight: 700; color: var(--forest); display: flex; align-items: center; gap: 6px; }
 .icon { flex: none; }
 /* One constant colour per skill, always together with its icon and name (DESIGN-03, COLOR-01: orientation, not a memory claim).
    Colours come straight from the tokens; borders and fills reuse the element's own text colour (currentColor). */
@@ -44,34 +56,37 @@ h1:focus { outline: none; }
 .eyebrow[data-accent="speaking"], .threshold-route[data-accent="speaking"], .skill-tile[data-accent="speaking"] .skill-tile-head { color: var(--skill-speaking); }
 .panel[data-accent="speaking"] { border-top-color: var(--skill-speaking); }
 .muted { color: var(--muted); }
-h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
+h2 { font-size: 1.25rem; line-height: 1.25; margin: var(--space-lg) 0 var(--space-sm); }
+/* Home sections open like ledger sections: a heading hung from an ink rule. */
+nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top: 2px solid var(--ink); }
 .btn:disabled { opacity: 1; cursor: not-allowed; background: var(--surface-subtle); color: var(--muted); border-color: var(--stroke); }
 .radio { display: flex; gap: var(--space-sm); align-items: center; min-height: 44px; }
 .qualification, .footer p { color: var(--muted); font-size: .88rem; }
 .footer { padding-bottom: var(--space-xl); }
-.theme-choice select { min-height: 44px; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); }
+.theme-choice select { min-height: 44px; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 
-/* Mode gateway: two equal entries, one gold diagonal signature each (DESIGN-08/12). */
-.mode-gateway { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin: var(--space-base) 0; }
-.mode-entry { position: relative; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; min-height: 44px;
-  border: 1.5px solid var(--stroke); border-radius: 12px 25px 12px 12px; padding: var(--space-md) var(--space-base) var(--space-md) 22px; color: var(--ink); overflow: hidden; }
-.mode-entry::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--forest); }
-.mode-entry::after { content: ""; position: absolute; top: 18px; right: 14px; width: 15px; height: 5px; border-radius: 5px; background: var(--gold); transform: rotate(-45deg); }
-.mode-entry-learn { background: var(--learn-tint); cursor: pointer; }
-.mode-entry-learn:hover { border-color: var(--navy); }
-.mode-entry-exam { background: var(--exam-tint); }
-.mode-entry-exam::before { background: var(--navy); }
-.mode-entry strong { font-size: 1.1rem; }
-.mode-entry small { color: var(--muted); }
-.mode-number { font-size: .7rem; font-weight: 800; letter-spacing: .08em; color: var(--muted); }
-.mode-cta { margin-top: var(--space-sm); font-weight: 800; color: var(--forest); }
+/* Mode gateway: two equal entries set as type, side by side under one ink rule; each keeps the brand's large numeral
+   and one small gold step (DESIGN-08/12). No tinted boxes. */
+.mode-gateway { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--space-lg) 0 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--stroke); }
+.mode-entry { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--space-base); row-gap: var(--space-xs); align-content: start; text-align: left; min-height: 44px;
+  border: 1px solid transparent; padding: var(--space-base) var(--space-lg) var(--space-base) var(--space-sm); background: none; color: var(--ink); cursor: pointer; }
+.mode-entry + .mode-entry { border-left-color: var(--stroke); padding-left: var(--space-base); }
+.mode-entry::after { content: ""; position: absolute; top: 22px; right: 8px; width: 18px; height: 5px; border-radius: 5px; background: var(--gold); transform: rotate(-45deg); }
+.mode-entry:hover { background: var(--white); }
+.mode-number { grid-row: 1 / span 3; font-size: 2.9rem; line-height: .95; font-variant-numeric: tabular-nums; color: var(--forest); }
+.mode-entry-exam .mode-number, .mode-entry-exam .mode-cta { color: var(--navy); }
+.mode-entry strong { font-size: 1.35rem; line-height: 1.2; }
+.mode-entry small { color: var(--muted); font-size: .95rem; }
+.mode-cta { font-weight: 700; color: var(--forest); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 
 /* "Сьогодні": the one recommended next step (UIO-01). The gold diagonal marks only this hero and the two mode entries. */
-.today { position: relative; background: var(--white); border: 1.5px solid var(--stroke); border-radius: 12px 25px 12px 12px; padding: var(--space-base) var(--space-lg) var(--space-base) 26px; margin: 0 0 var(--space-base); overflow: hidden; }
-.today::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--navy); }
-.today::after { content: ""; position: absolute; top: 18px; right: 14px; width: 15px; height: 5px; border-radius: 5px; background: var(--gold); transform: rotate(-45deg); }
-.today-kicker { margin: 0 0 var(--space-xs); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--navy); }
-.today-title { margin: 0; font-size: clamp(1.1rem, 2.6vw, 1.3rem); font-weight: 750; line-height: 1.35; max-width: 34em; }
+/* The signature block: a white sheet under a navy rule whose bottom-right corner is cut like the H-mark, with the mark's
+   gold step lying along the cut. Only this block has it. */
+.today { position: relative; background: var(--white); border-top: 4px solid var(--navy); padding: var(--space-base) var(--space-lg) var(--space-xl); margin: 0 0 var(--space-base);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%); }
+.today::after { content: ""; position: absolute; right: 5px; bottom: 19px; width: 34px; height: 6px; border-radius: 6px; background: var(--gold); transform: rotate(-45deg); }
+.today-kicker { margin: 0 0 var(--space-xs); font-size: 1rem; font-weight: 700; color: var(--navy); }
+.today-title { margin: 0; font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 700; line-height: 1.25; max-width: 30em; }
 .today-why { margin: var(--space-xs) 0 0; color: var(--muted); max-width: 40em; }
 .today .actions { margin-top: var(--space-md); }
 .today-rest { list-style: none; margin: var(--space-base) 0 0; padding: 0; }
@@ -82,31 +97,33 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .plan-start { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); }
 .plan-start > span { flex: 1 1 100%; color: var(--muted); }
 .plan-choice { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); margin-top: var(--space-md); max-width: 30em; }
-.plan-choice select { min-height: 44px; max-width: 100%; }
+.plan-choice select { min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 .plan-blocks { list-style: none; margin: var(--space-base) 0 0; padding: 0; }
 .plan-blocks li { padding: var(--space-md) 0; border-top: 1px solid var(--stroke); }
 .plan-blocks li[data-done="yes"] .today-title { color: var(--muted); }
-.plan-kind { margin: 0 0 var(--space-xs); font-size: .85rem; font-weight: 750; color: var(--navy); }
+.plan-kind { margin: 0 0 var(--space-xs); font-size: .95rem; font-weight: 700; color: var(--navy); }
 .plan-note { margin-top: var(--space-md); font-size: .9rem; max-width: 40em; }
 
-/* Four skills: constant colour + icon + Ukrainian and Finnish name; state is text, never a percentage. */
-.skill-grid, .more-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); }
+/* Four skills: constant colour + icon + Ukrainian and Finnish name; state is text, never a percentage.
+   Each skill is a column hung from a rule in its own colour — the colour sits on the rule and the icon, not on a box. */
+.skill-grid, .more-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--space-lg); }
 .skill-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-.more-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-.skill-tile { width: 100%; height: 100%; min-height: 44px; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; padding: var(--space-md) var(--space-base); background: var(--white); color: var(--ink);
-  border: 1.5px solid var(--stroke); border-left: 6px solid var(--forest); border-radius: 12px; cursor: pointer; }
-.skill-tile:hover, .more-tile:hover { border-color: var(--navy); }
-.skill-tile[data-accent="reading"], .skill-tile[data-accent="reading"]:hover { border-left-color: var(--skill-reading); }
-.skill-tile[data-accent="listening"], .skill-tile[data-accent="listening"]:hover { border-left-color: var(--skill-listening); }
-.skill-tile[data-accent="writing"], .skill-tile[data-accent="writing"]:hover { border-left-color: var(--skill-writing); }
-.skill-tile[data-accent="speaking"], .skill-tile[data-accent="speaking"]:hover { border-left-color: var(--skill-speaking); }
-.skill-tile-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--space-sm); color: var(--forest); }
-.skill-tile-head strong { font-size: 1.1rem; color: var(--ink); }
-.skill-tile-fi { font-size: .85rem; font-weight: 700; }
-.skill-tile-what { font-size: .95rem; }
-.skill-tile small, .more-tile small { color: var(--muted); font-size: .85rem; }
-.more-tile { width: 100%; height: 100%; min-height: 56px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-base); background: var(--white); color: var(--navy);
-  border: 1.5px solid var(--stroke); border-radius: 10px; cursor: pointer; }
+.more-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); border-top: 1px solid var(--stroke); }
+.skill-tile { width: 100%; height: 100%; min-height: 44px; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; padding: var(--space-md) var(--space-sm) var(--space-base); background: none; color: var(--ink);
+  border: 1px solid transparent; border-top: 4px solid var(--forest); cursor: pointer; }
+.skill-tile:hover, .more-tile:hover { background: var(--white); }
+.skill-tile[data-accent="reading"] { border-top-color: var(--skill-reading); }
+.skill-tile[data-accent="listening"] { border-top-color: var(--skill-listening); }
+.skill-tile[data-accent="writing"] { border-top-color: var(--skill-writing); }
+.skill-tile[data-accent="speaking"] { border-top-color: var(--skill-speaking); }
+.skill-tile-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--space-sm); color: var(--forest); }
+.skill-tile-head .icon { align-self: center; }
+.skill-tile-head strong { font-size: 1.3rem; color: var(--ink); }
+.skill-tile-fi { font-size: .95rem; font-weight: 600; }
+.skill-tile-what { font-size: 1rem; }
+.skill-tile small, .more-tile small { color: var(--muted); font-size: .9rem; }
+.more-tile { width: 100%; height: 100%; min-height: 56px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-sm); background: none; color: var(--navy);
+  border: 1px solid transparent; border-bottom-color: var(--stroke); cursor: pointer; }
 .more-tile strong, .more-tile small { display: block; }
 .more-tile strong { color: var(--ink); }
 .utility { display: flex; flex-wrap: wrap; gap: 0 var(--space-lg); margin: var(--space-lg) 0 0; padding-top: var(--space-md); border-top: 1px solid var(--stroke); }
@@ -114,7 +131,14 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .feedback .icon, [role="status"] .icon { vertical-align: -0.2em; color: var(--forest); }
 .btn .icon { vertical-align: -0.2em; }
 
-.panel { background: var(--white); border: 1px solid var(--stroke); border-radius: 18px; padding: clamp(18px, 4vw, 32px); }
+/* The task sheet: every LEARN screen is one white sheet with the same cut corner and gold step as the H-mark, so a
+   screen is recognisable without the logo. The exam keeps a plain bordered sheet (DESIGN-12: no gold there). */
+.panel { position: relative; background: var(--white); padding: clamp(18px, 4vw, 32px); padding-bottom: calc(clamp(18px, 4vw, 32px) + 14px);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%); }
+.panel::after { content: ""; position: absolute; right: 5px; bottom: 19px; width: 34px; height: 6px; border-radius: 6px; background: var(--gold); transform: rotate(-45deg); }
+.panel:not([data-accent]) { border-top: 4px solid var(--ink); }
+html[data-mode="exam"] .panel, .panel.review-unit { clip-path: none; border: 1px solid var(--stroke); }
+html[data-mode="exam"] .panel::after, .panel.review-unit::after, .panel .panel::after { display: none; }
 
 /* ThresholdLine: real mission steps, never a readiness score. */
 .threshold-route { color: var(--forest); list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 0; margin: 0 0 var(--space-lg); }
@@ -131,93 +155,98 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .threshold-segment { min-width: 0; }
 .threshold-label { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
 
-.draft-note { display: inline-block; margin: 0 0 var(--space-md); padding: 2px 10px; border-radius: var(--radius-pill); background: var(--warn-tint); font-size: .82rem; font-weight: 700; }
-.prompt { background: var(--learn-tint); border-left: 4px solid var(--forest); border-radius: 9px; padding: 18px 20px; font-size: clamp(1.15rem, 3vw, 1.45rem); line-height: 1.6; margin: var(--space-base) 0; overflow-wrap: anywhere; }
+/* A draft is stamped like a proof sheet: a dashed frame, not a badge. */
+.draft-note { display: inline-block; margin: 0 0 var(--space-md); padding: 2px 8px; border: 1px dashed var(--ink); background: var(--warn-tint); font-size: .88rem; font-weight: 700; }
+.prompt { background: var(--learn-tint); border-top: 4px solid var(--forest); border-bottom: 1px solid var(--stroke); padding: 18px 20px; font-size: clamp(1.2rem, 3vw, 1.5rem); line-height: 1.55; margin: var(--space-base) 0; overflow-wrap: anywhere; }
 
 /* Finnish first (brand §3.4, PSY-03): the Finnish task is the largest, calmest text on the screen and carries the
-   threshold rule in the skill's colour; Ukrainian helper text steps back. Long Finnish compounds hyphenate on narrow screens. */
+   rule above it in the skill's colour; Ukrainian helper text steps back. Long Finnish compounds hyphenate on narrow screens. */
 main [lang="fi"] { hyphens: auto; -webkit-hyphens: auto; }
-.prompt[lang="fi"] { color: var(--ink); font-weight: 500; letter-spacing: -.005em; }
-.panel[data-accent="reading"] .prompt[lang="fi"] { border-left-color: var(--skill-reading); }
-.panel[data-accent="listening"] .prompt[lang="fi"] { border-left-color: var(--skill-listening); }
-.panel[data-accent="writing"] .prompt[lang="fi"] { border-left-color: var(--skill-writing); }
-.panel[data-accent="speaking"] .prompt[lang="fi"] { border-left-color: var(--skill-speaking); }
+.prompt[lang="fi"] { color: var(--ink); font-weight: 450; }
+.panel[data-accent="reading"] .prompt[lang="fi"] { border-top-color: var(--skill-reading); }
+.panel[data-accent="listening"] .prompt[lang="fi"] { border-top-color: var(--skill-listening); }
+.panel[data-accent="writing"] .prompt[lang="fi"] { border-top-color: var(--skill-writing); }
+.panel[data-accent="speaking"] .prompt[lang="fi"] { border-top-color: var(--skill-speaking); }
 textarea.answer[lang="fi"], input.answer[lang="fi"] { font-size: 1.2rem; line-height: 1.55; }
 .radio > [lang="fi"]:not(.muted), .choices-set legend [lang="fi"], legend[lang="fi"] { font-size: 1.1rem; }   /* Finnish answers, not secondary Finnish names */
 .dialogue .line p[lang="fi"] { font-size: 1.1rem; }
 .field { color: var(--ink); }
-.panel[data-accent] .field { font-weight: 650; font-size: .95rem; }
-.skill-lines dt { font-size: .78rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.panel[data-accent] .field { font-weight: 700; font-size: .95rem; }
+.skill-lines dt { font-size: .9rem; font-weight: 700; color: var(--muted); }
 .field { display: block; font-weight: 700; margin: var(--space-base) 0 var(--space-sm); }
-textarea.answer, input.answer { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1.1rem; }
+textarea.answer, input.answer { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); font-size: 1.1rem; }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-base); }
-.btn { min-height: 44px; padding: 10px 20px; border-radius: 10px; border: 1.5px solid var(--navy); background: var(--navy); color: var(--white); font-weight: 800; cursor: pointer; }
+.btn { min-height: 44px; padding: 10px 22px; border: 1.5px solid var(--navy); background: var(--navy); color: var(--white); font-weight: 700; font-size: 1.05rem; cursor: pointer; }
 .btn.secondary { background: var(--white); color: var(--navy); }
 .btn.danger { background: var(--red); border-color: var(--red); color: var(--white); }
 .btn.danger:disabled { background: var(--surface-subtle); color: var(--muted); border-color: var(--stroke); }
 code.hash { overflow-wrap: anywhere; word-break: break-all; font-size: .85em; }
-.feedback { border-left: 4px solid var(--forest); background: var(--learn-tint); padding: 14px 16px; border-radius: 9px; margin: var(--space-base) 0; }
-.feedback.warn { border-left-color: var(--gold); background: var(--warn-tint); }
-.feedback.error { border-left-color: var(--red); background: var(--error-tint); }
+.feedback { border-top: 3px solid var(--forest); background: var(--learn-tint); padding: 14px 16px; margin: var(--space-base) 0; }
+.feedback.warn { border-top-color: var(--gold); background: var(--warn-tint); }
+.feedback.error { border-top-color: var(--red); background: var(--error-tint); }
 .feedback p { margin: 0 0 var(--space-sm); }
 .feedback p:last-child { margin-bottom: 0; }
-.learning-cue { background: var(--cue-bg); color: var(--cue-text); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; padding: 0 4px; border-radius: 4px; font-size: 1.2rem; }
-.meaning-first { display: block; padding: 10px 13px; background: var(--white); border: 1px solid var(--stroke); border-left: 4px solid var(--forest); border-radius: 7px; }
-.meaning-label { display: block; font-size: .75rem; font-weight: 800; letter-spacing: .035em; color: var(--navy); text-transform: uppercase; }
+.learning-cue { background: var(--cue-bg); color: var(--cue-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; padding: 0 4px; font-size: 1.2rem; }
+.meaning-first { display: block; padding: 10px 13px; background: var(--white); border: 1px solid var(--stroke); }
+.meaning-label { display: block; font-size: .9rem; font-weight: 700; color: var(--navy); }
 
 /* R06 "why this task", choice lists, R08 meaning options, reviewer banner */
-.why { margin: 0 0 var(--space-base); padding: var(--space-md) var(--space-base); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
-.why summary { cursor: pointer; font-weight: 800; color: var(--navy); min-height: 24px; }
+.why { margin: 0 0 var(--space-base); padding: var(--space-md) var(--space-base); border: 1px solid var(--stroke); background: var(--surface-subtle); }
+.why summary { cursor: pointer; font-weight: 700; color: var(--navy); min-height: 24px; }
 .why ul { margin: var(--space-sm) 0; padding-left: 1.2em; }
-.choices { list-style: none; padding: 0; margin: var(--space-md) 0 0; display: grid; gap: var(--space-sm); }
+/* A list of things to open is a ruled register: one row each, a chevron at the end of the row, no boxes. */
+.choices { list-style: none; padding: 0; margin: var(--space-md) 0 0; display: grid; border-top: 1px solid var(--stroke); }
 /* Block, not grid: WebKit sizes a fieldset grid column to max-content, so a long Finnish question never wrapped (R10-16). */
 .choices-set { border: 0; padding: 0; margin: var(--space-base) 0; display: block; }
 .choices-set > * + * { margin-top: var(--space-sm); }
 .choices-set > legend + * { clear: left; margin-top: 0; }
-.choices-set legend { font-weight: 800; margin-bottom: var(--space-base); float: left; width: 100%; padding: 0; }   /* float = not a "rendered legend": WebKit then wraps a long Finnish question instead of widening the page (R10-16) */
-.choice { width: 100%; min-height: 44px; display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 10px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); cursor: pointer; }
-.choice:hover { border-color: var(--navy); }
+.choices-set legend { font-weight: 700; margin-bottom: var(--space-base); float: left; width: 100%; padding: 0; }   /* float = not a "rendered legend": WebKit then wraps a long Finnish question instead of widening the page (R10-16) */
+.choice { position: relative; width: 100%; min-height: 44px; display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 12px 36px 12px var(--space-sm); border: 1px solid transparent; border-bottom-color: var(--stroke); background: none; color: var(--ink); cursor: pointer; }
+.choice > :first-child { font-weight: 700; color: var(--navy); }
+.choice::after { content: ""; position: absolute; right: 14px; top: 50%; width: 9px; height: 9px; margin-top: -5px; border-top: 2px solid var(--navy); border-right: 2px solid var(--navy); transform: rotate(45deg); }
+.choice:hover { background: var(--surface-subtle); }
 .choice small { color: var(--muted); }
-.reviewer-banner { margin: 0 0 var(--space-base); padding: var(--space-sm) var(--space-md); border-left: 4px solid var(--navy); background: var(--exam-tint); border-radius: 8px; font-weight: 700; }
+.reviewer-banner { margin: 0 0 var(--space-base); padding: var(--space-sm) var(--space-md); border-top: 3px solid var(--navy); background: var(--exam-tint); font-weight: 700; }
 /* Progress: tabs and skill lines (UX-05) */
-.tabs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-sm) 0 var(--space-base); }
-.tab { min-height: 44px; padding: 8px 16px; border: 1.5px solid var(--stroke); border-radius: 10px; background: var(--white); color: var(--ink); font-weight: 700; cursor: pointer; }
-.tab[aria-selected="true"] { border-color: var(--navy); color: var(--navy); box-shadow: inset 0 -3px 0 var(--navy); }
-.skill-lines { list-style: none; padding: 0; display: grid; gap: var(--space-sm); }
-.skill-lines li { padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--white); }
-.audio-box { margin: var(--space-base) 0; padding: var(--space-md); border: 1px solid var(--stroke); border-left: 4px solid var(--skill-listening); border-radius: 10px; background: var(--white); }
+.tabs { display: flex; flex-wrap: wrap; gap: 0 var(--space-base); margin: var(--space-sm) 0 var(--space-base); border-bottom: 1px solid var(--stroke); }
+.tab { min-height: 44px; padding: 8px 4px; border: 1px solid transparent; border-bottom: 4px solid transparent; background: none; color: var(--ink); font-weight: 700; cursor: pointer; }
+.tab[aria-selected="true"] { border-bottom-color: var(--navy); color: var(--navy); }
+.skill-lines { list-style: none; padding: 0; display: grid; }
+.skill-lines li { padding: var(--space-sm) 0; border-bottom: 1px solid var(--stroke); }
+.audio-box { margin: var(--space-base) 0; padding: var(--space-md); border: 1px solid var(--stroke); border-top: 4px solid var(--skill-listening); background: var(--white); }
 .audio-box audio { width: 100%; }
 .audio-label { margin: 0 0 var(--space-sm); font-weight: 700; color: var(--skill-listening); }
-.btn.secondary[aria-pressed="true"] { border-color: var(--navy); box-shadow: inset 0 -3px 0 var(--navy); }
+.btn.secondary[aria-pressed="true"] { border-bottom-width: 5px; padding-bottom: 6.5px; }   /* the chosen option stands on a thicker rule; same height as its neighbours */
 .transcript { white-space: pre-wrap; font-size: 1rem; }
-code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; border-radius: 4px; }
+code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; }
 
 @media (max-width: 560px) {
   .mode-gateway { grid-template-columns: 1fr; }
+  .mode-entry + .mode-entry { border-left-color: transparent; border-top-color: var(--stroke); padding-left: var(--space-sm); }
   .threshold-route { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8em), 1fr)); }
-  .threshold-segment, .threshold-segment:first-child { clip-path: none; border-radius: 6px; }
+  .threshold-segment, .threshold-segment:first-child { clip-path: none; }
   .topbar-inner .pill { display: none; }
 }
 /* Calm / low-stimulation appearance: same content, labels and states; fewer fills and no motion. */
-.toggle { cursor: pointer; min-height: 44px; color: var(--ink); }
+.toggle { cursor: pointer; min-height: 44px; color: var(--ink); background: none; }
 .toggle[aria-pressed="true"] { background: var(--navy); color: var(--white); border-color: var(--navy); }
 .topbar-inner > :last-child { margin-left: auto; }
 .topbar-inner { flex-wrap: wrap; }
-[data-appearance="calm"] .mode-entry-learn, [data-appearance="calm"] .mode-entry-exam { background: var(--white); }
 [data-appearance="calm"] .mode-entry::after { display: none; }
 [data-appearance="calm"] .prompt { background: var(--white); }
 [data-appearance="calm"] .feedback, [data-appearance="calm"] .feedback.warn, [data-appearance="calm"] .feedback.error { background: var(--white); }
 [data-appearance="calm"] .threshold-segment.current { background: var(--white); outline: 2px solid currentColor; outline-offset: -2px; }
 [data-appearance="calm"] .threshold-segment.current > * { color: inherit; }
-[data-appearance="calm"] .today::after { display: none; }
-[data-appearance="calm"] .today { background: var(--white); }
+[data-appearance="calm"] .today::after, [data-appearance="calm"] .panel::after { display: none; }
 [data-appearance="calm"] .threshold-segment.completed, [data-appearance="calm"] .threshold-route[data-accent] .threshold-segment.completed { background: var(--white); }
 [data-appearance="calm"] .learning-cue { background: var(--white); color: var(--cue-text); }
 [data-appearance="calm"] * { transition: none !important; animation: none !important; }
 
 /* The button's text colour changes immediately. Do not tween its background through low-contrast intermediate shades (WCAG 1.4.3). */
-@media (prefers-reduced-motion: no-preference) { .btn { transition: border-color var(--motion-micro); } .skill-tile, .more-tile { transition: border-color var(--motion-micro); } .mode-entry { transition: border-color var(--motion-micro), background-color var(--motion-micro); } }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: border-color var(--motion-micro); } .skill-tile, .more-tile, .mode-entry { transition: background-color var(--motion-micro); } }
 @media (forced-colors: active) {
+  /* Without fills a sheet has no edge: give it a real border and drop the cut. */
+  .panel, .today { clip-path: none; border: 1px solid CanvasText; }
   .threshold-segment.current { outline: 2px solid Highlight; }
   .learning-cue { background: Canvas; color: CanvasText; }
 }
@@ -227,23 +256,25 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 .diff ins::before { content: " [+] "; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .diff del::before { content: " [−] "; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 /* Dialogue: speaker shown as a text label, not colour only (A10, DEC-06 interlocutor, no mascot). */
-.dialogue { list-style: none; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-sm); }
-.dialogue .line { padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--white); }
-.dialogue .line.mine { border-left: 4px solid var(--forest); }
-.dialogue .line.npc { border-left: 4px solid var(--navy); }
+/* A script page: each turn under a hairline, the speaker named in words; the learner's own turns are set in from the left. */
+.dialogue { list-style: none; padding: 0; margin: var(--space-base) 0; display: grid; border-bottom: 1px solid var(--stroke); }
+.dialogue .line { padding: var(--space-sm) 0; border-top: 1px solid var(--stroke); }
+.dialogue .line.mine { margin-left: clamp(16px, 8%, 56px); }
 .dialogue .line p { margin: 2px 0 0; overflow-wrap: anywhere; }
-.dialogue .line .npc-aside { margin-top: var(--space-sm); padding-left: var(--space-sm); border-left: 3px solid var(--navy); }
-.dialogue .who { font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-.cue-label { font-weight: 800; color: var(--forest); }
+.dialogue .line .npc-aside { margin-top: var(--space-sm); padding-top: var(--space-xs); border-top: 1px dashed var(--stroke); }
+.dialogue .who { font-size: .9rem; font-weight: 700; color: var(--muted); }
+.dialogue .line.npc .who { color: var(--navy); }
+.dialogue .line.mine .who { color: var(--forest); }
+.cue-label { font-weight: 700; color: var(--forest); }
 /* Media library: calm cards, credit always visible, media never wider than the screen (A10-03 reflow). */
 .media-tabs { flex-wrap: wrap; }
 .media-grid { list-style: none; padding: 0; display: grid; gap: var(--space-md); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
-.media-card { border: 1px solid var(--stroke); border-radius: 12px; padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); overflow-wrap: anywhere; }
+.media-card { border: 1px solid var(--stroke); padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); overflow-wrap: anywhere; }
 .media-card .btn { white-space: normal; display: inline-block; max-width: 100%; }
 .media-card h3 { font-size: 1rem; margin: 0 0 var(--space-xs); overflow-wrap: anywhere; }
-.media-img { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--surface-subtle); }
+.media-img { display: block; width: 100%; height: auto; background: var(--surface-subtle); }
 .media-svg { max-width: 240px; }
-.media-video { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--ink); }
+.media-video { display: block; width: 100%; height: auto; background: var(--ink); }
 .player { margin: var(--space-sm) 0; }
 .player figcaption { font-size: .85rem; font-weight: 700; color: var(--muted); }
 .player audio { width: 100%; }
@@ -257,7 +288,7 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; borde
 /* EXAM: neutral, no learning cues or semantic highlight colours (EXAM-05, MULTI-10, UIO-10).
    DESIGN-12 own skin: cool neutral page instead of cream, no gold signature, navy only, subtests as the route. */
 html[data-mode="exam"] body { background: var(--surface-subtle); }
-html[data-mode="exam"] .panel.exam { border-top: 4px solid var(--navy); border-radius: 6px; }
+html[data-mode="exam"] .panel.exam { border-top: 4px solid var(--navy); }
 html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .threshold-route[data-accent="exam"] { color: var(--navy); }
 .threshold-route[data-accent="exam"] .threshold-segment { font-size: .85rem; }
@@ -267,23 +298,23 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .fidelity-strip li { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: var(--space-sm); border: 1px solid var(--stroke); border-top: 4px solid var(--stroke); background: var(--white); }
 .fidelity-strip li[data-status="partial"] { border-top-color: var(--navy); border-top-style: dashed; }
 .fidelity-strip li[data-status="verified"] { border-top-color: var(--navy); }
-.fidelity-dim { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--navy); }
+.fidelity-dim { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--navy); }
 .fidelity-name { font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; hyphens: auto; }
 .fidelity-status { font-size: .85rem; }
 .fidelity-basis div { margin: var(--space-sm) 0; }
 .fidelity-basis dt { font-weight: 700; }
 .fidelity-basis dd { margin: 0; color: var(--muted); }
 .exam-bar { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; justify-content: space-between; margin-bottom: var(--space-md); }
-.exam-passage { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--white); line-height: 1.7; overflow-wrap: anywhere; }
+.exam-passage { padding: var(--space-md); border: 1px solid var(--stroke); background: var(--white); line-height: 1.7; overflow-wrap: anywhere; }
 .exam-prompt { font-weight: 700; }
 .exam-audio audio { width: 100%; }
-.exam-voice { margin: var(--space-base) 0; padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; }
-.voice-status { border-left: 4px solid var(--navy); padding: 10px 14px; margin: var(--space-sm) 0; background: var(--surface-subtle); color: var(--ink); }
-.voice-status.warn { border-left-color: var(--gold); background: var(--warn-tint); }
+.exam-voice { margin: var(--space-base) 0; padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); }
+.voice-status { border-top: 3px solid var(--navy); padding: 10px 14px; margin: var(--space-sm) 0; background: var(--surface-subtle); color: var(--ink); }
+.voice-status.warn { border-top-color: var(--gold); background: var(--warn-tint); }
 .device-row { border-top: 1px solid var(--stroke); padding-top: var(--space-sm); margin-top: var(--space-sm); }
 .device-row p { margin: var(--space-xs) 0; }
 .device-check meter { inline-size: min(100%, 12rem); block-size: 1rem; vertical-align: middle; margin-inline-start: var(--space-sm); }
-.exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); border-radius: 10px; background: var(--surface-subtle); }
+.exam-notice { padding: var(--space-md); border: 1px solid var(--stroke); background: var(--surface-subtle); }
 .exam-save { font-size: .85rem; margin: var(--space-sm) 0 0; }
 .exam-history small { display: block; }
 /* «Моє господарство» (brand: Hospodar = self-reliance in daily life; identity v0.3 threshold).
@@ -291,13 +322,15 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
    Status is always text; colour and the door only reinforce it (A10, COLOR-15). */
 .estate { margin-top: var(--space-xl); }
 .estate-about { max-width: 46em; color: var(--muted); margin: 0 0 var(--space-md); }
-.estate-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); }
-.place-tile { width: 100%; height: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: var(--space-sm) var(--space-md);
-  background: var(--white); color: var(--ink); border: 1px solid var(--stroke); border-left: 4px solid var(--stroke); border-radius: 12px; cursor: pointer; }
-.place-tile:hover { border-color: var(--navy); }
-.place-tile[data-door="open"] { border-left-color: var(--forest); background: var(--learn-tint); }
+/* The estate is a directory of nine addresses: ruled rows in columns, the door mark and the words carry the state. */
+.estate-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--space-lg); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); border-top: 1px solid var(--stroke); }
+.place-tile { width: 100%; height: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-sm);
+  background: none; color: var(--ink); border: 1px solid transparent; border-bottom-color: var(--stroke); cursor: pointer; }
+.place-tile:hover { background: var(--white); }
+.place-tile[data-door="open"] { background: var(--learn-tint); }
+.place-tile strong { font-size: 1.1rem; line-height: 1.25; }
 .place-tile-text { display: flex; flex-direction: column; min-width: 0; }
-.place-tile-fi { font-size: .85rem; color: var(--muted); }
+.place-tile-fi { font-size: .95rem; color: var(--muted); }
 .place-tile small { color: var(--muted); display: block; margin-top: 2px; }
 .place-tile small .icon { vertical-align: -0.2em; margin-right: 2px; color: var(--forest); }
 .estate-count { margin: var(--space-sm) 0 0; }
@@ -313,22 +346,17 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .place-goal { font-size: 1.1rem; max-width: 40em; }
 .place-status { display: grid; gap: var(--space-xs); margin: 0 0 var(--space-lg); }
 .place-status div { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: var(--space-sm); align-items: baseline; }
-.place-status dt { font-weight: 800; display: inline-flex; align-items: center; gap: 4px; }
+.place-status dt { font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 .place-status dd { margin: 0; }
 @media (max-width: 560px) { .place-status div { grid-template-columns: 1fr; gap: 0; } }
-@media (prefers-reduced-motion: no-preference) { .place-tile { transition: border-color var(--motion-micro); } }
-@media (max-width: 560px) {
-  .estate-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .place-tile { flex-direction: column; align-items: flex-start; gap: var(--space-xs); padding: var(--space-sm); }
-  .place-tile .place-glyph { width: 36px; height: 36px; }
-}
+@media (prefers-reduced-motion: no-preference) { .place-tile, .choice { transition: background-color var(--motion-micro); } }
+@media (max-width: 560px) { .place-tile .place-glyph { width: 36px; height: 36px; } }
 /* «Господар» persona — TEMPORARY silhouette until the illustrator (DESIGN-07). Static, beside real text, outside tasks only. */
 .hospodar { display: flex; align-items: flex-end; gap: var(--space-md); margin: 0 0 var(--space-base); }
 .hospodar-figure { flex: none; }
-.hospodar-says { position: relative; margin: 0 0 var(--space-lg); padding: var(--space-md) var(--space-base); background: var(--white); color: var(--ink);
-  border: 1px solid var(--stroke); border-radius: 14px; max-width: 34em; font-size: 1.02rem; }
-.hospodar-says::before { content: ""; position: absolute; left: -8px; bottom: 18px; width: 14px; height: 14px; background: var(--white);
-  border-left: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); transform: rotate(45deg); }
+/* His words stand as plain text between two hairlines beside him — no speech bubble. */
+.hospodar-says { margin: 0 0 var(--space-lg); padding: var(--space-md) 0; color: var(--ink);
+  border-top: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke); max-width: 34em; font-size: 1.08rem; }
 /* Illustration colours: persona_* tokens only, identical in light and dark (an illustration keeps its own colours). */
 .hp-line { stroke: var(--persona-line); stroke-width: 1.1; }
 .hp-linen { fill: var(--persona-linen); }
@@ -357,18 +385,18 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .hp-band { fill: var(--persona-vest); }
 .hp-weave { stroke: var(--persona-straw-shade); stroke-width: .9; }
 .guide-choice label { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; }
-@media (max-width: 560px) { .hospodar-figure { width: 76px; height: 95px; } .hospodar-says::before { bottom: 14px; } }
+@media (max-width: 560px) { .hospodar-figure { width: 76px; height: 95px; } }
 /* Майстерня слабких місць: a calm list; the bottleneck is said in words, the rule only reinforces it (A10). */
-.workshop-list { list-style: none; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-md); }
-.workshop-family { padding: var(--space-md) var(--space-base); border: 1px solid var(--stroke); border-left: 4px solid var(--stroke); border-radius: 12px; background: var(--white); }
-.workshop-family[data-bottleneck="yes"] { border-left-color: var(--forest); }
-.workshop-family h2 { font-size: 1.1rem; margin: 0 0 var(--space-xs); }
+.workshop-list { list-style: none; padding: 0; margin: var(--space-base) 0; display: grid; gap: var(--space-base); }
+.workshop-family { padding: var(--space-md) 0 0; border-top: 2px solid var(--stroke); }
+.workshop-family[data-bottleneck="yes"] { border-top: 4px solid var(--forest); }
+.workshop-family h2 { font-size: 1.2rem; margin: 0 0 var(--space-xs); }
 .workshop-family p { margin: var(--space-xs) 0; }
 .workshop-flag strong { color: var(--forest); }
 /* Pre-task planning: a quiet frame, no timer; the plan returns only next to the model (pre-task-planning). */
 .plan-frame { margin: var(--space-sm) 0 var(--space-md); padding-left: 1.4em; color: var(--muted); }
-.plan-back { padding: var(--space-sm) var(--space-md); border-left: 3px solid var(--stroke); }
-textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1.1rem; }   /* any language: no lang="fi" */
+.plan-back { padding: var(--space-sm) 0; border-top: 1px dashed var(--stroke); border-bottom: 1px dashed var(--stroke); }
+textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); font-size: 1.1rem; }   /* any language: no lang="fi" */
 /* YKI preparation map: 9 themes × 4 skills (counts only, no colour-coded judgement) */
 .yki-map-scroll { max-width: 100%; overflow-x: auto; }
 .yki-map-table { border-collapse: collapse; width: 100%; font-size: .95rem; }
@@ -377,29 +405,30 @@ textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(-
 .yki-map-table td[data-cell="gap"] { color: var(--muted); }
 .linkish { background: none; border: 0; padding: 0; min-height: 24px; color: var(--navy); text-decoration: underline; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
 /* «Ціла справа»: ordered whole-task steps */
-.scenario { border-left: 4px solid var(--navy); padding-left: var(--space-md); margin: var(--space-md) 0; }
+.scenario { border-top: 2px solid var(--ink); padding-top: var(--space-sm); margin: var(--space-lg) 0; }
+.scenario h2, .stepup h2 { margin-top: 0; }
 .scenario-steps { padding-left: 1.4rem; display: grid; gap: var(--space-xs); }
 .scenario-steps li[data-status="todo"] { color: var(--ink); }
 /* Graduated task sequencing: same situation, constraints added one at a time */
-.stepup { border-left: 4px solid var(--stroke); padding-left: var(--space-md); margin: var(--space-md) 0; }
+.stepup { border-top: 2px solid var(--ink); padding-top: var(--space-sm); margin: var(--space-lg) 0; }
 .stepup-constraints { padding-left: 1.4rem; display: grid; gap: var(--space-xs); }
 .stepup-constraints li[data-new="yes"] { font-weight: 700; }
 /* Strategic audio notes: quiet, optional, like exam note paper */
 .audio-notes { margin: var(--space-sm) 0; }
 .audio-notes summary { cursor: pointer; font-weight: 700; min-height: 24px; }
-input.plan-notes { width: 100%; padding: 8px 12px; border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); font-size: 1rem; }
+input.plan-notes { width: 100%; padding: 8px 12px; border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); font-size: 1rem; }
 /* Dictogloss: shared word forms are marked quietly (not a score) */
 mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bottom: 2px solid var(--stroke); padding: 0 1px; }
 /* S2 reviewer workspace (docs/29 stage 1): every stored field is readable; keys, variants and models stand out. */
-.review-fields { display: grid; gap: var(--space-xs); margin: 0 0 var(--space-base); padding-left: var(--space-sm); border-left: 2px solid var(--stroke); }
+.review-fields { display: grid; gap: var(--space-xs); margin: 0 0 var(--space-base); padding-top: var(--space-sm); border-top: 1px solid var(--stroke); }
 .review-fields div { display: grid; grid-template-columns: minmax(8rem, 14rem) 1fr; gap: var(--space-sm); align-items: baseline; }
 .review-fields dt { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
 .review-fields dd { margin: 0; overflow-wrap: anywhere; }
 .review-fields ol { margin: 0; padding-left: 1.5rem; }
-.review-key { background: var(--warn-tint); border-radius: 6px; padding: 2px 6px; }
+.review-key { background: var(--warn-tint); padding: 2px 6px; }
 .review-key > dt { color: var(--ink); font-weight: 700; }
 .review-key .draft-note { margin: 0 0 0 6px; }
 .review-text { white-space: pre-wrap; }
 .review-decision { margin-top: var(--space-lg); padding-top: var(--space-base); border-top: 1px solid var(--stroke); }
-.review-decision select { display: block; min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); border-radius: 10px; background: var(--white); color: var(--ink); }
+.review-decision select { display: block; min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 @media (max-width: 560px) { .review-fields div { grid-template-columns: 1fr; gap: 0; } }

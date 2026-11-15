@@ -435,7 +435,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - fading: opening the cue does not change scheduling;
   - the 14-day recall/use study (the evidence is one EFL experiment).
 
-## 2026-11-16 — «План заняття» on 10, 20 or 30 minutes (docs/29 stage 3; DEC-01)
+## 2026-11-15 — «План заняття» on 10, 20 or 30 minutes (docs/29 stage 3; DEC-01)
 
 - **Flow:** under the next-step card on Home, «Або склади план заняття: 10 / 20 / 30 хв». Choosing a length replaces the card with the plan, so Home still has one main action (UIO-01). Each block shows:
   - what to do and roughly how long it takes («≈ N хв»);
@@ -463,3 +463,33 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - opt-in reminders (none exist);
   - skill prerequisite chains;
   - any measured effect of plans on delayed Finnish outcomes.
+
+## 2026-11-15 — form language «Господарська книга»: no generated-UI sameness (DESIGN-11, DESIGN-02)
+
+- **What changed (apps/web only; the legacy `app/` keeps its earlier look):** the stylesheet's form language, two bundled typefaces, and nothing else. No screen structure, copy, colour token, answer policy or storage changed.
+- **Removed, because they are the stock forms of generated interfaces:**
+  - grids of identical rounded cards;
+  - an accent stripe down the left edge of a box (15 uses);
+  - pill badges;
+  - small uppercase tracked labels;
+  - the system font as the only voice;
+  - the guide's speech bubble.
+- **Instead (rules in [brand identity §9](../brand/identity-v03-screen-system.md#9-мова-форми-v04--господарська-книга-15112026)):**
+  - Sheets are square and hang from rules. Lists are ruled register rows with a chevron: places, skills, exercises, a place's tasks, text lists.
+  - Skill or state colour sits on the rule above a block and on the icon.
+  - One signature per screen: the H-mark's bottom-right cut with the gold step along it. It sits on the next-step / plan sheet on Home and on the task sheet elsewhere. The exam, calm mode and the reviewer's nested sheet have no gold; forced colours get a real border and no cut.
+  - Two voices: Ukrainian in Arsenal, Finnish always in Finlandica (`[lang="fi"]`), so the target language is visible at a glance.
+- **Fonts:**
+  - `apps/web/src/fonts.css` declares six woff2 files (about 92 KB) from `@fontsource/arsenal` and `@fontsource-variable/finlandica` (SIL OFL 1.1, see [LICENSING](../LICENSING.md)).
+  - Vite emits them into the build; the offline shell already precaches `woff2`; CSP stays `font-src 'self'`.
+  - `font-display: swap`, with the system font as fallback.
+- **Guards:**
+  - `apps/web/src/design-language.test.ts` (static): stripes, radius, uppercase, shadows, gradients, where the cut may be, fonts from the package only.
+  - `apps/web/e2e/design.spec.ts` «DESIGN-11 authored form language…» (rendered Home, a task and the exam): both faces really loaded, no rounded element or left stripe, exactly one cut per screen, no request to another origin.
+  - Two existing tests now read the skill colour from the rule above the block (`border-top-color`) instead of the removed left stripe.
+- **Not done / not claimed:**
+  - no review by a human designer;
+  - no recognisability study (DESIGN-06/15);
+  - no screen-reader or real-device check of the new faces;
+  - the nine places still share one door glyph;
+  - illustrations in one human-made style (DESIGN-07) are still to come.
