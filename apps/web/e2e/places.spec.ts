@@ -86,6 +86,28 @@ test("private real-life deed mark (real-world-interaction, MOT-03 opt-in with re
   await expect(deed.getByRole("status")).toHaveCount(0);
 });
 
+test("deed marks from two tabs never overwrite each other, and an erase in one tab is never resurrected by another", async ({ page, context }) => {
+  const stored = () => page.evaluate(() => JSON.parse(localStorage.getItem("hospodar-yki:web:deeds:v1") ?? "null"));
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  const other = await context.newPage();
+  await other.goto("./");
+  await other.getByTestId("place-work").click();                                      // both tabs read the empty log now
+  await page.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  await other.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  expect(Object.keys((await stored()).done).sort()).toEqual(["housing", "work"]);   // the second tab did not erase the first mark
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await page.getByRole("radio", { name: /Увесь прогрес навчання/ }).check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect.poll(stored).toBeNull();
+  await expect(other.getByTestId("deed").getByRole("status")).toHaveCount(0);        // the open tab sees the erase
+  await other.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  expect(Object.keys((await stored()).done)).toEqual(["work"]);                       // housing is not resurrected
+});
+
 test("Господар persona: guides on home and place screens only — never while answering, in feedback or in EXAM; hide and calm mode remove him", async ({ page }) => {
   await page.goto("./");
   const guide = page.locator("figure.hospodar");

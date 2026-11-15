@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deedDoneOn, hospodarAtPlace, localDate, markDeed, placeProgress, scenarioProgress, unmarkDeed, type DeedLog, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
-import { readDeeds, writeDeeds } from "../storage/deeds.ts";
+import { onDeedsChanged, readDeeds, updateDeeds } from "../storage/deeds.ts";
 import { placeIndex, places, practiceIdsOf, viewOfSkill, type Quest, type QuestView } from "../content/places.ts";
 import { Icon } from "../ui/icons.tsx";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
@@ -100,10 +100,11 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
 function DeedMark({ place }: { place: PlaceId }) {
   const [log, setLog] = useState(readDeeds);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => onDeedsChanged(() => setLog(readDeeds())), []);   // another tab marked, removed or erased
   const done = deedDoneOn(log, place);
-  const save = (next: DeedLog) => {
-    try { writeDeeds(next); setLog(next); setError(null); }
-    catch { setError("Браузер не зберіг позначку. Нічого не змінено."); }
+  const save = (change: (current: DeedLog) => DeedLog) => {
+    try { setLog(updateDeeds(change)); setError(null); }
+    catch { setLog(readDeeds()); setError("Браузер не зберіг позначку. Нічого не змінено."); }
   };
   return (
     <div className="deed" data-testid="deed">
@@ -113,8 +114,8 @@ function DeedMark({ place }: { place: PlaceId }) {
       <p className="muted">Необов'язково. Застосунок цього не перевіряє. Позначка приватна: лише на цьому пристрої, без оцінки, не входить у прогрес, рівень чи копію даних.</p>
       <div className="actions">
         {done
-          ? <button type="button" className="btn secondary" onClick={() => save(unmarkDeed(log, place))}>Зняти позначку</button>
-          : <button type="button" className="btn secondary" onClick={() => save(markDeed(log, place, localDate()))}>Я зробив(ла) це в житті</button>}
+          ? <button type="button" className="btn secondary" onClick={() => save(current => unmarkDeed(current, place))}>Зняти позначку</button>
+          : <button type="button" className="btn secondary" onClick={() => save(current => markDeed(current, place, localDate()))}>Я зробив(ла) це в житті</button>}
       </div>
       {error && <p className="feedback error" role="alert">{error}</p>}
     </div>

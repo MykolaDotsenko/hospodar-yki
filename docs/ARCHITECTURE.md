@@ -408,6 +408,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 - **Flow:** under «Справа в реальному житті» on each place, «Я зробив(ла) це в житті» records a private mark (the local date); «Зняти позначку» removes it. Nothing is marked by default (MOT-03: opt-in with revoke).
 - **Private and never graded:** stored in `localStorage` key `hospodar-yki:web:deeds:v1`, separate from learner progress (`LearnerState` is unchanged, so export/restore and the legacy-parity reader are untouched); never exported, counted, scored or turned into a door, key, streak or level. Erasing LEARN data on «Мої дані» also erases the marks (the option is enabled by marks alone); the data screen says marks are not in the backup.
-- **Code:** `packages/domain/src/deeds.ts` (`parseDeedLog`, `markDeed`, `unmarkDeed`; `test/deeds.test.ts`), `storage/deeds.ts` (readback-verified write, verified clear), `PlaceScreen` (`DeedMark`), `DataScreen`, `e2e/places.spec.ts`.
+- **Two tabs:** every change is applied to what is stored at that moment (`updateDeeds`), and open place screens refresh on the `storage` event, so a second tab never overwrites another tab's mark and an erase is never resurrected.
+- **Code:** `packages/domain/src/deeds.ts` (`parseDeedLog`, `markDeed`, `unmarkDeed`; `test/deeds.test.ts`), `storage/deeds.ts` (readback-verified write, verified clear, `updateDeeds`, `onDeedsChanged`), `PlaceScreen` (`DeedMark`), `DataScreen`, `e2e/places.spec.ts`.
 - **Not done:** a private reflection on how the deed went; any measure of transfer to real communication.
 
