@@ -434,3 +434,32 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - guidance on cue quality;
   - fading: opening the cue does not change scheduling;
   - the 14-day recall/use study (the evidence is one EFL experiment).
+
+## 2026-11-16 — «План заняття» on 10, 20 or 30 minutes (docs/29 stage 3; DEC-01)
+
+- **Flow:** under the next-step card on Home, «Або склади план заняття: 10 / 20 / 30 хв». Choosing a length replaces the card with the plan, so Home still has one main action (UIO-01). Each block shows:
+  - what to do and roughly how long it takes («≈ N хв»);
+  - why now;
+  - how much is done since the plan was made;
+  - a «Почати»/«Продовжити» button that opens the exact task: a due phrase card, a due grammar task, the delayed checks, «Майстерня», or a specific reading text, recording, writing task or dialogue.
+  - Only the current block's button is primary.
+  - The learner may change the length, choose the skill and the place (topic) for new tasks, skip any block, or close the plan.
+- **Order (pure, deterministic — `packages/domain/src/sessionPlan.ts`):**
+  1. Повторення: due delayed 7/14/30 checks → phrases not recalled → scheduled grammar, at most 10 minutes. The rest is shown as «іншим разом, надолужувати не треба», never as a catch-up quota (MOT-04).
+  2. Слабке місце: the «Майстерня» set of a family with repeated first-answer errors; a re-test comes first.
+  3. Нова справа: never-tried LEARN tasks ranked by the parity-tested R06 ranker over the four YKI skills. Equal scores follow the «Сьогодні» skill order. Several new tasks go to different skills unless the learner chose one.
+  - From 20 minutes on, 10 minutes are kept for something new.
+  - No task longer than the time left is offered (R6-04). A choice that cannot fit is said honestly («не вміщується в час, що лишився»).
+  - Minutes are editorial estimates (reading/listening 8, dialogue 10, writing 15), not measurements.
+- **Honest signals:**
+  - Reasons cite only saved evidence or the learner's own choice: never practised / least practised (saved answers, i.e. exposure), due today, re-test due, chosen skill/place.
+  - No level, score, readiness, streak, timer or notification.
+  - Writing and speaking stay ungraded.
+  - A block counts as done only from evidence saved after the plan was made, and only from the task's final evidence (reading `-transfer`, writing-clinic `-transfer`, dialogue `-roleplay`, listening questions written at the end). A writing draft saved before the model and rewrite marks the task as tried, never as done.
+- **Storage:** none. The plan lives in App memory for the page visit (MOT-11); a reload forgets it; erasing or importing LEARN data closes it. Candidates come only from LEARN pools that already exclude EXAM items and, in a release build, unpublished items.
+- **Code:** `packages/domain/src/sessionPlan.ts` (`planSession`, `blockProgress`, `skillExposure`; `test/session-plan.test.ts`), `apps/web/src/content/session.ts` (+ `session.test.ts`), `screens/SessionPlanPanel.tsx`, `HomeScreen`, `App`, `e2e/session-plan.spec.ts`.
+- **Not done:**
+  - the R08-MOT if-then plan with a personal cue;
+  - opt-in reminders (none exist);
+  - skill prerequisite chains;
+  - any measured effect of plans on delayed Finnish outcomes.

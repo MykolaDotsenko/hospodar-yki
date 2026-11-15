@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { LearnerState } from "@hospodar/domain";
 import { HomeScreen } from "./screens/HomeScreen.tsx";
+import type { ActiveSession } from "./screens/SessionPlanPanel.tsx";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
 import type { ExamRepository } from "./storage/examRepository.ts";
 import type { VoiceStore } from "./storage/voiceStore.ts";
@@ -60,6 +61,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const goTo = (v: View, id: string | null = null, workshop = false) => { setStartId(id); setFromWorkshop(workshop); setView(v); };
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
+  // «План заняття»: memory only for this page visit — never written to storage (MOT-11), so a reload forgets it.
+  const [session, setSession] = useState<ActiveSession | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [appearance, setAppearance] = useState<Appearance>(readAppearance);
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
@@ -101,11 +104,12 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
           <p className="feedback" role="status" data-testid="release-notice">Збірка випуску: тут лише завдання, перевірені викладачем S2 (зараз {RELEASED_TASKS}).
             {RELEASED_TASKS === 0 && " Поки що жодного — розділи покажуть «Ще не перевірено»."}</p>
         )}
-        {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }} />}
+        {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }}
+          session={session} onSession={setSession} start={(v, id) => goTo(v, id)} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
-        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); }} onHome={() => goTo("home")} />}
         {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
           onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} />}
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
@@ -118,7 +122,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "listening" && !EMPTY_IN_RELEASE.listening && snapshot && <ListeningScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "retention" && snapshot && <RetentionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "progress" && snapshot && <ProgressScreen state={snapshot.state} examRepository={examRepository} onHome={() => goTo("home")} onLearn={() => goTo("mission")} onRetention={() => goTo("retention")} onPlace={id => { setPlace(id); goTo("place"); }} />}
-        {view === "import" && snapshot && <ImportScreen repository={repository} current={snapshot} onImported={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "import" && snapshot && <ImportScreen repository={repository} current={snapshot} onImported={s => { setSnapshot(s); setSession(null); }} onHome={() => goTo("home")} />}
         {view === "review" && !IN_RELEASE && <ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} />}
         {view === "workshop" && !EMPTY_IN_RELEASE.workshop && snapshot && <WorkshopScreen state={snapshot.state} guide={showGuide} onHome={() => goTo("home")} open={id => goTo("mission", id, true)} />}
         {view === "mission" && !EMPTY_IN_RELEASE.mission && snapshot && (

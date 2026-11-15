@@ -10,6 +10,7 @@ import { skillRetentionBank } from "../content/skillRetention.ts";
 import { transferBank } from "../content/transfer.ts";
 import { Icon, type IconName } from "../ui/icons.tsx";
 import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
+import { makeSession, PlanStart, SessionPlanPanel, type ActiveSession, type PlanTarget } from "./SessionPlanPanel.tsx";
 
 export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
@@ -39,7 +40,11 @@ function describe(a: TodayAction): { title: string; why: string; cta: string; go
   }
 }
 
-export function HomeScreen({ state, go, openPlace, guide = false }: { state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean }) {
+export function HomeScreen({ state, go, openPlace, guide = false, session = null, onSession = () => {}, start = () => {} }: {
+  state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean;
+  /** «План заняття» (DEC-01 10/20/30): kept by App in memory only; when present it replaces the next-step card (one main action). */
+  session?: ActiveSession | null; onSession?: (s: ActiveSession | null) => void; start?: (v: PlanTarget, id: string | null) => void;
+}) {
   const done = state?.attempts.length ?? 0;
   const grammarDue = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
@@ -72,7 +77,8 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
     <section aria-labelledby="home-title">
       <h1 id="home-title">Що сьогодні робимо?</h1>
 
-      {first && (
+      {session && state && <SessionPlanPanel state={state} session={session} onSession={onSession} go={start} />}
+      {!session && first && (
         <section className="today" aria-labelledby="today-title">
           <h2 id="today-title" className="today-kicker">Твій наступний крок</h2>
           <p className="today-title">{first.title}</p>
@@ -83,6 +89,7 @@ export function HomeScreen({ state, go, openPlace, guide = false }: { state: Lea
               {rest.map(r => <li key={r.cta}><span>{r.title}</span> <button type="button" className="btn secondary" onClick={() => go(r.go)}>{r.cta}</button></li>)}
             </ul>
           )}
+          {state && <PlanStart onPick={minutes => onSession(makeSession(state, { minutes }))} />}
           <p className="muted today-count" aria-live="polite">Виконано місій: <strong>{done}</strong> · на повторення сьогодні: <strong>{grammarDue}</strong></p>
         </section>
       )}

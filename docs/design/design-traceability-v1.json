@@ -712,8 +712,16 @@
       "id": "UIO-07",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "Agency over skill, length, pace, captions and calm mode",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "manual choice: a chosen skill that does not fit the time is said honestly; a longer session offers it; a chosen place filters"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "manual choice wins: a chosen skill or place restricts every new task; nothing left is said honestly"
+        },
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: mission explains why it was chosen and lets the learner pick another"
@@ -725,9 +733,12 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
         }
-      ],
-      "gap": "Skill choice and session length (DEC-01 10/20/30) not built"
+      ]
     },
     {
       "id": "UIO-08",
@@ -2393,7 +2404,7 @@
       "id": "R06",
       "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
       "summary": "Transparent deterministic next-task choice with 'why this task' and manual override",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
@@ -2402,9 +2413,16 @@
         {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "four skills get equal opportunity (R6-10): a never-practised skill comes first, several new tasks go to different skills"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
         }
-      ],
-      "gap": "Built for cloze missions; R06 human study NOT RUN; no claim it beats a fixed spaced curriculum."
+      ]
     },
     {
       "id": "R07",
@@ -2447,18 +2465,25 @@
       "id": "R09",
       "source": "research/29-twelve-product-research-studies-execution-2026-10.md",
       "summary": "Motivation without coercion: topic/skill choice, voluntary restart, no streak/shame/luck loops",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "apps/web/e2e/r06-r08.spec.ts",
-          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "manual choice: a chosen skill that does not fit the time is said honestly; a longer session offers it; a chosen place filters"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "order: review first (delayed → phrases → grammar, ≤10 min, the rest waits — no catch-up), then the weak spot, then something new"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
         },
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
         }
-      ],
-      "gap": "Manual task choice and honest progress; topic choice and 10/20/30-min session length (DEC-01) not built."
+      ]
     },
     {
       "id": "R10",
@@ -3110,16 +3135,30 @@
         {
           "file": "packages/domain/test/release.test.ts",
           "contains": "a release pool holds only published items — S2-approved but unpublished, drafts, withdrawn and bare claims stay out"
+        },
+        {
+          "file": "apps/web/e2e/release.spec.ts",
+          "contains": "release build: a session plan offers no draft — with nothing published it says so instead of planning"
         }
       ],
-      "gap": "In a release build the ranker gets only S2-published tasks and labelled drafts are not allowed; the beta build still ranks labelled drafts via allowLabelledDrafts. 0 items published; rights/offline filters unchanged."
+      "gap": "In a release build the ranker and the session plan get only S2-published tasks (labelled drafts are not allowed); the beta build still ranks labelled drafts via allowLabelledDrafts. 0 items published; rights/offline filters unchanged."
     },
     {
       "id": "R6-04",
       "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
       "summary": "Media/skill prerequisites and time limit enforced",
-      "status": "NOT_YET",
-      "plan": "Session length (DEC-01 10/20/30) and skill prerequisites in the ranker."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "time limit is enforced (R6-04): no plan exceeds its length; a task that does not fit is never offered"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "manual choice: a chosen skill that does not fit the time is said honestly; a longer session offers it; a chosen place filters"
+        }
+      ],
+      "gap": "The session plan never offers a task longer than the time left (time limit enforced). Every planned task is bundled, rights-cleared project content, so no media prerequisite can fail; skill prerequisite chains (prerequisiteIds) are not defined for any task yet."
     },
     {
       "id": "R6-05",
@@ -3201,14 +3240,25 @@
       "id": "R6-10",
       "source": "research/pedagogy/33-r06-transparent-adaptive-finnish-learning-2026-10.md",
       "summary": "Four-skill coverage; exposure count separate from human-judged mastery",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
+        {
+          "file": "apps/web/src/content/session.test.ts",
+          "contains": "no skill is left without a proposal: for each of the four skills a 20-minute plan with that skill chosen offers a new task"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "four skills get equal opportunity (R6-10): a never-practised skill comes first, several new tasks go to different skills"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        },
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
         }
-      ],
-      "gap": "Progress shows 4 skills separately; the ranker itself ranks cloze missions only."
+      ]
     },
     {
       "id": "R6-11",
@@ -4215,18 +4265,21 @@
       "id": "QL-06",
       "source": "docs/28-product-quality-niche-leadership-strategy.md",
       "summary": "Voluntary motivation: 10/20/30-min real missions, topic choice",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "apps/web/e2e/r06-r08.spec.ts",
-          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
         },
         {
-          "file": "apps/web/e2e/retention-progress.spec.ts",
-          "contains": "UX-05/UIO-08 progress: separate honest signals, actionable next step, no % or level"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "manual choice: a chosen skill that does not fit the time is said honestly; a longer session offers it; a chosen place filters"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "only 10, 20 or 30 minutes; deterministic; a formative plan with no level, score or readiness field"
         }
-      ],
-      "gap": "Session length (DEC-01) and topic choice not built."
+      ]
     },
     {
       "id": "QL-07",
@@ -4545,18 +4598,21 @@
       "id": "MOT-02",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "Learner chooses goal, skill and time; 'skip' and 'no game' paths",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "apps/web/e2e/r06-r08.spec.ts",
-          "contains": "R06: mission explains why it was chosen and lets the learner pick another"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "manual choice: a chosen skill that does not fit the time is said honestly; a longer session offers it; a chosen place filters"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "manual choice wins: a chosen skill or place restricts every new task; nothing left is said honestly"
         },
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
         }
-      ],
-      "gap": "Learner chooses a life place (goal) and a task; time/session-length choice is not built."
+      ]
     },
     {
       "id": "MOT-03",
@@ -4698,8 +4754,13 @@
       "id": "MOT-11",
       "source": "research/gameplay/02-r08-motivation-autonomy-habits-2026-10.md",
       "summary": "Plans stored only with consent; export/edit/delete",
-      "status": "NOT_YET",
-      "plan": "Only when a plan feature is built."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        }
+      ]
     },
     {
       "id": "MOT-12",
@@ -5835,15 +5896,19 @@
       "status": "PARTIAL",
       "evidence": [
         {
-          "file": "apps/web/e2e/mission.spec.ts",
-          "contains": "home: two modes, honest exam status, no serious axe violations"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "review first: a phrase due today opens directly; back on Home the block is done and the next block becomes the main action"
         },
         {
-          "file": "app/tests/r08-motivation-core.test.mjs",
-          "contains": "after a break, nonjudgmental comeback; no penalty or streak pressure"
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "home: two modes, honest exam status, no serious axe violations"
         }
       ],
-      "gap": "Session length and opt-in reminders not built."
+      "gap": "10/20/30-minute plans with «Продовжити» on a half-done block and no streak exist. No reminders at all: opt-in reminders are not built (MOT-03 keeps the default at zero)."
     },
     {
       "id": "LE-13",
@@ -12966,9 +13031,17 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        },
+        {
+          "file": "apps/web/e2e/session-plan.spec.ts",
+          "contains": "review first: a phrase due today opens directly; back on Home the block is done and the next block becomes the main action"
         }
       ],
-      "gap": "Missions are short, optional and grouped by life place; the R08-MOT plan module is not wired into the app."
+      "gap": "Missions are short, optional and grouped by life place, and Home offers a 10/20/30-minute plan (review → weak spot → new task, reasons, manual choice, nothing stored). Not built: the R08-MOT if-then plan («коли …, я …») with a personal cue; effect on delayed Finnish outcomes not measured."
     },
     {
       "id": "read-while-listen-scaffold",
