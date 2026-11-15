@@ -78,6 +78,16 @@ h2 { font-size: 1.1rem; margin: var(--space-lg) 0 var(--space-sm); }
 .today-rest li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm) var(--space-base); padding: var(--space-sm) 0; border-top: 1px solid var(--stroke); }
 .today-rest li > span { flex: 1 1 16em; }
 .today-count { margin: var(--space-md) 0 0; font-size: .9rem; }
+/* «План заняття» (DEC-01): the plan replaces the next-step card; one primary button on the current block. */
+.plan-start { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); }
+.plan-start > span { flex: 1 1 100%; color: var(--muted); }
+.plan-choice { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); margin-top: var(--space-md); max-width: 30em; }
+.plan-choice select { min-height: 44px; max-width: 100%; }
+.plan-blocks { list-style: none; margin: var(--space-base) 0 0; padding: 0; }
+.plan-blocks li { padding: var(--space-md) 0; border-top: 1px solid var(--stroke); }
+.plan-blocks li[data-done="yes"] .today-title { color: var(--muted); }
+.plan-kind { margin: 0 0 var(--space-xs); font-size: .85rem; font-weight: 750; color: var(--navy); }
+.plan-note { margin-top: var(--space-md); font-size: .9rem; max-width: 40em; }
 
 /* Four skills: constant colour + icon + Ukrainian and Finnish name; state is text, never a percentage. */
 .skill-grid, .more-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); }

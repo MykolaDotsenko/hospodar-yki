@@ -34,3 +34,4 @@ export * from "./review.ts";
 export * from "./release.ts";
 export * from "./pragmatics.ts";
 export * from "./deeds.ts";
+export * from "./sessionPlan.ts";

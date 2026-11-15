@@ -35,6 +35,15 @@ test.describe("beta build (today's default)", () => {
 test.describe("release build", () => {
   test.use({ baseURL: "http://127.0.0.1:4174/" });
 
+  test("release build: a session plan offers no draft — with nothing published it says so instead of planning", async ({ page }) => {
+    await home(page);
+    await page.getByRole("group", { name: "Або склади план заняття:" }).getByRole("button", { name: "30 хв" }).click();
+    await expect(page.getByRole("heading", { name: /План заняття · ≈ 0 хв із 30/ })).toBeVisible();
+    await expect(page.getByTestId("plan-block")).toHaveCount(0);
+    await expect(page.locator(".session-plan")).toContainText("Поки немає завдань для плану на цьому пристрої.");
+    await expect(draftLabels(page)).toHaveCount(0);
+  });
+
   test("release build: Home says how many S2-published tasks it carries (0) and labels nothing as a draft", async ({ page }) => {
     await home(page);
     await expect(page.getByTestId("release-notice")).toContainText("перевірені викладачем S2 (зараз 0)");
