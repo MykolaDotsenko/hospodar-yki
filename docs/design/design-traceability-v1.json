@@ -12641,9 +12641,21 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "private real-life deed mark (real-world-interaction, MOT-03 opt-in with revoke): only on this device, survives reload, never in progress, erased with LEARN data"
+        },
+        {
+          "file": "packages/domain/test/deeds.test.ts",
+          "contains": "a mark is a date per place; it can be removed; nothing else is recorded"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "deed marks from two tabs never overwrite each other, and an erase in one tab is never resurrected by another"
         }
       ],
-      "gap": "Each place suggests one optional real-life deed in Ukrainian (editorial draft); nothing is tracked and there is no private self-report yet."
+      "gap": "Each place suggests one optional real-life deed in Ukrainian (editorial draft) and the learner may privately mark it done (a date per place, only on this device, removable, erased with LEARN data, never exported, counted, graded or turned into a door, key or level). Not yet: a short private reflection on how it went, and any evidence that deeds transfer to real communication (needs a study)."
     },
     {
       "id": "caption-fading",

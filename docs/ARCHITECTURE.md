@@ -18,6 +18,7 @@ app/session-v2-idb.mjs ── isolated experimental V2 Web adapter (not active a
 apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with app/core.mjs)
      └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore; v3 separate cloze draft)
      └── S2 reviewer: throwaway Dexie DBs hospodar-yki:review-sandbox:<time>-<id> (deleted after each walk) + localStorage hospodar-yki:review-decisions:v1
+     └── private real-life deed marks: localStorage hospodar-yki:web:deeds:v1 (not progress, not exported; erased with LEARN)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -402,4 +403,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Flow:** the optional «Ускладнити (за бажанням)» that followed practice cards now also follows a saved writing-clinic task (the same message: a concrete detail → linked ideas with conjunctions → a clear next step for the reader) and a saved dialogue (the own role-play: a reason → a question to the partner → a proposed next step). Constraints accumulate; each step is the learner's own Finnish, saved ungraded with a yes/partly/not-yet self-check (`<item>-step-<constraint>`); stoppable; no model or key appears.
 - **Code:** `packages/domain/src/graduated.ts` (`StepUpTarget`, sequences `clinic` and `dialogue`; `test/graduated.test.ts`), `screens/StepUp.tsx` (extracted from `PracticeScreen`), `WritingClinicScreen`, `DialogueScreen`, `e2e/writing-clinic.spec.ts`, `e2e/dialogue.spec.ts`.
 - **Not done:** constraints adapted to the learner's own performance; human assessment of the harder versions.
+
+## 2026-11-15 — private real-life deed marks (real-world-interaction)
+
+- **Flow:** under «Справа в реальному житті» on each place, «Я зробив(ла) це в житті» records a private mark (the local date); «Зняти позначку» removes it. Nothing is marked by default (MOT-03: opt-in with revoke).
+- **Private and never graded:** stored in `localStorage` key `hospodar-yki:web:deeds:v1`, separate from learner progress (`LearnerState` is unchanged, so export/restore and the legacy-parity reader are untouched); never exported, counted, scored or turned into a door, key, streak or level. Erasing LEARN data on «Мої дані» also erases the marks (the option is enabled by marks alone); the data screen says marks are not in the backup.
+- **Two tabs:** every change is applied to what is stored at that moment (`updateDeeds`), and open place screens refresh on the `storage` event, so a second tab never overwrites another tab's mark and an erase is never resurrected.
+- **Code:** `packages/domain/src/deeds.ts` (`parseDeedLog`, `markDeed`, `unmarkDeed`; `test/deeds.test.ts`), `storage/deeds.ts` (readback-verified write, verified clear, `updateDeeds`, `onDeedsChanged`), `PlaceScreen` (`DeedMark`), `DataScreen`, `e2e/places.spec.ts`.
+- **Not done:** a private reflection on how the deed went; any measure of transfer to real communication.
 

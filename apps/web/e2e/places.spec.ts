@@ -14,7 +14,8 @@ test("Господарство: nine places, never locked; a door opens after th
   await page.getByTestId("place-identity").click();
   await expect(page.getByRole("heading", { name: "Я і моє життя" })).toBeVisible();
   await expect(page.getByTestId("place-door")).toContainText("ще зачинені");
-  await expect(page.getByText(/Застосунок цього не відстежує/)).toBeVisible();      // MOT-03: real-life deed is never tracked
+  await expect(page.getByText(/Застосунок цього не перевіряє/)).toBeVisible();       // MOT-03: nothing is tracked by default
+  await expect(page.getByTestId("deed").getByRole("status")).toHaveCount(0);         // a private mark only if the learner sets it
   expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze()).violations
     .filter(v => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
 
@@ -48,6 +49,63 @@ test("Господарство: nine places, never locked; a door opens after th
   await page.getByRole("button", { name: "На головну" }).click();
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   await expect(page.locator(".estate, .place-tile, .place-glyph")).toHaveCount(0);
+});
+
+test("private real-life deed mark (real-world-interaction, MOT-03 opt-in with revoke): only on this device, survives reload, never in progress, erased with LEARN data", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  const deed = page.getByTestId("deed");
+  await deed.getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  await expect(deed.getByRole("status")).toContainText("Ти позначив(ла): зроблено");
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:deeds:v1"))).toMatch(/"housing":"\d{4}-\d{2}-\d{2}"/);
+  expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze()).violations
+    .filter(v => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
+
+  await page.reload();
+  await page.getByTestId("place-housing").click();
+  await expect(deed.getByRole("status")).toContainText("зроблено");                  // kept on this device
+  await page.goto("./");
+  await expect(page.locator(".estate-count")).toContainText("Відчинено дверей: 0 з 9 · ключів: 0");   // no door, key or count from a deed
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator("main")).not.toContainText("в житті");                   // never part of progress or a level
+
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  await deed.getByRole("button", { name: "Зняти позначку" }).click();                 // revocable
+  await expect(deed.getByRole("status")).toHaveCount(0);
+  await deed.getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await page.getByRole("radio", { name: /Увесь прогрес навчання/ }).check();          // enabled by the mark alone
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem("hospodar-yki:web:deeds:v1"))).toBeNull();
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  await expect(deed.getByRole("status")).toHaveCount(0);
+});
+
+test("deed marks from two tabs never overwrite each other, and an erase in one tab is never resurrected by another", async ({ page, context }) => {
+  const stored = () => page.evaluate(() => JSON.parse(localStorage.getItem("hospodar-yki:web:deeds:v1") ?? "null"));
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  const other = await context.newPage();
+  await other.goto("./");
+  await other.getByTestId("place-work").click();                                      // both tabs read the empty log now
+  await page.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  await other.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  expect(Object.keys((await stored()).done).sort()).toEqual(["housing", "work"]);   // the second tab did not erase the first mark
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await page.getByRole("radio", { name: /Увесь прогрес навчання/ }).check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect.poll(stored).toBeNull();
+  await expect(other.getByTestId("deed").getByRole("status")).toHaveCount(0);        // the open tab sees the erase
+  await other.getByTestId("deed").getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  expect(Object.keys((await stored()).done)).toEqual(["work"]);                       // housing is not resurrected
 });
 
 test("Господар persona: guides on home and place screens only — never while answering, in feedback or in EXAM; hide and calm mode remove him", async ({ page }) => {

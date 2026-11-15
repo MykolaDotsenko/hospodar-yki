@@ -6,6 +6,7 @@ import type { VoiceStore } from "../storage/voiceStore.ts";
 import { examContentVersion } from "../content/exam.ts";
 import { formatStorageMiB, inspectBrowserStorage, requestPersistentStorage, type BrowserStorageReport, type PersistenceRequest } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
+import { clearDeeds, hasDeeds } from "../storage/deeds.ts";
 
 /**
  * "Мої дані" (LEARN-16, WEB-07): see what is stored on this device, download all of it as one verified JSON file,
@@ -89,7 +90,10 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
     if (!scope || !isDeleteConfirmed(typed) || !loaded || "error" in loaded) return;
     setErase("working");
     try {
-      if (scope === "learn") onErased(await repository.eraseAll(snapshot.revision, loaded.draftRevision, loaded.clinicDraftRevision, loaded.readingDraftRevision, loaded.listeningDraftRevision, loaded.dialogueDraftRevision, loaded.pictureDraftRevision, loaded.diagnosticDraftRevision));
+      if (scope === "learn") {
+        onErased(await repository.eraseAll(snapshot.revision, loaded.draftRevision, loaded.clinicDraftRevision, loaded.readingDraftRevision, loaded.listeningDraftRevision, loaded.dialogueDraftRevision, loaded.pictureDraftRevision, loaded.diagnosticDraftRevision));
+        clearDeeds();                                                  // private real-life marks go with LEARN data
+      }
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); }   // audio first: never orphan a recording
       setErase({ done: scope }); setScope(null); setTyped("");
       await refresh();
@@ -214,10 +218,10 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           : `Відновлення не підтверджено (${restoreStatus.error}). Перевір дані перед новою спробою.`}</p>}
 
       <h2>Видалити</h2>
-      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії й діагностики. Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
+      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики й приватні позначки «зробив(ла) це в житті» (у копію даних ці позначки не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
       <fieldset className="choices-set">
         <legend>Що видалити</legend>
-        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0)}
+        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds())}
           onChange={() => { setScope("learn"); setErase("idle"); }} /> Увесь прогрес навчання{c && learnCount === 0 ? " (порожньо)" : ""}</label>
         <label className="radio"><input type="radio" name="erase" checked={scope === "exam"} disabled={!c || examCount === 0}
           onChange={() => { setScope("exam"); setErase("idle"); }} /> Усі пробні іспити, їхню історію й голосові записи{c && examCount === 0 ? " (порожньо)" : ""}</label>
