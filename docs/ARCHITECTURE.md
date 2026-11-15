@@ -397,3 +397,9 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Code:** `packages/domain/src/pragmatics.ts` (`INTERLOCUTOR_LADDER`, `interlocutorEvidence`; `test/pragmatics.test.ts`), `screens/InterlocutorShift.tsx`, `PracticeScreen`, `e2e/practice.spec.ts`.
 - **Not done:** the ladder on dialogues; human feedback on appropriateness.
 
+## 2026-11-14 — graduated steps in the writing clinic and dialogues
+
+- **Flow:** the optional «Ускладнити (за бажанням)» that followed practice cards now also follows a saved writing-clinic task (the same message: a concrete detail → linked ideas with conjunctions → a clear next step for the reader) and a saved dialogue (the own role-play: a reason → a question to the partner → a proposed next step). Constraints accumulate; each step is the learner's own Finnish, saved ungraded with a yes/partly/not-yet self-check (`<item>-step-<constraint>`); stoppable; no model or key appears.
+- **Code:** `packages/domain/src/graduated.ts` (`StepUpTarget`, sequences `clinic` and `dialogue`; `test/graduated.test.ts`), `screens/StepUp.tsx` (extracted from `PracticeScreen`), `WritingClinicScreen`, `DialogueScreen`, `e2e/writing-clinic.spec.ts`, `e2e/dialogue.spec.ts`.
+- **Not done:** constraints adapted to the learner's own performance; human assessment of the harder versions.
+

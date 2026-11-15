@@ -48,6 +48,31 @@ test("IV-REQ-07 writing clinic: own draft first → spot issues → model after 
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Письмо$/ }) })).toContainText("3 без оцінки");
 });
 
+test("graduated task sequencing in the writing clinic: after the task is saved, the same message again with one more constraint per step; own text, ungraded self-check, stoppable", async ({ page }) => {
+  await toTransfer(page);
+  await expect(page.getByRole("button", { name: /Ускладнити/ })).toHaveCount(0);          // only after the task is saved
+  await page.getByLabel(/Твій новий текст/).fill("Hei! Keittiön ikkunasta vetää kylmää. Sopiiko huolto tiistaina tai torstaina?");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByRole("heading", { name: "Готово" })).toBeVisible();
+  await page.getByRole("button", { name: "Ускладнити (за бажанням)" }).click();
+  const constraints = page.getByTestId("stepup-constraints").locator("li");
+  await expect(constraints).toHaveCount(1);
+  await expect(constraints.first()).toContainText("конкретну деталь");
+  await expect(page.getByText(MODEL_START)).toHaveCount(0);                                 // own text again, never the model
+  await page.getByLabel(/Твоя відповідь фінською/).fill(DRAFT + " Läikkä on noin 20 senttiä leveä.");
+  await page.getByLabel("Так").check();
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Зберегти крок" }).click();
+  await expect(page.getByRole("heading", { name: "Ускладнення 2 з 3" })).toBeVisible();
+  await expect(constraints).toHaveCount(2);
+  await expect(constraints.nth(1)).toContainText("сполучники");
+  await page.getByRole("button", { name: "Досить на сьогодні" }).click();
+  await expect(page.getByTestId("stepup-done")).toContainText("Ускладнень пройдено: 1 з 3");
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Письмо$/ }) })).toContainText("4 без оцінки");
+});
+
 test("final save conflict keeps the learner on the new-task step with their text (no fake 'done')", async ({ page, context }) => {
   await toTransfer(page);
   const other = await context.newPage();

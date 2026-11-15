@@ -12567,9 +12567,21 @@
         {
           "file": "packages/domain/test/graduated.test.ts",
           "contains": "only reaction and opinion cards have a sequence; it grows by one constraint per step and keeps the earlier ones"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "graduated task sequencing in the writing clinic: after the task is saved, the same message again with one more constraint per step; own text, ungraded self-check, stoppable"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "graduated task sequencing in a dialogue: after the dialogue is saved, the own role-play again with one more move per step; ungraded self-check, stoppable"
+        },
+        {
+          "file": "packages/domain/test/graduated.test.ts",
+          "contains": "the writing clinic and dialogue role-plays have their own sequences (own text grows; no model, no key)"
         }
       ],
-      "gap": "After a saved reaction/opinion card the learner may redo the same situation with constraints added one at a time and kept (reaction: brief → polite to an official → specific; opinion: second reason → counter-view → own example). Ukrainian instructions only, no new Finnish keys; each step saved ungraded with a self-check; optional and stoppable. Not yet on dialogues/writing, constraints are not adapted to the learner's own performance (no grader), and quality of the harder situation is not assessed (needs human raters)."
+      "gap": "After a saved reaction/opinion card, writing-clinic task or dialogue the learner may redo the same situation with constraints added one at a time and kept (reaction: brief → polite → specific; opinion: second reason → counter-view → own example; writing: concrete detail → linked ideas → clear next step; dialogue role-play: reason → question to the partner → proposed next step). Ukrainian instructions only, no new Finnish keys or models; each step saved ungraded with a self-check; optional and stoppable. Constraints are not adapted to the learner's own performance (no grader), and quality of the harder versions is not assessed (needs human raters)."
     },
     {
       "id": "high-variability-phonetics",

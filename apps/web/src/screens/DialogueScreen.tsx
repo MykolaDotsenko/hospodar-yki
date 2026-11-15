@@ -8,6 +8,7 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { StepUp } from "./StepUp.tsx";
 import { isPublishedItem } from "../content/release.ts";
 
 type Snap = { state: LearnerState; revision: number };
@@ -347,6 +348,10 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
           {!item.negotiation && planBack}
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку діалогів</button></div>
         </div>
+      )}
+      {s.phase === "done" && (                                         // graduated-task-sequencing: the role-play grows by one move each step
+        <StepUp card={{ id: item.id, kind: "dialogue", transferSkill: "speaking" }} situation={{ label_uk: "Твоя ситуація", text: item.roleplay_transfer_fi, lang: "fi" }}
+          repository={repository} snapshot={snap.current} onSaved={s2 => { snap.current = s2; onSaved(s2); }} />
       )}
     </section>
   );
