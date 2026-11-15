@@ -354,12 +354,14 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Code:** `packages/domain/src/fluency.ts` (`FLUENCY_ROUNDS_SECONDS`, `fluencySecondsLeft`, `fluencyEvidence`; `test/fluency.test.ts`), `PracticeScreen` (`RepeatedTelling`), `e2e/practice.spec.ts` (frozen Playwright clock).
 - **Not done:** a different listener each round (classic 4/3/2), any fluency measure, a measured effect.
 
-## 2026-11-13 — mediation after reading (cefr-mediation-paraphrase)
+## 2026-11-13 — mediation after reading and listening (cefr-mediation-paraphrase)
 
 - **Flow:** after a LEARN reading text is saved, «Поясни комусь, що тут написано» (optional): choose the audience — in Ukrainian to a friend who reads no Finnish, or in simpler Finnish to a neighbour — and write the explanation with the text available again behind «Текст ще раз». A three-question self-check (who/what, when/where, what to do).
 - **No model, no key:** nothing is compared automatically. Evidence is saved ungraded (`<item>-mediation`): a Ukrainian relay as reading comprehension, simpler Finnish as writing; commit + verified readback. EXAM texts never appear (LEARN pool only).
 - **Code:** `packages/domain/src/mediation.ts` (`MEDIATION_MODES`, `MEDIATION_CHECK_UK`, `mediationEvidence`; `test/mediation.test.ts`), `screens/MediationStep.tsx`, `ReadingScreen`, `e2e/reading.spec.ts`.
-- **Not done:** mediation after listening; human feedback on the accuracy of the relay.
+- **Not done:** human feedback on the accuracy of the relay.
+
+**Update 2026-11-15 — after listening.** The same step follows a saved LEARN listening lesson: «Поясни комусь, що ти почув(-ла)». The learner relays what was *heard*: the step shows no transcript, and the lesson's recording stays on the screen for a replay the learner starts. The wording follows the source (`mediationModes("listening")`: a friend who does not understand Finnish; simpler than the recording). A Ukrainian relay is stored as ungraded **listening** evidence, simpler Finnish as writing (`mediationEvidence(…, "listening")`); the checked answers of the lesson are untouched. Code: `ListeningScreen` done phase, `e2e/listening.spec.ts`. Not done: mediation after a dialogue or a multi-speaker recording.
 
 ## 2026-11-14 — strict CSP in the built web app; E2E entry helper
 

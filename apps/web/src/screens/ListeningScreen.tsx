@@ -3,6 +3,7 @@ import { addDiagnostic, nextDictoglossCue, listeningEvidence, AUDIO_NOTE_FIELDS_
   type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, ListeningError } from "@hospodar/domain";
 import { cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { DictoglossRun } from "./DictoglossRun.tsx";
+import { MediationStep } from "./MediationStep.tsx";
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
 import type { LearnerRepository, ListeningDraftRow } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
@@ -385,6 +386,10 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
           <p><Icon name="ok" /> Збережено на цьому пристрої. {v.independent ? "Самостійні відповіді записано окремо для аудіювання." : "Відповіді з підтримкою збережено без оцінки."}</p>
           <div className="actions"><button type="button" className="btn" onClick={onExit}>До списку записів</button></div>
         </div>
+      )}
+      {s.phase === "done" && (
+        <MediationStep itemId={lesson.id} title_fi={lesson.title_fi} source="listening" repository={repository} snapshot={snap.current}
+          onSaved={saved => { snap.current = saved; onSaved(saved); }} />
       )}
     </section>
   );
