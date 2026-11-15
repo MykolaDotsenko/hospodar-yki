@@ -5,7 +5,7 @@
  * alone are insufficient for ingestion: typed, lossless validation is mandatory.
  * Never mix EXAM history/recording receipts into LEARN. No browser or storage APIs.
  */
-import { readState, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
+import { readState, isOwnCue, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
 import { verifyDataExport, type DataExport, type DataExportCounts } from "./dataExport.ts";
 
 export const MAX_WEB_BACKUP_CHARS = 8_000_000;
@@ -65,7 +65,10 @@ function validState(s: LearnerState): boolean {
       /^[A-Za-z0-9._-]{1,80}$/.test(r.promptVersion))) &&
     (r.actualAgeDays === undefined || integer(r.actualAgeDays, r.day)) &&
     (r.lateByDays === undefined || integer(r.lateByDays)));
-  const cards = Object.entries(s.cards).every(([key, c]) => id(key) && obj(c) && exactKeys(c, ["stage", "due", "reviews", "failures", "lastCorrect", "lastReviewed"]) &&
+  const CARD_KEYS = ["stage", "due", "reviews", "failures", "lastCorrect", "lastReviewed"];
+  // The optional own memory cue (15.11.2026) is the only extra card field admitted, and only in its normalised form.
+  const cards = Object.entries(s.cards).every(([key, c]) => id(key) && obj(c) &&
+    (exactKeys(c, CARD_KEYS) || (exactKeys(c, [...CARD_KEYS, "ownCue"]) && isOwnCue(c.ownCue))) &&
     integer(c.stage) && c.stage <= INTERVAL_DAYS.length && date(c.due) &&
     integer(c.reviews) && integer(c.failures) && typeof c.lastCorrect === "boolean" &&
     (c.lastReviewed === "" || date(c.lastReviewed)));

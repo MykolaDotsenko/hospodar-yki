@@ -82,6 +82,45 @@ test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalle
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
 });
 
+test("own memory cue (keyword-mnemonic-retrieval): offered only for a phrase judged not yet known, kept with it, on the next review shown only on request", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-11-11T09:00:00+02:00") });
+  await open(page, /Фрази для життя/);
+  await page.getByRole("textbox").fill("mennä Suomeen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByLabel(/Своя зачіпка для пам'яті/)).toHaveCount(0);            // not before the own judgement
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await expect(page.getByLabel(/Своя зачіпка для пам'яті/)).toHaveCount(0);            // a phrase already known gets no mnemonic
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByLabel(/Своя зачіпка для пам'яті/).fill("муттаа — мітла мете мене до Суомі");
+  await axe(page);
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Ystäväni muutti Suomeen.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Твою зачіпку збережено разом із фразою/)).toBeVisible();
+
+  await page.clock.setFixedTime(new Date("2026-11-12T09:00:00+02:00"));
+  await page.reload();
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: "Повторити" }).click();
+  await expect(page.getByText("Повторення: згадай без зразка.")).toBeVisible();
+  await expect(page.getByText(/мітла мете/)).toHaveCount(0);                          // hidden until the learner asks
+  await page.getByRole("textbox").fill("muuttaa");
+  await page.getByRole("button", { name: "Показати мою зачіпку (за бажанням)" }).click();
+  await expect(page.getByTestId("own-cue")).toContainText("муттаа — мітла мете мене до Суомі");
+  await expect(page.getByRole("textbox")).toHaveValue("muuttaa");                     // opening the cue keeps the own answer
+  await expect(page.getByText("muuttaa Suomeen")).toHaveCount(0);                     // the cue is not the key
+  await axe(page);
+  await page.getByRole("textbox").fill("muuttaa Suomeen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByLabel(/Своя зачіпка для пам'яті/)).toHaveValue("муттаа — мітла мете мене до Суомі");
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Haluan muuttaa Suomeen.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал:/);
+});
+
 test("pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan", async ({ page }) => {
   await open(page, /Моя думка/);
   await expect(page.locator(".threshold-route [aria-current=step]")).toContainText("План і відповідь");

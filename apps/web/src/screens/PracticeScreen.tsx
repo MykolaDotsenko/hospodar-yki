@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS,
+import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
@@ -89,10 +89,15 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
   const [saved, setSaved] = useState(false);
   const busy = useRef(false);
   const v = practiceView(s, card);
+  // keyword-mnemonic-retrieval: the learner's own cue stored with this problem phrase (if any).
+  const storedCue = snapshot.state.cards[card.id]?.ownCue ?? null;
+  const [cueNote, setCueNote] = useState<"saved" | "removed" | null>(null);
+  const offerCue = isSpacedKind(card) && (review || s.judged === "partly" || s.judged === "different");
 
   function step(e: PracticeEvent) {
     setError(null);
-    try { setS(practiceReducer(s, card, e)); if (e.type !== "JUDGE") setValue(""); }
+    // Judging, opening or typing the own cue must not wipe the text the learner is writing.
+    try { setS(practiceReducer(s, card, e)); if (e.type !== "JUDGE" && e.type !== "SHOW_CUE" && e.type !== "SET_CUE") setValue(""); }
     catch (err) {
       const c = code(err);
       setError(c === "EMPTY" ? "Спершу напиши відповідь." : c === "INVALID" ? "Обери варіант." : c === "NOT_JUDGED" ? "Спершу порівняй свою відповідь зі зразком." : "Цей крок зараз недоступний.");
@@ -112,6 +117,8 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
         throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
       onSaved(verified); setS(finished); setSaved(true); setValue("");
+      const after = verified.state.cards[card.id]?.ownCue ?? null;
+      setCueNote(finished.cue === undefined ? null : after ? "saved" : storedCue ? "removed" : null);
     } catch (err) {
       setError(`Не збережено (${code(err)}). Твій текст залишився в полі. ${writeFailureAdvice(err)}`);
     } finally { busy.current = false; setSaving(false); }
@@ -152,6 +159,12 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
           <button type="button" className="btn secondary" onClick={() => step({ type: "START_PLAN" })}>Скласти план (за бажанням)</button>
         </div>
       )}
+      {s.phase === "attempt" && review && storedCue && (s.cueShown
+        ? <p className="plan-back" role="status" data-testid="own-cue"><strong>Твоя зачіпка:</strong> {storedCue}</p>
+        : <div className="actions">
+            <button type="button" className="btn secondary" onClick={() => step({ type: "SHOW_CUE" })}>Показати мою зачіпку (за бажанням)</button>
+            <span className="muted">Спершу спробуй згадати сам(а).</span>
+          </div>)}
       {s.phase === "attempt" && v.planHidden && (
         <p className="muted" role="status">План сховано — говори з пам'яті. Після відповіді він повернеться поруч зі зразком.</p>
       )}
@@ -191,6 +204,15 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
             </div>
           )}
           {v.needsJudgement && <p className="muted">Це самооцінка, не автоматична перевірка: правильних варіантів фінською буває кілька.{isSpacedKind(card) && " Якщо «частково» чи «інакше» — фраза повернеться на повторення (1, 3, 7, 14, 30 днів)."}</p>}
+          {offerCue && (
+            <div className="own-cue-step">
+              <label className="field" htmlFor="pr-cue">Своя зачіпка для пам'яті (за бажанням)</label>
+              <p className="muted" id="pr-cue-help">Придумай власну асоціацію до цієї фрази: схоже за звучанням слово, образ чи ситуацію — будь-якою мовою.
+                Вона збережеться разом із фразою і під час повторення з'явиться лише тоді, коли ти сам(а) попросиш. Не обов'язково й не для кожної фрази.</p>
+              <input id="pr-cue" className="plan-notes" autoComplete="off" maxLength={OWN_CUE_MAX_CHARS} aria-describedby="pr-cue-help"
+                value={s.cue ?? storedCue ?? ""} onChange={e => step({ type: "SET_CUE", text: e.target.value })} />
+            </div>
+          )}
           {error && <p className="feedback error" role="alert">{error}</p>}
           <div className="actions"><button type="button" className="btn" onClick={() => step({ type: "CONTINUE" })}>Далі</button></div>
         </>
@@ -222,7 +244,9 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
 
       {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
         {isSpacedKind(card) && s.judged !== "same" && " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."}
-        {isSpacedKind(card) && s.judged === "same" && review && " Наступне повторення — через довший проміжок."}</p>}
+        {isSpacedKind(card) && s.judged === "same" && review && " Наступне повторення — через довший проміжок."}
+        {cueNote === "saved" && " Твою зачіпку збережено разом із фразою."}
+        {cueNote === "removed" && " Зачіпку прибрано."}</p>}
       <div className="actions">
         {saved && <button type="button" className="btn" onClick={onNext}>Наступна картка</button>}
         <button type="button" className="btn secondary" disabled={saving} onClick={onList}>До списку карток</button>

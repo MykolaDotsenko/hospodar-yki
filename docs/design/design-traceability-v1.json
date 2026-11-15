@@ -12926,8 +12926,30 @@
     },
     {
       "id": "keyword-mnemonic-retrieval",
-      "status": "NOT_YET",
-      "plan": "Optional personal mnemonic on a problem chunk; buildable on SRS cards."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "own memory cue (keyword-mnemonic-retrieval): offered only for a phrase judged not yet known, kept with it, on the next review shown only on request"
+        },
+        {
+          "file": "apps/web/e2e/restore.spec.ts",
+          "contains": "keyword-mnemonic-retrieval: a problem phrase's own memory cue is exported, survives erase → restore → reload with its schedule"
+        },
+        {
+          "file": "packages/domain/test/own-cue.test.ts",
+          "contains": "is kept only with a phrase that enters the schedule; a phrase known at first sight gets none"
+        },
+        {
+          "file": "packages/domain/test/own-cue.test.ts",
+          "contains": "an answer after opening the own cue is labelled so; the first answer stays ungraded and self-compared"
+        },
+        {
+          "file": "packages/domain/test/own-cue.test.ts",
+          "contains": "restore fails closed on a tampered card: a non-normalised cue or any other extra card field"
+        }
+      ],
+      "gap": "After a phrase/rektio card is judged 'partly' or 'different' (so it enters the 1/3/7/14/30 schedule) the learner may write an own memory cue (sound-alike word, image, situation; any language, ≤200 characters, one line). It is stored with that card only (never for a phrase known at first sight — the method's 'not for every word' limit), shown on the next review only on request before answering (the answer is then labelled 'after opening own memory cue'), editable or removable after the phrase is shown, never a key, never scored, never changes the schedule; then recall → the existing new-sentence transfer. Safe schema change: optional `ownCue` on the card, old states/exports read and restore unchanged, export → restore is lossless, a non-normalised cue or any other extra card field is rejected, the legacy app ignores the field. Not yet: cues for grammar-mission cards or words met in reading, no guidance on cue quality, opening the cue does not fade or change scheduling, and no 14-day recall/use study (evidence is one EFL experiment)."
     },
     {
       "id": "micro-missions",
