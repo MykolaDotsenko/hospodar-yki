@@ -46,8 +46,8 @@ test("DESIGN-12 exam skin: neutral page, navy subtest route, compact six-cell fi
   await expect(route.locator("[aria-current=step]")).toHaveText(/Tekstin ymmärtäminen/);
   await expect(page.locator(".learning-cue, .draft-note, .today, .mode-entry")).toHaveCount(0);  // no LEARN cues or gold signatures
   expect(await serious(page)).toEqual([]);
-  await page.getByRole("button", { name: "На головну" }).count();                      // (no home button inside an attempt)
-  await page.locator(".brand").click();
+  await expect(page.locator("a.brand")).toHaveCount(0);                                 // focused mode: no app navigation inside an attempt
+  await page.getByRole("button", { name: "Keskeytä ja jatka myöhemmin" }).click();       // the exam's own way out
   await expect(page.locator("html")).toHaveAttribute("data-mode", "learn");
 });
 

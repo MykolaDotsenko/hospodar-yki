@@ -469,3 +469,9 @@ mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bo
 .location-table th, .location-table td { text-align: left; padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; border-bottom: 1px solid var(--stroke); vertical-align: top; }
 .location-table tr[aria-current="true"] { background: var(--surface-subtle); }
 @media (forced-colors: active) { .location-scheme svg { color: CanvasText; } }
+
+/* The rules of this attempt with their status (EXAM-06): a closed system notice, no colour, no decoration (exam skin). */
+.exam-rules { margin: var(--space-sm) 0; border-top: 1px solid var(--stroke); padding-top: var(--space-xs); color: var(--muted); }
+.exam-rules summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.exam-rules ul { margin: var(--space-xs) 0 0; padding-left: var(--space-md); }
+.exam-rules li { margin-bottom: var(--space-xs); color: var(--ink); }

@@ -5414,7 +5414,7 @@
       "id": "EXAM-06",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Per-parameter official_verified with date/source; else training UX only",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "app/tests/exam-core.test.mjs",
@@ -5423,9 +5423,25 @@
         {
           "file": "app/tests/e04-timing-policy.test.mjs",
           "contains": "E04 source provenance: 15 unresolved digital fields and historic samples stay legacy"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules today: every profile runs on practice rules for all 18 parameters, each one labelled practice"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules: a verified observation the engine reproduces replaces the practice rule and keeps its date"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules: a value of the wrong type is refused by the profile check and never applied; practice profiles never claim"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
         }
       ],
-      "gap": "Ledger + E04 provenance exist; per-parameter config model not built in apps/web."
+      "gap": "Per-parameter model built in apps/web (resolveExamRules): each of the 18 critical rules is verified (OPH demo observation with date, source, reviewer) or practice, and every rule's status is on the attempt screen. Today all 18 are practice: no OPH demo walkthrough has been recorded (human queue, TZ-EXAM-01)."
     },
     {
       "id": "EXAM-07",
@@ -6101,14 +6117,22 @@
       "id": "YKI-FID-01",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Six separate fidelity statuses; no single fake fidelity %",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
           "file": "app/tests/exam-core.test.mjs",
           "contains": "evidence ledger is explicit about unsupported 2027 digitesti assumptions"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-12 exam skin: neutral page, navy subtest route, compact six-cell fidelity strip; LEARN keeps its own look"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
         }
       ],
-      "gap": "Statuses live in the evidence ledger; no runtime per-dimension status in apps/web."
+      "gap": "Six separate F1–F6 statuses (fidelity strip, never one %) and a status per critical rule are shown at runtime. Values themselves still await the OPH demo walkthrough."
     },
     {
       "id": "YKI-FID-02",
@@ -12045,9 +12069,13 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules: a verified rule the engine does not reproduce yet is said so, and the attempt keeps the practice behaviour"
         }
       ],
-      "gap": "Monotonic practice timer with deadline refusal exists; no per-task preparation/response windows, no 'interrupted' status, and all durations are unverified practice values."
+      "gap": "Monotonic practice timer with deadline refusal, speaking prep/response windows from the profile, and the interrupted (resumed) status exist. Per-subtest timers and on-expiry behaviour are listed per rule as practice; a verified value for them is shown as 'not reproduced yet' (ENGINE_APPLIES) until the engine applies it."
     },
     {
       "id": "TZ-EXAM-08",
@@ -12058,9 +12086,17 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules: a verified observation the engine reproduces replaces the practice rule and keeps its date"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
         }
       ],
-      "gap": "Persisted navigation without aids is tested; navigation rules are hard-coded practice behaviour, not profile-driven, and OPH behaviour is unknown."
+      "gap": "Going back is now profile-driven (navigation.back_allowed: practice yes; a verified 'no' hides «Edellinen»). The review screen and section locks are not applied from the profile yet; OPH behaviour is unknown."
     },
     {
       "id": "TZ-EXAM-09",
@@ -12116,9 +12152,17 @@
         {
           "file": "apps/web/e2e/exam-conditions.spec.ts",
           "contains": "TZ-EXAM-12: exam answer fields switch off spellcheck, autocorrect, autocomplete, translation and writing assistants"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam rules: the writing editor follows the practice rules — no spellcheck, no counter, paste allowed"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "exam rules: a verified observation the engine reproduces replaces the practice rule and keeps its date"
         }
       ],
-      "gap": "Spellcheck, autocorrect, autocomplete, browser translation and writing-assistant hooks are off; IME-safe exact text and immutability after finish are tested. Paste policy and a character/word counter are not set because the OPH 2027 editor behaviour is unverified."
+      "gap": "Paste, counter and spellcheck now come from the profile (practice: paste allowed, no counter, no spellcheck; a verified value is applied). Autocorrect, autocomplete, translation and writing-assistant hooks stay off; the OPH 2027 editor behaviour is unverified."
     },
     {
       "id": "TZ-EXAM-13",
@@ -12195,9 +12239,13 @@
         {
           "file": "packages/domain/test/deviceCheck.test.ts",
           "contains": "asks only for the devices the chosen skills need"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "focused mode: inside an attempt no app navigation or settings; «Keskeytä» leaves only when saved and the attempt resumes"
         }
       ],
-      "gap": "No aids before finish, LEARN isolation and an advisory headphone/mic check before the start are tested (tone + learner report; 3 s loudness metering, never recorded; never blocks — typed plan remains). Still missing: dedicated focus mode without app navigation, update-never-interrupts proof on a real device, real-device mic/headphone testing (CI uses a Web Audio fake microphone)."
+      "gap": "Focused mode is built: inside an attempt the app hides its navigation, calm toggle and settings; «Keskeytä ja jatka myöhemmin» leaves only when everything is saved and the attempt resumes. Still missing: update-never-interrupts proof on a real device and real-device mic/headphone testing (CI uses a Web Audio fake microphone)."
     },
     {
       "id": "TZ-EXAM-18",

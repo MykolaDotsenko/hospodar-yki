@@ -581,3 +581,27 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
   - outer cases (-lla/-lta/-lle);
   - pictures for other grammar families;
   - UX-I03, the controlled comparison of picture vs static explanation (not run).
+
+## 2026-11-16 — the exam runs by rules from its profile, each with its status on screen; focused mode (docs/29 stage 4, queue 9 part 1)
+
+- **Rules as data (`packages/domain/src/examRules.ts`):** for each of the 18 critical parameters, `resolveExamRules(profile)` returns:
+  - **verified:** the pinned profile has a verified record (source, date, reviewer, scope) with a value of the right type. That value is used and shown with its date.
+  - **practice:** otherwise. `PRACTICE_RULES` says what the simulator does today, labelled practice. An unknown rule is never guessed.
+  - **applied:** `ENGINE_APPLIES` lists the parameters whose verified value the engine reproduces today: going back, spellcheck, paste, counter and the speaking windows. A verified value for any other parameter is shown as «спостережено…, симулятор ще не відтворює — діє тренувальне», never as reproduced.
+- **Profile check:** `validateExamProfile` now refuses a verified value of the wrong type (`INVALID_VALUE`, e.g. "maybe" for a yes/no rule). `PARAMETER_TYPES` lives in `examProfile.ts`.
+- **Engine (`ExamScreen`):**
+  - «Edellinen» appears only if going back is allowed.
+  - The writing editor takes spellcheck, paste blocking and a word/character counter from the rules.
+  - The rules panel «Правила цієї спроби: N з 18 підтверджено, M тренувальних» lists every rule with its value and status. It is a closed Ukrainian system notice outside the Finnish exam content.
+  - Today all 18 are practice: no OPH demo walkthrough has been recorded (human queue, TZ-EXAM-01).
+- **Focused mode (TZ-EXAM-17):** while an attempt is open, App shows the brand as plain text («Зосереджений режим репетиції») and hides the calm toggle, theme, font, guide and reviewer links. The footer keeps the "not official YKI" line. The way out is the exam's own «Keskeytä ja jatka myöhemmin», enabled only when everything is saved; the attempt resumes as interrupted (EXAM-10). Results end the focus.
+- **Tests:**
+  - `packages/domain/test/exam-rules.test.ts`: today's profiles, a verified and applied rule, a verified but not applied rule, a wrong type, practice/live never claiming;
+  - `e2e/exam-rules.spec.ts`: rules list, editor rules, focused mode with leave and resume;
+  - `design.spec` DESIGN-12 now leaves the attempt via «Keskeytä».
+- **Not done:**
+  - per-subtest timers and on-expiry from the profile;
+  - number of listening plays and pause/seek from the profile;
+  - the review screen and section locks;
+  - recording start and re-record rules;
+  - the values themselves, which need the OPH demo walkthrough by a person.
