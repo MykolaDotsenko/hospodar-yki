@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { containsExamItem, EXAM_ITEM_IDS, EXAM_ONLY_FILES, NO_FINNISH_FILES, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
+import { containsExamItem, EXAM_ITEM_IDS, EXAM_ONLY_FILES, NO_FINNISH_FILES, REVIEWABLE_SOURCE_CATALOGS, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
 import { exercises } from "./cloze.ts";
 import { practiceCards } from "./practice.ts";
 import { dialogues } from "./dialogues.ts";
@@ -43,7 +43,7 @@ describe("S2 reviewer workspace banks (docs/29 stage 1, QL-01)", () => {
     for (const { u } of units) {
       expect(u.id, u.file).toBeTruthy();
       expect(u.label.length, u.id).toBeGreaterThan(1);
-      expect(u.file).toMatch(/^(learning\/exercises|knowledge\/dictionaries)\/[\w./-]+\.json$/);
+      if (!REVIEWABLE_SOURCE_CATALOGS.includes(u.file)) expect(u.file).toMatch(/^(learning\/exercises|knowledge\/dictionaries)\/[\w./-]+\.json$/);
       expect(seen.has(`${u.file}#${u.id}`), `${u.file}#${u.id}`).toBe(false);
       seen.add(`${u.file}#${u.id}`);
     }

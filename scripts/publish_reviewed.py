@@ -27,7 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from apply_review_decisions import dump, write_atomic  # noqa: E402
 from validate_content_publication import (  # noqa: E402
-    BLOCKING_VALUES, REVIEW_MARKER_KEYS, card_errors, check, content_hash, items_with_id, load_files,
+    BLOCKING_VALUES, CONTENT_GLOBS, REVIEW_MARKER_KEYS, card_errors, check, content_hash, items_with_id, load_files,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,7 +89,7 @@ def publish(selected: list[str] | None, root: Path = ROOT, dry_run: bool = False
     """Returns (errors, skipped-with-reasons, summary)."""
     files = load_files() if root == ROOT else {
         str(p.relative_to(root)): json.loads(p.read_text(encoding="utf-8"))
-        for g in ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json") for p in sorted(root.glob(g))}
+        for g in CONTENT_GLOBS for p in sorted(root.glob(g))}
     errors: list[str] = []
     chosen: list[tuple[str, dict]] = []
     before, _ = check(files)

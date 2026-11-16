@@ -28,12 +28,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from validate_content_publication import (  # noqa: E402
-    RETURN_CATEGORIES, REVIEWER_ID, SCHEMA as CARD_SCHEMA, card_errors, check, content_hash, items_with_id, load_files,
+    CONTENT_GLOBS, RETURN_CATEGORIES, REVIEWABLE_SOURCE_CATALOGS, REVIEWER_ID, SCHEMA as CARD_SCHEMA, card_errors, check, content_hash, items_with_id, load_files,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 DECISIONS_SCHEMA = "hospodar-review-decisions-v1"
 CONTENT_FILE = re.compile(r"^(learning/exercises|knowledge/dictionaries)/[A-Za-z0-9_./-]+\.json$")
+
+
+def is_content_file(path: str) -> bool:
+    return bool(CONTENT_FILE.match(path)) or path in REVIEWABLE_SOURCE_CATALOGS
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 HASH = re.compile(r"^sha256:[0-9a-f]{64}$")
 APPROVAL_FIELDS = ("level", "skills", "communicative_outcome_uk", "source", "answer_variants_reviewed",
@@ -71,7 +75,7 @@ def plan(decisions_doc: dict, files: dict[str, object]) -> tuple[list[str], list
         if (f, item_id) in seen:
             errors.append(f"{label}: two decisions for the same item"); continue
         seen.add((f, item_id))
-        if not CONTENT_FILE.match(f) or ".." in f or f not in files:
+        if not is_content_file(f) or ".." in f or f not in files:
             errors.append(f"{label}: unknown content file"); continue
         if d.get("decision") not in ("approve", "return"):
             errors.append(f"{label}: decision must be approve or return"); continue
@@ -120,7 +124,7 @@ def write_atomic(path: Path, text: str) -> None:
 def apply(decisions_doc: dict, root: Path = ROOT, dry_run: bool = False) -> tuple[list[str], str]:
     files = load_files() if root == ROOT else {
         str(p.relative_to(root)): json.loads(p.read_text(encoding="utf-8"))
-        for g in ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json") for p in sorted(root.glob(g))}
+        for g in CONTENT_GLOBS for p in sorted(root.glob(g))}
     errors, changes = plan(decisions_doc, files)
     if errors:
         return errors, "nothing written"

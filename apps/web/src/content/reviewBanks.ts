@@ -18,6 +18,9 @@ import tenses from "../../../../learning/exercises/grammar/tenses/lessons.json";
 import clock from "../../../../learning/exercises/grammar/time-and-clock/lessons.json";
 import videoExercises from "../../../../learning/exercises/video/exercises.json";
 import masterclassLessons from "../../../../learning/exercises/b1/masterclasses/lessons.json";
+import ophMissions from "../../../../sources/audio/oph-adult-spoken-finnish-2026-10.json";
+import verifiedMissions from "../../../../sources/learning/a2-b1-verified-source-missions-2026-10.json";
+import dialogueMissions from "../../../../sources/audio/authentic-dialogues-2026-10.json";
 import dialogues from "../../../../learning/exercises/b1/contextual/dialogues-v1.json";
 import moves from "../../../../learning/exercises/b1/contextual/negotiation-moves-v1.json";
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
@@ -34,7 +37,7 @@ import librivox from "../../../../learning/exercises/b1/audio-training/librivox-
 import audioVisual from "../../../../learning/exercises/a1/audio-visual/lessons.json";
 
 type Json = Record<string, unknown>;
-export type WalkScreen = "mission" | "r08" | "practice" | "dialogue" | "reading" | "writing" | "listening" | "pictures" | "diagnostic" | "media" | "masterclass";
+export type WalkScreen = "mission" | "r08" | "practice" | "dialogue" | "reading" | "writing" | "listening" | "pictures" | "diagnostic" | "media" | "masterclass" | "external";
 export interface ReviewUnit { file: string; id: string; item: Json; label: string }
 export interface ReviewBank {
   id: string; title_uk: string; skills: ReviewSkill[]; audio: boolean;
@@ -52,6 +55,11 @@ export const EXAM_ONLY_FILES = ["learning/exercises/b1/exam-patterns/mini-rehear
 /** Files a LEARN screen loads that hold no authored Finnish (Ukrainian criteria labels; a list of outbound links whose
  *  titles are the publishers' own): nothing for an S2 reviewer. */
 export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json"];
+
+/** Mission catalogs in sources/ whose original Finnish task texts learners see; mirrors REVIEWABLE_SOURCE_CATALOGS in
+ *  scripts/validate_content_publication.py (reviewBanks.test.ts checks they agree). */
+export const REVIEWABLE_SOURCE_CATALOGS = ["sources/audio/oph-adult-spoken-finnish-2026-10.json",
+  "sources/learning/a2-b1-verified-source-missions-2026-10.json", "sources/audio/authentic-dialogues-2026-10.json"];
 
 export const unitId = (item: Json) => String(item.id ?? item.lesson_id ?? item.task_id ?? "");
 const LABEL_KEYS = ["prompt_fi", "title_fi", "expression_fi", "construction_fi", "question_fi", "stimulus_fi", "source_fi", "initial_prompt_fi",
@@ -142,6 +150,18 @@ export const reviewBanks: ReviewBank[] = [
     where_uk: "Майстер-класи: текст і два питання з ключами після відповіді, невдала відповідь і краща версія, зразок, нова ситуація без зразка",
     walk: { screen: "masterclass", perItem: false },
     ...rows(masterclassLessons, "lessons", `${B1}/masterclasses/lessons.json`) },
+  { id: "missions-oph", title_uk: "Місії: OPH Päivää! (розмовна фінська для дорослих)", skills: ["listening", "speaking"], audio: false, source: ORIGINAL,
+    where_uk: "Місії із зовнішніми джерелами: власне завдання до запису OPH (запис лише за посиланням, не копіюється); перевірити фінську завдань і нової ситуації",
+    walk: { screen: "external", perItem: false },
+    ...rows(ophMissions, "items", "sources/audio/oph-adult-spoken-finnish-2026-10.json") },
+  { id: "missions-open", title_uk: "Місії: Helppoa suomea, VIERKO та інші відкриті джерела", skills: ["listening", "reading", "speaking"], audio: false, source: ORIGINAL,
+    where_uk: "Місії із зовнішніми джерелами: власне завдання до відкритого матеріалу (лише посилання)",
+    walk: { screen: "external", perItem: false },
+    ...rows(verifiedMissions, "items", "sources/learning/a2-b1-verified-source-missions-2026-10.json") },
+  { id: "missions-dialogues", title_uk: "Місії: діалоги Kielibuusti", skills: ["listening", "reading", "speaking"], audio: false, source: ORIGINAL,
+    where_uk: "Місії із зовнішніми джерелами: власне завдання до діалогів видавця (лише посилання)",
+    walk: { screen: "external", perItem: false },
+    ...rows(dialogueMissions, "items", "sources/audio/authentic-dialogues-2026-10.json") },
   { id: "forms", title_uk: "Форма слова в реченні (корпус UD Finnish FTB, CC BY 4.0)", skills: ["writing"], audio: false,
     source: { kind: "licensed", license: "CC BY 4.0" },
     where_uk: "Практика → «Форма слова в реченні»: самопорівняння, без оцінки; речення з корпусу, потрібне редагування S2 (архаїчний чи літературний контекст)",

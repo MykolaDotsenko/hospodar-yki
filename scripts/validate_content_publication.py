@@ -28,7 +28,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTENT_GLOBS = ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json")
+# Mission catalogs in sources/ whose original Finnish task texts learners see (apps/web «Місії із зовнішніми джерелами»):
+# reviewed and published like any content file. The publisher material they point to is never copied.
+REVIEWABLE_SOURCE_CATALOGS = ("sources/audio/oph-adult-spoken-finnish-2026-10.json",
+                              "sources/learning/a2-b1-verified-source-missions-2026-10.json",
+                              "sources/audio/authentic-dialogues-2026-10.json")
+CONTENT_GLOBS = ("learning/exercises/**/*.json", "knowledge/dictionaries/**/*.json", *REVIEWABLE_SOURCE_CATALOGS)
 SCHEMA = "hospodar-review-card-v1"
 STATUSES = {"draft", "s2_reviewed", "published", "withdrawn"}
 REVIEWED = {"s2_reviewed", "published"}

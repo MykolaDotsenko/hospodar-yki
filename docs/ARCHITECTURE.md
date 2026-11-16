@@ -690,5 +690,5 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - Phases: open → reflect → transfer → done, or `not_found` with nothing saved. Where the publisher's teacher page shows the answers, only the audio index is linked before the learner's own answer; the teacher page comes after it.
 - Evidence: two ungraded records. The app never hears the recording the learner chose, so nothing is scored.
 - `apps/web`: `content/externalMissions.ts` (release: published only) and `ExternalMissionScreen` (Home → «Місії із зовнішніми джерелами»).
-- **Gap:** the Finnish task drafts live in `sources/`, which `scripts/apply_review_decisions.py` does not accept yet. They have no reviewer bank, and a release build shows no missions.
+- **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.

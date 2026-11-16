@@ -120,6 +120,29 @@ class ApplyReviewDecisionsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             content_hash({"id": "x", "d": 0.00001})
 
+    def test_mission_catalogs_in_sources_are_reviewable_other_sources_files_are_not(self):
+        mission_file = "sources/audio/authentic-dialogues-2026-10.json"
+        mission = {"id": "m1", "title_fi": "Suomea julkisissa", "mission": {"independent_prompt_fi": "Kuuntele yksi äänite."}}
+        (self.root / mission_file).parent.mkdir(parents=True)
+        (self.root / mission_file).write_text(json.dumps({"items": [mission]}, ensure_ascii=False), encoding="utf-8")
+        other = "sources/publishers/publisher-series-catalog.json"
+        (self.root / other).parent.mkdir(parents=True)
+        (self.root / other).write_text(json.dumps({"sources": [{"id": "s1"}]}), encoding="utf-8")
+        errors, _ = apply(doc(approve(mission, file=mission_file, approval={**approve(mission)["approval"], "skills": ["listening"]})), self.root)
+        self.assertEqual(errors, [])
+        stored = json.loads((self.root / mission_file).read_text(encoding="utf-8"))
+        self.assertEqual(stored["items"][0]["review_card"]["status"], "s2_reviewed")
+        errors, summary = apply(doc(approve({"id": "s1"}, file=other)), self.root)
+        self.assertTrue(errors)
+        self.assertEqual(summary, "nothing written")
+
+    def test_reviewable_source_catalogs_agree_with_the_web_reviewer_registry(self):
+        import re
+        from validate_content_publication import REVIEWABLE_SOURCE_CATALOGS
+        web = (Path(__file__).resolve().parents[2] / "apps/web/src/content/reviewBanks.ts").read_text(encoding="utf-8")
+        block = web.split("export const REVIEWABLE_SOURCE_CATALOGS = [", 1)[1].split("];", 1)[0]
+        self.assertEqual(sorted(re.findall(r'"([^"]+)"', block)), sorted(REVIEWABLE_SOURCE_CATALOGS))
+
     def test_gate_rejects_an_incomplete_return_written_by_hand(self):
         item = dict(self.c2, review_card={"schema": "hospodar-review-card-v1", "status": "draft",
                                           "s2_review": {"decision": "returned", "reviewer_role": "S2_teacher",

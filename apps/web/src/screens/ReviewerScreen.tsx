@@ -20,6 +20,7 @@ import { ListeningScreen } from "./ListeningScreen.tsx";
 import { PictureMissionScreen } from "./PictureMissionScreen.tsx";
 import { DiagnosticScreen } from "./DiagnosticScreen.tsx";
 import { MasterclassScreen } from "./MasterclassScreen.tsx";
+import { ExternalMissionScreen } from "./ExternalMissionScreen.tsx";
 import { MediaScreen } from "./MediaScreen.tsx";
 
 /**
@@ -414,6 +415,7 @@ function Walk({ bank, unit, onExit }: { bank: ReviewBank; unit: ReviewUnit | nul
       {bank.walk?.screen === "diagnostic" && <DiagnosticScreen {...common} onListening={exit} />}
       {bank.walk?.screen === "media" && <MediaScreen {...common} />}
       {bank.walk?.screen === "masterclass" && <MasterclassScreen {...common} onListening={exit} />}
+      {bank.walk?.screen === "external" && <ExternalMissionScreen {...common} />}
     </div>
   );
 }

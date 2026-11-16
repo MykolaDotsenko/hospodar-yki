@@ -34,7 +34,7 @@ test("a learner is warned before keys are shown; the workspace lists every LEARN
   expect(await axe(page)).toEqual([]);
   await page.getByRole("button", { name: "Я рецензент(ка) — відкрити" }).click();
   await expect(page.getByRole("heading", { name: "Робоче місце рецензента S2" })).toBeVisible();
-  await expect(page.locator("tr[data-bank]")).toHaveCount(26);                       // + recordings, corpus forms, tenses, clock, video questions, masterclasses (CURATED-09); rubric labels hold no Finnish
+  await expect(page.locator("tr[data-bank]")).toHaveCount(29);                       // + recordings, corpus forms, tenses, clock, video questions, masterclasses, external missions (CURATED-09); rubric labels hold no Finnish
   await expect(page.getByTestId("review-summary")).toContainText("Твоїх рішень у цьому браузері: 0");
   await expect(page.getByText(/Завдання пробного іспиту тут не показано/)).toBeVisible();
   expect(await axe(page)).toEqual([]);
