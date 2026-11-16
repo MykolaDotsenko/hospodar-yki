@@ -22,6 +22,7 @@ import { PictureMissionScreen } from "./screens/PictureMissionScreen.tsx";
 import { ReadingScreen } from "./screens/ReadingScreen.tsx";
 import { PracticeScreen } from "./screens/PracticeScreen.tsx";
 import { MasterclassScreen } from "./screens/MasterclassScreen.tsx";
+import { ExternalMissionScreen } from "./screens/ExternalMissionScreen.tsx";
 import { DataScreen } from "./screens/DataScreen.tsx";
 import { OfflineScreen } from "./screens/OfflineScreen.tsx";
 import { applyUpdate, onUpdateReady } from "./pwa/offline.ts";
@@ -31,6 +32,7 @@ import { IN_RELEASE } from "./content/release.ts";
 import { exercises } from "./content/cloze.ts";
 import { practiceCards } from "./content/practice.ts";
 import { masterclasses } from "./content/masterclasses.ts";
+import { externalMissions } from "./content/externalMissions.ts";
 import { dialogues } from "./content/dialogues.ts";
 import { readingItems } from "./content/reading.ts";
 import { clinicItems } from "./content/writingClinic.ts";
@@ -42,17 +44,17 @@ import { WorkshopScreen } from "./screens/WorkshopScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
 import { applyAppearance, applyFont, applyGuide, applyTheme, readAppearance, readFont, readGuide, readTheme, type Appearance, type FontChoice, type Theme } from "./appearance.ts";
 
-type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "masterclass" | "exam" | "data" | "offline";
+type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "masterclass" | "external" | "exam" | "data" | "offline";
 /** The S2 reviewer workspace exists only in beta builds: a release build never shows keys or drafts. */
 const initialView = (): View => (location.hash === "#review" && !IN_RELEASE ? "review" : "home");
 /** Release build: a learner screen whose pool has no S2-published item shows «Ще не перевірено» instead. */
 const EMPTY_IN_RELEASE: Partial<Record<View, boolean>> = IN_RELEASE ? {
-  mission: exercises.length === 0, workshop: exercises.length === 0, practice: practiceCards.length === 0, masterclass: masterclasses.length === 0, dialogue: dialogues.length === 0,
+  mission: exercises.length === 0, workshop: exercises.length === 0, practice: practiceCards.length === 0, masterclass: masterclasses.length === 0, external: externalMissions.length === 0, dialogue: dialogues.length === 0,
   reading: readingItems.length === 0, writing: clinicItems.length === 0, listening: listeningLessons.length === 0,
   pictures: pictureMissions.length === 0, diagnostic: !diagnosticAvailable, exam: examBlueprints.length === 0,
 } : {};
 /** Release build: how many S2-published learner tasks this build carries (shown on Home, so an empty build says so). */
-const RELEASED_TASKS = exercises.length + practiceCards.length + dialogues.length + readingItems.length + clinicItems.length + listeningLessons.length + pictureMissions.length + masterclasses.length;
+const RELEASED_TASKS = exercises.length + practiceCards.length + dialogues.length + readingItems.length + clinicItems.length + listeningLessons.length + pictureMissions.length + masterclasses.length + externalMissions.length;
 
 export function App({ repository, examRepository, voiceStore, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; voiceStore: VoiceStore; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
@@ -109,7 +111,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
           )}
           {!focused && <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
             onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>}
-          <span className="pill" aria-live="polite">{view === "exam" ? "02 · Симуляція YKI" : view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "data" ? "Мої дані" : view === "offline" ? "Офлайн" : view === "place" ? "Моє господарство" : view === "workshop" ? "01 · Навчання" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" || view === "practice" || view === "masterclass" ? "01 · Навчання" : "Головна"}</span>
+          <span className="pill" aria-live="polite">{view === "exam" ? "02 · Симуляція YKI" : view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "data" ? "Мої дані" : view === "offline" ? "Офлайн" : view === "place" ? "Моє господарство" : view === "workshop" ? "01 · Навчання" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" || view === "practice" || view === "masterclass" || view === "external" ? "01 · Навчання" : "Головна"}</span>
         </div>
       </header>
       <main id="main" className="wrap" tabIndex={-1}>
@@ -134,6 +136,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "practice" && !EMPTY_IN_RELEASE.practice && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
         {view === "masterclass" && !EMPTY_IN_RELEASE.masterclass && snapshot && <MasterclassScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={id => goTo("listening", id)} />}
+        {view === "external" && !EMPTY_IN_RELEASE.external && snapshot && <ExternalMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "pictures" && !EMPTY_IN_RELEASE.pictures && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "dialogue" && !EMPTY_IN_RELEASE.dialogue && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}

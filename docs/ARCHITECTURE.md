@@ -681,6 +681,14 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Tests:** `packages/domain/test/masterclass.test.ts`, E2E `e2e/masterclass.spec.ts`.
 
 **Where to learn next (CURATED-09 part 6, 16.11.2026):**
-- `admitCatalogLink` in `packages/domain/src/media.ts`: https only, no credentials or port, host on `CATALOG_LINK_HOSTS` (Yle, Yle Areena, Kielibuusti, Finna, Suomi-koulut, OPH), never official YKI material. Competitor platforms are not on the list, so the comparison-only entries of `independent-sources.json` never reach learners.
+- `admitCatalogLink` in `packages/domain/src/media.ts`: https only, no credentials or port, host on `CATALOG_LINK_HOSTS` (Yle, Yle Areena, Kielibuusti, Finna, Suomi-koulut, OPH, aoe.fi), never official YKI material. Competitor platforms are not on the list, so the comparison-only entries of `independent-sources.json` never reach learners.
 - `content/learnMore.ts` builds three groups from `sources/publishers/publisher-series-catalog.json`, `publisher-episode-catalog.json` and `independent-sources.json` (Ukrainian `why_uk` in each catalog). The media library tab «Зовнішні джерела» shows them as ruled link rows above the YouTube cards. Nothing is downloaded, copied or embedded; draft Finnish prompts appear only in beta builds. `independent-sources.json` holds no authored Finnish, so it is in `NO_FINNISH_FILES`.
 - **Tests:** `media.test.ts` «where to learn next…», E2E «where to learn next (CURATED-09)…».
+
+**Missions with an external source (CURATED-09 part 7, 16.11.2026):**
+- `packages/domain/src/externalMission.ts`: `toExternalMission` reads the three mission catalogs in `sources/`. A mission is refused if it is official YKI, not marked usable, missing a task field, or its link fails `admitCatalogLink`. Audio and video kinds are listening; slides, PDFs and written dialogues are reading.
+- Phases: open → reflect → transfer → done, or `not_found` with nothing saved. Where the publisher's teacher page shows the answers, only the audio index is linked before the learner's own answer; the teacher page comes after it.
+- Evidence: two ungraded records. The app never hears the recording the learner chose, so nothing is scored.
+- `apps/web`: `content/externalMissions.ts` (release: published only) and `ExternalMissionScreen` (Home → «Місії із зовнішніми джерелами»).
+- **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
+- **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.

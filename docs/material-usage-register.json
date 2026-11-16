@@ -67,18 +67,6 @@
       "note_uk": "Однотонний варіант знака для друку й режимів без кольору; застосунок показує кольоровий знак."
     },
     {
-      "path": "sources/audio/authentic-dialogues-2026-10.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Посилання на справжні багатоголосі діалоги видавців (A2.1–B2.1); старий застосунок їх уже показує.",
-      "plan_uk": "Етап 2: зовнішні місії аудіювання в місцях — лише посилання, без копіювання медіа."
-    },
-    {
-      "path": "sources/audio/oph-adult-spoken-finnish-2026-10.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Посилання на розмовні матеріали OPH для дорослих (Päivää! та інші) з власними завданнями.",
-      "plan_uk": "Етап 2: розділ посилань у «Медіатеці» і в місцях; медіа OPH не копіюються."
-    },
-    {
       "path": "sources/audio/recording-sources.json",
       "reason": "TO_CONNECT",
       "note_uk": "Перелік джерел записів для аудіювання й говоріння рівня B1/B1+.",
@@ -94,12 +82,6 @@
       "path": "sources/learning/10-yki-resources-machine-index.json",
       "reason": "NOT_LEARNER_MATERIAL",
       "note_uk": "Машинний індекс досліджених ресурсів для пошуку методик, а не матеріал для учня."
-    },
-    {
-      "path": "sources/learning/a2-b1-verified-source-missions-2026-10.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Місії до перевірених відкритих джерел A2–B1 (OPH Helppoa suomea та інші).",
-      "plan_uk": "Етап 2: місії в місцях з посиланням на джерело; власні фінські тексти — з позначкою «очікує рецензії S2»."
     },
     {
       "path": "sources/learning/practical-s2-resources-2026-10.json",

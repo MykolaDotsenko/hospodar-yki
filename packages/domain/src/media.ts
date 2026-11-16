@@ -71,7 +71,7 @@ export function admitExternalLink(x: ExternalLink): { ok: true; url: string; hos
  * A link is shown only when it is https on a reviewed learning host (publishers, open-material archives, OPH), is not
  * official YKI material and is not a competitor platform kept for product comparison (those hosts are simply not listed).
  */
-export const CATALOG_LINK_HOSTS = Object.freeze(["yle.fi", "areena.yle.fi", "www.kielibuusti.fi", "www.finna.fi", "www.suomikoulut.fi", "www.oph.fi", "oph.fi"]);
+export const CATALOG_LINK_HOSTS = Object.freeze(["yle.fi", "areena.yle.fi", "www.kielibuusti.fi", "www.finna.fi", "www.suomikoulut.fi", "www.oph.fi", "oph.fi", "aoe.fi"]);
 export function admitCatalogLink(x: { url?: unknown; official_yki?: unknown }): { ok: true; url: string; host: string } | { ok: false; reason: string } {
   const raw = String(x?.url ?? "");
   const m = /^https:\/\/([a-z0-9.-]+)(\/[^\s"'<>]*)?$/i.exec(raw);
