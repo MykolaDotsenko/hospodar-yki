@@ -117,9 +117,17 @@
         {
           "file": "apps/web/e2e/design.spec.ts",
           "contains": "DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "gold is decoration, so it stays on Home: no task sheet, exam sheet or calm screen carries it (COG-07, ATT-01, COLOR-15/20)"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "a ruled row still looks clickable: every row that opens something carries the same chevron"
         }
       ],
-      "gap": "Threshold route with real steps and skill accent on every mission type. The H-mark's own geometry — the bottom-right cut with the gold step along it — marks exactly one sheet per screen (next step / plan on Home, the task sheet elsewhere; none in the exam or in calm mode); the two mode entries keep a small gold step. Two typefaces give the two languages their own voice (Arsenal for Ukrainian, Finlandica for Finnish). Finnish-first typography is tested (largest text, skill-coloured rule above it, hyphenation). Overall composition still needs a human design review; recognisability without the logo is a user study (DESIGN-06/15)."
+      "gap": "Threshold route with real steps and skill accent on every mission type. The H-mark's own bottom-right cut marks exactly one sheet per screen (next step / plan on Home, the task sheet elsewhere; none in the exam). The gold step is decoration and appears only on Home — along the cut of the next-step sheet and beside the two mode numerals — never on a task sheet (COG-07). Two typefaces give the two languages their own voice (Arsenal for Ukrainian, Finlandica for Finnish), scaled to one x-height, with the device font as the learner's choice. Finnish-first typography is tested (largest text, skill-coloured rule above it, hyphenation, a 45–75 character measure for long text). Overall composition still needs a human design review; recognisability without the logo is a user study (DESIGN-06/15); no effect of typography on learning is claimed (research/design №20)."
     },
     {
       "id": "DESIGN-03",
@@ -659,6 +667,10 @@
         {
           "file": "apps/web/e2e/focus.spec.ts",
           "contains": "focus budget and orientation hold on every mission step"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "gold is decoration, so it stays on Home: no task sheet, exam sheet or calm screen carries it (COG-07, ATT-01, COLOR-15/20)"
         }
       ]
     },
@@ -765,6 +777,10 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "support before answering (transcript) is allowed for accessibility but saved ungraded"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "typeface is the learner's choice: the device font for both languages, kept after reload; nothing else changes"
         }
       ]
     },
@@ -1677,6 +1693,14 @@
         {
           "file": "apps/web/e2e/research-design.spec.ts",
           "contains": "R10/DESIGN-14 every screen: landmarks, lang, axe, target sizes, 320–390 px reflow and 200 % text, focus never hidden; no engagement theatre, notification prompts or tracking"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "gold is decoration, so it stays on Home: no task sheet, exam sheet or calm screen carries it (COG-07, ATT-01, COLOR-15/20)"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen"
         }
       ]
     },
@@ -2068,6 +2092,10 @@
         {
           "file": "apps/web/e2e/dialogue.spec.ts",
           "contains": "IV-REQ-07 dialogue: learner replies first as speaker A; script line only after; answer before model; evidence cue after attempt; saved ungraded"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "gold is decoration, so it stays on Home: no task sheet, exam sheet or calm screen carries it (COG-07, ATT-01, COLOR-15/20)"
         }
       ]
     },
@@ -4093,9 +4121,17 @@
         {
           "file": "scripts/tests/test_validate_design_tokens.py",
           "contains": "def test_dark_low_contrast_pair_fails"
+        },
+        {
+          "file": "apps/web/e2e/design.spec.ts",
+          "contains": "DESIGN-11 authored form language: two typefaces loaded from the app itself, square ruled surfaces, one signature cut per screen"
+        },
+        {
+          "file": "apps/web/src/design-language.test.ts",
+          "contains": "legibility: one x-height for every face, a readable measure for long Finnish text, and the learner's own font choice"
         }
       ],
-      "gap": "Dark palette built and AA-checked on every screen; screen readers (TalkBack/VoiceOver) and real devices not tested."
+      "gap": "Dark palette built and AA-checked on every screen; the bundled faces are checked to contain ä ö å and і ї є ґ and are scaled to one x-height; screen readers (TalkBack/VoiceOver) and real devices not tested."
     },
     {
       "id": "SD-G09",

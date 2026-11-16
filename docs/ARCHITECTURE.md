@@ -493,3 +493,14 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - no screen-reader or real-device check of the new faces;
   - the nine places still share one door glyph;
   - illustrations in one human-made style (DESIGN-07) are still to come.
+
+**Update 2026-11-16 — the form language checked against learning research ([research/design №20](../research/design/20-form-language-typography-evidence-2026-11.md)).** The owner asked that the design follow the evidence on learning, not only look authored. Eight claims were checked with their counter-evidence; five changes followed:
+
+- **No decoration on a task sheet (COG-07, ATT-01, COLOR-20).** The gold step added to every task sheet in the first version was a seductive detail. It is removed: gold now appears only on Home; a task sheet keeps the quiet cut with no colour.
+- **One apparent size.** `font-size-adjust: 0.53` scales every face to the same x-height (measured: Arsenal 0.50, Finlandica 0.50, Arial 0.53), so Arsenal is no longer about 9 % smaller than the fallback and a font swap does not move the layout. Body text is 17 px in `rem`.
+- **Readable measure.** Long Finnish text is limited to 31em (about 65–70 characters) at regular weight.
+- **Rows look clickable.** Every row that opens a place, skill, exercise or task carries the same chevron.
+- **The learner's own font.** «Шрифт» in the footer switches both languages to the device font (`appearance.ts`, `localStorage` key `hospodar-yki:web:font`, presentation only).
+
+Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart ("Illalla", "Ilta"), which the system font of the test environment does not. Rejected: hard-to-read fonts as a memory aid. Not claimed: that any of this improves learning — no user study was run. Guards: three new static tests and two E2E tests in `design-language.test.ts` and `e2e/design.spec.ts`.
+
