@@ -49,11 +49,17 @@ const RAW: { file: string; tag: "audio" | "video"; context: MediaContext; e2e: s
   { file: "screens/ExamScreen.tsx", tag: "audio", context: "own-recording", e2e: "", why: "the learner's own exam answer in the summary" },
 ];
 /** Every task stimulus goes through <TaskAudio>, with these contexts. */
-const TASK_PLAYERS: { file: string; contexts: MediaContext[]; e2e: string }[] = [
+const TASK_PLAYERS: { file: string; contexts: MediaContext[]; e2e: string; count?: number }[] = [
   { file: "screens/ListeningScreen.tsx", contexts: ["learn-task", "learn-after"], e2e: `${E2E} LEARN listening` },
   { file: "screens/SkillChecks.tsx", contexts: ["learn-task"], e2e: `${E2E} delayed listening check` },
-  { file: "screens/ExamScreen.tsx", contexts: ["exam"], e2e: `${E2E} EXAM listening` },
+  // two exam players: the native one (unlimited plays, pause/seek allowed) and the counted one with no controls
+  { file: "screens/ExamScreen.tsx", contexts: ["exam"], e2e: `${E2E} EXAM listening`, count: 2 },
 ];
+/** Where code may call .play(): only inside a handler of the learner's own button. */
+const PLAY_CALLS: Record<string, RegExp> = {
+  "screens/DictoglossRun.tsx": /function play\(\)[\s\S]*?a\.play\(\)/,
+  "screens/ExamScreen.tsx": /const start = \(\) => \{[\s\S]*?onPlayed\(\);[\s\S]*?a\.play\(\)/,
+};
 
 describe("media rules on every screen with audio or video (docs/29 stage 3)", () => {
   it("media rules: every <audio>/<video> is registered with its context and an E2E check; task recordings use the one task player", () => {
@@ -65,9 +71,8 @@ describe("media rules on every screen with audio or video (docs/29 stage 3)", ()
       expect(found, `unregistered <${kind}>: add it to RAW with its media context and an E2E check, or use <TaskAudio>`).toEqual(registered);
     }
     const players = Object.fromEntries(files.map(f => [f, tags(read(f), "TaskAudio").length]).filter(([, n]) => (n as number) > 0));
-    expect(players).toEqual(Object.fromEntries(TASK_PLAYERS.map(p => [p.file, 1])));
-    for (const p of TASK_PLAYERS) {
-      const t = tags(read(p.file), "TaskAudio")[0]!;
+    expect(players).toEqual(Object.fromEntries(TASK_PLAYERS.map(p => [p.file, p.count ?? 1])));
+    for (const p of TASK_PLAYERS) for (const t of tags(read(p.file), "TaskAudio")) {
       // The context may be computed (ListeningScreen's mediaContext), so its values are looked for in the file's code.
       expect(t, `${p.file}: the player names its context`).toMatch(/context=\{?/);
       for (const c of p.contexts) expect(code(read(p.file)), `${p.file} must use context "${c}"`).toContain(`"${c}"`);
@@ -83,12 +88,12 @@ describe("media rules on every screen with audio or video (docs/29 stage 3)", ()
     for (const f of files) {
       const src = read(f);
       expect(/\bautoPlay\b|\bautoplay\b/.test(code(src)), `${f}: autoplay`).toBe(false);
-      // .play() only where a learner's button starts one dictogloss segment
-      if (/\.play\(/.test(src)) expect(f).toBe("screens/DictoglossRun.tsx");
+      // .play() only where a learner's button starts it: one dictogloss segment, or a counted exam play
+      if (/\.play\(/.test(code(src))) { expect(Object.keys(PLAY_CALLS)).toContain(f); expect(src).toMatch(PLAY_CALLS[f]!); }
     }
-    const dicto = read("screens/DictoglossRun.tsx");
-    expect(dicto).toMatch(/function play\(\)[\s\S]*?a\.play\(\)/);
-    expect(dicto).toMatch(/onClick=\{play\}/);
+    expect(read("screens/DictoglossRun.tsx")).toMatch(/onClick=\{play\}/);
+    expect(read("screens/ExamScreen.tsx")).toMatch(/onClick=\{start\}/);
+    expect(tags(read("screens/ExamScreen.tsx"), "TaskAudio").filter(t => /\bbare\b/.test(t))).toHaveLength(1);
     const player = tags(read("ui/TaskAudio.tsx"), "audio")[0]!;
     expect(player).toContain('preload="none"');
     expect(read("ui/TaskAudio.tsx")).toContain('"nodownload noplaybackrate"');

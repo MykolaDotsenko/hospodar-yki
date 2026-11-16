@@ -141,7 +141,7 @@ test("media rules · EXAM listening: quiet until started, no browser speed menu,
   await page.locator("audio").first().evaluate(a => { (a as HTMLAudioElement).playbackRate = 1.5; });
   await expect.poll(() => rate(page)).toBe(1);
   await expect(page.locator(".transcript, track")).toHaveCount(0);
-  await expect(page.getByText(/kuuntelukertoja ei rajoiteta/)).toBeVisible();                     // unlimited replay stays labelled practice
+  await expect(page.getByText(/Kuuntelukertoja ei rajoiteta · harjoitussääntö/)).toBeVisible();      // unlimited replay stays labelled practice
 });
 
 test("media rules · media library: every recording and video is quiet and loads nothing until the learner starts it", async ({ page }) => {
