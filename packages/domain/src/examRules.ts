@@ -13,6 +13,7 @@
  */
 import { CRITICAL_PARAMETERS, isValidParameterValue, isVerifiedRecord, type ExamProfile, type ParameterValue } from "./examProfile.ts";
 import { PRACTICE_SPEAKING_WINDOWS } from "./examSpeaking.ts";
+import type { PracticeChoices } from "./exam.ts";
 
 
 /**
@@ -33,13 +34,16 @@ export const PRACTICE_RULES: Readonly<Record<string, ParameterValue>> = Object.f
 
 /** Parameters whose VERIFIED value the engine applies today (a practice value is always what the engine does). */
 export const ENGINE_APPLIES: ReadonlySet<string> = Object.freeze(new Set([
-  "navigation.back_allowed", "writing.spellcheck", "writing.paste_allowed", "writing.counter",
+  "navigation.back_allowed", "navigation.review_screen", "listening.plays_allowed", "listening.pause_seek",
+  "writing.spellcheck", "writing.paste_allowed", "writing.counter",
   "speaking.prep_seconds", "speaking.response_seconds",
 ])) as ReadonlySet<string>;
 
 export interface ExamRule {
   parameter: string; label_uk: string; value: ParameterValue;
   status: "verified" | "practice";
+  /** Practice only: the learner chose this value for the attempt (PRACTICE profile settings). */
+  chosen?: boolean;
   /** Verified only: is the value actually reproduced by the simulator? Practice values always are. */
   applied: boolean;
   observed_on: string | null; source_url: string | null;
@@ -49,19 +53,26 @@ export interface ExamRules {
   verified: number; practice: number; notApplied: number;
   /** Typed accessors for the engine; each falls back to the practice value when the verified one is not applied. */
   backAllowed: boolean; spellcheck: boolean; pasteAllowed: boolean; counter: "none" | "words" | "characters";
+  reviewScreen: boolean; playsAllowed: number | "unlimited"; pauseSeek: boolean;
 }
+/** Which practice rules the learner may choose (only where the profile has no verified value). */
+const CHOICE_PARAMS: Record<string, (c: PracticeChoices) => ParameterValue> = {
+  "listening.plays_allowed": c => c.plays, "navigation.back_allowed": c => c.backAllowed, "navigation.review_screen": c => c.reviewScreen,
+};
 
-export function resolveExamRules(profile: ExamProfile | null | undefined): ExamRules {
+export function resolveExamRules(profile: ExamProfile | null | undefined, choices: PracticeChoices | null | undefined = null): ExamRules {
   const rules: ExamRule[] = CRITICAL_PARAMETERS.map(c => {
     const r = profile?.records.find(x => x.parameter === c.id);
     if (profile && r && isVerifiedRecord(profile, r) && isValidParameterValue(c.id, r.value))
       return { parameter: c.id, label_uk: c.label_uk, value: r.value, status: "verified", applied: ENGINE_APPLIES.has(c.id),
         observed_on: r.observed_on, source_url: r.source_url };
+    if (choices && CHOICE_PARAMS[c.id])
+      return { parameter: c.id, label_uk: c.label_uk, value: CHOICE_PARAMS[c.id]!(choices), status: "practice", chosen: true, applied: true, observed_on: null, source_url: null };
     return { parameter: c.id, label_uk: c.label_uk, value: PRACTICE_RULES[c.id] ?? null, status: "practice", applied: true, observed_on: null, source_url: null };
   });
   const used = (id: string) => {
     const r = rules.find(x => x.parameter === id)!;
-    return r.applied ? r.value : PRACTICE_RULES[id] ?? null;
+    return r.applied ? r.value : choices && CHOICE_PARAMS[id] ? CHOICE_PARAMS[id]!(choices) : PRACTICE_RULES[id] ?? null;
   };
   return {
     rules,
@@ -72,6 +83,9 @@ export function resolveExamRules(profile: ExamProfile | null | undefined): ExamR
     spellcheck: used("writing.spellcheck") === true,
     pasteAllowed: used("writing.paste_allowed") === true,
     counter: used("writing.counter") as ExamRules["counter"],
+    reviewScreen: used("navigation.review_screen") === true,
+    playsAllowed: used("listening.plays_allowed") as number | "unlimited",
+    pauseSeek: used("listening.pause_seek") === true,
   };
 }
 

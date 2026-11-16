@@ -18,7 +18,7 @@
  *    A new rehearsal deletes the previous session's clips before clearing the checkpoint.
  */
 import { assign, fromPromise, setup } from "xstate";
-import { attachVoiceReceipt, createSession, finishSession, goToIndex, isPracticeExpired, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
+import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, finishSession, goToIndex, isPracticeExpired, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
   setVoiceConsent, withElapsedHighWater, writeAnswer, type ExamItem, type ExamSession, type ExamSkill, type SpeakingReceipt } from "@hospodar/domain";
 import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 
@@ -29,7 +29,10 @@ export interface ExamContext {
   pendingNavigation: ExamSession | null;
 }
 export type ExamEvent =
-  | { type: "START"; blueprintId: string; minutes: number; now: number; sessionId: string; skills?: ExamSkill[] | null; profile?: { id: string; hash: string } | null }
+  | { type: "START"; blueprintId: string; minutes: number; now: number; sessionId: string; skills?: ExamSkill[] | null; profile?: { id: string; hash: string } | null;
+      practiceChoices?: PracticeChoices | null }
+  /** A listening play started; persisted (counted per recording) so a reload never gives a play back. */
+  | { type: "AUDIO_PLAYED"; sourceId: string; allowed: number | "unlimited"; now: number }
   | { type: "ANSWER"; itemId: string; value: string; now: number }
   | { type: "COMPOSE_START"; itemId: string }
   | { type: "COMPOSE_END"; itemId: string; value: string; now: number }
@@ -58,7 +61,12 @@ const expired = (c: ExamContext, now: number) => Boolean(c.session) && isPractic
 
 export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: string, skills: ExamSkill[] | null) => ExamItem[],
   blueprintIds: string[], contentVersion = "unversioned", voice: VoiceCleanup | null = null) {
-  const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt; now: number }) => {
+  /** The session with one more play of a recording, or null when none is left (the play is then refused). */
+const tryPlay = (context: ExamContext, event: { sourceId: string; allowed: number | "unlimited"; now: number }) => {
+  if (!context.session || !context.items.some(i => i.skill === "listening" && i.sourceId === event.sourceId)) return null;
+  try { return recordPlay(context.session, event.sourceId, event.allowed, new Date(event.now)); } catch { return null; }
+};
+const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt; now: number }) => {
     if (c.items.find(i => i.id === e.itemId)?.skill !== "speaking") return null;
     try { return attachVoiceReceipt(c.session!, e.itemId, e.receipt, new Date(e.now)); } catch { return null; }
   };
@@ -111,7 +119,8 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
           START: { target: "saving", actions: assign(({ event }) => {
             const skills = normaliseSkills(event.skills);
             return { items: itemsFor(event.blueprintId, skills), skills, after: "active" as const, error: null, autosaveError: null, dirty: false,
-              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId, event.profile ?? null), composingItemId: null, pendingNavigation: null };
+              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId, event.profile ?? null, event.practiceChoices ?? null),
+              composingItemId: null, pendingNavigation: null };
           }) },
         },
       },
@@ -173,6 +182,11 @@ export function createExamMachine(repo: ExamRepository, itemsFor: (blueprintId: 
             { actions: assign({ session: ({ context, event }) => withElapsedHighWater(context.session!, event.elapsedMs) }) },
           ],
           REQUEST_FINISH: { guard: ({ context }) => context.composingItemId === null, target: "confirming" },
+          AUDIO_PLAYED: [
+            { guard: "runningExpired", target: "expired" },
+            { guard: ({ context, event }) => tryPlay(context, event) !== null, target: "saving",
+              actions: assign(({ context, event }) => ({ after: "active" as const, session: tryPlay(context, event)! })) },
+          ],
           CONSENT: [
             { guard: "runningExpired", target: "expired" },
             { guard: ({ context, event }) => context.session!.voiceConsent !== event.consent && !(event.consent === false &&

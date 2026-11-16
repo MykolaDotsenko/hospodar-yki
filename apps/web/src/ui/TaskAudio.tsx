@@ -14,9 +14,11 @@ import { mediaRules, NORMAL_RATE, rateVerdict, type MediaContext } from "@hospod
  *
  * `supportRecorded` is a function so the check reads the screen's latest state, not the state of the last render.
  */
-export function TaskAudio({ context, src, label, audioRef, onPlay, onSlower, supportRecorded, children }: {
+export function TaskAudio({ context, src, label, audioRef, onPlay, onSlower, supportRecorded, children, bare = false, onEnded }: {
   context: MediaContext; src: string; label?: string; audioRef?: Ref<HTMLAudioElement>;
   onPlay?: () => void; onSlower?: () => void; supportRecorded?: () => boolean; children?: ReactNode;
+  /** No player controls: the screen's own buttons start (and may pause) it — used when plays are counted or seeking is off. */
+  bare?: boolean; onEnded?: () => void;
 }) {
   const rules = mediaRules(context);
   const own = useRef<HTMLAudioElement | null>(null);
@@ -26,9 +28,9 @@ export function TaskAudio({ context, src, label, audioRef, onPlay, onSlower, sup
     else if (audioRef) (audioRef as { current: HTMLAudioElement | null }).current = el;
   };
   return (
-    <audio ref={setRef} controls preload="none" src={src} aria-label={label} data-media-context={context}
+    <audio ref={setRef} controls={!bare} preload="none" src={src} aria-label={label} data-media-context={context}
       controlsList={rules.nativeSpeedMenu ? "nodownload" : "nodownload noplaybackrate"}
-      onPlay={onPlay}
+      onPlay={onPlay} onEnded={onEnded}
       onRateChange={e => {
         const a = e.currentTarget;
         const verdict = rateVerdict(context, a.playbackRate, supportRecorded?.() ?? false);

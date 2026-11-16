@@ -605,3 +605,21 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
   - the review screen and section locks;
   - recording start and re-record rules;
   - the values themselves, which need the OPH demo walkthrough by a person.
+
+**Update 2026-11-16 — part 2: listening plays, pause/seek and a review screen from the profile or the learner's practice choice.**
+
+- **Practice choices:** the PRACTICE profile is the learner's own settings (docs/21). Before starting, «Тренувальні правила» lets the learner choose:
+  - how many times a recording may be played: no limit, 2 or 1;
+  - whether going back is allowed;
+  - whether a review screen of all answers comes before finishing.
+  - They are stored in the session (`practiceChoices`) and listed in the rules panel as «тренувальне правило, яке ти обрав(ла) перед стартом». A verified profile value always wins over a choice.
+- **Listening plays:** `recordPlay` counts plays per recording (`session.plays`) and refuses one when they are used up. The machine's `AUDIO_PLAYED` persists the count before anything else changes, so a reload never gives a play back. A damaged count reads as used up (99).
+- **Counted player:** with limited plays or pause/seek off, the exam uses its own player with no seek bar: «Kuuntele äänite (jäljellä N)», plus «Tauko/Jatka» if pausing is allowed. The play is counted first. The static media test now allows `.play()` only in that button handler and in dictogloss.
+- **Review screen:** with a review screen, «Lopeta koe» first lists every task as vastattu/vastaamatta. Jumping to a task works only when going back is allowed.
+- **Rules now applied:** `ENGINE_APPLIES` adds `listening.plays_allowed`, `listening.pause_seek` and `navigation.review_screen`.
+- **Old sessions:** sessions without the new fields load unchanged (legacy parity kept).
+- **Not done:**
+  - per-subtest timers and on-expiry;
+  - section locks;
+  - recording start and re-record rules;
+  - human multi-speaker audio.

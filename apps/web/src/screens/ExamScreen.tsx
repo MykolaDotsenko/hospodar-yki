@@ -11,7 +11,7 @@ import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
-import { examProfileHash, profileAvailability, resolveExamRules, ruleValueUk, type ExamProfile, type ExamRules } from "@hospodar/domain";
+import { examProfileHash, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -58,7 +58,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   const navBusy = busy || snap.matches("autosaving") || recording || snap.context.composingItemId !== null;
 
   if (snap.matches("loading")) return <section className="panel exam" aria-busy="true"><p>Ladataan…</p></section>;
-  if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills, profile) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId(), profile: pinOf(profile) })} onHome={onHome} />;
+  if (snap.matches("setup")) return <ExamSetup error={error} repository={repository} onStart={(blueprintId, minutes, skills, profile, practiceChoices) => actor.send({ type: "START", blueprintId, minutes, skills, now: Date.now(), sessionId: newId(), profile: pinOf(profile), practiceChoices })} onHome={onHome} />;
 
   if (snap.matches("finished") || snap.matches("clearing")) {
     const r = scoreSession(items, session!);
@@ -106,7 +106,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   const pinned = profileById(session!.profileId);
   const subtests = items.map(x => x.skill).filter((k, i, a) => a.indexOf(k) === i);         // order of this session
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
-  const rules = resolveExamRules(pinned);                                 // the rules this attempt runs by, each with its status
+  const rules = resolveExamRules(pinned, session!.practiceChoices);       // the rules this attempt runs by, each with its status
   return (
     <section className="panel exam" aria-labelledby="ex-item" translate="no" data-exam-attempt>
       <div className="exam-bar">
@@ -128,6 +128,19 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
         </div>
       ) : snap.matches("confirming") ? (
         <div role="alertdialog" aria-labelledby="ex-confirm" className="exam-notice">
+          {rules.reviewScreen && (                                        // review screen before finishing (navigation.review_screen)
+            <>
+              <h2 lang="fi">Tarkista vastauksesi</h2>
+              <ol className="exam-review" lang="fi" data-testid="exam-review">
+                {items.map((x, i) => {
+                  const done = !!(session!.answers[x.id] ?? "").trim() || !!voiceEvidenceOf(session!, x.id);
+                  return <li key={x.id}>Tehtävä {i + 1} · {SKILL_FI[x.skill]}: <strong>{done ? "vastattu" : "vastaamatta"}</strong>
+                    {rules.backAllowed && i !== session!.index && <> <button type="button" className="btn secondary"
+                      onClick={() => { actor.send({ type: "CANCEL_FINISH" }); go(i); }}>Siirry tehtävään {i + 1}</button></>}</li>;
+                })}
+              </ol>
+            </>
+          )}
           <p id="ex-confirm" lang="fi">Haluatko lopettaa? Vastaamatta: {unanswered}.</p>
           <div className="actions">
             <button type="button" className="btn" onClick={() => actor.send({ type: "CONFIRM_FINISH", now: Date.now() })}>Lopeta koe</button>
@@ -137,6 +150,8 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
       ) : (
         <>
           <ExamItemView key={item.id} item={item} answer={answer} onAnswer={set} rules={rules}
+            playsLeft={rules.playsAllowed === "unlimited" ? null : Math.max(0, rules.playsAllowed - playsUsed(session!, item.sourceId))}
+            onPlayed={() => actor.send({ type: "AUDIO_PLAYED", sourceId: item.sourceId, allowed: rules.playsAllowed, now: Date.now() })}
             onComposeStart={() => actor.send({ type: "COMPOSE_START", itemId: item.id })}
             onComposeEnd={value => actor.send({ type: "COMPOSE_END", itemId: item.id, value, now: Date.now() })}
             disabled={busy || snap.matches("saveError")} />
@@ -164,8 +179,8 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   );
 }
 
-function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, disabled, rules }: {
-  item: ExamItem; answer: string; onAnswer: (v: string) => void; rules: ExamRules;
+function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, disabled, rules, playsLeft, onPlayed }: {
+  item: ExamItem; answer: string; onAnswer: (v: string) => void; rules: ExamRules; playsLeft: number | null; onPlayed: () => void;
   onComposeStart: () => void; onComposeEnd: (v: string) => void; disabled: boolean;
 }) {
   // Keep IME interim text *only* in the editor. It is not a submitted answer and must not
@@ -185,8 +200,11 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
       {item.skill === "listening" && (
         <div className="exam-audio">
           {/* Media rules: no speed aid in the exam (not an OPH-verified feature); any change goes back to 1×. */}
-          {audio ? <TaskAudio context="exam" src={audio} label={`Äänite: ${item.heading ?? ""}`} /> : <p>Äänitettä ei löydy.</p>}
-          <p className="muted">Harjoitustoisto: kuuntelukertoja ei rajoiteta (virallista 2027-sääntöä ei ole vahvistettu).</p>
+          {!audio ? <p>Äänitettä ei löydy.</p>
+            : rules.playsAllowed === "unlimited" && rules.pauseSeek ? <TaskAudio context="exam" src={audio} label={`Äänite: ${item.heading ?? ""}`} />
+            : <CountedAudio src={audio} label={`Äänite: ${item.heading ?? ""}`} playsLeft={playsLeft} pauseAllowed={rules.pauseSeek} disabled={disabled} onPlayed={onPlayed} />}
+          <p className="muted">{rules.playsAllowed === "unlimited" ? "Kuuntelukertoja ei rajoiteta" : `Kuuntelukertoja: ${rules.playsAllowed}`}
+            {rules.rules.find(r => r.parameter === "listening.plays_allowed")!.status === "practice" ? " · harjoitussääntö (virallista 2027-sääntöä ei ole vahvistettu)." : "."}</p>
         </div>
       )}
       {item.options ? (
@@ -224,7 +242,8 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
   );
 }
 
-function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null, profile: ExamProfile) => void; onHome: () => void }) {
+function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null, profile: ExamProfile, choices: PracticeChoices | null) => void; onHome: () => void }) {
+  const [choices, setChoices] = useState<PracticeChoices>({ plays: "unlimited", backAllowed: true, reviewScreen: false });
   const [blueprint, setBlueprint] = useState(examBlueprints[0]!.id);
   const now = new Date();
   const [profileId, setProfileId] = useState(examProfiles.find(p => profileAvailability(p, examProfileFile, now).selectable)!.id);
@@ -292,10 +311,22 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         <legend>Тренувальний таймер (не офіційний)</legend>
         {PRACTICE_LIMITS_MINUTES.map(m => <label key={m} className="radio"><input type="radio" name="tm" checked={minutes === m} onChange={() => setMinutes(m)} /> {m === 0 ? "Без таймера" : `${m} хв`}</label>)}
       </fieldset>
+      {profile.kind === "PRACTICE" && (
+        <fieldset className="choices-set" data-testid="practice-choices">
+          <legend>Тренувальні правила (обираєш ти; про справжній іспит нічого не стверджують)</legend>
+          <fieldset className="choices-set">
+            <legend>Скільки разів можна слухати запис</legend>
+            {PRACTICE_PLAY_OPTIONS.map(o => <label key={String(o)} className="radio"><input type="radio" name="plays" checked={choices.plays === o}
+              onChange={() => setChoices(c => ({ ...c, plays: o }))} /> {o === "unlimited" ? "Без обмеження" : o === 1 ? "1 раз" : `${o} рази`}</label>)}
+          </fieldset>
+          <label className="radio"><input type="checkbox" checked={choices.backAllowed} onChange={e => setChoices(c => ({ ...c, backAllowed: e.target.checked }))} /> Можна повертатися до попередніх завдань</label>
+          <label className="radio"><input type="checkbox" checked={choices.reviewScreen} onChange={e => setChoices(c => ({ ...c, reviewScreen: e.target.checked }))} /> Перед завершенням — екран огляду всіх відповідей</label>
+        </fieldset>
+      )}
       {skills.length > 0 && <ExamDeviceCheck skills={partial ? skills : null} results={devices} onResults={setDevices} />}
       {pending.length > 0 && <p className="muted" data-testid="device-pending">Ще не підтверджено: {pending.map(d => d === "headphones" ? "навушники" : "мікрофон").join(", ")}. Почати можна й так, але перевірка вбереже від технічної проблеми посеред завдання.</p>}
       <div className="actions">
-        <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null, profile)}>Aloita · Почати</button>
+        <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null, profile, profile.kind === "PRACTICE" ? choices : null)}>Aloita · Почати</button>
         <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
       </div>
       {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}
@@ -380,11 +411,43 @@ function ExamRulesList({ rules }: { rules: ExamRules }) {
         {rules.rules.map(r => (
           <li key={r.parameter} data-rule={r.parameter} data-status={r.status}>
             <strong>{r.label_uk}:</strong> {ruleValueUk(r)} —{" "}
-            {r.status === "practice" ? "тренувальне правило: у справжньому іспиті 2027 може бути інакше (не підтверджено)"
+            {r.status === "practice" ? (r.chosen ? "тренувальне правило, яке ти обрав(ла) перед стартом" : "тренувальне правило: у справжньому іспиті 2027 може бути інакше (не підтверджено)")
               : r.applied ? `спостережено в демо OPH ${r.observed_on}` : `спостережено в демо OPH ${r.observed_on}, симулятор ще не відтворює — діє тренувальне`}
           </li>
         ))}
       </ul>
     </details>
+  );
+}
+
+/**
+ * A recording played only by the learner's own button: plays are counted per recording and persisted before the play is
+ * kept (rules: listening.plays_allowed, listening.pause_seek). No seeking; pausing only if the rules allow it.
+ */
+function CountedAudio({ src, label, playsLeft, pauseAllowed, disabled, onPlayed }: {
+  src: string; label: string; playsLeft: number | null; pauseAllowed: boolean; disabled: boolean; onPlayed: () => void;
+}) {
+  const ref = useRef<HTMLAudioElement>(null);
+  const [state, setState] = useState<"idle" | "playing" | "paused">("idle");
+  const start = () => {
+    const a = ref.current;
+    if (!a || state !== "idle" || playsLeft === 0) return;
+    onPlayed();                                                           // counted first: a refused or failed play is still used
+    a.currentTime = 0;
+    setState("playing");
+    void a.play().catch(() => setState("idle"));
+  };
+  return (
+    <div className="actions" role="group" aria-label={label}>
+      <TaskAudio context="exam" bare src={src} label={label} audioRef={ref} onEnded={() => setState("idle")} />
+      <button type="button" className="btn secondary" disabled={disabled || state !== "idle" || playsLeft === 0} onClick={start} lang="fi">
+        {state !== "idle" ? "Äänite soi…" : "Kuuntele äänite"}{playsLeft !== null ? ` (jäljellä ${playsLeft})` : ""}</button>
+      {pauseAllowed && state !== "idle" && (
+        <button type="button" className="btn secondary" lang="fi" onClick={() => {
+          const a = ref.current; if (!a) return;
+          if (state === "playing") { a.pause(); setState("paused"); } else { void a.play(); setState("playing"); }
+        }}>{state === "playing" ? "Tauko" : "Jatka"}</button>
+      )}
+    </div>
   );
 }

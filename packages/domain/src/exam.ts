@@ -103,6 +103,18 @@ export interface ExamSession {
   voiceConsent: boolean; elapsedHighWaterMs: number; lastSavedAt: string; sessionId: string;
   /** TZ-EXAM-02: the exam profile (id + content hash) this attempt started with; later profile edits never change it. */
   profileId?: string; profileHash?: string;
+  /** Rules the learner chose for a PRACTICE attempt (examRules.ts); absent = the simulator's practice defaults. */
+  practiceChoices?: PracticeChoices;
+  /** Listening plays started, per recording (sourceId); persisted so a reload never gives a play back. */
+  plays?: Record<string, number>;
+}
+/** Learner-chosen practice rules (docs/21: the PRACTICE profile is the learner's own settings, never a claim about OPH). */
+export interface PracticeChoices { plays: number | "unlimited"; backAllowed: boolean; reviewScreen: boolean }
+export const PRACTICE_PLAY_OPTIONS = Object.freeze(["unlimited", 2, 1] as const);
+export function validPracticeChoices(x: unknown): x is PracticeChoices {
+  const c = x as PracticeChoices | null;
+  return !!c && typeof c === "object" && (PRACTICE_PLAY_OPTIONS as readonly unknown[]).includes(c.plays) &&
+    typeof c.backAllowed === "boolean" && typeof c.reviewScreen === "boolean" && Object.keys(c).length === 3;
 }
 const SESSION_ID = /^[a-zA-Z0-9_-]{3,60}$/;
 const TASK_ID = /^[a-z0-9_-]{1,110}$/i;
@@ -113,7 +125,8 @@ export function sessionIdOf(session: SessionLike | null | undefined): string {
 }
 
 export function createSession(blueprintId: string, minutes = 0, now: Date = new Date(), sessionId: string | null = null,
-  profile: { id: string; hash: string } | null = null): ExamSession {
+  profile: { id: string; hash: string } | null = null, practiceChoices: PracticeChoices | null = null): ExamSession {
+  if (practiceChoices !== null && !validPracticeChoices(practiceChoices)) throw new Error("Invalid practice choices");
   if (profile && !(/^[a-z0-9-]{3,60}$/.test(profile.id) && /^[0-9a-f]{8}$/.test(profile.hash))) throw new Error("Invalid exam profile");
   if (!/^yki-mini-[a-z0-9-]+$/.test(blueprintId)) throw new Error("Unknown blueprint id");
   if (!(PRACTICE_LIMITS_MINUTES as readonly number[]).includes(minutes)) throw new Error("Unsupported practice timer");
@@ -121,7 +134,8 @@ export function createSession(blueprintId: string, minutes = 0, now: Date = new 
   if (sessionId !== null && !SESSION_ID.test(sessionId)) throw new Error("Invalid session id");
   const base = { version: EXAM_STATE_VERSION, blueprintId, timeLimitMinutes: minutes, startedAt: now.toISOString(), finishedAt: null,
     index: 0, answers: {}, voiceRecorded: {}, voiceReceipts: {}, voiceConsent: false, elapsedHighWaterMs: 0, lastSavedAt: now.toISOString() };
-  return { ...base, sessionId: sessionId || sessionIdOf(base), ...(profile ? { profileId: profile.id, profileHash: profile.hash } : {}) };
+  return { ...base, sessionId: sessionId || sessionIdOf(base), ...(profile ? { profileId: profile.id, profileHash: profile.hash } : {}),
+    ...(practiceChoices ? { practiceChoices: { ...practiceChoices } } : {}) };
 }
 
 export function loadSession(raw: string | null | undefined, blueprintIds: string[]): { session: ExamSession | null; recovered: boolean } {
@@ -146,10 +160,16 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
       for (const [id, r] of Object.entries(s.voiceReceipts))
         if (TASK_ID.test(id) && inspectSpeakingReceipt(r, { sessionId, taskId: id }).valid) voiceReceipts[id] = r as SpeakingReceipt;
     // Ephemeral (non-consented) recordings never survive a reload.
-    const { profileId, profileHash, ...rest } = s;                       // a malformed profile pin is dropped, never trusted
+    const { profileId, profileHash, practiceChoices, plays, ...rest } = s;   // a malformed profile pin is dropped, never trusted
     const pinned = typeof profileId === "string" && /^[a-z0-9-]{3,60}$/.test(profileId) && typeof profileHash === "string" && /^[0-9a-f]{8}$/.test(profileHash)
       ? { profileId, profileHash } : {};
-    return { session: { ...rest, ...pinned, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
+    // Practice choices and play counts are kept only when valid; a damaged play count fails closed (no plays left: 99).
+    const chosen = validPracticeChoices(practiceChoices) ? { practiceChoices } : {};
+    const counted: Record<string, number> = {};
+    if (plays && typeof plays === "object" && !Array.isArray(plays))
+      for (const [id, n] of Object.entries(plays)) if (TASK_ID.test(id)) counted[id] = Number.isInteger(n) && (n as number) >= 0 && (n as number) <= 99 ? n as number : 99;
+    const played = plays !== undefined ? { plays: counted } : {};
+    return { session: { ...rest, ...pinned, ...chosen, ...played, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
   } catch {
     return { session: null, recovered: true };
   }
@@ -189,6 +209,16 @@ export function goToIndex(session: ExamSession, index: number, itemCount: number
   if (!Number.isInteger(index) || index < 0 || index >= itemCount) throw new Error("Invalid task index");
   assertBeforeDeadline(session, now);
   return { ...session, index };
+}
+export const playsUsed = (session: ExamSession, sourceId: string) => session.plays?.[sourceId] ?? 0;
+/** One more listening play of a recording; refused when the allowed number is used up (rules from examRules.ts). */
+export function recordPlay(session: ExamSession, sourceId: string, allowed: number | "unlimited", now: Date = new Date()): ExamSession {
+  if (session.finishedAt) throw new Error("Finished");
+  assertBeforeDeadline(session, now);
+  if (!TASK_ID.test(sourceId)) throw new Error("Invalid recording id");
+  const used = playsUsed(session, sourceId);
+  if (allowed !== "unlimited" && used >= allowed) throw Object.assign(new Error("No plays left"), { code: "NO_PLAYS_LEFT" });
+  return { ...session, plays: { ...(session.plays ?? {}), [sourceId]: Math.min(99, used + 1) } };
 }
 export function recordVoiceEvidence(session: ExamSession, itemId: string, hasAudio: boolean, now: Date = new Date()): ExamSession {
   if (session.finishedAt) throw new Error("Finished");

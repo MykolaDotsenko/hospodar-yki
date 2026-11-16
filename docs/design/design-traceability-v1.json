@@ -12094,9 +12094,17 @@
         {
           "file": "apps/web/e2e/exam-rules.spec.ts",
           "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "practice choices: no going back, and a review screen of every task before finishing; with going back the review can jump to a task"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "practice choices: the learner may set plays, going back and a review screen for a practice attempt; a verified rule wins"
         }
       ],
-      "gap": "Going back is now profile-driven (navigation.back_allowed: practice yes; a verified 'no' hides «Edellinen»). The review screen and section locks are not applied from the profile yet; OPH behaviour is unknown."
+      "gap": "Going back and a review screen before finishing are applied from the profile or the learner's practice choice (no back: «Edellinen» hidden and the review cannot jump back; review: every task with answered/unanswered and a jump when going back is allowed). Section locks after a finished subtest are not applied yet; OPH behaviour is unknown."
     },
     {
       "id": "TZ-EXAM-09",
@@ -12115,8 +12123,22 @@
       "id": "TZ-EXAM-10",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Listening as in the exam: sound check, playback rules from the profile, several human speakers with cleared rights, no transcript",
-      "status": "NOT_YET",
-      "plan": "Sound-check screen and profile-driven replay/pause/seek rules; licensed human recordings (human dependency); synthetic voice allowed only in PRACTICE."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "practice choices: one play per recording, counted before it plays, kept after a reload; no seeking; listed as the learner's choice"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "listening plays: counted per recording, refused when used up, kept across a reload; a damaged count fails closed"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · EXAM listening: quiet until started, no browser speed menu, any speed change goes back to 1×, no text"
+        }
+      ],
+      "gap": "Playback rules now come from the profile or the learner's practice choice: plays per recording are counted before the play and persisted (a reload never gives one back), limited plays or no pause/seek switch to the exam's own play button with no seek bar, and the speed stays 1×. The headphone check exists (advisory). Missing: several human speakers with cleared rights (licensed audio, human queue) and verified OPH 2027 playback values."
     },
     {
       "id": "TZ-EXAM-11",
