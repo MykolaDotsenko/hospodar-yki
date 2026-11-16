@@ -68,7 +68,9 @@ describe("media rules on every screen with audio or video (docs/29 stage 3)", ()
     expect(players).toEqual(Object.fromEntries(TASK_PLAYERS.map(p => [p.file, 1])));
     for (const p of TASK_PLAYERS) {
       const t = tags(read(p.file), "TaskAudio")[0]!;
-      for (const c of p.contexts) expect(t, `${p.file} must name context "${c}"`).toContain(`"${c}"`);
+      // The context may be computed (ListeningScreen's mediaContext), so its values are looked for in the file's code.
+      expect(t, `${p.file}: the player names its context`).toMatch(/context=\{?/);
+      for (const c of p.contexts) expect(code(read(p.file)), `${p.file} must use context "${c}"`).toContain(`"${c}"`);
       if (p.contexts.includes("learn-task")) expect(t, `${p.file}: a slower speed in a task is help`).toMatch(/onSlower=\{/);
     }
     for (const r of [...RAW, ...TASK_PLAYERS]) {
