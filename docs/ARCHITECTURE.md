@@ -359,6 +359,11 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Flow:** after a LEARN reading text is saved, «Поясни комусь, що тут написано» (optional): choose the audience — in Ukrainian to a friend who reads no Finnish, or in simpler Finnish to a neighbour — and write the explanation with the text available again behind «Текст ще раз». A three-question self-check (who/what, when/where, what to do).
 - **No model, no key:** nothing is compared automatically. Evidence is saved ungraded (`<item>-mediation`): a Ukrainian relay as reading comprehension, simpler Finnish as writing; commit + verified readback. EXAM texts never appear (LEARN pool only).
 - **Code:** `packages/domain/src/mediation.ts` (`MEDIATION_MODES`, `MEDIATION_CHECK_UK`, `mediationEvidence`; `test/mediation.test.ts`), `screens/MediationStep.tsx`, `ReadingScreen`, `e2e/reading.spec.ts`.
+- **After a dialogue (16.11.2026):** source `dialogue` with its own listeners and checks: `MEDIATION_MODES_DIALOGUE` (a friend who was not there; a neighbour) and `MEDIATION_CHECK_DIALOGUE_UK` (who talked and why, what was agreed, what happens next), via `mediationModes` and `mediationChecks`.
+  - The conversation script opens only on request.
+  - A Ukrainian relay of the written script is ungraded reading; simpler Finnish is ungraded writing.
+  - `DialogueScreen` shows the step after a finished dialogue, before the graduated steps and the interlocutor ladder.
+  - Test: E2E «mediation after a dialogue…».
 - **Not done:** human feedback on the accuracy of the relay.
 
 **Update 2026-11-15 — after listening.** The same step follows a saved LEARN listening lesson: «Поясни комусь, що ти почув(-ла)». The learner relays what was *heard*: the step shows no transcript, and the lesson's recording stays on the screen for a replay the learner starts. The wording follows the source (`mediationModes("listening")`: a friend who does not understand Finnish; simpler than the recording). A Ukrainian relay is stored as ungraded **listening** evidence, simpler Finnish as writing (`mediationEvidence(…, "listening")`); the checked answers of the lesson are untouched. Code: `ListeningScreen` done phase, `e2e/listening.spec.ts`. Not done: mediation after a dialogue or a multi-speaker recording.

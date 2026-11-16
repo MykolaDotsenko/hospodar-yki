@@ -230,3 +230,48 @@ test("interlocutor ladder after a dialogue (pragmatic-speech-acts): the own role
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("5 без оцінки");
 });
+
+/** Finishes «Ensimmäinen kerta kielikahvilassa» through to the saved summary (skip-to-script path). */
+async function finishCafeDialogue(page: import("@playwright/test").Page) {
+  await page.goto("./");
+  await page.getByTestId("nav-speaking").click();
+  await page.getByRole("button", { name: /Ensimmäinen kerta kielikahvilassa/ }).click();
+  for (let i = 0; i < 4; i++) {
+    if (i > 0) { await page.getByRole("button", { name: "Далі" }).click(); await page.getByRole("button", { name: "Далі" }).click(); }
+    await page.getByRole("button", { name: "Пропустити й подивитися сценарій" }).click();
+  }
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByLabel(/Miksi Oksana tuli/).fill("Hän haluaa puhua suomea.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByLabel(/Pitääkö ryhmään/).fill("Ei tarvitse.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await page.getByLabel(/Твої репліки фінською/).fill("Hei, olen Oksana. Voisitko puhua vähän hitaammin?");
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByLabel(/Що ти скажеш тепер/).fill("Anteeksi, minulla on kiire. Voimmeko jatkaa myöhemmin?");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Збережено на цьому пристрої без оцінки/)).toBeVisible();
+}
+
+test("mediation after a dialogue (cefr-mediation-paraphrase): tell a friend who was not there, in Ukrainian, what was agreed; dialogue checks; the conversation on request; ungraded reading", async ({ page }) => {
+  await finishCafeDialogue(page);
+  const med = page.locator("section", { has: page.getByRole("heading", { name: "Розкажи комусь, про що була розмова" }) });
+  await med.getByRole("button", { name: "Українською — другові, якого там не було" }).click();
+  await expect(med.getByLabel("Хто з ким говорив і навіщо?")).toBeVisible();
+  await expect(med.getByLabel("Про що домовилися?")).toBeVisible();
+  await expect(med.locator(".transcript")).toBeHidden();                                 // the conversation only on request
+  await med.locator("summary").click();
+  await expect(med.locator(".transcript")).toContainText("Oksana");
+  await med.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(med.getByRole("alert")).toContainText("Спершу напиши");
+  await med.getByLabel("Твоя розповідь українською").fill("Оксана вперше прийшла в мовне кафе і попросила говорити повільніше.");
+  await med.getByLabel("Хто з ким говорив і навіщо?").check();
+  expect(await serious(page)).toEqual([]);
+  await med.getByRole("button", { name: "Зберегти пояснення" }).click();
+  await expect(page.getByTestId("mediation-done")).toContainText("без оцінки");
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Читання$/ }) })).toContainText("3 без оцінки");   // 2 dialogue questions + the relay
+});
