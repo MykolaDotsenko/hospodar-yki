@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { addDiagnostic, interlocutorEvidence, INTERLOCUTOR_LADDER, REGISTER_MAX_CHARS, REGISTER_NOTE_UK, SAME_ACT_UK,
-  type LearnerState, type PracticeCard, type PracticeLine } from "@hospodar/domain";
+  type LadderTarget, type LearnerState, type PracticeLine } from "@hospodar/domain";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 
@@ -8,12 +8,12 @@ type Snap = { state: LearnerState; revision: number };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
 /**
- * pragmatic-speech-acts: after a saved reaction card, the same situation for a friend, a neighbour and an official.
+ * pragmatic-speech-acts: after a saved reaction card or a finished dialogue role-play, the same situation for a friend, a neighbour and an official.
  * Own Finnish reply first, then a separate appropriateness self-check; each reply is saved ungraded before the next
  * listener; at the end the learner's own three replies are shown side by side. Optional and stoppable.
  */
 export function InterlocutorShift({ card, situation, repository, snapshot, onSaved }: {
-  card: PracticeCard; situation: PracticeLine; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void;
+  card: LadderTarget; situation: PracticeLine; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void;
 }) {
   const [index, setIndex] = useState<number | null>(null);          // null = not started
   const [text, setText] = useState("");

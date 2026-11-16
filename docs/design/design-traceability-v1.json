@@ -12838,9 +12838,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "interlocutor change (pragmatic-speech-acts): after a saved reaction card, the same situation for a friend, a neighbour and an official; separate appropriateness self-check; own replies side by side; ungraded"
+        },
+        {
+          "file": "packages/domain/test/pragmatics.test.ts",
+          "contains": "interlocutor ladder on dialogues: a finished role-play has the same three listeners; its replies are ungraded speaking with their own task ids"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "interlocutor ladder after a dialogue (pragmatic-speech-acts): the own role-play for a friend, a neighbour and an official; separate self-checks; replies side by side; ungraded"
         }
       ],
-      "gap": "After any saved reaction card (18) the learner may say the same situation to a friend, a neighbour and an official in turn, each with a separate appropriateness self-check in Ukrainian (register, not content), saved ungraded, and then sees the own three replies side by side. Cues are an editorial draft pending S2 review (incl. how widely «sinä» is used with officials); appropriateness is self-reported only — no human feedback on it yet — and the ladder is not yet on dialogues."
+      "gap": "After any saved reaction card (18) and after every finished dialogue role-play (9) the learner may say the same situation to a friend, a neighbour and an official in turn, each with a separate appropriateness self-check in Ukrainian (register, not content), saved ungraded, and then sees the own three replies side by side. Cues are an editorial draft pending S2 review (incl. how widely «sinä» is used with officials); appropriateness is self-reported only — no human feedback on it yet."
     },
     {
       "id": "guided-corpus-discovery",

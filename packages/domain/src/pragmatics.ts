@@ -1,6 +1,6 @@
 /**
- * Interlocutor change in speech acts (method pragmatic-speech-acts, P0). After a saved reaction card the learner MAY
- * perform the same act — the card's own situation — for three listeners in turn: a friend, a neighbour they barely know,
+ * Interlocutor change in speech acts (method pragmatic-speech-acts, P0). After a saved reaction card or a finished dialogue
+ * role-play the learner MAY perform the same act — the card's or the role-play's own situation — for three listeners in turn: a friend, a neighbour they barely know,
  * and an official or employer. Each reply gets a separate appropriateness self-check (register, not content), and at
  * the end the three own replies are shown side by side, so the learner notices what changed.
  *
@@ -9,7 +9,7 @@
  *  - replies are the learner's own Finnish, saved ungraded; the self-check is a report, never a score;
  *  - optional and stoppable after any listener; nothing locks or counts as a level.
  */
-import type { PracticeCard } from "./practice.ts";
+import type { Skill } from "./learner.ts";
 
 export type Interlocutor = "friend" | "neighbour" | "official";
 export interface InterlocutorStep { id: Interlocutor; who_uk: string; cue_uk: string; checks_uk: readonly string[] }
@@ -30,12 +30,14 @@ export const REGISTER_NOTE_UK = "У Фінляндії багато хто й в
 
 export const REGISTER_MAX_CHARS = 800;
 
-/** Only reaction cards (requests, refusals, clarifications in a situation) have the interlocutor ladder. */
-export const hasInterlocutorLadder = (card: Pick<PracticeCard, "kind">) => card.kind === "reaction";
+/** Reaction cards (requests, refusals, clarifications in a situation) and dialogue role-plays have the interlocutor ladder. */
+export type LadderKind = "reaction" | "dialogue";
+export interface LadderTarget { id: string; kind: string; attemptSkill: Skill }
+export const hasInterlocutorLadder = (card: { kind: string }): card is { kind: LadderKind } => card.kind === "reaction" || card.kind === "dialogue";
 
 /** Ungraded evidence for one listener; the appropriateness self-check is counted, never scored. */
-export function interlocutorEvidence(card: Pick<PracticeCard, "id" | "kind" | "attemptSkill">, who: Interlocutor, text: string, checked: readonly number[]) {
-  if (!hasInterlocutorLadder(card)) throw new Error("NOT_A_REACTION");
+export function interlocutorEvidence(card: LadderTarget, who: Interlocutor, text: string, checked: readonly number[]) {
+  if (!hasInterlocutorLadder(card)) throw new Error("NO_LADDER");
   const step = INTERLOCUTOR_LADDER.find(s => s.id === who);
   if (!step) throw new Error("UNKNOWN_INTERLOCUTOR");
   const t = String(text ?? "").trim();
