@@ -692,3 +692,13 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `apps/web`: `content/externalMissions.ts` (release: published only) and `ExternalMissionScreen` (Home → «Місії із зовнішніми джерелами»).
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
+
+**What the exam looks like (CURATED-09 part 8, docs/29 stage 4, 16.11.2026):**
+- `packages/domain/src/examLook.ts` builds three groups from `sources/official/yki-mock-simulation-sources.json`:
+  - two OPH pages;
+  - five SOLKI organizer example pages;
+  - five practice videos.
+- Link rules: https on `EXAM_LOOK_HOSTS` only; Ukrainian `title_uk`/`note_uk` required; a "verified 2027 mock" claim is refused.
+- A video with model answers says the time they start, so the learner answers first. The A1–A2 story videos are left out because they are not exam simulations.
+- `ExamLook` is a `<details>` on the rehearsal set-up screen only, never inside an attempt. It says that examples are not past exam items and that old formats are not the 2027 digital exam.
+- **Tests:** `exam-look.test.ts`, E2E «exam look (CURATED-09)…» in `exam-rules.spec.ts`.

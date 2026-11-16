@@ -12,6 +12,7 @@ import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { examProfileHash, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
+import { ExamLook } from "./ExamLook.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -330,6 +331,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         <button type="button" className="btn secondary" onClick={onHome}>На головну</button>
       </div>
       {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}
+      <ExamLook />
       <h2>Попередні репетиції</h2>
       <ExamHistoryList history={history} />
     </section>
