@@ -7,6 +7,7 @@ import { examContentVersion } from "../content/exam.ts";
 import { formatStorageMiB, inspectBrowserStorage, requestPersistentStorage, type BrowserStorageReport, type PersistenceRequest } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
 import { clearDeeds, hasDeeds } from "../storage/deeds.ts";
+import { clearScenarioChecks, hasScenarioChecks } from "../storage/scenarioChecks.ts";
 import { clearGoals, hasGoals } from "../storage/goals.ts";
 
 /**
@@ -96,7 +97,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         // Only after the LEARN erase committed (a conflict keeps everything): private real-life marks and the learner's
         // own goals go with LEARN data. Clear them BEFORE telling App, so App re-reads an empty goal record; App gets the
         // erased snapshot even if a clear is refused (that error is then shown).
-        try { clearDeeds(); clearGoals(); }
+        try { clearDeeds(); clearScenarioChecks(); clearGoals(); }
         finally { onErased(next); }
       }
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); }   // audio first: never orphan a recording
@@ -223,10 +224,10 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           : `Відновлення не підтверджено (${restoreStatus.error}). Перевір дані перед новою спробою.`}</p>}
 
       <h2>Видалити</h2>
-      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, твою мету й приватні позначки «зробив(ла) це в житті» (мета й позначки в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
+      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, твою мету, приватні позначки «зробив(ла) це в житті» і твою самоперевірку кроків «Цілої справи» (вони в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
       <fieldset className="choices-set">
         <legend>Що видалити</legend>
-        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasGoals())}
+        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasScenarioChecks() && !hasGoals())}
           onChange={() => { setScope("learn"); setErase("idle"); }} /> Увесь прогрес навчання{c && learnCount === 0 ? " (порожньо)" : ""}</label>
         <label className="radio"><input type="radio" name="erase" checked={scope === "exam"} disabled={!c || examCount === 0}
           onChange={() => { setScope("exam"); setErase("idle"); }} /> Усі пробні іспити, їхню історію й голосові записи{c && examCount === 0 ? " (порожньо)" : ""}</label>

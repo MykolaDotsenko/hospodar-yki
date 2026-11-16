@@ -258,7 +258,8 @@ HUMAN_GATE = re.compile(r"\bS2\b|human|manual|reviewer|rater|consent|legal|recor
 
 # Loaded files with no authored Finnish (Ukrainian criteria labels; outbound links titled by their publishers): nothing for
 # an S2 teacher. Mirrors NO_FINNISH_FILES in apps/web/src/content/reviewBanks.ts (scripts/tests checks they agree).
-NO_FINNISH_FILES = ("learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json")
+NO_FINNISH_FILES = ("learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json",
+                    "learning/exercises/b1/scenarios/whole-task-v1.json")
 
 
 def loaded_content(root: Path = ROOT) -> list[tuple[str, int]]:

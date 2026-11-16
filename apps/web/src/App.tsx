@@ -21,6 +21,7 @@ import { MediaScreen } from "./screens/MediaScreen.tsx";
 import { PictureMissionScreen } from "./screens/PictureMissionScreen.tsx";
 import { ReadingScreen } from "./screens/ReadingScreen.tsx";
 import { PracticeScreen } from "./screens/PracticeScreen.tsx";
+import { places } from "./content/places.ts";
 import { MasterclassScreen } from "./screens/MasterclassScreen.tsx";
 import { ExternalMissionScreen } from "./screens/ExternalMissionScreen.tsx";
 import { DataScreen } from "./screens/DataScreen.tsx";
@@ -67,7 +68,11 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const [startId, setStartId] = useState<string | null>(null);
   // A mission opened from «Майстерня слабких місць» returns there, not to Home.
   const [fromWorkshop, setFromWorkshop] = useState(false);
-  const goTo = (v: View, id: string | null = null, workshop = false) => { setStartId(id); setFromWorkshop(workshop); setView(v); };
+  // task-based: the condition of the «Ціла справа» step the learner opened from a place, shown above that task's screen.
+  const [scenarioNote, setScenarioNote] = useState<{ place: string; text: string } | null>(null);
+  const goTo = (v: View, id: string | null = null, workshop = false, note: { place: string; text: string } | null = null) => {
+    setStartId(id); setFromWorkshop(workshop); setScenarioNote(note); setView(v);
+  };
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
   // «План заняття»: memory only for this page visit — never written to storage (MOT-11), so a reload forgets it.
@@ -120,6 +125,10 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             <button type="button" className="btn secondary" onClick={applyUpdate}>Оновити зараз</button></div>
         )}
         {EMPTY_IN_RELEASE[view] && <NotReviewedYet onHome={() => goTo("home")} />}
+        {scenarioNote && view !== "home" && view !== "place" && view !== "exam" && (
+          <p className="plan-back scenario-banner" role="note" data-testid="scenario-banner"><strong>Ціла справа · {scenarioNote.place}.</strong> {scenarioNote.text}{" "}
+            <button type="button" className="link-btn" onClick={() => { setPlace(place); goTo("place"); }}>Назад до справи</button></p>
+        )}
         {loadError && <p className="feedback error" role="alert">Не вдалося прочитати локальний прогрес ({loadError}). Навчання працює, але нічого не буде збережено.</p>}
         {view === "home" && IN_RELEASE && (
           <p className="feedback" role="status" data-testid="release-notice">Збірка випуску: тут лише завдання, перевірені викладачем S2 (зараз {RELEASED_TASKS}).
@@ -128,7 +137,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }}
           session={session} onSession={setSession} start={(v, id) => goTo(v, id)} goals={goals} onGoals={setGoals} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
-          open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
+          open={(v, id, note) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id, false,
+            note ? { place: places.find(p => p.id === place)?.title_uk ?? "", text: note } : null)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); setGoals(readGoals()); }} onHome={() => goTo("home")} />}
         {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")} onFocus={onExamFocus}

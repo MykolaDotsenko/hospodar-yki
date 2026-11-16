@@ -12641,9 +12641,21 @@
         {
           "file": "packages/domain/test/scenario.test.ts",
           "contains": "orders understand → say → write, one item per skill; no scenario without understanding, speaking AND writing"
+        },
+        {
+          "file": "packages/domain/test/scenario.test.ts",
+          "contains": "whole task: every place script has a role, a goal, about 20 minutes, a condition and 2–4 success criteria per step, all in Ukrainian with no Finnish key"
+        },
+        {
+          "file": "packages/domain/test/scenario.test.ts",
+          "contains": "whole task: the learner's success checks are a self-report per step, validated, kept per place and skill, and dropped when malformed"
+        },
+        {
+          "file": "apps/web/e2e/scenario.spec.ts",
+          "contains": "whole task run (task-based): a role and goal; a purpose before understanding; a changed condition carried above the task screen; the learner checks task success after the step"
         }
       ],
-      "gap": "«Ціла справа» per place: one life situation as understand (reading/listening) → say (dialogue) → write (clinic), built from existing S2-pending LEARN items in 4 places (services, travel, work, society); a step is done after an own attempt, text-supported listening is shown as supported, success = done yourself, never a grade. Still missing: a 20-minute scenario with roles and changing conditions across steps, and explicit task-success criteria checked per step (writing/speaking stay ungraded until human raters)."
+      "gap": "«Ціла справа» per place: one life situation as understand (reading/listening) → say (dialogue) → write (clinic), built from existing S2-pending LEARN items in 5 places (housing, services, travel, work, society); a step is done after an own attempt, text-supported listening is shown as supported, success = done yourself, never a grade. The run is now a 20-minute scenario in all 5 places: a role and goal, a purpose before each understanding step, a changed condition before each own production (carried as a note above the task screen) and 2–3 explicit task-success criteria per step that the learner checks after it (self-report, kept on this device, never a grade; scripts are Ukrainian editorial drafts). Still missing: the changed condition is not built into the item itself (the partner's lines and prompts stay as authored), no human check of task success, and writing/speaking stay ungraded until human raters."
     },
     {
       "id": "error-bottleneck-deliberate",

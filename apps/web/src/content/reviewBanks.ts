@@ -53,8 +53,9 @@ export const EXAM_ITEM_IDS = new Set((exam as unknown as { blueprints: { skill_b
 /** Content files that hold only EXAM configuration or forms: reviewed in the sealed exam process, not here. */
 export const EXAM_ONLY_FILES = ["learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json", "learning/exercises/b1/exam-patterns/exam-profiles-v1.json"];
 /** Files a LEARN screen loads that hold no authored Finnish (Ukrainian criteria labels; a list of outbound links whose
- *  titles are the publishers' own): nothing for an S2 reviewer. */
-export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json"];
+ *  titles are the publishers' own; Ukrainian scenario roles, conditions and criteria): nothing for an S2 reviewer. */
+export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json",
+  "learning/exercises/b1/scenarios/whole-task-v1.json"];
 
 /** Mission catalogs in sources/ whose original Finnish task texts learners see; mirrors REVIEWABLE_SOURCE_CATALOGS in
  *  scripts/validate_content_publication.py (reviewBanks.test.ts checks they agree). */

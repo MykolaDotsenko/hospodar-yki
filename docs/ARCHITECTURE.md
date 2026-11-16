@@ -310,6 +310,16 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 - **Integrity fix (EXAM-11):** the two long listening lessons used by the EXAM mini rehearsals (`b1long-01`, `b1long-02`) were also offered in LEARN (the listening list and, since the YKI map, two places). `content/listening.ts` now exports the LEARN pool `listeningLessons` without any EXAM blueprint item; `allListeningLessons` stays for the delayed-check bank, which drops exam ids itself. The place test now checks the items quests open, not only index keys (the old check compared `b1long-1` prefixes and missed it). A learner's unfinished draft on a held-out lesson is shown as incompatible (fail closed), never resumed into LEARN. E2E fixtures moved to `b1long-03`.
 - **«Ціла справа»:** on a place screen, one life situation as ordered steps: understand (reading → listening) → say (dialogue) → write (writing clinic), one existing LEARN item per skill, offered only where all three exist (services, travel, work, society). A step is done after the learner's own attempt; listening done only with text support shows as "with support". Completing it means "done yourself" — never a grade.
+- **The 20-minute run (16.11.2026, task-based):** `learning/exercises/b1/scenarios/whole-task-v1.json` holds Ukrainian editorial drafts with no Finnish key. It is in `NO_FINNISH_FILES`. For each of the 5 places it gives:
+  - a role, a goal and about 20 minutes;
+  - per step, a condition: a purpose before understanding, or «Зміна: …» before each own production;
+  - 2–3 task-success criteria per step.
+  - `scriptedScenario` in `packages/domain/src/scenario.ts` uses a script only when it matches the place's steps skill by skill.
+  - `PlaceScreen` shows the role, the next step's condition and, after an own attempt, the criteria as a self-check (`StepCheck`).
+  - The condition travels with the opened step: `App` shows it as a «Ціла справа · …» note above the task screen, with «Назад до справи».
+  - Checks live in `storage/scenarioChecks.ts` (key `hospodar-yki:web:scenario-checks:v1`, readback-verified). They are never exported or counted and are erased with LEARN data on «Мої дані».
+  - Tests: `scenario.test.ts`, E2E «whole task run (task-based)…».
+  - **Not done:** the changed condition is not built into the item itself, and no human checks task success.
 - **Code:** `packages/domain/src/scenario.ts` (`buildScenario`, `scenarioProgress`; `test/scenario.test.ts`), `content/places.ts` (`Place.scenario`), `PlaceScreen`, `e2e/scenario.spec.ts`.
 - **Not done:** 20-minute scenarios with roles and conditions that change across steps; per-step task-success criteria for writing/speaking (needs human raters); new non-exam listening for housing and work.
 
