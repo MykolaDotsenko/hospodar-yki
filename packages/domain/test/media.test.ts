@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { admitExternalLink, admitMedia, admitVideo, normaliseLicence, shuffleOptions, type ExternalLink, type MediaEntry } from "../src/index.ts";
+import { admitCatalogLink, admitExternalLink, admitMedia, admitVideo, normaliseLicence, shuffleOptions, type ExternalLink, type MediaEntry } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
 const json = (p: string) => JSON.parse(readFileSync(new URL(p, root), "utf8"));
@@ -58,5 +58,18 @@ describe("media rights gate (AGENTS media rule)", () => {
     out.forEach((o, i) => expect(o.options[o.correct_index]).toBe(qs[i]!.options_fi[0]));
     expect(new Set(out.map(o => o.correct_index)).size).toBeGreaterThan(1);
     expect(shuffleOptions("x", ["a", "b", "c"], 2)).toEqual(shuffleOptions("x", ["a", "b", "c"], 2));
+  });
+
+  it("where to learn next (CURATED-09): catalog links only over https to reviewed learning hosts; competitor platforms and official YKI material are refused", () => {
+    const series = json("sources/publishers/publisher-series-catalog.json").sources as { url: string }[];
+    const episodes = json("sources/publishers/publisher-episode-catalog.json").items as { url: string; official_YKI_material: boolean }[];
+    const open = json("learning/exercises/b1/high-yield/independent-sources.json").entries as { id: number; url: string }[];
+    expect(series.every(l => admitCatalogLink(l).ok)).toBe(true);
+    expect(episodes.every(l => admitCatalogLink({ url: l.url, official_yki: l.official_YKI_material }).ok)).toBe(true);
+    expect(open.filter(l => admitCatalogLink(l).ok).map(l => l.id)).toEqual([1, 2, 3, 4, 5]);      // 6–8: competitor platforms, comparison only
+    expect(admitCatalogLink({ url: "http://yle.fi/a/1" })).toMatchObject({ ok: false });
+    expect(admitCatalogLink({ url: "https://user@yle.fi/a" })).toMatchObject({ ok: false });
+    expect(admitCatalogLink({ url: "https://yle.fi.evil.example/a" })).toMatchObject({ ok: false });
+    expect(admitCatalogLink({ url: "https://www.oph.fi/x", official_yki: true })).toMatchObject({ ok: false });
   });
 });

@@ -13,7 +13,7 @@ import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
 import { makeSession, PlanStart, SessionPlanPanel, type ActiveSession, type PlanTarget } from "./SessionPlanPanel.tsx";
 import { MyGoals, Welcome } from "./Welcome.tsx";
 
-export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
+export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "masterclass" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
 const SKILL_VIEW: Record<Skill, HomeTarget> = { reading: "reading", listening: "listening", writing: "writing", speaking: "dialogue" };
 const SKILL_WHAT: Record<Skill, string> = {
@@ -73,6 +73,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
     { id: "workshop", icon: "grammar", label: `Майстерня слабких місць${retestToday ? " · перевірка сьогодні" : weakSpots ? ` · слабких місць: ${weakSpots}` : ""}`,
       note: "Нові завдання впереміш на твої повторювані помилки", to: "workshop" },
     { id: "practice", icon: "practice", label: `Практика без підказки${phrasesDue > 0 ? ` · повторити ${phrasesDue}` : ""}`, note: "Фрази, реакції, власна думка", to: "practice" },
+    { id: "masterclass", icon: "steps", label: "Майстер-класи", note: "Урок на 25 хвилин: текст, виправлення, своя відповідь", to: "masterclass" },
     { id: "pictures", icon: "photo", label: "Фото-місії", note: "Опиши справжнє місце у Фінляндії", to: "pictures" },
     { id: "media", icon: "media", label: "Медіатека", note: "Живі голоси й відео з джерелами", to: "media" },
     { id: "diagnostic", icon: "start", label: state?.diagnostics.some(d => d.skill === "writing") ? "Стартова діагностика (ще раз)" : "Стартова діагностика", note: "Короткі завдання без оцінки рівня", to: "diagnostic" },

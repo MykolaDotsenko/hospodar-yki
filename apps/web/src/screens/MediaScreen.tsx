@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
-import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
+import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videoQuestions, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
+import { learnMore } from "../content/learnMore.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { TrustNote } from "../ui/TrustNote.tsx";
 import { IN_RELEASE } from "../content/release.ts";
@@ -82,7 +83,8 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
                     <track kind="captions" srcLang="fi" label="Suomi" src={v.captions} default />
                   </video>
                   <CreditLine c={v.credit} />
-                  {note(`media-${v.id}`, "listening", "Що ти зрозумів(ла)? (фінською, без оцінки)")}
+                  <VideoQuestions id={v.id} />
+                  {note(`media-${v.id}`, "listening", videoQuestions(v.id).length ? "Твої відповіді на питання (фінською, без оцінки)" : "Що ти зрозумів(ла)? (фінською, без оцінки)")}
                 </li>
               ))}
               {videosWithoutCaptions.map(v => (
@@ -91,6 +93,7 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
                   <p><strong>Поки недоступне тут:</strong> немає перевірених субтитрів. Відео з'явиться, коли субтитри підготує й перевірить редактор.</p>
                   {v.credit?.source && <p><a href={v.credit.source} target="_blank" rel="noopener noreferrer">Подивитися на сайті джерела ↗</a></p>}
                   {v.credit && <CreditLine c={v.credit} />}
+                  <VideoQuestions id={v.id} />
                 </li>
               ))}
             </ul>
@@ -124,7 +127,24 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
 
         {tab === "links" && (
           <>
-            <p>Відео на YouTube відкриваються на сайті автора. Застосунок їх не завантажує, не копіює й не вбудовує.</p>
+            <p>Усе тут відкривається на сайті автора чи видавця. Застосунок нічого не завантажує, не копіює й не вбудовує.</p>
+            {learnMore.map(g => g.links.length > 0 && (
+              <section key={g.id} className="learn-more" aria-labelledby={`lm-${g.id}`} data-testid={`learn-more-${g.id}`}>
+                <h2 id={`lm-${g.id}`}>{g.title_uk}</h2>
+                <p className="muted">{g.about_uk}</p>
+                <ul className="learn-more-list">
+                  {g.links.map(l => (
+                    <li key={l.id}>
+                      <a href={l.url} target="_blank" rel="noopener noreferrer"><span lang="fi">{l.title}</span> ↗</a>
+                      <p className="muted">{[l.by, l.level, l.host].filter(Boolean).join(" · ")}</p>
+                      <p>{l.why_uk}</p>
+                      {l.prompt_fi && !IN_RELEASE && <p>Після перегляду спробуй сам(а) (чернетка): <span lang="fi">{l.prompt_fi}</span></p>}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+            <h2>Відео на YouTube</h2>
             <ul className="media-grid">
               {externalLinks.map(l => (
                 <li key={l.id} className="media-card">
@@ -183,5 +203,18 @@ function NoteForm({ taskId, skill, label, prompt, repository, snapshot, onSaved 
       {state === "saved" && <p className="feedback" role="status">Збережено без оцінки.</p>}
       <div className="actions"><button type="submit" className="btn secondary" disabled={state === "saving"}>{state === "saving" ? "Зберігаю…" : "Зберегти нотатку"}</button></div>
     </form>
+  );
+}
+
+/** Questions to a video (no key: the answer is an ungraded note). Finnish first; the Ukrainian wording only on request. */
+function VideoQuestions({ id }: { id: string }) {
+  const qs = videoQuestions(id);
+  if (!qs.length) return null;
+  return (
+    <div className="video-questions" data-testid={`video-questions-${id}`}>
+      <h4>Питання до відео</h4>
+      <ol>{qs.map(q => <li key={q.id} lang="fi">{q.prompt_fi}</li>)}</ol>
+      <details><summary>Питання українською</summary><ol>{qs.map(q => <li key={q.id}>{q.prompt_uk}</li>)}</ol></details>
+    </div>
   );
 }

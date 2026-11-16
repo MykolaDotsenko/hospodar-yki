@@ -656,3 +656,31 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Elsewhere:** the reviewer workspace has the bank «Форма слова в реченні», 22 banks in all.
 - **Tests:** `practice.test.ts` (source named, no score, Finnish grammar terms as group names) and the E2E «corpus form card (CURATED-09)…».
 - **Not done:** S2 curation of literary or archaic sentences; not spaced like chunk/rektio cards.
+
+**Update 2026-11-16 — part 3: tense and clock lessons as «Час дієслова й годинник» practice cards.**
+
+- **Source:** `learning/exercises/grammar/tenses/lessons.json` (4 tense explanations, 8 choices and 1 open item) and `time-and-clock/lessons.json` (4 examples, 3 choices). No screen loaded them.
+- **The cards:** they are now the practice kind `time` (`tenseCard`, `clockCard`). The learner chooses first; that choice is scored like any keyed choice, as reading. Then comes the explanation:
+  - for tenses: the tense's form and examples;
+  - for clock items: the matching example.
+- **Pictures:** a card may carry an `illustrationId`. `PracticeScreen` shows that picture from the illustration library with its credit, only in the reveal, because it shows the answer:
+  - the tense timeline for tenses;
+  - the clock face whose time is the answer for clock items. No picture is invented for 9.45.
+- **Open item:** the open pluperfect item becomes the new-situation prompt of the pluperfect cards. The own sentence stays ungraded.
+- **Elsewhere:** reviewer banks «Часи дієслова» and «Годинник і час» (24 banks). Release builds keep only published items.
+- **Tests:** `practice.test.ts` (counts, scored choice, ungraded rest, picture only after the attempt) and the E2E «clock card (CURATED-09)…».
+
+**Video questions and writing criteria (CURATED-09 part 4, 16.11.2026):**
+- `content/media.ts` loads `learning/exercises/video/exercises.json`. In the media library each open video, playable or link-only, shows its questions in Finnish (gist, detail, opinion), with the Ukrainian wording in a `<details>` on request. There is no answer key, and the note under a playable video is the learner's own Finnish answers, ungraded. Reviewer bank «Питання до відео» (25 banks).
+- `content/writingClinic.ts` loads `feedback-rubrics.json` for the criteria **labels only**. The rewrite step of the writing clinic shows them as a wider self-check «не бал і не шкала YKI». The internal weights are heuristic, not OPH, and never shown. The file holds no Finnish, so it is in `NO_FINNISH_FILES`, not a reviewer bank.
+- **Tests:** E2E «video questions (CURATED-09)…» and «writing criteria (CURATED-09)…».
+
+**Masterclasses (CURATED-09 part 5, 16.11.2026):**
+- `packages/domain/src/masterclass.ts`: `toMasterclass` (refuses a lesson without two keyed questions, a repair, a response and a transfer, or whose text already prints the better version or the model), the phase machine check → checked → repair → repaired → respond → model → transfer → done, `masterclassView` (keys after both answers, better version after the own repair, model after the own answer, no text or model in the transfer) and `masterclassEvidence`. Only the two keyed questions are scored, as **reading**: the listening masterclasses show a teaching text, not a transcript, so they never count as listening. Repair, response and transfer are ungraded; the comparison list is the file's feedback dimensions as Ukrainian labels, never weights.
+- `apps/web`: `content/masterclasses.ts` (release builds keep only S2-published lessons), `MasterclassScreen` (Home → «Майстер-класи»; verified save of the finished lesson only). A listening masterclass offers its recording's own listening lesson first. Reviewer bank «Майстер-класи» (26 banks).
+- **Tests:** `packages/domain/test/masterclass.test.ts`, E2E `e2e/masterclass.spec.ts`.
+
+**Where to learn next (CURATED-09 part 6, 16.11.2026):**
+- `admitCatalogLink` in `packages/domain/src/media.ts`: https only, no credentials or port, host on `CATALOG_LINK_HOSTS` (Yle, Yle Areena, Kielibuusti, Finna, Suomi-koulut, OPH), never official YKI material. Competitor platforms are not on the list, so the comparison-only entries of `independent-sources.json` never reach learners.
+- `content/learnMore.ts` builds three groups from `sources/publishers/publisher-series-catalog.json`, `publisher-episode-catalog.json` and `independent-sources.json` (Ukrainian `why_uk` in each catalog). The media library tab «Зовнішні джерела» shows them as ruled link rows above the YouTube cards. Nothing is downloaded, copied or embedded; draft Finnish prompts appear only in beta builds. `independent-sources.json` holds no authored Finnish, so it is in `NO_FINNISH_FILES`.
+- **Tests:** `media.test.ts` «where to learn next…», E2E «where to learn next (CURATED-09)…».

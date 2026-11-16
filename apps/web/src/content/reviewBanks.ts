@@ -14,6 +14,10 @@ import opinions from "../../../../learning/exercises/b1/high-yield/opinion-argum
 import chunks from "../../../../knowledge/dictionaries/b1/contextual-chunks-v1.json";
 import rektio from "../../../../knowledge/dictionaries/b1/rektio-v1.json";
 import forms from "../../../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json";
+import tenses from "../../../../learning/exercises/grammar/tenses/lessons.json";
+import clock from "../../../../learning/exercises/grammar/time-and-clock/lessons.json";
+import videoExercises from "../../../../learning/exercises/video/exercises.json";
+import masterclassLessons from "../../../../learning/exercises/b1/masterclasses/lessons.json";
 import dialogues from "../../../../learning/exercises/b1/contextual/dialogues-v1.json";
 import moves from "../../../../learning/exercises/b1/contextual/negotiation-moves-v1.json";
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
@@ -30,7 +34,7 @@ import librivox from "../../../../learning/exercises/b1/audio-training/librivox-
 import audioVisual from "../../../../learning/exercises/a1/audio-visual/lessons.json";
 
 type Json = Record<string, unknown>;
-export type WalkScreen = "mission" | "r08" | "practice" | "dialogue" | "reading" | "writing" | "listening" | "pictures" | "diagnostic" | "media";
+export type WalkScreen = "mission" | "r08" | "practice" | "dialogue" | "reading" | "writing" | "listening" | "pictures" | "diagnostic" | "media" | "masterclass";
 export interface ReviewUnit { file: string; id: string; item: Json; label: string }
 export interface ReviewBank {
   id: string; title_uk: string; skills: ReviewSkill[]; audio: boolean;
@@ -45,6 +49,9 @@ export const EXAM_ITEM_IDS = new Set((exam as unknown as { blueprints: { skill_b
   .flatMap(b => b.skill_blocks.map(s => s.item_id)));
 /** Content files that hold only EXAM configuration or forms: reviewed in the sealed exam process, not here. */
 export const EXAM_ONLY_FILES = ["learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json", "learning/exercises/b1/exam-patterns/exam-profiles-v1.json"];
+/** Files a LEARN screen loads that hold no authored Finnish (Ukrainian criteria labels; a list of outbound links whose
+ *  titles are the publishers' own): nothing for an S2 reviewer. */
+export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json"];
 
 export const unitId = (item: Json) => String(item.id ?? item.lesson_id ?? item.task_id ?? "");
 const LABEL_KEYS = ["prompt_fi", "title_fi", "expression_fi", "construction_fi", "question_fi", "stimulus_fi", "source_fi", "initial_prompt_fi",
@@ -119,6 +126,22 @@ export const reviewBanks: ReviewBank[] = [
   { id: "listening", title_uk: "Аудіювання: довгі записи (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
     where_uk: "Аудіювання", walk: { screen: "listening", perItem: true },
     ...rows(listening, "lessons", `${B1}/audio-long/lessons.json`) },
+  { id: "tenses", title_uk: "Часи дієслова: вибір форми й пояснення", skills: ["reading", "writing"], audio: false, source: ORIGINAL,
+    where_uk: "Практика → «Час дієслова й годинник»: вибір, потім пояснення часу й часова шкала; відкрите завдання стає новою ситуацією",
+    walk: { screen: "practice", perItem: false },
+    ...rows(tenses, "exercises", "learning/exercises/grammar/tenses/lessons.json") },
+  { id: "clock", title_uk: "Годинник і час", skills: ["reading", "writing"], audio: false, source: ORIGINAL,
+    where_uk: "Практика → «Час дієслова й годинник»: вибір, потім приклад і годинник (лише після спроби)",
+    walk: { screen: "practice", perItem: false },
+    ...rows(clock, "exercises", "learning/exercises/grammar/time-and-clock/lessons.json") },
+  { id: "video-questions", title_uk: "Питання до відкритих відео", skills: ["listening"], audio: true, source: ORIGINAL,
+    where_uk: "Медіатека → Відео: питання (суть, деталь, думка) без ключа; відповідь — нотатка без оцінки",
+    walk: { screen: "media", perItem: false },
+    ...rows(videoExercises, "items", "learning/exercises/video/exercises.json") },
+  { id: "masterclasses", title_uk: "Майстер-класи", skills: ["reading", "listening", "speaking", "writing"], audio: false, source: ORIGINAL,
+    where_uk: "Майстер-класи: текст і два питання з ключами після відповіді, невдала відповідь і краща версія, зразок, нова ситуація без зразка",
+    walk: { screen: "masterclass", perItem: false },
+    ...rows(masterclassLessons, "lessons", `${B1}/masterclasses/lessons.json`) },
   { id: "forms", title_uk: "Форма слова в реченні (корпус UD Finnish FTB, CC BY 4.0)", skills: ["writing"], audio: false,
     source: { kind: "licensed", license: "CC BY 4.0" },
     where_uk: "Практика → «Форма слова в реченні»: самопорівняння, без оцінки; речення з корпусу, потрібне редагування S2 (архаїчний чи літературний контекст)",

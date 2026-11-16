@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { containsExamItem, EXAM_ITEM_IDS, EXAM_ONLY_FILES, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
+import { containsExamItem, EXAM_ITEM_IDS, EXAM_ONLY_FILES, NO_FINNISH_FILES, reviewBanks, reviewUnitCount } from "./reviewBanks.ts";
 import { exercises } from "./cloze.ts";
 import { practiceCards } from "./practice.ts";
 import { dialogues } from "./dialogues.ts";
@@ -23,7 +23,7 @@ describe("S2 reviewer workspace banks (docs/29 stage 1, QL-01)", () => {
     expect(loaded.size).toBeGreaterThan(15);
     const files = new Set(units.map(x => x.u.file));
     for (const f of loaded) {
-      if (EXAM_ONLY_FILES.includes(f)) continue;
+      if (EXAM_ONLY_FILES.includes(f) || NO_FINNISH_FILES.includes(f)) continue;
       const covered = f.endsWith("*") ? [...files].some(x => x.startsWith(f.slice(0, -1))) : files.has(f);
       expect(covered, f).toBe(true);
     }

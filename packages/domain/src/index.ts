@@ -39,3 +39,4 @@ export * from "./goals.ts";
 export * from "./mediaRules.ts";
 export * from "./locationCases.ts";
 export * from "./examRules.ts";
+export * from "./masterclass.ts";

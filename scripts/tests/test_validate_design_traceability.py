@@ -2,6 +2,7 @@
 from pathlib import Path
 import copy
 import json
+import re
 import sys
 import unittest
 
@@ -171,7 +172,7 @@ class MethodCoverageTests(unittest.TestCase):
         self.assertNotIn("hybrid-ai-teacher-loop", text)                  # excluded by product decision
         self.assertLess(free.index(" P0 "), free.index(" P1 "))
         self.assertIn("EXAM simulator requirements not fully met", text)
-        self.assertIn("learning/exercises/b1/feedback-rubrics.json", text)
+        self.assertIn("learning/exercises/b1/audio-long/source-lessons.json", text)   # a synthesis script source, no app loads it
         self.assertNotIn("themes/01-mina-ja-taustani.json", text)          # loaded through a folder glob
         self.assertNotIn("paraphrase-drills.json", text)                  # loaded by apps/web
 
@@ -179,10 +180,17 @@ class MethodCoverageTests(unittest.TestCase):
         text = human_queue(self.doc, REGISTRY)
         self.assertIn("S2 teacher review", text)
         self.assertIn("knowledge/dictionaries/b1/contextual-chunks-v1.json", text)   # learners already see it
-        self.assertNotIn("feedback-rubrics.json", text)                              # not loaded → not in the review queue
+        self.assertNotIn("audio-long/source-lessons.json", text)                     # not loaded → not in the review queue
+        self.assertNotIn("feedback-rubrics.json", text)                              # loaded, but holds no Finnish → nothing for S2
         self.assertIn("finnish-quantity-dual-track", text)                           # waits for human recordings
         self.assertNotIn("interleaving-grammar", text)                               # buildable by code → not a human task
         self.assertIn("Human studies not run", text)
+
+    def test_no_finnish_files_agree_with_the_web_reviewer_registry(self):
+        from validate_design_traceability import NO_FINNISH_FILES
+        web = (ROOT / "apps/web/src/content/reviewBanks.ts").read_text(encoding="utf-8")
+        line = next(l for l in web.splitlines() if l.startswith("export const NO_FINNISH_FILES"))
+        self.assertEqual(sorted(re.findall(r'"([^"]+)"', line)), sorted(NO_FINNISH_FILES))
 
 
 if __name__ == "__main__":

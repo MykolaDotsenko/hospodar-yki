@@ -114,57 +114,9 @@
       "plan_uk": "Етап 4: посилання «як виглядає іспит» перед репетицією; не підміняє ручний перегляд демо OPH."
     },
     {
-      "path": "sources/publishers/publisher-episode-catalog.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Окремі епізоди видавців (Yle Areena тощо) з оцінкою користі.",
-      "plan_uk": "Етап 2: посилання в «Медіатеці» й місцях, лише через гейт зовнішніх посилань."
-    },
-    {
-      "path": "sources/publishers/publisher-series-catalog.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Серії видавців рівня B1 (аудіовізуальні й практичні).",
-      "plan_uk": "Етап 2: посилання в «Медіатеці», лише через гейт зовнішніх посилань."
-    },
-    {
       "path": "learning/exercises/b1/audio-long/source-lessons.json",
       "reason": "NOT_LEARNER_MATERIAL",
       "note_uk": "Вихідний сценарій для синтезу довгих аудіоуроків; застосунок використовує готовий lessons.json."
-    },
-    {
-      "path": "learning/exercises/b1/feedback-rubrics.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Критерії зворотного зв'язку для письма й говоріння.",
-      "plan_uk": "Етап 2: пункти самоперевірки після власного тексту — ніколи не бал (R04)."
-    },
-    {
-      "path": "learning/exercises/b1/high-yield/independent-sources.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Незалежні відкриті джерела (VIERKO, CC BY-SA тощо) з поясненням користі.",
-      "plan_uk": "Етап 2: посилання «де вчитися далі» в «Медіатеці»."
-    },
-    {
-      "path": "learning/exercises/b1/masterclasses/lessons.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "12 майстер-класів (зразок і ключі після власної спроби).",
-      "plan_uk": "Етап 2: окремий тип уроку з тими самими правилами першої спроби."
-    },
-    {
-      "path": "learning/exercises/grammar/tenses/lessons.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "9 уроків часів дієслова (чернетка, очікує рецензії S2).",
-      "plan_uk": "Етап 2: уроки граматики разом з ілюстрацією tense-timeline.svg."
-    },
-    {
-      "path": "learning/exercises/grammar/time-and-clock/lessons.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "4 уроки «час і годинник» (чернетка, очікує рецензії S2).",
-      "plan_uk": "Етап 2: разом з ілюстраціями годинника з бібліотеки."
-    },
-    {
-      "path": "learning/exercises/video/exercises.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "3 вправи до відкритих відео (не для оцінювання).",
-      "plan_uk": "Етап 2: завдання до відео в «Медіатеці» — лише навчання, без оцінки."
     }
   ]
 }

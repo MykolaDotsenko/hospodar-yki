@@ -32,7 +32,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Обмін і повернення одягу: скарга й розв'язання в магазині."
     },
     {
       "id": "yle-asiointisuomea-take-home-insurance",
@@ -58,7 +59,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "П'ять хвилин у банку: страхування житла, ціна й власна частка."
     },
     {
       "id": "yle-asiointisuomea-bank-card",
@@ -84,7 +86,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Хвилина в банку: як замовити картку, документ і уточнення."
     },
     {
       "id": "yle-asiointisuomea-try-discount",
@@ -110,7 +113,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Примірка й знижки: розміри й ввічливі запитання."
     },
     {
       "id": "yle-asiointisuomea-cafe",
@@ -135,7 +139,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Замовлення в кав'ярні: легке повторення рівня A2."
     },
     {
       "id": "yle-asiointisuomea-grocery-offers",
@@ -161,7 +166,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Акції й оплата в продуктовому: ціни, кількість, перепитування."
     },
     {
       "id": "yle-asiointisuomea-library-search",
@@ -187,7 +193,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Пошук і бронювання книжки в бібліотеці."
     },
     {
       "id": "yle-asiointisuomea-child-clothes",
@@ -213,7 +220,8 @@
       "playback_verified": false,
       "embedding_allowed": null,
       "transcript_on_publisher_page": "series_page_says_written_dialogues_available",
-      "official_YKI_material": false
+      "official_YKI_material": false,
+      "why_uk": "Як підібрати дитині одяг потрібного розміру."
     }
   ]
 }

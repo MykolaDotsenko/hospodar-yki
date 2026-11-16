@@ -7,56 +7,64 @@
       "title": "VIERKO 2 (2026) S2 A2.2",
       "url": "https://www.finna.fi/L1Record/aoe.5839?lng=en-gb",
       "rights": "CC BY-SA 4.0, 2026, 3 units, full licensed open teaching material",
-      "benefit": "A2.2-B1 scaffold, not official YKI"
+      "benefit": "A2.2-B1 scaffold, not official YKI",
+      "why_uk": "Відкритий підручник S2 рівня A2.2 (CC BY-SA 4.0), три розділи; не офіційний YKI."
     },
     {
       "id": 2,
       "title": "VIERKO (2024) S2",
       "url": "https://www.finna.fi/Record/aoe.4276",
       "rights": "CC BY-SA 4.0, direct PDFs: interaction, text genres, writing",
-      "benefit": "Useful full source PDF content; cite original authors"
+      "benefit": "Useful full source PDF content; cite original authors",
+      "why_uk": "Відкриті матеріали S2 (CC BY-SA 4.0): взаємодія, жанри текстів, письмо."
     },
     {
       "id": 3,
       "title": "Yle B1 YKI (2024)",
       "url": "https://yle.fi/a/74-20082612",
       "rights": "copyrighted; do not redistribute",
-      "benefit": "90 reading/listening questions across 9 topics, external practice"
+      "benefit": "90 reading/listening questions across 9 topics, external practice",
+      "why_uk": "Yle: 90 питань на читання й аудіювання за 9 темами."
     },
     {
       "id": 4,
       "title": "Suomi-koulujen tuki",
       "url": "https://www.suomikoulut.fi/yki/",
       "rights": "third-party; permission to redistribute not established",
-      "benefit": "70 linked exercises, including 28 listening"
+      "benefit": "70 linked exercises, including 28 listening",
+      "why_uk": "Підтримка Suomi-koulut: 70 вправ, з них 28 на аудіювання."
     },
     {
       "id": 5,
       "title": "Kielibuusti A2-B2 podcasts",
       "url": "https://www.kielibuusti.fi/fi/opi-suomea/itseopiskelumateriaalit-ja-kurssit/etsi-itseopiskelumateriaaleja/helppoja-podcasteja",
       "rights": "podcast-specific rights; link only",
-      "benefit": "Extended listening habit, graded context"
+      "benefit": "Extended listening habit, graded context",
+      "why_uk": "Легкі подкасти Kielibuusti A2–B2 для звички слухати довше."
     },
     {
       "id": 6,
       "title": "YKI Mock platform",
       "url": "https://ykimock.fi/",
       "rights": "third-party platform, terms required",
-      "benefit": "For competitor UX comparison only; claims not independently evaluated"
+      "benefit": "For competitor UX comparison only; claims not independently evaluated",
+      "why_uk": "Конкурентна платформа: лише для порівняння продукту, учням не показується."
     },
     {
       "id": 7,
       "title": "YKI Test Prep platform",
       "url": "https://ykitestprep.com/",
       "rights": "third-party platform, terms required",
-      "benefit": "Large claimed bank for comparative evaluation, not official"
+      "benefit": "Large claimed bank for comparative evaluation, not official",
+      "why_uk": "Конкурентна платформа: лише для порівняння продукту, учням не показується."
     },
     {
       "id": 8,
       "title": "YKI Prep",
       "url": "https://www.ykiprep.com/",
       "rights": "third-party platform, terms required",
-      "benefit": "Commercial AI B1 practice, quality needs review"
+      "benefit": "Commercial AI B1 practice, quality needs review",
+      "why_uk": "Конкурентна платформа: лише для порівняння продукту, учням не показується."
     }
   ]
 }

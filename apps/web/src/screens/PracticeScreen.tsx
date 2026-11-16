@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
+import { illustrations } from "../content/media.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
@@ -126,11 +127,13 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
   const meta = PRACTICE_KINDS.find(k => k.kind === card.kind)!;
   const planning = card.kind === "opinion";                                // pre-task planning only before a monologue
   const routeSteps = card.kind === "paraphrase" ? ["Твій вибір", "Пояснення", "Своїми словами", "Нова ситуація"]
+    : card.kind === "time" ? ["Твій вибір", "Пояснення", "Нова ситуація"]
     : planning ? ["План і відповідь", "Зразок", "Нова ситуація"] : ["Твоя відповідь", "Зразок", "Нова ситуація"];
   // The optional plan shares the first step with the answer, so a skipped plan is never announced as "done".
   const routeIndex = card.kind === "paraphrase" ? { plan: 0, attempt: 0, reveal: 1, recall: 2, transfer: 3, done: 4 }[s.phase]
     : { plan: 0, attempt: 0, reveal: 1, recall: 1, transfer: 2, done: 3 }[s.phase];
   const speaking = card.transferSkill === "speaking";
+  const illustration = card.illustrationId ? illustrations.find(i => i.id === card.illustrationId) ?? null : null;
 
   return (
     <section className="panel" data-accent={card.attemptSkill} aria-labelledby="pr-run">
@@ -173,7 +176,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
         <form onSubmit={e => { e.preventDefault(); step({ type: "ANSWER", value }); }} noValidate>
           {v.options_fi ? (
             <fieldset className="choices-set">
-              <legend>Обери речення з тим самим значенням</legend>
+              <legend>{card.kind === "time" ? "Обери варіант" : "Обери речення з тим самим значенням"}</legend>
               {v.options_fi.map((o, i) => (
                 <label key={i} className="radio"><input type="radio" name="pr-choice" checked={value === String(i)} onChange={() => setValue(String(i))} /> <span lang="fi">{o}</span></label>
               ))}
@@ -196,6 +199,12 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
           {v.plan && <p className="plan-back"><strong>Твій план:</strong> {v.plan}<br /><span className="muted">Порівняй: що з плану ти встиг(ла) сказати, а що можна додати?</span></p>}
           {v.key_fi !== null && <p className="feedback" role="status"><strong>{v.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{v.key_fi}</span></p>}
           <Lines lines={v.reveal} />
+          {illustration && (                                               // shows the answer, so only after the first attempt
+            <figure className="practice-figure">
+              <img src={illustration.url} alt={illustration.alt_uk} width={240} height={240} />
+              <figcaption className="muted">{illustration.credit.credit} · {illustration.credit.licence}</figcaption>
+            </figure>
+          )}
           {v.needsJudgement && (
             <div className="actions" role="group" aria-label="Порівняй свою відповідь зі зразком">
               {(Object.keys(JUDGE_UK) as PracticeJudgement[]).map(j => (

@@ -5087,6 +5087,10 @@
         {
           "file": "apps/web/e2e/picture-mission.spec.ts",
           "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence"
         }
       ],
       "gap": "Photos and SVGs with credit; grammar motion/timeline interactions not built (SENS-08, UIO-06)."
@@ -5207,9 +5211,49 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "corpus form card (CURATED-09): write the form, then the source form, the whole sentence and the CC BY attribution; self-compared, never scored"
+        },
+        {
+          "file": "apps/web/src/content/practice.test.ts",
+          "contains": "tense and clock cards (CURATED-09): choose first (scored like any keyed choice), then the explanation and the picture that shows the answer, then an own sentence"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "video questions (CURATED-09): each open video has its gist/detail/opinion questions in Finnish, Ukrainian on request, no answer key"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "writing criteria (CURATED-09): the rewrite step offers the rubric's criteria as a wider self-check — labels only, no weight, score or YKI scale"
+        },
+        {
+          "file": "packages/domain/test/masterclass.test.ts",
+          "contains": "masterclass: keys only after both own answers; the better version only after the own repair; the model only after the own answer; the new situation shows neither text nor model"
+        },
+        {
+          "file": "packages/domain/test/masterclass.test.ts",
+          "contains": "masterclass: only the two keyed questions are scored, as reading; repair, own answer and new situation are ungraded and say how they were made"
+        },
+        {
+          "file": "apps/web/e2e/masterclass.spec.ts",
+          "contains": "masterclass (CURATED-09): own answers first; key, better version and model only after; new situation without text or model; two questions count as reading, texts ungraded"
+        },
+        {
+          "file": "apps/web/e2e/masterclass.spec.ts",
+          "contains": "masterclass (CURATED-09): a listening masterclass says its text is not the transcript and opens the recording's own listening lesson"
+        },
+        {
+          "file": "packages/domain/test/media.test.ts",
+          "contains": "where to learn next (CURATED-09): catalog links only over https to reviewed learning hosts; competitor platforms and official YKI material are refused"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "where to learn next (CURATED-09): publisher series, Yle Areena episodes and open materials as link rows; reviewed hosts only, competitor platforms never shown, nothing embedded"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Still registered: 2 logo variants (not for learners), 10 link catalogs and 7 content files (code queue item 10)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. The video exercises are each open video's questions in the media library (Finnish, Ukrainian on request, no key); the writing rubric's criteria labels (no weights) are a wider self-check on the rewrite step. The 12 masterclasses are a lesson type «Майстер-класи» (two keyed questions as reading, then own repair, own answer before the model, new situation without either; listening masterclasses open their recording's own lesson). «Де вчитися далі» in the media library: publisher series, Yle Areena episodes and open materials as link rows (admitCatalogLink: https, reviewed learning hosts, not official YKI; the competitor platforms in independent-sources.json are comparison-only and never shown). Still registered: 2 logo variants (not for learners), 8 link catalogs with tasks or exam use, 1 synthesis source (code queue item 10)."
     },
     {
       "id": "CURATED-10",
