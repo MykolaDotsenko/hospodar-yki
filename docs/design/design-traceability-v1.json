@@ -5199,9 +5199,17 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "saved theme recording (CURATED-09): a place's notice is a listening lesson; text and the slower recording only after the answers"
+        },
+        {
+          "file": "apps/web/src/content/practice.test.ts",
+          "contains": "corpus form cards (CURATED-09): source and adaptation named, the form not visible before the attempt, the answer self-compared and never scored"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "corpus form card (CURATED-09): write the form, then the source form, the whole sentence and the CC BY attribution; self-compared, never scored"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. Still registered: 2 logo variants (not for learners), 10 link catalogs and 8 content files (code queue item 10)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Still registered: 2 logo variants (not for learners), 10 link catalogs and 7 content files (code queue item 10)."
     },
     {
       "id": "CURATED-10",

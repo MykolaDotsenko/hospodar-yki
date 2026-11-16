@@ -17,7 +17,7 @@
  */
 import { addDiagnostic, dueCards, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
-export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio";
+export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio" | "form";
 export type PracticeJudgement = "same" | "partly" | "different";
 export interface PracticeLine { label_uk: string; text: string; lang: "fi" | "uk" }
 export interface PracticeCard {
@@ -72,7 +72,7 @@ export class PracticeError extends Error {
   constructor(public readonly code: "NOT_ALLOWED" | "EMPTY" | "INVALID" | "NOT_JUDGED", m: string) { super(m); this.name = "PracticeError"; }
 }
 
-const KINDS: PracticeKind[] = ["paraphrase", "reaction", "opinion", "chunk", "rektio"];
+const KINDS: PracticeKind[] = ["paraphrase", "reaction", "opinion", "chunk", "rektio", "form"];
 const SKILLS: Skill[] = ["reading", "listening", "writing", "speaking"];
 const okLine = (l: PracticeLine | undefined) => !!l && typeof l.text === "string" && l.text.trim().length > 0 &&
   typeof l.label_uk === "string" && (l.lang === "fi" || l.lang === "uk");
@@ -228,6 +228,30 @@ export interface ReactionItem { id: string; domain: string; stimulus_fi: string;
 export interface OpinionItem { id: string; theme: string; question_fi: string; question_uk: string; required_points_fi: string[]; constraint_change_fi: string; scaffold_hidden_until_attempt: string[]; linguistic_review: string }
 export interface ChunkItem { id: string; theme: string; expression_fi: string; meaning_uk: string; context_fi: string; context_uk: string; grammar_note: string | null; linguistic_review: string }
 export interface RektioItem { id: string; construction_fi: string; case_or_pattern: string; meaning_uk: string; example_fi: string; example_uk: string; quality_status: string }
+
+/** A corpus sentence with one word form removed (UD Finnish FTB, CC BY 4.0): ftb-frequency-cloze-v1.json. */
+export interface FormItem {
+  id: string; grammar_focus: string; cloze_fi: string; context_fi: string; answer_fi: string; lemma_fi: string;
+  teacher_review: string; original_source: string; source_license: string;
+}
+/**
+ * «Форма слова в реченні» (CURATED-09): write the form of the lemma that fits the sentence, then see the corpus form and
+ * compare yourself. The corpus keeps ONE form; another natural form may be right too, so the first answer is
+ * self-compared and never scored. The source and the adaptation are named on the card (CC BY 4.0 requires it).
+ */
+export function formCard(i: FormItem): PracticeCard {
+  return {
+    id: i.id, kind: "form", group: i.grammar_focus, attemptSkill: "writing", transferSkill: "writing", reviewStatus: i.teacher_review,
+    prompt: [{ label_uk: "Впиши форму слова в дужках, яка пасує до речення", text: `${i.cloze_fi.replace(/_{3,}/, "___")} (${i.lemma_fi})`, lang: "fi" }],
+    reveal: [
+      { label_uk: "Форма в джерелі", text: i.answer_fi, lang: "fi" },
+      { label_uk: "Усе речення", text: i.context_fi, lang: "fi" },
+      { label_uk: "Зверни увагу", text: "Речення з корпусу має одну форму; інша природна форма теж може бути правильною — порівняй сам(а), це не бал.", lang: "uk" },
+      { label_uk: "Джерело", text: `${i.original_source} · ${i.source_license} · адаптовано: одне слово замінено пропуском`, lang: "uk" },
+    ],
+    transfer: { label_uk: "Нова ситуація", text: `Склади власне речення про своє життя з формою «${i.answer_fi}».`, lang: "uk" },
+  };
+}
 
 export function paraphraseCard(i: ParaphraseItem): PracticeCard {
   return {

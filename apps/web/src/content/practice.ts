@@ -3,13 +3,14 @@
  * (learning/exercises/b1/high-yield, knowledge/dictionaries/b1). All cards are S2-pending drafts.
  * EXAM-11 isolation: any id an EXAM blueprint uses is never offered here.
  */
-import { chunkCard, opinionCard, paraphraseCard, reactionCard, rektioCard, validatePracticeCard, type PracticeCard, type PracticeKind,
-  type ChunkItem, type OpinionItem, type ParaphraseItem, type ReactionItem, type RektioItem } from "@hospodar/domain";
+import { chunkCard, formCard, opinionCard, paraphraseCard, reactionCard, rektioCard, validatePracticeCard, type PracticeCard, type PracticeKind,
+  type ChunkItem, type FormItem, type OpinionItem, type ParaphraseItem, type ReactionItem, type RektioItem } from "@hospodar/domain";
 import paraphrase from "../../../../learning/exercises/b1/high-yield/paraphrase-drills.json";
 import reactions from "../../../../learning/exercises/b1/high-yield/speaking-reaction-bank.json";
 import opinions from "../../../../learning/exercises/b1/high-yield/opinion-argumentation-v1.json";
 import chunks from "../../../../knowledge/dictionaries/b1/contextual-chunks-v1.json";
 import rektio from "../../../../knowledge/dictionaries/b1/rektio-v1.json";
+import forms from "../../../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json";
 import exam from "../../../../learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json";
 import { learnerPool } from "./release.ts";
 
@@ -20,6 +21,8 @@ const cards: PracticeCard[] = [
   ...items<OpinionItem>(opinions).map(opinionCard),
   ...items<ChunkItem>(chunks).map(chunkCard),
   ...items<RektioItem>(rektio).map(rektioCard),
+  // Corpus sentences: a card whose answer would already be visible in the prompt (the leak guard) is left out, not thrown.
+  ...items<FormItem>(forms).map(formCard).filter(c => validatePracticeCard(c)),
 ];
 const bad = cards.find(c => validatePracticeCard(c) === false) as PracticeCard | undefined;
 if (bad) throw new Error(`practice card ${bad.id} is invalid`);
@@ -35,6 +38,8 @@ const GROUP_UK: Record<string, string> = {
   functions: "Корисні звороти", education: "Навчання", leisure: "Дозвілля", official: "Офіційні справи", authorities: "Офіційні справи",
   partitiivi: "partitiivi", partitiivi_context: "partitiivi (залежить від змісту)", elatiivi: "elatiivi", illatiivi: "illatiivi", allatiivi: "allatiivi", ablatiivi: "ablatiivi",
   MA_infinitiivi_illatiivi: "MA-infinitiivi (illatiivi)",
+  Gen: "genetiivi", Par: "partitiivi", Ill: "illatiivi", Ela: "elatiivi", All: "allatiivi", Ade: "adessiivi",
+  Conditional: "konditionaali", Passive: "passiivi",
 };
 export const groupLabel = (group: string) => GROUP_UK[group] ?? group;
 export const PRACTICE_KINDS: { kind: PracticeKind; title: string; about: string }[] = [
@@ -43,4 +48,5 @@ export const PRACTICE_KINDS: { kind: PracticeKind; title: string; about: string 
   { kind: "opinion", title: "Моя думка", about: "Висловись і поясни чому. Фрази-опори з'являються лише після спроби." },
   { kind: "chunk", title: "Фрази для життя", about: "Згадай готову фразу фінською, потім вжий її в новій ситуації." },
   { kind: "rektio", title: "Керування дієслів (rektio)", about: "Скажи речення з правильним відмінком після дієслова або прикметника." },
+  { kind: "form", title: "Форма слова в реченні", about: "Речення з корпусу фінської мови: впиши форму слова, потім порівняй із джерелом сам(а). Без оцінки." },
 ];

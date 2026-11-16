@@ -644,3 +644,15 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Not done:**
   - open questions of the inference texts as a listening task;
   - several voices: still one synthetic speaker, not a substitute for licensed multi-talker audio (R05).
+
+**Update 2026-11-16 — part 2: corpus sentences as «Форма слова в реченні» practice cards.**
+
+- **Source:** `learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json`, 120 sentences from UD Finnish FTB (CC BY 4.0) with one word form removed, loaded by no screen. They are now the practice kind `form` (`formCard` in `packages/domain/src/practice.ts`).
+- **The card:** the sentence with a gap and the lemma in brackets. After the own attempt it shows:
+  - the corpus form and the whole sentence;
+  - the note that another natural form may be right;
+  - the source line: «UD Finnish FTB … CC BY 4.0 · адаптовано: одне слово замінено пропуском».
+- **Not scored:** the corpus keeps one form, so the first answer is self-compared, never scored (the data set's own limits: alternative forms exist; S2 curation before release, and release builds keep only published items). A card whose form would already be visible in the prompt is filtered by the leak guard.
+- **Elsewhere:** the reviewer workspace has the bank «Форма слова в реченні», 22 banks in all.
+- **Tests:** `practice.test.ts` (source named, no score, Finnish grammar terms as group names) and the E2E «corpus form card (CURATED-09)…».
+- **Not done:** S2 curation of literary or archaic sentences; not spaced like chunk/rektio cards.
