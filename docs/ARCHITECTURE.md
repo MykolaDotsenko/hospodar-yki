@@ -412,7 +412,11 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Private and never graded:** stored in `localStorage` key `hospodar-yki:web:deeds:v1`, separate from learner progress (`LearnerState` is unchanged, so export/restore and the legacy-parity reader are untouched); never exported, counted, scored or turned into a door, key, streak or level. Erasing LEARN data on «Мої дані» also erases the marks (the option is enabled by marks alone); the data screen says marks are not in the backup.
 - **Two tabs:** every change is applied to what is stored at that moment (`updateDeeds`), and open place screens refresh on the `storage` event, so a second tab never overwrites another tab's mark and an erase is never resurrected.
 - **Code:** `packages/domain/src/deeds.ts` (`parseDeedLog`, `markDeed`, `unmarkDeed`; `test/deeds.test.ts`), `storage/deeds.ts` (readback-verified write, verified clear, `updateDeeds`, `onDeedsChanged`), `PlaceScreen` (`DeedMark`), `DataScreen`, `e2e/places.spec.ts`.
-- **Not done:** a private reflection on how the deed went; any measure of transfer to real communication.
+- **Reflection (16.11.2026):** after a mark, an optional private note can record how it went («Вдалося», «Частково», «Було важко») and what to say or do differently next time. The note holds at most 300 characters, in any language.
+  - It is stored as `notes` in the same key and comes back at the top of that place on the next visit. When the deed did not go well, the place points to practising the situation first (self-regulated learning: plan → do → reflect → plan).
+  - It can be changed, deleted, or removed together with the mark. The reader drops a note without its mark.
+  - It is never scored, counted or exported. Code: `setDeedNote`, `clearDeedNote`, `deedNote`; `PlaceScreen` shares one deed state for the reminder and `DeedMark`.
+- **Not done:** any measure of transfer to real communication; no human feedback on the note.
 
 
 ## 2026-11-15 — own memory cue on a problem phrase (keyword-mnemonic-retrieval)

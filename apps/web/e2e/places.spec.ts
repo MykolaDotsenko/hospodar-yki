@@ -143,3 +143,35 @@ test("Господар persona: guides on home and place screens only — never 
   await page.getByRole("button", { name: "Спокійний режим" }).click();
   await expect(guide).toHaveCount(0);
 });
+
+test("deed reflection (real-world-interaction): after a real-life mark an optional private note — how it went and what next time — comes back at the top of the place; removed with the mark", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  const deed = page.getByTestId("deed");
+  await expect(page.getByTestId("deed-reflection")).toHaveCount(0);                      // nothing to reflect on before a mark
+  await deed.getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  const form = page.getByTestId("deed-reflection");
+  await form.getByRole("button", { name: "Зберегти нотатку" }).click();
+  await expect(form.getByRole("alert")).toContainText("Обери, як пройшло");
+  await form.getByLabel("Частково").check();
+  await form.getByLabel(/Що наступного разу/).fill("Попрошу говорити повільніше: Voisitteko puhua hitaammin?");
+  await form.getByRole("button", { name: "Зберегти нотатку" }).click();
+  await expect(page.getByTestId("deed-note")).toContainText("Частково");
+  expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze()).violations
+    .filter(v => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
+
+  await page.reload();
+  await page.getByTestId("place-housing").click();
+  await expect(page.getByTestId("deed-last-time")).toContainText("Минулого разу в житті — частково");
+  await expect(page.getByTestId("deed-last-time")).toContainText("Voisitteko puhua hitaammin?");
+  await expect(page.getByTestId("deed-last-time")).toContainText("потренувати цю ситуацію");
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator("main")).not.toContainText("hitaammin");                     // never part of progress
+
+  await page.goto("./");
+  await page.getByTestId("place-housing").click();
+  await deed.getByRole("button", { name: "Зняти позначку" }).click();                     // the reflection goes with the mark
+  await expect(page.getByTestId("deed-last-time")).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:deeds:v1"))).not.toContain("hitaammin");
+});

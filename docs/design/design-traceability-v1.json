@@ -13068,9 +13068,21 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "deed marks from two tabs never overwrite each other, and an erase in one tab is never resurrected by another"
+        },
+        {
+          "file": "packages/domain/test/deeds.test.ts",
+          "contains": "deed reflection: only next to a mark; how it went is one of three, the note is short and optional; removing the mark removes the reflection"
+        },
+        {
+          "file": "packages/domain/test/deeds.test.ts",
+          "contains": "deed reflection: the reader drops a reflection without its mark, an unknown feeling or a note that is too long"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "deed reflection (real-world-interaction): after a real-life mark an optional private note — how it went and what next time — comes back at the top of the place; removed with the mark"
         }
       ],
-      "gap": "Each place suggests one optional real-life deed in Ukrainian (editorial draft) and the learner may privately mark it done (a date per place, only on this device, removable, erased with LEARN data, never exported, counted, graded or turned into a door, key or level). Not yet: a short private reflection on how it went, and any evidence that deeds transfer to real communication (needs a study)."
+      "gap": "Each place suggests one optional real-life deed in Ukrainian (editorial draft) and the learner may privately mark it done (a date per place, only on this device, removable, erased with LEARN data, never exported, counted, graded or turned into a door, key or level). After a mark an optional private reflection — how it went (вдалося / частково / було важко) and what to say or do differently next time (≤300 characters, any language) — comes back at the top of that place on the next visit, with a pointer to practise the situation first when it did not go well; it is removed with the mark and is never a score. Not yet: any evidence that deeds or reflections transfer to real communication (needs a study), and no human feedback on what the learner wrote."
     },
     {
       "id": "caption-fading",
