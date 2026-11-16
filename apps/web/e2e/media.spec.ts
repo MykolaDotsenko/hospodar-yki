@@ -73,3 +73,16 @@ test("320 px: media library reflows without horizontal page scroll", async ({ pa
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   }
 });
+
+test("video questions (CURATED-09): each open video has its gist/detail/opinion questions in Finnish, Ukrainian on request, no answer key", async ({ page }) => {
+  await open(page, "Відео");
+  const q = page.getByTestId("video-questions-jenni-puhekieli");
+  await expect(q.locator("ol").first().locator("li")).toHaveCount(3);
+  await expect(q).toContainText("Mitä Jenni kertoo suomalaisista ja amerikkalaisista?");
+  await expect(q.getByText("Що Дженні розповідає про фінів та американців?")).toBeHidden();      // translation only on request
+  await q.locator("summary").click();
+  await expect(q.getByText("Що Дженні розповідає про фінів та американців?")).toBeVisible();
+  await expect(page.getByTestId("video-questions-claes-esittely")).toBeVisible();
+  await expect(page.getByText(/Правильна відповідь|Ключ/)).toHaveCount(0);
+  expect(await serious(page)).toEqual([]);
+});

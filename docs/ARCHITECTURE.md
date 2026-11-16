@@ -669,3 +669,8 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Open item:** the open pluperfect item becomes the new-situation prompt of the pluperfect cards. The own sentence stays ungraded.
 - **Elsewhere:** reviewer banks «Часи дієслова» and «Годинник і час» (24 banks). Release builds keep only published items.
 - **Tests:** `practice.test.ts` (counts, scored choice, ungraded rest, picture only after the attempt) and the E2E «clock card (CURATED-09)…».
+
+**Video questions and writing criteria (CURATED-09 part 4, 16.11.2026):**
+- `content/media.ts` loads `learning/exercises/video/exercises.json`. In the media library each open video, playable or link-only, shows its questions in Finnish (gist, detail, opinion), with the Ukrainian wording in a `<details>` on request. There is no answer key, and the note under a playable video is the learner's own Finnish answers, ungraded. Reviewer bank «Питання до відео» (25 banks).
+- `content/writingClinic.ts` loads `feedback-rubrics.json` for the criteria **labels only**. The rewrite step of the writing clinic shows them as a wider self-check «не бал і не шкала YKI». The internal weights are heuristic, not OPH, and never shown. The file holds no Finnish, so it is in `NO_FINNISH_FILES`, not a reviewer bank.
+- **Tests:** E2E «video questions (CURATED-09)…» and «writing criteria (CURATED-09)…».

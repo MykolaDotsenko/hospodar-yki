@@ -131,12 +131,6 @@
       "note_uk": "Вихідний сценарій для синтезу довгих аудіоуроків; застосунок використовує готовий lessons.json."
     },
     {
-      "path": "learning/exercises/b1/feedback-rubrics.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Критерії зворотного зв'язку для письма й говоріння.",
-      "plan_uk": "Етап 2: пункти самоперевірки після власного тексту — ніколи не бал (R04)."
-    },
-    {
       "path": "learning/exercises/b1/high-yield/independent-sources.json",
       "reason": "TO_CONNECT",
       "note_uk": "Незалежні відкриті джерела (VIERKO, CC BY-SA тощо) з поясненням користі.",
@@ -147,12 +141,6 @@
       "reason": "TO_CONNECT",
       "note_uk": "12 майстер-класів (зразок і ключі після власної спроби).",
       "plan_uk": "Етап 2: окремий тип уроку з тими самими правилами першої спроби."
-    },
-    {
-      "path": "learning/exercises/video/exercises.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "3 вправи до відкритих відео (не для оцінювання).",
-      "plan_uk": "Етап 2: завдання до відео в «Медіатеці» — лише навчання, без оцінки."
     }
   ]
 }

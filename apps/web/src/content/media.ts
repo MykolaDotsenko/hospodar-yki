@@ -10,6 +10,7 @@ import pictureManifest from "../../../../assets/images/pictures/available.json";
 import illustrationManifest from "../../../../assets/images/illustrations/library.json";
 import librivoxManifest from "../../../../learning/exercises/b1/audio-training/librivox-human.json";
 import youtube from "../../../../sources/youtube/youtube-catalog.json";
+import videoExercises from "../../../../learning/exercises/video/exercises.json";
 import { learnerPool } from "./release.ts";
 
 const files = import.meta.glob([
@@ -83,3 +84,12 @@ export const externalLinks = (youtube as unknown as { items: LinkEntry[] }).item
   if (!g.ok) { refused.push({ id: l.id, reason: g.reason }); return []; }
   return [{ ...l, url: g.url, host: g.host }];
 });
+
+/**
+ * Questions to the open videos (learning/exercises/video/exercises.json, CURATED-09): gist, detail, opinion — no answer
+ * key exists, so the learner's answer is an ungraded note. S2-pending; release builds keep only published items.
+ */
+export interface VideoQuestion { id: string; type: string; prompt_fi: string; prompt_uk: string }
+const videoQuestionsById = new Map(learnerPool((videoExercises as unknown as { items: { id: string; questions: VideoQuestion[] }[] }).items)
+  .map(i => [i.id, i.questions.filter(q => q.prompt_fi?.trim())]));
+export const videoQuestions = (videoId: string): VideoQuestion[] => videoQuestionsById.get(videoId) ?? [];

@@ -29,12 +29,23 @@ async function toTransfer(page: Page) {
   await page.getByRole("button", { name: "Переписати свій текст" }).click();
   const rewrite = page.getByLabel(/Твій переписаний текст/);
   await expect(rewrite).toHaveValue(DRAFT);
+  // CURATED-09: the rubric's criteria as a wider self-check — labels only, never a weight, score or YKI scale.
+  const criteria = page.getByTestId("writing-criteria");
+  await criteria.locator("summary").click();
+  await expect(criteria.locator("li")).toHaveCount(5);
+  await expect(criteria).toContainText("Виконання завдання");
+  expect(await criteria.innerText()).not.toMatch(/\d+\s*%|\b(30|25|15)\b|бал[іи]в/);
   await rewrite.fill(DRAFT + " Olen kotona arkisin kello 17 jälkeen.");
   await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
   await expect(page.getByRole("heading", { name: "Нова ситуація — без зразка" })).toBeVisible();
   await expect(page.getByText(MODEL_START)).toHaveCount(0);
   await expect(page.getByText(DRAFT)).toHaveCount(0);
 }
+
+test("writing criteria (CURATED-09): the rewrite step offers the rubric's criteria as a wider self-check — labels only, no weight, score or YKI scale", async ({ page }) => {
+  await toTransfer(page);                                    // the criteria are checked on the rewrite step inside toTransfer
+  await expect(page.getByTestId("writing-criteria")).toHaveCount(0);   // the new situation has no criteria list (no model, no scale)
+});
 
 test("IV-REQ-07 writing clinic: own draft first → spot issues → model after attempt → rewrite diff → new task without model, all ungraded", async ({ page }) => {
   await toTransfer(page);

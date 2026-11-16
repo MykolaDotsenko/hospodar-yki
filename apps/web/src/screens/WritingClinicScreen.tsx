@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, clinicEvidence, clinicReducer, clinicView, startClinic, ClinicError, CLINIC_MAX_CHARS, CLINIC_PLAN_FRAME_UK, CLINIC_PLAN_MAX_CHARS,
   type ClinicEvent, type ClinicItem, type ClinicSession, type LearnerState } from "@hospodar/domain";
-import { clinicItems } from "../content/writingClinic.ts";
+import { clinicItems, contentFirstHint, writingCriteria } from "../content/writingClinic.ts";
 import { clinicPayload, validClinicDraft } from "../storage/clinicDraft.ts";
 import type { ClinicDraftRow, LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
@@ -359,6 +359,10 @@ function Clinic({ item, repository, snapshot, initialDraft, onSaved, onExit, onH
         <form onSubmit={(e: FormEvent) => { e.preventDefault(); void advance({ type: "SUBMIT_REWRITE", text: currentText() }); }} noValidate>
           <details className="why"><summary>Показати зразок ще раз</summary><div className="transcript" lang="fi">{v.model?.text_fi}</div></details>
           <ul>{v.selfCheck_uk.map(q => <li key={q}>{q}</li>)}</ul>
+          <details className="why" data-testid="writing-criteria"><summary>Ширші ознаки для самоперевірки (не бал і не шкала YKI)</summary>
+            <ul>{writingCriteria.map(c => <li key={c.key}>{c.label_uk}{c.description_uk ? ` — ${c.description_uk}` : ""}</li>)}</ul>
+            {contentFirstHint && <p className="muted">{contentFirstHint.replace(/^Оціни/, "Перевір")}</p>}
+          </details>
           {textarea("cl-rewrite", "Твій переписаний текст (не копіюй зразок — покращ свій)")}
           <div className="actions"><button type="submit" className="btn" disabled={working}>Далі: нова ситуація</button></div>
         </form>

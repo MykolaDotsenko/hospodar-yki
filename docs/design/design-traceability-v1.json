@@ -5219,9 +5219,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence"
+        },
+        {
+          "file": "apps/web/e2e/media.spec.ts",
+          "contains": "video questions (CURATED-09): each open video has its gist/detail/opinion questions in Finnish, Ukrainian on request, no answer key"
+        },
+        {
+          "file": "apps/web/e2e/writing-clinic.spec.ts",
+          "contains": "writing criteria (CURATED-09): the rewrite step offers the rubric's criteria as a wider self-check — labels only, no weight, score or YKI scale"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. Still registered: 2 logo variants (not for learners), 10 link catalogs and 5 content files (code queue item 10)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. The video exercises are each open video's questions in the media library (Finnish, Ukrainian on request, no key); the writing rubric's criteria labels (no weights) are a wider self-check on the rewrite step. Still registered: 2 logo variants (not for learners), 10 link catalogs and 3 content files (code queue item 10)."
     },
     {
       "id": "CURATED-10",

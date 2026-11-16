@@ -256,13 +256,18 @@ def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
 HUMAN_GATE = re.compile(r"\bS2\b|human|manual|reviewer|rater|consent|legal|recording|walkthrough", re.I)
 
 
+# Loaded files with no Finnish at all (Ukrainian criteria labels): nothing for an S2 teacher. Mirrors NO_FINNISH_FILES in
+# apps/web/src/content/reviewBanks.ts (scripts/tests checks they agree).
+NO_FINNISH_FILES = ("learning/exercises/b1/feedback-rubrics.json",)
+
+
 def loaded_content(root: Path = ROOT) -> list[tuple[str, int]]:
     """Exercise/dictionary JSON that learners can already meet, with its item count (all of it is S2-pending today)."""
     unused, out = set(unused_content(root)), []
     for g in CONTENT_GLOBS:
         for f in sorted(root.glob(g)):
             rel = f.relative_to(root).as_posix()
-            if rel in unused or f.name in ("index.json", "available.json"):
+            if rel in unused or rel in NO_FINNISH_FILES or f.name in ("index.json", "available.json"):
                 continue
             data = json.loads(f.read_text(encoding="utf-8"))
             rows = next((v for k, v in data.items() if k in ("items", "lessons", "exercises") and isinstance(v, list)), None) if isinstance(data, dict) else None
