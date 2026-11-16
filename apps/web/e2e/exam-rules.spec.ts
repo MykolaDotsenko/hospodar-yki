@@ -122,3 +122,21 @@ test("practice choices: no going back, and a review screen of every task before 
   await page.getByTestId("exam-review").getByRole("button", { name: "Siirry tehtävään 1" }).click();
   await expect(page.getByText(`Tehtävä 1 / ${total}`)).toBeVisible();
 });
+
+test("exam look (CURATED-09): the set-up screen links OPH pages, organizer examples and practice videos, labelled and link-only; nothing of it inside the attempt", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  const look = page.getByTestId("exam-look");
+  await look.locator("summary").click();
+  await expect(look.getByRole("link")).toHaveCount(12);
+  for (const h of await look.getByRole("link").evaluateAll(as => as.map(a => [a.getAttribute("href"), a.getAttribute("target"), a.getAttribute("rel")])))
+    expect(h).toEqual([expect.stringMatching(/^https:\/\/(www\.oph\.fi|ykitesti\.solki\.jyu\.fi|www\.youtube\.com)\//), "_blank", "noopener noreferrer"]);
+  await expect(look).toContainText("не завдання минулих іспитів");
+  await expect(look.getByTestId("exam-look-answers").first()).toContainText("Зразки відповідей — з 16:22");
+  await expect(look.locator('a[href*="qb-NFR74m8Q"], a[href*="hiucp_IWbaM"]')).toHaveCount(0);   // A1–A2 story videos are not exam simulations
+  await expect(page.locator("iframe, embed, object, video")).toHaveCount(0);
+  for (const s of ["Читання", "Письмо", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.locator(".exam-audio audio")).toHaveCount(1);
+  await expect(page.getByTestId("exam-look")).toHaveCount(0);                                        // never inside the attempt
+});

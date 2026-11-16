@@ -90,12 +90,6 @@
       "plan_uk": "Після рецензії S2 — у робоче місце рецензента й далі в місця."
     },
     {
-      "path": "sources/official/yki-mock-simulation-sources.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Відео, що показують виконання завдань YKI, і приклади від організаторів.",
-      "plan_uk": "Етап 4: посилання «як виглядає іспит» перед репетицією; не підміняє ручний перегляд демо OPH."
-    },
-    {
       "path": "learning/exercises/b1/audio-long/source-lessons.json",
       "reason": "NOT_LEARNER_MATERIAL",
       "note_uk": "Вихідний сценарій для синтезу довгих аудіоуроків; застосунок використовує готовий lessons.json."

@@ -34,7 +34,9 @@
       "is_full_four_skill_mock": false,
       "is_verified_digital_2027_mock": false,
       "teacher_review": "pending",
-      "notes": "Best video-only speaking mock in existing 47-item collection: practice first, samples after 16:22. Creator sets answer times, but they must not be called official 2027 exam timings."
+      "notes": "Best video-only speaking mock in existing 47-item collection: practice first, samples after 16:22. Creator sets answer times, but they must not be called official 2027 exam timings.",
+      "title_uk": "Говоріння YKI з паузами на відповідь",
+      "note_uk": "Усі чотири типи завдань говоріння з паузами. Спершу відповідай сам(а), зразки — далі у відео."
     },
     {
       "id": "yki-harjoitus-speaking-example-2022",
@@ -57,7 +59,9 @@
       "is_full_four_skill_mock": false,
       "is_verified_digital_2027_mock": false,
       "teacher_review": "pending",
-      "notes": "At 0:40 already the first example answer. A learner who has watched it cannot use it as an unseen timed assessment."
+      "notes": "At 0:40 already the first example answer. A learner who has watched it cannot use it as an unseen timed assessment.",
+      "title_uk": "YKI Harjoitus — Puhuminen 1",
+      "note_uk": "Перший зразок відповіді з'являється дуже рано: зупиняй відео й відповідай сам(а) перед кожним зразком."
     },
     {
       "id": "yki-harjoitus-tilanteita-2023",
@@ -77,7 +81,9 @@
       "is_full_four_skill_mock": false,
       "is_verified_digital_2027_mock": false,
       "teacher_review": "pending",
-      "notes": "Independent response part 00:07–03:22, model answers after 03:22, extra useful phrases after 05:36."
+      "notes": "Independent response part 00:07–03:22, model answers after 03:22, extra useful phrases after 05:36.",
+      "title_uk": "Говоріння: ситуації (tilanteita)",
+      "note_uk": "Спершу власні відповіді на ситуації, далі зразки й корисні фрази."
     }
   ],
   "official_organizer_samples": [
@@ -94,7 +100,9 @@
         "speaking"
       ],
       "verified": "public organizer index available",
-      "notes": "Four different intermediate-level example sections; official source sample but not actual past examination questions."
+      "notes": "Four different intermediate-level example sections; official source sample but not actual past examination questions.",
+      "title_uk": "SOLKI (Ювяскюля): приклади завдань YKI",
+      "note_uk": "Офіційні приклади організатора для чотирьох навичок середнього рівня. Це не справжні завдання минулих іспитів."
     },
     {
       "id": "solki-intermediate-speaking",
@@ -106,7 +114,9 @@
         "speaking"
       ],
       "verified": "publisher page with 8 or more separate MP3 demonstrations and written prompts/time labels",
-      "notes": "Classic four speaking task families: narration, simulated conversations, situations, opinion. Examples include a call about renting a party room, pharmacy, complaint about renovation. Historical legacy timing only, never automatically strict digital-2027 rules."
+      "notes": "Classic four speaking task families: narration, simulated conversations, situations, opinion. Examples include a call about renting a party room, pharmacy, complaint about renovation. Historical legacy timing only, never automatically strict digital-2027 rules.",
+      "title_uk": "SOLKI: приклади говоріння, середній рівень",
+      "note_uk": "Чотири типи завдань говоріння з аудіо. Час — зі старого формату, не правило цифрового іспиту 2027."
     },
     {
       "id": "solki-intermediate-listening",
@@ -118,7 +128,9 @@
         "listening"
       ],
       "verified": "publisher page with exercises and publicly playable original MP3 links",
-      "notes": "Multiple choice, true/false and open-ended B1/B2-style listening exercises with answers written on original publisher page. Old answer-sheet instructions paper legacy."
+      "notes": "Multiple choice, true/false and open-ended B1/B2-style listening exercises with answers written on original publisher page. Old answer-sheet instructions paper legacy.",
+      "title_uk": "SOLKI: приклади аудіювання, середній рівень",
+      "note_uk": "Вправи з аудіо; відповіді на сторінці організатора — дивись їх лише після власної спроби."
     },
     {
       "id": "solki-intermediate-reading",
@@ -130,7 +142,9 @@
         "reading"
       ],
       "verified": "Linked from official intermediate index; target page intermittently returns 502 in web fetch",
-      "notes": "Verify individual reading items and 2027 presentation separately."
+      "notes": "Verify individual reading items and 2027 presentation separately.",
+      "title_uk": "SOLKI: приклади читання, середній рівень",
+      "note_uk": "Приклади текстів і завдань; вигляд у цифровому іспиті 2027 може бути іншим."
     },
     {
       "id": "solki-intermediate-writing",
@@ -142,7 +156,9 @@
         "writing"
       ],
       "verified": "Linked from official intermediate index; target page intermittently times out on web fetch",
-      "notes": "Verify individual writing items and 2027 presentation separately."
+      "notes": "Verify individual writing items and 2027 presentation separately.",
+      "title_uk": "SOLKI: приклади письма, середній рівень",
+      "note_uk": "Приклади письмових завдань; вигляд у цифровому іспиті 2027 може бути іншим."
     }
   ],
   "other_video_references": [
@@ -155,7 +171,9 @@
       "type": "historical_exam_format_explainer_not_mock",
       "fit_100": 86,
       "source_quality": "Filmot indexed direct YouTube video ID with Gimara publisher transcript",
-      "notes": "Explanatory clip describes four speaking types and 2020 language studio arrangements; cannot verify 2027 digital UI."
+      "notes": "Explanatory clip describes four speaking types and 2020 language studio arrangements; cannot verify 2027 digital UI.",
+      "title_uk": "Як проходить говоріння (пояснення 2020 року)",
+      "note_uk": "Пояснює чотири типи завдань говоріння й старий мовний кабінет; цифровий іспит 2027 може відрізнятися."
     },
     {
       "id": "gimara-yki-playlist",
@@ -165,7 +183,9 @@
       "type": "mixed_practice_playlist_not_single_full_mock",
       "fit_100": 85,
       "source_quality": "public playlist index, individual clips and rights not audited",
-      "notes": "Use for finding further mock videos but do not claim every clip is a timed real-exam simulation."
+      "notes": "Use for finding further mock videos but do not claim every clip is a timed real-exam simulation.",
+      "title_uk": "Добірка відео для підготовки до YKI",
+      "note_uk": "Різні вправи; не кожне відео — справжня симуляція іспиту з часом."
     }
   ],
   "not_full_b1_mocks": [
