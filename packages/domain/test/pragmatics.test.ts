@@ -32,6 +32,12 @@ describe("interlocutor change in speech acts (pragmatic-speech-acts)", () => {
     expect(() => interlocutorEvidence(reaction, "friend", "Moi", [3])).toThrow("BAD_CHECK");
     expect(() => interlocutorEvidence(reaction, "friend", "Moi", [1, 1])).toThrow("BAD_CHECK");
     expect(() => interlocutorEvidence(reaction, "boss" as never, "Moi", [])).toThrow("UNKNOWN_INTERLOCUTOR");
-    expect(() => interlocutorEvidence({ ...reaction, kind: "opinion" as never }, "friend", "Moi", [])).toThrow("NOT_A_REACTION");
+    expect(() => interlocutorEvidence({ ...reaction, kind: "opinion" as never }, "friend", "Moi", [])).toThrow("NO_LADDER");
+  });
+  it("interlocutor ladder on dialogues: a finished role-play has the same three listeners; its replies are ungraded speaking with their own task ids", () => {
+    expect(hasInterlocutorLadder({ kind: "dialogue" })).toBe(true);
+    const e = interlocutorEvidence({ id: "dlg-1", kind: "dialogue", attemptSkill: "speaking" }, "neighbour", "Anteeksi, voisitteko auttaa?", [0, 1]);
+    expect(e).toMatchObject({ skill: "speaking", taskId: "dlg-1-register-neighbour", status: "ungraded" });
+    expect("correct" in e).toBe(false);
   });
 });

@@ -187,3 +187,46 @@ test("pre-task planning before the role-play: optional own plan with a repair mo
   await expect(page.getByTestId("dialogue-plan")).toContainText(PLAN);                       // back for self-comparison
   await expect(page.getByRole("button", { name: /скласти план/ })).toHaveCount(0);          // offered once, before the first reply
 });
+
+test("interlocutor ladder after a dialogue (pragmatic-speech-acts): the own role-play for a friend, a neighbour and an official; separate self-checks; replies side by side; ungraded", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-speaking").click();
+  await page.getByRole("button", { name: /Ensimmäinen kerta kielikahvilassa/ }).click();
+  for (let i = 0; i < 4; i++) {
+    if (i > 0) { await page.getByRole("button", { name: "Далі" }).click(); await page.getByRole("button", { name: "Далі" }).click(); }
+    await page.getByRole("button", { name: "Пропустити й подивитися сценарій" }).click();
+  }
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByLabel(/Miksi Oksana tuli/).fill("Hän haluaa puhua suomea.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByLabel(/Pitääkö ryhmään/).fill("Ei tarvitse.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Те саме за змістом" }).click();
+  await page.getByLabel(/Твої репліки фінською/).fill("Hei, olen Oksana. Voisitko puhua vähän hitaammin?");
+  await page.getByRole("button", { name: "Далі" }).click();
+  await expect(page.getByRole("button", { name: /Різні співрозмовники/ })).toHaveCount(0);   // only after the dialogue is saved
+  await page.getByLabel(/Що ти скажеш тепер/).fill("Anteeksi, minulla on kiire. Voimmeko jatkaa myöhemmin?");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Збережено на цьому пристрої без оцінки/)).toBeVisible();
+
+  await page.getByRole("button", { name: "Різні співрозмовники (за бажанням)" }).click();
+  await expect(page.getByRole("heading", { name: "Співрозмовник 1 з 3: Друг або подруга" })).toBeVisible();
+  const reply = page.getByLabel(/Твоя відповідь фінською для цієї людини/);
+  await reply.fill("Moi! Puhutko vähän hitaammin?");
+  await page.getByLabel("Звертаєшся на «sinä»?").check();
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+  await reply.fill("Hei! Anteeksi, voisitko puhua vähän hitaammin?");
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+  await reply.fill("Hyvää päivää. Voisitteko puhua hieman hitaammin? Kiitos.");
+  await page.getByLabel(/Ввічлива форма/).check();
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Зберегти й далі" }).click();
+  const compare = page.getByTestId("register-compare");
+  await expect(compare.locator("dd[lang=fi]")).toHaveCount(3);
+  await expect(compare.getByRole("status")).toContainText("Збережено без оцінки: 3 з 3");
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Говоріння$/ }) })).toContainText("5 без оцінки");
+});
