@@ -35,3 +35,5 @@ export * from "./release.ts";
 export * from "./pragmatics.ts";
 export * from "./deeds.ts";
 export * from "./sessionPlan.ts";
+export * from "./goals.ts";
+export * from "./mediaRules.ts";

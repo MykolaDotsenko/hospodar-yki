@@ -1,0 +1,17 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://127.0.0.1:4173",
+      "localStorage": [
+        { "name": "hospodar-yki:web:goals:v1", "value": "{\"version\":1,\"goals\":[],\"seen\":\"2026-11-01\"}" }
+      ]
+    },
+    {
+      "origin": "http://127.0.0.1:4174",
+      "localStorage": [
+        { "name": "hospodar-yki:web:goals:v1", "value": "{\"version\":1,\"goals\":[],\"seen\":\"2026-11-01\"}" }
+      ]
+    }
+  ]
+}

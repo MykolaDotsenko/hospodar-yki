@@ -504,3 +504,61 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart ("Illalla", "Ilta"), which the system font of the test environment does not. Rejected: hard-to-read fonts as a memory aid. Not claimed: that any of this improves learning — no user study was run. Guards: three new static tests and two E2E tests in `design-language.test.ts` and `e2e/design.spec.ts`.
 
+## 2026-11-16 — «Перший запуск»: two modes, an optional real-life goal, an optional diagnostic (docs/29 stage 3, code queue 8; MOT-02, MOT-11)
+
+- **When:** only for a learner with nothing saved on the device: no attempts, diagnostics or retention checks, and no goal record. A learner who already has data never sees it, even if the goal record is lost (`shouldWelcome` in `packages/domain/src/goals.ts`). The welcome takes the place of the next-step card, so Home still has one main action (UIO-01), and focus moves to its heading.
+- **What it says:**
+  - what the app is: no account, everything stays on this device;
+  - the two modes in plain words: LEARN (own answer first, then help, self-repair, a new situation; review after 1/3/7/14/30 days) and the YKI rehearsal (no hints, results only at the end, «Це не офіційний YKI»; the 2027 digital rules are not confirmed).
+- **What it asks:** «Що тобі треба робити фінською?». Optional, several allowed: the nine life places or «Скласти іспит YKI». It never asks for a level, age or country, and it never shows a level. Two buttons:
+  - «Почати з короткого знайомства» opens the existing starting diagnostic;
+  - «Без знайомства — одразу до справ» goes straight to Home.
+- **Storage:**
+  - Nothing is stored until a button is pressed.
+  - Then `localStorage` gets `hospodar-yki:web:goals:v1` = `{version:1, goals, seen}`, with readback; a refused write is reported and the welcome shows again next time.
+  - A damaged record reads as no record. Unknown goals are dropped and the order is fixed.
+  - Other tabs follow via the `storage` event.
+  - The record is not part of the export: like the deed marks, it is a preference, not learning evidence.
+  - «Мої дані» → erase LEARN clears it with the progress (verified), so the device is new again.
+- **Effect:** «Моя мета» on Home shows the goals, with «Змінити мету» (save or cancel). Place rows say «твоя мета». In «План заняття» the goal places are preferred among new tasks with equal skill balance (+2 preference in the R06 ranker), with the visible reason «це місце — твоя мета». A place the learner chooses explicitly wins over goals. Skill balance and «review first» are unchanged. The YKI goal changes no ranking, so it opens no EXAM item in LEARN.
+- **Code:** `packages/domain/src/goals.ts` (+ `test/goals.test.ts`), `sessionPlan.ts` (`goals`, `GOAL_PLACE`), `apps/web/src/storage/goals.ts`, `screens/Welcome.tsx` (`Welcome`, `MyGoals`), `HomeScreen`, `SessionPlanPanel`, `DataScreen`, `App`.
+- **E2E:**
+  - `e2e/first-run.spec.ts` covers the new learner.
+  - All other specs start from `e2e/state/returning-learner.json`, an empty goal record set as the global Playwright `storageState`, so they open Home as before.
+  - `data.spec` now expects the welcome after a LEARN erase.
+- **Not done:**
+  - the R08-MOT if-then plan with a personal cue («коли …, я …»);
+  - a weekly time goal;
+  - opt-in reminders;
+  - any measured effect of a goal on practice or delayed Finnish outcomes (MOT-STUDY not run).
+
+
+## 2026-11-16 — one set of media rules on every screen with audio or video (docs/29 stage 3; R7-05, R7-03, AUD-03, UIO-10)
+
+- **Rules (pure, `packages/domain/src/mediaRules.ts`):**
+  1. The learner starts the sound: nothing autoplays; a task loads nothing ahead.
+  2. Own answer first: text appears after the answer, or on request as help.
+  3. Help makes the attempt ungraded: in a LEARN task, text or a slower speed before answering is allowed for accessibility; the answers are then saved as supported, never as a failure or independent evidence.
+- **Contexts (`mediaRules(context)`, `rateVerdict(context, rate, supportRecorded)`):**
+  - `learn-task`: before the answer is saved.
+  - `learn-after`: review, mediation, after the answers.
+  - `exam`: no help at all; the speed is locked at 1× because a speed aid is not an OPH-verified 2027 feature. Replay stays unlimited and labelled practice.
+  - `own-recording`, `library`: rule 1 only.
+- **One task player (`apps/web/src/ui/TaskAudio.tsx`)** is used by the listening mission, the delayed listening check and the EXAM rehearsal:
+  - `preload="none"`, no autoplay;
+  - the browser's own speed menu is hidden (`controlsList="nodownload noplaybackrate"`);
+  - a speed changed by any other route (browser, shortcut, extension) is checked on `ratechange`. In a LEARN task a slower speed is put back to 1× and handed to the screen, which records the help durably first and only then plays at 0.75×. In the EXAM any change goes back to 1×.
+  - Before this, a slower speed chosen in Chrome's own player menu was not recorded as help.
+  - Also fixed: after the answers (review), «0,75×» used to fail with «Цей крок зараз недоступний», because it tried to record help that is no longer possible. It now just plays slower and is no longer labelled «(підтримка)».
+- **Delayed listening check (`skillRetention.ts`):**
+  - The same 1× / 0.75× choice as the mission. Slower is recorded as `support: ["slow"]` and the diagnostics say `[supported: slower]`; text keeps its earlier label `[supported: text shown]`; both give `text shown + slower`. All of these are ungraded.
+  - Fixed while doing this: any support used to switch on the text and allow answering without listening. Now only the text does that; a slower speed still has to be listened to.
+  - The session object is never stored, so no migration is needed.
+- **Guards:**
+  - `apps/web/src/media-rules.test.ts` (static) registers every `<audio>`, `<video>` and `<TaskAudio>` in the source with its context and its E2E test. A new media element fails until it is registered. It also forbids `autoplay` and `.play()` outside the dictogloss button. Mutation-checked: autoplay, a raw `<audio>` in a task, or a visible speed menu each fail it.
+  - `e2e/media-rules.spec.ts` checks every surface rendered: the listening mission (before and after the answers), the delayed check, dictogloss, the EXAM listening item and the media library.
+  - `packages/domain/test/media-rules.test.ts` covers the pure rules and the delayed check.
+- **Not done:**
+  - UIO-02 (pause at a semantic boundary before a question): it needs human-verified segment boundaries;
+  - verified OPH 2027 replay/pause/seek rules for the EXAM;
+  - screen-reader and real-device checks of the players.

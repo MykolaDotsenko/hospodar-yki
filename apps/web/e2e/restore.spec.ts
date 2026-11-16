@@ -102,6 +102,9 @@ test("rejects tampered and foreign files; refuses silent merge with existing lea
   await upload(page, '{"format":"foreign"}');
   await expect(page.getByRole("alert")).toContainText("WRONG_FORMAT");
   await page.reload();
+  // Nothing was restored: the erased device is new again, so the first run shows (goals went with LEARN data).
+  await expect(page.getByRole("region", { name: "Перший раз тут" })).toBeVisible();
+  await page.getByRole("button", { name: "Без знайомства — одразу до справ" }).click();
   await expect(page.getByText(/Виконано місій: 0/)).toBeVisible();
 });
 

@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig, devices } from "@playwright/test";
 
 // CI installs chromium, firefox and webkit; locally set E2E_BROWSERS=chromium if only Chromium exists.
@@ -16,7 +17,10 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   retries: 0,
   reporter: [["list"]],
-  use: { baseURL: "http://127.0.0.1:4173/", trace: "retain-on-failure" },
+  // Every test starts as a learner who has already closed the first-run screen (empty goals, nothing else stored);
+  // e2e/first-run.spec.ts opts out to test a truly new learner.
+  use: { baseURL: "http://127.0.0.1:4173/", trace: "retain-on-failure",
+    storageState: fileURLToPath(new URL("./e2e/state/returning-learner.json", import.meta.url)) },
   projects: all.filter(p => wanted.includes(p.name)),
   webServer: [
     { command: "pnpm build && pnpm preview", url: "http://127.0.0.1:4173/", reuseExistingServer: !process.env.CI, timeout: 180_000, stdout: "pipe", stderr: "pipe" },

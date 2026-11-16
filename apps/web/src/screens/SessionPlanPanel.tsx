@@ -38,6 +38,7 @@ function describe(b: SessionBlock): { title: string; titleLang?: "fi"; place: st
   const t = taskInfo(b.items[0]!.id);
   const why = [b.reasons.includes("CHOSEN_SKILL") ? "ти обрав(-ла) цю навичку" : null,
     b.reasons.includes("CHOSEN_PLACE") ? "ти обрав(-ла) це місце" : null,
+    b.reasons.includes("GOAL_PLACE") ? "це місце — твоя мета" : null,
     b.reasons.includes("NEVER_PRACTISED_SKILL") ? "з цієї навички ще немає жодної твоєї відповіді" : null,
     b.reasons.includes("LEAST_PRACTISED_SKILL") ? `тут найменше практики серед чотирьох навичок (збережено відповідей: ${b.exposure})` : null,
     "ти ще не пробував(-ла) це завдання"].filter(Boolean);

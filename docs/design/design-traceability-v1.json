@@ -834,10 +834,18 @@
         {
           "file": "app/tests/exam-core.test.mjs",
           "contains": "all objective choices score by source keys but open writing/speaking remain ungraded"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · EXAM listening: quiet until started, no browser speed menu, any speed change goes back to 1×, no text"
+        },
+        {
+          "file": "packages/domain/test/media-rules.test.ts",
+          "contains": "media rules: nothing autoplays anywhere; in a LEARN task a slower speed is help, in EXAM the speed is locked at 1×"
         }
       ],
-      "gap": "Legacy EXAM only",
-      "plan": "G2-c EXAM engine in apps/web"
+      "gap": "The apps/web EXAM rehearsal now has no speed aid (any change goes back to 1×, the browser speed menu is hidden) and no text before the end; replay is unlimited and labelled practice because the OPH 2027 playback rules (replays, pause, seek) are unverified. Strict 2027 playback stays off until the OPH demos are walked through.",
+      "plan": "Apply verified OPH 2027 replay/pause/seek rules through the exam profile once the demo walkthrough (human queue) confirms them."
     },
     {
       "id": "UX-01",
@@ -2112,6 +2120,10 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · delayed listening check: quiet, no text before the answer; slower is help (ungraded) and still has to be listened to"
         }
       ]
     },
@@ -2148,6 +2160,10 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "media library: licensed voices with credit, learner-started, same text in two voices; axe clean"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · after the answers the recording is free to replay at any speed (review, mediation)"
         }
       ],
       "gap": "Learner controls play/speed and calm mode; screen reader and real devices not tested."
@@ -2350,9 +2366,17 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "first run: what the app is, the two modes, an optional real-life goal and an optional diagnostic; no level asked; one main action"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "goals can be changed or cleared at any time, steer the session plan with a visible reason, and go with LEARN data"
         }
       ],
-      "gap": "Choice, calm mode, honest progress and the «Моє господарство» place layer (keys for verified first answers only) exist; the R08-MOT goal/time plan is not built."
+      "gap": "Choice, calm mode, honest progress, the «Моє господарство» place layer (keys for verified first answers only), a 10/20/30-minute plan and the learner's own real-life goals (first run, «Моя мета») exist. The R08-MOT if-then plan with a personal cue («коли …, я …») is not built."
     },
     {
       "id": "GL-07",
@@ -2625,6 +2649,14 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · delayed listening check: quiet, no text before the answer; slower is help (ungraded) and still has to be listened to"
+        },
+        {
+          "file": "apps/web/src/media-rules.test.ts",
+          "contains": "media rules: every <audio>/<video> is registered with its context and an E2E check; task recordings use the one task player"
         }
       ]
     },
@@ -2730,6 +2762,18 @@
         {
           "file": "apps/web/e2e/listening.spec.ts",
           "contains": "slower speed keeps pitch and marks the attempt as supported"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · LEARN listening: quiet until started; a slower speed from outside the app waits at 1× until the help is saved; then ungraded"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · delayed listening check: quiet, no text before the answer; slower is help (ungraded) and still has to be listened to"
+        },
+        {
+          "file": "packages/domain/test/media-rules.test.ts",
+          "contains": "a slower speed makes the delayed listening check ungraded, shows no text and does not replace listening"
         }
       ]
     },
@@ -2767,6 +2811,22 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "pictures: alt text, credit + licence link, ungraded description; uncaptioned video never playable (A11Y-03); illustrations credited"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · LEARN listening: quiet until started; a slower speed from outside the app waits at 1× until the help is saved; then ungraded"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · dictogloss: nothing plays until the learner's button, no text before the reconstruction"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "media rules · media library: every recording and video is quiet and loads nothing until the learner starts it"
+        },
+        {
+          "file": "apps/web/src/media-rules.test.ts",
+          "contains": "media rules: nothing autoplays or is played by code without the learner; the task player hides the browser speed menu"
         }
       ]
     },
@@ -4675,6 +4735,14 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "first run: what the app is, the two modes, an optional real-life goal and an optional diagnostic; no level asked; one main action"
+        },
+        {
+          "file": "packages/domain/test/goals.test.ts",
+          "contains": "goals prefer their places among equals in the session plan, with a visible reason; skill balance still comes first"
         }
       ]
     },
@@ -4823,6 +4891,14 @@
         {
           "file": "apps/web/e2e/session-plan.spec.ts",
           "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "goals can be changed or cleared at any time, steer the session plan with a visible reason, and go with LEARN data"
+        },
+        {
+          "file": "packages/domain/test/goals.test.ts",
+          "contains": "a damaged record reads as no record (the first run shows again); a valid one survives a round trip"
         }
       ]
     },

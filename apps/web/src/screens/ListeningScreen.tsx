@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, nextDictoglossCue, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
-  type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, ListeningError } from "@hospodar/domain";
+  rateVerdict, type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, type MediaContext, ListeningError } from "@hospodar/domain";
 import { cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { DictoglossRun } from "./DictoglossRun.tsx";
 import { MediationStep } from "./MediationStep.tsx";
@@ -10,9 +10,12 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { isPublishedItem } from "../content/release.ts";
 
 type Snap = { state: LearnerState; revision: number };
+/** Before the answers the recording is a task stimulus (help is recorded); after them it is free (media rules). */
+const mediaContext = (s: ListeningSession): MediaContext => s.phase === "listen" || s.phase === "questions" ? "learn-task" : "learn-after";
 type Loaded = { kind: "loading" } | { kind: "ready"; draft: ListeningDraftRow | null; blocked: string | null };
 const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAILED");
 
@@ -202,16 +205,14 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
   }
   function setSpeed(speed: 1 | 0.75) {
     if (busy.current) return;
-    if (speed === 1) {
-      setRate(1);
-      if (audioRef.current) { audioRef.current.playbackRate = 1; audioRef.current.preservesPitch = true; }
-      return;
-    }
+    const apply = () => {
+      setRate(speed);
+      if (audioRef.current) { audioRef.current.playbackRate = speed; audioRef.current.preservesPitch = true; }
+    };
+    // Media rules: slower is help only before the answers and only until it is on record; otherwise just play slower.
+    if (rateVerdict(mediaContext(latest.current), speed, latest.current.support.includes("slow")) !== "support") { apply(); return; }
     // Attribute supported listening DURABLY before the player slows down.
-    void transition({ type: "REQUEST_SUPPORT", kind: "slow" }, () => {
-      setRate(0.75);
-      if (audioRef.current) { audioRef.current.playbackRate = 0.75; audioRef.current.preservesPitch = true; }
-    });
+    void transition({ type: "REQUEST_SUPPORT", kind: "slow" }, apply);
   }
   async function finish() {
     if (busy.current) return;
@@ -265,14 +266,16 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
     <div className="audio-box">
       <p className="audio-label"><Icon name="listening" /> <span lang="fi">{lesson.title_fi}</span> · {v.synthetic ? "синтетичний голос, один диктор" : "живий голос, один читець (літературний текст, не розмовна B1)"}</p>
       {credit && <p className="muted">Читає {credit.credit} · {credit.licence}{credit.source && <> · <a href={credit.source} target="_blank" rel="noopener noreferrer">джерело</a></>}</p>}
-      <audio ref={audioRef} controls preload="none" src={media.audio}
+      {/* Media rules: before the answers a slower speed by any route is help, recorded durably first (setSpeed). */}
+      <TaskAudio context={mediaContext(s)} src={media.audio} audioRef={audioRef}
+        supportRecorded={() => latest.current.support.includes("slow")} onSlower={() => setSpeed(0.75)}
         onPlay={() => { if (["listen", "questions", "review"].includes(latest.current.phase)) void transition({ type: "AUDIO_STARTED" }); }}>
         {v.allowSubtitles && media.subtitles && <track kind="subtitles" srcLang="fi" label="Suomi" src={media.subtitles} default />}
-      </audio>
+      </TaskAudio>
       {(s.phase === "listen" || s.phase === "questions" || s.phase === "review") && (
         <div className="actions" role="group" aria-label="Швидкість">
           <button type="button" className="btn secondary" disabled={working} aria-pressed={rate === 1} onClick={() => setSpeed(1)}>1×</button>
-          <button type="button" className="btn secondary" disabled={working} aria-pressed={rate === 0.75} onClick={() => setSpeed(0.75)}>0,75× (підтримка)</button>
+          <button type="button" className="btn secondary" disabled={working} aria-pressed={rate === 0.75} onClick={() => setSpeed(0.75)}>{mediaContext(s) === "learn-task" ? "0,75× (підтримка)" : "0,75×"}</button>
           {(s.phase === "listen" || s.phase === "questions") && !s.support.includes("transcript") && (
             <button type="button" className="btn secondary" disabled={working}
               onClick={() => void transition({ type: "REQUEST_SUPPORT", kind: "transcript" })}>Показати текст (підтримка)</button>

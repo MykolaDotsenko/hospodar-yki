@@ -8,8 +8,9 @@
  *   reading    a withheld text (never in a LEARN pool or EXAM), one question at a time, first answer frozen;
  *              keys + model answers only after the attempt is durably saved
  *   listening  a recorded lesson this learner has NOT met before (first exposure) and not used by EXAM;
- *              audio must be started first; text before answering is allowed for accessibility but then
- *              the attempt is saved as supported / ungraded
+ *              audio must be started first; text or a slower speed before answering is allowed for
+ *              accessibility but then the attempt is saved as supported / ungraded (the same rule as the
+ *              listening mission, mediaRules.ts). A slower speed shows no text and does not replace listening.
  *   writing,   a withheld prompt; own text; always ungraded — the task points are shown only as a
  *   speaking   self-check after saving, never as a grade
  *
@@ -19,6 +20,7 @@
 import type { LearnerState, RetentionEntry, Skill } from "./learner.ts";
 import { addDiagnostic } from "./learner.ts";
 import { TRANSFER_DAYS, type TransferDay } from "./retention.ts";
+import type { ListeningSupport } from "./listening.ts";
 
 export interface CheckQuestion {
   id: string; type: "single_choice" | "true_false" | "open"; prompt_fi: string;
@@ -111,11 +113,13 @@ export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "r
 /* ---------- one check session: first answer per question frozen, nothing revealed before saving ---------- */
 
 export interface SkillCheckSession {
-  skill: Skill; day: TransferDay; itemId: string; audioStarts: number; supported: boolean;
+  skill: Skill; day: TransferDay; itemId: string; audioStarts: number;
+  /** Which help was used before answering; `supported` is true as soon as any was (then nothing is scored). */
+  support: ListeningSupport[]; supported: boolean;
   index: number; answers: Record<string, string>; text: string; phase: "answer" | "ready";
 }
 export type SkillCheckEvent =
-  | { type: "AUDIO_STARTED" } | { type: "SHOW_TEXT" }
+  | { type: "AUDIO_STARTED" } | { type: "SHOW_TEXT" } | { type: "SLOWER" }
   | { type: "ANSWER"; questionId: string; value: string } | { type: "SUBMIT_TEXT"; text: string };
 export class SkillCheckError extends Error {
   constructor(public readonly code: "NOT_ALLOWED" | "EMPTY" | "INVALID" | "AUDIO_NOT_STARTED", m: string) { super(m); this.name = "SkillCheckError"; }
@@ -123,7 +127,7 @@ export class SkillCheckError extends Error {
 export const SKILL_CHECK_MAX_CHARS = 1400;
 
 export function startSkillCheck(skill: Skill, day: TransferDay, check: SkillCheckItem): SkillCheckSession {
-  return { skill, day, itemId: check.item.id, audioStarts: 0, supported: false, index: 0, answers: {}, text: "", phase: "answer" };
+  return { skill, day, itemId: check.item.id, audioStarts: 0, support: [], supported: false, index: 0, answers: {}, text: "", phase: "answer" };
 }
 
 export function skillCheckReducer(s: SkillCheckSession, check: SkillCheckItem, e: SkillCheckEvent): SkillCheckSession {
@@ -134,10 +138,15 @@ export function skillCheckReducer(s: SkillCheckSession, check: SkillCheckItem, e
     case "AUDIO_STARTED":
       return s.skill === "listening" ? { ...s, audioStarts: s.audioStarts + 1 } : no();
     case "SHOW_TEXT":                                                   // accessibility support → attempt becomes ungraded
-      return s.skill === "listening" ? { ...s, supported: true } : no();
+    case "SLOWER": {
+      if (s.skill !== "listening") return no();
+      const kind: ListeningSupport = e.type === "SHOW_TEXT" ? "transcript" : "slow";
+      return s.support.includes(kind) ? s : { ...s, support: [...s.support, kind], supported: true };
+    }
     case "ANSWER": {
       if (check.kind !== "objective") return no();
-      if (s.skill === "listening" && s.audioStarts === 0 && !s.supported) throw new SkillCheckError("AUDIO_NOT_STARTED", "Start the audio first");
+      // Only the text can stand in for hearing the recording; a slower speed still has to be listened to.
+      if (s.skill === "listening" && s.audioStarts === 0 && !s.support.includes("transcript")) throw new SkillCheckError("AUDIO_NOT_STARTED", "Start the audio first");
       const q = check.item.questions[s.index];
       if (!q || q.id !== e.questionId) return no();
       const v = String(e.value ?? "").trim();
@@ -162,12 +171,17 @@ export function skillCheckView(s: SkillCheckSession, check: SkillCheckItem) {
   return {
     question: q ? { id: q.id, type: q.type, n: s.index + 1, of: (check.item as ObjectiveCheckItem).questions.length, prompt_fi: q.prompt_fi,
       options_fi: q.type === "single_choice" ? q.options_fi! : q.type === "true_false" ? ["Oikein", "Väärin"] : null } : null,
-    canAnswer: s.skill !== "listening" || s.audioStarts > 0 || s.supported,
+    canAnswer: s.skill !== "listening" || s.audioStarts > 0 || s.support.includes("transcript"),
     showReadingText: s.skill === "reading" && s.phase === "answer",
-    showTranscript: s.skill === "listening" && s.supported,
+    showTranscript: s.skill === "listening" && s.support.includes("transcript"),
+    slower: s.support.includes("slow"),
     ready: s.phase === "ready",
   };
 }
+
+/** "text shown" (the label used before slower playback existed), "slower", or both. */
+const supportLabel = (support: readonly ListeningSupport[]) =>
+  [support.includes("transcript") ? "text shown" : null, support.includes("slow") ? "slower" : null].filter(Boolean).join(" + ");
 
 const isCorrect = (q: CheckQuestion, v: string | undefined) =>
   q.type === "single_choice" ? v === String(q.correct_index) : q.type === "true_false" ? v === String(q.answer) : null;
@@ -187,7 +201,7 @@ export function recordSkillCheck(state: LearnerState, bank: SkillRetentionBank, 
       const graded = q.type !== "open" && !s.supported;
       next = addDiagnostic(next, graded
         ? { skill: s.skill, taskId: `d${s.day}-${q.id}`, status: "scored", correct: isCorrect(q, v) === true, response: v }
-        : { skill: s.skill, taskId: `d${s.day}-${q.id}`, status: "ungraded", response: `${s.supported ? "[supported: text shown] " : ""}${v}` }, now);
+        : { skill: s.skill, taskId: `d${s.day}-${q.id}`, status: "ungraded", response: `${s.supported ? `[supported: ${supportLabel(s.support)}] ` : ""}${v}` }, now);
     }
     const scored = qs.filter(q => q.type !== "open" && !s.supported);
     summary = `[${check.item.id}] ${s.supported ? "supported, ungraded" : `${scored.filter(q => isCorrect(q, s.answers[q.id])).length}/${scored.length} first answers correct`}`;

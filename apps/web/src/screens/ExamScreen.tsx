@@ -9,6 +9,7 @@ import { ExamVoice, useVerifiedClip } from "./ExamVoice.tsx";
 import { ExamFidelity } from "./ExamFidelity.tsx";
 import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
+import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { examProfileHash, profileAvailability, type ExamProfile } from "@hospodar/domain";
 
@@ -174,7 +175,8 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
       {item.passage && <><h2 lang="fi">{item.heading}</h2><div className="exam-passage" lang="fi">{item.passage}</div></>}
       {item.skill === "listening" && (
         <div className="exam-audio">
-          {audio ? <audio controls preload="none" src={audio} aria-label={`Äänite: ${item.heading ?? ""}`} /> : <p>Äänitettä ei löydy.</p>}
+          {/* Media rules: no speed aid in the exam (not an OPH-verified feature); any change goes back to 1×. */}
+          {audio ? <TaskAudio context="exam" src={audio} label={`Äänite: ${item.heading ?? ""}`} /> : <p>Äänitettä ei löydy.</p>}
           <p className="muted">Harjoitustoisto: kuuntelukertoja ei rajoiteta (virallista 2027-sääntöä ei ole vahvistettu).</p>
         </div>
       )}
