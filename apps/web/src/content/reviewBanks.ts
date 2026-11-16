@@ -13,6 +13,7 @@ import reactions from "../../../../learning/exercises/b1/high-yield/speaking-rea
 import opinions from "../../../../learning/exercises/b1/high-yield/opinion-argumentation-v1.json";
 import chunks from "../../../../knowledge/dictionaries/b1/contextual-chunks-v1.json";
 import rektio from "../../../../knowledge/dictionaries/b1/rektio-v1.json";
+import forms from "../../../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json";
 import dialogues from "../../../../learning/exercises/b1/contextual/dialogues-v1.json";
 import moves from "../../../../learning/exercises/b1/contextual/negotiation-moves-v1.json";
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
@@ -118,6 +119,11 @@ export const reviewBanks: ReviewBank[] = [
   { id: "listening", title_uk: "Аудіювання: довгі записи (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
     where_uk: "Аудіювання", walk: { screen: "listening", perItem: true },
     ...rows(listening, "lessons", `${B1}/audio-long/lessons.json`) },
+  { id: "forms", title_uk: "Форма слова в реченні (корпус UD Finnish FTB, CC BY 4.0)", skills: ["writing"], audio: false,
+    source: { kind: "licensed", license: "CC BY 4.0" },
+    where_uk: "Практика → «Форма слова в реченні»: самопорівняння, без оцінки; речення з корпусу, потрібне редагування S2 (архаїчний чи літературний контекст)",
+    walk: { screen: "practice", perItem: false },
+    ...rows(forms, "items", `${B1}/grammar/ftb-frequency-cloze-v1.json`) },
   { id: "training-listening", title_uk: "Аудіювання: короткі записи тем і текстів (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
     where_uk: "Аудіювання й місця «Моє господарство»; повільніший і швидший записи — лише після відповідей. Записи текстів 001–003 учням не показуються: ці тексти зарезервовано для відкладених перевірок читання",
     walk: { screen: "listening", perItem: true },

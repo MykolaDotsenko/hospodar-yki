@@ -137,12 +137,6 @@
       "plan_uk": "Етап 2: пункти самоперевірки після власного тексту — ніколи не бал (R04)."
     },
     {
-      "path": "learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "120 частотних вправ із пропуском — найбільший невикористаний банк.",
-      "plan_uk": "Етап 2: у пул місій і «Майстерню слабких місць» (з позначкою «очікує рецензії S2») і в робоче місце рецензента."
-    },
-    {
       "path": "learning/exercises/b1/high-yield/independent-sources.json",
       "reason": "TO_CONNECT",
       "note_uk": "Незалежні відкриті джерела (VIERKO, CC BY-SA тощо) з поясненням користі.",

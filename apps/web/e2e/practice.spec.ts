@@ -274,3 +274,23 @@ test("repeated telling 4/3/2 after an opinion card: three rounds aloud with shri
   await page.getByRole("button", { name: "Зберегти" }).last().click();
   await expect(page.getByTestId("fluency-done")).toContainText("Мовлення не записувалося");
 });
+
+test("corpus form card (CURATED-09): write the form, then the source form, the whole sentence and the CC BY attribution; self-compared, never scored", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: /Форма слова в реченні/ }).click();
+  await page.getByRole("button", { name: /^Картка 1 / }).click();
+  await expect(page.getByText(/muutti ___\. \(mieli\)/)).toBeVisible();
+  await expect(page.getByText("mielensä")).toHaveCount(0);                                         // the form is not shown before the attempt
+  await page.getByRole("textbox").fill("mielen");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("mielensä", { exact: true })).toBeVisible();
+  await expect(page.getByText(/UD Finnish FTB.*CC BY 4\.0.*адаптовано/)).toBeVisible();
+  await expect(page.getByText(/інша природна форма теж може бути правильною/)).toBeVisible();
+  await expect(page.getByText(/Правильно|Неправильно/)).toHaveCount(0);                           // never a score
+  await page.getByRole("button", { name: "Частково" }).click();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Muutin mieleni eilen.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+});
