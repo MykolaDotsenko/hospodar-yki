@@ -457,3 +457,15 @@ mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bo
 .review-decision { margin-top: var(--space-lg); padding-top: var(--space-base); border-top: 1px solid var(--stroke); }
 .review-decision select { display: block; min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 @media (max-width: 560px) { .review-fields div { grid-template-columns: 1fr; gap: 0; } }
+
+/* UIO-06 location scheme: one picture of a place, on request after the first attempt; no motion, a static table beside it. */
+.location-scheme { margin-top: var(--space-md); border-top: 1px solid var(--stroke); padding-top: var(--space-sm); }
+.location-scheme summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.location-scheme figure { margin: var(--space-sm) 0; color: var(--navy); }
+.location-scheme svg { display: block; width: 100%; max-width: 280px; height: auto; }
+.location-scheme figcaption { color: var(--ink); margin-top: var(--space-xs); }
+.location-table { border-collapse: collapse; width: 100%; margin-top: var(--space-sm); }
+.location-table caption { text-align: left; color: var(--muted); padding-bottom: var(--space-xs); }
+.location-table th, .location-table td { text-align: left; padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; border-bottom: 1px solid var(--stroke); vertical-align: top; }
+.location-table tr[aria-current="true"] { background: var(--surface-subtle); }
+@media (forced-colors: active) { .location-scheme svg { color: CanvasText; } }
