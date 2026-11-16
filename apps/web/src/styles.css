@@ -290,6 +290,11 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; }
 .cue-label { font-weight: 700; color: var(--forest); }
 /* Media library: calm cards, credit always visible, media never wider than the screen (A10-03 reflow). */
 .media-tabs { flex-wrap: wrap; }
+/* «Де вчитися далі»: ruled rows of outbound links (brand §9: lists are ruled rows, not cards). */
+.learn-more { margin-top: var(--space-lg); }
+.learn-more-list { list-style: none; padding: 0; margin: var(--space-sm) 0 0; border-top: 1px solid var(--stroke); }
+.learn-more-list > li { padding: var(--space-sm) 0; border-bottom: 1px solid var(--stroke); }
+.learn-more-list p { margin: var(--space-xs) 0 0; }
 .media-grid { list-style: none; padding: 0; display: grid; gap: var(--space-md); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
 .media-card { border: 1px solid var(--stroke); padding: var(--space-md); background: var(--white); min-width: 0; margin-bottom: var(--space-md); overflow-wrap: anywhere; }
 .media-card .btn { white-space: normal; display: inline-block; max-width: 100%; }

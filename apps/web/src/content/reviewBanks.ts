@@ -49,8 +49,9 @@ export const EXAM_ITEM_IDS = new Set((exam as unknown as { blueprints: { skill_b
   .flatMap(b => b.skill_blocks.map(s => s.item_id)));
 /** Content files that hold only EXAM configuration or forms: reviewed in the sealed exam process, not here. */
 export const EXAM_ONLY_FILES = ["learning/exercises/b1/exam-patterns/mini-rehearsals-v1.json", "learning/exercises/b1/exam-patterns/exam-profiles-v1.json"];
-/** Files a LEARN screen loads that hold no Finnish at all (Ukrainian criteria labels): nothing for an S2 reviewer. */
-export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json"];
+/** Files a LEARN screen loads that hold no authored Finnish (Ukrainian criteria labels; a list of outbound links whose
+ *  titles are the publishers' own): nothing for an S2 reviewer. */
+export const NO_FINNISH_FILES = ["learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json"];
 
 export const unitId = (item: Json) => String(item.id ?? item.lesson_id ?? item.task_id ?? "");
 const LABEL_KEYS = ["prompt_fi", "title_fi", "expression_fi", "construction_fi", "question_fi", "stimulus_fi", "source_fi", "initial_prompt_fi",

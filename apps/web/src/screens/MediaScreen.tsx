@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
 import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videoQuestions, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
+import { learnMore } from "../content/learnMore.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { TrustNote } from "../ui/TrustNote.tsx";
 import { IN_RELEASE } from "../content/release.ts";
@@ -126,7 +127,24 @@ export function MediaScreen({ repository, snapshot, onSaved, onHome }: { reposit
 
         {tab === "links" && (
           <>
-            <p>Відео на YouTube відкриваються на сайті автора. Застосунок їх не завантажує, не копіює й не вбудовує.</p>
+            <p>Усе тут відкривається на сайті автора чи видавця. Застосунок нічого не завантажує, не копіює й не вбудовує.</p>
+            {learnMore.map(g => g.links.length > 0 && (
+              <section key={g.id} className="learn-more" aria-labelledby={`lm-${g.id}`} data-testid={`learn-more-${g.id}`}>
+                <h2 id={`lm-${g.id}`}>{g.title_uk}</h2>
+                <p className="muted">{g.about_uk}</p>
+                <ul className="learn-more-list">
+                  {g.links.map(l => (
+                    <li key={l.id}>
+                      <a href={l.url} target="_blank" rel="noopener noreferrer"><span lang="fi">{l.title}</span> ↗</a>
+                      <p className="muted">{[l.by, l.level, l.host].filter(Boolean).join(" · ")}</p>
+                      <p>{l.why_uk}</p>
+                      {l.prompt_fi && !IN_RELEASE && <p>Після перегляду спробуй сам(а) (чернетка): <span lang="fi">{l.prompt_fi}</span></p>}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+            <h2>Відео на YouTube</h2>
             <ul className="media-grid">
               {externalLinks.map(l => (
                 <li key={l.id} className="media-card">

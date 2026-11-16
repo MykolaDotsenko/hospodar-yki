@@ -66,6 +66,22 @@ export function admitExternalLink(x: ExternalLink): { ok: true; url: string; hos
   return { ok: true, url: raw, host };
 }
 
+/**
+ * «Де вчитися далі» (CURATED-09): publisher series, episodes and open materials from the sources/ catalogs — link cards only.
+ * A link is shown only when it is https on a reviewed learning host (publishers, open-material archives, OPH), is not
+ * official YKI material and is not a competitor platform kept for product comparison (those hosts are simply not listed).
+ */
+export const CATALOG_LINK_HOSTS = Object.freeze(["yle.fi", "areena.yle.fi", "www.kielibuusti.fi", "www.finna.fi", "www.suomikoulut.fi", "www.oph.fi", "oph.fi"]);
+export function admitCatalogLink(x: { url?: unknown; official_yki?: unknown }): { ok: true; url: string; host: string } | { ok: false; reason: string } {
+  const raw = String(x?.url ?? "");
+  const m = /^https:\/\/([a-z0-9.-]+)(\/[^\s"'<>]*)?$/i.exec(raw);
+  if (!m) return { ok: false, reason: "invalid or non-https url" };
+  const host = m[1]!.toLowerCase();
+  if (!CATALOG_LINK_HOSTS.includes(host)) return { ok: false, reason: `host not on the learning-link list: ${host}` };
+  if (x.official_yki === true) return { ok: false, reason: "official YKI material is not linked from LEARN" };
+  return { ok: true, url: raw, host };
+}
+
 /** FNV-1a — tiny, stable across engines; used only to order options, never for security. */
 function hash(s: string): number {
   let h = 0x811c9dc5;

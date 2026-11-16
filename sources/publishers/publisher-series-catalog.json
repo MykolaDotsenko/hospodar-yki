@@ -30,7 +30,8 @@
       "why": "Professional B1 exercises with questions and short audio/video, 3 Finnish teachers, closest reliable free resource for YKI-like comprehension",
       "direct_video_ids_known": false,
       "rights": "Publisher video reuse/license not established; link to original, do not download/mirror.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Вправи рівня B1 від Yle: короткі відео й аудіо з питаннями на розуміння, найближче до читання й аудіювання YKI серед безкоштовного."
     },
     {
       "id": "kielibuusti-maku-work-situations",
@@ -64,7 +65,8 @@
       "why": "6 high-relevance work situations with practical problem-solving; strong source authority and explicit publisher CC by-nc-sa notice",
       "direct_video_ids_known": false,
       "rights": "Original publisher site states CC BY-NC-SA (verify full legal version/asset rights before redistribution); linking only; no unverified YouTube IDs.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Шість відео про ситуації на роботі: перерва, обмін змінами, запізнення, хвороба."
     },
     {
       "id": "kielibuusti-regional-turku",
@@ -92,7 +94,8 @@
       "why": "Natural regional colloquial speech in Turku, highly relevant to recognizing contracted forms and spontaneous conversational turns",
       "direct_video_ids_known": false,
       "rights": "Linked official site only, no video redistribution or unsupported derivative transcription.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Природна розмовна мова в Турку: скорочені форми й живі репліки в кав'ярні."
     },
     {
       "id": "kielibuusti-regional-kuopio",
@@ -121,7 +124,8 @@
       "why": "Actual community pharmacy dialogue, request/clarification, regional pronunciation variation useful for nuanced B1 listening",
       "direct_video_ids_known": false,
       "rights": "Linked official site only, no video redistribution.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Справжня розмова в аптеці в Куопіо: прохання, уточнення, місцева вимова."
     },
     {
       "id": "kielibuusti-regional-helsinki",
@@ -162,7 +166,8 @@
       "why": "Broad collection of compact situational dialogues with recognizable natural speech; provides diverse Finnish contexts and roleplay themes",
       "direct_video_ids_known": false,
       "rights": "Linked official publisher only",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Короткі побутові діалоги в Гельсінкі з природним мовленням."
     },
     {
       "id": "kielibuusti-regional-tampere",
@@ -190,7 +195,8 @@
       "why": "Naturally colored regional forms in short everyday exchanges",
       "direct_video_ids_known": false,
       "rights": "Linked official publisher only",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Короткі щоденні розмови в Тампере з місцевими формами."
     },
     {
       "id": "kielibuusti-regional-oulu",
@@ -218,7 +224,8 @@
       "why": "Contrast everyday vocabulary and Northern dialect, with speaking retell about events",
       "direct_video_ids_known": false,
       "rights": "Linked official publisher only",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "Щоденна лексика й північний діалект в Оулу."
     },
     {
       "id": "yle-asiointisuomea-35",
@@ -260,7 +267,8 @@
       "why": "Reliable professionally produced S2 authentic practical scenes at A2.1-B2.1 with full site-based transcripts; direct short episodes can become high-utility B1 functional roleplay after withholding transcript until answer.",
       "direct_video_ids_known": false,
       "rights": "Only publisher URLs; Yle license for media reuse not established. Do not download/rehost/copy dialogue transcripts.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "35 сцен «Asiointisuomea» від Yle: магазин, банк, бібліотека, кав'ярня; на сторінці є тексти діалогів."
     },
     {
       "id": "kielibuusti-metropolia-interview-5",
@@ -294,7 +302,8 @@
       "why": "Exact productive YKI-relevant interview answer practice: describe education, work experience, strengths, motivation and self-presentation. No direct YouTube IDs proven.",
       "direct_video_ids_known": false,
       "rights": "Publisher CC BY-ND 4.0; only original page link, no edited derivatives or republishing without permission.",
-      "source_checked": "verified_publisher_page"
+      "source_checked": "verified_publisher_page",
+      "why_uk": "П'ять відеоуроків про співбесіду: освіта, досвід, сильні сторони, мотивація."
     }
   ],
   "last_curated_update": "2026-10-21"

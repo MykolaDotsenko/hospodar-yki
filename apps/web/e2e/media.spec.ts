@@ -86,3 +86,18 @@ test("video questions (CURATED-09): each open video has its gist/detail/opinion 
   await expect(page.getByText(/Правильна відповідь|Ключ/)).toHaveCount(0);
   expect(await serious(page)).toEqual([]);
 });
+
+test("where to learn next (CURATED-09): publisher series, Yle Areena episodes and open materials as link rows; reviewed hosts only, competitor platforms never shown, nothing embedded", async ({ page }) => {
+  await open(page, "Зовнішні джерела");
+  const groups = { series: 9, episodes: 8, open: 5 };
+  for (const [id, n] of Object.entries(groups)) {
+    const g = page.getByTestId(`learn-more-${id}`);
+    await expect(g.getByRole("link")).toHaveCount(n);
+    for (const h of await g.getByRole("link").evaluateAll(as => as.map(a => [a.getAttribute("href"), a.getAttribute("target"), a.getAttribute("rel")])))
+      expect(h).toEqual([expect.stringMatching(/^https:\/\/(yle\.fi|areena\.yle\.fi|www\.kielibuusti\.fi|www\.finna\.fi|www\.suomikoulut\.fi)\//), "_blank", "noopener noreferrer"]);
+  }
+  await expect(page.locator('a[href*="ykimock"], a[href*="ykitestprep"], a[href*="ykiprep"]')).toHaveCount(0);   // comparison only, never for learners
+  await expect(page.getByTestId("learn-more-episodes")).toContainText("Після перегляду спробуй сам(а) (чернетка)");  // beta build: draft prompt labelled
+  await expect(page.locator("iframe, embed, object")).toHaveCount(0);
+  expect(await serious(page)).toEqual([]);
+});

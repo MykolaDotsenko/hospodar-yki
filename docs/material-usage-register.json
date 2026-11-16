@@ -114,27 +114,9 @@
       "plan_uk": "Етап 4: посилання «як виглядає іспит» перед репетицією; не підміняє ручний перегляд демо OPH."
     },
     {
-      "path": "sources/publishers/publisher-episode-catalog.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Окремі епізоди видавців (Yle Areena тощо) з оцінкою користі.",
-      "plan_uk": "Етап 2: посилання в «Медіатеці» й місцях, лише через гейт зовнішніх посилань."
-    },
-    {
-      "path": "sources/publishers/publisher-series-catalog.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Серії видавців рівня B1 (аудіовізуальні й практичні).",
-      "plan_uk": "Етап 2: посилання в «Медіатеці», лише через гейт зовнішніх посилань."
-    },
-    {
       "path": "learning/exercises/b1/audio-long/source-lessons.json",
       "reason": "NOT_LEARNER_MATERIAL",
       "note_uk": "Вихідний сценарій для синтезу довгих аудіоуроків; застосунок використовує готовий lessons.json."
-    },
-    {
-      "path": "learning/exercises/b1/high-yield/independent-sources.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "Незалежні відкриті джерела (VIERKO, CC BY-SA тощо) з поясненням користі.",
-      "plan_uk": "Етап 2: посилання «де вчитися далі» в «Медіатеці»."
     }
   ]
 }

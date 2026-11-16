@@ -256,9 +256,9 @@ def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
 HUMAN_GATE = re.compile(r"\bS2\b|human|manual|reviewer|rater|consent|legal|recording|walkthrough", re.I)
 
 
-# Loaded files with no Finnish at all (Ukrainian criteria labels): nothing for an S2 teacher. Mirrors NO_FINNISH_FILES in
-# apps/web/src/content/reviewBanks.ts (scripts/tests checks they agree).
-NO_FINNISH_FILES = ("learning/exercises/b1/feedback-rubrics.json",)
+# Loaded files with no authored Finnish (Ukrainian criteria labels; outbound links titled by their publishers): nothing for
+# an S2 teacher. Mirrors NO_FINNISH_FILES in apps/web/src/content/reviewBanks.ts (scripts/tests checks they agree).
+NO_FINNISH_FILES = ("learning/exercises/b1/feedback-rubrics.json", "learning/exercises/b1/high-yield/independent-sources.json")
 
 
 def loaded_content(root: Path = ROOT) -> list[tuple[str, int]]:
