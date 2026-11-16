@@ -50,10 +50,14 @@ export interface SessionCandidates {
   weakSpot: { family: string; retestDue: boolean; set: string[] } | null;
   tasks: SessionTask[];
 }
-export interface SessionChoice { minutes: SessionMinutes; skill?: YkiSkill | null; place?: PlaceId | null }
+export interface SessionChoice {
+  minutes: SessionMinutes; skill?: YkiSkill | null; place?: PlaceId | null;
+  /** The learner's own goal places (first run / «Моя мета»): preferred among equals, never a filter. */
+  goals?: readonly PlaceId[];
+}
 export type SessionReason =
   | "DELAYED_CHECK_DUE" | "PHRASES_DUE" | "GRAMMAR_DUE" | "WEAK_SPOT_RETEST_DUE" | "WEAK_SPOT"
-  | "NEW_TASK" | "NEVER_PRACTISED_SKILL" | "LEAST_PRACTISED_SKILL" | "CHOSEN_SKILL" | "CHOSEN_PLACE";
+  | "NEW_TASK" | "NEVER_PRACTISED_SKILL" | "LEAST_PRACTISED_SKILL" | "CHOSEN_SKILL" | "CHOSEN_PLACE" | "GOAL_PLACE";
 export interface SessionBlock {
   kind: "review" | "weak_spot" | "new_task";
   minutes: number;
@@ -134,6 +138,7 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
 
   // 3. Нова справа: never-tried LEARN tasks, R06-ranked over four skills, each fitting the time left.
   const exposure = skillExposure(state);
+  const goals = (choice.goals ?? []).filter(g => typeof g === "string");
   const least = Math.min(...YKI_SKILLS.map(s => exposure[s]));
   const usable = candidates.tasks.filter(t => t && !t.examOnly && (t.published || opts.allowDrafts) && !everTried(state, t.prefix) &&
     (choice.skill == null || t.skill === choice.skill) && (choice.place == null || t.place === choice.place) &&
@@ -149,7 +154,7 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
       redistributionCleared: true, offlineAvailable: true, estimatedMinutes: t.minutes, ...(t.place ? { topic: t.place } : {}) }));
     const ranked = rankR06Tasks({ tasks: r06, state: state as never, today: localDay(now),
       availableMinutes: Math.min(remaining, 180), skills: YKI_SKILLS, allowLabelledDrafts: opts.allowDrafts,
-      preferredSkills: choice.skill ? [choice.skill] : [], preferredTopics: choice.place ? [choice.place] : [] });
+      preferredSkills: choice.skill ? [choice.skill] : [], preferredTopics: choice.place ? [choice.place] : [...goals] });
     // Equal scores: the same skill order as «Сьогодні» (reading → listening → writing → speaking), then R06's own order.
     const [top] = ranked.filter(r => r.score === ranked[0]?.score)
       .sort((a, b) => YKI_SKILLS.indexOf(a.skill as YkiSkill) - YKI_SKILLS.indexOf(b.skill as YkiSkill));
@@ -160,6 +165,7 @@ export function planSession(state: LearnerState, candidates: SessionCandidates, 
     else if (exposure[task.skill] === least && choice.skill == null) reasons.push("LEAST_PRACTISED_SKILL");
     if (choice.skill) reasons.push("CHOSEN_SKILL");
     if (choice.place) reasons.push("CHOSEN_PLACE");
+    else if (task.place && goals.includes(task.place)) reasons.push("GOAL_PLACE");
     blocks.push({ kind: "new_task", minutes: task.minutes, skill: task.skill, place: task.place, family: null, later: 0, exposure: exposure[task.skill], reasons,
       items: [{ kind: "task", id: task.id, store: "diagnostics", prefix: task.prefix, done: task.donePrefix ?? task.prefix }] });
     planned.add(task.id); usedSkills.add(task.skill); remaining -= task.minutes; newCount += 1;

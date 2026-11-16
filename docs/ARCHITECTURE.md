@@ -504,3 +504,31 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart ("Illalla", "Ilta"), which the system font of the test environment does not. Rejected: hard-to-read fonts as a memory aid. Not claimed: that any of this improves learning — no user study was run. Guards: three new static tests and two E2E tests in `design-language.test.ts` and `e2e/design.spec.ts`.
 
+## 2026-11-16 — «Перший запуск»: two modes, an optional real-life goal, an optional diagnostic (docs/29 stage 3, code queue 8; MOT-02, MOT-11)
+
+- **When:** only for a learner with nothing saved on the device: no attempts, diagnostics or retention checks, and no goal record. A learner who already has data never sees it, even if the goal record is lost (`shouldWelcome` in `packages/domain/src/goals.ts`). The welcome takes the place of the next-step card, so Home still has one main action (UIO-01), and focus moves to its heading.
+- **What it says:**
+  - what the app is: no account, everything stays on this device;
+  - the two modes in plain words: LEARN (own answer first, then help, self-repair, a new situation; review after 1/3/7/14/30 days) and the YKI rehearsal (no hints, results only at the end, «Це не офіційний YKI»; the 2027 digital rules are not confirmed).
+- **What it asks:** «Що тобі треба робити фінською?». Optional, several allowed: the nine life places or «Скласти іспит YKI». It never asks for a level, age or country, and it never shows a level. Two buttons:
+  - «Почати з короткого знайомства» opens the existing starting diagnostic;
+  - «Без знайомства — одразу до справ» goes straight to Home.
+- **Storage:**
+  - Nothing is stored until a button is pressed.
+  - Then `localStorage` gets `hospodar-yki:web:goals:v1` = `{version:1, goals, seen}`, with readback; a refused write is reported and the welcome shows again next time.
+  - A damaged record reads as no record. Unknown goals are dropped and the order is fixed.
+  - Other tabs follow via the `storage` event.
+  - The record is not part of the export: like the deed marks, it is a preference, not learning evidence.
+  - «Мої дані» → erase LEARN clears it with the progress (verified), so the device is new again.
+- **Effect:** «Моя мета» on Home shows the goals, with «Змінити мету» (save or cancel). Place rows say «твоя мета». In «План заняття» the goal places are preferred among new tasks with equal skill balance (+2 preference in the R06 ranker), with the visible reason «це місце — твоя мета». A place the learner chooses explicitly wins over goals. Skill balance and «review first» are unchanged. The YKI goal changes no ranking, so it opens no EXAM item in LEARN.
+- **Code:** `packages/domain/src/goals.ts` (+ `test/goals.test.ts`), `sessionPlan.ts` (`goals`, `GOAL_PLACE`), `apps/web/src/storage/goals.ts`, `screens/Welcome.tsx` (`Welcome`, `MyGoals`), `HomeScreen`, `SessionPlanPanel`, `DataScreen`, `App`.
+- **E2E:**
+  - `e2e/first-run.spec.ts` covers the new learner.
+  - All other specs start from `e2e/state/returning-learner.json`, an empty goal record set as the global Playwright `storageState`, so they open Home as before.
+  - `data.spec` now expects the welcome after a LEARN erase.
+- **Not done:**
+  - the R08-MOT if-then plan with a personal cue («коли …, я …»);
+  - a weekly time goal;
+  - opt-in reminders;
+  - any measured effect of a goal on practice or delayed Finnish outcomes (MOT-STUDY not run).
+

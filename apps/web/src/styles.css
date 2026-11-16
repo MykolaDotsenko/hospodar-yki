@@ -103,6 +103,15 @@ nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top
 .today-rest li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm) var(--space-base); padding: var(--space-sm) 0; border-top: 1px solid var(--stroke); }
 .today-rest li > span { flex: 1 1 16em; }
 .today-count { margin: var(--space-md) 0 0; font-size: .9rem; }
+/* «Перший запуск»: the first-run sheet takes the next-step card's place (one main action); the two modes as a short list. */
+.welcome-h { font-size: 1.1rem; margin: var(--space-base) 0 var(--space-xs); }
+.welcome-modes { margin: 0; display: grid; }
+.welcome-modes div { padding: var(--space-sm) 0; border-top: 1px solid var(--stroke); }
+.welcome-modes dt { font-weight: 700; color: var(--navy); }
+.welcome-modes dd { margin: 2px 0 0; max-width: 40em; }
+.goal-choice legend { font-size: 1.05rem; }
+.my-goals { margin: 0 0 var(--space-md); }
+.my-goals p { margin: 0; }
 /* «План заняття» (DEC-01): the plan replaces the next-step card; one primary button on the current block. */
 .plan-start { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); }
 .plan-start > span { flex: 1 1 100%; color: var(--muted); }

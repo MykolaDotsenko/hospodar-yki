@@ -89,6 +89,9 @@ test("LEARN-16/WEB-07: my data — verified JSON export, then separate typed-con
   await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
   await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
   await page.reload();
+  // Erasing LEARN data also erases the learner's goals and the first-run mark: the device is new again.
+  await expect(page.getByRole("region", { name: "Перший раз тут" })).toBeVisible();
+  await page.getByRole("button", { name: "Без знайомства — одразу до справ" }).click();
   await expect(page.getByText(/Виконано місій: 0/)).toBeVisible();
 });
 

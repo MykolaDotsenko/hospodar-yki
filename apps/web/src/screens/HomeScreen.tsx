@@ -1,5 +1,5 @@
-import { delayedTransferQueue, dueCards, hospodarHome, hospodarMoment, localDate, placeProgress, workshopStatus, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
-  type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
+import { delayedTransferQueue, dueCards, goalPlaces, hospodarHome, hospodarMoment, localDate, placeProgress, shouldWelcome, workshopStatus, practiceDue, skillPracticeCounts, skillRetentionQueue, todayPlan,
+  type GoalRecord, type LearnerState, type PlaceId, type Skill, type TodayAction } from "@hospodar/domain";
 import { placeIndex, places } from "../content/places.ts";
 import { FAMILIES, workshopItems } from "../content/workshop.ts";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
@@ -11,6 +11,7 @@ import { transferBank } from "../content/transfer.ts";
 import { Icon, type IconName } from "../ui/icons.tsx";
 import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
 import { makeSession, PlanStart, SessionPlanPanel, type ActiveSession, type PlanTarget } from "./SessionPlanPanel.tsx";
+import { MyGoals, Welcome } from "./Welcome.tsx";
 
 export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
@@ -40,11 +41,15 @@ function describe(a: TodayAction): { title: string; why: string; cta: string; go
   }
 }
 
-export function HomeScreen({ state, go, openPlace, guide = false, session = null, onSession = () => {}, start = () => {} }: {
+export function HomeScreen({ state, go, openPlace, guide = false, session = null, onSession = () => {}, start = () => {}, goals = null, onGoals = () => {} }: {
   state: LearnerState | null; go: (v: HomeTarget) => void; openPlace: (id: PlaceId) => void; guide?: boolean;
   /** «План заняття» (DEC-01 10/20/30): kept by App in memory only; when present it replaces the next-step card (one main action). */
   session?: ActiveSession | null; onSession?: (s: ActiveSession | null) => void; start?: (v: PlanTarget, id: string | null) => void;
+  /** The learner's own goals and the first-run mark (storage/goals.ts). */
+  goals?: GoalRecord | null; onGoals?: (r: GoalRecord) => void;
 }) {
+  const welcome = shouldWelcome(state, goals);
+  const goalPlaceIds = goalPlaces(goals);
   const done = state?.attempts.length ?? 0;
   const grammarDue = state ? dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length : 0;
   const phrasesDue = state ? practiceDue(state, practiceCards).length : 0;
@@ -77,8 +82,9 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
     <section aria-labelledby="home-title">
       <h1 id="home-title">Що сьогодні робимо?</h1>
 
-      {session && state && <SessionPlanPanel state={state} session={session} onSession={onSession} go={start} />}
-      {!session && first && (
+      {welcome && <Welcome onDone={(r, next) => { onGoals(r); if (next === "diagnostic") go("diagnostic"); }} />}
+      {!welcome && session && state && <SessionPlanPanel state={state} session={session} onSession={onSession} go={start} />}
+      {!welcome && !session && first && (
         <section className="today" aria-labelledby="today-title">
           <h2 id="today-title" className="today-kicker">Твій наступний крок</h2>
           <p className="today-title">{first.title}</p>
@@ -89,7 +95,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
               {rest.map(r => <li key={r.cta}><span>{r.title}</span> <button type="button" className="btn secondary" onClick={() => go(r.go)}>{r.cta}</button></li>)}
             </ul>
           )}
-          {state && <PlanStart onPick={minutes => onSession(makeSession(state, { minutes }))} />}
+          {state && <PlanStart onPick={minutes => onSession(makeSession(state, { minutes, goals: goalPlaceIds }))} />}
           <p className="muted today-count" aria-live="polite">Виконано місій: <strong>{done}</strong> · на повторення сьогодні: <strong>{grammarDue}</strong></p>
         </section>
       )}
@@ -116,6 +122,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
         {guide && state && <Hospodar says={hospodarHome(hospodarMoment(state, new Date()), new Date())} />}
         <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
           ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
+        {!welcome && state && <MyGoals record={goals} onSaved={onGoals} />}
         <ul className="estate-grid">
           {places.map(pl => {
             const p = estate.find(x => x.place === pl.id);
@@ -123,7 +130,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
               <li key={pl.id}><button type="button" className="place-tile" data-testid={`place-${pl.id}`} data-door={p?.doorOpen ? "open" : "closed"} onClick={() => openPlace(pl.id)}>
                 <PlaceGlyph open={Boolean(p?.doorOpen)} />
                 <span className="place-tile-text"><strong>{pl.title_uk}</strong><span lang="fi" className="place-tile-fi">{pl.title_fi}</span>
-                  <small>{p?.doorOpen ? <><Icon name="key" size={15} /> ключів: {p.keys} · спроб фінською: {p.practice}</> : "Двері ще зачинені"}</small></span>
+                  <small>{p?.doorOpen ? <><Icon name="key" size={15} /> ключів: {p.keys} · спроб фінською: {p.practice}</> : "Двері ще зачинені"}{goalPlaceIds.includes(pl.id) && " · твоя мета"}</small></span>
               </button></li>
             );
           })}

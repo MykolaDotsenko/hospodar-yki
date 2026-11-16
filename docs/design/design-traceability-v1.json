@@ -2350,9 +2350,17 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "first run: what the app is, the two modes, an optional real-life goal and an optional diagnostic; no level asked; one main action"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "goals can be changed or cleared at any time, steer the session plan with a visible reason, and go with LEARN data"
         }
       ],
-      "gap": "Choice, calm mode, honest progress and the «Моє господарство» place layer (keys for verified first answers only) exist; the R08-MOT goal/time plan is not built."
+      "gap": "Choice, calm mode, honest progress, the «Моє господарство» place layer (keys for verified first answers only), a 10/20/30-minute plan and the learner's own real-life goals (first run, «Моя мета») exist. The R08-MOT if-then plan with a personal cue («коли …, я …») is not built."
     },
     {
       "id": "GL-07",
@@ -4675,6 +4683,14 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "first run: what the app is, the two modes, an optional real-life goal and an optional diagnostic; no level asked; one main action"
+        },
+        {
+          "file": "packages/domain/test/goals.test.ts",
+          "contains": "goals prefer their places among equals in the session plan, with a visible reason; skill balance still comes first"
         }
       ]
     },
@@ -4823,6 +4839,14 @@
         {
           "file": "apps/web/e2e/session-plan.spec.ts",
           "contains": "session plan: a fresh learner's 30 minutes are new tasks in different skills with reasons; one main action; nothing stored"
+        },
+        {
+          "file": "apps/web/e2e/first-run.spec.ts",
+          "contains": "goals can be changed or cleared at any time, steer the session plan with a visible reason, and go with LEARN data"
+        },
+        {
+          "file": "packages/domain/test/goals.test.ts",
+          "contains": "a damaged record reads as no record (the first run shows again); a valid one survives a round trip"
         }
       ]
     },

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import type { LearnerState } from "@hospodar/domain";
+import type { GoalRecord, LearnerState } from "@hospodar/domain";
 import { HomeScreen } from "./screens/HomeScreen.tsx";
 import type { ActiveSession } from "./screens/SessionPlanPanel.tsx";
+import { onGoalsChanged, readGoals } from "./storage/goals.ts";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
 import type { ExamRepository } from "./storage/examRepository.ts";
 import type { VoiceStore } from "./storage/voiceStore.ts";
@@ -63,6 +64,9 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
   // «План заняття»: memory only for this page visit — never written to storage (MOT-11), so a reload forgets it.
   const [session, setSession] = useState<ActiveSession | null>(null);
+  // The learner's goals and the first-run mark: on this device, written only by the learner's own action.
+  const [goals, setGoals] = useState<GoalRecord | null>(readGoals);
+  useEffect(() => onGoalsChanged(() => setGoals(readGoals())), []);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [appearance, setAppearance] = useState<Appearance>(readAppearance);
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
@@ -107,11 +111,11 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             {RELEASED_TASKS === 0 && " Поки що жодного — розділи покажуть «Ще не перевірено»."}</p>
         )}
         {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }}
-          session={session} onSession={setSession} start={(v, id) => goTo(v, id)} />}
+          session={session} onSession={setSession} start={(v, id) => goTo(v, id)} goals={goals} onGoals={setGoals} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
-        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); }} onHome={() => goTo("home")} />}
+        {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); setGoals(readGoals()); }} onHome={() => goTo("home")} />}
         {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
           onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} />}
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
