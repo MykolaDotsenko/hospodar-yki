@@ -294,3 +294,21 @@ test("corpus form card (CURATED-09): write the form, then the source form, the w
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
   await expect(page.getByText(/Картку збережено/)).toBeVisible();
 });
+
+test("clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: /Час дієслова й годинник/ }).click();
+  await page.getByRole("button", { name: /^Картка 9 .*Годинник і час/ }).click();                    // the first clock card, after 8 tense cards
+  await expect(page.getByText("Kello on puoli neljä. Mikä aika on?")).toBeVisible();
+  await expect(page.locator(".practice-figure")).toHaveCount(0);                               // the picture shows the answer: not yet
+  await page.getByLabel("15:30").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText(/Правильно з першої спроби/)).toBeVisible();
+  await expect(page.getByRole("img", { name: /15:30/ })).toBeVisible();
+  await expect(page.locator(".practice-figure figcaption")).toContainText(/\S/);              // credit and licence
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Työpäiväni alkaa kello kahdeksan.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+});

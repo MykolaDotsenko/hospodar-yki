@@ -656,3 +656,16 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Elsewhere:** the reviewer workspace has the bank «Форма слова в реченні», 22 banks in all.
 - **Tests:** `practice.test.ts` (source named, no score, Finnish grammar terms as group names) and the E2E «corpus form card (CURATED-09)…».
 - **Not done:** S2 curation of literary or archaic sentences; not spaced like chunk/rektio cards.
+
+**Update 2026-11-16 — part 3: tense and clock lessons as «Час дієслова й годинник» practice cards.**
+
+- **Source:** `learning/exercises/grammar/tenses/lessons.json` (4 tense explanations, 8 choices and 1 open item) and `time-and-clock/lessons.json` (4 examples, 3 choices). No screen loaded them.
+- **The cards:** they are now the practice kind `time` (`tenseCard`, `clockCard`). The learner chooses first; that choice is scored like any keyed choice, as reading. Then comes the explanation:
+  - for tenses: the tense's form and examples;
+  - for clock items: the matching example.
+- **Pictures:** a card may carry an `illustrationId`. `PracticeScreen` shows that picture from the illustration library with its credit, only in the reveal, because it shows the answer:
+  - the tense timeline for tenses;
+  - the clock face whose time is the answer for clock items. No picture is invented for 9.45.
+- **Open item:** the open pluperfect item becomes the new-situation prompt of the pluperfect cards. The own sentence stays ungraded.
+- **Elsewhere:** reviewer banks «Часи дієслова» and «Годинник і час» (24 banks). Release builds keep only published items.
+- **Tests:** `practice.test.ts` (counts, scored choice, ungraded rest, picture only after the attempt) and the E2E «clock card (CURATED-09)…».

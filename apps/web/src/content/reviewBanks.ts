@@ -14,6 +14,8 @@ import opinions from "../../../../learning/exercises/b1/high-yield/opinion-argum
 import chunks from "../../../../knowledge/dictionaries/b1/contextual-chunks-v1.json";
 import rektio from "../../../../knowledge/dictionaries/b1/rektio-v1.json";
 import forms from "../../../../learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json";
+import tenses from "../../../../learning/exercises/grammar/tenses/lessons.json";
+import clock from "../../../../learning/exercises/grammar/time-and-clock/lessons.json";
 import dialogues from "../../../../learning/exercises/b1/contextual/dialogues-v1.json";
 import moves from "../../../../learning/exercises/b1/contextual/negotiation-moves-v1.json";
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
@@ -119,6 +121,14 @@ export const reviewBanks: ReviewBank[] = [
   { id: "listening", title_uk: "Аудіювання: довгі записи (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
     where_uk: "Аудіювання", walk: { screen: "listening", perItem: true },
     ...rows(listening, "lessons", `${B1}/audio-long/lessons.json`) },
+  { id: "tenses", title_uk: "Часи дієслова: вибір форми й пояснення", skills: ["reading", "writing"], audio: false, source: ORIGINAL,
+    where_uk: "Практика → «Час дієслова й годинник»: вибір, потім пояснення часу й часова шкала; відкрите завдання стає новою ситуацією",
+    walk: { screen: "practice", perItem: false },
+    ...rows(tenses, "exercises", "learning/exercises/grammar/tenses/lessons.json") },
+  { id: "clock", title_uk: "Годинник і час", skills: ["reading", "writing"], audio: false, source: ORIGINAL,
+    where_uk: "Практика → «Час дієслова й годинник»: вибір, потім приклад і годинник (лише після спроби)",
+    walk: { screen: "practice", perItem: false },
+    ...rows(clock, "exercises", "learning/exercises/grammar/time-and-clock/lessons.json") },
   { id: "forms", title_uk: "Форма слова в реченні (корпус UD Finnish FTB, CC BY 4.0)", skills: ["writing"], audio: false,
     source: { kind: "licensed", license: "CC BY 4.0" },
     where_uk: "Практика → «Форма слова в реченні»: самопорівняння, без оцінки; речення з корпусу, потрібне редагування S2 (архаїчний чи літературний контекст)",

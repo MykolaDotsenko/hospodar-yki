@@ -475,3 +475,7 @@ mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bo
 .exam-rules summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
 .exam-rules ul { margin: var(--space-xs) 0 0; padding-left: var(--space-md); }
 .exam-rules li { margin-bottom: var(--space-xs); color: var(--ink); }
+
+/* An illustration that shows the answer, after the first attempt only (CURATED-04/09). Square, no decoration. */
+.practice-figure { margin: var(--space-sm) 0; }
+.practice-figure img { display: block; width: 100%; max-width: 240px; height: auto; }

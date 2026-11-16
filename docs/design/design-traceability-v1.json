@@ -5087,6 +5087,10 @@
         {
           "file": "apps/web/e2e/picture-mission.spec.ts",
           "contains": "IV-REQ-06 picture mission: unassisted first, models + Ukrainian gloss only after, transfer without photo or translation; ungraded"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence"
         }
       ],
       "gap": "Photos and SVGs with credit; grammar motion/timeline interactions not built (SENS-08, UIO-06)."
@@ -5207,9 +5211,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "corpus form card (CURATED-09): write the form, then the source form, the whole sentence and the CC BY attribution; self-compared, never scored"
+        },
+        {
+          "file": "apps/web/src/content/practice.test.ts",
+          "contains": "tense and clock cards (CURATED-09): choose first (scored like any keyed choice), then the explanation and the picture that shows the answer, then an own sentence"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "clock card (CURATED-09): choose the time first; the clock face that shows the answer appears only after; then an own sentence"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Still registered: 2 logo variants (not for learners), 10 link catalogs and 7 content files (code queue item 10)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. Still registered: 2 logo variants (not for learners), 10 link catalogs and 5 content files (code queue item 10)."
     },
     {
       "id": "CURATED-10",

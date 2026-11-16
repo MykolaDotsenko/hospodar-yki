@@ -17,7 +17,7 @@
  */
 import { addDiagnostic, dueCards, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
-export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio" | "form";
+export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio" | "form" | "time";
 export type PracticeJudgement = "same" | "partly" | "different";
 export interface PracticeLine { label_uk: string; text: string; lang: "fi" | "uk" }
 export interface PracticeCard {
@@ -35,6 +35,8 @@ export interface PracticeCard {
   recall_uk?: string;
   transfer: PracticeLine;
   reviewStatus: string;                 // never "published" today: S2 review pending
+  /** An illustration (assets/images/illustrations library id) shown only with the reveal: it shows the answer. */
+  illustrationId?: string;
 }
 export type PracticePhase = "plan" | "attempt" | "reveal" | "recall" | "transfer" | "done";
 export interface PracticeSession {
@@ -72,7 +74,7 @@ export class PracticeError extends Error {
   constructor(public readonly code: "NOT_ALLOWED" | "EMPTY" | "INVALID" | "NOT_JUDGED", m: string) { super(m); this.name = "PracticeError"; }
 }
 
-const KINDS: PracticeKind[] = ["paraphrase", "reaction", "opinion", "chunk", "rektio", "form"];
+const KINDS: PracticeKind[] = ["paraphrase", "reaction", "opinion", "chunk", "rektio", "form", "time"];
 const SKILLS: Skill[] = ["reading", "listening", "writing", "speaking"];
 const okLine = (l: PracticeLine | undefined) => !!l && typeof l.text === "string" && l.text.trim().length > 0 &&
   typeof l.label_uk === "string" && (l.lang === "fi" || l.lang === "uk");
@@ -84,15 +86,15 @@ export function validatePracticeCard(x: unknown): x is PracticeCard {
       !Array.isArray(c.prompt) || c.prompt.length < 1 || !c.prompt.every(okLine) ||
       !Array.isArray(c.reveal) || c.reveal.length < 1 || !c.reveal.every(okLine) || !okLine(c.transfer) ||
       !SKILLS.includes(c.attemptSkill) || !SKILLS.includes(c.transferSkill) || c.reviewStatus === "published") return false;
-  if (c.kind === "paraphrase") {
+  if (c.kind === "paraphrase" || c.kind === "time") {
     const ch = c.choice;
     if (!ch || !Array.isArray(ch.options_fi) || ch.options_fi.length < 2 || !ch.options_fi.every(o => typeof o === "string" && o.trim()) ||
-        !Number.isInteger(ch.correct_index) || ch.correct_index < 0 || ch.correct_index >= ch.options_fi.length ||
-        typeof c.recall_uk !== "string" || !c.recall_uk.trim() || c.attemptSkill !== "reading") return false;
+        !Number.isInteger(ch.correct_index) || ch.correct_index < 0 || ch.correct_index >= ch.options_fi.length || c.attemptSkill !== "reading") return false;
+    if (c.kind === "paraphrase" && (typeof c.recall_uk !== "string" || !c.recall_uk.trim())) return false;
   } else if (c.choice || c.attemptSkill === "reading" || c.attemptSkill === "listening") return false;
   // Exam-style leak guard: the expected answer must not already be printed in what the learner sees first.
   const before = norm(c.prompt.map(l => l.text).join(" "));
-  const keys = c.kind === "paraphrase" ? [] : c.reveal.filter(l => l.lang === "fi").map(l => norm(l.text)).filter(k => k.length >= 4);
+  const keys = c.kind === "paraphrase" || c.kind === "time" ? [] : c.reveal.filter(l => l.lang === "fi").map(l => norm(l.text)).filter(k => k.length >= 4);
   return !keys.some(k => before.includes(k));
 }
 
@@ -250,6 +252,44 @@ export function formCard(i: FormItem): PracticeCard {
       { label_uk: "Джерело", text: `${i.original_source} · ${i.source_license} · адаптовано: одне слово замінено пропуском`, lang: "uk" },
     ],
     transfer: { label_uk: "Нова ситуація", text: `Склади власне речення про своє життя з формою «${i.answer_fi}».`, lang: "uk" },
+  };
+}
+
+/** tenses/lessons.json and time-and-clock/lessons.json (project-original drafts, S2-pending). */
+export interface TenseLesson { tense: string; label_uk: string; form: string; examples: { fi: string; uk: string }[] }
+export interface TimeChoiceItem { id: string; prompt_fi: string; choices: string[]; answer: string | null; tense?: string; type?: string }
+export interface ClockExample { fi: string; time: string; uk: string }
+/**
+ * «Час дієслова й годинник» (CURATED-09): choose the form or the time first (scored, like every keyed choice), then the
+ * explanation and the picture that shows the answer (tense timeline, clock face), then an own sentence (ungraded).
+ */
+export function tenseCard(i: TimeChoiceItem, lesson: TenseLesson, transfer_fi: string | null): PracticeCard | null {
+  const correct = i.answer ? i.choices.indexOf(i.answer) : -1;
+  if (correct < 0) return null;
+  return {
+    id: i.id, kind: "time", group: "tenses", attemptSkill: "reading", transferSkill: "writing", reviewStatus: "pending_S2",
+    prompt: [{ label_uk: "Обери форму, яка пасує до речення", text: i.prompt_fi, lang: "fi" }],
+    choice: { options_fi: i.choices, correct_index: correct },
+    reveal: [
+      { label_uk: lesson.label_uk, text: lesson.form, lang: "fi" },
+      ...lesson.examples.flatMap(e => [{ label_uk: "Приклад", text: e.fi, lang: "fi" as const }, { label_uk: "Переклад", text: e.uk, lang: "uk" as const }]),
+    ],
+    transfer: transfer_fi ? { label_uk: "Нова ситуація", text: transfer_fi, lang: "fi" }
+      : { label_uk: "Нова ситуація", text: `Склади власне речення про себе в цьому часі (${lesson.label_uk.toLocaleLowerCase("uk")}).`, lang: "uk" },
+    illustrationId: "tense-timeline",
+  };
+}
+export function clockCard(i: TimeChoiceItem, example: ClockExample | null, illustrationId: string | null): PracticeCard | null {
+  const correct = i.answer ? i.choices.indexOf(i.answer) : -1;
+  if (correct < 0) return null;
+  return {
+    id: i.id, kind: "time", group: "clock", attemptSkill: "reading", transferSkill: "writing", reviewStatus: "pending_S2",
+    prompt: [{ label_uk: "Котра година?", text: i.prompt_fi, lang: "fi" }],
+    choice: { options_fi: i.choices, correct_index: correct },
+    reveal: example ? [{ label_uk: "Так кажуть", text: example.fi, lang: "fi" }, { label_uk: "Переклад", text: example.uk, lang: "uk" }]
+      : [{ label_uk: "Відповідь", text: i.answer!, lang: "fi" }],
+    transfer: { label_uk: "Нова ситуація", text: "Напиши фінською, о котрій годині починається й закінчується твій звичайний день.", lang: "uk" },
+    ...(illustrationId ? { illustrationId } : {}),
   };
 }
 

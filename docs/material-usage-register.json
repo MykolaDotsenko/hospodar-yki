@@ -149,18 +149,6 @@
       "plan_uk": "Етап 2: окремий тип уроку з тими самими правилами першої спроби."
     },
     {
-      "path": "learning/exercises/grammar/tenses/lessons.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "9 уроків часів дієслова (чернетка, очікує рецензії S2).",
-      "plan_uk": "Етап 2: уроки граматики разом з ілюстрацією tense-timeline.svg."
-    },
-    {
-      "path": "learning/exercises/grammar/time-and-clock/lessons.json",
-      "reason": "TO_CONNECT",
-      "note_uk": "4 уроки «час і годинник» (чернетка, очікує рецензії S2).",
-      "plan_uk": "Етап 2: разом з ілюстраціями годинника з бібліотеки."
-    },
-    {
       "path": "learning/exercises/video/exercises.json",
       "reason": "TO_CONNECT",
       "note_uk": "3 вправи до відкритих відео (не для оцінювання).",
