@@ -73,11 +73,28 @@ test("DESIGN-11 authored form language: two typefaces loaded from the app itself
     const gold = els.filter(e => { const a = getComputedStyle(e, "::after"); return e.matches(".today, .panel") && a.display !== "none" && a.content !== "none" && a.transform !== "none"; }).length;
     return { round, stripes, upper, cuts, gold };
   });
-  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["today"], gold: 1 });     // Home: the next-step sheet carries the cut
+  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["today"], gold: 1 });     // Home: the next-step sheet carries the cut and the gold step
+  // SD-G08: the bundled faces really contain the Finnish and Ukrainian letters (no silent fallback for ä ö å or і ї є ґ).
+  expect(await page.evaluate(() => [document.fonts.check('16px "Finlandica"', "äöåÄÖÅ"), document.fonts.check('16px "Arsenal"', "іїєґІЇЄҐ")])).toEqual([true, true]);
+  // A ruled row still shows that it opens something.
+  for (const row of [".place-tile", ".more-tile", ".skill-tile"]) expect(await page.locator(row).first().evaluate(e => getComputedStyle(e, "::after").borderTopWidth), row).toBe("2px");
   await page.getByTestId("nav-reading").click();
   await page.locator(".choice").first().click();
   await expect(page.locator(".prompt[lang=fi]")).toBeVisible();
-  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["panel"], gold: 1 });     // a task: the task sheet carries it
+  expect(await audit()).toEqual({ round: [], stripes: [], upper: [], cuts: ["panel"], gold: 0 });     // a task: the quiet cut only — no gold, no decoration (COG-07)
+  expect(await page.evaluate(() => [...document.querySelectorAll(".panel, .panel *")].filter(e => /201, 145, 53/.test(getComputedStyle(e).backgroundColor + getComputedStyle(e, "::after").backgroundColor)).length)).toBe(0);
+  // Long Finnish text keeps a readable measure: at most about 70 characters on a line at desktop width.
+  const perLine = await page.locator(".prompt.reading-text").evaluate(e => {
+    const cs = getComputedStyle(e), c = document.createElement("canvas").getContext("2d")!;
+    c.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const text = (e.textContent ?? "").trim(), avg = c.measureText(text).width / text.length;
+    // font-size-adjust scales the rendered glyphs; the canvas does not know it, so compare x-heights to get the real width.
+    const scale = 0.53 / (c.measureText("x").actualBoundingBoxAscent / parseFloat(cs.fontSize));
+    return (e.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)) / (avg * scale);
+  });
+  expect(perLine).toBeGreaterThan(45);
+  expect(perLine).toBeLessThanOrEqual(75);
+  expect(await px(page, ".prompt.reading-text", "font-weight")).toBe("400");
   expect(await px(page, ".prompt[lang=fi]", "font-family")).toMatch(/^"?Finlandica/);
   expect(await serious(page)).toEqual([]);
 
@@ -86,5 +103,23 @@ test("DESIGN-11 authored form language: two typefaces loaded from the app itself
   await expect(page.locator("html")).toHaveAttribute("data-mode", "exam");
   const exam = await audit();
   expect([exam.round, exam.stripes, exam.upper, exam.cuts, exam.gold]).toEqual([[], [], [], [], 0]);   // DESIGN-12: a plain sheet, no gold in the exam
+});
+
+test("typeface is the learner's choice: the device font for both languages, kept after reload; nothing else changes", async ({ page }) => {
+  await page.goto("./");
+  await expect(page.locator(".today")).toBeVisible();
+  const text = await page.locator("main").innerText();
+  expect(await px(page, "h1", "font-family")).toMatch(/^"?Arsenal/);
+  await page.getByLabel("Шрифт").selectOption({ label: "Звичний шрифт пристрою" });
+  await expect(page.locator("html")).toHaveAttribute("data-font", "system");
+  expect(await px(page, "h1", "font-family")).toMatch(/^system-ui/);
+  expect(await px(page, ".skill-tile-fi[lang=fi]", "font-family")).toMatch(/^system-ui/);
+  expect(await page.locator("main").innerText()).toBe(text);                          // presentation only
+  expect(await serious(page)).toEqual([]);
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-font", "system");
+  await page.getByLabel("Шрифт").selectOption({ label: "Фірмові: Arsenal і Finlandica" });
+  await expect(page.locator("html")).not.toHaveAttribute("data-font", "system");
+  expect(await px(page, "h1", "font-family")).toMatch(/^"?Arsenal/);
 });
 

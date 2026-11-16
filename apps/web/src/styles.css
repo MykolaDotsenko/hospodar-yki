@@ -4,15 +4,25 @@
    Form language (brand identity §9, DESIGN-11): a household ledger, not a dashboard.
    - Surfaces are square and hang from rules; lists are ruled rows, not grids of rounded cards.
    - No accent stripe down the left edge of a box, no pill shapes, no uppercase tracked labels.
-   - Exactly one block per screen carries the H-mark's own signature: the diagonal cut at the bottom right with the
-     gold step beside it (.today). The two mode entries keep a small gold step; nothing else is decorated.
-   - Two voices: Ukrainian guidance in Arsenal, Finnish in Finlandica (fonts.css).
+   - Exactly one sheet per screen carries the H-mark's own cut at the bottom right. Gold is decoration, so it appears
+     only on Home (the next-step sheet and the two mode entries) and never on a task sheet: during a task nothing
+     competes with the Finnish text (COG-07 seductive details, ATT-01 coherence, COLOR-15/20).
+   - Two voices: Ukrainian guidance in Arsenal, Finnish in Finlandica (fonts.css). Both are scaled to one x-height, a
+     list row always shows that it opens something, long Finnish text keeps a readable measure, and the learner may
+     switch to the device's own font (research/design/20).
    apps/web/src/design-language.test.ts fails when one of these rules is broken. */
 @import "../../../app/tokens.css";
 
-:root { color-scheme: light; font-family: "Arsenal", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; font-synthesis-weight: none; }
-/* Finnish — the language being learned — always speaks in its own typeface, wherever it appears. */
+:root { color-scheme: light; font-family: "Arsenal", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; font-synthesis-weight: none;
+  /* One apparent size for every face: text is scaled so its x-height is 0.53 of the font size (about Arial/Roboto).
+     Arsenal and Finlandica (0.50) are no longer smaller than the fallback, and a font swap does not move the layout. */
+  font-size-adjust: 0.53; }
+/* Finnish — the language being learned — always speaks in its own typeface, wherever it appears. Finlandica tells
+   capital I, lowercase l and 1 apart ("Illalla", "Ilta"), which most system fonts do not. */
 [lang="fi"] { font-family: "Finlandica", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+/* The learner's own choice (UIO-07): the device's familiar font for both languages. Readers differ in which face they
+   read best, and no typeface is claimed to improve learning. */
+:root[data-font="system"], :root[data-font="system"] [lang="fi"] { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-size: 1.0625rem; line-height: 1.5; }   /* rem, not px: the learner's own browser text size wins (WCAG 1.4.4, R10-05) */
 a { color: var(--navy); text-underline-offset: 3px; }
@@ -63,7 +73,7 @@ nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top
 .radio { display: flex; gap: var(--space-sm); align-items: center; min-height: 44px; }
 .qualification, .footer p { color: var(--muted); font-size: .88rem; }
 .footer { padding-bottom: var(--space-xl); }
-.theme-choice select { min-height: 44px; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
+.theme-choice select, .font-choice select { min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 
 /* Mode gateway: two equal entries set as type, side by side under one ink rule; each keeps the brand's large numeral
    and one small gold step (DESIGN-08/12). No tinted boxes. */
@@ -109,7 +119,7 @@ nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top
 .skill-grid, .more-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--space-lg); }
 .skill-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
 .more-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); border-top: 1px solid var(--stroke); }
-.skill-tile { width: 100%; height: 100%; min-height: 44px; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; padding: var(--space-md) var(--space-sm) var(--space-base); background: none; color: var(--ink);
+.skill-tile { position: relative; width: 100%; height: 100%; min-height: 44px; display: flex; flex-direction: column; gap: var(--space-xs); text-align: left; padding: var(--space-md) 36px var(--space-base) var(--space-sm); background: none; color: var(--ink);
   border: 1px solid transparent; border-top: 4px solid var(--forest); cursor: pointer; }
 .skill-tile:hover, .more-tile:hover { background: var(--white); }
 .skill-tile[data-accent="reading"] { border-top-color: var(--skill-reading); }
@@ -122,7 +132,7 @@ nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top
 .skill-tile-fi { font-size: .95rem; font-weight: 600; }
 .skill-tile-what { font-size: 1rem; }
 .skill-tile small, .more-tile small { color: var(--muted); font-size: .9rem; }
-.more-tile { width: 100%; height: 100%; min-height: 56px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-sm); background: none; color: var(--navy);
+.more-tile { position: relative; width: 100%; height: 100%; min-height: 56px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px 36px 10px var(--space-sm); background: none; color: var(--navy);
   border: 1px solid transparent; border-bottom-color: var(--stroke); cursor: pointer; }
 .more-tile strong, .more-tile small { display: block; }
 .more-tile strong { color: var(--ink); }
@@ -131,14 +141,13 @@ nav > h2 { margin-top: var(--space-xl); padding-top: var(--space-sm); border-top
 .feedback .icon, [role="status"] .icon { vertical-align: -0.2em; color: var(--forest); }
 .btn .icon { vertical-align: -0.2em; }
 
-/* The task sheet: every LEARN screen is one white sheet with the same cut corner and gold step as the H-mark, so a
-   screen is recognisable without the logo. The exam keeps a plain bordered sheet (DESIGN-12: no gold there). */
+/* The task sheet: every LEARN screen is one white sheet with the H-mark's cut corner, so a screen is recognisable
+   without the logo. The cut is a quiet contour with no colour: a task sheet carries no gold and no other decoration.
+   The exam keeps a plain bordered sheet (DESIGN-12). */
 .panel { position: relative; background: var(--white); padding: clamp(18px, 4vw, 32px); padding-bottom: calc(clamp(18px, 4vw, 32px) + 14px);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%); }
-.panel::after { content: ""; position: absolute; right: 5px; bottom: 19px; width: 34px; height: 6px; border-radius: 6px; background: var(--gold); transform: rotate(-45deg); }
 .panel:not([data-accent]) { border-top: 4px solid var(--ink); }
 html[data-mode="exam"] .panel, .panel.review-unit { clip-path: none; border: 1px solid var(--stroke); }
-html[data-mode="exam"] .panel::after, .panel.review-unit::after, .panel .panel::after { display: none; }
 
 /* ThresholdLine: real mission steps, never a readiness score. */
 .threshold-route { color: var(--forest); list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 0; margin: 0 0 var(--space-lg); }
@@ -203,7 +212,11 @@ code.hash { overflow-wrap: anywhere; word-break: break-all; font-size: .85em; }
 .choices-set legend { font-weight: 700; margin-bottom: var(--space-base); float: left; width: 100%; padding: 0; }   /* float = not a "rendered legend": WebKit then wraps a long Finnish question instead of widening the page (R10-16) */
 .choice { position: relative; width: 100%; min-height: 44px; display: flex; flex-direction: column; gap: 2px; text-align: left; padding: 12px 36px 12px var(--space-sm); border: 1px solid transparent; border-bottom-color: var(--stroke); background: none; color: var(--ink); cursor: pointer; }
 .choice > :first-child { font-weight: 700; color: var(--navy); }
-.choice::after { content: ""; position: absolute; right: 14px; top: 50%; width: 9px; height: 9px; margin-top: -5px; border-top: 2px solid var(--navy); border-right: 2px solid var(--navy); transform: rotate(45deg); }
+/* Every row that opens something says so with the same chevron: a ruled row without a box still has to look
+   clickable (weak signifiers cost attention and certainty). */
+.choice::after, .place-tile::after, .more-tile::after, .skill-tile::after { content: ""; position: absolute; right: 14px; top: 50%; width: 9px; height: 9px; margin-top: -5px;
+  border-top: 2px solid var(--navy); border-right: 2px solid var(--navy); transform: rotate(45deg); }
+.skill-tile::after { top: 30px; }
 .choice:hover { background: var(--surface-subtle); }
 .choice small { color: var(--muted); }
 .reviewer-banner { margin: 0 0 var(--space-base); padding: var(--space-sm) var(--space-md); border-top: 3px solid var(--navy); background: var(--exam-tint); font-weight: 700; }
@@ -237,7 +250,7 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; }
 [data-appearance="calm"] .feedback, [data-appearance="calm"] .feedback.warn, [data-appearance="calm"] .feedback.error { background: var(--white); }
 [data-appearance="calm"] .threshold-segment.current { background: var(--white); outline: 2px solid currentColor; outline-offset: -2px; }
 [data-appearance="calm"] .threshold-segment.current > * { color: inherit; }
-[data-appearance="calm"] .today::after, [data-appearance="calm"] .panel::after { display: none; }
+[data-appearance="calm"] .today::after { display: none; }
 [data-appearance="calm"] .threshold-segment.completed, [data-appearance="calm"] .threshold-route[data-accent] .threshold-segment.completed { background: var(--white); }
 [data-appearance="calm"] .learning-cue { background: var(--white); color: var(--cue-text); }
 [data-appearance="calm"] * { transition: none !important; animation: none !important; }
@@ -283,7 +296,10 @@ code { font-size: .9em; background: var(--surface-subtle); padding: 0 4px; }
 .note-form .field { margin-top: var(--space-sm); }
 .picture-figure { margin: var(--space-base) 0; max-width: 560px; }
 /* Reading: evidence span marked with underline + text label, only after answering (IV-AC-05, COLOR-14). */
-.reading-text { font-size: clamp(1.1rem, 2.4vw, 1.2rem); line-height: 1.75; max-width: 42em; }   /* long Finnish text: one step above the options, comfortable measure */
+/* Long Finnish text: one step above the options, regular weight, and a measure of about 65–70 characters
+   (31em in Finlandica) — medium lines support comprehension better than full-width ones. */
+.reading-text { font-size: clamp(1.1rem, 2.4vw, 1.2rem); line-height: 1.75; max-width: 31em; }
+.prompt.reading-text[lang="fi"] { font-weight: 400; }
 .evidence-span { text-decoration: underline; text-decoration-thickness: 2px; }
 /* EXAM: neutral, no learning cues or semantic highlight colours (EXAM-05, MULTI-10, UIO-10).
    DESIGN-12 own skin: cool neutral page instead of cream, no gold signature, navy only, subtests as the route. */
@@ -324,7 +340,7 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .estate-about { max-width: 46em; color: var(--muted); margin: 0 0 var(--space-md); }
 /* The estate is a directory of nine addresses: ruled rows in columns, the door mark and the words carry the state. */
 .estate-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--space-lg); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); border-top: 1px solid var(--stroke); }
-.place-tile { width: 100%; height: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px var(--space-sm);
+.place-tile { position: relative; width: 100%; height: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--space-md); text-align: left; padding: 10px 36px 10px var(--space-sm);
   background: none; color: var(--ink); border: 1px solid transparent; border-bottom-color: var(--stroke); cursor: pointer; }
 .place-tile:hover { background: var(--white); }
 .place-tile[data-door="open"] { background: var(--learn-tint); }

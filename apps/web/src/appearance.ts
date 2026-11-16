@@ -33,3 +33,16 @@ export function readGuide(): boolean {
 export function applyGuide(show: boolean) {
   try { if (show) localStorage.removeItem(GUIDE_KEY); else localStorage.setItem(GUIDE_KEY, "hidden"); } catch { /* preference only */ }
 }
+
+/** Typeface choice (UIO-07, MSUI-01; research/design/20). "brand" = Arsenal for Ukrainian and Finlandica for Finnish;
+ *  "system" = the device's own familiar font for both. Readers differ in which face they read best, so the learner
+ *  decides. Presentation only, stored per viewer as a convenience. */
+export type FontChoice = "brand" | "system";
+const FONT_KEY = "hospodar-yki:web:font";
+export function readFont(): FontChoice {
+  try { return localStorage.getItem(FONT_KEY) === "system" ? "system" : "brand"; } catch { return "brand"; }
+}
+export function applyFont(f: FontChoice) {
+  if (f === "system") document.documentElement.dataset.font = "system"; else delete document.documentElement.dataset.font;
+  try { if (f === "system") localStorage.setItem(FONT_KEY, "system"); else localStorage.removeItem(FONT_KEY); } catch { /* preference only */ }
+}

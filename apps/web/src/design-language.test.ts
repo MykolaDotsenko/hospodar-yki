@@ -22,7 +22,7 @@ describe("form language: a ruled ledger, not a dashboard (DESIGN-11)", () => {
   });
   it("surfaces are square: the only rounded shapes are the gold steps, which copy the round stroke ends of the H-mark", () => {
     const rounded = rules.filter(r => [...r.body.matchAll(/border-radius\s*:\s*([^;]+)/g)].some(m => m[1]!.trim() !== "0")).map(r => r.selector);
-    expect(rounded.sort()).toEqual([".mode-entry::after", ".panel::after", ".today::after"]);
+    expect(rounded.sort()).toEqual([".mode-entry::after", ".today::after"]);
     expect(css).toMatch(/button, input, textarea, select \{ font: inherit; border-radius: 0; \}/);   // native controls too (iOS rounds them)
     expect(css).not.toMatch(/var\(--radius-/);
   });
@@ -35,10 +35,16 @@ describe("form language: a ruled ledger, not a dashboard (DESIGN-11)", () => {
   it("the signature cut belongs to the screen's one main sheet only (next step / plan on Home, the task sheet elsewhere)", () => {
     const cut = rules.filter(r => /clip-path\s*:\s*polygon\(0 0, 100% 0, 100% calc\(100% - 30px\), calc\(100% - 30px\) 100%, 0 100%\)/.test(r.body)).map(r => r.selector);
     expect(cut.sort()).toEqual([".panel", ".today"]);
-    // No gold in the exam, in the reviewer's nested sheet or in calm mode; forced colours get a real border instead of the cut.
-    expect(css).toMatch(/html\[data-mode="exam"\] \.panel::after, \.panel\.review-unit::after, \.panel \.panel::after \{ display: none; \}/);
-    expect(css).toMatch(/\[data-appearance="calm"\] \.today::after, \[data-appearance="calm"\] \.panel::after \{ display: none; \}/);
+    // The exam and the reviewer's nested sheet have no cut; forced colours get a real border instead of it.
+    expect(css).toMatch(/html\[data-mode="exam"\] \.panel, \.panel\.review-unit \{ clip-path: none; border: 1px solid var\(--stroke\); \}/);
     expect(css).toMatch(/@media \(forced-colors: active\) \{[^}]*\.panel, \.today \{ clip-path: none; border: 1px solid CanvasText; \}/);
+  });
+  it("gold is decoration, so it stays on Home: no task sheet, exam sheet or calm screen carries it (COG-07, ATT-01, COLOR-15/20)", () => {
+    // Besides the two Home signatures, gold only marks a state that is also said in words: a warning's rule and an open door.
+    expect(having(/var\(--gold\)/).sort()).toEqual([".feedback.warn", ".mode-entry::after", ".place-step", ".today::after", ".voice-status.warn"]);
+    expect(rules.filter(r => /^\.panel\b/.test(r.selector) && /::(after|before)/.test(r.selector))).toEqual([]);      // nothing drawn on the task sheet
+    expect(css).toMatch(/\[data-appearance="calm"\] \.today::after \{ display: none; \}/);
+    expect(css).toMatch(/\[data-appearance="calm"\] \.mode-entry::after \{ display: none; \}/);
   });
   it("two voices: Ukrainian guidance in Arsenal, Finnish in Finlandica — bundled files only, nothing fetched from another origin", () => {
     expect(css).toMatch(/:root \{[^}]*font-family: "Arsenal", system-ui/);
@@ -54,6 +60,21 @@ describe("form language: a ruled ledger, not a dashboard (DESIGN-11)", () => {
     expect(fonts).not.toMatch(/https?:\/\//);
     // The Cyrillic subset covers the Ukrainian letters і ї є ґ (U+0456, U+0457, U+0454, U+0491).
     expect(fonts).toMatch(/U\+0400-045F, U\+0490-0491/);
+  });
+  it("legibility: one x-height for every face, a readable measure for long Finnish text, and the learner's own font choice", () => {
+    expect(css).toMatch(/:root \{[^}]*font-size-adjust: 0\.53;/);                               // Arsenal/Finlandica (0.50) are not smaller than the fallback
+    expect(css).toMatch(/\.reading-text \{[^}]*line-height: 1\.75; max-width: 31em; \}/);        // about 65–70 characters per line
+    expect(css).toMatch(/\.prompt\.reading-text\[lang="fi"\] \{ font-weight: 400; \}/);
+    expect(css).toMatch(/:root\[data-font="system"\], :root\[data-font="system"\] \[lang="fi"\] \{ font-family: system-ui/);
+    expect(css).toMatch(/body \{[^}]*font-size: 1\.0625rem; line-height: 1\.5; \}/);              // rem: the browser's own text size still wins
+  });
+  it("a ruled row still looks clickable: every row that opens something carries the same chevron", () => {
+    expect(css).toMatch(/\.choice::after, \.place-tile::after, \.more-tile::after, \.skill-tile::after \{ content: ""; position: absolute;/);
+    for (const row of [".choice", ".place-tile", ".more-tile", ".skill-tile"]) {
+      const body = rules.find(r => r.selector === row)?.body ?? "";
+      expect(body, row).toMatch(/position: relative/);
+      expect(body, row).toMatch(/cursor: pointer/);
+    }
   });
   it("only weights the two typefaces really have are requested (no synthesised bold)", () => {
     const weights = new Set([...css.matchAll(/font-weight\s*:\s*(\d+)/g)].map(m => Number(m[1])));

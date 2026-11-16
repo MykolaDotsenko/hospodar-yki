@@ -37,7 +37,7 @@ import { diagnosticAvailable } from "./content/diagnostic.ts";
 import { examBlueprints } from "./content/exam.ts";
 import { WorkshopScreen } from "./screens/WorkshopScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
-import { applyAppearance, applyGuide, applyTheme, readAppearance, readGuide, readTheme, type Appearance, type Theme } from "./appearance.ts";
+import { applyAppearance, applyFont, applyGuide, applyTheme, readAppearance, readFont, readGuide, readTheme, type Appearance, type FontChoice, type Theme } from "./appearance.ts";
 
 type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "exam" | "data" | "offline";
 /** The S2 reviewer workspace exists only in beta builds: a release build never shows keys or drafts. */
@@ -68,6 +68,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   useEffect(() => { applyAppearance(appearance); }, [appearance]);
   const [theme, setTheme] = useState<Theme>(readTheme);
   useEffect(() => { applyTheme(theme); }, [theme]);
+  const [font, setFont] = useState<FontChoice>(readFont);
+  useEffect(() => { applyFont(font); }, [font]);
   const [guide, setGuide] = useState<boolean>(readGuide);
   useEffect(() => { applyGuide(guide); }, [guide]);
   const showGuide = guide && appearance !== "calm";            // never in EXAM or inside a task: only Home and place screens receive it
@@ -135,6 +137,10 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         <p className="theme-choice"><label htmlFor="theme">Тема</label>{" "}
           <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
             <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
+          </select></p>
+        <p className="font-choice"><label htmlFor="font">Шрифт</label>{" "}
+          <select id="font" value={font} onChange={e => setFont(e.target.value as FontChoice)}>
+            <option value="brand">Фірмові: Arsenal і Finlandica</option><option value="system">Звичний шрифт пристрою</option>
           </select></p>
         <p className="guide-choice"><label><input type="checkbox" checked={guide} onChange={e => setGuide(e.target.checked)} /> Показувати Господаря</label></p>
         {IN_RELEASE
