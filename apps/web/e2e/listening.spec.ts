@@ -120,3 +120,30 @@ test("strategic audio notes: optional own notes while listening and answering, b
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   await expect(page.locator(".skill-lines li", { hasText: "Аудіювання" })).toContainText("з 4 перевірених відповідей правильні; 0 без оцінки");
 });
+
+test("saved theme recording (CURATED-09): a place's notice is a listening lesson; text and the slower recording only after the answers", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("place-travel").click();
+  await page.getByRole("button", { name: /Аудіювання · Junamatkan muutokset/ }).click();
+  await page.getByRole("button", { name: "Пропустити й слухати" }).click();
+  await expect(page.getByText(/синтетичний голос, один диктор/)).toBeVisible();
+  await expect(page.getByRole("group", { name: "Інший темп запису" })).toHaveCount(0);           // not during the task
+  await expect(page.locator(".transcript")).toHaveCount(0);
+  await startedPlaying(page);
+  await page.getByRole("button", { name: "До питань" }).click();
+  for (let i = 0; i < 2; i++) {
+    await expect(page.getByText(`Питання ${i + 1} з 2`)).toBeVisible();
+    await page.locator('input[name="lq"]').first().check();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+  }
+  await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
+  await page.getByRole("button", { name: /Послухати ще раз із текстом/ }).click();
+  await expect(page.locator(".transcript")).toContainText("Matkustajatiedote");
+  const normal = await page.locator("audio").getAttribute("src");
+  await page.getByRole("button", { name: /Повільніший запис \(0,87×\)/ }).click();
+  await expect(page.locator("audio")).not.toHaveAttribute("src", normal!);                       // the pre-recorded slower version
+  await expect(page.locator("audio")).toHaveAttribute("src", /scaffold_slow/);
+  expect(await serious(page)).toEqual([]);
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();          // scored: no help before answering
+});

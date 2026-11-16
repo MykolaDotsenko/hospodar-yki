@@ -28,9 +28,9 @@ describe("«Моє господарство» content (GAM-01, UIO-09, EXAM-11)"
     const m = coverageMap(blankState(), placeIndex);
     expect(m.cells).toHaveLength(36);
     // Each gap needs new LEARN material authored or reviewed by an S2 teacher (no AI-authored Finnish keys/models).
+    // 16.11.2026: the saved theme recordings (CURATED-09) closed every listening gap; only writing gaps remain.
     expect(m.contentGaps.map(c => `${c.place}:${c.skill}`)).toEqual([
-      "identity:listening", "identity:writing", "housing:listening", "culture:listening", "culture:writing", "health:writing",
-      "work:listening", "environment:writing", "society:listening",
+      "identity:writing", "culture:writing", "health:writing", "environment:writing",
     ]);
     for (const p of PLACE_IDS) {
       const row = m.cells.filter(c => c.place === p && c.itemsTotal > 0).map(c => c.skill);
@@ -40,12 +40,12 @@ describe("«Моє господарство» content (GAM-01, UIO-09, EXAM-11)"
   });
   it("every long listening lesson with a life topic belongs to a place (no orphan LEARN material)", () => {
     const listening = places.flatMap(p => p.quests.filter(q => q.view === "listening"));
-    expect(listening.length).toBe(4);                                                          // 2 of 6 are EXAM items, held out
+    expect(listening.length).toBe(22);                  // 4 long lessons (2 of 6 are EXAM items, held out) + 18 theme recordings
     for (const q of listening) expect(placeIndex.items.some(i => i.itemId === q.taskPrefix && i.skill === "listening"), q.itemId).toBe(true);
   });
   it("«Ціла справа» (task-based): understand → say → write from the place's own LEARN items, never exam items", () => {
     const withScenario = places.filter(p => p.scenario).map(p => p.id);
-    expect(withScenario).toEqual(["services", "travel", "work", "society"]);
+    expect(withScenario).toEqual(["housing", "services", "travel", "work", "society"]);
     for (const p of places) for (const st of p.scenario ?? []) {
       expect(examIds.has(st.itemId), st.itemId).toBe(false);
       expect(p.quests.some(q => q.itemId === st.itemId && q.skill === st.skill), `${p.id}:${st.itemId}`).toBe(true);

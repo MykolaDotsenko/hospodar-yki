@@ -18,6 +18,8 @@ import moves from "../../../../learning/exercises/b1/contextual/negotiation-move
 import reading from "../../../../learning/exercises/b1/contextual/reading-pack-v1.json";
 import clinic from "../../../../learning/exercises/b1/high-yield/writing-repair-clinic.json";
 import listening from "../../../../learning/exercises/b1/audio-long/lessons.json";
+import training from "../../../../learning/exercises/b1/audio-training/index.json";
+import { heldOutReading } from "./listening.ts";
 import stories from "../../../../learning/exercises/b1/audio-long/human-stories.json";
 import pictures from "../../../../learning/exercises/a1/image-led/lessons.json";
 import baseline from "../../../../learning/exercises/b1/diagnostics/baseline-v1.json";
@@ -116,6 +118,11 @@ export const reviewBanks: ReviewBank[] = [
   { id: "listening", title_uk: "Аудіювання: довгі записи (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
     where_uk: "Аудіювання", walk: { screen: "listening", perItem: true },
     ...rows(listening, "lessons", `${B1}/audio-long/lessons.json`) },
+  { id: "training-listening", title_uk: "Аудіювання: короткі записи тем і текстів (синтетичний голос)", skills: ["listening"], audio: true, source: ORIGINAL,
+    where_uk: "Аудіювання й місця «Моє господарство»; повільніший і швидший записи — лише після відповідей. Записи текстів 001–003 учням не показуються: ці тексти зарезервовано для відкладених перевірок читання",
+    walk: { screen: "listening", perItem: true },
+    ...units(`${B1}/audio-training/index.json`, ((training as Json).lessons as { id: string }[])
+      .filter(l => !heldOutReading.has(l.id.replace(/-audio$/, "")))) },
   { id: "story", title_uk: "Аудіювання: оповідання (живий голос, суспільне надбання)", skills: ["listening"], audio: true,
     source: { kind: "public_domain", license: "public-domain", urlField: "audio_source" },
     where_uk: "Аудіювання", walk: { screen: "listening", perItem: true },

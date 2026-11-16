@@ -38,6 +38,7 @@ REASONS = {
     "RIGHTS_PENDING": "redistribution or in-app use not cleared yet (link-only or waiting for permission)",
     "S2_PENDING": "needs Finnish S2 review before learners may see it",
     "NOT_LEARNER_MATERIAL": "not meant for learners (brand variant, research ledger, index)",
+    "HELD_OUT": "reserved for unseen checks (delayed checks, exam); a LEARN screen must never show it, even if a manifest lists it",
 }
 IMPORT = re.compile(r"""(?:from\s+|import\(\s*)["']([^"']+\.json)["']""")
 GLOB = re.compile(r"""import\.meta\.glob\(\s*["']([^"']+)["']""")
@@ -137,6 +138,8 @@ def check(root: Path = ROOT) -> list[str]:
     for p in sorted(all_unused - set(registered)):
         errors.append(f"{p}: saved but not used by the app and not in {REGISTER} — use it, or register it with a reason")
     for p in sorted(set(registered) - all_unused):
+        if registered[p].get("reason") == "HELD_OUT":
+            continue                                               # filtered out by the app on purpose; a web test guards that
         if (root / p).exists():
             errors.append(f"register: {p} is used by the app now — remove it from {REGISTER}")
     return errors

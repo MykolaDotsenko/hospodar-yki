@@ -229,6 +229,15 @@ interface ThemeTask { id: string; prompt_fi: string; required_points_fi: string[
 interface ListeningLike { id: string; title_fi: string; path: string; transcript_path?: string; subtitles_path?: string;
   questions: Array<{ id: string; prompt_fi: string; options_fi: string[]; correct_index: number; why_uk?: string }>; credit?: { credit: string } }
 
+/**
+ * The inference texts withheld for the delayed reading checks (the first three not used by an EXAM blueprint). No LEARN
+ * screen may show them in any form — not even as a recording of the same text — or the check is no longer unseen.
+ */
+export function heldOutReadingIds(inference: readonly { id: string }[], examItemIds: readonly string[]): string[] {
+  const exam = new Set(examItemIds);
+  return inference.filter(i => !exam.has(i.id)).slice(0, 3).map(i => i.id);
+}
+
 /** Picks: reading = first three withheld inference texts; writing/speaking = the theme task ids given (withheld:
  * the 9 theme files are not loaded by any LEARN screen); listening = every lesson not used by an EXAM blueprint. */
 export function buildSkillRetentionBank(input: {
@@ -244,7 +253,7 @@ export function buildSkillRetentionBank(input: {
   // JSON round-trip drops undefined optional fields (exactOptionalPropertyTypes) and detaches from source objects.
   return JSON.parse(JSON.stringify({
     version: input.version,
-    reading: input.inference.filter(i => !exam.has(i.id)).slice(0, 3).map(i => ({ id: i.id, title_fi: i.title_fi, text_fi: i.text_fi,
+    reading: input.inference.filter(i => heldOutReadingIds(input.inference, input.examItemIds).includes(i.id)).map(i => ({ id: i.id, title_fi: i.title_fi, text_fi: i.text_fi,
       questions: i.questions.map(q => ({ id: q.id, type: q.type, prompt_fi: q.prompt_fi ?? q.statement_fi ?? "", options_fi: q.options_fi,
         correct_index: q.correct_index, answer: q.answer, model_answer_fi: q.model_answer_fi, why_uk: q.explanation_uk })) })),
     writing: pick(input.writingIds),
