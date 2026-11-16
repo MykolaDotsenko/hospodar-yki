@@ -5251,9 +5251,25 @@
         {
           "file": "apps/web/e2e/media.spec.ts",
           "contains": "where to learn next (CURATED-09): publisher series, Yle Areena episodes and open materials as link rows; reviewed hosts only, competitor platforms never shown, nothing embedded"
+        },
+        {
+          "file": "packages/domain/test/external-mission.test.ts",
+          "contains": "external mission: where the publisher's teacher page shows the answers, only the audio index is linked before the own answer; the teacher page appears after it"
+        },
+        {
+          "file": "packages/domain/test/external-mission.test.ts",
+          "contains": "external mission: nothing is scored; a track that was not found ends the mission with nothing saved"
+        },
+        {
+          "file": "apps/web/e2e/external-missions.spec.ts",
+          "contains": "external mission (CURATED-09): the publisher's audio index first; own words; the teacher answer page only after; a new situation; nothing scored"
+        },
+        {
+          "file": "apps/web/e2e/external-missions.spec.ts",
+          "contains": "external mission (CURATED-09): a track that cannot be found ends the mission honestly — nothing saved, nothing invented"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. The video exercises are each open video's questions in the media library (Finnish, Ukrainian on request, no key); the writing rubric's criteria labels (no weights) are a wider self-check on the rewrite step. The 12 masterclasses are a lesson type «Майстер-класи» (two keyed questions as reading, then own repair, own answer before the model, new situation without either; listening masterclasses open their recording's own lesson). «Де вчитися далі» in the media library: publisher series, Yle Areena episodes and open materials as link rows (admitCatalogLink: https, reviewed learning hosts, not official YKI; the competitor platforms in independent-sources.json are comparison-only and never shown). Still registered: 2 logo variants (not for learners), 8 link catalogs with tasks or exam use, 1 synthesis source (code queue item 10)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. The 120 corpus form items (UD Finnish FTB, CC BY 4.0) are practice cards «Форма слова в реченні» (self-compared, never scored, source named). Tense and clock lessons are practice cards «Час дієслова й годинник» with the timeline and clock pictures after the attempt. The video exercises are each open video's questions in the media library (Finnish, Ukrainian on request, no key); the writing rubric's criteria labels (no weights) are a wider self-check on the rewrite step. The 12 masterclasses are a lesson type «Майстер-класи» (two keyed questions as reading, then own repair, own answer before the model, new situation without either; listening masterclasses open their recording's own lesson). «Де вчитися далі» in the media library: publisher series, Yle Areena episodes and open materials as link rows (admitCatalogLink: https, reviewed learning hosts, not official YKI; the competitor platforms in independent-sources.json are comparison-only and never shown). The 27 saved missions with an external source (OPH Päivää!, Helppoa suomea, VIERKO, Kielibuusti) are a lesson type «Місії із зовнішніми джерелами»: link only, own words first, the publisher's teacher answer page only after, a new situation, nothing scored; their Finnish task drafts live in sources/, which the S2 reviewer pipeline does not take yet, so a release build shows none. Still registered: 2 logo variants (not for learners), 5 link catalogs (exam-preparation links, recording lists, S2-pending exercises, a research index), 1 synthesis source (code queue item 10)."
     },
     {
       "id": "CURATED-10",
