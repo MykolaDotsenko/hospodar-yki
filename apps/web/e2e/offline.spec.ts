@@ -65,7 +65,7 @@ test("WEB-06: a new version waits; it is never offered during the exam, only out
   await expect(page.getByText("Доступна нова версія застосунку")).toHaveCount(0);           // guard: never inside the exam
   await expect(page.getByText("Tehtävä 1 / 9")).toBeVisible();
 
-  await page.getByRole("button", { name: "На головну" }).or(page.locator(".brand")).first().click();
+  await page.getByRole("button", { name: "Keskeytä ja jatka myöhemmin" }).click();          // focused mode: the exam's own way out
   await expect(page.getByText("Доступна нова версія застосунку")).toBeVisible();
   const reloaded = page.waitForEvent("load");                                                // the reload of the NEW document
   await page.getByRole("button", { name: "Оновити зараз" }).click();                         // (waitForLoadState would resolve on the old page)

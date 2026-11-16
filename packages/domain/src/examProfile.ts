@@ -37,6 +37,29 @@ export const CRITICAL_PARAMETERS: ReadonlyArray<{ id: string; dimension: "F4" | 
   { id: "instructions.language", dimension: "F5", label_uk: "Мова інструкцій під час іспиту" },
 ]);
 
+type Check = (v: ParameterValue) => boolean;
+const positive: Check = v => typeof v === "number" && Number.isFinite(v) && v > 0;
+const bool: Check = v => typeof v === "boolean";
+const oneOf = (...xs: string[]): Check => v => typeof v === "string" && xs.includes(v);
+const SKILLS = ["reading", "listening", "writing", "speaking"];
+
+/** The type a verified value must have; a verified record with another type is invalid (validateExamProfile). */
+export const PARAMETER_TYPES: Readonly<Record<string, Check>> = Object.freeze({
+  "structure.subtest_order": v => typeof v === "string" && v.split(",").every(s => SKILLS.includes(s)) && new Set(v.split(",")).size === v.split(",").length,
+  "timing.reading_minutes": positive, "timing.listening_minutes": positive, "timing.writing_minutes": positive, "timing.speaking_minutes": positive,
+  "timing.on_expiry": oneOf("lock", "next_subtest", "submit"),
+  "navigation.back_allowed": bool, "navigation.review_screen": bool,
+  "listening.plays_allowed": v => (typeof v === "number" && Number.isInteger(v) && v >= 1) || v === "unlimited",
+  "listening.pause_seek": bool,
+  "speaking.prep_seconds": positive, "speaking.response_seconds": positive,
+  "speaking.recording_start": oneOf("learner", "after_prep"),
+  "speaking.rerecord_allowed": bool,
+  "writing.spellcheck": bool, "writing.paste_allowed": bool,
+  "writing.counter": oneOf("none", "words", "characters"),
+  "instructions.language": oneOf("fi", "fi+sv", "fi+en"),
+});
+export const isValidParameterValue = (parameter: string, v: ParameterValue) => PARAMETER_TYPES[parameter]?.(v) ?? false;
+
 export interface ExamParameterRecord {
   parameter: string; value: ParameterValue; source_url: string | null; observed_on: string | null;
   applies_to: AppliesTo | null; confidence: "high" | "medium" | "low" | null; reviewed_by: string | null;
@@ -90,6 +113,7 @@ export function validateExamProfile(p: ExamProfile): string[] {
     }
     if (p.kind === "PRACTICE") errors.push(`PRACTICE_CANNOT_CLAIM:${r.parameter}`);      // practice values belong to the learner
     else if (!isVerifiedRecord(p, r)) errors.push(`VALUE_WITHOUT_SOURCE:${r.parameter}`); // never a value without its source
+    else if (ids.includes(r.parameter) && !isValidParameterValue(r.parameter, r.value)) errors.push(`INVALID_VALUE:${r.parameter}`);   // e.g. "maybe" for a yes/no rule
   }
   for (const id of ids) if (!seen.has(id)) errors.push(`MISSING_PARAMETER:${id}`);       // unknown must be written as null
   return errors;

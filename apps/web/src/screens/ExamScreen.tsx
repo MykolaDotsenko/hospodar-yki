@@ -11,7 +11,7 @@ import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
-import { examProfileHash, profileAvailability, type ExamProfile } from "@hospodar/domain";
+import { examProfileHash, profileAvailability, resolveExamRules, ruleValueUk, type ExamProfile, type ExamRules } from "@hospodar/domain";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -19,7 +19,9 @@ const SKILL_UK: Record<ExamItem["skill"], string> = { reading: "Читання",
 const newId = () => "sess-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 type Machine = ReturnType<typeof createExamMachine>;
 
-export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { repository: ExamRepository; voiceStore: VoiceStore; onHome: () => void; onLearn?: (skill: ExamSkill) => void }) {
+export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }: { repository: ExamRepository; voiceStore: VoiceStore; onHome: () => void; onLearn?: (skill: ExamSkill) => void;
+  /** Focused mode (TZ-EXAM-17): true while an attempt is open, so the app hides its own navigation. */
+  onFocus?: (on: boolean) => void }) {
   const actor = useMemo(() => createActor(createExamMachine(repository, itemsFor, examBlueprints.map(b => b.id), examContentVersion, voiceStore)), [repository, voiceStore]);
   const [snap, setSnap] = useState<SnapshotFrom<Machine>>(() => actor.getSnapshot());
   useEffect(() => { const sub = actor.subscribe(setSnap); actor.start(); return () => { sub.unsubscribe(); actor.stop(); }; }, [actor]);
@@ -49,6 +51,9 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
   if (resumed.current === undefined && !snap.matches("loading")) {
     resumed.current = session && !session.finishedAt && !snap.matches("setup") ? { sessionId: session.sessionId, index: session.index } : null;
   }
+  const inAttempt = !!session && !session.finishedAt && !snap.matches("setup") && !snap.matches("loading") && !snap.matches("finished") && !snap.matches("clearing");
+  useEffect(() => { onFocus?.(inAttempt); }, [onFocus, inAttempt]);
+  useEffect(() => () => onFocus?.(false), [onFocus]);
   const busy = snap.matches("saving") || snap.matches("finishing") || snap.matches("clearing") || snap.matches("loading");
   const navBusy = busy || snap.matches("autosaving") || recording || snap.context.composingItemId !== null;
 
@@ -101,6 +106,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
   const pinned = profileById(session!.profileId);
   const subtests = items.map(x => x.skill).filter((k, i, a) => a.indexOf(k) === i);         // order of this session
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
+  const rules = resolveExamRules(pinned);                                 // the rules this attempt runs by, each with its status
   return (
     <section className="panel exam" aria-labelledby="ex-item" translate="no" data-exam-attempt>
       <div className="exam-bar">
@@ -114,6 +120,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
       {resumed.current && resumed.current.sessionId === session!.sessionId && resumed.current.index === session!.index &&
         <p className="exam-resumed" role="status" lang="fi">Jatkat keskeytynyttä harjoitusta. Vastauksesi on tallennettu.</p>}
       {changed && <p className="muted" data-system-notice>Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
+      <ExamRulesList rules={rules} />
       {snap.matches("expired") ? (
         <div role="alert" className="exam-notice">
           <p lang="fi">Harjoitusaika päättyi. Vastauksia ei voi enää muuttaa.</p>
@@ -129,7 +136,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
         </div>
       ) : (
         <>
-          <ExamItemView key={item.id} item={item} answer={answer} onAnswer={set}
+          <ExamItemView key={item.id} item={item} answer={answer} onAnswer={set} rules={rules}
             onComposeStart={() => actor.send({ type: "COMPOSE_START", itemId: item.id })}
             onComposeEnd={value => actor.send({ type: "COMPOSE_END", itemId: item.id, value, now: Date.now() })}
             disabled={busy || snap.matches("saveError")} />
@@ -145,18 +152,20 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn }: { reposi
       )}
       {(snap.matches("active") || snap.matches("saving") || snap.matches("saveError") || snap.matches("autosaving")) && (
         <div className="actions">
-          <button type="button" className="btn secondary" disabled={navBusy || session!.index === 0} onClick={() => go(session!.index - 1)}>Edellinen</button>
+          {rules.backAllowed && <button type="button" className="btn secondary" disabled={navBusy || session!.index === 0} onClick={() => go(session!.index - 1)}>Edellinen</button>}
           {session!.index < items.length - 1
             ? <button type="button" className="btn" disabled={navBusy} onClick={() => go(session!.index + 1)}>{busy ? "Tallennetaan…" : "Seuraava"}</button>
             : <button type="button" className="btn" disabled={navBusy} onClick={() => actor.send({ type: "REQUEST_FINISH" })}>Lopeta koe</button>}
+          {/* Focused mode has no app navigation: this is the way out. Everything is already saved; the attempt resumes later (EXAM-10). */}
+          <button type="button" className="btn secondary" disabled={navBusy || snap.context.dirty} onClick={onHome}>Keskeytä ja jatka myöhemmin</button>
         </div>
       )}
     </section>
   );
 }
 
-function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, disabled }: {
-  item: ExamItem; answer: string; onAnswer: (v: string) => void;
+function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, disabled, rules }: {
+  item: ExamItem; answer: string; onAnswer: (v: string) => void; rules: ExamRules;
   onComposeStart: () => void; onComposeEnd: (v: string) => void; disabled: boolean;
 }) {
   // Keep IME interim text *only* in the editor. It is not a submitted answer and must not
@@ -195,7 +204,8 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
           {/* Exam discipline (EXAM-PILLAR-04, TZ-EXAM-12): no spellcheck, autocorrect, autocomplete, browser translation or
               writing-assistant extensions — the text is the learner's own. Exact Unicode and IME composition are kept. */}
           <textarea id={`ex-${item.id}`} className="answer" lang="fi" rows={item.skill === "writing" ? 8 : 4}
-            spellCheck={false} autoCorrect="off" autoCapitalize="off" autoComplete="off" translate="no"
+            spellCheck={item.skill === "writing" && rules.spellcheck} autoCorrect="off" autoCapitalize="off" autoComplete="off" translate="no"
+            onPaste={item.skill === "writing" && !rules.pasteAllowed ? e => e.preventDefault() : undefined}
             data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false"
             maxLength={12000} value={compositionDraft ?? answer} disabled={disabled}
             onChange={e => composing.current ? setCompositionDraft(e.currentTarget.value) : onAnswer(e.currentTarget.value)}
@@ -203,6 +213,11 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
               setCompositionDraft(e.currentTarget.value); onComposeStart(); }}
             onCompositionEnd={e => completeComposition(e.currentTarget.value)}
             onBlur={e => completeComposition(e.currentTarget.value)} />
+          {item.skill === "writing" && rules.counter !== "none" && (
+            <p className="muted" aria-live="off" data-testid="exam-counter" lang="fi">{rules.counter === "words"
+              ? `Sanoja: ${(compositionDraft ?? answer).trim().split(/\s+/).filter(Boolean).length}`
+              : `Merkkejä: ${[...(compositionDraft ?? answer)].length}`}</p>
+          )}
         </>
       )}
     </div>
@@ -352,3 +367,24 @@ function NextSteps({ bySkill, repository, onLearn }: { bySkill: Parameters<typeo
   );
 }
 
+
+/**
+ * The status of every rule this attempt runs by (EXAM-06, YKI-FID-01): observed in an OPH demo (with its date) or a
+ * practice rule. A system notice in Ukrainian, outside the Finnish exam content; closed by default so it never distracts.
+ */
+function ExamRulesList({ rules }: { rules: ExamRules }) {
+  return (
+    <details className="exam-rules" data-system-notice data-testid="exam-rules">
+      <summary>Правила цієї спроби: {rules.verified} з {rules.rules.length} підтверджено, {rules.practice} тренувальних</summary>
+      <ul>
+        {rules.rules.map(r => (
+          <li key={r.parameter} data-rule={r.parameter} data-status={r.status}>
+            <strong>{r.label_uk}:</strong> {ruleValueUk(r)} —{" "}
+            {r.status === "practice" ? "тренувальне правило: у справжньому іспиті 2027 може бути інакше (не підтверджено)"
+              : r.applied ? `спостережено в демо OPH ${r.observed_on}` : `спостережено в демо OPH ${r.observed_on}, симулятор ще не відтворює — діє тренувальне`}
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}

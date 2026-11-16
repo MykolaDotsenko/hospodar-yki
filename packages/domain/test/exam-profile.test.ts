@@ -6,7 +6,12 @@ import { CRITICAL_PARAMETERS, createSession, examProfileHash, fidelityPanel, isV
 const file: ExamProfileFile = JSON.parse(readFileSync(new URL("../../../learning/exercises/b1/exam-patterns/exam-profiles-v1.json", import.meta.url), "utf8"));
 const byKind = (k: ExamProfile["kind"]) => structuredClone(file.profiles.find(p => p.kind === k)!);
 const NOW = new Date("2026-11-11T12:00:00Z");
-const observed = (parameter: string, extra: Partial<ExamParameterRecord> = {}): ExamParameterRecord => ({ parameter, value: false,
+/** A value of the right type for each parameter (fixtures only, not OPH figures). */
+const SAMPLE: Record<string, ExamParameterRecord["value"]> = { "structure.subtest_order": "reading,listening,writing,speaking",
+  "timing.reading_minutes": 60, "timing.listening_minutes": 40, "timing.writing_minutes": 55, "timing.speaking_minutes": 25,
+  "timing.on_expiry": "lock", "listening.plays_allowed": 2, "speaking.prep_seconds": 30, "speaking.response_seconds": 60,
+  "speaking.recording_start": "after_prep", "writing.counter": "words", "instructions.language": "fi" };
+const observed = (parameter: string, extra: Partial<ExamParameterRecord> = {}): ExamParameterRecord => ({ parameter, value: SAMPLE[parameter] ?? false,
   source_url: "https://www.oph.fi/fi/koulutus-ja-tutkinnot/ennen-yki-testia", observed_on: "2026-11-10", applies_to: "oph_digital_demo",
   confidence: "high", reviewed_by: "tester A", e2e_test: null, ...extra });
 const put = (p: ExamProfile, r: ExamParameterRecord) => ({ ...p, records: p.records.map(x => x.parameter === r.parameter ? r : x) });

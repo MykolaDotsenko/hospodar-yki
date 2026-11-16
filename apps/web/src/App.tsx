@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { GoalRecord, LearnerState } from "@hospodar/domain";
 import { HomeScreen } from "./screens/HomeScreen.tsx";
 import type { ActiveSession } from "./screens/SessionPlanPanel.tsx";
@@ -54,6 +54,10 @@ const RELEASED_TASKS = exercises.length + practiceCards.length + dialogues.lengt
 
 export function App({ repository, examRepository, voiceStore, markUrl }: { repository: LearnerRepository; examRepository: ExamRepository; voiceStore: VoiceStore; markUrl: string }) {
   const [view, setView] = useState<View>(initialView);
+  // Focused mode (TZ-EXAM-17): while an EXAM attempt is open the app hides its own navigation and settings.
+  const [examFocus, setExamFocus] = useState(false);
+  const onExamFocus = useCallback((on: boolean) => setExamFocus(on), []);
+  const focused = view === "exam" && examFocus;
   // «Моє господарство»: the open place, and one item a place asked a screen to open directly.
   const [place, setPlace] = useState<PlaceId | null>(null);
   const [startId, setStartId] = useState<string | null>(null);
@@ -90,12 +94,19 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
     <>
       <header className="topbar">
         <div className="wrap topbar-inner">
-          <a className="brand" href="./" onClick={e => { e.preventDefault(); goTo("home"); }}>
-            <img className="brand-mark" src={markUrl} alt="" width={46} height={46} />
-            <span><strong>Hospodar YKI</strong><small>Фінська для життя. Впевненість для YKI.</small></span>
-          </a>
-          <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
-            onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>
+          {focused ? (
+            <span className="brand" data-testid="focus-brand">                {/* no way out but the exam's own buttons */}
+              <img className="brand-mark" src={markUrl} alt="" width={46} height={46} />
+              <span><strong>Hospodar YKI</strong><small>Зосереджений режим репетиції</small></span>
+            </span>
+          ) : (
+            <a className="brand" href="./" onClick={e => { e.preventDefault(); goTo("home"); }}>
+              <img className="brand-mark" src={markUrl} alt="" width={46} height={46} />
+              <span><strong>Hospodar YKI</strong><small>Фінська для життя. Впевненість для YKI.</small></span>
+            </a>
+          )}
+          {!focused && <button type="button" className="pill toggle" aria-pressed={appearance === "calm"}
+            onClick={() => setAppearance(a => (a === "calm" ? "standard" : "calm"))}>Спокійний режим</button>}
           <span className="pill" aria-live="polite">{view === "exam" ? "02 · Симуляція YKI" : view === "mission" ? "01 · Навчання" : view === "review" ? "Рецензент S2" : view === "import" || view === "progress" ? "Прогрес" : view === "data" ? "Мої дані" : view === "offline" ? "Офлайн" : view === "place" ? "Моє господарство" : view === "workshop" ? "01 · Навчання" : view === "retention" || view === "listening" || view === "diagnostic" || view === "writing" || view === "dialogue" || view === "media" || view === "pictures" || view === "reading" || view === "practice" ? "01 · Навчання" : "Головна"}</span>
         </div>
       </header>
@@ -116,7 +127,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
           open={(v, id) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); setGoals(readGoals()); }} onHome={() => goTo("home")} />}
-        {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")}
+        {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")} onFocus={onExamFocus}
           onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} />}
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "practice" && !EMPTY_IN_RELEASE.practice && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
@@ -138,6 +149,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
       </main>
       <footer className="wrap footer">
         <p>Незалежний навчальний застосунок, не пов'язаний з OPH/JYU. Не є офіційним YKI. Прогрес зберігається лише на цьому пристрої.</p>
+        {!focused && <>
         <p className="theme-choice"><label htmlFor="theme">Тема</label>{" "}
           <select id="theme" value={theme} onChange={e => setTheme(e.target.value as Theme)}>
             <option value="system">Як у системі</option><option value="light">Світла</option><option value="dark">Темна</option>
@@ -150,6 +162,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {IN_RELEASE
           ? <p data-channel="release">Збірка випуску: лише завдання, перевірені викладачем S2.</p>
           : <p><a href="#review">Режим рецензента S2 (для викладачів)</a>{learnerR08Tasks.length === 0 && " · завдання «значення → форма» з'являться після рецензії"}</p>}
+        </>}
       </footer>
     </>
   );
