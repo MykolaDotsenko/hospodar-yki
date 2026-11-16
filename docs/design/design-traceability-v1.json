@@ -5187,9 +5187,21 @@
         {
           "file": "scripts/tests/test_validate_material_usage.py",
           "contains": "test_material_usage_the_real_repository_passes"
+        },
+        {
+          "file": "apps/web/src/content/listening.test.ts",
+          "contains": "theme dialogues and notices and the free inference texts are listening lessons with their own audio, questions and transcript"
+        },
+        {
+          "file": "apps/web/src/content/listening.test.ts",
+          "contains": "a withheld delayed-check text never becomes LEARN listening, and no exam lesson is touched"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "saved theme recording (CURATED-09): a place's notice is a listening lesson; text and the slower recording only after the answers"
         }
       ],
-      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). The register still holds 39 media files (37 synthetic audio ready to connect), 10 link catalogs and 8 content files; connecting them is code queue item 10 (docs/29)."
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). Connected 16.11.2026: 31 of 37 synthetic recordings (18 theme lessons in their places + 2 inference texts; slower/faster versions as after-answer replays); 6 recordings of the withheld delayed-check texts are HELD_OUT. Still registered: 2 logo variants (not for learners), 10 link catalogs and 8 content files (code queue item 10)."
     },
     {
       "id": "CURATED-10",
@@ -12522,7 +12534,7 @@
           "contains": "counts only FIRST attempts: a later correct retry adds no key; ungraded production is practice, not success"
         }
       ],
-      "gap": "A 9 themes × 4 skills map is built and checked: every LEARN item carries its YKI skill; the six long listening lessons now live in their places; content gaps are an explicit register that may only shrink (9 of 36 cells: identity/housing/culture/work/society listening, identity/culture/health/environment writing — housing and work listening became gaps when the two EXAM listening lessons were held out of LEARN) — filling them needs S2-authored material. Per-skill can-do lines are an editorial summary, not OPH criteria. Still missing: can-do per genre measured on unseen tasks (needs the held-out S2 bank), and speaking cells count typed role-play/reactions, not recorded speech."
+      "gap": "A 9 themes × 4 skills map is built and checked: every LEARN item carries its YKI skill; the six long listening lessons now live in their places; content gaps are an explicit register that may only shrink (4 of 36 cells, all writing: identity/culture/health/environment; the listening gaps were closed on 16.11.2026 by the saved synthetic theme recordings, S2-pending) — filling them needs S2-authored material. Per-skill can-do lines are an editorial summary, not OPH criteria. Still missing: can-do per genre measured on unseen tasks (needs the held-out S2 bank), and speaking cells count typed role-play/reactions, not recorded speech."
     },
     {
       "id": "human-anchor-calibration",

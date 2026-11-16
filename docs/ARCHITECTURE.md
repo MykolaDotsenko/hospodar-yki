@@ -623,3 +623,24 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
   - section locks;
   - recording start and re-record rules;
   - human multi-speaker audio.
+
+## 2026-11-16 — saved synthetic recordings become LEARN listening (CURATED-09, code queue 10 part 1)
+
+- **What:** `learning/exercises/b1/audio-training/index.json` (23 lessons, 37 Piper TTS files that no screen used) feeds `trainingLessons` in `apps/web/src/content/listening.ts`. These lessons are now part of `allListeningLessons`, the listening list and the places:
+  - the nine theme dialogues and nine theme notices sit in their place (topic by theme number);
+  - the inference texts 004 and 005 appear in the listening list with no place.
+- **Rules kept:** the same mission and media rules as every lesson:
+  - audio first; transcript only after the answers;
+  - labelled synthetic, one voice; S2-pending draft label in beta; release builds keep only published items.
+- **Question mapping:** true/false questions become «Oikein/Väärin» choices. Open questions are left out, because the mission is choice-only.
+- **Other tempos:** the notice's slower recording (0.87×) and the inference text's faster recording (1.12×) are offered only after the answers, as «Повільніший/Швидший запис» in review. During the task, slower is still recorded help (media rules).
+- **Held out:** the inference texts 001–003 are the delayed reading checks (`heldOutReadingIds`, now one shared domain function used by `buildSkillRetentionBank`). Their recordings never become LEARN listening and are registered as `HELD_OUT`. The reviewer workspace bank «Аудіювання: короткі записи…» lists only what learners can see.
+- **Effects:**
+  - the YKI map's listening gaps are closed (9 gaps → 4, all writing; 27 → 32 cells with material);
+  - «Житло» gets a full «Ціла справа»;
+  - the delayed listening check has more unseen lessons.
+  - Places, reviewer and map tests were updated to these numbers deliberately.
+- **Tests:** `apps/web/src/content/listening.test.ts`, the E2E «saved theme recording (CURATED-09)…» in `e2e/listening.spec.ts`, updated `places.test.ts` / `yki-map.spec.ts`; `scripts/validate_material_usage.py` (register: 26 entries).
+- **Not done:**
+  - open questions of the inference texts as a listening task;
+  - several voices: still one synthetic speaker, not a substitute for licensed multi-talker audio (R05).

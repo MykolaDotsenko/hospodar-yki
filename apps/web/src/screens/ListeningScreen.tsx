@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { addDiagnostic, nextDictoglossCue, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
   rateVerdict, type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, type MediaContext, ListeningError } from "@hospodar/domain";
-import { cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
+import { alternatesFor, cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { DictoglossRun } from "./DictoglossRun.tsx";
 import { MediationStep } from "./MediationStep.tsx";
 import { listeningPayload, validListeningDraft } from "../storage/listeningDraft.ts";
@@ -142,6 +142,11 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
   const heading = useRef<HTMLHeadingElement>(null);
   const v = listeningView(s, lesson);
   const media = mediaFor(lesson);
+  // Other-tempo recordings (slower notice, faster inference text): only after the answers, to replay — never as the task.
+  const alternates = alternatesFor(lesson);
+  const [variant, setVariant] = useState<"normal" | "scaffold_slow" | "challenge_fast">("normal");
+  const after = mediaContext(s) === "learn-after";
+  const src = after && variant !== "normal" ? alternates.find(a => a.variant === variant)?.url ?? media.audio : media.audio;
   const credit = (lesson as { credit?: LessonCredit }).credit;
   useEffect(() => { heading.current?.focus(); }, [s.phase, s.index]);
   useEffect(() => {
@@ -267,7 +272,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       <p className="audio-label"><Icon name="listening" /> <span lang="fi">{lesson.title_fi}</span> · {v.synthetic ? "синтетичний голос, один диктор" : "живий голос, один читець (літературний текст, не розмовна B1)"}</p>
       {credit && <p className="muted">Читає {credit.credit} · {credit.licence}{credit.source && <> · <a href={credit.source} target="_blank" rel="noopener noreferrer">джерело</a></>}</p>}
       {/* Media rules: before the answers a slower speed by any route is help, recorded durably first (setSpeed). */}
-      <TaskAudio context={mediaContext(s)} src={media.audio} audioRef={audioRef}
+      <TaskAudio context={mediaContext(s)} src={src!} audioRef={audioRef}
         supportRecorded={() => latest.current.support.includes("slow")} onSlower={() => setSpeed(0.75)}
         onPlay={() => { if (["listen", "questions", "review"].includes(latest.current.phase)) void transition({ type: "AUDIO_STARTED" }); }}>
         {v.allowSubtitles && media.subtitles && <track kind="subtitles" srcLang="fi" label="Suomi" src={media.subtitles} default />}
@@ -280,6 +285,15 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
             <button type="button" className="btn secondary" disabled={working}
               onClick={() => void transition({ type: "REQUEST_SUPPORT", kind: "transcript" })}>Показати текст (підтримка)</button>
           )}
+        </div>
+      )}
+      {after && alternates.length > 0 && (
+        <div className="actions" role="group" aria-label="Інший темп запису">
+          <button type="button" className="btn secondary" aria-pressed={variant === "normal"} onClick={() => setVariant("normal")}>Звичайний запис</button>
+          {alternates.map(a => (
+            <button key={a.variant} type="button" className="btn secondary" aria-pressed={variant === a.variant} onClick={() => setVariant(a.variant)}>
+              {a.variant === "scaffold_slow" ? "Повільніший запис" : "Швидший запис"} ({String(a.tempo).replace(".", ",")}×)</button>
+          ))}
         </div>
       )}
       {!v.independent && s.phase !== "review" && s.phase !== "done" && <p className="muted">З підтримкою відповіді зберігаються без оцінки — це не помилка.</p>}
