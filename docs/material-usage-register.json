@@ -1,0 +1,368 @@
+{
+  "schema_version": "1.0.0",
+  "purpose_uk": "CURATED-09/10: усе збережене має використовуватися в застосунку; невикористане лишається тут лише з причиною й планом. Перевіряє scripts/validate_material_usage.py (CI падає, якщо з'явився невикористаний матеріал без запису або запис застарів). Поповнення — кожні 2–3 дні; кожен раунд записується в search_log.",
+  "search_every_days": 3,
+  "search_log": [
+    {
+      "date": "2026-10-21",
+      "scope_uk": "YouTube, Yle й видавці: раунди 2–5 відбору цінних відео B1/B1+",
+      "found": null,
+      "added": null,
+      "record": "sources/youtube/YOUTUBE-AND-YLE-B1-HIGH-VALUE-ROUND5-2026-10.md"
+    },
+    {
+      "date": "2026-10-23",
+      "scope_uk": "YouTube UTU: розмовна мова й вимова (раунд 6); кандидати ліцензованого аудіо (хвиля 6)",
+      "found": null,
+      "added": null,
+      "record": "sources/youtube/YOUTUBE-UTU-PUHEKIELI-PRONUNCIATION-ROUND6-2026-10.md"
+    },
+    {
+      "date": "2026-10-28",
+      "scope_uk": "R05: багатоголосі матеріали з перевіркою прав (intake)",
+      "found": null,
+      "added": null,
+      "record": "sources/audio/R05-MULTITALKER-MATERIAL-INTAKE-2026-10.md"
+    }
+  ],
+  "items": [
+    {
+      "path": "assets/audio/tts/harri/01-mina-ja-taustani-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/01-mina-ja-taustani-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/02-koti-ja-asuminen-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/02-koti-ja-asuminen-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/03-kaupat-ja-palvelut-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/04-kulttuuri-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/04-kulttuuri-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/04-kulttuuri-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/05-matkustaminen-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/05-matkustaminen-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/05-matkustaminen-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/06-terveys-ja-hyvinvointi-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/07-tyo-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/07-tyo-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/07-tyo-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/08-ymparisto-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/08-ymparisto-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/08-ymparisto-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/09-yhteiskunta-dialogue-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/09-yhteiskunta-notice-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/09-yhteiskunta-notice-scaffold_slow.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) для свого місця життя: оголошення, діалог або повільна версія оголошення.",
+      "plan_uk": "Етап 2: аудіювання у відповідному місці «Моє господарство»; повільна версія — лише як підтримка, тоді без оцінки."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-001-audio-challenge_fast.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-001-audio-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-002-audio-challenge_fast.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-002-audio-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-003-audio-challenge_fast.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-003-audio-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-004-audio-challenge_fast.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-004-audio-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-005-audio-challenge_fast.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/audio/tts/harri/b1-read-inference-005-audio-normal.ogg",
+      "reason": "TO_CONNECT",
+      "note_uk": "Синтезований запис (Piper TTS, голос Harri) до тексту на висновки з high-yield; звичайний і швидкий темп.",
+      "plan_uk": "Етап 2: аудіоверсія текстів на висновки (звичайний темп — завдання, швидкий — ускладнення після першої спроби); за правилами медіа."
+    },
+    {
+      "path": "assets/images/brand/hospodar-yki-lockup.svg",
+      "reason": "NOT_LEARNER_MATERIAL",
+      "note_uk": "Варіант логотипа з назвою для друку й зовнішніх матеріалів; застосунок показує знак hospodar-yki-mark.svg."
+    },
+    {
+      "path": "assets/images/brand/hospodar-yki-mark-mono.svg",
+      "reason": "NOT_LEARNER_MATERIAL",
+      "note_uk": "Однотонний варіант знака для друку й режимів без кольору; застосунок показує кольоровий знак."
+    },
+    {
+      "path": "sources/audio/authentic-dialogues-2026-10.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Посилання на справжні багатоголосі діалоги видавців (A2.1–B2.1); старий застосунок їх уже показує.",
+      "plan_uk": "Етап 2: зовнішні місії аудіювання в місцях — лише посилання, без копіювання медіа."
+    },
+    {
+      "path": "sources/audio/oph-adult-spoken-finnish-2026-10.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Посилання на розмовні матеріали OPH для дорослих (Päivää! та інші) з власними завданнями.",
+      "plan_uk": "Етап 2: розділ посилань у «Медіатеці» і в місцях; медіа OPH не копіюються."
+    },
+    {
+      "path": "sources/audio/recording-sources.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Перелік джерел записів для аудіювання й говоріння рівня B1/B1+.",
+      "plan_uk": "Етап 2: перевірені посилання — у «Медіатеку»; неперевірені — після перевірки прав."
+    },
+    {
+      "path": "sources/audio/yki-targeted-sources-2026-10.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Довідник зовнішнього аудіо для підготовки до аудіювання YKI.",
+      "plan_uk": "Етап 4: посилання в циклі підготовки до репетиції (позначені як зовнішні, не офіційний YKI)."
+    },
+    {
+      "path": "sources/learning/10-yki-resources-machine-index.json",
+      "reason": "NOT_LEARNER_MATERIAL",
+      "note_uk": "Машинний індекс досліджених ресурсів для пошуку методик, а не матеріал для учня."
+    },
+    {
+      "path": "sources/learning/a2-b1-verified-source-missions-2026-10.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Місії до перевірених відкритих джерел A2–B1 (OPH Helppoa suomea та інші).",
+      "plan_uk": "Етап 2: місії в місцях з посиланням на джерело; власні фінські тексти — з позначкою «очікує рецензії S2»."
+    },
+    {
+      "path": "sources/learning/practical-s2-resources-2026-10.json",
+      "reason": "S2_PENDING",
+      "note_uk": "Власні практичні вправи до зовнішніх джерел; фінські тексти ще не перевірені викладачем S2.",
+      "plan_uk": "Після рецензії S2 — у робоче місце рецензента й далі в місця."
+    },
+    {
+      "path": "sources/official/yki-mock-simulation-sources.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Відео, що показують виконання завдань YKI, і приклади від організаторів.",
+      "plan_uk": "Етап 4: посилання «як виглядає іспит» перед репетицією; не підміняє ручний перегляд демо OPH."
+    },
+    {
+      "path": "sources/publishers/publisher-episode-catalog.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Окремі епізоди видавців (Yle Areena тощо) з оцінкою користі.",
+      "plan_uk": "Етап 2: посилання в «Медіатеці» й місцях, лише через гейт зовнішніх посилань."
+    },
+    {
+      "path": "sources/publishers/publisher-series-catalog.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Серії видавців рівня B1 (аудіовізуальні й практичні).",
+      "plan_uk": "Етап 2: посилання в «Медіатеці», лише через гейт зовнішніх посилань."
+    },
+    {
+      "path": "learning/exercises/b1/audio-long/source-lessons.json",
+      "reason": "NOT_LEARNER_MATERIAL",
+      "note_uk": "Вихідний сценарій для синтезу довгих аудіоуроків; застосунок використовує готовий lessons.json."
+    },
+    {
+      "path": "learning/exercises/b1/feedback-rubrics.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Критерії зворотного зв'язку для письма й говоріння.",
+      "plan_uk": "Етап 2: пункти самоперевірки після власного тексту — ніколи не бал (R04)."
+    },
+    {
+      "path": "learning/exercises/b1/grammar/ftb-frequency-cloze-v1.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "120 частотних вправ із пропуском — найбільший невикористаний банк.",
+      "plan_uk": "Етап 2: у пул місій і «Майстерню слабких місць» (з позначкою «очікує рецензії S2») і в робоче місце рецензента."
+    },
+    {
+      "path": "learning/exercises/b1/high-yield/independent-sources.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "Незалежні відкриті джерела (VIERKO, CC BY-SA тощо) з поясненням користі.",
+      "plan_uk": "Етап 2: посилання «де вчитися далі» в «Медіатеці»."
+    },
+    {
+      "path": "learning/exercises/b1/masterclasses/lessons.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "12 майстер-класів (зразок і ключі після власної спроби).",
+      "plan_uk": "Етап 2: окремий тип уроку з тими самими правилами першої спроби."
+    },
+    {
+      "path": "learning/exercises/grammar/tenses/lessons.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "9 уроків часів дієслова (чернетка, очікує рецензії S2).",
+      "plan_uk": "Етап 2: уроки граматики разом з ілюстрацією tense-timeline.svg."
+    },
+    {
+      "path": "learning/exercises/grammar/time-and-clock/lessons.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "4 уроки «час і годинник» (чернетка, очікує рецензії S2).",
+      "plan_uk": "Етап 2: разом з ілюстраціями годинника з бібліотеки."
+    },
+    {
+      "path": "learning/exercises/video/exercises.json",
+      "reason": "TO_CONNECT",
+      "note_uk": "3 вправи до відкритих відео (не для оцінювання).",
+      "plan_uk": "Етап 2: завдання до відео в «Медіатеці» — лише навчання, без оцінки."
+    }
+  ]
+}
