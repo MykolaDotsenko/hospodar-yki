@@ -10,6 +10,7 @@ import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
 import { StepUp } from "./StepUp.tsx";
 import { InterlocutorShift } from "./InterlocutorShift.tsx";
+import { MediationStep } from "./MediationStep.tsx";
 import { isPublishedItem } from "../content/release.ts";
 
 type Snap = { state: LearnerState; revision: number };
@@ -352,6 +353,10 @@ function Dialogue({ item, repository, snapshot, initialDraft, onSaved, onExit, o
       )}
       {s.phase === "done" && (                                         // graduated-task-sequencing: the role-play grows by one move each step
         <StepUp card={{ id: item.id, kind: "dialogue", transferSkill: "speaking" }} situation={{ label_uk: "Твоя ситуація", text: item.roleplay_transfer_fi, lang: "fi" }}
+          repository={repository} snapshot={snap.current} onSaved={s2 => { snap.current = s2; onSaved(s2); }} />
+      )}
+      {s.phase === "done" && (                                         // cefr-mediation-paraphrase: relay what was agreed to someone who was not there
+        <MediationStep itemId={item.id} title_fi={item.title_fi} source="dialogue" text_fi={item.turns.map(t => `${t.speaker}: ${t.text_fi}`).join("\n")}
           repository={repository} snapshot={snap.current} onSaved={s2 => { snap.current = s2; onSaved(s2); }} />
       )}
       {s.phase === "done" && (                                         // pragmatic-speech-acts: the same role-play for a friend, a neighbour, an official

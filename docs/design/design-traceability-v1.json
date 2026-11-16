@@ -13125,9 +13125,17 @@
         {
           "file": "packages/domain/test/mediation.test.ts",
           "contains": "after listening, a Ukrainian relay counts as listening comprehension; simpler Finnish stays writing; both ungraded"
+        },
+        {
+          "file": "packages/domain/test/mediation.test.ts",
+          "contains": "mediation after a dialogue: who talked and why, what was agreed, what happens next; a Ukrainian relay of the script is reading, simpler Finnish is writing, both ungraded"
+        },
+        {
+          "file": "apps/web/e2e/dialogue.spec.ts",
+          "contains": "mediation after a dialogue (cefr-mediation-paraphrase): tell a friend who was not there, in Ukrainian, what was agreed; dialogue checks; the conversation on request; ungraded reading"
         }
       ],
-      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text or listening lesson the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. After listening the relay is of what was heard: no transcript in the step, the same recording stays for a learner-started replay; a Ukrainian relay is stored as ungraded listening evidence. Missing: human feedback on whether the relay is accurate (a teacher or peer, not a model), and mediation after a dialogue or a longer multi-speaker recording."
+      "gap": "Sentence-level paraphrase retell exists, and after a saved LEARN reading text or listening lesson the learner may relay it to a realistic audience — in Ukrainian to a friend without Finnish (cross-language mediation) or in simpler Finnish to a neighbour — with a three-question self-check (who/what, when/where, what to do); no model, ungraded. After listening the relay is of what was heard: no transcript in the step, the same recording stays for a learner-started replay; a Ukrainian relay is stored as ungraded listening evidence. After every finished dialogue the learner may tell someone who was not there what was agreed — in Ukrainian to a friend or in simpler Finnish to a neighbour — with dialogue checks (who talked and why, what was agreed, what happens next) and the conversation on request; a Ukrainian relay of the written script is ungraded reading. Missing: human feedback on whether the relay is accurate (a teacher or peer, not a model), and mediation after a longer multi-speaker recording."
     },
     {
       "id": "digital-task-literacy",
