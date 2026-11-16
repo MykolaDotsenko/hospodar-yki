@@ -1,11 +1,12 @@
 import { useRef, useState, type FormEvent } from "react";
-import { recordSkillCheck, skillCheckReducer, skillCheckReveal, skillCheckView, skillRetentionQueue, startSkillCheck, SKILL_CHECK_MAX_CHARS,
+import { recordSkillCheck, skillCheckReducer, skillCheckReveal, skillCheckView, skillRetentionQueue, startSkillCheck, NORMAL_RATE, SKILL_CHECK_MAX_CHARS, SUPPORT_RATE,
   type LearnerState, type Skill, type SkillCheckEvent, type SkillCheckItem, type SkillCheckSession, type SkillRetentionStatus } from "@hospodar/domain";
 import { listeningMediaFor, skillRetentionBank } from "../content/skillRetention.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { TaskAudio } from "../ui/TaskAudio.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const SKILL_UK: Record<Skill, string> = { reading: "Читання", listening: "Аудіювання", writing: "Письмо", speaking: "Говоріння" };
@@ -45,6 +46,9 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
   skill: Skill; day: 7 | 14 | 30; check: SkillCheckItem; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onClose: () => void;
 }) {
   const [s, setS] = useState<SkillCheckSession>(() => startSkillCheck(skill, day, check));
+  const latest = useRef(s); latest.current = s;                      // read by the player's speed check between renders
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [rate, setRate] = useState(NORMAL_RATE);
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -55,11 +59,20 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
 
   function step(e: SkillCheckEvent) {
     setError(null);
-    try { setS(skillCheckReducer(s, check, e)); if (e.type === "ANSWER") setValue(""); }
+    try { const next = skillCheckReducer(latest.current, check, e); latest.current = next; setS(next); if (e.type === "ANSWER") setValue(""); }
     catch (err) {
       const c = code(err);
       setError(c === "AUDIO_NOT_STARTED" ? "Спершу ввімкни запис." : c === "EMPTY" ? "Спершу дай відповідь." : c === "INVALID" ? "Обери варіант." : "Цей крок зараз недоступний.");
     }
+  }
+  /** Media rules: a slower speed is help — recorded in the session first (so the attempt is ungraded), then applied. */
+  function speed(next: typeof NORMAL_RATE | typeof SUPPORT_RATE) {
+    if (next === SUPPORT_RATE && !latest.current.support.includes("slow")) {
+      step({ type: "SLOWER" });
+      if (!latest.current.support.includes("slow")) return;            // refused: stay at normal speed
+    }
+    setRate(next);
+    if (audioRef.current) { audioRef.current.playbackRate = next; audioRef.current.preservesPitch = true; }
   }
   async function save(final: SkillCheckSession) {
     if (busy.current) return;
@@ -77,7 +90,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
   }
   function submitText(e: FormEvent) {
     e.preventDefault();
-    try { const next = skillCheckReducer(s, check, { type: "SUBMIT_TEXT", text: value }); setS(next); void save(next); }
+    try { const next = skillCheckReducer(latest.current, check, { type: "SUBMIT_TEXT", text: value }); latest.current = next; setS(next); void save(next); }
     catch { setError("Спершу напиши відповідь."); }
   }
 
@@ -90,16 +103,28 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
       {v.showReadingText && check.kind === "objective" && <div className="prompt reading-text" lang="fi">{check.item.text_fi}</div>}
       {skill === "listening" && media && !saved && (
         <>
-          {media.audio ? <audio controls preload="none" src={media.audio} onPlay={() => { if (s.phase === "answer") step({ type: "AUDIO_STARTED" }); }} />
-            : <p className="feedback error" role="alert">Аудіофайл недоступний — перевірку не можна пройти чесно.</p>}
-          {!s.supported && !v.ready && <button type="button" className="btn secondary" onClick={() => step({ type: "SHOW_TEXT" })}>Показати текст (тоді без оцінки)</button>}
+          {media.audio ? (
+            <>
+              <TaskAudio context="learn-task" src={media.audio} audioRef={audioRef}
+                supportRecorded={() => latest.current.support.includes("slow")} onSlower={() => speed(SUPPORT_RATE)}
+                onPlay={() => { if (latest.current.phase === "answer") step({ type: "AUDIO_STARTED" }); }} />
+              {!v.ready && (
+                <div className="actions" role="group" aria-label="Швидкість і текст">
+                  <button type="button" className="btn secondary" aria-pressed={rate === NORMAL_RATE} onClick={() => speed(NORMAL_RATE)}>1×</button>
+                  <button type="button" className="btn secondary" aria-pressed={rate === SUPPORT_RATE} onClick={() => speed(SUPPORT_RATE)}>0,75× (тоді без оцінки)</button>
+                  {!s.support.includes("transcript") && <button type="button" className="btn secondary" onClick={() => step({ type: "SHOW_TEXT" })}>Показати текст (тоді без оцінки)</button>}
+                </div>
+              )}
+              {s.supported && !v.ready && <p className="muted">З підтримкою відповіді зберігаються без оцінки — це не помилка.</p>}
+            </>
+          ) : <p className="feedback error" role="alert">Аудіофайл недоступний — перевірку не можна пройти чесно.</p>}
           {v.showTranscript && media.transcript && <div className="prompt transcript" lang="fi">{media.transcript}</div>}
         </>
       )}
 
       {!v.ready && v.question && (
         <form onSubmit={e => { e.preventDefault(); const qId = v.question!.id; const val = value;
-          try { const next = skillCheckReducer(s, check, { type: "ANSWER", questionId: qId, value: val }); setS(next); setValue(""); if (next.phase === "ready") void save(next); }
+          try { const next = skillCheckReducer(latest.current, check, { type: "ANSWER", questionId: qId, value: val }); latest.current = next; setS(next); setValue(""); if (next.phase === "ready") void save(next); }
           catch (err) { const c = code(err); setError(c === "AUDIO_NOT_STARTED" ? "Спершу ввімкни запис." : c === "EMPTY" ? "Спершу дай відповідь." : "Обери варіант."); } }} noValidate>
           {v.question.options_fi ? (
             <fieldset className="choices-set" disabled={!v.canAnswer}>
@@ -140,7 +165,8 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
           <p role="status"><Icon name="ok" /> Перевірку збережено на цьому пристрої.</p>
           {reveal.kind === "objective" ? (
             <>
-              {reveal.supported && <p className="muted">З показаним текстом — збережено без оцінки.</p>}
+              {reveal.supported && <p className="muted">{s.support.includes("transcript") && s.support.includes("slow") ? "З показаним текстом і повільніше"
+                : s.support.includes("transcript") ? "З показаним текстом" : "Повільніше"} — збережено без оцінки.</p>}
               <ol className="skill-lines">{reveal.results.map(r => (
                 <li key={r.n}><span lang="fi">{r.prompt_fi}</span><br /><strong>Твоя відповідь:</strong> <span lang="fi">{r.answer}</span><br />
                   {r.correct === null ? <><strong>Приклад:</strong> <span lang="fi">{r.key_fi}</span></> : <><strong>{r.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{r.key_fi}</span></>}

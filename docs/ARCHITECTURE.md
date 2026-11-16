@@ -532,3 +532,33 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
   - opt-in reminders;
   - any measured effect of a goal on practice or delayed Finnish outcomes (MOT-STUDY not run).
 
+
+## 2026-11-16 — one set of media rules on every screen with audio or video (docs/29 stage 3; R7-05, R7-03, AUD-03, UIO-10)
+
+- **Rules (pure, `packages/domain/src/mediaRules.ts`):**
+  1. The learner starts the sound: nothing autoplays; a task loads nothing ahead.
+  2. Own answer first: text appears after the answer, or on request as help.
+  3. Help makes the attempt ungraded: in a LEARN task, text or a slower speed before answering is allowed for accessibility; the answers are then saved as supported, never as a failure or independent evidence.
+- **Contexts (`mediaRules(context)`, `rateVerdict(context, rate, supportRecorded)`):**
+  - `learn-task`: before the answer is saved.
+  - `learn-after`: review, mediation, after the answers.
+  - `exam`: no help at all; the speed is locked at 1× because a speed aid is not an OPH-verified 2027 feature. Replay stays unlimited and labelled practice.
+  - `own-recording`, `library`: rule 1 only.
+- **One task player (`apps/web/src/ui/TaskAudio.tsx`)** is used by the listening mission, the delayed listening check and the EXAM rehearsal:
+  - `preload="none"`, no autoplay;
+  - the browser's own speed menu is hidden (`controlsList="nodownload noplaybackrate"`);
+  - a speed changed by any other route (browser, shortcut, extension) is checked on `ratechange`. In a LEARN task a slower speed is put back to 1× and handed to the screen, which records the help durably first and only then plays at 0.75×. In the EXAM any change goes back to 1×.
+  - Before this, a slower speed chosen in Chrome's own player menu was not recorded as help.
+  - Also fixed: after the answers (review), «0,75×» used to fail with «Цей крок зараз недоступний», because it tried to record help that is no longer possible. It now just plays slower and is no longer labelled «(підтримка)».
+- **Delayed listening check (`skillRetention.ts`):**
+  - The same 1× / 0.75× choice as the mission. Slower is recorded as `support: ["slow"]` and the diagnostics say `[supported: slower]`; text keeps its earlier label `[supported: text shown]`; both give `text shown + slower`. All of these are ungraded.
+  - Fixed while doing this: any support used to switch on the text and allow answering without listening. Now only the text does that; a slower speed still has to be listened to.
+  - The session object is never stored, so no migration is needed.
+- **Guards:**
+  - `apps/web/src/media-rules.test.ts` (static) registers every `<audio>`, `<video>` and `<TaskAudio>` in the source with its context and its E2E test. A new media element fails until it is registered. It also forbids `autoplay` and `.play()` outside the dictogloss button. Mutation-checked: autoplay, a raw `<audio>` in a task, or a visible speed menu each fail it.
+  - `e2e/media-rules.spec.ts` checks every surface rendered: the listening mission (before and after the answers), the delayed check, dictogloss, the EXAM listening item and the media library.
+  - `packages/domain/test/media-rules.test.ts` covers the pure rules and the delayed check.
+- **Not done:**
+  - UIO-02 (pause at a semantic boundary before a question): it needs human-verified segment boundaries;
+  - verified OPH 2027 replay/pause/seek rules for the EXAM;
+  - screen-reader and real-device checks of the players.
