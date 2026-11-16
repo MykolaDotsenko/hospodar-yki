@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-  completeMission, missionReducer, missionResult, missionView, startMission,
+  completeMission, locationSchemeFor, missionReducer, missionResult, missionView, startMission,
   type LearnerState, type MissionPhase, type MissionState, MissionError,
 } from "@hospodar/domain";
 import { exercises, isDraft, type ClozeExercise } from "../content/cloze.ts";
@@ -12,6 +12,7 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { LocationScheme } from "../ui/LocationScheme.tsx";
 
 const STEPS: Array<{ phase: MissionPhase; label: string }> = [
   { phase: "answer", label: "Спроба" },
@@ -47,6 +48,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
   const [options, setOptions] = useState(initial.options);
   const [choosing, setChoosing] = useState(false);
   const why = options.find(o => o.exercise.id === task.id)?.why ?? [];
+  const scheme = locationSchemeFor(task);                            // UIO-06: only for a place relation, only in feedback
   const [mission, setMission] = useState<MissionState>(() => startMission(task.id));
   const [input, setInput] = useState("");
   // Updated synchronously in the DOM input event, so rapid Save & Exit cannot use a stale React render.
@@ -275,6 +277,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
           {task.semantic_relation_uk && <p className="meaning-first"><span className="meaning-label">Значення форми</span><span className="meaning-text">{task.semantic_relation_uk}</span></p>}
           <p lang="fi"><span className="learning-cue">{task.answer_fi}</span></p>
           {task.explanation_uk && <p>{task.explanation_uk}</p>}
+          {scheme && <LocationScheme key={task.id} scheme={scheme} />}
         </div>
       )}
       {view.showTransfer && <p className="prompt" lang="fi">{task.transfer_task_fi ?? "Kirjoita oma lause."}</p>}

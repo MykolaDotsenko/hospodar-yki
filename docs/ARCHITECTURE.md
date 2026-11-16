@@ -562,3 +562,22 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
   - UIO-02 (pause at a semantic boundary before a question): it needs human-verified segment boundaries;
   - verified OPH 2027 replay/pause/seek rules for the EXAM;
   - screen-reader and real-device checks of the players.
+
+## 2026-11-16 — UIO-06: one picture of a place for the inner location cases (docs/29 stage 3 exit: UIO rules under test)
+
+- **What:** in the LEARN cloze mission's feedback, after the first attempt, a closed «Схема: де? звідки? куди?».
+  - Opened on request, it shows a square house and the task's own relation: a dot inside (`missä?`, -ssa/-ssä), an arrow out (`mistä?`, -sta/-stä) or an arrow in (`mihin?`, -Vn/-hVn/-seen).
+  - The learner may pick another relation to compare.
+  - An equivalent static table with all three relations and the task's own form sits beside the picture.
+- **When:** only for a task whose tag is inessive, elative or illative and whose editor wrote a spatial meaning (`semantic_relation_uk`). Today that is three items (kirjastoon, kaupasta, koulussa). "bussilla" (adessive of means) and an elative without a place meaning get no picture, so the picture never teaches a wrong meaning. Never while answering, in repair or in the new-situation step (R7-06); never in EXAM.
+- **Rules kept:**
+  - no motion at all;
+  - keyboard buttons with `aria-pressed`;
+  - the SVG has a text description that changes with the choice;
+  - colours from tokens, square shapes, no gold on the task sheet;
+  - the only Finnish shown is the task's own key, plus question words and endings (grammar metadata, not new answer keys).
+- **Code:** `packages/domain/src/locationCases.ts` (+ `test/location-cases.test.ts`), `apps/web/src/ui/LocationScheme.tsx`, `MissionScreen` feedback, `e2e/location-scheme.spec.ts`.
+- **Not done:**
+  - outer cases (-lla/-lta/-lle);
+  - pictures for other grammar families;
+  - UX-I03, the controlled comparison of picture vs static explanation (not run).

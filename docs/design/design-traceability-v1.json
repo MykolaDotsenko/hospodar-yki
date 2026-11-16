@@ -745,8 +745,22 @@
       "id": "UIO-06",
       "source": "research/ux/20-multimodal-interactive-learning-2026-10.md",
       "summary": "One meaningful visual interaction (talossa → talosta → taloon) with static alternative",
-      "status": "NOT_YET",
-      "plan": "G2-c part 2 (audio, diagnostics, 4 skills, progress)"
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/location-scheme.spec.ts",
+          "contains": "UIO-06 location scheme: only after the first attempt, on request; choose a relation to see it; same content as a static table; never in the new situation"
+        },
+        {
+          "file": "apps/web/e2e/location-scheme.spec.ts",
+          "contains": "UIO-06 at 320 px: the scheme and its table fit without horizontal scroll"
+        },
+        {
+          "file": "packages/domain/test/location-cases.test.ts",
+          "contains": "location scheme: only for an inner location case with a spatial meaning; the form shown is the task's own key"
+        }
+      ],
+      "gap": "Built for the three inner location cases in the LEARN cloze mission (3 items with an editor's spatial meaning; S2-pending like the items). Outer cases (-lla/-lta/-lle) have no picture yet. ENFORCED is the guarded rule (after the attempt, on request, static equivalent, no motion), not a learning effect: UX-I03 (visual vs static) NOT RUN."
     },
     {
       "id": "UIO-07",

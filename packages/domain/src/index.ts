@@ -37,3 +37,4 @@ export * from "./deeds.ts";
 export * from "./sessionPlan.ts";
 export * from "./goals.ts";
 export * from "./mediaRules.ts";
+export * from "./locationCases.ts";
