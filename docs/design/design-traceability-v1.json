@@ -5171,6 +5171,40 @@
       "gap": "Delayed checks exist for grammar writing only; Controlled equal-time human study with blinded delayed (day-14/30) unseen outcomes; NOT RUN."
     },
     {
+      "id": "CURATED-09",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "Every saved material is used by the app or registered with a reason and plan",
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_material_usage.py",
+          "contains": "test_material_usage_an_unused_saved_file_must_be_used_or_registered_with_a_reason"
+        },
+        {
+          "file": "scripts/tests/test_validate_material_usage.py",
+          "contains": "test_material_usage_the_register_stays_honest_used_or_deleted_items_and_missing_reasons_fail"
+        },
+        {
+          "file": "scripts/tests/test_validate_material_usage.py",
+          "contains": "test_material_usage_the_real_repository_passes"
+        }
+      ],
+      "gap": "The rule is guarded (CI fails on an unregistered unused material or a stale entry). The register still holds 39 media files (37 synthetic audio ready to connect), 10 link catalogs and 8 content files; connecting them is code queue item 10 (docs/29)."
+    },
+    {
+      "id": "CURATED-10",
+      "source": "docs/15-two-modes-skill-scopes.md",
+      "summary": "New pictures, audio, video, YouTube videos and articles are searched for every 2–3 days, saved to the repository (files only under open licences) and added to use",
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_validate_material_usage.py",
+          "contains": "test_material_search_is_logged_with_a_record_and_reported_when_due_never_failing_ci_for_time"
+        }
+      ],
+      "gap": "The search log and the due reminder (--report, --next; every 3 days) exist; earlier rounds (21–28.10.2026) are logged without counts. The rounds themselves are recurring work for an AI assistant outside the app (a scheduled task) plus a person for rights, Finnish and publication."
+    },
+    {
       "id": "EXAM-PILLAR-01",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Full four-skill session or each module alone; partial official profile only per OPH day",

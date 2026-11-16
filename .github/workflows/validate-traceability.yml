@@ -15,6 +15,10 @@ on:
       - 'tools/architecture/tests/**'
       - 'scripts/tests/**'
       - 'scripts/validate_design_traceability.py'
+      - 'scripts/validate_material_usage.py'
+      - 'assets/**'
+      - 'learning/**'
+      - 'knowledge/**'
       - '.github/workflows/validate-web-app.yml'
       - '.github/workflows/validate-traceability.yml'
   pull_request:
@@ -28,6 +32,10 @@ on:
       - 'tools/architecture/tests/**'
       - 'scripts/tests/**'
       - 'scripts/validate_design_traceability.py'
+      - 'scripts/validate_material_usage.py'
+      - 'assets/**'
+      - 'learning/**'
+      - 'knowledge/**'
       - '.github/workflows/validate-web-app.yml'
       - '.github/workflows/validate-traceability.yml'
 permissions:
@@ -45,3 +53,7 @@ jobs:
         run: |
           python3 scripts/validate_design_traceability.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_design_traceability.py' -v
+      - name: Every saved material is used by the app or registered with a reason (CURATED-09)
+        run: |
+          python3 scripts/validate_material_usage.py
+          python3 -m unittest discover -s scripts/tests -p 'test_validate_material_usage.py' -v

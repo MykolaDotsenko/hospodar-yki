@@ -238,6 +238,15 @@ def next_steps(doc: dict, registry: list[dict], root: Path = ROOT) -> str:
         f"  {r['status']:<8} {r['id']}: {r.get('gap') or r.get('plan')}" for r in exam]
     files = unused_content(root)
     out += [f"Authored content no app loads ({len(files)}):"] + [f"  {f}" for f in files]
+    try:                                                           # CURATED-09/10: saved media and catalogs not used yet
+        import validate_material_usage as mu
+        if root == ROOT:
+            u = mu.unused_items(root)
+            out.append(f"Saved materials not used by the app (CURATED-09): media {len(u['media'])}, link catalogs {len(u['sources'])}, "
+                       f"content {len(u['content'])} — scripts/validate_material_usage.py --report lists them with reasons.")
+            out.append(mu.search_status(root) + " (CURATED-10)")
+    except (ImportError, FileNotFoundError):
+        pass
     c = Counter(m["status"] for m in doc.get("methods", []))
     out.append(f"Methods: ENFORCED {c['ENFORCED']}, PARTIAL {c['PARTIAL']}, NOT_YET {c['NOT_YET']}, EXCLUDED {c['EXCLUDED']} of {len(registry)}. "
                "ENFORCED means a test guards the rule, not a measured learning effect.")
