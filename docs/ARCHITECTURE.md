@@ -713,6 +713,15 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**If-then plan (micro-missions, R08-MOT, 18.11.2026):**
+- `packages/domain/src/studyPlan.ts` ports the R08 reference `createR08StudyPlan`: the learner's own cue (at most 150 characters), a skill, and 5/10/20 minutes, rendered as «Коли …, я N хв …».
+- The reader is tolerant: a damaged record is "no plan", never a guess.
+- `StudyPlanBox` on Home, next to the goals, is optional. «Почати зараз» opens the chosen skill; the plan can be changed or deleted.
+- Storage: `storage/studyPlan.ts`, key `hospodar-yki:web:study-plan:v1`, readback-verified, written only on «Зберегти план» (MOT-11). It is never exported and is erased with LEARN data.
+- No reminder, notification, streak or count (MOT-03, MOT-04).
+- Evidence is mixed (MOT-E11 vs MOT-E12), so the copy promises nothing.
+- Tests: `study-plan.test.ts`, E2E «if-then plan…».
+
 **What the exam looks like (CURATED-09 part 8, docs/29 stage 4, 16.11.2026):**
 - `packages/domain/src/examLook.ts` builds three groups from `sources/official/yki-mock-simulation-sources.json`:
   - two OPH pages;

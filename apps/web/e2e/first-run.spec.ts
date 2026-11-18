@@ -118,3 +118,38 @@ test("a learner who has already saved something never sees the first run", async
   await expect(page.getByRole("heading", { name: "Твій наступний крок" })).toBeVisible();
   await expect(welcome(page)).toHaveCount(0);
 });
+
+test("if-then plan (micro-missions, R08-MOT): optional, in the learner's own words; «Почати зараз» opens the chosen skill; no reminder or count; changed, deleted and erased with LEARN data", async ({ page }) => {
+  await page.goto("./");
+  await welcome(page).getByRole("button", { name: "Без знайомства — одразу до справ" }).click();
+  const box = page.getByTestId("study-plan");
+  await expect(box.getByRole("button", { name: "Почати зараз" })).toHaveCount(0);           // nothing is planned for the learner
+  await box.locator("summary").click();
+  await expect(box).toContainText("Нагадувань не буде");
+  await box.getByRole("button", { name: "Зберегти план" }).click();
+  await expect(box.getByRole("alert")).toContainText("своїми словами");
+  await box.getByLabel(/Коли\? Своїми словами/).fill("коли сідаю в автобус до роботи");
+  await box.getByLabel("Аудіювання").check();
+  await box.getByLabel("5 хв").check();
+  expect(await serious(page)).toEqual([]);
+  await box.getByRole("button", { name: "Зберегти план" }).click();
+  await expect(box).toContainText("Мій план: Коли сідаю в автобус до роботи, я 5 хв слухатиму фінську.");
+  expect(JSON.parse((await page.evaluate(() => localStorage.getItem("hospodar-yki:web:study-plan:v1")))!)).toMatchObject({ skill: "listening", minutes: 5 });
+  expect(await page.locator("main").innerText()).not.toMatch(/серія|streak|днів поспіль/i);
+
+  await page.reload();
+  await page.getByTestId("study-plan").getByRole("button", { name: "Почати зараз" }).click();
+  await expect(page.getByRole("list", { name: "Аудіозаписи" })).toBeVisible();              // the chosen skill opens
+  await page.goto("./");
+  await page.getByTestId("study-plan").getByRole("button", { name: "Змінити" }).click();
+  await page.getByTestId("study-plan").getByLabel("Говоріння").check();
+  await page.getByTestId("study-plan").getByRole("button", { name: "Зберегти план" }).click();
+  await expect(page.getByTestId("study-plan")).toContainText("говоритиму фінською");
+
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await page.getByLabel("Увесь прогрес навчання").check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect(page.getByText(/Прогрес навчання видалено й перевірено/)).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:study-plan:v1"))).toBeNull();
+});

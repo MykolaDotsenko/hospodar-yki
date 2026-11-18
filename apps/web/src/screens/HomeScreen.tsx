@@ -12,6 +12,7 @@ import { Icon, type IconName } from "../ui/icons.tsx";
 import { SKILL_FI, SKILL_UK } from "../ui/MissionChrome.tsx";
 import { makeSession, PlanStart, SessionPlanPanel, type ActiveSession, type PlanTarget } from "./SessionPlanPanel.tsx";
 import { MyGoals, Welcome } from "./Welcome.tsx";
+import { StudyPlanBox } from "./StudyPlanBox.tsx";
 
 export type HomeTarget = "workshop" | "mission" | "exam" | "reading" | "listening" | "writing" | "dialogue" | "practice" | "masterclass" | "external" | "pictures" | "media"
   | "diagnostic" | "retention" | "progress" | "import" | "data" | "offline";
@@ -125,6 +126,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
         <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
           ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено й нічого не згорає.</p>
         {!welcome && state && <MyGoals record={goals} onSaved={onGoals} />}
+        {!welcome && state && <StudyPlanBox onStart={skill => go(SKILL_VIEW[skill])} />}
         <ul className="estate-grid">
           {places.map(pl => {
             const p = estate.find(x => x.place === pl.id);
