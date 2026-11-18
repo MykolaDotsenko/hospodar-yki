@@ -713,6 +713,12 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Rektio interleaving (interleaving-grammar, 18.11.2026):**
+- `interleaveByGroup` keeps oldest-first order but picks next the oldest card whose case differs from the previous card's.
+- `practiceDue` applies it to due rektio cards only; chunks keep their order, because research #27 found forced interleaving of plain word lists unhelpful.
+- `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
+- Tests: `practice.test.ts`, E2E «rektio interleaving…».
+
 **If-then plan (micro-missions, R08-MOT, 18.11.2026):**
 - `packages/domain/src/studyPlan.ts` ports the R08 reference `createR08StudyPlan`: the learner's own cue (at most 150 characters), a skill, and 5/10/20 minutes, rendered as «Коли …, я N хв …».
 - The reader is tolerant: a damaged record is "no plan", never a guess.

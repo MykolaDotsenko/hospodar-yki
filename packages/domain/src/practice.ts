@@ -218,9 +218,39 @@ export function completePractice(state: LearnerState, s: PracticeSession, card: 
   const updated = updateCard(known, recalled, now);
   return { ...next, cards: { ...next.cards, [card.id]: s.cue === undefined ? updated : withOwnCue(updated, s.cue) } };
 }
-/** Scheduled practice cards that are due today, oldest first; a late return is simply due (no penalty). */
+/**
+ * Interleaving of confusable forms (method interleaving-grammar; COG/PSY research #27): a rektio card's group is its case
+ * or pattern (elatiivi, illatiivi, partitiivi …). Due cards keep their oldest-first order, except that the next card is
+ * the oldest one whose group differs from the previous card's, so the learner has to decide which case each verb takes
+ * instead of repeating one case in a block. Research #27 found forced interleaving of plain word lists unhelpful, so this
+ * applies to rektio (case choice) only; chunks keep their order.
+ */
+export function interleaveByGroup<T extends { group: string }>(cards: readonly T[]): T[] {
+  const rest = [...cards], out: T[] = [];
+  while (rest.length) {
+    const prev = out[out.length - 1]?.group;
+    const i = rest.findIndex(c => c.group !== prev);
+    out.push(rest.splice(i === -1 ? 0 : i, 1)[0]!);
+  }
+  return out;
+}
+
+/** Scheduled practice cards that are due today, oldest first (rektio interleaved by case); a late return is simply due. */
 export function practiceDue<T extends PracticeCard>(state: LearnerState, cards: T[], today: LocalDate = localDate()): T[] {
-  return dueCards(state, today).map(c => cards.find(x => x.id === c.id && isSpacedKind(x))).filter((x): x is T => !!x);
+  const due = dueCards(state, today).map(c => cards.find(x => x.id === c.id && isSpacedKind(x))).filter((x): x is T => !!x);
+  const rektio = interleaveByGroup(due.filter(c => c.kind === "rektio"));
+  let r = 0;
+  return due.map(c => (c.kind === "rektio" ? rektio[r++]! : c));             // chunks keep their place and order
+}
+
+/**
+ * The next new card of the same kind after a finished one. For rektio it is the first unfinished card whose case differs
+ * from the one just practised (interleaving); for every other kind, simply the next unfinished one.
+ */
+export function nextPracticeCard<T extends PracticeCard>(cards: readonly T[], current: T, finished: (id: string) => boolean): T | null {
+  const open = cards.filter(c => c.kind === current.kind && c.id !== current.id && !finished(c.id));
+  if (current.kind === "rektio") return open.find(c => c.group !== current.group) ?? open[0] ?? null;
+  return open[0] ?? null;
 }
 
 /* ---------- adapters from the existing content files (single physical owners) ---------- */

@@ -13294,9 +13294,17 @@
         {
           "file": "apps/web/src/content/workshop.test.ts",
           "contains": "every grammar tag of the cloze bank belongs to exactly one family of confusable forms"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "interleaving (interleaving-grammar): due rektio cards and the next new rektio card switch case instead of repeating one case in a block; chunks keep their order"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "rektio interleaving (interleaving-grammar): after a finished rektio card the next card asks for a different case"
         }
       ],
-      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); ordinary mission scheduling (R06) and the rektio practice cards are not interleaved."
+      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); the rektio practice cards are now interleaved by case too — due problem phrases and the next new card switch case (elatiivi / illatiivi / partitiivi …) instead of repeating one case in a block; chunks are deliberately not interleaved (research #27: forced interleaving of plain word lists did not help). Ordinary mission scheduling (R06) is still not interleaved."
     },
     {
       "id": "yki-mock",
