@@ -13246,9 +13246,13 @@
         {
           "file": "packages/domain/test/listening.test.ts",
           "contains": "three prompts for the learner's own notes — when, where, what — in Ukrainian, with a short limit"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "strategic audio notes in the delayed listening check: own notes while listening (not support, answers stay scored), back next to the keys, never stored"
         }
       ],
-      "gap": "Optional own notes (when / where / what) while listening and answering in the LEARN listening mission, like exam note paper; own processing, not support, so answers stay independent and scored; shown back next to the keys; session only, never stored or scored. Not offered in the EXAM rehearsal (OPH 2027 note-taking rules unverified) nor in the delayed checks; no guidance on note quality."
+      "gap": "Optional own notes (when / where / what) while listening and answering in the LEARN listening mission, like exam note paper; own processing, not support, so answers stay independent and scored; shown back next to the keys; session only, never stored or scored. Also offered in the delayed listening checks (7/14/30) with the same rules — own processing, answers stay scored, notes back next to the keys, never stored (one shared AudioNotes component). Not offered in the EXAM rehearsal (OPH 2027 note-taking rules unverified); no guidance on note quality."
     },
     {
       "id": "autonomy-support-and-choice",

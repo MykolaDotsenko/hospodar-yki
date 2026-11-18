@@ -154,3 +154,31 @@ test("media rules · media library: every recording and video is quiet and loads
     expect(await page.locator("audio, video").evaluateAll(els => els.every(e => (e as HTMLMediaElement).preload === "none"))).toBe(true);
   }
 });
+
+test("strategic audio notes in the delayed listening check: own notes while listening (not support, answers stay scored), back next to the keys, never stored", async ({ page }) => {
+  await page.clock.install({ time: T0 });
+  await page.goto("./");
+  await openLesson(page);
+  await started(page);
+  await page.getByRole("button", { name: "До питань" }).click();
+  await answerLesson(page);
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
+
+  await page.clock.setFixedTime(DAY7);
+  await page.goto("./");
+  await page.getByRole("button", { name: "Пройти" }).click();
+  await page.locator(".skill-lines li", { hasText: "Аудіювання" }).getByRole("button", { name: "Пройти перевірку дня 7" }).click();
+  await page.locator("details.audio-notes summary").click();
+  await page.getByLabel(/^Коли/).fill("tiistaina");
+  await started(page);
+  for (let i = 0; i < 20 && await page.getByText(/Питання \d+ з \d+/).count(); i++) {
+    await page.locator('input[name="skq"]').first().check();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+  }
+  await expect(page.getByText("Перевірку збережено на цьому пристрої.")).toBeVisible();
+  await expect(page.getByTestId("audio-notes-back")).toContainText("tiistaina");          // back for self-comparison
+  await expect(page.getByText(/збережено без оцінки/)).toHaveCount(0);                  // notes are not support: still scored
+  const stored = await page.evaluate(() => JSON.stringify(Object.fromEntries(Object.keys(localStorage).map(k => [k, localStorage.getItem(k)]))));
+  expect(stored).not.toContain("tiistaina");                                            // never stored
+});

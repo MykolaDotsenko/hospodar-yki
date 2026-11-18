@@ -713,6 +713,12 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Audio notes in delayed listening checks (strategic-audio-notes, 18.11.2026):** `ui/AudioNotes.tsx` (`AudioNotesBox`, `AudioNotesBack`) is now shared by the LEARN listening lesson and the delayed listening check (`SkillChecks`).
+- The same rules apply in both: own when/where/what notes, which are own processing rather than support, so answers stay scored.
+- The notes come back next to the keys after saving and live in session state only.
+- They are still not offered in the EXAM rehearsal.
+- Test: E2E «strategic audio notes in the delayed listening check…».
+
 **Model-answer exposure (MOCK-VID-08, 18.11.2026):**
 - `packages/domain/src/videoExposure.ts`: `markModelAnswersSeen` (the first day stays), `unmarkModelAnswersSeen`, `videoCheckStatus` (fresh / seen) and a tolerant parser.
 - On «Як виглядає іспит», each practice video with a model-answer start offers «Я вже бачив(ла) зразки відповідей». After the mark the video says it is an example now, not a new check, and the mark can be removed.

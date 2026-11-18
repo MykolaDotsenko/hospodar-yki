@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, nextDictoglossCue, listeningEvidence, AUDIO_NOTE_FIELDS_UK, AUDIO_NOTE_MAX_CHARS, listeningReducer, listeningView, startListening,
+import { addDiagnostic, nextDictoglossCue, listeningEvidence, listeningReducer, listeningView, startListening,
   rateVerdict, type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, type MediaContext, ListeningError } from "@hospodar/domain";
 import { alternatesFor, cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { DictoglossRun } from "./DictoglossRun.tsx";
@@ -12,6 +12,7 @@ import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { isPublishedItem } from "../content/release.ts";
+import { AudioNotesBack, AudioNotesBox, EMPTY_AUDIO_NOTES, type AudioNotesValue } from "../ui/AudioNotes.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 /** Before the answers the recording is a task stimulus (help is recorded); after them it is free (media rules). */
@@ -125,8 +126,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
   const latest = useRef(s); latest.current = s;
   const snap = useRef(snapshot); snap.current = snapshot;
   // strategic-audio-notes: the learner's own notes; session only, never stored or scored.
-  const [notes, setNotes] = useState<Record<"when" | "where" | "what", string>>({ when: "", where: "", what: "" });
-  const [notesOpen, setNotesOpen] = useState(false);
+  const [notes, setNotes] = useState<AudioNotesValue>(EMPTY_AUDIO_NOTES);
   const [value, setValue] = useState(initialDraft?.input ?? "");
   const inputRef = useRef(initialDraft?.input ?? "");
   const draftRevision = useRef(initialDraft?.revision ?? 0);
@@ -299,20 +299,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       {!v.independent && s.phase !== "review" && s.phase !== "done" && <p className="muted">З підтримкою відповіді зберігаються без оцінки — це не помилка.</p>}
     </div>
   );
-  const hasNotes = Object.values(notes).some(n => n.trim());
-  const notesBox = (
-    <details className="audio-notes" open={notesOpen} onToggle={e => setNotesOpen((e.currentTarget as HTMLDetailsElement).open)}>
-      <summary>Мої нотатки під час слухання (за бажанням)</summary>
-      <p className="muted">Як на папері під час іспиту: занотуй коротко, будь-якою мовою. Це твої нотатки, а не підказка, — відповіді лишаються самостійними. Нотатки не зберігаються.</p>
-      {AUDIO_NOTE_FIELDS_UK.map(f => (
-        <div key={f.id}>
-          <label className="field" htmlFor={`note-${f.id}`}>{f.label_uk}</label>
-          <input id={`note-${f.id}`} className="plan-notes" autoComplete="off" maxLength={AUDIO_NOTE_MAX_CHARS} value={notes[f.id]}
-            onChange={e => setNotes(n => ({ ...n, [f.id]: e.target.value }))} />
-        </div>
-      ))}
-    </details>
-  );
+  const notesBox = <AudioNotesBox notes={notes} onChange={setNotes} />;
   return (
     <section className="panel" data-accent="listening" aria-labelledby="lm-title">
       <Eyebrow accent="listening">Навчання · аудіювання</Eyebrow>
@@ -362,13 +349,7 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
       )}
       {v.results && s.phase !== "done" && (
         <>
-          {hasNotes && (
-            <div className="plan-back" data-testid="audio-notes-back">
-              <strong>Твої нотатки:</strong>
-              <ul>{AUDIO_NOTE_FIELDS_UK.filter(f => notes[f.id].trim()).map(f => <li key={f.id}>{f.label_uk.split(" (")[0]} {notes[f.id].trim()}</li>)}</ul>
-              <span className="muted">Порівняй: що з потрібного ти встиг(ла) занотувати?</span>
-            </div>
-          )}
+          <AudioNotesBack notes={notes} />
           <ol className="skill-lines">
             {v.results.map(r => (
               <li key={r.id}><span lang="fi">{r.prompt_fi}</span><br />
