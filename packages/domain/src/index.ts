@@ -43,3 +43,4 @@ export * from "./masterclass.ts";
 export * from "./externalMission.ts";
 export * from "./examLook.ts";
 export * from "./studyPlan.ts";
+export * from "./videoExposure.ts";

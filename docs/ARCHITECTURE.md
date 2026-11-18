@@ -713,6 +713,13 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Model-answer exposure (MOCK-VID-08, 18.11.2026):**
+- `packages/domain/src/videoExposure.ts`: `markModelAnswersSeen` (the first day stays), `unmarkModelAnswersSeen`, `videoCheckStatus` (fresh / seen) and a tolerant parser.
+- On «Як виглядає іспит», each practice video with a model-answer start offers «Я вже бачив(ла) зразки відповідей». After the mark the video says it is an example now, not a new check, and the mark can be removed.
+- It is the learner's own mark: the app cannot observe YouTube.
+- Storage: `storage/videoExposure.ts`, key `hospodar-yki:web:video-exposure:v1`, readback-verified. The marks are erased with the exam rehearsal data (the «Мої дані» option names them).
+- Tests: `video-exposure.test.ts`, E2E «model-answer exposure…».
+
 **Rektio interleaving (interleaving-grammar, 18.11.2026):**
 - `interleaveByGroup` keeps oldest-first order but picks next the oldest card whose case differs from the previous card's.
 - `practiceDue` applies it to due rektio cards only; chunks keep their order, because research #27 found forced interleaving of plain word lists unhelpful.

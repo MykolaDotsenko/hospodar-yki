@@ -140,3 +140,27 @@ test("exam look (CURATED-09): the set-up screen links OPH pages, organizer examp
   await expect(page.locator(".exam-audio audio")).toHaveCount(1);
   await expect(page.getByTestId("exam-look")).toHaveCount(0);                                        // never inside the attempt
 });
+
+test("model-answer exposure (MOCK-VID-08): marking that the model answers were watched turns a practice video into an example, not a fresh check; kept, removable, erased with the exam data", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  const look = page.getByTestId("exam-look");
+  await look.locator("summary").click();
+  const row = look.getByTestId("exposure-yki-harjoitus-timed-speaking-2022");
+  await expect(row).toContainText("тоді відео стане прикладом");
+  await expect(look.getByTestId("exposure-solki-intermediate-speaking")).toHaveCount(0);   // organizer pages have no model-answer timing
+  await row.getByRole("button", { name: "Я вже бачив(ла) зразки відповідей" }).click();
+  await expect(row).toContainText("тепер це приклад, а не нова перевірка");
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await page.getByTestId("exam-look").locator("summary").click();
+  await expect(page.getByTestId("exposure-yki-harjoitus-timed-speaking-2022")).toContainText("тепер це приклад");   // kept on this device
+
+  await page.getByRole("button", { name: "На головну" }).click();
+  await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
+  await page.getByLabel(/Усі пробні іспити, їхню історію, голосові записи/).check();
+  await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: /Видалити пробні іспити/ }).click();
+  await expect(page.getByText(/Пробні іспити видалено й перевірено/)).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:video-exposure:v1"))).toBeNull();
+});

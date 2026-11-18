@@ -9,6 +9,7 @@ import { Icon } from "../ui/icons.tsx";
 import { clearDeeds, hasDeeds } from "../storage/deeds.ts";
 import { clearScenarioChecks, hasScenarioChecks } from "../storage/scenarioChecks.ts";
 import { clearStudyPlan, hasStudyPlan } from "../storage/studyPlan.ts";
+import { clearVideoExposure, hasVideoExposure } from "../storage/videoExposure.ts";
 import { clearGoals, hasGoals } from "../storage/goals.ts";
 
 /**
@@ -101,7 +102,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         try { clearDeeds(); clearScenarioChecks(); clearStudyPlan(); clearGoals(); }
         finally { onErased(next); }
       }
-      else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); }   // audio first: never orphan a recording
+      else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); clearVideoExposure(); }   // audio first: never orphan a recording
       setErase({ done: scope }); setScope(null); setTyped("");
       await refresh();
     } catch (e) { setErase({ error: codeOf(e) }); }
@@ -230,8 +231,8 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         <legend>Що видалити</legend>
         <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasScenarioChecks() && !hasStudyPlan() && !hasGoals())}
           onChange={() => { setScope("learn"); setErase("idle"); }} /> Увесь прогрес навчання{c && learnCount === 0 ? " (порожньо)" : ""}</label>
-        <label className="radio"><input type="radio" name="erase" checked={scope === "exam"} disabled={!c || examCount === 0}
-          onChange={() => { setScope("exam"); setErase("idle"); }} /> Усі пробні іспити, їхню історію й голосові записи{c && examCount === 0 ? " (порожньо)" : ""}</label>
+        <label className="radio"><input type="radio" name="erase" checked={scope === "exam"} disabled={!c || (examCount === 0 && !hasVideoExposure())}
+          onChange={() => { setScope("exam"); setErase("idle"); }} /> Усі пробні іспити, їхню історію, голосові записи й позначки переглянутих зразків відповідей{c && examCount === 0 && !hasVideoExposure() ? " (порожньо)" : ""}</label>
       </fieldset>
       {scope && (
         <>

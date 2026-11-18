@@ -11286,8 +11286,22 @@
       "id": "MOCK-VID-08",
       "source": "sources/official/YKI-MOCK-VIDEO-SOURCES-2026-10.md",
       "summary": "Watching model answers marks attempt_exposure and affects 'unseen' status",
-      "status": "NOT_YET",
-      "plan": "Exposure tracking for video model answers."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/video-exposure.test.ts",
+          "contains": "video exposure: the learner's own mark turns a video from a fresh check into an example; the first day stays; removable"
+        },
+        {
+          "file": "packages/domain/test/video-exposure.test.ts",
+          "contains": "video exposure: the reader keeps valid marks and drops anything else; a damaged record is no marks, never invented ones"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "model-answer exposure (MOCK-VID-08): marking that the model answers were watched turns a practice video into an example, not a fresh check; kept, removable, erased with the exam data"
+        }
+      ],
+      "gap": "Exposure is the learner's own mark (the app cannot observe YouTube playback); it applies to the practice videos with a known model-answer start on «Як виглядає іспит»."
     },
     {
       "id": "R10-01",
