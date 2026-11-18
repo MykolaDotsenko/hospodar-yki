@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
+import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import { illustrations } from "../content/media.ts";
@@ -31,7 +31,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
   const open = (c: PracticeCard | null) => { setCard(c); setRunId(n => n + 1); };
 
   if (card) return <PracticeRun key={`${card.id}-${runId}`} card={card} review={card.id in snapshot.state.cards} repository={repository} snapshot={snapshot} onSaved={onSaved}
-    onNext={() => open(due.find(c => c.id !== card.id) ?? practiceCards.find(c => c.kind === card.kind && c.id !== card.id && !done.has(`${c.id}-transfer`)) ?? null)}
+    onNext={() => open(due.find(c => c.id !== card.id) ?? nextPracticeCard(practiceCards, card, id => done.has(`${id}-transfer`)))}   // rektio: next case differs (interleaving-grammar)
     onList={() => open(null)} />;
 
   const meta = PRACTICE_KINDS.find(k => k.kind === kind);

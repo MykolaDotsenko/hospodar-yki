@@ -312,3 +312,23 @@ test("clock card (CURATED-09): choose the time first; the clock face that shows 
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
   await expect(page.getByText(/Картку збережено/)).toBeVisible();
 });
+
+test("rektio interleaving (interleaving-grammar): after a finished rektio card the next card asks for a different case", async ({ page }) => {
+  await open(page, /Керування дієслів/);
+  const caseOf = async () => {                                                            // the pattern is revealed after the answer
+    await page.getByRole("textbox").fill("Ajattelen sinua.");
+    await page.getByRole("button", { name: "Відповісти" }).click();
+    const value = await page.locator("dt", { hasText: "Відмінок / модель" }).locator("xpath=following-sibling::dd[1]").innerText();
+    await page.getByRole("button", { name: "Інакше" }).click();
+    await page.getByRole("button", { name: "Далі" }).click();
+    await page.getByRole("textbox").fill("Uusi lause.");
+    await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+    await expect(page.getByText(/Картку збережено/)).toBeVisible();
+    return value.trim();
+  };
+  const first = await caseOf();
+  await page.getByRole("button", { name: "Наступна картка" }).click();
+  const second = await caseOf();
+  expect(second).not.toBe(first);                                                         // a different case, not a block of one case
+  await axe(page);
+});

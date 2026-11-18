@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, completePractice, dueCards, practiceDue, chunkCard, opinionCard, paraphraseCard, practiceEvidence, practiceReducer, practiceView,
+import { addDiagnostic, blankState, completePractice, dueCards, interleaveByGroup, nextPracticeCard, practiceDue, chunkCard, opinionCard, paraphraseCard, practiceEvidence, practiceReducer, practiceView,
   reactionCard, rektioCard, startPractice, validatePracticeCard, PracticeError, type PracticeCard } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
@@ -130,5 +130,30 @@ describe("pre-task planning on opinion cards (methods pre-task-planning, learner
     expect(first).toMatchObject({ status: "ungraded" });
     expect(first!.response).toContain("after an own plan");
     expect(JSON.stringify(practiceEvidence(s, card))).not.toContain("salainen suunnitelma");
+  });
+
+  it("interleaving (interleaving-grammar): due rektio cards and the next new rektio card switch case instead of repeating one case in a block; chunks keep their order", () => {
+    const g = (id: string, group: string) => ({ id, group });
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ela"), g("c", "ill"), g("d", "ela"), g("e", "par")]).map(x => x.id)).toEqual(["a", "c", "b", "e", "d"]);
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ela")]).map(x => x.id)).toEqual(["a", "b"]);   // no other case left: order kept
+    const byCase = new Map<string, PracticeCard[]>();
+    for (const r of rektio) byCase.set(r.group, [...(byCase.get(r.group) ?? []), r]);
+    const ela = byCase.get("elatiivi")!, ill = byCase.get("illatiivi")!;
+    let st = blankState();
+    for (const c of [ela[0]!, ela[1]!, ill[0]!]) {                         // three problem phrases, two of one case first
+      let s = startPractice(c);
+      s = practiceReducer(s, c, { type: "ANSWER", value: "väärin" });
+      s = practiceReducer(s, c, { type: "JUDGE", judgement: "different" });
+      s = practiceReducer(s, c, { type: "CONTINUE" });
+      s = practiceReducer(s, c, { type: "SUBMIT_TRANSFER", text: "Uusi lause." });
+      st = completePractice(st, s, c, new Date("2026-11-10T09:00:00+02:00"));
+    }
+    const due = practiceDue(st, all, "2026-11-11").map(c => c.group);
+    expect(due).toHaveLength(3);
+    expect(due[0]).not.toBe(due[1]);                                        // never two elatiivi in a row while another case waits
+    const next = nextPracticeCard(rektio, ela[0]!, () => false)!;
+    expect(next.group).not.toBe("elatiivi");
+    expect(nextPracticeCard(chunks, chunks[0]!, () => false)!.id).toBe(chunks[1]!.id);   // chunks: simply the next one
+    expect(nextPracticeCard(rektio, ela[0]!, id => id !== ela[1]!.id)!.id).toBe(ela[1]!.id);   // only same-case cards left: still offered
   });
 });
