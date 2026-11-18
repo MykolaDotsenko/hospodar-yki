@@ -4,6 +4,7 @@ import {
 } from "./core.mjs";
 import {delayedTransferQueue, recordDelayedTransfer} from "./retention-core.mjs";
 import {inspectLearnBackup,restoreLearnBackup,LEARN_BACKUP_MAX_FILE_BYTES} from "./learn-backup.mjs";
+import {DIAGNOSTIC_THEME_FILES,learnDiagnosticBaseline} from "./diagnostic-tasks.mjs";
 
 const root = document.getElementById("main");
 const notice = document.getElementById("notice");
@@ -493,7 +494,9 @@ async function init(){
     "learning/exercises/b1/audio-long/lessons.json",
     "learning/exercises/b1/audio-long/human-stories.json",
     "learning/exercises/b1/contextual/reading-pack-v1.json",
-    "learning/exercises/b1/grammar/delayed-transfer-v1.json"
+    "learning/exercises/b1/grammar/delayed-transfer-v1.json",
+    DIAGNOSTIC_THEME_FILES.writing,
+    DIAGNOSTIC_THEME_FILES.speaking
   ];
   try{
     const values=await Promise.all(sources.map(async path=>{
@@ -501,7 +504,9 @@ async function init(){
       if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);
       return r.json();
     }));
-    const [grammar,baseline,long,human,reading,delayed]=values;
+    const [grammar,rawBaseline,long,human,reading,delayed,writingTheme,speakingTheme]=values;
+    // EXAM-11: never the EXAM mini rehearsals' writing/speaking prompts in the LEARN diagnostic (diagnostic-tasks.mjs).
+    const baseline=learnDiagnosticBaseline(rawBaseline,{writing:writingTheme,speaking:speakingTheme});
     if(!Array.isArray(grammar.exercises)||!grammar.exercises.length ||
        !Array.isArray(long.lessons)||!long.lessons.length||
        !Array.isArray(reading.items)||reading.items.length<2||

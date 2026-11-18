@@ -406,7 +406,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 - **Problem:** the LEARN starting diagnostic showed the baseline file's writing and speaking tasks `d-w1`/`d-s1`, which EXAM mini rehearsal A uses (and `d-w2`/`d-s2` belong to rehearsal B), so a learner met the exam prompt before the exam.
 - **Fix:** `apps/web/src/content/diagnostic.ts` keeps the baseline's reading block and takes the writing and speaking tasks from the theme files (`DIAGNOSTIC_PRODUCTION_IDS`: a formal message about language courses, a call to move an appointment) — neither is used by an EXAM blueprint or by the withheld delayed checks (`content/diagnostic.test.ts`, which fails on the old diagnostic). The draft fingerprint covers the whole diagnostic, so an unfinished draft from before is reported incompatible and offered for explicit discard; saved diagnostic records keep their old task ids.
-- **Not done:** the legacy `app/` diagnostic still shows `d-w1`/`d-s1` (legacy app, not developed further).
+- **Legacy app (18.11.2026):** `app/diagnostic-tasks.mjs` (`learnDiagnosticBaseline`) gives `app/app.mjs` the same theme tasks. It fetches the two theme files, fails closed when a task is missing, and `app/tests/diagnostic-tasks.test.mjs` checks the ids match `apps/web`. The legacy LEARN diagnostic no longer shows `d-w1`/`d-s1`. The legacy EXAM rehearsal (`app/exam.mjs`) still uses them, as it should.
 
 ## 2026-11-14 — interlocutor change in speech acts (pragmatic-speech-acts)
 
