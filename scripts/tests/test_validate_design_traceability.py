@@ -189,8 +189,8 @@ class MethodCoverageTests(unittest.TestCase):
     def test_no_finnish_files_agree_with_the_web_reviewer_registry(self):
         from validate_design_traceability import NO_FINNISH_FILES
         web = (ROOT / "apps/web/src/content/reviewBanks.ts").read_text(encoding="utf-8")
-        line = next(l for l in web.splitlines() if l.startswith("export const NO_FINNISH_FILES"))
-        self.assertEqual(sorted(re.findall(r'"([^"]+)"', line)), sorted(NO_FINNISH_FILES))
+        block = web.split("export const NO_FINNISH_FILES = [", 1)[1].split("];", 1)[0]
+        self.assertEqual(sorted(re.findall(r'"([^"]+)"', block)), sorted(NO_FINNISH_FILES))
 
 
 if __name__ == "__main__":
