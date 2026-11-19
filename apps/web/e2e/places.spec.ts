@@ -175,3 +175,55 @@ test("deed reflection (real-world-interaction): after a real-life mark an option
   await expect(page.getByTestId("deed-last-time")).toHaveCount(0);
   expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:deeds:v1"))).not.toContain("hitaammin");
 });
+
+test("«Перед справою» warm-up (mobile-contextual-micropractice): phrases of this place, each shown only after the own recall; the first line to take along; nothing stored or scored", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("place-services").click();
+  const before = await page.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)])));
+  const box = page.getByTestId("warm-up");
+  await box.getByRole("button", { name: "Іду зараз — розминка на 2 хвилини" }).click();
+  await expect(box).toContainText("Фраза 1 з 3");
+  await expect(box).toContainText("подати рекламацію");
+  await expect(box.getByText("tehdä reklamaatio")).toHaveCount(0);                                // the phrase only after the own try
+  await box.getByRole("button", { name: "Показати фразу" }).click();
+  await expect(box.getByRole("alert")).toContainText("Спершу напиши");
+  await box.getByLabel("Пригадай фінською").fill("tehdä valitus");
+  await box.getByRole("button", { name: "Показати фразу" }).click();
+  await expect(box.getByTestId("warm-up-own")).toContainText("tehdä valitus");
+  await expect(box.getByTestId("warm-up-reveal")).toContainText("tehdä reklamaatio");
+  await expect(box.getByLabel("Пригадай фінською")).toHaveCount(0);                               // the own try is frozen
+  expect(await box.innerText()).not.toMatch(/правильно|неправильно|бал/i);                         // no automatic judgement
+  await (async () => {
+    const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
+    expect(r.violations.filter(v => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
+  })();
+  await box.getByRole("button", { name: "Наступна фраза" }).click();
+  await expect(box).toContainText("повернути товар");
+  await box.getByRole("button", { name: "Не пригадую" }).click();
+  await expect(box.getByTestId("warm-up-own")).toContainText("не пригадалося");
+  await box.getByRole("button", { name: "Наступна фраза" }).click();
+  await box.getByLabel("Пригадай фінською").fill("vaihtaa kokoa");
+  await box.getByRole("button", { name: "Показати фразу" }).click();
+  await box.getByRole("button", { name: "Далі: моє перше речення" }).click();
+  await box.getByLabel(/Що ти скажеш першим/).fill("Hei, haluaisin palauttaa tämän tuotteen.");
+  await box.getByRole("button", { name: "Готово" }).click();
+  await expect(box.getByTestId("warm-up-done")).toContainText("Hei, haluaisin palauttaa tämän tuotteen.");
+  expect(await page.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)])))).toBe(before);   // nothing stored
+
+  await page.reload();
+  await page.getByTestId("place-services").click();
+  await expect(page.getByTestId("warm-up-done")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Іду зараз — розминка на 2 хвилини" })).toBeVisible();
+});
+
+test("«Перед справою»: the learner's own note from the last deed comes first in the warm-up", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("place-services").click();
+  const deed = page.getByTestId("deed");
+  await deed.getByRole("button", { name: "Я зробив(ла) це в житті" }).click();
+  await deed.getByLabel("Частково").check();
+  await deed.getByLabel(/Що наступного разу скажеш/).fill("Спитати про чек");
+  await deed.getByRole("button", { name: "Зберегти нотатку" }).click();
+  await page.getByRole("button", { name: "Іду зараз — розминка на 2 хвилини" }).click();
+  await expect(page.getByTestId("warm-up-last-time")).toContainText("Спитати про чек");
+});

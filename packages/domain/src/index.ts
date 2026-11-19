@@ -46,3 +46,4 @@ export * from "./studyPlan.ts";
 export * from "./videoExposure.ts";
 export * from "./examCoverage.ts";
 export * from "./raterPackage.ts";
+export * from "./warmUp.ts";

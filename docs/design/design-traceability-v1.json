@@ -13079,9 +13079,17 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "packages/domain/test/warm-up.test.ts",
+          "contains": "the phrase is shown only after the own try, the try is frozen, an honest 'not recalled' is not a wrong answer; nothing is scored"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "«Перед справою» warm-up (mobile-contextual-micropractice): phrases of this place, each shown only after the own recall; the first line to take along; nothing stored or scored"
         }
       ],
-      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to; no time-of-day or 'right before' prompt."
+      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to. Each place with phrase cards now offers an optional «Перед справою» warm-up next to its real-life deed (about 2 minutes): the learner's own note from the last deed first, then three phrase cards of that place (due reviews first, then phrases not met yet), each phrase shown only after an own recall or an honest «не пригадую» (the try is frozen, no automatic judgement), then the first sentence the learner means to say there, to take along. Nothing is stored, scheduled or scored, and no reminder or notification ever opens it (the method's own limit). Not yet: no measure of delayed productive use per minute of practice (the method's measurement; needs a study), phrases are S2-pending drafts (a release build has none, so it shows no warm-up), and no time-of-day or location prompt — by design."
     },
     {
       "id": "structured-input-grammar",

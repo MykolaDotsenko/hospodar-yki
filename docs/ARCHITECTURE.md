@@ -747,6 +747,16 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**«Перед справою» warm-up (mobile-contextual-micropractice, 19.11.2026):**
+- `packages/domain/src/warmUp.ts` holds two pure pieces:
+  - `warmUpCards` picks up to three phrase cards of a place: due reviews first, then phrases not met yet;
+  - `warmUpReducer` runs try → shown → first_line → done. The own try is frozen, and «не пригадую» is not a wrong answer.
+- `apps/web/src/screens/WarmUp.tsx` shows it on the place screen next to the real-life deed, with the learner's own note from the last deed first.
+- Nothing is stored, scheduled or scored, and there is no reminder.
+- A release build has no published phrases, so it shows no warm-up.
+- Tests: `warm-up.test.ts`, E2E ««Перед справою»…» in `places.spec.ts`.
+- **Limit:** no study of delayed productive use.
+
 **R06 mission interleaving (interleaving-grammar, 19.11.2026):**
 - `interleaveByGroup(items, after)` takes the group of the task just finished.
 - `apps/web/src/content/selection.ts` `recommend` keeps the R06 order, except that the next cloze mission is never a second block of the grammar form finished last today. The R06 top task moves one place, and «Чому це завдання зараз?» says why.

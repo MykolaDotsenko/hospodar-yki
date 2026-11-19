@@ -8,6 +8,7 @@ import { Icon } from "../ui/icons.tsx";
 import { PlaceGlyph } from "../ui/PlaceGlyph.tsx";
 import { Hospodar } from "../ui/Hospodar.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
+import { WarmUpBox } from "./WarmUp.tsx";
 
 /**
  * One place of «Моє господарство»: what being "господар" here means in real life, the real missions
@@ -118,6 +119,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
 
       <h2>Справа в реальному житті</h2>
       <p>{place.deed_uk}</p>
+      <WarmUpBox place={place.id} state={state} lastTimeNext={lastTime?.next_uk || null} />
       <DeedMark place={place.id} log={deeds} save={saveDeeds} error={deedError} />
 
       <div className="actions"><button type="button" className="btn secondary" onClick={onHome}>На головну</button></div>
