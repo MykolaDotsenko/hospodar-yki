@@ -35,6 +35,7 @@ export const PRACTICE_RULES: Readonly<Record<string, ParameterValue>> = Object.f
 /** Parameters whose VERIFIED value the engine applies today (a practice value is always what the engine does). */
 export const ENGINE_APPLIES: ReadonlySet<string> = Object.freeze(new Set([
   "navigation.back_allowed", "navigation.review_screen", "navigation.section_lock", "listening.plays_allowed", "listening.pause_seek",
+  "timing.reading_minutes", "timing.listening_minutes", "timing.writing_minutes", "timing.speaking_minutes", "timing.on_expiry",
   "writing.spellcheck", "writing.paste_allowed", "writing.counter",
   "speaking.prep_seconds", "speaking.response_seconds",
 ])) as ReadonlySet<string>;
@@ -56,11 +57,17 @@ export interface ExamRules {
   reviewScreen: boolean; playsAllowed: number | "unlimited"; pauseSeek: boolean;
   /** TZ-EXAM-08: once the learner moves on to the next part (subtest), the finished part is closed. */
   sectionLock: boolean;
+  /** TZ-EXAM-07: own time per part in minutes (absent = no own time for that part). */
+  partMinutes: Partial<Record<"reading" | "listening" | "writing" | "speaking", number>>;
+  /** What happens when a part's own time runs out: "submit" finishes the attempt; otherwise the part closes and the attempt moves on. */
+  onExpiry: "lock" | "next_subtest" | "submit";
 }
 /** Which practice rules the learner may choose (only where the profile has no verified value). */
 const CHOICE_PARAMS: Record<string, (c: PracticeChoices) => ParameterValue> = {
   "listening.plays_allowed": c => c.plays, "navigation.back_allowed": c => c.backAllowed, "navigation.review_screen": c => c.reviewScreen,
   "navigation.section_lock": c => c.sectionLock === true,
+  "timing.reading_minutes": c => c.partMinutes?.reading ?? null, "timing.listening_minutes": c => c.partMinutes?.listening ?? null,
+  "timing.writing_minutes": c => c.partMinutes?.writing ?? null, "timing.speaking_minutes": c => c.partMinutes?.speaking ?? null,
 };
 
 export function resolveExamRules(profile: ExamProfile | null | undefined, choices: PracticeChoices | null | undefined = null): ExamRules {
@@ -90,6 +97,9 @@ export function resolveExamRules(profile: ExamProfile | null | undefined, choice
     playsAllowed: used("listening.plays_allowed") as number | "unlimited",
     pauseSeek: used("listening.pause_seek") === true,
     sectionLock: used("navigation.section_lock") === true,
+    partMinutes: Object.fromEntries((["reading", "listening", "writing", "speaking"] as const)
+      .map(k => [k, used(`timing.${k}_minutes`)]).filter(([, v]) => typeof v === "number" && v > 0)) as ExamRules["partMinutes"],
+    onExpiry: (used("timing.on_expiry") ?? "lock") as ExamRules["onExpiry"],
   };
 }
 

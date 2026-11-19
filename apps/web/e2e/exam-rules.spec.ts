@@ -218,3 +218,32 @@ test("section lock (TZ-EXAM-08): with the practice choice on, moving on to the n
   await rules.locator("summary").click();
   await expect(rules.locator("li", { hasText: "Завершену частину закрито" })).toContainText("так");
 });
+
+test("part timers (TZ-EXAM-07): a part's own practice time is shown; when it runs out the part closes and the next part starts, kept after a reload", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-11-19T09:00:00+02:00") });
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Аудіювання", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByTestId("part-minutes").getByLabel(/Читання/).selectOption("10");
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
+  const total = Number((await page.getByText(/Tehtävä 1 \/ \d+/).textContent())!.match(/\/ (\d+)/)![1]);
+  await page.clock.pauseAt(new Date("2026-11-19T09:00:05+02:00"));                               // only runFor moves exam time
+  await expect(page.getByTestId("part-time")).toContainText(/Osan aika (9:5\d|10:00)/);
+  await page.clock.fastForward(10 * 60_000 + 2_000);                                              // ten minutes pass (as if the tab slept)
+  await page.clock.runFor(1_500);                                                                 // the next tick sees the part's time is up
+  await page.clock.runFor(1_500);
+  await expect(page.getByText(`Tehtävä ${total} / ${total}`)).toBeVisible();                    // moved on to the writing part
+  await expect(page.getByTestId("part-ended")).toContainText("aika päättyi");
+  await expect(page.getByTestId("part-time")).toHaveCount(0);                                   // writing has no own time
+  await expect(page.getByRole("button", { name: "Edellinen" })).toBeDisabled();                 // the reading part is closed
+  await page.clock.resume();                                                                     // axe needs running timers
+  expect(await serious(page)).toEqual([]);
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByText(`Tehtävä ${total} / ${total}`)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Edellinen" })).toBeDisabled();
+  const rules = page.getByTestId("exam-rules");
+  await rules.locator("summary").click();
+  await expect(rules.locator("li", { hasText: "Час на читання" })).toContainText("10");
+});

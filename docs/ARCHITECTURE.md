@@ -752,6 +752,19 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Per-part timers in the EXAM rehearsal (TZ-EXAM-07, 19.11.2026):**
+- **Where the times come from:** `timing.<part>_minutes` is now applied (`ENGINE_APPLIES`). A verified record wins; otherwise `PracticeChoices.partMinutes` holds the learner's own minutes per part (10–60).
+- **Engine** (`packages/domain/src/exam.ts`):
+  - `startPartClock`, `partRemainingSeconds`, `isPartTimeUp`, `withPartHighWater`;
+  - `expirePart` closes the part and moves to the next open part, starting that part's clock.
+  - The clock runs on the wall clock with a high-watermark. `partClock` is persisted, and a damaged clock fails closed.
+- **XState machine:**
+  - TICK applies `timing.on_expiry`: practice «lock» closes the part and moves on, or goes to the expired state when no part is left; a verified «submit» finishes the attempt.
+  - It refuses answers in a closed or timed-out part.
+- **Screen:** «Osan aika» in the attempt bar, and a Finnish notice after a part ended.
+- Tests: `exam-rules.test.ts`, E2E «part timers (TZ-EXAM-07)…».
+- **Limit:** no OPH 2027 part times are verified.
+
 **Section lock in the EXAM rehearsal (TZ-EXAM-08, 19.11.2026):**
 - `navigation.section_lock` is a 19th critical parameter (F5). It is `null` in all three profiles, and the practice default is off.
 - The learner may switch it on for a practice attempt via `PracticeChoices.sectionLock`. The choice is optional, so older choices stay valid.

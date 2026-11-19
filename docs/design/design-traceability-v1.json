@@ -12207,6 +12207,14 @@
       "status": "PARTIAL",
       "evidence": [
         {
+          "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "part timers (TZ-EXAM-07): a part's own time starts when it is entered, never comes back when the clock moves back, and when it runs out the part closes and the attempt moves on"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "part timers (TZ-EXAM-07): a part's own practice time is shown; when it runs out the part closes and the next part starts, kept after a reload"
+        },
+        {
           "file": "packages/domain/test/exam-parity.test.ts",
           "contains": "timer: remaining, expiry, monotonic watermark, deadline refusal of commands"
         },
@@ -12219,7 +12227,7 @@
           "contains": "exam rules: a verified rule the engine does not reproduce yet is said so, and the attempt keeps the practice behaviour"
         }
       ],
-      "gap": "Monotonic practice timer with deadline refusal, speaking prep/response windows from the profile, and the interrupted (resumed) status exist. Per-subtest timers and on-expiry behaviour are listed per rule as practice; a verified value for them is shown as 'not reproduced yet' (ENGINE_APPLIES) until the engine applies it."
+      "gap": "Monotonic practice timer with deadline refusal, speaking prep/response windows from the profile, and the interrupted (resumed) status exist. Per-part timers are now applied: timing.<part>_minutes comes from a verified profile record, else the learner may give each part its own practice time (10–60 min, set-up screen); the part clock starts when the part is first entered, runs on the wall clock with a high-watermark (a clock moved back gives no time back), is shown inside the attempt («Osan aika»), and survives a reload (a damaged clock fails closed). When it runs out, timing.on_expiry decides: practice «lock» closes the part and moves to the next open part (its own clock starts), a Finnish notice says so, and the closed part is never entered again; with no part left only finishing remains; a verified «submit» finishes the attempt. All values stay practice: no OPH 2027 part times are verified."
     },
     {
       "id": "TZ-EXAM-08",

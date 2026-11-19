@@ -109,6 +109,8 @@ export interface ExamSession {
   plays?: Record<string, number>;
   /** TZ-EXAM-08: parts (subtests) closed by moving on with the section lock on; never reopened, persisted. */
   closedParts?: ExamPart[];
+  /** TZ-EXAM-07: per-part clocks (only for parts with their own time): start + monotonic elapsed high-watermark. */
+  partClock?: Partial<Record<ExamPart, { startedAt: string; highWaterMs: number }>>;
 }
 export type ExamPart = ExamSkill;
 const PARTS: readonly string[] = ["reading", "listening", "writing", "speaking"];
@@ -117,14 +119,20 @@ export interface PracticeChoices {
   plays: number | "unlimited"; backAllowed: boolean; reviewScreen: boolean;
   /** Optional (older attempts have no such key): close a finished part once the learner moves on. */
   sectionLock?: boolean;
+  /** Optional TZ-EXAM-07: own practice time per part, in minutes (PART_MINUTES_OPTIONS); a part without one has no own time. */
+  partMinutes?: Partial<Record<ExamSkill, number>>;
 }
+export const PART_MINUTES_OPTIONS = Object.freeze([10, 15, 20, 30, 45, 60] as const);
+const validPartMinutes = (m: unknown) => !!m && typeof m === "object" && !Array.isArray(m) &&
+  Object.entries(m).every(([k, v]) => ["reading", "listening", "writing", "speaking"].includes(k) && (PART_MINUTES_OPTIONS as readonly unknown[]).includes(v));
 export const PRACTICE_PLAY_OPTIONS = Object.freeze(["unlimited", 2, 1] as const);
 export function validPracticeChoices(x: unknown): x is PracticeChoices {
   const c = x as PracticeChoices | null;
   if (!c || typeof c !== "object") return false;
   const keys = Object.keys(c);
+  const optional = keys.filter(k => !["plays", "backAllowed", "reviewScreen"].includes(k));
   return (PRACTICE_PLAY_OPTIONS as readonly unknown[]).includes(c.plays) && typeof c.backAllowed === "boolean" && typeof c.reviewScreen === "boolean" &&
-    (keys.length === 3 || (keys.length === 4 && typeof c.sectionLock === "boolean"));
+    keys.length === 3 + optional.length && optional.every(k => (k === "sectionLock" && typeof c.sectionLock === "boolean") || (k === "partMinutes" && validPartMinutes(c.partMinutes)));
 }
 const SESSION_ID = /^[a-zA-Z0-9_-]{3,60}$/;
 const TASK_ID = /^[a-z0-9_-]{1,110}$/i;
@@ -170,7 +178,7 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
       for (const [id, r] of Object.entries(s.voiceReceipts))
         if (TASK_ID.test(id) && inspectSpeakingReceipt(r, { sessionId, taskId: id }).valid) voiceReceipts[id] = r as SpeakingReceipt;
     // Ephemeral (non-consented) recordings never survive a reload.
-    const { profileId, profileHash, practiceChoices, plays, closedParts, ...rest } = s;   // a malformed profile pin is dropped, never trusted
+    const { profileId, profileHash, practiceChoices, plays, closedParts, partClock, ...rest } = s;   // a malformed profile pin is dropped, never trusted
     const pinned = typeof profileId === "string" && /^[a-z0-9-]{3,60}$/.test(profileId) && typeof profileHash === "string" && /^[0-9a-f]{8}$/.test(profileHash)
       ? { profileId, profileHash } : {};
     // Practice choices and play counts are kept only when valid; a damaged play count fails closed (no plays left: 99).
@@ -181,7 +189,14 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
     const played = plays !== undefined ? { plays: counted } : {};
     // Closed parts never reopen: a damaged list fails closed (every part it names stays closed; unknown names are dropped).
     const closed = Array.isArray(closedParts) ? { closedParts: [...new Set(closedParts.filter((x: unknown): x is ExamPart => typeof x === "string" && PARTS.includes(x)))] } : {};
-    return { session: { ...rest, ...pinned, ...chosen, ...played, ...closed, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
+    // A damaged part clock fails closed: the part counts as having used all its time (start at the epoch).
+    const clocks: Partial<Record<ExamPart, { startedAt: string; highWaterMs: number }>> = {};
+    if (partClock && typeof partClock === "object" && !Array.isArray(partClock))
+      for (const [k, c] of Object.entries(partClock as Record<string, { startedAt?: unknown; highWaterMs?: unknown }>)) if (PARTS.includes(k))
+        clocks[k as ExamPart] = c && typeof c.startedAt === "string" && Number.isFinite(Date.parse(c.startedAt)) && typeof c.highWaterMs === "number" && Number.isFinite(c.highWaterMs) && c.highWaterMs >= 0
+          ? { startedAt: c.startedAt, highWaterMs: c.highWaterMs } : { startedAt: new Date(0).toISOString(), highWaterMs: 0 };
+    const timed = partClock !== undefined ? { partClock: clocks } : {};
+    return { session: { ...rest, ...pinned, ...chosen, ...played, ...closed, ...timed, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
   } catch {
     return { session: null, recovered: true };
   }
@@ -237,6 +252,50 @@ export function navigateTo(session: ExamSession, index: number, parts: readonly 
   const closed = new Set(session.closedParts ?? []);
   for (let i = session.index; i < index; i++) if (parts[i] !== parts[index] && PARTS.includes(parts[i]!)) closed.add(parts[i] as ExamPart);
   return { ...next, closedParts: [...closed] };
+}
+/**
+ * Per-part practice time (TZ-EXAM-07). A part's clock starts when the part is first entered and runs on the wall clock,
+ * also while the learner is away (like the overall practice timer); a clock moved back never gives time back
+ * (high-watermark, E04). When it runs out the part is closed and the attempt moves on (expirePart).
+ */
+export function startPartClock(session: ExamSession, part: string, now: Date = new Date()): ExamSession {
+  if (!PARTS.includes(part) || session.partClock?.[part as ExamPart]) return session;
+  return { ...session, partClock: { ...(session.partClock ?? {}), [part]: { startedAt: now.toISOString(), highWaterMs: 0 } } };
+}
+function partElapsed(session: ExamSession, part: string, now: Date): number | null {
+  const c = session.partClock?.[part as ExamPart];
+  if (!c) return null;
+  const t = now.getTime();
+  if (!Number.isFinite(t)) throw new Error("Invalid now");
+  return Math.max(0, t - Date.parse(c.startedAt), c.highWaterMs);
+}
+/** Seconds left in this part, or null when the part has no own time or has not started. */
+export function partRemainingSeconds(session: ExamSession, part: string, minutes: number | undefined, now: Date = new Date()): number | null {
+  const e = minutes ? partElapsed(session, part, now) : null;
+  return e === null ? null : Math.max(0, Math.ceil((minutes! * 60_000 - Math.min(minutes! * 60_000, e)) / 1000));
+}
+export const isPartTimeUp = (session: ExamSession, part: string, minutes: number | undefined, now: Date = new Date()) =>
+  !session.finishedAt && partRemainingSeconds(session, part, minutes, now) === 0;
+export function withPartHighWater(session: ExamSession, part: string, now: Date = new Date()): ExamSession {
+  const c = session.partClock?.[part as ExamPart];
+  const e = partElapsed(session, part, now);
+  if (!c || e === null || e <= c.highWaterMs) return session;
+  return { ...session, partClock: { ...session.partClock, [part]: { ...c, highWaterMs: e } } };
+}
+/**
+ * The current part's time is up: close it and go to the first item of the next part that is not closed (its clock
+ * starts if it has its own time). `next: false` when no part is left — the screen then offers only finishing.
+ */
+export function expirePart(session: ExamSession, parts: readonly string[], minutesOf: (part: string) => number | undefined, now: Date = new Date()):
+  { session: ExamSession; next: boolean } {
+  const part = parts[session.index]!;
+  const closed = new Set(session.closedParts ?? []);
+  if (PARTS.includes(part)) closed.add(part as ExamPart);
+  const target = parts.findIndex((p, i) => i > session.index && p !== part && !closed.has(p as ExamPart));
+  const base = { ...session, closedParts: [...closed] };
+  if (target === -1) return { session: base, next: false };
+  const moved = { ...base, index: target };
+  return { session: minutesOf(parts[target]!) ? startPartClock(moved, parts[target]!, now) : moved, next: true };
 }
 /** The last item of its part, before another part starts (where the screen warns that moving on closes the part). */
 export const endsPart = (parts: readonly string[], index: number) => index < parts.length - 1 && parts[index + 1] !== parts[index];

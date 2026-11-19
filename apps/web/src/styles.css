@@ -463,6 +463,7 @@ mark.dg-shared { background: var(--surface-subtle); color: var(--ink); border-bo
 .review-text { white-space: pre-wrap; }
 .review-decision { margin-top: var(--space-lg); padding-top: var(--space-base); border-top: 1px solid var(--stroke); }
 .review-decision select { display: block; min-height: 44px; max-width: 100%; padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
+.part-minutes select { display: block; min-height: 44px; max-width: 100%; margin-top: var(--space-xs); padding: 0 var(--space-md); border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); }
 @media (max-width: 560px) { .review-fields div { grid-template-columns: 1fr; gap: 0; } }
 
 /* UIO-06 location scheme: one picture of a place, on request after the first attempt; no motion, a static table beside it. */

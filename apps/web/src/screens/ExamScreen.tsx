@@ -11,7 +11,7 @@ import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
-import { endsPart, examProfileHash, isPartClosed, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
+import { endsPart, examProfileHash, isPartClosed, partRemainingSeconds, PART_MINUTES_OPTIONS, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
 import { ExamLook } from "./ExamLook.tsx";
 import { ExamCoverage } from "./ExamCoverage.tsx";
 import { RaterPackageButton } from "./RaterPackageButton.tsx";
@@ -33,7 +33,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   useEffect(() => { heading.current?.focus(); }, [snap.value, session?.index]);
   const [, force] = useState(0);
   useEffect(() => {                                                       // practice clock: observe elapsed time once per second
-    if (!snap.matches("active") || !session?.timeLimitMinutes) return;
+    if (!snap.matches("active") || !session || (!session.timeLimitMinutes && !Object.keys(session.practiceChoices?.partMinutes ?? {}).length && !session.partClock)) return;
     const t = setInterval(() => { actor.send({ type: "TICK", now: Date.now(), elapsedMs: Date.now() - Date.parse(session.startedAt) }); force(x => x + 1); }, 1000);
     return () => clearInterval(t);
   }, [actor, snap, session]);
@@ -112,6 +112,9 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   const parts = items.map(x => x.skill);                                                     // TZ-EXAM-08: the part of every item
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
   const rules = resolveExamRules(pinned, session!.practiceChoices);       // the rules this attempt runs by, each with its status
+  const partLeft = partRemainingSeconds(session!, item.skill, (rules.partMinutes as Record<string, number | undefined>)[item.skill], new Date());   // TZ-EXAM-07
+  const partEnded = (session!.closedParts ?? []).find(p => p !== item.skill && session!.partClock?.[p] &&
+    partRemainingSeconds(session!, p, (rules.partMinutes as Record<string, number | undefined>)[p], new Date()) === 0);
   return (
     <section className="panel exam" aria-labelledby="ex-item" translate="no" data-exam-attempt>
       <div className="exam-bar">
@@ -119,16 +122,18 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
         <span className="pill" data-testid="exam-profile">Profiili: {pinned?.title_fi ?? "Harjoitus"}</span>
         <span aria-live="polite">Tehtävä {session!.index + 1} / {items.length}</span>
         {left !== null && <span className="pill" aria-live="off">Harjoitusaika {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")}</span>}
+        {partLeft !== null && <span className="pill" aria-live="off" data-testid="part-time">Osan aika {Math.floor(partLeft / 60)}:{String(partLeft % 60).padStart(2, "0")}</span>}
       </div>
       <ThresholdRoute steps={subtests.map(k => SKILL_FI[k])} current={subtests.indexOf(item.skill)} accent="exam" label="Osakokeet" />
       <h1 id="ex-item" ref={heading} tabIndex={-1} lang="fi">{SKILL_FI[item.skill]}</h1>
       {resumed.current && resumed.current.sessionId === session!.sessionId && resumed.current.index === session!.index &&
         <p className="exam-resumed" role="status" lang="fi">Jatkat keskeytynyttä harjoitusta. Vastauksesi on tallennettu.</p>}
+      {partEnded && parts.indexOf(item.skill) === session!.index && <p className="exam-resumed" role="status" lang="fi" data-testid="part-ended">Osan {SKILL_FI[partEnded]} aika päättyi. Osaan ei voi enää palata.</p>}
       {changed && <p className="muted" data-system-notice>Профіль оновився після початку цієї спроби; вона лишається на версії, з якою почалася.</p>}
       <ExamRulesList rules={rules} />
       {snap.matches("expired") ? (
         <div role="alert" className="exam-notice">
-          <p lang="fi">Harjoitusaika päättyi. Vastauksia ei voi enää muuttaa.</p>
+          <p lang="fi">{left === 0 || left === null && !partEnded && partLeft !== 0 ? "Harjoitusaika päättyi." : "Viimeisen osan aika päättyi."} Vastauksia ei voi enää muuttaa.</p>
           <div className="actions"><button type="button" className="btn" onClick={() => actor.send({ type: "CONFIRM_FINISH", now: Date.now() })}>Lopeta ja näytä tulokset</button></div>
         </div>
       ) : snap.matches("confirming") ? (
@@ -331,6 +336,22 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
           <label className="radio"><input type="checkbox" checked={choices.backAllowed} onChange={e => setChoices(c => ({ ...c, backAllowed: e.target.checked }))} /> Можна повертатися до попередніх завдань</label>
           <label className="radio"><input type="checkbox" checked={choices.reviewScreen} onChange={e => setChoices(c => ({ ...c, reviewScreen: e.target.checked }))} /> Перед завершенням — екран огляду всіх відповідей</label>
           <label className="radio"><input type="checkbox" checked={choices.sectionLock === true} onChange={e => setChoices(c => ({ ...c, sectionLock: e.target.checked }))} /> Завершену частину закрито: після переходу до наступної частини до неї не повернутися</label>
+          <fieldset className="choices-set part-minutes" data-testid="part-minutes">
+            <legend>Окремий час на частину (тренувальний; коли він спливає, частина закривається й починається наступна)</legend>
+            {skills.map(k => (
+              <label key={k} className="field">{SKILL_UK[k]}{" "}
+                <select value={choices.partMinutes?.[k] ?? 0} onChange={e => setChoices(c => {
+                  const v = Number(e.target.value), next = { ...(c.partMinutes ?? {}) };
+                  if (v) next[k] = v; else delete next[k];
+                  const { partMinutes: _old, ...rest } = c;
+                  return Object.keys(next).length ? { ...rest, partMinutes: next } : rest;
+                })}>
+                  <option value={0}>без окремого часу</option>
+                  {PART_MINUTES_OPTIONS.map(m => <option key={m} value={m}>{m} хв</option>)}
+                </select>
+              </label>
+            ))}
+          </fieldset>
         </fieldset>
       )}
       {skills.length > 0 && <ExamDeviceCheck skills={partial ? skills : null} results={devices} onResults={setDevices} />}
