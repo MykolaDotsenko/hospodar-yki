@@ -5,7 +5,7 @@
  * v2 (additive): `history` — one summary per finished rehearsal, written in the SAME transaction as the finish.
  */
 import Dexie, { type Table } from "dexie";
-import type { ExamSession, ExamSkill } from "@hospodar/domain";
+import { isPracticeExpired, type ExamSession, type ExamSkill } from "@hospodar/domain";
 import { StorageError } from "./learnerRepository.ts";
 
 export const EXAM_DB_NAME = "hospodar-yki:web-exam:v1";
@@ -47,12 +47,29 @@ function mapError(e: unknown): StorageError {
   return new StorageError(name === "QuotaExceededError" ? "QUOTA_OR_DISK_FULL" : "SAVE_FAILED", String((e as Error)?.message ?? e));
 }
 
-export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamRepository {
+export function createExamRepository(dbName: string = EXAM_DB_NAME, now: () => Date = () => new Date()): ExamRepository {
   const db = new ExamDb(dbName);
   const cas = async (expectedRevision: number) => {
     const current = (await db.checkpoints.get("current"))?.revision ?? 0;
     if (current !== expectedRevision) throw new StorageError("REVISION_CONFLICT", "The rehearsal was changed in another tab");
     return current + 1;
+  };
+  /**
+   * E07-G05: the deadline and the finish are enforced in the storage transaction itself, not only by the screen's
+   * state machine. For the same attempt: a finished stored attempt is never changed again, and after the practice
+   * deadline (stored or incoming high-watermark, so a clock moved back does not help) no answer may change — a finish
+   * that carries the answers as they were at the deadline is still allowed.
+   */
+  const guardFinal = async (session: ExamSession, now: Date) => {
+    const stored = (await db.checkpoints.get("current"))?.session;
+    if (!stored || stored.sessionId !== session.sessionId) return;
+    if (stored.finishedAt) throw new StorageError("ALREADY_FINISHED", "This rehearsal is already finished");
+    const pastDeadline = isPracticeExpired({ ...stored, finishedAt: null }, now) || isPracticeExpired({ ...session, finishedAt: null }, now);
+    // An answer typed before the deadline but not yet autosaved is legitimate: writeAnswer stamps lastAnswerAt and is
+    // refused after the deadline, so a change is accepted only when that last answer write is not later than the deadline.
+    const deadlineAt = Date.parse(session.startedAt) + session.timeLimitMinutes * 60_000;
+    if (pastDeadline && JSON.stringify(stored.answers) !== JSON.stringify(session.answers) && !(Date.parse(session.lastAnswerAt ?? "") <= deadlineAt))
+      throw new StorageError("DEADLINE_PASSED", "Answers cannot change after the practice deadline");
   };
   /** A successful transaction alone is not an E07 readback receipt. Re-open stored bytes
    * and compare the exact session (including composed Unicode), scope and finish history.
@@ -84,6 +101,7 @@ export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamReposit
       try {
         const saved = await db.transaction("rw", db.checkpoints, async () => {
           const revision = await cas(expectedRevision);
+          await guardFinal(session, now());
           await db.checkpoints.put({ id: "current", revision, session, skills, updatedAt: new Date().toISOString() });
           return { session, revision, skills };
         });
@@ -95,6 +113,7 @@ export function createExamRepository(dbName: string = EXAM_DB_NAME): ExamReposit
       try {
         const saved = await db.transaction("rw", db.checkpoints, db.history, async () => {
           const revision = await cas(expectedRevision);
+          await guardFinal(session, now());
           await db.checkpoints.put({ id: "current", revision, session, skills, updatedAt: new Date().toISOString() });
           await db.history.put(record);
           return { session, revision, skills };

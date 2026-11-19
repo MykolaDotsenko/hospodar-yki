@@ -752,6 +752,14 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Deadline and finish enforced in storage (E07-G05, 19.11.2026):**
+- `createExamRepository(dbName, now)` runs `guardFinal` inside the IndexedDB `commit` and `finish` transactions. For the same attempt:
+  - a finished stored attempt is never changed again (`ALREADY_FINISHED`);
+  - after the practice deadline, no answer may change (`DEADLINE_PASSED`). The check uses the stored or incoming high-watermark, so moving the clock back does not help.
+- **Unsaved answers at the deadline:** an answer typed before the deadline but not yet autosaved still finishes. The exam machine stamps `lastAnswerAt` on every answer write, and `writeAnswer` is refused after the deadline. `writeAnswer` itself is unchanged, for parity with legacy exam-core.
+- E07-G03 (exact Unicode readback, already in `verifyCommitted`) is now traced as enforced.
+- Tests: `examRepository.test.ts`.
+
 **Keyboard check before the rehearsal (digital-task-literacy, 19.11.2026):**
 - `packages/domain/src/keyboardCheck.ts` provides `keyboardCheck(typed)`. After NFC normalisation, a combining ¨ counts as ä.
 - **Verdicts:**

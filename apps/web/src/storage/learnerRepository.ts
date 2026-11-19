@@ -16,7 +16,8 @@ import type { PictureDraftPayload } from "./pictureDraft.ts";
 import type { DiagnosticDraftPayload } from "./diagnosticDraft.ts";
 
 export const WEB_DB_NAME = "hospodar-yki:web:v1";
-export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED";
+export type StorageErrorCode = "REVISION_CONFLICT" | "QUOTA_OR_DISK_FULL" | "SAVE_FAILED" | "READ_FAILED" | "DESTINATION_NOT_EMPTY" | "READBACK_MISMATCH" | "DELETE_NOT_VERIFIED"
+  | "DEADLINE_PASSED" | "ALREADY_FINISHED";
 export class StorageError extends Error {
   constructor(public readonly code: StorageErrorCode, message: string) { super(message); this.name = "StorageError"; }
 }

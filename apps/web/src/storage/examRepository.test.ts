@@ -51,3 +51,36 @@ describe("E07 exact Unicode readback of writing checkpoints", () => {
     expect((await repo.history())[0]).toEqual(hist);
   });
 });
+
+describe("E07-G05: the deadline and the finish are enforced in the storage transaction", () => {
+  const T = new Date("2026-11-19T10:00:00Z");
+  const at = (min: number) => new Date(T.getTime() + min * 60_000);
+  it("after the practice deadline no answer may change, a finish with the answers as they were is allowed, and a finished attempt is never changed again", async () => {
+    let clock = T;
+    const repo = createExamRepository(name(), () => clock);
+    const s0 = createSession("yki-mini-test", 15, T, "sess-deadline");
+    const c1 = await repo.commit(s0, 0, null);
+    const answered = { ...writeAnswer(s0, "w1", "Hei!", at(5)), lastAnswerAt: at(5).toISOString() };
+    const c2 = await repo.commit(answered, c1.revision, null);
+    clock = at(16);                                                                                 // past the 15-minute deadline
+    const late = { ...answered, answers: { ...answered.answers, w1: "Hei! Lisää tekstiä." }, lastAnswerAt: at(16).toISOString() };
+    await expect(repo.commit(late, c2.revision, null)).rejects.toMatchObject({ code: "DEADLINE_PASSED" });
+    await expect(repo.finish(finishSession(late, at(16)), c2.revision, null, record("sess-deadline"))).rejects.toMatchObject({ code: "DEADLINE_PASSED" });
+    expect((await repo.read())!.session.answers).toEqual({ w1: "Hei!" });                           // nothing changed
+    const c3 = await repo.finish(finishSession(answered, at(16)), c2.revision, null, record("sess-deadline"));
+    expect((await repo.read())!.session.finishedAt).toBeTruthy();
+    await expect(repo.commit({ ...answered, index: 1 }, c3.revision, null)).rejects.toMatchObject({ code: "ALREADY_FINISHED" });
+  });
+  it("an answer typed before the deadline but not yet autosaved still finishes after it; a new attempt is never blocked by an old finished one", async () => {
+    let clock = T;
+    const repo = createExamRepository(name(), () => clock);
+    const s0 = createSession("yki-mini-test", 15, T, "sess-pending");
+    const c1 = await repo.commit(s0, 0, null);
+    const typed = { ...writeAnswer(s0, "w1", "Kirjoitin ennen määräaikaa.", at(14)), lastAnswerAt: at(14).toISOString() };
+    clock = at(16);
+    const c2 = await repo.finish(finishSession(typed, at(16)), c1.revision, null, record("sess-pending"));
+    expect((await repo.read())!.session.answers).toEqual({ w1: "Kirjoitin ennen määräaikaa." });
+    const next = createSession("yki-mini-test", 15, at(20), "sess-next");                           // a different attempt
+    await expect(repo.commit(next, c2.revision, null)).resolves.toMatchObject({ revision: c2.revision + 1 });
+  });
+});

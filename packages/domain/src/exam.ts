@@ -109,6 +109,9 @@ export interface ExamSession {
   plays?: Record<string, number>;
   /** TZ-EXAM-08: parts (subtests) closed by moving on with the section lock on; never reopened, persisted. */
   closedParts?: ExamPart[];
+  /** E07-G05: when an answer was last written (the web exam machine stamps it with writeAnswer, which is refused after
+   *  the deadline); finishing does not move it. Kept out of writeAnswer itself for parity with legacy exam-core. */
+  lastAnswerAt?: string;
   /** TZ-EXAM-07: per-part clocks (only for parts with their own time): start + monotonic elapsed high-watermark. */
   partClock?: Partial<Record<ExamPart, { startedAt: string; highWaterMs: number }>>;
 }
