@@ -67,7 +67,7 @@ test("E06: without consent a recording is page-only and does not survive reload;
   await page.getByRole("button", { name: "На головну" }).click();
   await page.getByRole("button", { name: "Мої дані: копія й видалення" }).click();
   await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("голосових записів 1");
-  await page.getByLabel(/Усі пробні іспити, їхню історію й голосові записи/).check();
+  await page.getByLabel(/Усі пробні іспити, їхню історію, голосові записи/).check();
   await page.getByLabel(/введи слово ВИДАЛИТИ/).fill("ВИДАЛИТИ");
   await page.getByRole("button", { name: "Видалити пробні іспити" }).click();
   await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("голосових записів 0");
