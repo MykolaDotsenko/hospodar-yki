@@ -224,11 +224,13 @@ export function completePractice(state: LearnerState, s: PracticeSession, card: 
  * the oldest one whose group differs from the previous card's, so the learner has to decide which case each verb takes
  * instead of repeating one case in a block. Research #27 found forced interleaving of plain word lists unhelpful, so this
  * applies to rektio (case choice) only; chunks keep their order.
+ * `after` is the group of the task the learner has just finished (R06 cloze missions: its grammar form), so the first
+ * item is also not a second block of that form when another is left.
  */
-export function interleaveByGroup<T extends { group: string }>(cards: readonly T[]): T[] {
+export function interleaveByGroup<T extends { group: string }>(cards: readonly T[], after?: string): T[] {
   const rest = [...cards], out: T[] = [];
   while (rest.length) {
-    const prev = out[out.length - 1]?.group;
+    const prev = out.length ? out[out.length - 1]!.group : after;
     const i = rest.findIndex(c => c.group !== prev);
     out.push(rest.splice(i === -1 ? 0 : i, 1)[0]!);
   }

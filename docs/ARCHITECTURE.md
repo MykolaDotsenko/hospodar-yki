@@ -228,7 +228,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Data:** no schema change. Everything is derived from existing `attempts` (first attempt per task, local calendar days).
 - **Limits:**
   - The families draw on the 28 S2-pending cloze tasks (3–8 per family), so sets run out quickly. No Finnish task or key was written for this; when fewer than three new tasks remain, the set is marked thin.
-  - Rektio practice cards and the ordinary R06 schedule are not interleaved yet.
+  - Rektio practice cards (18.11) and ordinary R06 cloze missions (19.11) are now interleaved too; see below.
   - The equal-time blocked-vs-interleaved comparison (PSY-E04) is NOT RUN.
 
 ## 2026-11-12 — pre-task planning before an opinion monologue
@@ -746,6 +746,15 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `practiceDue` applies it to due rektio cards only; chunks keep their order, because research #27 found forced interleaving of plain word lists unhelpful.
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
+
+**R06 mission interleaving (interleaving-grammar, 19.11.2026):**
+- `interleaveByGroup(items, after)` takes the group of the task just finished.
+- `apps/web/src/content/selection.ts` `recommend` keeps the R06 order, except that the next cloze mission is never a second block of the grammar form finished last today. The R06 top task moves one place, and «Чому це завдання зараз?» says why.
+- A new day starts with the plain R06 order. `r06.ts` is untouched, so parity with `app/adaptation-core.mjs` holds.
+- Tests: `selection.test.ts`, `practice.test.ts`.
+- **Limits:**
+  - with 1–2 tasks per form such blocks are rare;
+  - PSY-E04 is NOT RUN.
 
 **If-then plan (micro-missions, R08-MOT, 18.11.2026):**
 - `packages/domain/src/studyPlan.ts` ports the R08 reference `createR08StudyPlan`: the learner's own cue (at most 150 characters), a skill, and 5/10/20 minutes, rendered as «Коли …, я N хв …».

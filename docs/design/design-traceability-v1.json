@@ -13350,9 +13350,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "rektio interleaving (interleaving-grammar): after a finished rektio card the next card asks for a different case"
+        },
+        {
+          "file": "apps/web/src/content/selection.test.ts",
+          "contains": "after a mission of one form the next mission is another form; the R06 top task only moves one place and says why"
+        },
+        {
+          "file": "apps/web/src/content/selection.test.ts",
+          "contains": "a mission finished on an earlier day does not reorder anything: a new day starts with the plain R06 order"
         }
       ],
-      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); the rektio practice cards are now interleaved by case too — due problem phrases and the next new card switch case (elatiivi / illatiivi / partitiivi …) instead of repeating one case in a block; chunks are deliberately not interleaved (research #27: forced interleaving of plain word lists did not help). Ordinary mission scheduling (R06) is still not interleaved."
+      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); the rektio practice cards are interleaved by case — due problem phrases and the next new card switch case (elatiivi / illatiivi / partitiivi …) instead of repeating one case in a block; chunks are deliberately not interleaved (research #27: forced interleaving of plain word lists did not help). Ordinary R06 cloze missions are now interleaved by grammar form too: the R06 order is kept, except that the next mission is never a second block of the form just finished today (the R06 top task moves one place and the learner sees why); a new day starts with the plain R06 order. Limits: the cloze bank has only 1–2 tasks per form, so such blocks are rare; no comparison with blocked order has been run (research #27 counter-evidence applies)."
     },
     {
       "id": "yki-mock",

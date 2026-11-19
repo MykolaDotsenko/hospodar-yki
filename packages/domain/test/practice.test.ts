@@ -136,6 +136,9 @@ describe("pre-task planning on opinion cards (methods pre-task-planning, learner
     const g = (id: string, group: string) => ({ id, group });
     expect(interleaveByGroup([g("a", "ela"), g("b", "ela"), g("c", "ill"), g("d", "ela"), g("e", "par")]).map(x => x.id)).toEqual(["a", "c", "b", "e", "d"]);
     expect(interleaveByGroup([g("a", "ela"), g("b", "ela")]).map(x => x.id)).toEqual(["a", "b"]);   // no other case left: order kept
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ill"), g("c", "ela")], "ela").map(x => x.id)).toEqual(["b", "a", "c"]);   // after an elatiivi task
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ela")], "ela").map(x => x.id)).toEqual(["a", "b"]);   // nothing else left: order kept
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ill")], "par").map(x => x.id)).toEqual(["a", "b"]);   // a different form before: R06 order kept
     const byCase = new Map<string, PracticeCard[]>();
     for (const r of rektio) byCase.set(r.group, [...(byCase.get(r.group) ?? []), r]);
     const ela = byCase.get("elatiivi")!, ill = byCase.get("illatiivi")!;
