@@ -18,13 +18,27 @@
  *    A new rehearsal deletes the previous session's clips before clearing the checkpoint.
  */
 import { assign, fromPromise, setup } from "xstate";
-import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, finishSession, isPartClosed, isPracticeExpired, navigateTo, resolveExamRules, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
+import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, finishSession, isPartClosed, isPracticeExpired, navigateTo, resolveExamRules,
+  expirePart, isPartTimeUp, startPartClock, withPartHighWater, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
   setVoiceConsent, withElapsedHighWater, writeAnswer, type ExamItem, type ExamSession, type ExamSkill, type SpeakingReceipt } from "@hospodar/domain";
 import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import { profileById } from "../content/examProfiles.ts";
 
-/** TZ-EXAM-08: the section lock of this attempt (its pinned profile, else the learner's practice choice). */
-const sectionLockOf = (session: ExamSession) => resolveExamRules(profileById(session.profileId), session.practiceChoices).sectionLock;
+/** The rules of this attempt (its pinned profile, else the learner's practice choices). */
+const rulesOf = (session: ExamSession) => resolveExamRules(profileById(session.profileId), session.practiceChoices);
+/** TZ-EXAM-08: the section lock of this attempt. */
+const sectionLockOf = (session: ExamSession) => rulesOf(session).sectionLock;
+/** TZ-EXAM-07: own minutes of a part in this attempt (undefined = no own time). */
+const partMinutesOf = (session: ExamSession) => (part: string) => (rulesOf(session).partMinutes as Record<string, number | undefined>)[part];
+/** Starts the clock of the part at the current item when that part has its own time. */
+const withPartClock = (session: ExamSession, items: ExamItem[], now: Date) => {
+  const part = items[session.index]?.skill;
+  return part && partMinutesOf(session)(part) ? startPartClock(session, part, now) : session;
+};
+const partTimeUp = (c: ExamContext, now: number) => {
+  const part = c.session && c.items[c.session.index]?.skill;
+  return Boolean(part) && isPartTimeUp(c.session!, part!, partMinutesOf(c.session!)(part!), new Date(now));
+};
 
 export interface ExamContext {
   items: ExamItem[]; session: ExamSession | null; skills: ExamSkill[] | null; revision: number; after: "active" | "finished";
@@ -122,8 +136,9 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
         on: {
           START: { target: "saving", actions: assign(({ event }) => {
             const skills = normaliseSkills(event.skills);
-            return { items: itemsFor(event.blueprintId, skills), skills, after: "active" as const, error: null, autosaveError: null, dirty: false,
-              session: createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId, event.profile ?? null, event.practiceChoices ?? null),
+            const items = itemsFor(event.blueprintId, skills);
+            return { items, skills, after: "active" as const, error: null, autosaveError: null, dirty: false,
+              session: withPartClock(createSession(event.blueprintId, event.minutes, new Date(event.now), event.sessionId, event.profile ?? null, event.practiceChoices ?? null), items, new Date(event.now)),
               composingItemId: null, pendingNavigation: null };
           }) },
         },
@@ -171,6 +186,8 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
           ANSWER: [
             { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired", target: "expired" },
+            // a closed part, or one whose own time is up, takes no more answers (the next TICK moves on)
+            { guard: ({ context, event }) => isPartClosed(context.session!, context.items.map(i => i.skill), context.session!.index) || partTimeUp(context, event.now) },
             { actions: assign({ dirty: true, session: ({ context, event }) => writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) }) },
           ],
           AUTOSAVE: { guard: ({ context }) => context.dirty && context.composingItemId === null, target: "autosaving" },
@@ -181,11 +198,26 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
             // A closed part (section lock) is never entered again: the event is ignored, nothing is saved.
             { guard: ({ context, event }) => isPartClosed(context.session!, context.items.map(i => i.skill), event.index) },
             { target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const,
-                pendingNavigation: navigateTo(context.session!, event.index, context.items.map(i => i.skill), sectionLockOf(context.session!), new Date(event.now)) })) },
+                pendingNavigation: withPartClock(navigateTo(context.session!, event.index, context.items.map(i => i.skill), sectionLockOf(context.session!), new Date(event.now)), context.items, new Date(event.now)) })) },
           ],
           TICK: [
             { guard: "runningExpired", target: "expired" },
-            { actions: assign({ session: ({ context, event }) => withElapsedHighWater(context.session!, event.elapsedMs) }) },
+            // TZ-EXAM-07: the current part's own time ran out → "submit" finishes; otherwise the part closes and the
+            // attempt moves on to the next open part (saved first), or, with none left, only finishing remains.
+            { guard: ({ context, event }) => partTimeUp(context, event.now) && rulesOf(context.session!).onExpiry === "submit", target: "finishing",
+              actions: assign(({ context, event }) => ({ after: "finished" as const, composingItemId: null, session: finishSession(context.session!, new Date(event.now)) })) },
+            { guard: ({ context, event }) => partTimeUp(context, event.now) &&
+                expirePart(context.session!, context.items.map(i => i.skill), partMinutesOf(context.session!), new Date(event.now)).next,
+              target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const, composingItemId: null,
+                pendingNavigation: expirePart(context.session!, context.items.map(i => i.skill), partMinutesOf(context.session!), new Date(event.now)).session })) },
+            { guard: ({ context, event }) => partTimeUp(context, event.now), target: "expired",
+              actions: assign(({ context, event }) => ({ composingItemId: null,
+                session: expirePart(context.session!, context.items.map(i => i.skill), partMinutesOf(context.session!), new Date(event.now)).session })) },
+            { actions: assign({ session: ({ context, event }) => {
+              const part = context.items[context.session!.index]?.skill;
+              const s = withElapsedHighWater(context.session!, event.elapsedMs);
+              return part ? withPartHighWater(s, part, new Date(event.now)) : s;
+            } }) },
           ],
           REQUEST_FINISH: { guard: ({ context }) => context.composingItemId === null, target: "confirming" },
           AUDIO_PLAYED: [

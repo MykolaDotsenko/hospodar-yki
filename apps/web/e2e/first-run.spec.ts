@@ -130,7 +130,7 @@ test("if-then plan (micro-missions, R08-MOT): optional, in the learner's own wor
   await expect(box.getByRole("alert")).toContainText("своїми словами");
   await box.getByLabel(/Коли\? Своїми словами/).fill("коли сідаю в автобус до роботи");
   await box.getByLabel("Аудіювання").check();
-  await box.getByLabel("5 хв").check();
+  await box.getByRole("radio", { name: "5 хв" }).check();
   expect(await serious(page)).toEqual([]);
   await box.getByRole("button", { name: "Зберегти план" }).click();
   await expect(box).toContainText("Мій план: Коли сідаю в автобус до роботи, я 5 хв слухатиму фінську.");

@@ -58,7 +58,7 @@ test("EXAM rehearsal (XState): no aids before finish, persisted navigation survi
 test("EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal", async ({ page }) => {
   await page.goto("./");
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
-  await page.getByLabel("15 хв").check();
+  await page.getByRole("radio", { name: "15 хв" }).check();
   await page.getByRole("button", { name: /Aloita/ }).click();
   await expect(page.locator(".pill", { hasText: /Harjoitusaika 1[45]:/ })).toBeVisible();
   await page.goto("./");

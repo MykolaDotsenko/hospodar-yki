@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { CRITICAL_PARAMETERS, ENGINE_APPLIES, PRACTICE_RULES, createSession, endsPart, isPartClosed, isValidParameterValue, loadSession, navigateTo, PartClosedError, playsUsed, recordPlay,
+import { CRITICAL_PARAMETERS, ENGINE_APPLIES, PRACTICE_RULES, createSession, endsPart, expirePart, isPartTimeUp, partRemainingSeconds, startPartClock, withPartHighWater, isPartClosed, isValidParameterValue, loadSession, navigateTo, PartClosedError, playsUsed, recordPlay,
   resolveExamRules, ruleValueUk, validateExamProfile, validPracticeChoices,
   type ExamParameterRecord, type ExamProfile, type ExamProfileFile } from "../src/index.ts";
 
@@ -38,11 +38,15 @@ describe("exam rules from the pinned profile (docs/29 stage 4; TZ-EXAM-07/08/12/
   });
 
   it("exam rules: a verified rule the engine does not reproduce yet is said so, and the attempt keeps the practice behaviour", () => {
-    const p = withRecords(byKind("OPH_DEMO_OBSERVED"), seen("timing.reading_minutes", 60));
-    expect(ENGINE_APPLIES.has("timing.reading_minutes")).toBe(false);
+    const p = withRecords(byKind("OPH_DEMO_OBSERVED"), seen("speaking.rerecord_allowed", false));
+    expect(ENGINE_APPLIES.has("speaking.rerecord_allowed")).toBe(false);
     const r = resolveExamRules(p);
-    expect(r.rules.find(x => x.parameter === "timing.reading_minutes")).toMatchObject({ status: "verified", applied: false, value: 60 });
+    expect(r.rules.find(x => x.parameter === "speaking.rerecord_allowed")).toMatchObject({ status: "verified", applied: false, value: false });
     expect(r).toMatchObject({ verified: 1, notApplied: 1 });
+    // a verified part time IS reproduced now (TZ-EXAM-07)
+    const timed = resolveExamRules(withRecords(byKind("OPH_DEMO_OBSERVED"), seen("timing.reading_minutes", 60)));
+    expect(timed.rules.find(x => x.parameter === "timing.reading_minutes")).toMatchObject({ status: "verified", applied: true, value: 60 });
+    expect(timed.partMinutes).toEqual({ reading: 60 });
   });
 
   it("exam rules: a value of the wrong type is refused by the profile check and never applied; practice profiles never claim", () => {
@@ -125,5 +129,43 @@ describe("exam rules from the pinned profile (docs/29 stage 4; TZ-EXAM-07/08/12/
     expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true })).toBe(true);   // older attempts stay valid
     expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true, sectionLock: "yes" })).toBe(false);
     expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true, sectionLock: true, extra: 1 })).toBe(false);
+  });
+
+  it("part timers (TZ-EXAM-07): a part's own time starts when it is entered, never comes back when the clock moves back, and when it runs out the part closes and the attempt moves on", () => {
+    const T = new Date("2026-11-19T10:00:00Z");
+    const at = (min: number) => new Date(T.getTime() + min * 60_000);
+    const parts = ["reading", "reading", "writing", "speaking"];
+    const choices = { plays: "unlimited" as const, backAllowed: true, reviewScreen: false, partMinutes: { reading: 10, writing: 20 } };
+    expect(validPracticeChoices(choices)).toBe(true);
+    expect(validPracticeChoices({ ...choices, partMinutes: { reading: 7 } })).toBe(false);                       // not an offered value
+    expect(validPracticeChoices({ ...choices, partMinutes: { cooking: 10 } })).toBe(false);
+    const rules = resolveExamRules(null, choices);
+    expect(rules.partMinutes).toEqual({ reading: 10, writing: 20 });
+    expect(rules.onExpiry).toBe("lock");
+    expect(rules.rules.find(r => r.parameter === "timing.reading_minutes")).toMatchObject({ status: "practice", chosen: true, value: 10 });
+    expect(resolveExamRules(null, null).partMinutes).toEqual({});                                               // default: no own time
+
+    let s = startPartClock(createSession("yki-mini-arki", 0, T, "sess-t", null, choices), "reading", T);
+    expect(partRemainingSeconds(s, "reading", 10, at(4))).toBe(360);
+    expect(partRemainingSeconds(s, "speaking", undefined, at(4))).toBeNull();
+    expect(startPartClock(s, "reading", at(5))).toBe(s);                                                       // started once
+    s = withPartHighWater(s, "reading", at(6));
+    expect(partRemainingSeconds(s, "reading", 10, at(1))).toBe(240);                                            // clock moved back: no time back
+    expect(isPartTimeUp(s, "reading", 10, at(10))).toBe(true);
+    const back = loadSession(JSON.stringify(s), ["yki-mini-arki"]).session!;
+    expect(back.partClock).toEqual(s.partClock);
+    expect(back.practiceChoices).toEqual(choices);
+    const damaged = loadSession(JSON.stringify({ ...s, partClock: { reading: { startedAt: "nonsense" } } }), ["yki-mini-arki"]).session!;
+    expect(isPartTimeUp(damaged, "reading", 10, T)).toBe(true);                                                 // fails closed: no time
+
+    const minutesOf = (p: string) => (choices.partMinutes as Record<string, number>)[p];
+    const moved = expirePart(s, parts, minutesOf, at(10));
+    expect(moved).toMatchObject({ next: true });
+    expect(moved.session.index).toBe(2);                                                                        // first writing item
+    expect(moved.session.closedParts).toEqual(["reading"]);
+    expect(partRemainingSeconds(moved.session, "writing", 20, at(10))).toBe(1200);                              // its own clock starts
+    const last = expirePart({ ...moved.session, index: 3 }, parts, minutesOf, at(40));
+    expect(last).toMatchObject({ next: false });
+    expect(last.session.closedParts).toEqual(["reading", "speaking"]);
   });
 });
