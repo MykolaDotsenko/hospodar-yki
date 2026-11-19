@@ -335,7 +335,8 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 .fidelity-basis dt { font-weight: 700; }
 .fidelity-basis dd { margin: 0; color: var(--muted); }
 .exam-bar { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; justify-content: space-between; margin-bottom: var(--space-md); }
-.exam-passage { padding: var(--space-md); border: 1px solid var(--stroke); background: var(--white); line-height: 1.7; overflow-wrap: anywhere; }
+/* Same readable measure as LEARN reading (about 65–70 characters): a neutral layout choice, not an OPH 2027 claim. */
+.exam-passage { padding: var(--space-md); border: 1px solid var(--stroke); background: var(--white); line-height: 1.7; overflow-wrap: anywhere; max-width: 35em; }
 .exam-prompt { font-weight: 700; }
 .exam-audio audio { width: 100%; }
 .exam-voice { margin: var(--space-base) 0; padding: var(--space-sm) var(--space-md); border: 1px solid var(--stroke); }

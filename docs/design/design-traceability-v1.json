@@ -4203,9 +4203,17 @@
         {
           "file": "apps/web/src/design-language.test.ts",
           "contains": "legibility: one x-height for every face, a readable measure for long Finnish text, and the learner's own font choice"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam reading passage keeps a readable measure at desktop width (about 65–70 characters per line, like LEARN reading)"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "step route on a phone: a step number never splits over two lines when the part name wraps (exam route)"
         }
       ],
-      "gap": "Dark palette built and AA-checked on every screen; the bundled faces are checked to contain ä ö å and і ї є ґ and are scaled to one x-height; screen readers (TalkBack/VoiceOver) and real devices not tested."
+      "gap": "Dark palette built and AA-checked on every screen; the bundled faces are checked to contain ä ö å and і ї є ґ and are scaled to one x-height; screen readers (TalkBack/VoiceOver) and real devices not tested. 19.11.2026 audit: the exam reading passage ran 91 characters per line at desktop width (LEARN reading 57, masterclasses 56); it now keeps the same ~70-character measure, guarded by E2E."
     },
     {
       "id": "SD-G09",
