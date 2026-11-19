@@ -271,3 +271,29 @@ test("keyboard check (digital-task-literacy): on the set-up screen one sample se
   await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
   await expect(page.getByTestId("keyboard-check")).toHaveCount(0);                               // never inside the attempt
 });
+
+test("audio guide for YKI listening (CURATED-09): on the set-up screen, link-only publisher pages by band with a listening routine; refused downloads absent; never inside the attempt", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  const guide = page.getByTestId("yki-audio-guide");
+  await guide.locator("summary").click();
+  await expect(guide).toContainText("не симуляція YKI");
+  await expect(guide.locator("ol.plan-frame li")).toHaveCount(5);
+  const links = guide.locator("a");
+  await expect(links).toHaveCount(14);
+  for (const a of await links.all()) {
+    await expect(a).toHaveAttribute("target", "_blank");
+    await expect(a).toHaveAttribute("rel", "noopener noreferrer");
+    expect(await a.getAttribute("href")).toMatch(/^https:\/\/(aoe\.fi|www\.kielibuusti\.fi|yle\.fi|www\.sitra\.fi|selkosanomat\.fi|papunet\.net)\//);
+  }
+  await expect(guide.locator('a[href*="/download/"]')).toHaveCount(0);                            // script downloads refused
+  await expect(guide.locator("audio, video, iframe, embed")).toHaveCount(0);                        // nothing embedded
+  await expect(guide.getByRole("heading", { name: "Розминка (рівні A2)" })).toBeVisible();
+  expect(await serious(page)).toEqual([]);
+  await page.getByLabel(/Аудіювання ·/).uncheck();
+  await expect(guide).toHaveCount(0);                                                               // only when listening is chosen
+  await page.getByLabel(/Аудіювання ·/).check();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
+  await expect(page.getByTestId("yki-audio-guide")).toHaveCount(0);                                // never inside the attempt
+});
