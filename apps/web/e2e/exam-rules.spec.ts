@@ -13,14 +13,14 @@ async function start(page: Page, only?: string, choose?: (page: Page) => Promise
   await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
 }
 
-test("exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them", async ({ page }) => {
+test("exam rules: every rule of the attempt is listed with its status — all 19 practice today — and the attempt runs on them", async ({ page }) => {
   await start(page);
   const list = page.getByTestId("exam-rules");
-  await expect(list.locator("summary")).toHaveText("Правила цієї спроби: 0 з 18 підтверджено, 18 тренувальних");
+  await expect(list.locator("summary")).toHaveText("Правила цієї спроби: 0 з 19 підтверджено, 19 тренувальних");
   await expect(list).not.toHaveAttribute("open", "");                                       // closed: never a distraction
   await list.locator("summary").click();
-  await expect(list.locator("li")).toHaveCount(18);
-  await expect(list.locator('li[data-status="practice"]')).toHaveCount(18);
+  await expect(list.locator("li")).toHaveCount(19);
+  await expect(list.locator('li[data-status="practice"]')).toHaveCount(19);
   await expect(list.locator('li[data-rule="listening.plays_allowed"]')).toContainText("без обмеження");
   await expect(list.locator('li[data-rule="timing.reading_minutes"]')).toContainText("окремого часу немає");
   await expect(list.locator('li[data-rule="writing.counter"]')).toContainText("тренувальне правило: у справжньому іспиті 2027 може бути інакше");
@@ -179,4 +179,42 @@ test("exam coverage (TZ-EXAM-06/15): the chosen set says which of the 13 task ty
   await page.getByRole("button", { name: /Aloita/ }).click();
   await expect(page.locator(".exam-audio audio")).toHaveCount(1);
   await expect(page.getByTestId("exam-coverage")).toHaveCount(0);                      // set-up screen only
+});
+
+test("section lock (TZ-EXAM-08): with the practice choice on, moving on to the next part closes the finished one — no going back, no review jump, kept after a reload", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Аудіювання", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByLabel(/Завершену частину закрито/).check();
+  await page.getByLabel("Перед завершенням — екран огляду всіх відповідей").check();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
+  const total = Number((await page.getByText(/Tehtävä 1 \/ \d+/).textContent())!.match(/\/ (\d+)/)![1]);
+  const reading = total - 1;                                                                      // reading items, then one writing task
+  await expect(page.getByTestId("part-lock-note")).toHaveCount(reading > 1 ? 0 : 1);
+  for (let i = 1; i < reading; i++) {
+    await page.getByRole("button", { name: "Seuraava" }).click();
+    await expect(page.getByText(`Tehtävä ${i + 1} / ${total}`)).toBeVisible();
+  }
+  await expect(page.getByTestId("part-lock-note")).toContainText("ei voi enää palata");          // said before moving on
+  await page.getByRole("button", { name: "Edellinen" }).click();                                  // back inside the part is still allowed
+  await expect(page.getByText(`Tehtävä ${reading - 1} / ${total}`)).toBeVisible();
+  await page.getByRole("button", { name: "Seuraava" }).click();
+  await page.getByRole("button", { name: "Seuraava" }).click();
+  await expect(page.getByText(`Tehtävä ${total} / ${total}`)).toBeVisible();
+  await expect(page.getByRole("textbox")).toBeVisible();                                          // the writing part
+  await expect(page.getByRole("button", { name: "Edellinen" })).toBeDisabled();                   // the reading part is closed
+  expect(await serious(page)).toEqual([]);
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await expect(page.getByText(`Tehtävä ${total} / ${total}`)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Edellinen" })).toBeDisabled();                   // still closed after a reload
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  const review = page.getByTestId("exam-review");
+  await expect(review.locator("li")).toHaveCount(total);
+  await expect(review.getByRole("button")).toHaveCount(0);                                        // no jump into the closed part
+  await page.getByRole("button", { name: "Jatka" }).click();
+  const rules = page.getByTestId("exam-rules");
+  await rules.locator("summary").click();
+  await expect(rules.locator("li", { hasText: "Завершену частину закрито" })).toContainText("так");
 });

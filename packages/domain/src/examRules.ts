@@ -24,7 +24,7 @@ export const PRACTICE_RULES: Readonly<Record<string, ParameterValue>> = Object.f
   "structure.subtest_order": "reading,listening,writing,speaking",
   "timing.reading_minutes": null, "timing.listening_minutes": null, "timing.writing_minutes": null, "timing.speaking_minutes": null,
   "timing.on_expiry": "lock",
-  "navigation.back_allowed": true, "navigation.review_screen": false,
+  "navigation.back_allowed": true, "navigation.review_screen": false, "navigation.section_lock": false,
   "listening.plays_allowed": "unlimited", "listening.pause_seek": true,
   "speaking.prep_seconds": PRACTICE_SPEAKING_WINDOWS.prepSeconds, "speaking.response_seconds": PRACTICE_SPEAKING_WINDOWS.responseSeconds,
   "speaking.recording_start": "after_prep", "speaking.rerecord_allowed": true,
@@ -34,7 +34,7 @@ export const PRACTICE_RULES: Readonly<Record<string, ParameterValue>> = Object.f
 
 /** Parameters whose VERIFIED value the engine applies today (a practice value is always what the engine does). */
 export const ENGINE_APPLIES: ReadonlySet<string> = Object.freeze(new Set([
-  "navigation.back_allowed", "navigation.review_screen", "listening.plays_allowed", "listening.pause_seek",
+  "navigation.back_allowed", "navigation.review_screen", "navigation.section_lock", "listening.plays_allowed", "listening.pause_seek",
   "writing.spellcheck", "writing.paste_allowed", "writing.counter",
   "speaking.prep_seconds", "speaking.response_seconds",
 ])) as ReadonlySet<string>;
@@ -54,10 +54,13 @@ export interface ExamRules {
   /** Typed accessors for the engine; each falls back to the practice value when the verified one is not applied. */
   backAllowed: boolean; spellcheck: boolean; pasteAllowed: boolean; counter: "none" | "words" | "characters";
   reviewScreen: boolean; playsAllowed: number | "unlimited"; pauseSeek: boolean;
+  /** TZ-EXAM-08: once the learner moves on to the next part (subtest), the finished part is closed. */
+  sectionLock: boolean;
 }
 /** Which practice rules the learner may choose (only where the profile has no verified value). */
 const CHOICE_PARAMS: Record<string, (c: PracticeChoices) => ParameterValue> = {
   "listening.plays_allowed": c => c.plays, "navigation.back_allowed": c => c.backAllowed, "navigation.review_screen": c => c.reviewScreen,
+  "navigation.section_lock": c => c.sectionLock === true,
 };
 
 export function resolveExamRules(profile: ExamProfile | null | undefined, choices: PracticeChoices | null | undefined = null): ExamRules {
@@ -86,6 +89,7 @@ export function resolveExamRules(profile: ExamProfile | null | undefined, choice
     reviewScreen: used("navigation.review_screen") === true,
     playsAllowed: used("listening.plays_allowed") as number | "unlimited",
     pauseSeek: used("listening.pause_seek") === true,
+    sectionLock: used("navigation.section_lock") === true,
   };
 }
 

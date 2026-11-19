@@ -92,7 +92,7 @@ Scoped G2 Web slice: the 9 dialogues gain a "partner did not understand → say 
 
 ## EXAM profile as data, three profiles, fidelity panel — 11.11.2026
 
-TZ-EXAM-02…04 of docs/21 §10: 18 critical exam parameters as sourced records (all `null` today), PRACTICE / OPH_DEMO_OBSERVED / LIVE_2027_VERIFIED profiles with honest availability, a six-status fidelity panel, and attempts pinned to their profile. Engine behaviour is not yet profile-driven. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--exam-profile-as-data-three-profiles-fidelity-panel-tz-exam-0204).
+TZ-EXAM-02…04 of docs/21 §10: 18 critical exam parameters (19 since 19.11.2026: `navigation.section_lock`) as sourced records (all `null` today), PRACTICE / OPH_DEMO_OBSERVED / LIVE_2027_VERIFIED profiles with honest availability, a six-status fidelity panel, and attempts pinned to their profile. Engine behaviour is not yet profile-driven. See [ARCHITECTURE](ARCHITECTURE.md#2026-11-11--exam-profile-as-data-three-profiles-fidelity-panel-tz-exam-0204).
 
 ## Front end: "Сьогодні" home, shared mission chrome, own icons — 12.11.2026
 

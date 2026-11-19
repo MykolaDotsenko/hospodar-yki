@@ -11,7 +11,7 @@ import { ExamDeviceCheck } from "./ExamDeviceCheck.tsx";
 import { ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
-import { examProfileHash, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
+import { endsPart, examProfileHash, isPartClosed, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
 import { ExamLook } from "./ExamLook.tsx";
 import { ExamCoverage } from "./ExamCoverage.tsx";
 import { RaterPackageButton } from "./RaterPackageButton.tsx";
@@ -109,6 +109,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
   const unanswered = items.filter(x => !(session!.answers[x.id] ?? "").trim() && !voiceEvidenceOf(session!, x.id)).length;
   const pinned = profileById(session!.profileId);
   const subtests = items.map(x => x.skill).filter((k, i, a) => a.indexOf(k) === i);         // order of this session
+  const parts = items.map(x => x.skill);                                                     // TZ-EXAM-08: the part of every item
   const changed = pinned && session!.profileHash && examProfileHash(pinned) !== session!.profileHash;
   const rules = resolveExamRules(pinned, session!.practiceChoices);       // the rules this attempt runs by, each with its status
   return (
@@ -139,7 +140,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
                 {items.map((x, i) => {
                   const done = !!(session!.answers[x.id] ?? "").trim() || !!voiceEvidenceOf(session!, x.id);
                   return <li key={x.id}>Tehtävä {i + 1} · {SKILL_FI[x.skill]}: <strong>{done ? "vastattu" : "vastaamatta"}</strong>
-                    {rules.backAllowed && i !== session!.index && <> <button type="button" className="btn secondary"
+                    {rules.backAllowed && i !== session!.index && !isPartClosed(session!, parts, i) && <> <button type="button" className="btn secondary"
                       onClick={() => { actor.send({ type: "CANCEL_FINISH" }); go(i); }}>Siirry tehtävään {i + 1}</button></>}</li>;
                 })}
               </ol>
@@ -169,9 +170,12 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
         <div className="feedback error" role="alert" data-system-notice><p>НЕ збережено ({error}). Твоя відповідь лишилася тут.</p>
           <button type="button" className="btn" onClick={() => actor.send({ type: "RETRY" })}>Спробувати ще раз</button></div>
       )}
+      {rules.sectionLock && endsPart(parts, session!.index) && (snap.matches("active") || snap.matches("autosaving")) && (
+        <p className="muted" lang="fi" data-testid="part-lock-note">Kun siirryt seuraavaan osaan, tähän osaan ({SKILL_FI[item.skill]}) ei voi enää palata.</p>
+      )}
       {(snap.matches("active") || snap.matches("saving") || snap.matches("saveError") || snap.matches("autosaving")) && (
         <div className="actions">
-          {rules.backAllowed && <button type="button" className="btn secondary" disabled={navBusy || session!.index === 0} onClick={() => go(session!.index - 1)}>Edellinen</button>}
+          {rules.backAllowed && <button type="button" className="btn secondary" disabled={navBusy || session!.index === 0 || isPartClosed(session!, parts, session!.index - 1)} onClick={() => go(session!.index - 1)}>Edellinen</button>}
           {session!.index < items.length - 1
             ? <button type="button" className="btn" disabled={navBusy} onClick={() => go(session!.index + 1)}>{busy ? "Tallennetaan…" : "Seuraava"}</button>
             : <button type="button" className="btn" disabled={navBusy} onClick={() => actor.send({ type: "REQUEST_FINISH" })}>Lopeta koe</button>}
@@ -247,7 +251,7 @@ function ExamItemView({ item, answer, onAnswer, onComposeStart, onComposeEnd, di
 }
 
 function ExamSetup({ error, repository, onStart, onHome }: { error: string | null; repository: ExamRepository; onStart: (b: string, m: number, skills: ExamSkill[] | null, profile: ExamProfile, choices: PracticeChoices | null) => void; onHome: () => void }) {
-  const [choices, setChoices] = useState<PracticeChoices>({ plays: "unlimited", backAllowed: true, reviewScreen: false });
+  const [choices, setChoices] = useState<PracticeChoices>({ plays: "unlimited", backAllowed: true, reviewScreen: false, sectionLock: false });
   const [blueprint, setBlueprint] = useState(examBlueprints[0]!.id);
   const now = new Date();
   const [profileId, setProfileId] = useState(examProfiles.find(p => profileAvailability(p, examProfileFile, now).selectable)!.id);
@@ -326,6 +330,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
           </fieldset>
           <label className="radio"><input type="checkbox" checked={choices.backAllowed} onChange={e => setChoices(c => ({ ...c, backAllowed: e.target.checked }))} /> Можна повертатися до попередніх завдань</label>
           <label className="radio"><input type="checkbox" checked={choices.reviewScreen} onChange={e => setChoices(c => ({ ...c, reviewScreen: e.target.checked }))} /> Перед завершенням — екран огляду всіх відповідей</label>
+          <label className="radio"><input type="checkbox" checked={choices.sectionLock === true} onChange={e => setChoices(c => ({ ...c, sectionLock: e.target.checked }))} /> Завершену частину закрито: після переходу до наступної частини до неї не повернутися</label>
         </fieldset>
       )}
       {skills.length > 0 && <ExamDeviceCheck skills={partial ? skills : null} results={devices} onResults={setDevices} />}

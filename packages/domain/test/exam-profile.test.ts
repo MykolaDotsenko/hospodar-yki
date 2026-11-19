@@ -70,7 +70,7 @@ describe("TZ-EXAM-03: three profiles; LIVE_2027_VERIFIED cannot be switched on w
 });
 
 describe("TZ-EXAM-04: fidelity panel — six separate statuses, verified count and gaps, never one percentage", () => {
-  it("today: F4/F5 unverified for every profile, F3/F6 unverified, all 18 critical parameters listed as gaps", () => {
+  it("today: F4/F5 unverified for every profile, F3/F6 unverified, all 19 critical parameters listed as gaps", () => {
     for (const p of file.profiles) {
       const panel = fidelityPanel(p, file);
       expect(panel.rows.map(r => r.dimension)).toEqual(["F1", "F2", "F3", "F4", "F5", "F6"]);

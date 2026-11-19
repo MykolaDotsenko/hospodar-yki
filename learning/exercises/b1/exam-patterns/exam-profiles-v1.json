@@ -116,6 +116,16 @@
           "e2e_test": null
         },
         {
+          "parameter": "navigation.section_lock",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
           "parameter": "listening.plays_allowed",
           "value": null,
           "source_url": null,
@@ -306,6 +316,16 @@
           "e2e_test": null
         },
         {
+          "parameter": "navigation.section_lock",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
           "parameter": "listening.plays_allowed",
           "value": null,
           "source_url": null,
@@ -487,6 +507,16 @@
         },
         {
           "parameter": "navigation.review_screen",
+          "value": null,
+          "source_url": null,
+          "observed_on": null,
+          "applies_to": null,
+          "confidence": null,
+          "reviewed_by": null,
+          "e2e_test": null
+        },
+        {
+          "parameter": "navigation.section_lock",
           "value": null,
           "source_url": null,
           "observed_on": null,
