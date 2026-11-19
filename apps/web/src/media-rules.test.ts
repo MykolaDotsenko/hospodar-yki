@@ -59,6 +59,8 @@ const TASK_PLAYERS: { file: string; contexts: MediaContext[]; e2e: string; count
 const PLAY_CALLS: Record<string, RegExp> = {
   "screens/DictoglossRun.tsx": /function play\(\)[\s\S]*?a\.play\(\)/,
   "screens/ExamScreen.tsx": /const start = \(\) => \{[\s\S]*?onPlayed\(\);[\s\S]*?a\.play\(\)/,
+  // evidence-guided-listening: «Послухати, де це сказано» in the review after the answers
+  "screens/ListeningScreen.tsx": /const playFrom = \(sec: number\) => \{[\s\S]*?a\.play\(\)/,
 };
 
 describe("media rules on every screen with audio or video (docs/29 stage 3)", () => {
@@ -92,6 +94,7 @@ describe("media rules on every screen with audio or video (docs/29 stage 3)", ()
       if (/\.play\(/.test(code(src))) { expect(Object.keys(PLAY_CALLS)).toContain(f); expect(src).toMatch(PLAY_CALLS[f]!); }
     }
     expect(read("screens/DictoglossRun.tsx")).toMatch(/onClick=\{play\}/);
+    expect(read("screens/ListeningScreen.tsx")).toMatch(/s\.phase === "review"[\s\S]*?onClick=\{\(\) => playFrom\(/);   // only a button, only after the answers
     expect(read("screens/ExamScreen.tsx")).toMatch(/onClick=\{start\}/);
     expect(tags(read("screens/ExamScreen.tsx"), "TaskAudio").filter(t => /\bbare\b/.test(t))).toHaveLength(1);
     const player = tags(read("ui/TaskAudio.tsx"), "audio")[0]!;

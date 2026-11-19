@@ -228,7 +228,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 - **Data:** no schema change. Everything is derived from existing `attempts` (first attempt per task, local calendar days).
 - **Limits:**
   - The families draw on the 28 S2-pending cloze tasks (3–8 per family), so sets run out quickly. No Finnish task or key was written for this; when fewer than three new tasks remain, the set is marked thin.
-  - Rektio practice cards and the ordinary R06 schedule are not interleaved yet.
+  - Rektio practice cards (18.11) and ordinary R06 cloze missions (19.11) are now interleaved too; see below.
   - The equal-time blocked-vs-interleaved comparison (PSY-E04) is NOT RUN.
 
 ## 2026-11-12 — pre-task planning before an opinion monologue
@@ -242,7 +242,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - phase `plan` and events `START_PLAN` / `SUBMIT_PLAN` in `packages/domain/src/practice.ts`, tests in `test/practice.test.ts`;
   - UI in `PracticeScreen`;
   - E2E in `practice.spec.ts`; the screen is also in the design audit.
-- **Not yet:** planning before dialogue role-play and the writing clinic. The effect on fluency or complexity is not measured.
+- **Not yet:** the effect on fluency or complexity is not measured. Planning before the dialogue role-play (13.11) and in the writing clinic now exist; see below.
+- **Argument map (learner-concept-map, 19.11.2026):**
+  - The opinion plan is now five optional short nodes: opinion → reason 1 → reason 2 → example → conclusion.
+  - `ARGUMENT_MAP_SLOTS` and `argumentMapPlan` keep it as plan text, so the session and its evidence label are unchanged.
+  - `readArgumentMap` draws it back as the map next to the model; an old free-text plan shows as text.
+  - Not a draggable diagram.
 
 ## 2026-11-12 — exam conditions: Finnish-only attempt, no writing aids, no "official" claims
 
@@ -406,7 +411,7 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
 
 - **Problem:** the LEARN starting diagnostic showed the baseline file's writing and speaking tasks `d-w1`/`d-s1`, which EXAM mini rehearsal A uses (and `d-w2`/`d-s2` belong to rehearsal B), so a learner met the exam prompt before the exam.
 - **Fix:** `apps/web/src/content/diagnostic.ts` keeps the baseline's reading block and takes the writing and speaking tasks from the theme files (`DIAGNOSTIC_PRODUCTION_IDS`: a formal message about language courses, a call to move an appointment) — neither is used by an EXAM blueprint or by the withheld delayed checks (`content/diagnostic.test.ts`, which fails on the old diagnostic). The draft fingerprint covers the whole diagnostic, so an unfinished draft from before is reported incompatible and offered for explicit discard; saved diagnostic records keep their old task ids.
-- **Not done:** the legacy `app/` diagnostic still shows `d-w1`/`d-s1` (legacy app, not developed further).
+- **Legacy app (18.11.2026):** `app/diagnostic-tasks.mjs` (`learnDiagnosticBaseline`) gives `app/app.mjs` the same theme tasks. It fetches the two theme files, fails closed when a task is missing, and `app/tests/diagnostic-tasks.test.mjs` checks the ids match `apps/web`. The legacy LEARN diagnostic no longer shows `d-w1`/`d-s1`. The legacy EXAM rehearsal (`app/exam.mjs`) still uses them, as it should.
 
 ## 2026-11-14 — interlocutor change in speech acts (pragmatic-speech-acts)
 
@@ -713,6 +718,27 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Package for a human rater (TZ-EXAM-16, 19.11.2026):**
+- `packages/domain/src/raterPackage.ts` builds the package from a finished rehearsal's writing and typed speaking answers and their prompts.
+- It adds `OPH_CRITERIA`: the dimension names from the official OPH speaking and writing PDFs as documented in research №31, with links, and the note that rating is holistic.
+- It adds `RATER_LEVEL_CHOICES` for the rater to tick; the app never fills a rating.
+- `raterPackageHtml` makes a self-contained, printable HTML file with every learner text escaped. Voice recordings stay on the device and are only mentioned.
+- `RaterPackageButton` on the results screen appears only when there is something to rate. The file is created locally and sent nowhere.
+- Tests: `rater-package.test.ts`, E2E «rater package…».
+
+**Exam form coverage (TZ-EXAM-15/06, 19.11.2026):**
+- `packages/domain/src/examCoverage.ts`: `formCoverage` derives task families from the form's own item and question ids through the E03 family mapping (`research/yki/e03-construct-task-coverage-audit-2026-10.json`). Topics (T01–T09) and functions (F01–F06) from `yki-official-patterns-v2.json` count only when the form declares them.
+- `admitExamForm` refuses a form that claims «full» while anything is missing.
+- `ExamCoverage` on the rehearsal set-up screen (never in the attempt) shows what the chosen set covers: today 6 of 13 task types, «тренувальна міні-форма, не повний іспит»; topics and functions are not yet tagged.
+- Structural only: says nothing about S2 quality or 2027 fidelity.
+- Tests: `exam-coverage.test.ts`, E2E «exam coverage…».
+
+**Audio notes in delayed listening checks (strategic-audio-notes, 18.11.2026):** `ui/AudioNotes.tsx` (`AudioNotesBox`, `AudioNotesBack`) is now shared by the LEARN listening lesson and the delayed listening check (`SkillChecks`).
+- The same rules apply in both: own when/where/what notes, which are own processing rather than support, so answers stay scored.
+- The notes come back next to the keys after saving and live in session state only.
+- They are still not offered in the EXAM rehearsal.
+- Test: E2E «strategic audio notes in the delayed listening check…».
+
 **Model-answer exposure (MOCK-VID-08, 18.11.2026):**
 - `packages/domain/src/videoExposure.ts`: `markModelAnswersSeen` (the first day stays), `unmarkModelAnswersSeen`, `videoCheckStatus` (fresh / seen) and a tolerant parser.
 - On «Як виглядає іспит», each practice video with a model-answer start offers «Я вже бачив(ла) зразки відповідей». After the mark the video says it is an example now, not a new check, and the mark can be removed.
@@ -725,6 +751,33 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `practiceDue` applies it to due rektio cards only; chunks keep their order, because research #27 found forced interleaving of plain word lists unhelpful.
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
+
+**Where the answer is said, in listening (evidence-guided-listening, 19.11.2026):**
+- `answerPlaces` and `answerPlaceSegments` live in `packages/domain/src/listening.ts`.
+- **What the learner sees:** only in the review with the text, after the answers.
+  - The transcript marks each question's verbatim evidence, used only when it occurs exactly once.
+  - A button replays from about the start of that sentence: «приблизно», mapped by the sentence's share of the transcript, because there is no word timing.
+- **Where it applies:** lessons whose questions carry `evidence_fi`; today these are the two LEARN inference-text recordings.
+- Tests: `listening-evidence.test.ts`, E2E «evidence-guided-listening…».
+
+**«Перед справою» warm-up (mobile-contextual-micropractice, 19.11.2026):**
+- `packages/domain/src/warmUp.ts` holds two pure pieces:
+  - `warmUpCards` picks up to three phrase cards of a place: due reviews first, then phrases not met yet;
+  - `warmUpReducer` runs try → shown → first_line → done. The own try is frozen, and «не пригадую» is not a wrong answer.
+- `apps/web/src/screens/WarmUp.tsx` shows it on the place screen next to the real-life deed, with the learner's own note from the last deed first.
+- Nothing is stored, scheduled or scored, and there is no reminder.
+- A release build has no published phrases, so it shows no warm-up.
+- Tests: `warm-up.test.ts`, E2E ««Перед справою»…» in `places.spec.ts`.
+- **Limit:** no study of delayed productive use.
+
+**R06 mission interleaving (interleaving-grammar, 19.11.2026):**
+- `interleaveByGroup(items, after)` takes the group of the task just finished.
+- `apps/web/src/content/selection.ts` `recommend` keeps the R06 order, except that the next cloze mission is never a second block of the grammar form finished last today. The R06 top task moves one place, and «Чому це завдання зараз?» says why.
+- A new day starts with the plain R06 order. `r06.ts` is untouched, so parity with `app/adaptation-core.mjs` holds.
+- Tests: `selection.test.ts`, `practice.test.ts`.
+- **Limits:**
+  - with 1–2 tasks per form such blocks are rare;
+  - PSY-E04 is NOT RUN.
 
 **If-then plan (micro-missions, R08-MOT, 18.11.2026):**
 - `packages/domain/src/studyPlan.ts` ports the R08 reference `createR08StudyPlan`: the learner's own cue (at most 150 characters), a skill, and 5/10/20 minutes, rendered as «Коли …, я N хв …».

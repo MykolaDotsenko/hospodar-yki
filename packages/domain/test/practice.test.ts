@@ -136,6 +136,9 @@ describe("pre-task planning on opinion cards (methods pre-task-planning, learner
     const g = (id: string, group: string) => ({ id, group });
     expect(interleaveByGroup([g("a", "ela"), g("b", "ela"), g("c", "ill"), g("d", "ela"), g("e", "par")]).map(x => x.id)).toEqual(["a", "c", "b", "e", "d"]);
     expect(interleaveByGroup([g("a", "ela"), g("b", "ela")]).map(x => x.id)).toEqual(["a", "b"]);   // no other case left: order kept
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ill"), g("c", "ela")], "ela").map(x => x.id)).toEqual(["b", "a", "c"]);   // after an elatiivi task
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ela")], "ela").map(x => x.id)).toEqual(["a", "b"]);   // nothing else left: order kept
+    expect(interleaveByGroup([g("a", "ela"), g("b", "ill")], "par").map(x => x.id)).toEqual(["a", "b"]);   // a different form before: R06 order kept
     const byCase = new Map<string, PracticeCard[]>();
     for (const r of rektio) byCase.set(r.group, [...(byCase.get(r.group) ?? []), r]);
     const ela = byCase.get("elatiivi")!, ill = byCase.get("illatiivi")!;
@@ -155,5 +158,20 @@ describe("pre-task planning on opinion cards (methods pre-task-planning, learner
     expect(next.group).not.toBe("elatiivi");
     expect(nextPracticeCard(chunks, chunks[0]!, () => false)!.id).toBe(chunks[1]!.id);   // chunks: simply the next one
     expect(nextPracticeCard(rektio, ela[0]!, id => id !== ela[1]!.id)!.id).toBe(ela[1]!.id);   // only same-case cards left: still offered
+  });
+});
+
+describe("argument map before a monologue (learner-concept-map)", () => {
+  it("a map is kept as plan lines and read back in map order; empty nodes drop out; anything else is plain text", async () => {
+    const { argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS } = await import("../src/index.ts");
+    expect(ARGUMENT_MAP_SLOTS.map(x => x.key)).toEqual(["claim", "reason1", "reason2", "example", "conclusion"]);
+    const plan = argumentMapPlan({ conclusion: " siksi asun lähellä ", claim: "sijainti on tärkein", reason1: "hinta", example: "  " });
+    expect(plan).toBe("Моя думка: sijainti on tärkein\nПричина 1: hinta\nВисновок: siksi asun lähellä");
+    expect(readArgumentMap(plan)!.map(n => n.key)).toEqual(["claim", "reason1", "conclusion"]);
+    expect(argumentMapPlan({})).toBe("");                                                    // = without a plan
+    expect(argumentMapPlan({ claim: "x".repeat(500) }).length).toBe("Моя думка: ".length + ARGUMENT_NODE_MAX_CHARS);
+    expect(readArgumentMap("pääajatus: hyvä · syy 1")).toBeNull();                          // an old free-text plan
+    expect(readArgumentMap("Моя думка: a\nМоя думка: b")).toBeNull();
+    expect(readArgumentMap("")).toBeNull();
   });
 });

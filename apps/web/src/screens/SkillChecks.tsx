@@ -7,6 +7,7 @@ import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
 import { TaskAudio } from "../ui/TaskAudio.tsx";
+import { AudioNotesBack, AudioNotesBox, EMPTY_AUDIO_NOTES, type AudioNotesValue } from "../ui/AudioNotes.tsx";
 
 type Snap = { state: LearnerState; revision: number };
 const SKILL_UK: Record<Skill, string> = { reading: "Читання", listening: "Аудіювання", writing: "Письмо", speaking: "Говоріння" };
@@ -50,6 +51,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
   const audioRef = useRef<HTMLAudioElement>(null);
   const [rate, setRate] = useState(NORMAL_RATE);
   const [value, setValue] = useState("");
+  const [notes, setNotes] = useState<AudioNotesValue>(EMPTY_AUDIO_NOTES);   // strategic-audio-notes: session only
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -119,6 +121,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
             </>
           ) : <p className="feedback error" role="alert">Аудіофайл недоступний — перевірку не можна пройти чесно.</p>}
           {v.showTranscript && media.transcript && <div className="prompt transcript" lang="fi">{media.transcript}</div>}
+          {!v.ready && <AudioNotesBox notes={notes} onChange={setNotes} idPrefix="skc-note" />}
         </>
       )}
 
@@ -167,6 +170,7 @@ function SkillCheckRun({ skill, day, check, repository, snapshot, onSaved, onClo
             <>
               {reveal.supported && <p className="muted">{s.support.includes("transcript") && s.support.includes("slow") ? "З показаним текстом і повільніше"
                 : s.support.includes("transcript") ? "З показаним текстом" : "Повільніше"} — збережено без оцінки.</p>}
+              {skill === "listening" && <AudioNotesBack notes={notes} />}
               <ol className="skill-lines">{reveal.results.map(r => (
                 <li key={r.n}><span lang="fi">{r.prompt_fi}</span><br /><strong>Твоя відповідь:</strong> <span lang="fi">{r.answer}</span><br />
                   {r.correct === null ? <><strong>Приклад:</strong> <span lang="fi">{r.key_fi}</span></> : <><strong>{r.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{r.key_fi}</span></>}

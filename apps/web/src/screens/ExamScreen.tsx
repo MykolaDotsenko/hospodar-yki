@@ -13,6 +13,8 @@ import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { examProfileHash, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
 import { ExamLook } from "./ExamLook.tsx";
+import { ExamCoverage } from "./ExamCoverage.tsx";
+import { RaterPackageButton } from "./RaterPackageButton.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -87,6 +89,7 @@ export function ExamScreen({ repository, voiceStore, onHome, onLearn, onFocus }:
               {d.voice === "stored" && <StoredVoice receipt={session!.voiceReceipts[d.id]!} voiceStore={voiceStore} onUnverified={() => actor.send({ type: "VOICE_UNVERIFIED", itemId: d.id })} />}</li>;
           })}
         </ol>
+        <RaterPackageButton items={items} session={session!} />
         <NextSteps bySkill={r.bySkill} repository={repository} onLearn={onLearn} />
         {error && <p className="feedback error" role="alert">Не вдалося очистити ({error}).</p>}
         {used && <ExamFidelity profile={used} compact />}
@@ -298,6 +301,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
           return <label key={b.id} className="radio"><input type="radio" name="bp" checked={blueprint === b.id} onChange={() => { setPicked(true); setBlueprint(b.id); }} />
             <span>{b.title_uk}<small className="muted radio-note">{!st || st.seen.length === 0 ? "ще не бачив(ла)" : `уже бачив(ла): ${st.seen.map(k => SKILL_UK[k]).join(", ")}`}</small></span></label>;
         })}
+        <ExamCoverage blueprintId={blueprint} />
         {repeat.length > 0 && <p className="feedback warn" role="status">Ці завдання ({repeat.map(k => SKILL_UK[k]).join(", ")}) ти вже бачив(ла). Результат покаже повторення знайомого, а не нову перевірку.</p>}
       </fieldset>
       <fieldset className="choices-set">

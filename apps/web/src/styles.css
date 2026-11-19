@@ -426,6 +426,8 @@ html[data-mode="exam"] .panel.exam .eyebrow { color: var(--navy); }
 /* Pre-task planning: a quiet frame, no timer; the plan returns only next to the model (pre-task-planning). */
 .plan-frame { margin: var(--space-sm) 0 var(--space-md); padding-left: 1.4em; color: var(--muted); }
 .plan-back { padding: var(--space-sm) 0; border-top: 1px dashed var(--stroke); border-bottom: 1px dashed var(--stroke); }
+.argument-map { list-style: none; padding: 0; margin: 0 0 var(--space-sm); }
+.argument-map li { padding: var(--space-xs) 0; }
 textarea.plan-notes { width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-border); background: var(--white); color: var(--ink); font-size: 1.1rem; }   /* any language: no lang="fi" */
 /* YKI preparation map: 9 themes × 4 skills (counts only, no colour-coded judgement) */
 .yki-map-scroll { max-width: 100%; overflow-x: auto; }

@@ -10,7 +10,11 @@
  * - First answers are frozen when submitted; keys appear only in `feedback`.
  * - Synthetic single-voice audio is practice, not authentic multi-talker listening (E05).
  */
-export interface ListeningQuestion { id: string; prompt_fi: string; options_fi: string[]; correct_index: number; why_uk?: string }
+export interface ListeningQuestion {
+  id: string; prompt_fi: string; options_fi: string[]; correct_index: number; why_uk?: string;
+  /** Where the answer is said, verbatim from the transcript (evidence-guided-listening); used only after the answers. */
+  evidence_fi?: string;
+}
 export interface ListeningLesson {
   id: string; title_fi: string; path: string; transcript_path?: string; subtitles_path?: string;
   duration_seconds: number; narrators_type: string; teacher_review?: string; questions: ListeningQuestion[];
@@ -112,4 +116,41 @@ export function listeningEvidence(s: ListeningSession, lesson: ListeningLesson) 
   return lesson.questions.filter(q => q.id in s.answers).map(q => independent
     ? { skill: "listening" as const, taskId: q.id, status: "scored" as const, correct: s.answers[q.id] === q.correct_index }
     : { skill: "listening" as const, taskId: q.id, status: "ungraded" as const, response: `supported:${s.support.join("+")}` });
+}
+
+/**
+ * evidence-guided-listening: after the answers, where each answer is said. A question's evidence counts only when it
+ * occurs exactly once in the transcript. `seekSeconds` is an APPROXIMATE start for replaying that place: the start of
+ * the sentence holding the evidence, mapped by its share of the transcript onto the recording, one second early.
+ * The recordings have no word timing, so the screen must say "приблизно". Never available before the answers.
+ */
+export interface AnswerPlace { questionId: string; questionNumber: number; start: number; end: number; seekSeconds: number }
+export function answerPlaces(transcript: string, questions: readonly ListeningQuestion[], durationSeconds: number): AnswerPlace[] {
+  if (!transcript || !(durationSeconds > 0)) return [];
+  const out: AnswerPlace[] = [];
+  questions.forEach((q, i) => {
+    const ev = q.evidence_fi?.trim();
+    if (!ev) return;
+    const start = transcript.indexOf(ev);
+    if (start < 0 || transcript.indexOf(ev, start + 1) >= 0) return;               // missing or ambiguous: no claim
+    const before = transcript.slice(0, start);
+    const sentence = Math.max(...[". ", "? ", "! ", "\n"].map(m => { const k = before.lastIndexOf(m); return k < 0 ? -1 : k + m.length; }), 0);
+    out.push({ questionId: q.id, questionNumber: i + 1, start, end: start + ev.length,
+      seekSeconds: Math.max(0, Math.floor((durationSeconds * sentence) / transcript.length) - 1) });
+  });
+  return out;
+}
+
+/** The transcript cut into plain and evidence segments (overlapping evidence keeps the earlier span). */
+export function answerPlaceSegments(transcript: string, evidence: readonly AnswerPlace[]): { text: string; questionNumber: number | null }[] {
+  const out: { text: string; questionNumber: number | null }[] = [];
+  let pos = 0;
+  for (const e of [...evidence].sort((a, b) => a.start - b.start)) {
+    if (e.start < pos) continue;
+    if (e.start > pos) out.push({ text: transcript.slice(pos, e.start), questionNumber: null });
+    out.push({ text: transcript.slice(e.start, e.end), questionNumber: e.questionNumber });
+    pos = e.end;
+  }
+  if (pos < transcript.length) out.push({ text: transcript.slice(pos), questionNumber: null });
+  return out;
 }

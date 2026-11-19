@@ -5666,9 +5666,13 @@
         {
           "file": "apps/web/src/content/diagnostic.test.ts",
           "contains": "no task the LEARN diagnostic shows is used by an EXAM blueprint — not even the baseline file's own production tasks"
+        },
+        {
+          "file": "app/tests/diagnostic-tasks.test.mjs",
+          "contains": "EXAM-11 legacy diagnostic: writing and speaking come from theme tasks, never the EXAM mini rehearsals' prompts"
         }
       ],
-      "gap": "LEARN and EXAM pools are separated (audio by content hash; reading, practice and listening pools exclude exam items; the apps/web starting diagnostic uses theme tasks, not the mini rehearsals' d-w/d-s prompts) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists, and the legacy app/ diagnostic still shows d-w1/d-s1."
+      "gap": "LEARN and EXAM pools are separated (audio by content hash; reading, practice and listening pools exclude exam items; the apps/web starting diagnostic uses theme tasks, not the mini rehearsals' d-w/d-s prompts) and exposure per set/skill means a used set is never offered as unseen; no held-out item bank exists; the legacy app/ diagnostic now uses the same theme tasks (app/diagnostic-tasks.mjs), never d-w1/d-s1."
     },
     {
       "id": "EXAM-12",
@@ -8958,7 +8962,7 @@
       "evidence": [
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "packages/domain/test/retention-parity.test.ts",
@@ -9722,7 +9726,7 @@
         },
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "apps/web/e2e/exam-voice.spec.ts",
@@ -11576,7 +11580,7 @@
         },
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "apps/web/e2e/research-design.spec.ts",
@@ -12194,7 +12198,7 @@
           "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
       ],
-      "gap": "Full and single-skill sessions exist only on two 9-item mini rehearsals; no full-length form (needs the S2-authored bank)."
+      "gap": "Full and single-skill sessions exist only on two 9-item mini rehearsals; no full-length form (needs the S2-authored bank). The set-up screen now shows each set's structural coverage and calls a mini set a practice mini-form, never a full exam (TZ-EXAM-15 check)."
     },
     {
       "id": "TZ-EXAM-07",
@@ -12364,8 +12368,22 @@
       "id": "TZ-EXAM-15",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Construct coverage: every form checked against 9 topics and 6 communicative functions (E03)",
-      "status": "NOT_YET",
-      "plan": "Coverage test over each form using the E03 audit; depends on the first full form."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-coverage.test.ts",
+          "contains": "exam coverage: 13 families, 9 topics and 6 functions from the canonical taxonomy; families come from the form's own ids via the E03 mapping"
+        },
+        {
+          "file": "packages/domain/test/exam-coverage.test.ts",
+          "contains": "exam coverage: a form that claims to be a full exam is refused with every missing family, topic or function; a practice subset is admitted and stays a subset"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam coverage (TZ-EXAM-06/15): the chosen set says which of the 13 task types it covers and that it is a practice mini-form, not a full exam; nothing of it inside the attempt"
+        }
+      ],
+      "gap": "The coverage check exists (admitExamForm refuses a 'full' claim with any missing family, topic or function; families from the form's own ids via the E03 mapping) and the set-up screen shows each set's coverage (6 of 13 task types, a practice mini-form). No full form exists yet, and the minis do not declare topics or functions — that tagging is S2 work on the first full form."
     },
     {
       "id": "TZ-EXAM-16",
@@ -12376,9 +12394,21 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "packages/domain/test/rater-package.test.ts",
+          "contains": "rater package: writing and speaking only, with OPH criterion names and sources, empty level choices for the rater, no grade anywhere"
+        },
+        {
+          "file": "packages/domain/test/rater-package.test.ts",
+          "contains": "rater package HTML: self-contained, every learner text escaped, the voice recording stays on the device, the rating left empty"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "rater package (TZ-EXAM-16): after a finished rehearsal the learner downloads their writing/speaking with the prompts, OPH criterion names and an empty rating form; the app rates nothing"
         }
       ],
-      "gap": "No grade is ever produced (tested); the human assessment package and double-marked calibration do not exist (needs S2 raters)."
+      "gap": "No grade is ever produced (tested); a package for a human S2 rater now exists — after a finished rehearsal the learner may download their writing and typed speaking answers with the prompts, the OPH criterion dimension names with links to the official PDFs and an empty rating form (the app never rates; voice stays on the device). Double-marked calibration does not exist (needs S2 raters)."
     },
     {
       "id": "TZ-EXAM-17",
@@ -12925,7 +12955,7 @@
         },
         {
           "file": "apps/web/e2e/practice.spec.ts",
-          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+          "contains": "pre-task planning (opinion): optional own plan as an argument map (learner-concept-map), hidden while answering, back only next to the model as the map; quick reactions get no plan"
         },
         {
           "file": "packages/domain/test/practice.test.ts",
@@ -12981,9 +13011,17 @@
         {
           "file": "apps/web/e2e/reading.spec.ts",
           "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        },
+        {
+          "file": "packages/domain/test/listening-evidence.test.ts",
+          "contains": "finds evidence said exactly once, maps the start of its sentence approximately onto the recording; missing or ambiguous evidence is no claim"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "evidence-guided-listening: only in the review after the answers, the transcript marks where each answer is said and a button replays from about that place"
         }
       ],
-      "gap": "Transcript and subtitles only after answering; evidence spans are highlighted in reading, not aligned in audio."
+      "gap": "Transcript and subtitles only after answering; evidence spans are highlighted in reading. In listening, only in the review with the text after the answers, the transcript now marks where each answer is said (evidence found exactly once in the transcript; missing or ambiguous evidence is not shown), and each key offers «Послухати, де це сказано (приблизно з N с)», which replays from the start of that sentence. The start is APPROXIMATE: it maps the sentence's share of the transcript onto the recording, because the recordings have no word timing. Only lessons whose questions carry evidence get this (today the two LEARN inference-text recordings; theme dialogues/notices and long lessons have no evidence spans). Not yet: exact audio alignment (needs forced alignment or timed cues checked by a human), and evidence for the other lessons (needs S2-authored spans)."
     },
     {
       "id": "finnish-quantity-dual-track",
@@ -13049,9 +13087,17 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "Господарство: nine places, never locked; a door opens after the first own attempt and a key only for a correct first independent answer"
+        },
+        {
+          "file": "packages/domain/test/warm-up.test.ts",
+          "contains": "the phrase is shown only after the own try, the try is frozen, an honest 'not recalled' is not a wrong answer; nothing is scored"
+        },
+        {
+          "file": "apps/web/e2e/places.spec.ts",
+          "contains": "«Перед справою» warm-up (mobile-contextual-micropractice): phrases of this place, each shown only after the own recall; the first line to take along; nothing stored or scored"
         }
       ],
-      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to; no time-of-day or 'right before' prompt."
+      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to. Each place with phrase cards now offers an optional «Перед справою» warm-up next to its real-life deed (about 2 minutes): the learner's own note from the last deed first, then three phrase cards of that place (due reviews first, then phrases not met yet), each phrase shown only after an own recall or an honest «не пригадую» (the try is frozen, no automatic judgement), then the first sentence the learner means to say there, to take along. Nothing is stored, scheduled or scored, and no reminder or notification ever opens it (the method's own limit). Not yet: no measure of delayed productive use per minute of practice (the method's measurement; needs a study), phrases are S2-pending drafts (a release build has none, so it shows no warm-up), and no time-of-day or location prompt — by design."
     },
     {
       "id": "structured-input-grammar",
@@ -13221,10 +13267,14 @@
         },
         {
           "file": "apps/web/e2e/practice.spec.ts",
-          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+          "contains": "pre-task planning (opinion): optional own plan as an argument map (learner-concept-map), hidden while answering, back only next to the model as the map; quick reactions get no plan"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "a map is kept as plan lines and read back in map order; empty nodes drop out; anything else is plain text"
         }
       ],
-      "gap": "A three-slot text map (main idea, reasons, example) before an opinion monologue, hidden while answering; not a visual map and not yet offered before dialogues or writing."
+      "gap": "Before an opinion monologue the optional own plan is now an argument map: five short nodes, any language, each optional — opinion → reason 1 → reason 2 → example → conclusion (the registry's «sijainti→hinta→matka→johtopäätös» shape). It is hidden while answering («говори з пам'яті») and comes back next to the model drawn as the map (empty nodes left out) for self-comparison; never stored or scored. Before the dialogue role-play and in the writing clinic the plan stays a guided outline (pre-task-planning: a repair move for dialogues; the writer keeps the outline in view), not a map. Not yet: a drawn node-and-link diagram the learner can rearrange, and any measure of coherence/structure of the new monologue (the method's measurement; needs human raters)."
     },
     {
       "id": "uncertainty-aware-asr",
@@ -13242,9 +13292,13 @@
         {
           "file": "packages/domain/test/listening.test.ts",
           "contains": "three prompts for the learner's own notes — when, where, what — in Ukrainian, with a short limit"
+        },
+        {
+          "file": "apps/web/e2e/media-rules.spec.ts",
+          "contains": "strategic audio notes in the delayed listening check: own notes while listening (not support, answers stay scored), back next to the keys, never stored"
         }
       ],
-      "gap": "Optional own notes (when / where / what) while listening and answering in the LEARN listening mission, like exam note paper; own processing, not support, so answers stay independent and scored; shown back next to the keys; session only, never stored or scored. Not offered in the EXAM rehearsal (OPH 2027 note-taking rules unverified) nor in the delayed checks; no guidance on note quality."
+      "gap": "Optional own notes (when / where / what) while listening and answering in the LEARN listening mission, like exam note paper; own processing, not support, so answers stay independent and scored; shown back next to the keys; session only, never stored or scored. Also offered in the delayed listening checks (7/14/30) with the same rules — own processing, answers stay scored, notes back next to the keys, never stored (one shared AudioNotes component). Not offered in the EXAM rehearsal (OPH 2027 note-taking rules unverified); no guidance on note quality."
     },
     {
       "id": "autonomy-support-and-choice",
@@ -13316,9 +13370,17 @@
         {
           "file": "apps/web/e2e/practice.spec.ts",
           "contains": "rektio interleaving (interleaving-grammar): after a finished rektio card the next card asks for a different case"
+        },
+        {
+          "file": "apps/web/src/content/selection.test.ts",
+          "contains": "after a mission of one form the next mission is another form; the R06 top task only moves one place and says why"
+        },
+        {
+          "file": "apps/web/src/content/selection.test.ts",
+          "contains": "a mission finished on an earlier day does not reorder anything: a new day starts with the plain R06 order"
         }
       ],
-      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); the rektio practice cards are now interleaved by case too — due problem phrases and the next new card switch case (elatiivi / illatiivi / partitiivi …) instead of repeating one case in a block; chunks are deliberately not interleaved (research #27: forced interleaving of plain word lists did not help). Ordinary mission scheduling (R06) is still not interleaved."
+      "gap": "Interleaving across confusable forms is built into the workshop sets (cloze families); the rektio practice cards are interleaved by case — due problem phrases and the next new card switch case (elatiivi / illatiivi / partitiivi …) instead of repeating one case in a block; chunks are deliberately not interleaved (research #27: forced interleaving of plain word lists did not help). Ordinary R06 cloze missions are now interleaved by grammar form too: the R06 order is kept, except that the next mission is never a second block of the form just finished today (the R06 top task moves one place and the learner sees why); a new day starts with the plain R06 order. Limits: the cloze bank has only 1–2 tasks per form, so such blocks are rare; no comparison with blocked order has been run (research #27 counter-evidence applies)."
     },
     {
       "id": "yki-mock",

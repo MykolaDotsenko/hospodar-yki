@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
+import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import { illustrations } from "../content/media.ts";
@@ -76,6 +76,24 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
   );
 }
 
+/** The own plan back next to the model: drawn as the argument map when it is one, else as the learner wrote it. */
+function PlanBack({ plan }: { plan: string }) {
+  const nodes = readArgumentMap(plan);
+  return (
+    <div className="plan-back">
+      <p><strong>{nodes ? "Твоя мапа аргументів" : "Твій план"}:</strong>{nodes ? null : <> {plan}</>}</p>
+      {nodes && (
+        <ol className="argument-map" data-testid="argument-map">
+          {nodes.map((n, i) => (
+            <li key={n.key}>{i > 0 && <span aria-hidden="true" className="muted">↓ </span>}<span className="muted">{n.label_uk}:</span> {n.text}</li>
+          ))}
+        </ol>
+      )}
+      <p className="muted">Порівняй: що з плану ти встиг(ла) сказати, а що можна додати?</p>
+    </div>
+  );
+}
+
 function Lines({ lines }: { lines: PracticeLine[] }) {
   return <dl className="skill-lines">{lines.map((l, i) => (
     <div key={i}><dt className="muted">{l.label_uk}</dt><dd className={l.lang === "fi" ? "prompt" : undefined} lang={l.lang}>{l.text}</dd></div>
@@ -94,6 +112,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
   const storedCue = snapshot.state.cards[card.id]?.ownCue ?? null;
   const [cueNote, setCueNote] = useState<"saved" | "removed" | null>(null);
   const offerCue = isSpacedKind(card) && (review || s.judged === "partly" || s.judged === "different");
+  const [map, setMap] = useState<ArgumentMap>({});                       // learner-concept-map: the own plan as an argument map
 
   function step(e: PracticeEvent) {
     setError(null);
@@ -145,11 +164,19 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
 
       {s.phase === "plan" && v.planFrame_uk && (
-        <form className="plan-step" onSubmit={e => { e.preventDefault(); step({ type: "SUBMIT_PLAN", text: value }); }} noValidate>
+        <form className="plan-step" onSubmit={e => { e.preventDefault(); step({ type: "SUBMIT_PLAN", text: argumentMapPlan(map) }); }} noValidate>
           <p>Короткий план перед тим, як говорити. Без таймера й без оцінки. Коли почнеш відповідати, план сховається: говори з пам'яті, а не з нотаток.</p>
           <ol className="plan-frame">{v.planFrame_uk.map(q => <li key={q}>{q}</li>)}</ol>
-          <label className="field" htmlFor="pr-plan">Твій план — ключові слова будь-якою мовою</label>
-          <textarea id="pr-plan" className="plan-notes" rows={3} maxLength={PRACTICE_MAX_CHARS} value={value} onChange={e => setValue(e.target.value)} />
+          <fieldset className="choices-set argument-map-form">
+            <legend>Твоя мапа аргументів — ключові слова будь-якою мовою, кожен вузол за бажанням</legend>
+            {ARGUMENT_MAP_SLOTS.map(slot => (
+              <div key={slot.key}>
+                <label className="field" htmlFor={`pr-map-${slot.key}`}>{slot.label_uk}</label>
+                <input id={`pr-map-${slot.key}`} className="plan-notes" autoComplete="off" maxLength={ARGUMENT_NODE_MAX_CHARS}
+                  value={map[slot.key] ?? ""} onChange={e => setMap(m => ({ ...m, [slot.key]: e.target.value }))} />
+              </div>
+            ))}
+          </fieldset>
           <div className="actions">
             <button type="submit" className="btn">План готовий — відповідати</button>
             <button type="button" className="btn secondary" onClick={() => step({ type: "SUBMIT_PLAN", text: "" })}>Без плану</button>
@@ -196,7 +223,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       {s.phase === "reveal" && v.reveal && (
         <>
           <p><strong>Твоя відповідь:</strong> <span lang="fi">{v.first}</span></p>
-          {v.plan && <p className="plan-back"><strong>Твій план:</strong> {v.plan}<br /><span className="muted">Порівняй: що з плану ти встиг(ла) сказати, а що можна додати?</span></p>}
+          {v.plan && <PlanBack plan={v.plan} />}
           {v.key_fi !== null && <p className="feedback" role="status"><strong>{v.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{v.key_fi}</span></p>}
           <Lines lines={v.reveal} />
           {illustration && (                                               // shows the answer, so only after the first attempt
