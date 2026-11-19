@@ -11996,46 +11996,68 @@
       "id": "E07-G03",
       "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
       "summary": "Unicode-exact draft persisted and verified across reload and multi-tab conflict, with a clear local save status",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
+          "file": "apps/web/src/storage/examRepository.test.ts",
+          "contains": "returns a committed revision only after the stored Unicode draft and finished history match"
+        },
+        {
           "file": "apps/web/e2e/exam.spec.ts",
-          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
+          "contains": "E07: unfinished IME composition cannot finish writing; exact Finnish Unicode survives autosave, reload and final submission"
         },
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "a second tab with a stale revision cannot overwrite the rehearsal (REVISION_CONFLICT)"
         },
         {
-          "file": "app/tests/e07-writing-evidence-policy.test.mjs",
-          "contains": "Different input, normalized Unicode or pasted character changes invalidate readback"
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
       ],
-      "gap": "apps/web autosave + reload + CAS conflict + 'Tallennettu' status are tested; exact-Unicode readback exists only in the isolated E07 reference module, not wired into apps/web."
+      "note": "apps/web re-reads every committed checkpoint and compares the exact stored session (composed and decomposed Unicode kept as typed) before any save is shown; a mismatch is READBACK_MISMATCH, never a save. Checked in Chromium, Firefox and WebKit CI; not on a real device."
     },
     {
       "id": "E07-G04",
       "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
       "summary": "IME / Android ä-ö, copy-paste, keyboard and composition boundaries pass browser E2E",
-      "status": "NOT_YET",
-      "plan": "Composition-safe transitions (reference in app/e07-writing-evidence-policy.mjs) + browser/device E2E."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "E07: unfinished IME composition cannot finish writing; exact Finnish Unicode survives autosave, reload and final submission"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam rules: the writing editor follows the practice rules — no spellcheck, no counter, paste allowed"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "keyboard check (digital-task-literacy): on the set-up screen one sample sentence says whether ä/ö can be typed and whether the Ukrainian layout is on; nothing stored, nothing inside the attempt"
+        }
+      ],
+      "gap": "Composition boundaries (an unfinished IME composition blocks navigation and finish), exact ä/ö and decomposed Unicode, the paste rule and a keyboard/layout check pass browser E2E on Chromium, Firefox and WebKit (synthetic composition events). Not yet: a real Android/iOS keyboard on a device (long-press ä/ö, predictive text) — needs device testing."
     },
     {
       "id": "E07-G05",
       "source": "research/yki/e07-writing-editor-evidence-2026-10.json",
       "summary": "Deadline and finish enforced transactionally; no final-text mutation after commit",
-      "status": "PARTIAL",
+      "status": "ENFORCED",
       "evidence": [
         {
-          "file": "apps/web/src/exam/examMachine.test.ts",
-          "contains": "E04: after the practice deadline answers and navigation are refused; only finishing is possible"
+          "file": "apps/web/src/storage/examRepository.test.ts",
+          "contains": "after the practice deadline no answer may change, a finish with the answers as they were is allowed, and a finished attempt is never changed again"
+        },
+        {
+          "file": "apps/web/src/storage/examRepository.test.ts",
+          "contains": "an answer typed before the deadline but not yet autosaved still finishes after it; a new attempt is never blocked by an old finished one"
         },
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
-          "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+          "contains": "E04: after the practice deadline answers and navigation are refused; only finishing is possible"
         }
       ],
-      "gap": "Deadline checked per event in the exam machine and finished sessions are immutable; the storage commit itself does not re-check the deadline."
+      "note": "Enforced twice: per event in the exam machine and inside the IndexedDB transaction (DEADLINE_PASSED, ALREADY_FINISHED). An answer is accepted after the deadline only if it was written before it (lastAnswerAt). Practice deadline only; OPH 2027 behaviour unverified."
     },
     {
       "id": "E07-G06",
@@ -13236,9 +13258,17 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "packages/domain/test/keyboard-check.test.ts",
+          "contains": "says only what the keyboard did: exact sample, Ukrainian layout, missing ä/ö, or another difference"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "keyboard check (digital-task-literacy): on the set-up screen one sample sentence says whether ä/ö can be typed and whether the Ukrainian layout is on; nothing stored, nothing inside the attempt"
         }
       ],
-      "gap": "Neutral computer-based rehearsal with labelled unofficial timer; OPH 2027 UI not verified (R02)."
+      "gap": "Neutral computer-based rehearsal with labelled unofficial timer, per-part practice timers, practice navigation rules (back, review screen, section lock), focused mode, a headphone/microphone check and now a keyboard check on the set-up screen: one sample sentence tells whether ä/ö can be typed and whether the Ukrainian layout is on (Cyrillic look-alike letters), with how-to tips per system; advisory, never blocks, stores nothing, never inside the attempt. OPH 2027 UI (editor, special-letter buttons, layout) not verified (R02, human queue TZ-EXAM-01); no measure of whether this rehearsal reduces digital-format problems on the real exam."
     },
     {
       "id": "productive-paraphrasing",

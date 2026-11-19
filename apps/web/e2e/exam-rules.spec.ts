@@ -247,3 +247,27 @@ test("part timers (TZ-EXAM-07): a part's own practice time is shown; when it run
   await rules.locator("summary").click();
   await expect(rules.locator("li", { hasText: "Час на читання" })).toContainText("10");
 });
+
+test("keyboard check (digital-task-literacy): on the set-up screen one sample sentence says whether ä/ö can be typed and whether the Ukrainian layout is on; nothing stored, nothing inside the attempt", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  const box = page.getByTestId("keyboard-check");
+  const before = await page.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)])));
+  const typed = box.getByLabel("Набери це речення");
+  await typed.fill("Hyvaa paivaa, soin jaateloa.");
+  await box.getByRole("button", { name: "Перевірити клавіатуру" }).click();
+  await expect(box.getByTestId("keyboard-result")).toContainText("ä або ö вийшли як a/o");
+  await typed.fill("Hyvää päivää, söin jäätelöа.");                                              // the last «а» is Cyrillic
+  await box.getByRole("button", { name: "Перевірити клавіатуру" }).click();
+  await expect(box.getByTestId("keyboard-result")).toContainText("українська розкладка");
+  await typed.fill("Hyvää päivää, söin jäätelöä.");
+  await box.getByRole("button", { name: "Перевірити клавіатуру" }).click();
+  await expect(box.getByTestId("keyboard-result")).toContainText("Клавіатура готова");
+  expect(await serious(page)).toEqual([]);
+  expect(await page.evaluate(() => JSON.stringify(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)])))).toBe(before);
+  for (const s of ["Письмо", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await expect(box).toHaveCount(0);                                                               // no typed answer → no keyboard check
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
+  await expect(page.getByTestId("keyboard-check")).toHaveCount(0);                               // never inside the attempt
+});

@@ -24,6 +24,9 @@ import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, fi
 import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import { profileById } from "../content/examProfiles.ts";
 
+/** E07-G05: an answer write, stamped so storage can tell a pre-deadline answer from a late one. */
+const answered = (session: ExamSession, itemId: string, value: string, now: Date) =>
+  ({ ...writeAnswer(session, itemId, value, now), lastAnswerAt: now.toISOString() });
 /** The rules of this attempt (its pinned profile, else the learner's practice choices). */
 const rulesOf = (session: ExamSession) => resolveExamRules(profileById(session.profileId), session.practiceChoices);
 /** TZ-EXAM-08: the section lock of this attempt. */
@@ -180,7 +183,7 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
             { guard: ({ context, event }) => context.composingItemId === event.itemId,
               actions: assign(({ context, event }) => ({
                 composingItemId: null, dirty: true,
-                session: writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)),
+                session: answered(context.session!, event.itemId, event.value, new Date(event.now)),
               })) },
           ],
           ANSWER: [
@@ -188,7 +191,7 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
             { guard: "runningExpired", target: "expired" },
             // a closed part, or one whose own time is up, takes no more answers (the next TICK moves on)
             { guard: ({ context, event }) => isPartClosed(context.session!, context.items.map(i => i.skill), context.session!.index) || partTimeUp(context, event.now) },
-            { actions: assign({ dirty: true, session: ({ context, event }) => writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) }) },
+            { actions: assign({ dirty: true, session: ({ context, event }) => answered(context.session!, event.itemId, event.value, new Date(event.now)) }) },
           ],
           AUTOSAVE: { guard: ({ context }) => context.dirty && context.composingItemId === null, target: "autosaving" },
           GOTO: [
@@ -269,12 +272,12 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
             { guard: "runningExpired", target: "expired", actions: assign({ composingItemId: null }) },
             { guard: ({ context, event }) => context.composingItemId === event.itemId,
               actions: assign(({ context, event }) => ({ composingItemId: null, dirty: true,
-                session: writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) })) },
+                session: answered(context.session!, event.itemId, event.value, new Date(event.now)) })) },
           ],
           ANSWER: [
             { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired" },
-            { actions: assign({ dirty: true, session: ({ context, event }) => writeAnswer(context.session!, event.itemId, event.value, new Date(event.now)) }) },
+            { actions: assign({ dirty: true, session: ({ context, event }) => answered(context.session!, event.itemId, event.value, new Date(event.now)) }) },
           ],
         },
       },
