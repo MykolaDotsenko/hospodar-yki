@@ -418,3 +418,41 @@ export function rektioCard(i: RektioItem): PracticeCard {
     transfer: { label_uk: "Нова ситуація", text: `Склади нове речення з конструкцією «${i.construction_fi}» про себе (інший відмінок не підставляй).`, lang: "uk" },
   };
 }
+
+/**
+ * Pause and resume a practice card (COG-11; LE-01 first answer frozen). An unfinished card is kept on this device
+ * so that a reload, a break or leaving the screen continues it at the same step — and, as important, so that a reload
+ * after the model was shown can never give a "first" answer again. What is kept is the card's own session plus the
+ * text being typed. Never kept: an own pre-task plan (promised "never stored"), so a card with a plan stays session-only.
+ * A damaged or foreign record is refused (null), never guessed.
+ */
+export interface PracticeDraft { cardId: string; session: PracticeSession; value: string; savedAt: string }
+const PHASES: PracticePhase[] = ["plan", "attempt", "reveal", "recall", "transfer", "done"];
+const JUDGED: PracticeJudgement[] = ["same", "partly", "different"];
+const short = (v: unknown, max = PRACTICE_MAX_CHARS) => typeof v === "string" && v.length <= max;
+
+/** The draft to keep for this session, or null when it must stay session-only (finished, or an own plan is in it). */
+export function practiceDraft(s: PracticeSession, value: string, now: Date = new Date()): PracticeDraft | null {
+  if (s.phase === "done" || s.phase === "plan" || (typeof s.plan === "string" && s.plan.trim() !== "")) return null;
+  if (s.phase === "attempt" && !s.first && !String(value ?? "").trim() && !s.cueShown) return null;   // nothing to keep yet
+  const { plan: _plan, ...session } = s;
+  return { cardId: s.cardId, session: { ...session }, value: String(value ?? "").slice(0, PRACTICE_MAX_CHARS), savedAt: now.toISOString() };
+}
+
+/** A kept draft for this card, checked against the card and the session rules; anything else is null. */
+export function restorePracticeDraft(raw: unknown, card: PracticeCard): PracticeDraft | null {
+  const d = raw as PracticeDraft | null;
+  if (!d || typeof d !== "object" || d.cardId !== card.id || !short(d.value) || typeof d.savedAt !== "string" || !Number.isFinite(Date.parse(d.savedAt))) return null;
+  const s = d.session as PracticeSession | null;
+  if (!s || s.cardId !== card.id || !PHASES.includes(s.phase) || s.phase === "done" || s.phase === "plan" || "plan" in s) return null;
+  if (!short(s.first) || !short(s.recall) || !short(s.transfer) || !(s.judged === null || JUDGED.includes(s.judged))) return null;
+  if (s.cue !== undefined && !short(s.cue, OWN_CUE_MAX_CHARS)) return null;
+  if (s.cueShown !== undefined && s.cueShown !== true) return null;
+  const answered = s.phase !== "attempt";
+  if (answered !== (s.first.trim() !== "")) return null;                                  // a later step always has a frozen first answer
+  if (card.choice && answered && !(Number.isInteger(Number(s.first)) && Number(s.first) >= 0 && Number(s.first) < card.choice.options_fi.length)) return null;
+  if (s.phase === "recall" && card.kind !== "paraphrase") return null;
+  if (s.phase === "transfer" && !card.choice && s.judged === null) return null;           // free text is self-compared before moving on
+  if (s.phase === "attempt" && (s.judged !== null || s.recall || s.transfer)) return null;
+  return { cardId: d.cardId, session: { ...s }, value: d.value, savedAt: d.savedAt };
+}

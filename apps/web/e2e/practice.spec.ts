@@ -335,3 +335,43 @@ test("rektio interleaving (interleaving-grammar): after a finished rektio card t
   expect(second).not.toBe(first);                                                         // a different case, not a block of one case
   await axe(page);
 });
+
+test("pause and resume (COG-11): an unfinished card survives a reload at the same step; the first answer stays frozen; a finished card leaves no draft; LEARN erase removes drafts", async ({ page }) => {
+  await open(page, /Те саме іншими словами/);
+  await page.getByLabel("Liike on kokonaan kiinni ensi viikolla.").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Ще не так")).toBeVisible();                                         // the key is now seen
+  await page.reload();
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: /Те саме іншими словами/ }).click();
+  await expect(page.getByRole("button", { name: /^Картка 1 / })).toContainText("незавершена — продовжиться з того самого місця");
+  await page.getByRole("button", { name: /^Картка 1 / }).click();
+  await expect(page.getByTestId("practice-restored")).toContainText("перша відповідь лишилася такою, як була");
+  await expect(page.getByText("Ще не так")).toBeVisible();                                         // same step, same frozen answer
+  await expect(page.getByRole("radio")).toHaveCount(0);                                            // no second "first" answer
+  await axe(page);
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Kaupan aukioloajat muuttuvat");                            // typing is kept too
+  await page.reload();
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: /Те саме іншими словами/ }).click();
+  await page.getByRole("button", { name: /^Картка 1 / }).click();
+  await expect(page.getByRole("textbox")).toHaveValue("Kaupan aukioloajat muuttuvat");
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Ensi kuussa kirjasto on auki myöhempään.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено на цьому пристрої/)).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:practice-drafts:v1"))).toBeNull();   // finished: no draft left
+
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await page.getByRole("button", { name: /^Картка 2 / }).click();
+  await page.locator('input[type="radio"]').first().check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.goto("./");
+  await page.getByRole("button", { name: /Мої дані: копія й видалення/ }).click();
+  await expect(page.getByRole("list", { name: "Збережені дані" })).toContainText("незавершених практичних карток 1");
+  await page.getByLabel(/Увесь прогрес навчання/).check();
+  await page.getByLabel(/Щоб підтвердити/).fill("ВИДАЛИТИ");
+  await page.getByRole("button", { name: "Видалити прогрес навчання" }).click();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem("hospodar-yki:web:practice-drafts:v1"))).toBeNull();
+});

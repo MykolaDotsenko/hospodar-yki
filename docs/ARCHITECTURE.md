@@ -752,6 +752,16 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Pause and resume practice cards (COG-11, 19.11.2026):**
+- `packages/domain/src/practice.ts` adds `practiceDraft` and `restorePracticeDraft`.
+  - The draft keeps the card session plus the text being typed.
+  - `practiceDraft` keeps nothing while planning, after an own plan (it is never stored), or once finished.
+  - `restorePracticeDraft` refuses a foreign, damaged or inconsistent record. For example, a later step without a frozen first answer, an option that does not exist, or a phase the card cannot have.
+- `apps/web/src/storage/practiceDrafts.ts` stores one record per card (at most 20) in localStorage, with readback.
+- `PracticeRun` restores the card at the same step. A reload after the model was shown can no longer give a second «first» answer.
+- The list marks the card «незавершена». «Мої дані» lists the drafts, and LEARN erase removes them. They are not exported.
+- Tests: `practice-draft.test.ts`, E2E «pause and resume (COG-11)…».
+
 **Audio guide for YKI listening preparation (CURATED-09, 19.11.2026):**
 - `packages/domain/src/ykiAudioGuide.ts` reads `sources/audio/yki-targeted-sources-2026-10.json` and keeps only link-only publisher pages:
   - from the learning-link hosts plus Sitra, Selkosanomat and Papunet;
