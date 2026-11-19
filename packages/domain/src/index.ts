@@ -45,3 +45,4 @@ export * from "./examLook.ts";
 export * from "./studyPlan.ts";
 export * from "./videoExposure.ts";
 export * from "./examCoverage.ts";
+export * from "./raterPackage.ts";

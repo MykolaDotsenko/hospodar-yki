@@ -12394,9 +12394,21 @@
         {
           "file": "apps/web/src/exam/examMachine.test.ts",
           "contains": "EXAM-05: no result is computable before a durable finish; after it, objective only and never a grade"
+        },
+        {
+          "file": "packages/domain/test/rater-package.test.ts",
+          "contains": "rater package: writing and speaking only, with OPH criterion names and sources, empty level choices for the rater, no grade anywhere"
+        },
+        {
+          "file": "packages/domain/test/rater-package.test.ts",
+          "contains": "rater package HTML: self-contained, every learner text escaped, the voice recording stays on the device, the rating left empty"
+        },
+        {
+          "file": "apps/web/e2e/exam.spec.ts",
+          "contains": "rater package (TZ-EXAM-16): after a finished rehearsal the learner downloads their writing/speaking with the prompts, OPH criterion names and an empty rating form; the app rates nothing"
         }
       ],
-      "gap": "No grade is ever produced (tested); the human assessment package and double-marked calibration do not exist (needs S2 raters)."
+      "gap": "No grade is ever produced (tested); a package for a human S2 rater now exists — after a finished rehearsal the learner may download their writing and typed speaking answers with the prompts, the OPH criterion dimension names with links to the official PDFs and an empty rating form (the app never rates; voice stays on the device). Double-marked calibration does not exist (needs S2 raters)."
     },
     {
       "id": "TZ-EXAM-17",

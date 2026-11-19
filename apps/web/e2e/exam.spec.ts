@@ -173,3 +173,34 @@ test("TZ-EXAM-03/04: three exam profiles with honest availability, six separate 
   await expect(page.getByText("Tehtävä 2 / 9")).toBeVisible();                            // resumed from the checkpoint
   await expect(page.getByTestId("exam-profile")).toHaveText("Profiili: Harjoitus");         // the pinned profile survives reload
 });
+
+test("rater package (TZ-EXAM-16): after a finished rehearsal the learner downloads their writing/speaking with the prompts, OPH criterion names and an empty rating form; the app rates nothing", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Читання", "Аудіювання", "Письмо"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await page.getByRole("textbox").fill("Valitettavasti en pääse torstaina. <b>Sopisiko</b> perjantai?");
+  await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible({ timeout: 5000 });
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  const box = page.getByTestId("rater-package");
+  await expect(box).toContainText("оцінку ставить лише людина");
+  const [download] = await Promise.all([page.waitForEvent("download"), box.getByRole("button", { name: "Завантажити пакет для викладача" }).click()]);
+  expect(download.suggestedFilename()).toMatch(/^hospodar-yki-rater-package-\d{4}-\d{2}-\d{2}\.html$/);
+  const html = readFileSync(await download.path(), "utf8");
+  expect(html).toContain("Valitettavasti en pääse torstaina. &lt;b&gt;Sopisiko&lt;/b&gt; perjantai?");   // escaped
+  expect(html).toContain("Puhumisen_arviointikriteerit.pdf");
+  expect(html).toContain("☐ 4");
+  expect(html).not.toMatch(/☑|<script/);
+});
+
+test("rater package is offered only when there is writing or speaking to rate", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  for (const s of ["Читання", "Аудіювання", "Письмо"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByRole("button", { name: /Aloita/ }).click();                         // speaking, left unanswered
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await expect(page.getByRole("heading", { name: /Tulokset/ })).toBeVisible();
+  await expect(page.getByTestId("rater-package")).toHaveCount(0);
+});

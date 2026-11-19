@@ -713,6 +713,14 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Package for a human rater (TZ-EXAM-16, 19.11.2026):**
+- `packages/domain/src/raterPackage.ts` builds the package from a finished rehearsal's writing and typed speaking answers and their prompts.
+- It adds `OPH_CRITERIA`: the dimension names from the official OPH speaking and writing PDFs as documented in research №31, with links, and the note that rating is holistic.
+- It adds `RATER_LEVEL_CHOICES` for the rater to tick; the app never fills a rating.
+- `raterPackageHtml` makes a self-contained, printable HTML file with every learner text escaped. Voice recordings stay on the device and are only mentioned.
+- `RaterPackageButton` on the results screen appears only when there is something to rate. The file is created locally and sent nowhere.
+- Tests: `rater-package.test.ts`, E2E «rater package…».
+
 **Exam form coverage (TZ-EXAM-15/06, 19.11.2026):**
 - `packages/domain/src/examCoverage.ts`: `formCoverage` derives task families from the form's own item and question ids through the E03 family mapping (`research/yki/e03-construct-task-coverage-audit-2026-10.json`). Topics (T01–T09) and functions (F01–F06) from `yki-official-patterns-v2.json` count only when the form declares them.
 - `admitExamForm` refuses a form that claims «full» while anything is missing.
