@@ -13,6 +13,8 @@ import { dialogues } from "./dialogues.ts";
 import { clinicItems } from "./writingClinic.ts";
 import { PRACTICE_KINDS, practiceCards } from "./practice.ts";
 import { listeningLessons } from "./listening.ts";
+import { externalMissions } from "./externalMissions.ts";
+import { EXTERNAL_MISSION_PLACE } from "./externalMissionPlaces.ts";
 
 const themeFiles = import.meta.glob("../../../../learning/exercises/b1/themes/*.json", { eager: true, import: "default" }) as Record<string, { id: string; title_fi: string; title_uk: string }>;
 const THEME_FILE: Record<PlaceId, string> = {
@@ -38,7 +40,7 @@ const LIFE: Record<PlaceId, { goal_uk: string; deed_uk: string }> = {
   society: { goal_uk: "Впоратися з офіційними справами: Kela, курси, онлайн-послуги міста.", deed_uk: "Відкрий сайт свого міста фінською й знайди одну сторінку, яка тобі справді потрібна." },
 };
 
-export type QuestView = "reading" | "listening" | "dialogue" | "writing" | "practice";
+export type QuestView = "reading" | "listening" | "dialogue" | "writing" | "practice" | "external";
 export interface Quest { view: QuestView; itemId: string; kindUk: string; title: string; titleLang: "fi" | "uk"; practiceKind?: PracticeKind; count?: number;
   /** Evidence task ids start with this when it differs from itemId (listening questions). */ taskPrefix?: string;
   /** The YKI skill of a single-item quest (practice groups have none here). */ skill?: YkiSkill }
@@ -91,6 +93,16 @@ for (const c of practiceCards) {
 for (const { place, kind, ids } of practiceBy.values()) {
   const meta = PRACTICE_KINDS.find(k => k.kind === kind)!;
   questsBy.get(place)!.push({ view: "practice", itemId: ids[0]!, kindUk: "Практика", title: meta.title, titleLang: "uk", practiceKind: kind, count: ids.length });
+}
+
+/**
+ * External-source missions (link-only, ungraded) in their place: listed as quests so the learner meets them where the
+ * situation belongs. They carry no YKI skill here and stay out of the place index, so they never count as a door, key
+ * or YKI map cell, and never become a whole-task step — the app cannot hear the publisher's recording.
+ */
+for (const m of externalMissions) {
+  const p = EXTERNAL_MISSION_PLACE[m.id];
+  if (p) questsBy.get(p)!.push({ view: "external", itemId: m.id, taskPrefix: m.id, kindUk: "Місія з джерелом", title: m.title_fi, titleLang: "fi" });
 }
 
 export const placeIndex = buildPlaceIndex(indexItems);

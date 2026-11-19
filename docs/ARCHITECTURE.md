@@ -752,6 +752,12 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**External-source missions in their places (docs/29 queue 10, 19.11.2026):**
+- `apps/web/src/content/externalMissionPlaces.ts` is an editorial map from mission to place (or `null` for a general mission). It is kept in the app so the `sources/` catalogs and their review hashes stay unchanged.
+- `places.ts` adds «Місія з джерелом» quests (`view: "external"`). They carry no skill and stay out of the place index: no door, key, YKI map cell or whole-task step.
+- `ExternalMissionScreen` opens the mission directly (`initialId`).
+- Tests: `externalMissionPlaces.test.ts` (every loaded mission is listed); E2E «external missions in their places…».
+
 **Deadline and finish enforced in storage (E07-G05, 19.11.2026):**
 - `createExamRepository(dbName, now)` runs `guardFinal` inside the IndexedDB `commit` and `finish` transactions. For the same attempt:
   - a finished stored attempt is never changed again (`ALREADY_FINISHED`);
