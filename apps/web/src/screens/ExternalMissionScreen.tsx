@@ -18,8 +18,9 @@ const code = (e: unknown) => String((e as { code?: string })?.code ?? "SAVE_FAIL
  * Missions with an external source (packages/domain/src/externalMission.ts; CURATED-09). The recording or text opens on the
  * publisher's site; the app gives an original task, then how to check yourself, then a new situation. Nothing is scored.
  */
-export function ExternalMissionScreen({ repository, snapshot, onSaved, onHome }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void }) {
-  const [open, setOpen] = useState<ExternalMission | null>(null);
+export function ExternalMissionScreen({ repository, snapshot, onSaved, onHome, initialId }: { repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onHome: () => void;
+  /** Opened from its life place in «Моє господарство»: this exact mission. */ initialId?: string | null }) {
+  const [open, setOpen] = useState<ExternalMission | null>(() => externalMissions.find(m => m.id === initialId) ?? null);
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
   if (open) return <ExternalRun key={open.id} m={open} repository={repository} snapshot={snapshot} onSaved={onSaved}
     onNext={() => setOpen(externalMissions.find(x => x.id !== open.id && !done.has(`${x.id}-transfer`)) ?? null)} onList={() => setOpen(null)} />;

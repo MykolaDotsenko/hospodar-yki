@@ -137,7 +137,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "home" && <HomeScreen state={snapshot?.state ?? null} guide={showGuide} go={v => goTo(v)} openPlace={id => { setPlace(id); goTo("place"); }}
           session={session} onSession={setSession} start={(v, id) => goTo(v, id)} goals={goals} onGoals={setGoals} />}
         {view === "place" && place && snapshot && <PlaceScreen id={place} state={snapshot.state} guide={showGuide} onHome={() => goTo("home")}
-          open={(v, id, note) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : "reading", id, false,
+          open={(v, id, note) => goTo(v === "dialogue" ? "dialogue" : v === "writing" ? "writing" : v === "practice" ? "practice" : v === "listening" ? "listening" : v === "external" ? "external" : "reading", id, false,
             note ? { place: places.find(p => p.id === place)?.title_uk ?? "", text: note } : null)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); setGoals(readGoals()); }} onHome={() => goTo("home")} />}
@@ -146,7 +146,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "practice" && !EMPTY_IN_RELEASE.practice && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
         {view === "masterclass" && !EMPTY_IN_RELEASE.masterclass && snapshot && <MasterclassScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={id => goTo("listening", id)} />}
-        {view === "external" && !EMPTY_IN_RELEASE.external && snapshot && <ExternalMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "external" && !EMPTY_IN_RELEASE.external && snapshot && <ExternalMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "pictures" && !EMPTY_IN_RELEASE.pictures && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "dialogue" && !EMPTY_IN_RELEASE.dialogue && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
