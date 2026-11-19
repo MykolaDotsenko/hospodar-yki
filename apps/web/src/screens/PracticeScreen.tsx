@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
+import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, practiceDraft, restorePracticeDraft, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import { illustrations } from "../content/media.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { clearPracticeDraft, readPracticeDrafts, writePracticeDraft } from "../storage/practiceDrafts.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
@@ -27,6 +28,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
   const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
 
   const due = practiceDue(snapshot.state, practiceCards);
+  const drafts = readPracticeDrafts();                                     // COG-11: unfinished cards on this device
   const [runId, setRunId] = useState(0);                                  // a due card may be the same card again
   const open = (c: PracticeCard | null) => { setCard(c); setRunId(n => n + 1); };
 
@@ -62,7 +64,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
             {practiceCards.filter(c => c.kind === kind).map((c, i) => (
               <li key={c.id}><button type="button" className="choice" onClick={() => open(c)}>
                 <span>Картка {i + 1}</span>
-                <small>{groupLabel(c.group)} · {done.has(`${c.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
+                <small>{groupLabel(c.group)} · {c.id in drafts ? "незавершена — продовжиться з того самого місця" : done.has(`${c.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
               </button></li>
             ))}
           </ul>
@@ -101,8 +103,17 @@ function Lines({ lines }: { lines: PracticeLine[] }) {
 }
 
 function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onList }: { card: PracticeCard; review: boolean; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onNext: () => void; onList: () => void }) {
-  const [s, setS] = useState<PracticeSession>(() => startPractice(card));
-  const [value, setValue] = useState("");
+  // COG-11: an unfinished card continues where it was left (and a reload never gives a first answer back).
+  const [kept] = useState(() => restorePracticeDraft(readPracticeDrafts()[card.id], card));
+  const [s, setS] = useState<PracticeSession>(() => kept?.session ?? startPractice(card));
+  const [value, setValue] = useState(kept?.value ?? "");
+  const [draftError, setDraftError] = useState<string | null>(null);
+  useEffect(() => {
+    if (saved) return;
+    const d = practiceDraft(s, value);
+    try { if (d) writePracticeDraft(d); else if (s.phase !== "done") clearPracticeDraft(card.id); setDraftError(null); }
+    catch { setDraftError("Браузер не зберіг незавершену картку: після перезавантаження вона почнеться заново."); }
+  }, [s, value]);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -137,6 +148,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
         throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
       onSaved(verified); setS(finished); setSaved(true); setValue("");
+      try { clearPracticeDraft(card.id); } catch { /* the card is saved; a leftover draft is refused on restore (phase check) */ }
       const after = verified.state.cards[card.id]?.ownCue ?? null;
       setCueNote(finished.cue === undefined ? null : after ? "saved" : storedCue ? "removed" : null);
     } catch (err) {
@@ -160,6 +172,8 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       <h1 id="pr-run"{...(card.kind === "rektio" ? { lang: "fi" } : {})}>{groupLabel(card.group)}</h1>
       <ThresholdRoute steps={routeSteps} current={routeIndex} accent={card.attemptSkill} />
       <TrustNote />
+      {kept && !saved && <p className="feedback" role="status" data-testid="practice-restored">Незавершену картку відновлено з цього пристрою{kept.session.phase !== "attempt" ? " — твоя перша відповідь лишилася такою, як була" : ""}.</p>}
+      {draftError && <p className="feedback warn" role="alert">{draftError}</p>}
       {review && s.phase === "attempt" && <p className="muted">Повторення: згадай без зразка.</p>}
       {v.prompt.length > 0 && <Lines lines={v.prompt} />}
 
@@ -216,7 +230,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
           )}
           {error && <p className="feedback error" role="alert">{error}</p>}
           <div className="actions"><button type="submit" className="btn">Відповісти</button></div>
-          <p className="muted">Перша відповідь фіксується. Зразок з'явиться після неї. Незавершена картка не зберігається після перезавантаження.</p>
+          <p className="muted">Перша відповідь фіксується. Зразок з'явиться після неї. Можна зробити перерву: незавершена картка збережеться на цьому пристрої й продовжиться з того самого місця{v.canPlan || s.plan !== undefined ? " (власний план не зберігається — картку з планом краще завершити за раз)" : ""}.</p>
         </form>
       )}
 

@@ -1793,9 +1793,21 @@
         {
           "file": "apps/web/e2e/writing-clinic.spec.ts",
           "contains": "final save conflict keeps the learner on the new-task step with their text (no fake 'done')"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "pause and resume (COG-11): an unfinished card survives a reload at the same step; the first answer stays frozen; a finished card leaves no draft; LEARN erase removes drafts"
+        },
+        {
+          "file": "packages/domain/test/practice-draft.test.ts",
+          "contains": "keeps the typed text and every later step; a reload restores the same step and the frozen first answer"
+        },
+        {
+          "file": "packages/domain/test/practice-draft.test.ts",
+          "contains": "never keeps an own plan, a finished card or a damaged/foreign record"
         }
       ],
-      "gap": "No forced breaks exist and saved work survives reload; there is no explicit pause/resume control and in-progress text on some screens is lost on reload."
+      "gap": "No forced breaks exist and saved work survives reload. Practice cards — the most frequent task — now pause and resume: an unfinished card is kept on this device per card (at most 20), restored at the same step with the text being typed, and a reload after the model was shown can no longer give a second 'first' answer; the card list marks it «незавершена»; drafts are listed in «Мої дані», never exported and erased with LEARN data. Not yet: masterclasses and external-source missions still start over after a reload, an opinion card with an own pre-task plan stays session-only by design (the plan is never stored), and there is no explicit 'take a break' prompt — the learner simply leaves and comes back."
     },
     {
       "id": "COG-12",
