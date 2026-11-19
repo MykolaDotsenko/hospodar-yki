@@ -315,3 +315,19 @@ test("step route on a phone: a step number never splits over two lines when the 
     expect(lines.filter(l => l.lines > 1), `width ${width}`).toEqual([]);
   }
 });
+
+test("exam reading passage keeps a readable measure at desktop width (about 65–70 characters per line, like LEARN reading)", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  const passage = page.locator(".exam-passage").first();
+  await expect(passage).toBeVisible();
+  const perLine = await passage.evaluate(e => {
+    const range = document.createRange(); range.selectNodeContents(e);
+    const lines = new Set([...range.getClientRects()].filter(r => r.width > 50).map(r => Math.round(r.top))).size || 1;
+    return (e.textContent ?? "").trim().length / lines;
+  });
+  expect(perLine).toBeGreaterThan(45);
+  expect(perLine).toBeLessThanOrEqual(75);
+});
