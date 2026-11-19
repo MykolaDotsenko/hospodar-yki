@@ -16,6 +16,7 @@ import { ExamLook } from "./ExamLook.tsx";
 import { ExamCoverage } from "./ExamCoverage.tsx";
 import { RaterPackageButton } from "./RaterPackageButton.tsx";
 import { ExamKeyboardCheck } from "./ExamKeyboardCheck.tsx";
+import { YkiAudioGuide } from "./YkiAudioGuide.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -364,6 +365,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
       </div>
       {skills.length === 0 && <p className="feedback error" role="alert">Обери хоча б одну навичку.</p>}
       <ExamLook />
+      <YkiAudioGuide skills={partial ? skills : null} />
       <h2>Попередні репетиції</h2>
       <ExamHistoryList history={history} />
     </section>

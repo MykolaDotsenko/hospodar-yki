@@ -752,6 +752,16 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Audio guide for YKI listening preparation (CURATED-09, 19.11.2026):**
+- `packages/domain/src/ykiAudioGuide.ts` reads `sources/audio/yki-targeted-sources-2026-10.json` and keeps only link-only publisher pages:
+  - from the learning-link hosts plus Sitra, Selkosanomat and Papunet;
+  - labelled `not_exam_simulation`;
+  - not official samples and not direct file downloads.
+- It bands them warm-up / B1 / stretch by their level label.
+- `YkiAudioGuide` shows them on the rehearsal set-up screen when listening is chosen, never inside an attempt, with the catalog's listening routine.
+- The register entry «TO_CONNECT» was removed.
+- Tests: `yki-audio-guide.test.ts`, E2E «audio guide for YKI listening…».
+
 **External-source missions in their places (docs/29 queue 10, 19.11.2026):**
 - `apps/web/src/content/externalMissionPlaces.ts` is an editorial map from mission to place (or `null` for a general mission). It is kept in the app so the `sources/` catalogs and their review hashes stay unchanged.
 - `places.ts` adds «Місія з джерелом» quests (`view: "external"`). They carry no skill and stay out of the place index: no door, key, YKI map cell or whole-task step.
