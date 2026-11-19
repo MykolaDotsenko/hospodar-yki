@@ -713,6 +713,13 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **S2 review:** the three mission catalogs are `REVIEWABLE_SOURCE_CATALOGS` in `scripts/validate_content_publication.py`, mirrored in `reviewBanks.ts` and kept in sync by a unittest. The publication gate, `apply_review_decisions.py` and `publish_reviewed.py` treat them like content files; any other `sources/` file is refused. The reviewer workspace has three banks for them, «Місії: …» (29 banks). A release build shows a mission only after it is published.
 - **Tests:** `packages/domain/test/external-mission.test.ts`, E2E `e2e/external-missions.spec.ts`.
 
+**Exam form coverage (TZ-EXAM-15/06, 19.11.2026):**
+- `packages/domain/src/examCoverage.ts`: `formCoverage` derives task families from the form's own item and question ids through the E03 family mapping (`research/yki/e03-construct-task-coverage-audit-2026-10.json`). Topics (T01–T09) and functions (F01–F06) from `yki-official-patterns-v2.json` count only when the form declares them.
+- `admitExamForm` refuses a form that claims «full» while anything is missing.
+- `ExamCoverage` on the rehearsal set-up screen (never in the attempt) shows what the chosen set covers: today 6 of 13 task types, «тренувальна міні-форма, не повний іспит»; topics and functions are not yet tagged.
+- Structural only: says nothing about S2 quality or 2027 fidelity.
+- Tests: `exam-coverage.test.ts`, E2E «exam coverage…».
+
 **Audio notes in delayed listening checks (strategic-audio-notes, 18.11.2026):** `ui/AudioNotes.tsx` (`AudioNotesBox`, `AudioNotesBack`) is now shared by the LEARN listening lesson and the delayed listening check (`SkillChecks`).
 - The same rules apply in both: own when/where/what notes, which are own processing rather than support, so answers stay scored.
 - The notes come back next to the keys after saving and live in session state only.

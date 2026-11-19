@@ -164,3 +164,19 @@ test("model-answer exposure (MOCK-VID-08): marking that the model answers were w
   await expect(page.getByText(/Пробні іспити видалено й перевірено/)).toBeVisible();
   expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:video-exposure:v1"))).toBeNull();
 });
+
+test("exam coverage (TZ-EXAM-06/15): the chosen set says which of the 13 task types it covers and that it is a practice mini-form, not a full exam; nothing of it inside the attempt", async ({ page }) => {
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  const cov = page.getByTestId("exam-coverage");
+  await expect(cov.locator("summary")).toContainText("6 з 13 типів завдань — тренувальна міні-форма, не повний іспит");
+  await cov.locator("summary").click();
+  await expect(cov).toContainText("Немає:");
+  await expect(cov).toContainText("аудіювання: так / ні");
+  await expect(cov).toContainText("Теми й комунікативні функції у формі ще не позначені");
+  expect(await cov.innerText()).not.toMatch(/рівень\s*[34]|готовність до YKI/i);                // no level or readiness claim
+  for (const s of ["Читання", "Письмо", "Говоріння"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.locator(".exam-audio audio")).toHaveCount(1);
+  await expect(page.getByTestId("exam-coverage")).toHaveCount(0);                      // set-up screen only
+});

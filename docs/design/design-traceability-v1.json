@@ -12198,7 +12198,7 @@
           "contains": "EXAM-03 subtest (speaking only) + draft autosave survives reload without navigation + EXAM-09 history after finish"
         }
       ],
-      "gap": "Full and single-skill sessions exist only on two 9-item mini rehearsals; no full-length form (needs the S2-authored bank)."
+      "gap": "Full and single-skill sessions exist only on two 9-item mini rehearsals; no full-length form (needs the S2-authored bank). The set-up screen now shows each set's structural coverage and calls a mini set a practice mini-form, never a full exam (TZ-EXAM-15 check)."
     },
     {
       "id": "TZ-EXAM-07",
@@ -12368,8 +12368,22 @@
       "id": "TZ-EXAM-15",
       "source": "docs/21-digital-yki-exam-simulator-executable-spec.md",
       "summary": "Construct coverage: every form checked against 9 topics and 6 communicative functions (E03)",
-      "status": "NOT_YET",
-      "plan": "Coverage test over each form using the E03 audit; depends on the first full form."
+      "status": "PARTIAL",
+      "evidence": [
+        {
+          "file": "packages/domain/test/exam-coverage.test.ts",
+          "contains": "exam coverage: 13 families, 9 topics and 6 functions from the canonical taxonomy; families come from the form's own ids via the E03 mapping"
+        },
+        {
+          "file": "packages/domain/test/exam-coverage.test.ts",
+          "contains": "exam coverage: a form that claims to be a full exam is refused with every missing family, topic or function; a practice subset is admitted and stays a subset"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "exam coverage (TZ-EXAM-06/15): the chosen set says which of the 13 task types it covers and that it is a practice mini-form, not a full exam; nothing of it inside the attempt"
+        }
+      ],
+      "gap": "The coverage check exists (admitExamForm refuses a 'full' claim with any missing family, topic or function; families from the form's own ids via the E03 mapping) and the set-up screen shows each set's coverage (6 of 13 task types, a practice mini-form). No full form exists yet, and the minis do not declare topics or functions — that tagging is S2 work on the first full form."
     },
     {
       "id": "TZ-EXAM-16",
