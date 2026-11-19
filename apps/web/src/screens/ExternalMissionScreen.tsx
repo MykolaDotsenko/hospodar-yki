@@ -1,9 +1,10 @@
-import { useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, externalEvidence, externalReducer, externalView, startExternal, EXTERNAL_MAX_CHARS,
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { addDiagnostic, externalEvidence, externalReducer, externalView, startExternal, externalDraft, restoreExternalDraft, EXTERNAL_MAX_CHARS,
   type ExternalEvent, type ExternalMission, type ExternalSession, type LearnerState } from "@hospodar/domain";
 import { externalMissionGroups, externalMissions } from "../content/externalMissions.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { externalDrafts } from "../storage/practiceDrafts.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
@@ -37,7 +38,7 @@ export function ExternalMissionScreen({ repository, snapshot, onSaved, onHome, i
             {g.missions.map(m => (
               <li key={m.id}><button type="button" className="choice" onClick={() => setOpen(m)}>
                 <span lang="fi">{m.title_fi}</span>
-                <small>{SKILL_UK[m.skill]}{m.level ? ` · ${m.level}` : ""} · {m.publisher} · {done.has(`${m.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
+                <small>{SKILL_UK[m.skill]}{m.level ? ` · ${m.level}` : ""} · {m.publisher} · {m.id in externalDrafts.read() ? "незавершена — продовжиться з того самого місця" : done.has(`${m.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
               </button></li>
             ))}
           </ul>
@@ -49,11 +50,20 @@ export function ExternalMissionScreen({ repository, snapshot, onSaved, onHome, i
 }
 
 function ExternalRun({ m, repository, snapshot, onSaved, onNext, onList }: { m: ExternalMission; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onNext: () => void; onList: () => void }) {
-  const [s, setS] = useState<ExternalSession>(() => startExternal(m));
-  const [value, setValue] = useState("");
+  // COG-11: an unfinished mission continues where it was left; a frozen answer is never re-opened by a reload.
+  const [kept] = useState(() => restoreExternalDraft(externalDrafts.read()[m.id], m));
+  const [s, setS] = useState<ExternalSession>(() => kept?.session ?? startExternal(m));
+  const [value, setValue] = useState(kept?.value ?? "");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [draftError, setDraftError] = useState<string | null>(null);
+  useEffect(() => {
+    if (saved) return;
+    const d = externalDraft(s, value);
+    try { if (d) externalDrafts.write(m.id, d); else externalDrafts.clear(m.id); setDraftError(null); }
+    catch { setDraftError("Браузер не зберіг незавершений урок: після перезавантаження він почнеться заново."); }
+  }, [s, value]);
   const busy = useRef(false);
   const v = externalView(s, m);
 
@@ -77,6 +87,7 @@ function ExternalRun({ m, repository, snapshot, onSaved, onNext, onList }: { m: 
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
         throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
       onSaved(verified); setS(finished); setSaved(true); setValue("");
+      try { externalDrafts.clear(m.id); } catch { /* saved; a leftover draft is refused on restore */ }
     } catch (err) {
       setError(`Не збережено (${code(err)}). Твій текст залишився в полі. ${writeFailureAdvice(err)}`);
     } finally { busy.current = false; setSaving(false); }
@@ -89,6 +100,8 @@ function ExternalRun({ m, repository, snapshot, onSaved, onNext, onList }: { m: 
       {m.title_uk && <p className="muted">{m.title_uk}</p>}
       <ThresholdRoute steps={STEPS} current={STEP_INDEX[s.phase]} accent={m.skill} />
       <TrustNote />
+      {kept && !saved && <p className="feedback" role="status" data-testid="lesson-restored">Незавершену місію відновлено з цього пристрою — з того самого кроку; дана відповідь не змінюється.</p>}
+      {draftError && <p className="feedback warn" role="alert">{draftError}</p>}
 
       {s.phase === "open" && (
         <form onSubmit={e => { e.preventDefault(); step({ type: "ANSWER", text: value }); }} noValidate>
@@ -103,7 +116,7 @@ function ExternalRun({ m, repository, snapshot, onSaved, onNext, onList }: { m: 
             <button type="submit" className="btn">Відповісти</button>
             <button type="button" className="btn secondary" onClick={() => step({ type: "NOT_FOUND" })}>Не знайшов(ла) запису чи матеріалу</button>
           </div>
-          <p className="muted">Відповідай лише про те, що справді почув(ла) чи прочитав(ла). Незавершена місія не зберігається після перезавантаження.</p>
+          <p className="muted">Відповідай лише про те, що справді почув(ла) чи прочитав(ла). Можна зробити перерву: незавершена місія збережеться на цьому пристрої й продовжиться з того самого місця.</p>
         </form>
       )}
       {s.phase === "not_found" && (

@@ -7,7 +7,7 @@ import { examContentVersion } from "../content/exam.ts";
 import { formatStorageMiB, inspectBrowserStorage, requestPersistentStorage, type BrowserStorageReport, type PersistenceRequest } from "../storage/browserStorageHealth.ts";
 import { Icon } from "../ui/icons.tsx";
 import { clearDeeds, hasDeeds } from "../storage/deeds.ts";
-import { clearPracticeDrafts, hasPracticeDrafts, readPracticeDrafts } from "../storage/practiceDrafts.ts";
+import { clearPracticeDrafts, hasPracticeDrafts, lessonDraftCounts } from "../storage/practiceDrafts.ts";
 import { clearScenarioChecks, hasScenarioChecks } from "../storage/scenarioChecks.ts";
 import { clearStudyPlan, hasStudyPlan } from "../storage/studyPlan.ts";
 import { clearVideoExposure, hasVideoExposure } from "../storage/videoExposure.ts";
@@ -184,7 +184,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         <p className="feedback error" role="alert">Не вдалося прочитати дані ({loaded.error}). Нічого не змінено.</p>
       ) : (
         <ul className="skill-lines" aria-label="Збережені дані">
-          <li><strong>Навчання</strong>: місій {c!.attempts}, відповідей з діагностики й вправ {c!.diagnostics}, відкладених перевірок {c!.retention}, карток повторення {c!.cards}, незавершених місій {draftPresent ? 1 : 0}, незавершених майстерень письма {loaded.clinicDraftPresent ? 1 : 0}, незавершених вправ читання {loaded.readingDraftPresent ? 1 : 0}, незавершених вправ аудіювання {loaded.listeningDraftPresent ? 1 : 0}, незавершених діалогів {loaded.dialogueDraftPresent ? 1 : 0}, незавершених фото-місій {loaded.pictureDraftPresent ? 1 : 0}, незавершених діагностик {loaded.diagnosticDraftPresent ? 1 : 0}, незавершених практичних карток {Object.keys(readPracticeDrafts()).length}, записів про перенесення з попередньої версії {c!.imports}</li>
+          <li><strong>Навчання</strong>: місій {c!.attempts}, відповідей з діагностики й вправ {c!.diagnostics}, відкладених перевірок {c!.retention}, карток повторення {c!.cards}, незавершених місій {draftPresent ? 1 : 0}, незавершених майстерень письма {loaded.clinicDraftPresent ? 1 : 0}, незавершених вправ читання {loaded.readingDraftPresent ? 1 : 0}, незавершених вправ аудіювання {loaded.listeningDraftPresent ? 1 : 0}, незавершених діалогів {loaded.dialogueDraftPresent ? 1 : 0}, незавершених фото-місій {loaded.pictureDraftPresent ? 1 : 0}, незавершених діагностик {loaded.diagnosticDraftPresent ? 1 : 0}, незавершених практичних карток {lessonDraftCounts().practice}, незавершених майстер-класів {lessonDraftCounts().masterclass}, незавершених місій із зовнішніми джерелами {lessonDraftCounts().external}, записів про перенесення з попередньої версії {c!.imports}</li>
           <li><strong>Пробні іспити</strong> (окремо від навчання): незавершена репетиція {c!.examCurrent ? "є" : "немає"}, завершених репетицій {c!.examHistory}, голосових записів {voiceClips}</li>
         </ul>
       )}
@@ -227,7 +227,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           : `Відновлення не підтверджено (${restoreStatus.error}). Перевір дані перед новою спробою.`}</p>}
 
       <h2>Видалити</h2>
-      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, практичні картки, твою мету, план «коли …, я …», приватні позначки «зробив(ла) це в житті» і твою самоперевірку кроків «Цілої справи» (вони в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
+      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, практичні картки, майстер-класи, місії із зовнішніми джерелами, твою мету, план «коли …, я …», приватні позначки «зробив(ла) це в житті» і твою самоперевірку кроків «Цілої справи» (вони в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
       <fieldset className="choices-set">
         <legend>Що видалити</legend>
         <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasScenarioChecks() && !hasStudyPlan() && !hasGoals() && !hasPracticeDrafts())}
