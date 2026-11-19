@@ -12955,7 +12955,7 @@
         },
         {
           "file": "apps/web/e2e/practice.spec.ts",
-          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+          "contains": "pre-task planning (opinion): optional own plan as an argument map (learner-concept-map), hidden while answering, back only next to the model as the map; quick reactions get no plan"
         },
         {
           "file": "packages/domain/test/practice.test.ts",
@@ -13267,10 +13267,14 @@
         },
         {
           "file": "apps/web/e2e/practice.spec.ts",
-          "contains": "pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan"
+          "contains": "pre-task planning (opinion): optional own plan as an argument map (learner-concept-map), hidden while answering, back only next to the model as the map; quick reactions get no plan"
+        },
+        {
+          "file": "packages/domain/test/practice.test.ts",
+          "contains": "a map is kept as plan lines and read back in map order; empty nodes drop out; anything else is plain text"
         }
       ],
-      "gap": "A three-slot text map (main idea, reasons, example) before an opinion monologue, hidden while answering; not a visual map and not yet offered before dialogues or writing."
+      "gap": "Before an opinion monologue the optional own plan is now an argument map: five short nodes, any language, each optional — opinion → reason 1 → reason 2 → example → conclusion (the registry's «sijainti→hinta→matka→johtopäätös» shape). It is hidden while answering («говори з пам'яті») and comes back next to the model drawn as the map (empty nodes left out) for self-comparison; never stored or scored. Before the dialogue role-play and in the writing clinic the plan stays a guided outline (pre-task-planning: a repair move for dialogues; the writer keeps the outline in view), not a map. Not yet: a drawn node-and-link diagram the learner can rearrange, and any measure of coherence/structure of the new monologue (the method's measurement; needs human raters)."
     },
     {
       "id": "uncertainty-aware-asr",

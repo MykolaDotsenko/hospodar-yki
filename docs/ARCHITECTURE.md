@@ -242,7 +242,12 @@ Not covered by automation: screen readers (TalkBack/VoiceOver/NVDA), real device
   - phase `plan` and events `START_PLAN` / `SUBMIT_PLAN` in `packages/domain/src/practice.ts`, tests in `test/practice.test.ts`;
   - UI in `PracticeScreen`;
   - E2E in `practice.spec.ts`; the screen is also in the design audit.
-- **Not yet:** planning before dialogue role-play and the writing clinic. The effect on fluency or complexity is not measured.
+- **Not yet:** the effect on fluency or complexity is not measured. Planning before the dialogue role-play (13.11) and in the writing clinic now exist; see below.
+- **Argument map (learner-concept-map, 19.11.2026):**
+  - The opinion plan is now five optional short nodes: opinion → reason 1 → reason 2 → example → conclusion.
+  - `ARGUMENT_MAP_SLOTS` and `argumentMapPlan` keep it as plan text, so the session and its evidence label are unchanged.
+  - `readArgumentMap` draws it back as the map next to the model; an old free-text plan shows as text.
+  - Not a draggable diagram.
 
 ## 2026-11-12 — exam conditions: Finnish-only attempt, no writing aids, no "official" claims
 

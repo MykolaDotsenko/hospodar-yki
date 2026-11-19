@@ -121,14 +121,16 @@ test("own memory cue (keyword-mnemonic-retrieval): offered only for a phrase jud
   expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал:/);
 });
 
-test("pre-task planning (opinion): optional own plan, hidden while answering, back only next to the model; quick reactions get no plan", async ({ page }) => {
+test("pre-task planning (opinion): optional own plan as an argument map (learner-concept-map), hidden while answering, back only next to the model as the map; quick reactions get no plan", async ({ page }) => {
   await open(page, /Моя думка/);
   await expect(page.locator(".threshold-route [aria-current=step]")).toContainText("План і відповідь");
   await page.getByRole("button", { name: "Скласти план (за бажанням)" }).click();
   await expect(page.locator(".plan-frame li")).toHaveCount(3);
   await expect(page.getByText(/Фрази для структури/)).toHaveCount(0);                  // no scaffold while planning
   await axe(page);
-  await page.getByLabel(/Твій план/).fill("pääajatus: hyvä · syy 1: aikaa · esimerkki");
+  await page.getByLabel("Моя думка").fill("pääajatus: hyvä");
+  await page.getByLabel("Причина 1").fill("aikaa");
+  await page.getByLabel("Висновок").fill("siksi kyllä");
   await page.getByRole("button", { name: "План готовий — відповідати" }).click();
   await expect(page.getByRole("status")).toContainText("План сховано");
   await expect(page.getByText("pääajatus: hyvä", { exact: false })).toHaveCount(0);   // out of sight while answering
@@ -136,6 +138,7 @@ test("pre-task planning (opinion): optional own plan, hidden while answering, ba
   await page.getByLabel(/Скажи вголос/).fill("Minusta se on hyvä, koska säästän aikaa.");
   await page.getByRole("button", { name: "Відповісти" }).click();
   await expect(page.locator(".plan-back")).toContainText("pääajatus: hyvä");           // back for self-comparison
+  await expect(page.getByTestId("argument-map").locator("li")).toHaveText(["Моя думка: pääajatus: hyvä", "↓ Причина 1: aikaa", "↓ Висновок: siksi kyllä"]);   // drawn as the map, empty nodes left out
   await expect(page.getByText(/Фрази для структури/)).toBeVisible();
   await page.getByRole("button", { name: "Частково" }).click();
   await page.getByRole("button", { name: "Далі" }).click();

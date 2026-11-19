@@ -160,3 +160,18 @@ describe("pre-task planning on opinion cards (methods pre-task-planning, learner
     expect(nextPracticeCard(rektio, ela[0]!, id => id !== ela[1]!.id)!.id).toBe(ela[1]!.id);   // only same-case cards left: still offered
   });
 });
+
+describe("argument map before a monologue (learner-concept-map)", () => {
+  it("a map is kept as plan lines and read back in map order; empty nodes drop out; anything else is plain text", async () => {
+    const { argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS } = await import("../src/index.ts");
+    expect(ARGUMENT_MAP_SLOTS.map(x => x.key)).toEqual(["claim", "reason1", "reason2", "example", "conclusion"]);
+    const plan = argumentMapPlan({ conclusion: " siksi asun lähellä ", claim: "sijainti on tärkein", reason1: "hinta", example: "  " });
+    expect(plan).toBe("Моя думка: sijainti on tärkein\nПричина 1: hinta\nВисновок: siksi asun lähellä");
+    expect(readArgumentMap(plan)!.map(n => n.key)).toEqual(["claim", "reason1", "conclusion"]);
+    expect(argumentMapPlan({})).toBe("");                                                    // = without a plan
+    expect(argumentMapPlan({ claim: "x".repeat(500) }).length).toBe("Моя думка: ".length + ARGUMENT_NODE_MAX_CHARS);
+    expect(readArgumentMap("pääajatus: hyvä · syy 1")).toBeNull();                          // an old free-text plan
+    expect(readArgumentMap("Моя думка: a\nМоя думка: b")).toBeNull();
+    expect(readArgumentMap("")).toBeNull();
+  });
+});

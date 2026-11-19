@@ -63,6 +63,41 @@ export const PLAN_FRAME_UK: readonly string[] = Object.freeze([
   "Приклад із життя: коли ти це бачив(ла) чи робив(ла)?",
 ]);
 export const canPlan = (card: PracticeCard) => card.kind === "opinion";
+/**
+ * learner-concept-map (research conceptmap25; registry example «sijainti→hinta→matka→johtopäätös»): the own plan before a
+ * monologue is an argument map — opinion → reasons → example → conclusion — with one short node each, any language.
+ * It is kept as the plan text (lines «label: node»), so the session, its evidence label and old plans are unchanged;
+ * `readArgumentMap` turns such a plan back into nodes for drawing the map next to the model. Never scored or stored.
+ */
+export const ARGUMENT_MAP_SLOTS = Object.freeze([
+  { key: "claim", label_uk: "Моя думка" },
+  { key: "reason1", label_uk: "Причина 1" },
+  { key: "reason2", label_uk: "Причина 2" },
+  { key: "example", label_uk: "Приклад із життя" },
+  { key: "conclusion", label_uk: "Висновок" },
+] as const);
+export type ArgumentSlot = typeof ARGUMENT_MAP_SLOTS[number]["key"];
+export type ArgumentMap = Partial<Record<ArgumentSlot, string>>;
+export const ARGUMENT_NODE_MAX_CHARS = 120;
+const node = (t: unknown) => String(t ?? "").replace(/\s+/g, " ").trim().slice(0, ARGUMENT_NODE_MAX_CHARS);
+
+/** The map as plan text; empty nodes are left out, so an empty map is "without a plan". */
+export function argumentMapPlan(map: ArgumentMap): string {
+  return ARGUMENT_MAP_SLOTS.map(s => [s.label_uk, node(map[s.key])] as const).filter(([, t]) => t).map(([l, t]) => `${l}: ${t}`).join("\n");
+}
+/** Nodes of a plan written as a map, in map order; null when the plan is not one (then it is shown as plain text). */
+export function readArgumentMap(plan: string | null | undefined): { key: ArgumentSlot; label_uk: string; text: string }[] | null {
+  const lines = String(plan ?? "").split("\n").map(l => l.trim()).filter(Boolean);
+  if (!lines.length) return null;
+  const out: { key: ArgumentSlot; label_uk: string; text: string }[] = [];
+  for (const l of lines) {
+    const slot = ARGUMENT_MAP_SLOTS.find(s => l.startsWith(`${s.label_uk}: `));
+    if (!slot || out.some(o => o.key === slot.key)) return null;
+    out.push({ key: slot.key, label_uk: slot.label_uk, text: l.slice(slot.label_uk.length + 2) });
+  }
+  return ARGUMENT_MAP_SLOTS.flatMap(s => out.filter(o => o.key === s.key));
+}
+
 export type PracticeEvent =
   | { type: "ANSWER"; value: string } | { type: "JUDGE"; judgement: PracticeJudgement }
   | { type: "CONTINUE" } | { type: "SUBMIT_RECALL"; text: string } | { type: "SUBMIT_TRANSFER"; text: string }
