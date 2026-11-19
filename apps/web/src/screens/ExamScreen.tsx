@@ -15,6 +15,7 @@ import { endsPart, examProfileHash, isPartClosed, partRemainingSeconds, PART_MIN
 import { ExamLook } from "./ExamLook.tsx";
 import { ExamCoverage } from "./ExamCoverage.tsx";
 import { RaterPackageButton } from "./RaterPackageButton.tsx";
+import { ExamKeyboardCheck } from "./ExamKeyboardCheck.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
@@ -355,6 +356,7 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
         </fieldset>
       )}
       {skills.length > 0 && <ExamDeviceCheck skills={partial ? skills : null} results={devices} onResults={setDevices} />}
+      {skills.length > 0 && <ExamKeyboardCheck skills={partial ? skills : null} />}
       {pending.length > 0 && <p className="muted" data-testid="device-pending">Ще не підтверджено: {pending.map(d => d === "headphones" ? "навушники" : "мікрофон").join(", ")}. Почати можна й так, але перевірка вбереже від технічної проблеми посеред завдання.</p>}
       <div className="actions">
         <button type="button" className="btn" disabled={skills.length === 0} onClick={() => onStart(blueprint, minutes, partial ? skills : null, profile, profile.kind === "PRACTICE" ? choices : null)}>Aloita · Почати</button>

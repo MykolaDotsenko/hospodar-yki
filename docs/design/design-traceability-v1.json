@@ -13236,9 +13236,17 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM practice timer is labelled unofficial and visible; LEARN progress is untouched by the rehearsal"
+        },
+        {
+          "file": "packages/domain/test/keyboard-check.test.ts",
+          "contains": "says only what the keyboard did: exact sample, Ukrainian layout, missing ä/ö, or another difference"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "keyboard check (digital-task-literacy): on the set-up screen one sample sentence says whether ä/ö can be typed and whether the Ukrainian layout is on; nothing stored, nothing inside the attempt"
         }
       ],
-      "gap": "Neutral computer-based rehearsal with labelled unofficial timer; OPH 2027 UI not verified (R02)."
+      "gap": "Neutral computer-based rehearsal with labelled unofficial timer, per-part practice timers, practice navigation rules (back, review screen, section lock), focused mode, a headphone/microphone check and now a keyboard check on the set-up screen: one sample sentence tells whether ä/ö can be typed and whether the Ukrainian layout is on (Cyrillic look-alike letters), with how-to tips per system; advisory, never blocks, stores nothing, never inside the attempt. OPH 2027 UI (editor, special-letter buttons, layout) not verified (R02, human queue TZ-EXAM-01); no measure of whether this rehearsal reduces digital-format problems on the real exam."
     },
     {
       "id": "productive-paraphrasing",
