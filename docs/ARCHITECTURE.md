@@ -752,6 +752,19 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Section lock in the EXAM rehearsal (TZ-EXAM-08, 19.11.2026):**
+- `navigation.section_lock` is a 19th critical parameter (F5). It is `null` in all three profiles, and the practice default is off.
+- The learner may switch it on for a practice attempt via `PracticeChoices.sectionLock`. The choice is optional, so older choices stay valid.
+- **Engine** (`packages/domain/src/exam.ts`):
+  - `navigateTo` closes every part passed when moving forward across a part boundary.
+  - A closed part is never entered again (`PartClosedError`). `closedParts` is persisted, and a damaged list fails closed.
+  - The XState machine ignores a jump into a closed part.
+- **Screen:**
+  - «Edellinen» and the review jump are off for a closed part;
+  - a Finnish note at the last item of a part says so before moving on.
+- A verified value would be applied (`ENGINE_APPLIES`). OPH 2027 behaviour is unknown.
+- Tests: `exam-rules.test.ts`, E2E «section lock (TZ-EXAM-08)…».
+
 **Where the answer is said, in listening (evidence-guided-listening, 19.11.2026):**
 - `answerPlaces` and `answerPlaceSegments` live in `packages/domain/src/listening.ts`.
 - **What the learner sees:** only in the review with the text, after the answers.

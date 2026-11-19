@@ -153,13 +153,13 @@ test("TZ-EXAM-03/04: three exam profiles with honest availability, six separate 
   await expect(page.getByRole("radio", { name: /За спостереженням демо OPH/ })).toBeDisabled();
   await expect(page.getByRole("radio", { name: /Підтверджений іспит 2027/ })).toBeDisabled();
   await expect(page.getByText(/Ще немає жодного спостереження демо OPH/)).toBeVisible();
-  await expect(page.getByText(/Підтверджено 0 з 18 критичних параметрів/)).toBeVisible();
+  await expect(page.getByText(/Підтверджено 0 з 19 критичних параметрів/)).toBeVisible();
   const panel = page.locator(".exam-fidelity");
   await expect(panel.locator("[data-dimension]")).toHaveCount(6);
   await expect(panel.locator('[data-dimension="F4"]')).toContainText("не підтверджено");
   await expect(panel.locator('[data-dimension="F5"]')).toContainText("не підтверджено");
   await expect(panel.locator('[data-dimension="F6"]')).toContainText("не підтверджено");
-  await expect(panel).toContainText("0 з 18");
+  await expect(panel).toContainText("0 з 19");
   expect(await panel.innerText()).not.toMatch(/\d\s*%/);                                   // never one "accuracy" percentage
   expect(await serious(page)).toEqual([]);
   await page.getByRole("button", { name: /Aloita/ }).click();

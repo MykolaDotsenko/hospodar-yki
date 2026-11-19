@@ -5552,7 +5552,7 @@
         },
         {
           "file": "packages/domain/test/exam-rules.test.ts",
-          "contains": "exam rules today: every profile runs on practice rules for all 18 parameters, each one labelled practice"
+          "contains": "exam rules today: every profile runs on practice rules for all 19 parameters, each one labelled practice"
         },
         {
           "file": "packages/domain/test/exam-rules.test.ts",
@@ -5564,10 +5564,10 @@
         },
         {
           "file": "apps/web/e2e/exam-rules.spec.ts",
-          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 19 practice today — and the attempt runs on them"
         }
       ],
-      "gap": "Per-parameter model built in apps/web (resolveExamRules): each of the 18 critical rules is verified (OPH demo observation with date, source, reviewer) or practice, and every rule's status is on the attempt screen. Today all 18 are practice: no OPH demo walkthrough has been recorded (human queue, TZ-EXAM-01)."
+      "gap": "Per-parameter model built in apps/web (resolveExamRules): each of the 19 critical rules is verified (OPH demo observation with date, source, reviewer) or practice, and every rule's status is on the attempt screen. Today all 19 are practice: no OPH demo walkthrough has been recorded (human queue, TZ-EXAM-01)."
     },
     {
       "id": "EXAM-07",
@@ -6259,7 +6259,7 @@
         },
         {
           "file": "apps/web/e2e/exam-rules.spec.ts",
-          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 19 practice today — and the attempt runs on them"
         }
       ],
       "gap": "Six separate F1–F6 statuses (fidelity strip, never one %) and a status per critical rule are shown at runtime. Values themselves still await the OPH demo walkthrough."
@@ -12158,7 +12158,7 @@
       "evidence": [
         {
           "file": "packages/domain/test/exam-profile.test.ts",
-          "contains": "today: F4/F5 unverified for every profile, F3/F6 unverified, all 18 critical parameters listed as gaps"
+          "contains": "today: F4/F5 unverified for every profile, F3/F6 unverified, all 19 critical parameters listed as gaps"
         },
         {
           "file": "packages/domain/test/exam-profile.test.ts",
@@ -12237,7 +12237,7 @@
         },
         {
           "file": "apps/web/e2e/exam-rules.spec.ts",
-          "contains": "exam rules: every rule of the attempt is listed with its status — all 18 practice today — and the attempt runs on them"
+          "contains": "exam rules: every rule of the attempt is listed with its status — all 19 practice today — and the attempt runs on them"
         },
         {
           "file": "apps/web/e2e/exam-rules.spec.ts",
@@ -12245,10 +12245,18 @@
         },
         {
           "file": "packages/domain/test/exam-rules.test.ts",
+          "contains": "section lock (TZ-EXAM-08): moving on to the next part closes the finished one; it is never entered again, survives a reload, and is off by default"
+        },
+        {
+          "file": "apps/web/e2e/exam-rules.spec.ts",
+          "contains": "section lock (TZ-EXAM-08): with the practice choice on, moving on to the next part closes the finished one — no going back, no review jump, kept after a reload"
+        },
+        {
+          "file": "packages/domain/test/exam-rules.test.ts",
           "contains": "practice choices: the learner may set plays, going back and a review screen for a practice attempt; a verified rule wins"
         }
       ],
-      "gap": "Going back and a review screen before finishing are applied from the profile or the learner's practice choice (no back: «Edellinen» hidden and the review cannot jump back; review: every task with answered/unanswered and a jump when going back is allowed). Section locks after a finished subtest are not applied yet; OPH behaviour is unknown."
+      "gap": "Going back and a review screen before finishing are applied from the profile or the learner's practice choice (no back: «Edellinen» hidden and the review cannot jump back; review: every task with answered/unanswered and a jump when going back is allowed). Section locks are now a 19th critical parameter (navigation.section_lock, F5): with the practice choice on, moving on to the next part closes the finished one — the engine refuses to enter it again (navigateTo/PartClosedError; the XState machine ignores such a jump), «Edellinen» and the review jump are off for it, a Finnish note says so before moving on, and the closed parts survive a reload. OPH 2027 behaviour is unknown, so the lock is off by default and labelled practice; a verified value would be applied (ENGINE_APPLIES)."
     },
     {
       "id": "TZ-EXAM-09",

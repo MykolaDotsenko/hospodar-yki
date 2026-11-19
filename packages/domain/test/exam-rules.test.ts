@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { CRITICAL_PARAMETERS, ENGINE_APPLIES, PRACTICE_RULES, createSession, isValidParameterValue, loadSession, playsUsed, recordPlay,
+import { CRITICAL_PARAMETERS, ENGINE_APPLIES, PRACTICE_RULES, createSession, endsPart, isPartClosed, isValidParameterValue, loadSession, navigateTo, PartClosedError, playsUsed, recordPlay,
   resolveExamRules, ruleValueUk, validateExamProfile, validPracticeChoices,
   type ExamParameterRecord, type ExamProfile, type ExamProfileFile } from "../src/index.ts";
 
@@ -12,7 +12,7 @@ const seen = (parameter: string, value: ExamParameterRecord["value"]): ExamParam
 const withRecords = (p: ExamProfile, ...rs: ExamParameterRecord[]) => ({ ...p, records: p.records.map(x => rs.find(r => r.parameter === x.parameter) ?? x) });
 
 describe("exam rules from the pinned profile (docs/29 stage 4; TZ-EXAM-07/08/12/17, EXAM-06, YKI-FID-01)", () => {
-  it("exam rules today: every profile runs on practice rules for all 18 parameters, each one labelled practice", () => {
+  it("exam rules today: every profile runs on practice rules for all 19 parameters, each one labelled practice", () => {
     for (const p of file.profiles) {
       const r = resolveExamRules(p);
       expect(r.rules.map(x => x.parameter)).toEqual(CRITICAL_PARAMETERS.map(c => c.id));
@@ -95,5 +95,35 @@ describe("exam rules from the pinned profile (docs/29 stage 4; TZ-EXAM-07/08/12/
     expect(damaged.practiceChoices).toBeUndefined();
     const legacy = loadSession(JSON.stringify(createSession("yki-mini-arki", 0, T, "sess-q")), ["yki-mini-arki"]).session!;
     expect("plays" in legacy || "practiceChoices" in legacy).toBe(false);                                   // old states unchanged
+  });
+
+  it("section lock (TZ-EXAM-08): moving on to the next part closes the finished one; it is never entered again, survives a reload, and is off by default", () => {
+    const T = new Date("2026-11-19T10:00:00Z");
+    const parts = ["reading", "reading", "listening", "writing", "speaking"];
+    let s = createSession("yki-mini-arki", 0, T, "sess-l", null, { plays: "unlimited", backAllowed: true, reviewScreen: false, sectionLock: true });
+    expect(resolveExamRules(null, s.practiceChoices).sectionLock).toBe(true);
+    expect(resolveExamRules(null, null).sectionLock).toBe(false);                                     // practice default: no lock
+    expect(resolveExamRules(null, null).rules.find(r => r.parameter === "navigation.section_lock")).toMatchObject({ status: "practice", value: false });
+    expect(endsPart(parts, 1)).toBe(true); expect(endsPart(parts, 0)).toBe(false); expect(endsPart(parts, 4)).toBe(false);
+    s = navigateTo(s, 1, parts, true, T);                                                             // inside the part: nothing closes
+    expect(s.closedParts ?? []).toEqual([]);
+    s = navigateTo(navigateTo(s, 0, parts, true, T), 1, parts, true, T);                              // back inside the part is fine
+    s = navigateTo(s, 2, parts, true, T);
+    expect(s.closedParts).toEqual(["reading"]);
+    expect(isPartClosed(s, parts, 0)).toBe(true);
+    expect(() => navigateTo(s, 1, parts, true, T)).toThrow(PartClosedError);
+    s = navigateTo(s, 4, parts, true, T);                                                             // a jump closes every part passed
+    expect(s.closedParts).toEqual(["reading", "listening", "writing"]);
+    const back = loadSession(JSON.stringify(s), ["yki-mini-arki"]).session!;
+    expect(back.closedParts).toEqual(["reading", "listening", "writing"]);
+    expect(back.practiceChoices).toEqual({ plays: "unlimited", backAllowed: true, reviewScreen: false, sectionLock: true });
+    const damaged = loadSession(JSON.stringify({ ...s, closedParts: ["reading", "bogus", "reading", 3] }), ["yki-mini-arki"]).session!;
+    expect(damaged.closedParts).toEqual(["reading"]);
+    let open = createSession("yki-mini-arki", 0, T, "sess-o");
+    open = navigateTo(open, 2, parts, false, T);                                                      // lock off: nothing closes
+    expect(navigateTo(open, 0, parts, false, T).index).toBe(0);
+    expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true })).toBe(true);   // older attempts stay valid
+    expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true, sectionLock: "yes" })).toBe(false);
+    expect(validPracticeChoices({ plays: 1, backAllowed: false, reviewScreen: true, sectionLock: true, extra: 1 })).toBe(false);
   });
 });

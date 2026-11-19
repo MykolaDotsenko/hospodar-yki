@@ -18,9 +18,13 @@
  *    A new rehearsal deletes the previous session's clips before clearing the checkpoint.
  */
 import { assign, fromPromise, setup } from "xstate";
-import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, finishSession, goToIndex, isPracticeExpired, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
+import { attachVoiceReceipt, createSession, recordPlay, type PracticeChoices, finishSession, isPartClosed, isPracticeExpired, navigateTo, resolveExamRules, recordVoiceEvidence, removeVoiceReceipt, scoreSession,
   setVoiceConsent, withElapsedHighWater, writeAnswer, type ExamItem, type ExamSession, type ExamSkill, type SpeakingReceipt } from "@hospodar/domain";
 import type { ExamCheckpoint, ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
+import { profileById } from "../content/examProfiles.ts";
+
+/** TZ-EXAM-08: the section lock of this attempt (its pinned profile, else the learner's practice choice). */
+const sectionLockOf = (session: ExamSession) => resolveExamRules(profileById(session.profileId), session.practiceChoices).sectionLock;
 
 export interface ExamContext {
   items: ExamItem[]; session: ExamSession | null; skills: ExamSkill[] | null; revision: number; after: "active" | "finished";
@@ -174,8 +178,10 @@ const tryAttach = (c: ExamContext, e: { itemId: string; receipt: SpeakingReceipt
             { guard: ({ context }) => context.composingItemId !== null },
             { guard: "runningExpired", target: "expired" },
             { guard: ({ context, event }) => event.index < 0 || event.index >= context.items.length || event.index === context.session!.index },
+            // A closed part (section lock) is never entered again: the event is ignored, nothing is saved.
+            { guard: ({ context, event }) => isPartClosed(context.session!, context.items.map(i => i.skill), event.index) },
             { target: "saving", actions: assign(({ context, event }) => ({ after: "active" as const,
-                pendingNavigation: goToIndex(context.session!, event.index, context.items.length, new Date(event.now)) })) },
+                pendingNavigation: navigateTo(context.session!, event.index, context.items.map(i => i.skill), sectionLockOf(context.session!), new Date(event.now)) })) },
           ],
           TICK: [
             { guard: "runningExpired", target: "expired" },

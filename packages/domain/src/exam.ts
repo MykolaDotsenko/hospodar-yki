@@ -107,14 +107,24 @@ export interface ExamSession {
   practiceChoices?: PracticeChoices;
   /** Listening plays started, per recording (sourceId); persisted so a reload never gives a play back. */
   plays?: Record<string, number>;
+  /** TZ-EXAM-08: parts (subtests) closed by moving on with the section lock on; never reopened, persisted. */
+  closedParts?: ExamPart[];
 }
+export type ExamPart = ExamSkill;
+const PARTS: readonly string[] = ["reading", "listening", "writing", "speaking"];
 /** Learner-chosen practice rules (docs/21: the PRACTICE profile is the learner's own settings, never a claim about OPH). */
-export interface PracticeChoices { plays: number | "unlimited"; backAllowed: boolean; reviewScreen: boolean }
+export interface PracticeChoices {
+  plays: number | "unlimited"; backAllowed: boolean; reviewScreen: boolean;
+  /** Optional (older attempts have no such key): close a finished part once the learner moves on. */
+  sectionLock?: boolean;
+}
 export const PRACTICE_PLAY_OPTIONS = Object.freeze(["unlimited", 2, 1] as const);
 export function validPracticeChoices(x: unknown): x is PracticeChoices {
   const c = x as PracticeChoices | null;
-  return !!c && typeof c === "object" && (PRACTICE_PLAY_OPTIONS as readonly unknown[]).includes(c.plays) &&
-    typeof c.backAllowed === "boolean" && typeof c.reviewScreen === "boolean" && Object.keys(c).length === 3;
+  if (!c || typeof c !== "object") return false;
+  const keys = Object.keys(c);
+  return (PRACTICE_PLAY_OPTIONS as readonly unknown[]).includes(c.plays) && typeof c.backAllowed === "boolean" && typeof c.reviewScreen === "boolean" &&
+    (keys.length === 3 || (keys.length === 4 && typeof c.sectionLock === "boolean"));
 }
 const SESSION_ID = /^[a-zA-Z0-9_-]{3,60}$/;
 const TASK_ID = /^[a-z0-9_-]{1,110}$/i;
@@ -160,7 +170,7 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
       for (const [id, r] of Object.entries(s.voiceReceipts))
         if (TASK_ID.test(id) && inspectSpeakingReceipt(r, { sessionId, taskId: id }).valid) voiceReceipts[id] = r as SpeakingReceipt;
     // Ephemeral (non-consented) recordings never survive a reload.
-    const { profileId, profileHash, practiceChoices, plays, ...rest } = s;   // a malformed profile pin is dropped, never trusted
+    const { profileId, profileHash, practiceChoices, plays, closedParts, ...rest } = s;   // a malformed profile pin is dropped, never trusted
     const pinned = typeof profileId === "string" && /^[a-z0-9-]{3,60}$/.test(profileId) && typeof profileHash === "string" && /^[0-9a-f]{8}$/.test(profileHash)
       ? { profileId, profileHash } : {};
     // Practice choices and play counts are kept only when valid; a damaged play count fails closed (no plays left: 99).
@@ -169,7 +179,9 @@ export function loadSession(raw: string | null | undefined, blueprintIds: string
     if (plays && typeof plays === "object" && !Array.isArray(plays))
       for (const [id, n] of Object.entries(plays)) if (TASK_ID.test(id)) counted[id] = Number.isInteger(n) && (n as number) >= 0 && (n as number) <= 99 ? n as number : 99;
     const played = plays !== undefined ? { plays: counted } : {};
-    return { session: { ...rest, ...pinned, ...chosen, ...played, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
+    // Closed parts never reopen: a damaged list fails closed (every part it names stays closed; unknown names are dropped).
+    const closed = Array.isArray(closedParts) ? { closedParts: [...new Set(closedParts.filter((x: unknown): x is ExamPart => typeof x === "string" && PARTS.includes(x)))] } : {};
+    return { session: { ...rest, ...pinned, ...chosen, ...played, ...closed, sessionId, answers, voiceRecorded: {}, voiceReceipts, voiceConsent: s.voiceConsent === true, elapsedHighWaterMs }, recovered: false };
   } catch {
     return { session: null, recovered: true };
   }
@@ -210,6 +222,24 @@ export function goToIndex(session: ExamSession, index: number, itemCount: number
   assertBeforeDeadline(session, now);
   return { ...session, index };
 }
+/** TZ-EXAM-08: is the part of this item closed? (`parts[i]` is the skill of item i.) */
+export const isPartClosed = (session: ExamSession, parts: readonly string[], index: number) =>
+  (session.closedParts ?? []).includes(parts[index] as ExamPart);
+export class PartClosedError extends Error { constructor() { super("This part is closed"); this.name = "PartClosedError"; } }
+/**
+ * Navigation with the section lock (TZ-EXAM-08). A closed part is never entered again. With the lock on, moving forward
+ * out of a part closes every part passed on the way; going back inside the current part is unaffected.
+ */
+export function navigateTo(session: ExamSession, index: number, parts: readonly string[], sectionLock: boolean, now: Date = new Date()): ExamSession {
+  const next = goToIndex(session, index, parts.length, now);
+  if (isPartClosed(session, parts, index)) throw new PartClosedError();
+  if (!sectionLock || index <= session.index || parts[index] === parts[session.index]) return next;
+  const closed = new Set(session.closedParts ?? []);
+  for (let i = session.index; i < index; i++) if (parts[i] !== parts[index] && PARTS.includes(parts[i]!)) closed.add(parts[i] as ExamPart);
+  return { ...next, closedParts: [...closed] };
+}
+/** The last item of its part, before another part starts (where the screen warns that moving on closes the part). */
+export const endsPart = (parts: readonly string[], index: number) => index < parts.length - 1 && parts[index + 1] !== parts[index];
 export const playsUsed = (session: ExamSession, sourceId: string) => session.plays?.[sourceId] ?? 0;
 /** One more listening play of a recording; refused when the allowed number is used up (rules from examRules.ts). */
 export function recordPlay(session: ExamSession, sourceId: string, allowed: number | "unlimited", now: Date = new Date()): ExamSession {
