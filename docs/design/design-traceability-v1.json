@@ -8962,7 +8962,7 @@
       "evidence": [
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "packages/domain/test/retention-parity.test.ts",
@@ -9726,7 +9726,7 @@
         },
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "apps/web/e2e/exam-voice.spec.ts",
@@ -11580,7 +11580,7 @@
         },
         {
           "file": ".github/workflows/validate-web-app.yml",
-          "contains": "pnpm exec playwright install --with-deps chromium firefox webkit"
+          "contains": "browser: [chromium, firefox, webkit]"
         },
         {
           "file": "apps/web/e2e/research-design.spec.ts",
