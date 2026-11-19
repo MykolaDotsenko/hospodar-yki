@@ -297,3 +297,21 @@ test("audio guide for YKI listening (CURATED-09): on the set-up screen, link-onl
   await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
   await expect(page.getByTestId("yki-audio-guide")).toHaveCount(0);                                // never inside the attempt
 });
+
+test("step route on a phone: a step number never splits over two lines when the part name wraps (exam route)", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("./");
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();
+  await page.getByRole("button", { name: /Aloita/ }).click();
+  await expect(page.getByText(/Tehtävä 1 \//)).toBeVisible();
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    const lines = await page.locator(".threshold-index").evaluateAll(els => els.map(e => {
+      const r = e.getBoundingClientRect(), cs = getComputedStyle(e);
+      const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.3;
+      return { text: e.textContent, lines: Math.round(r.height / lh) };
+    }));
+    expect(lines.length).toBeGreaterThan(1);
+    expect(lines.filter(l => l.lines > 1), `width ${width}`).toEqual([]);
+  }
+});

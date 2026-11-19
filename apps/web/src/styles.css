@@ -169,7 +169,7 @@ html[data-mode="exam"] .panel, .panel.review-unit { clip-path: none; border: 1px
 .threshold-route[data-accent] .threshold-segment.completed { background: color-mix(in srgb, currentColor 13%, var(--white)); }
 .radio-note { display: block; }
 .skill-lines dd { margin: 0 0 var(--space-sm); }
-.threshold-index { font-variant-numeric: tabular-nums; }
+.threshold-index { font-variant-numeric: tabular-nums; flex: none; white-space: nowrap; }   /* the step number never splits ("0" over "1") when a label wraps */
 .threshold-segment { min-width: 0; }
 .threshold-label { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
 
