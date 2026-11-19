@@ -761,6 +761,10 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `PracticeRun` restores the card at the same step. A reload after the model was shown can no longer give a second «first» answer.
 - The list marks the card «незавершена». «Мої дані» lists the drafts, and LEARN erase removes them. They are not exported.
 - Tests: `practice-draft.test.ts`, E2E «pause and resume (COG-11)…».
+- Masterclasses and external-source missions use the same pattern:
+  - `masterclassDraft`/`restoreMasterclassDraft` and `externalDraft`/`restoreExternalDraft`;
+  - a shared `storage/draftStore.ts` with three keys.
+- Tests: `lesson-drafts.test.ts` and two E2E tests.
 
 **Audio guide for YKI listening preparation (CURATED-09, 19.11.2026):**
 - `packages/domain/src/ykiAudioGuide.ts` reads `sources/audio/yki-targeted-sources-2026-10.json` and keeps only link-only publisher pages:

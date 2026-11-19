@@ -1,41 +1,21 @@
-/**
- * Unfinished practice cards kept on this device (COG-11 pause/resume; first answer frozen). One record per card,
- * at most PRACTICE_DRAFT_LIMIT (the oldest is dropped). Never exported, never evidence, erased with LEARN data.
- * Every write is read back; a refused write is reported by the caller, never shown as kept.
- */
-import type { PracticeDraft } from "@hospodar/domain";
+/** Unfinished practice cards kept on this device (COG-11; first answer frozen). See draftStore.ts for the rules. */
+import type { ExternalDraft, MasterclassDraft, PracticeDraft } from "@hospodar/domain";
+import { createDraftStore } from "./draftStore.ts";
 
 export const PRACTICE_DRAFTS_KEY = "hospodar-yki:web:practice-drafts:v1";
+export const MASTERCLASS_DRAFTS_KEY = "hospodar-yki:web:masterclass-drafts:v1";
+export const EXTERNAL_DRAFTS_KEY = "hospodar-yki:web:external-drafts:v1";
 export const PRACTICE_DRAFT_LIMIT = 20;
-type Drafts = Record<string, PracticeDraft>;
+const practice = createDraftStore<PracticeDraft>(PRACTICE_DRAFTS_KEY, PRACTICE_DRAFT_LIMIT);
+export const masterclassDrafts = createDraftStore<MasterclassDraft>(MASTERCLASS_DRAFTS_KEY);
+export const externalDrafts = createDraftStore<ExternalDraft>(EXTERNAL_DRAFTS_KEY);
 
-export function readPracticeDrafts(): Drafts {
-  try {
-    const raw = localStorage.getItem(PRACTICE_DRAFTS_KEY);
-    const v = raw ? JSON.parse(raw) : {};
-    return v && typeof v === "object" && !Array.isArray(v) ? v as Drafts : {};
-  } catch { return {}; }
-}
-const put = (drafts: Drafts) => {
-  const text = JSON.stringify(drafts);
-  if (text === "{}") localStorage.removeItem(PRACTICE_DRAFTS_KEY); else localStorage.setItem(PRACTICE_DRAFTS_KEY, text);
-  if ((localStorage.getItem(PRACTICE_DRAFTS_KEY) ?? "{}") !== text) throw new Error("READBACK_MISMATCH");
-};
-/** Keeps (or replaces) one card's draft. Throws when the browser refused it. */
-export function writePracticeDraft(d: PracticeDraft): void {
-  const all = { ...readPracticeDrafts(), [d.cardId]: d };
-  const kept = Object.values(all).sort((a, b) => String(b.savedAt).localeCompare(String(a.savedAt))).slice(0, PRACTICE_DRAFT_LIMIT);
-  put(Object.fromEntries(kept.map(x => [x.cardId, x])));
-}
-export function clearPracticeDraft(cardId: string): void {
-  const all = readPracticeDrafts();
-  if (!(cardId in all)) return;
-  delete all[cardId];
-  put(all);
-}
-export const hasPracticeDrafts = () => localStorage.getItem(PRACTICE_DRAFTS_KEY) !== null;
-/** Throws when anything is still there afterwards. */
-export function clearPracticeDrafts(): void {
-  localStorage.removeItem(PRACTICE_DRAFTS_KEY);
-  if (localStorage.getItem(PRACTICE_DRAFTS_KEY) !== null) throw new Error("DELETE_NOT_VERIFIED");
-}
+export const readPracticeDrafts = practice.read;
+export const writePracticeDraft = (d: PracticeDraft) => practice.write(d.cardId, d);
+export const clearPracticeDraft = practice.clear;
+/** Any unfinished LEARN lesson of these three kinds on this device. */
+export const hasPracticeDrafts = () => practice.has() || masterclassDrafts.has() || externalDrafts.has();
+/** Erases all three; throws when anything is still there afterwards. */
+export function clearPracticeDrafts(): void { practice.clearAll(); masterclassDrafts.clearAll(); externalDrafts.clearAll(); }
+/** Count per kind, for «Мої дані». */
+export const lessonDraftCounts = () => ({ practice: Object.keys(practice.read()).length, masterclass: Object.keys(masterclassDrafts.read()).length, external: Object.keys(externalDrafts.read()).length });

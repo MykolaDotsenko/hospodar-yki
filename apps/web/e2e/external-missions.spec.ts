@@ -65,3 +65,26 @@ test("external missions in their places (docs/29 queue 10): a place lists its so
   await expect(page.getByRole("list", { name: /^Справи:/ }).getByRole("button", { name: /Місія з джерелом · Terveyskeskuksessa/ })).toContainText("ти вже пробував(ла)");
   expect(await serious(page)).toEqual([]);
 });
+
+test("pause and resume (COG-11): an unfinished external mission keeps the own answer after a reload; the teacher page stays after-only; «not found» keeps nothing", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-external").click();
+  await page.getByRole("button", { name: /Kurssivaraus/ }).click();
+  await page.getByLabel(/Твоя відповідь фінською/).fill("Asiakas haluaa varata paikan.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByTestId("ext-reflection")).toBeVisible();
+  await page.reload();
+  await page.getByTestId("nav-external").click();
+  await expect(page.getByRole("button", { name: /Kurssivaraus/ })).toContainText("незавершена — продовжиться з того самого місця");
+  await page.getByRole("button", { name: /Kurssivaraus/ }).click();
+  await expect(page.getByTestId("lesson-restored")).toBeVisible();
+  await expect(page.getByTestId("ext-reflection")).toBeVisible();                                     // the same step
+  await expect(page.getByText("Asiakas haluaa varata paikan.")).toBeVisible();                        // the own answer, unchanged
+  await expect(page.getByLabel(/Твоя відповідь фінською/)).toHaveCount(0);                           // not asked again
+  await page.goto("./");
+  await page.getByTestId("nav-external").click();
+  await page.getByRole("button", { name: /Terveyskeskuksessa/ }).click();
+  await page.getByRole("button", { name: /Не знайшов|не знайш/i }).click();
+  const drafts = await page.evaluate(() => JSON.parse(localStorage.getItem("hospodar-yki:web:external-drafts:v1") ?? "{}"));
+  expect(Object.keys(drafts)).toEqual(["oph-everyday-course-booking"]);                              // «not found» left nothing
+});

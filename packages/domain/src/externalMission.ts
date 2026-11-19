@@ -107,3 +107,23 @@ export function externalEvidence(s: ExternalSession, m: ExternalMission) {
     { skill: "speaking" as const, taskId: `${m.id}-transfer`, status: "ungraded" as const, response: `[new situation, no source] ${s.transfer}` },
   ];
 }
+
+/**
+ * Pause and resume an external-source mission (COG-11): the own answer and the text being typed are kept on this
+ * device. A finished mission or an honest «not found» is not kept; an inconsistent record is refused.
+ */
+export interface ExternalDraft { missionId: string; session: ExternalSession; value: string; savedAt: string }
+export function externalDraft(s: ExternalSession, value: string, now: Date = new Date()): ExternalDraft | null {
+  if (s.phase === "done" || s.phase === "not_found") return null;
+  if (s.phase === "open" && !String(value ?? "").trim()) return null;
+  return { missionId: s.missionId, session: { ...s }, value: String(value ?? "").slice(0, EXTERNAL_MAX_CHARS), savedAt: now.toISOString() };
+}
+export function restoreExternalDraft(raw: unknown, m: ExternalMission): ExternalDraft | null {
+  const d = raw as ExternalDraft | null;
+  const ok = (v: unknown) => typeof v === "string" && v.length <= EXTERNAL_MAX_CHARS;
+  if (!d || typeof d !== "object" || d.missionId !== m.id || !ok(d.value) || typeof d.savedAt !== "string" || !Number.isFinite(Date.parse(d.savedAt))) return null;
+  const s = d.session as ExternalSession | null;
+  if (!s || s.missionId !== m.id || !["open", "reflect", "transfer"].includes(s.phase) || !ok(s.answer) || !ok(s.transfer)) return null;
+  if ((s.phase !== "open") !== (s.answer.trim() !== "") || s.transfer !== "") return null;
+  return { missionId: d.missionId, session: { ...s }, value: d.value, savedAt: d.savedAt };
+}

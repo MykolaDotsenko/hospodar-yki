@@ -76,3 +76,28 @@ test("masterclass (CURATED-09): a listening masterclass says its text is not the
   await expect(page.locator("audio")).toHaveCount(1);
   await expect(page.locator(".transcript")).toHaveCount(0);                                       // the listening lesson's own rules apply
 });
+
+test("pause and resume (COG-11): an unfinished masterclass survives a reload at the same step with its frozen answers; finishing leaves no draft", async ({ page }) => {
+  await openLesson(page, /Määräajat ja poikkeukset/);
+  await page.getByLabel("Keskiviikkona").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Ei koskaan").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByRole("list", { name: "Твої відповіді й ключі" })).toBeVisible();          // keys seen
+  await page.reload();
+  await page.getByTestId("nav-masterclass").click();
+  const row = page.getByRole("list", { name: "Майстер-класи" }).getByRole("button", { name: /Määräajat ja poikkeukset/ });
+  await expect(row).toContainText("незавершений — продовжиться з того самого місця");
+  await row.click();
+  await expect(page.getByTestId("lesson-restored")).toBeVisible();
+  await expect(page.getByRole("list", { name: "Твої відповіді й ключі" }).locator("li").nth(1)).toContainText("Ще не так");   // the same frozen answers
+  await expect(page.getByRole("radio")).toHaveCount(0);                                              // never asked again
+  await axe(page);
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByLabel(/Твоя краща версія/).fill("Ilmoittaudu maanantaihin mennessä.");
+  await page.reload();
+  await page.getByTestId("nav-masterclass").click();
+  await page.getByRole("list", { name: "Майстер-класи" }).getByRole("button", { name: /Määräajat ja poikkeukset/ }).click();
+  await expect(page.getByLabel(/Твоя краща версія/)).toHaveValue("Ilmoittaudu maanantaihin mennessä.");   // typing kept
+  expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:masterclass-drafts:v1"))).toContain("maanantaihin");
+});

@@ -1,9 +1,10 @@
-import { useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, masterclassEvidence, masterclassReducer, masterclassView, startMasterclass, MASTERCLASS_MAX_CHARS,
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { addDiagnostic, masterclassEvidence, masterclassReducer, masterclassView, startMasterclass, masterclassDraft, restoreMasterclassDraft, MASTERCLASS_MAX_CHARS,
   type LearnerState, type Masterclass, type MasterclassEvent, type MasterclassJudgement, type MasterclassSession } from "@hospodar/domain";
 import { MASTERCLASS_SKILL_UK, masterclasses, recordingLessonFor } from "../content/masterclasses.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { writeFailureAdvice } from "../storage/browserStorageHealth.ts";
+import { masterclassDrafts } from "../storage/practiceDrafts.ts";
 import { Eyebrow, ThresholdRoute } from "../ui/MissionChrome.tsx";
 import { Icon } from "../ui/icons.tsx";
 import { TrustNote } from "../ui/TrustNote.tsx";
@@ -37,7 +38,7 @@ export function MasterclassScreen({ repository, snapshot, onSaved, onHome, onLis
         {masterclasses.map((m, i) => (
           <li key={m.id}><button type="button" className="choice" onClick={() => setOpen(m)}>
             <span lang="fi">{i + 1}. {m.title_fi}</span>
-            <small>{MASTERCLASS_SKILL_UK[m.skill]} · {m.goal_uk} · {done.has(`${m.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
+            <small>{MASTERCLASS_SKILL_UK[m.skill]} · {m.goal_uk} · {m.id in masterclassDrafts.read() ? "незавершений — продовжиться з того самого місця" : done.has(`${m.id}-transfer`) ? "уже пройдено" : "ще не пройдено"}</small>
           </button></li>
         ))}
       </ul>
@@ -49,11 +50,20 @@ export function MasterclassScreen({ repository, snapshot, onSaved, onHome, onLis
 function MasterclassRun({ m, repository, snapshot, onSaved, onListening, onNext, onList }: {
   m: Masterclass; repository: LearnerRepository; snapshot: Snap; onSaved: (s: Snap) => void; onListening: (id: string) => void; onNext: () => void; onList: () => void;
 }) {
-  const [s, setS] = useState<MasterclassSession>(() => startMasterclass(m));
-  const [value, setValue] = useState("");
+  // COG-11: an unfinished lesson continues where it was left; a frozen answer is never re-opened by a reload.
+  const [kept] = useState(() => restoreMasterclassDraft(masterclassDrafts.read()[m.id], m));
+  const [s, setS] = useState<MasterclassSession>(() => kept?.session ?? startMasterclass(m));
+  const [value, setValue] = useState(kept?.value ?? "");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [draftError, setDraftError] = useState<string | null>(null);
+  useEffect(() => {
+    if (saved) return;
+    const d = masterclassDraft(s, value);
+    try { if (d) masterclassDrafts.write(m.id, d); else masterclassDrafts.clear(m.id); setDraftError(null); }
+    catch { setDraftError("Браузер не зберіг незавершений урок: після перезавантаження він почнеться заново."); }
+  }, [s, value]);
   const busy = useRef(false);
   const v = masterclassView(s, m);
   const recording = recordingLessonFor(m);
@@ -82,6 +92,7 @@ function MasterclassRun({ m, repository, snapshot, onSaved, onListening, onNext,
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
         throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
       onSaved(verified); setS(finished); setSaved(true); setValue("");
+      try { masterclassDrafts.clear(m.id); } catch { /* saved; a leftover draft is refused on restore */ }
     } catch (err) {
       setError(`Не збережено (${code(err)}). Твій текст залишився в полі. ${writeFailureAdvice(err)}`);
     } finally { busy.current = false; setSaving(false); }
@@ -93,6 +104,8 @@ function MasterclassRun({ m, repository, snapshot, onSaved, onListening, onNext,
       <h1 id="mc-run" lang="fi">{m.title_fi}</h1>
       <ThresholdRoute steps={STEPS} current={STEP_INDEX[s.phase]} accent={accent(m)} />
       <TrustNote />
+      {kept && !saved && <p className="feedback" role="status" data-testid="lesson-restored">Незавершений урок відновлено з цього пристрою — з того самого кроку; дані відповіді не змінюються.</p>}
+      {draftError && <p className="feedback warn" role="alert">{draftError}</p>}
       <p className="muted">{m.goal_uk}. Орієнтовно {m.minutes} хв, без таймера.</p>
 
       {s.phase === "check" && recording && (
@@ -116,7 +129,7 @@ function MasterclassRun({ m, repository, snapshot, onSaved, onListening, onNext,
           </fieldset>
           {error && <p className="feedback error" role="alert">{error}</p>}
           <div className="actions"><button type="submit" className="btn">Відповісти</button></div>
-          <p className="muted">Відповідь фіксується. Ключі з'являться після обох питань. Незавершений урок не зберігається після перезавантаження.</p>
+          <p className="muted">Відповідь фіксується. Ключі з'являться після обох питань. Можна зробити перерву: незавершений урок збережеться на цьому пристрої й продовжиться з того самого місця.</p>
         </form>
       )}
 

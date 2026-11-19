@@ -156,3 +156,36 @@ export function masterclassEvidence(s: MasterclassSession, m: Masterclass) {
     { skill: m.produceSkill, taskId: `${m.id}-transfer`, status: "ungraded" as const, response: `[new situation, no text or model shown] ${s.transfer}` },
   ];
 }
+
+/**
+ * Pause and resume a masterclass (COG-11): the unfinished lesson and the text being typed are kept on this device, so
+ * a reload continues at the same step and can never re-open a frozen answer. Finished lessons are not kept; a damaged
+ * or inconsistent record is refused (null), never guessed.
+ */
+export interface MasterclassDraft { lessonId: string; session: MasterclassSession; value: string; savedAt: string }
+const MC_PHASES: MasterclassPhase[] = ["check", "checked", "repair", "repaired", "respond", "model", "transfer"];
+const mcShort = (v: unknown) => typeof v === "string" && v.length <= MASTERCLASS_MAX_CHARS;
+
+export function masterclassDraft(s: MasterclassSession, value: string, now: Date = new Date()): MasterclassDraft | null {
+  if (s.phase === "done") return null;
+  if (s.phase === "check" && s.answers.length === 0 && !String(value ?? "").trim()) return null;
+  return { lessonId: s.lessonId, session: { ...s, answers: [...s.answers] }, value: String(value ?? "").slice(0, MASTERCLASS_MAX_CHARS), savedAt: now.toISOString() };
+}
+
+export function restoreMasterclassDraft(raw: unknown, m: Masterclass): MasterclassDraft | null {
+  const d = raw as MasterclassDraft | null;
+  if (!d || typeof d !== "object" || d.lessonId !== m.id || !mcShort(d.value) || typeof d.savedAt !== "string" || !Number.isFinite(Date.parse(d.savedAt))) return null;
+  const s = d.session as MasterclassSession | null;
+  if (!s || s.lessonId !== m.id || !MC_PHASES.includes(s.phase) || !Array.isArray(s.answers)) return null;
+  if (![s.repair, s.response, s.transfer].every(mcShort) || !(s.judged === null || ["same", "partly", "different"].includes(s.judged))) return null;
+  const n = m.questions.length;
+  if (!s.answers.every((a, i) => Number.isInteger(a) && i < n && a >= 0 && a < m.questions[i]!.options_fi.length)) return null;
+  if (s.phase === "check" ? s.answers.length >= n : s.answers.length !== n) return null;        // answers frozen in order
+  const after = (p: MasterclassPhase[]) => p.includes(s.phase);
+  if (after(["repaired", "respond", "model", "transfer"]) !== (s.repair.trim() !== "")) return null;
+  if (after(["model", "transfer"]) !== (s.response.trim() !== "")) return null;
+  if (!after(["model", "transfer"]) && s.judged !== null) return null;
+  if (s.phase === "transfer" && s.judged === null) return null;
+  if (s.transfer !== "") return null;                                                          // a written transfer means done
+  return { lessonId: d.lessonId, session: { ...s, answers: [...s.answers] }, value: d.value, savedAt: d.savedAt };
+}

@@ -1805,9 +1805,21 @@
         {
           "file": "packages/domain/test/practice-draft.test.ts",
           "contains": "never keeps an own plan, a finished card or a damaged/foreign record"
+        },
+        {
+          "file": "apps/web/e2e/masterclass.spec.ts",
+          "contains": "pause and resume (COG-11): an unfinished masterclass survives a reload at the same step with its frozen answers; finishing leaves no draft"
+        },
+        {
+          "file": "apps/web/e2e/external-missions.spec.ts",
+          "contains": "pause and resume (COG-11): an unfinished external mission keeps the own answer after a reload; the teacher page stays after-only; «not found» keeps nothing"
+        },
+        {
+          "file": "packages/domain/test/lesson-drafts.test.ts",
+          "contains": "masterclass: frozen answers and later steps come back at the same step; nothing before any work; a finished lesson is not kept"
         }
       ],
-      "gap": "No forced breaks exist and saved work survives reload. Practice cards — the most frequent task — now pause and resume: an unfinished card is kept on this device per card (at most 20), restored at the same step with the text being typed, and a reload after the model was shown can no longer give a second 'first' answer; the card list marks it «незавершена»; drafts are listed in «Мої дані», never exported and erased with LEARN data. Not yet: masterclasses and external-source missions still start over after a reload, an opinion card with an own pre-task plan stays session-only by design (the plan is never stored), and there is no explicit 'take a break' prompt — the learner simply leaves and comes back."
+      "gap": "No forced breaks exist and saved work survives reload. Practice cards, masterclasses and external-source missions now pause and resume: the unfinished item is kept on this device (one record per item, at most 20 per kind), restored at the same step with the text being typed, and a reload can never re-open a frozen answer; lists mark it «незавершена/ий»; drafts are listed in «Мої дані», never exported and erased with LEARN data. Every other LEARN screen already had its own checkpoint. Still by design: an opinion card with an own pre-task plan stays session-only (the plan is never stored), an honest «не знайшов» keeps nothing, and there is no 'take a break' prompt — the learner simply leaves and comes back."
     },
     {
       "id": "COG-12",
