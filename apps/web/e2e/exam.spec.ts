@@ -179,10 +179,17 @@ test("rater package (TZ-EXAM-16): after a finished rehearsal the learner downloa
   await page.getByRole("button", { name: /Симуляція YKI/ }).click();
   for (const s of ["Читання", "Аудіювання", "Письмо"]) await page.getByLabel(new RegExp(`${s} ·`)).uncheck();
   await page.getByRole("button", { name: /Aloita/ }).click();
-  await page.getByRole("textbox").fill("Valitettavasti en pääse torstaina. <b>Sopisiko</b> perjantai?");
+  await expect(page.getByText("Tehtävä 1 / 1")).toBeVisible();                              // the item is open (its checkpoint is saved)
+  const answer = page.getByRole("textbox");
+  await expect(answer).toBeEnabled();
+  await answer.fill("Valitettavasti en pääse torstaina. <b>Sopisiko</b> perjantai?");
+  await expect(answer).toHaveValue("Valitettavasti en pääse torstaina. <b>Sopisiko</b> perjantai?");
   await expect(page.getByText("Tallennettu.", { exact: true })).toBeVisible({ timeout: 5000 });
   await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await expect(page.getByText(/Vastaamatta: 0/)).toBeVisible();                             // the answer counts before finishing
   await page.getByRole("button", { name: "Lopeta koe" }).click();
+  await expect(page.getByRole("heading", { name: /Tulokset/ })).toBeVisible();
+  await expect(page.locator(".skill-lines li", { hasText: "Говоріння" }).first()).toContainText("1 без оцінки");
   const box = page.getByTestId("rater-package");
   await expect(box).toContainText("оцінку ставить лише людина");
   const [download] = await Promise.all([page.waitForEvent("download"), box.getByRole("button", { name: "Завантажити пакет для викладача" }).click()]);
