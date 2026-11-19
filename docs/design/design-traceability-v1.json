@@ -13011,9 +13011,17 @@
         {
           "file": "apps/web/e2e/reading.spec.ts",
           "contains": "IV-REQ-05 reading: answer first; keys + exact evidence span with label only after; EXAM texts excluded; saved honestly"
+        },
+        {
+          "file": "packages/domain/test/listening-evidence.test.ts",
+          "contains": "finds evidence said exactly once, maps the start of its sentence approximately onto the recording; missing or ambiguous evidence is no claim"
+        },
+        {
+          "file": "apps/web/e2e/listening.spec.ts",
+          "contains": "evidence-guided-listening: only in the review after the answers, the transcript marks where each answer is said and a button replays from about that place"
         }
       ],
-      "gap": "Transcript and subtitles only after answering; evidence spans are highlighted in reading, not aligned in audio."
+      "gap": "Transcript and subtitles only after answering; evidence spans are highlighted in reading. In listening, only in the review with the text after the answers, the transcript now marks where each answer is said (evidence found exactly once in the transcript; missing or ambiguous evidence is not shown), and each key offers «Послухати, де це сказано (приблизно з N с)», which replays from the start of that sentence. The start is APPROXIMATE: it maps the sentence's share of the transcript onto the recording, because the recordings have no word timing. Only lessons whose questions carry evidence get this (today the two LEARN inference-text recordings; theme dialogues/notices and long lessons have no evidence spans). Not yet: exact audio alignment (needs forced alignment or timed cues checked by a human), and evidence for the other lessons (needs S2-authored spans)."
     },
     {
       "id": "finnish-quantity-dual-track",

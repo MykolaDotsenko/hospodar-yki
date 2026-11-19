@@ -747,6 +747,14 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - `nextPracticeCard`: after a rektio card the next new card asks for a different case, falling back to the same case when no other is left.
 - Tests: `practice.test.ts`, E2E «rektio interleaving…».
 
+**Where the answer is said, in listening (evidence-guided-listening, 19.11.2026):**
+- `answerPlaces` and `answerPlaceSegments` live in `packages/domain/src/listening.ts`.
+- **What the learner sees:** only in the review with the text, after the answers.
+  - The transcript marks each question's verbatim evidence, used only when it occurs exactly once.
+  - A button replays from about the start of that sentence: «приблизно», mapped by the sentence's share of the transcript, because there is no word timing.
+- **Where it applies:** lessons whose questions carry `evidence_fi`; today these are the two LEARN inference-text recordings.
+- Tests: `listening-evidence.test.ts`, E2E «evidence-guided-listening…».
+
 **«Перед справою» warm-up (mobile-contextual-micropractice, 19.11.2026):**
 - `packages/domain/src/warmUp.ts` holds two pure pieces:
   - `warmUpCards` picks up to three phrase cards of a place: due reviews first, then phrases not met yet;

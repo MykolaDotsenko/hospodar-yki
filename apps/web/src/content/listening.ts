@@ -34,7 +34,7 @@ const examIds = new Set((exam as unknown as { blueprints: { skill_blocks: { item
  */
 type TrainingLesson = { id: string; category: string; original_content_path: string; quality_status: string; transcript_fi: string;
   questions: { id: string; type?: string; prompt_fi?: string; statement_fi?: string; options?: string[]; options_fi?: string[];
-    correct_index?: number; answer?: boolean; explanation_uk?: string }[];
+    correct_index?: number; answer?: boolean; explanation_uk?: string; evidence_fi?: string }[];
   audio_versions: { path: string; variant: string; tempo_multiplier: number; duration_seconds: number }[] };
 export interface AltRecording { variant: "scaffold_slow" | "challenge_fast"; path: string; tempo: number }
 export type TrainingListening = ListeningLesson & { topic?: string; transcript_text: string; alternates: AltRecording[] };
@@ -61,7 +61,7 @@ export const trainingLessons: TrainingListening[] = learnerPool((training as unk
     teacher_review: t.quality_status, transcript_text: t.transcript_fi,
     // The mission is choice-only: true/false becomes Oikein/Väärin (as in the exam and delayed checks); open questions are left out.
     questions: t.questions.flatMap(q => {
-      const why = q.explanation_uk ? { why_uk: q.explanation_uk } : {};
+      const why = { ...(q.explanation_uk ? { why_uk: q.explanation_uk } : {}), ...(q.evidence_fi ? { evidence_fi: q.evidence_fi } : {}) };
       if (q.type === "true_false" && typeof q.answer === "boolean" && q.statement_fi)
         return [{ id: q.id, prompt_fi: q.statement_fi, options_fi: ["Oikein", "Väärin"], correct_index: q.answer ? 0 : 1, ...why }];
       const options = q.options ?? q.options_fi;

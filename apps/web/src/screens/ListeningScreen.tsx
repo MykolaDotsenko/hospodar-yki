@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, nextDictoglossCue, listeningEvidence, listeningReducer, listeningView, startListening,
+import { addDiagnostic, answerPlaces, answerPlaceSegments, nextDictoglossCue, listeningEvidence, listeningReducer, listeningView, startListening,
   rateVerdict, type LearnerState, type ListeningLesson, type ListeningSession, type ListeningEvent, type MediaContext, ListeningError } from "@hospodar/domain";
 import { alternatesFor, cuesFor, listeningLessons, mediaFor, type LessonCredit } from "../content/listening.ts";
 import { DictoglossRun } from "./DictoglossRun.tsx";
@@ -142,6 +142,14 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
   const heading = useRef<HTMLHeadingElement>(null);
   const v = listeningView(s, lesson);
   const media = mediaFor(lesson);
+  // evidence-guided-listening: where each answer is said — computed always, shown only in the review after the answers.
+  const places = media.transcript ? answerPlaces(media.transcript, lesson.questions, lesson.duration_seconds) : [];
+  const playFrom = (sec: number) => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = sec;
+    void a.play().catch(() => undefined);                // the learner pressed the button; a refused play changes nothing
+  };
   // Other-tempo recordings (slower notice, faster inference text): only after the answers, to replay — never as the task.
   const alternates = alternatesFor(lesson);
   const [variant, setVariant] = useState<"normal" | "scaffold_slow" | "challenge_fast">("normal");
@@ -321,7 +329,13 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
         </form>
       )}
       {player}
-      {v.showTranscript && media.transcript && <div className="prompt transcript" lang="fi">{media.transcript}</div>}
+      {v.showTranscript && media.transcript && (s.phase === "review" && places.length
+        ? <div className="prompt transcript" lang="fi" data-testid="answer-places">
+            {answerPlaceSegments(media.transcript, places).map((seg, i) => seg.questionNumber === null ? <span key={i}>{seg.text}</span> : (
+              <mark key={i} className="learning-cue evidence-span">{seg.text}<span className="cue-label" lang="uk"> ← питання {seg.questionNumber}</span></mark>
+            ))}
+          </div>
+        : <div className="prompt transcript" lang="fi">{media.transcript}</div>)}
       {(s.phase === "listen" || s.phase === "questions") && notesBox}
       {s.phase === "listen" && (
         <>
@@ -355,6 +369,11 @@ function ListeningMission({ lesson, repository, snapshot, initialDraft, onSaved,
               <li key={r.id}><span lang="fi">{r.prompt_fi}</span><br />
                 <strong>{r.isCorrect ? "Правильно" : "Ще не так"}</strong> · <span lang="fi"><span className="learning-cue">{r.key_fi}</span></span>
                 {r.why_uk && <><br /><span className="muted">{r.why_uk}</span></>}
+                {s.phase === "review" && (() => {
+                  const p = places.find(x => x.questionId === r.id);
+                  return p ? <><br /><button type="button" className="link-btn" onClick={() => playFrom(p.seekSeconds)}>
+                    Послухати, де це сказано (приблизно з {p.seekSeconds} с)</button></> : null;
+                })()}
               </li>
             ))}
           </ol>

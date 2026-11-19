@@ -147,3 +147,39 @@ test("saved theme recording (CURATED-09): a place's notice is a listening lesson
   await page.getByRole("button", { name: "Зберегти результат" }).click();
   await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();          // scored: no help before answering
 });
+
+test("evidence-guided-listening: only in the review after the answers, the transcript marks where each answer is said and a button replays from about that place", async ({ page }) => {
+  await page.goto("./");
+  await page.getByTestId("nav-listening").click();
+  await page.getByRole("list", { name: "Аудіозаписи" }).getByRole("button", { name: /Digituki kirjastossa/ }).click();
+  await page.getByRole("button", { name: "Пропустити й слухати" }).click();
+  await startedPlaying(page);
+  await page.getByRole("button", { name: "До питань" }).click();
+  await expect(page.getByTestId("answer-places")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Послухати, де це сказано/ })).toHaveCount(0);
+  for (let i = 0; i < 3; i++) {                                                                   // the open question is not in the mission
+    await expect(page.getByText(`Питання ${i + 1} з 3`)).toBeVisible();
+    await page.locator('input[name="lq"]').first().check();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+  }
+  await expect(page.getByRole("heading", { name: "Що вийшло" })).toBeVisible();
+  await expect(page.getByTestId("answer-places")).toHaveCount(0);                                 // keys first, places only with the text
+  await page.getByRole("button", { name: /Послухати ще раз із текстом/ }).click();
+  const marks = page.getByTestId("answer-places").locator("mark");
+  await expect(marks).toHaveCount(3);
+  expect((await marks.allInnerTexts()).map(t => /питання (\d)/.exec(t)![1]).sort()).toEqual(["1", "2", "3"]);
+  const replay = page.getByRole("button", { name: /Послухати, де це сказано \(приблизно з \d+ с\)/ });
+  await expect(replay).toHaveCount(3);
+  // No real playback in CI, and an engine may not decode the file: record the seek the button asks for.
+  await page.locator("audio").evaluate(a => {
+    let t = 0;
+    Object.defineProperty(a, "currentTime", { configurable: true, get: () => t, set: (v: number) => { t = v; } });
+    (a as HTMLAudioElement).play = () => Promise.resolve();
+  });
+  const label = await replay.nth(2).innerText();
+  const sec = Number(/з (\d+) с/.exec(label)![1]);
+  expect(sec).toBeGreaterThan(0);
+  await replay.nth(2).click();
+  expect(Math.round(await page.locator("audio").evaluate(a => (a as HTMLAudioElement).currentTime))).toBe(sec);
+  expect(await serious(page)).toEqual([]);
+});
