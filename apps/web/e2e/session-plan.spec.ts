@@ -77,7 +77,7 @@ test("review first: a phrase due today opens directly; back on Home the block is
   await page.getByRole("button", { name: "Далі" }).click();
   await page.getByRole("textbox").fill("Haluan muuttaa Suomeen.");
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
-  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await expect(page.getByText(/Наступне повторення — через \d+ дн\./)).toBeVisible();
   await page.getByRole("button", { name: "До списку карток" }).click();
   await page.getByRole("button", { name: "На головну" }).click();
 

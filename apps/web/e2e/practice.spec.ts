@@ -77,7 +77,7 @@ test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalle
   await page.getByRole("button", { name: "Далі" }).click();
   await page.getByRole("textbox").fill("Haluan muuttaa Suomeen ensi vuonna.");
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
-  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await expect(page.getByText(/Наступне повторення — через \d+ дн\./)).toBeVisible();
   await page.getByRole("button", { name: "До списку карток" }).click();
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
 });
@@ -93,7 +93,7 @@ test("Spaced retrieval of grammar choices: a wrong tense choice returns the next
   await page.getByRole("button", { name: "Далі" }).click();
   await page.getByRole("textbox").fill("Opiskelen suomea joka ilta.");
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
-  await expect(page.getByText(/Це завдання повторимо завтра: перший вибір не збігся з ключем/)).toBeVisible();
+  await expect(page.getByText(/Це завдання повторимо завтра: вибір не збігся з ключем/)).toBeVisible();
   await page.getByRole("button", { name: "До списку карток" }).click();
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);                // not massed on the same day
 
@@ -112,7 +112,7 @@ test("Spaced retrieval of grammar choices: a wrong tense choice returns the next
   await page.getByRole("button", { name: "Далі" }).click();
   await page.getByRole("textbox").fill("Opiskelen suomea aamulla.");
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
-  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await expect(page.getByText(/Наступне повторення — через \d+ дн\./)).toBeVisible();
   await page.getByRole("button", { name: "До списку карток" }).click();
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
 
@@ -127,6 +127,23 @@ test("Spaced retrieval of grammar choices: a wrong tense choice returns the next
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
   await expect(page.getByText(/Картку збережено/)).toBeVisible();
   await expect(page.getByText(/повторимо завтра/)).toHaveCount(0);
+
+  // Reopened from the list (already passed): it is a repeat, never a second first attempt, and says so.
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await page.getByRole("button", { name: /^Картка 2 / }).click();
+  await expect(page.getByText("Повторення: згадай без зразка.")).toBeVisible();
+  await page.getByLabel("menin", { exact: true }).check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Ще не так")).toBeVisible();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Menen kotiin.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Це завдання повторимо завтра: вибір не збігся з ключем/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await page.getByRole("button", { name: "На головну" }).click();
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.locator(".skill-lines li").filter({ has: page.locator("strong", { hasText: /^Читання$/ }) }))
+    .toContainText("1 з 2 перевірених відповідей правильні; 2 без оцінки");          // two first answers scored; the two repeats are not
 });
 
 test("own memory cue (keyword-mnemonic-retrieval): offered only for a phrase judged not yet known, kept with it, on the next review shown only on request", async ({ page }) => {
@@ -164,7 +181,7 @@ test("own memory cue (keyword-mnemonic-retrieval): offered only for a phrase jud
   await page.getByRole("button", { name: "Далі" }).click();
   await page.getByRole("textbox").fill("Haluan muuttaa Suomeen.");
   await page.getByRole("button", { name: "Зберегти й завершити" }).click();
-  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await expect(page.getByText(/Наступне повторення — через \d+ дн\./)).toBeVisible();
   expect(await page.locator("main").innerText()).not.toMatch(/\d\s*%|рівень|бал:/);
 });
 

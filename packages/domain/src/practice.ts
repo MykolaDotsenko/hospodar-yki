@@ -15,7 +15,7 @@
  * Finnish answers are never string-matched because valid variants exist (R03: never punish valid forms).
  * Every card is an editorial draft pending S2 review and must be shown as such.
  */
-import { addDiagnostic, dueCards, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
+import { addDiagnostic, dueCards, INTERVAL_DAYS, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
 export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio" | "form" | "time";
 export type PracticeJudgement = "same" | "partly" | "different";
@@ -233,7 +233,7 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard, opts: {
     ? { skill: "reading" as const, taskId: card.id, status: "scored" as const, correct: Number(s.first) === card.choice.correct_index,
         response: chosen }
     : { skill: card.attemptSkill, taskId: card.id, status: "ungraded" as const,
-        response: `[own first answer${s.plan ? ", after an own plan (hidden while answering)" : ""}${s.cueShown ? ", after opening own memory cue" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
+        response: `[${opts.review ? "answer to a card answered before" : "own first answer"}${s.plan ? ", after an own plan (hidden while answering)" : ""}${s.cueShown ? ", after opening own memory cue" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
   return [
     first,
     ...(card.kind === "paraphrase" ? [{ skill: "writing" as const, taskId: `${card.id}-recall`, status: "ungraded" as const, response: `[guided retell after feedback] ${s.recall}` }] : []),
@@ -249,6 +249,9 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard, opts: {
  *    "different", or a keyed choice (time) whose first choice was not the key; a card that was right at first sight is
  *    never scheduled (no bank flooding);
  *  - on a later review a recall ("same" / the key chosen) moves it one stage up, anything else returns it to day 1;
+ *    opening a scheduled card BEFORE it is due and recalling it leaves the schedule as it is (the key may still be fresh),
+ *    while a miss still returns it to day 1;
+ *  - a card answered before (scheduled, or any saved answer with its id) is never scored as a new first attempt again;
  *  - for free answers the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level;
  *    a review of a keyed choice is kept as ungraded practice, not as a new scored first attempt (see practiceEvidence);
  *  - an own memory cue typed after seeing the phrase is kept with a SCHEDULED phrase card only (chunk/rektio: no mnemonic
@@ -262,21 +265,31 @@ export const hasOwnCue = (card: PracticeCard) => card.kind === "chunk" || card.k
 export function practiceRecalled(s: PracticeSession, card: PracticeCard): boolean {
   return card.choice ? s.first !== "" && Number(s.first) === card.choice.correct_index : s.judged === "same";
 }
+/** Has the learner answered this card before (it is scheduled, or a saved answer carries its id)? Then a run is a review. */
+export function practiceSeenBefore(state: Pick<LearnerState, "cards" | "diagnostics">, card: PracticeCard): boolean {
+  return card.id in state.cards || (state.diagnostics ?? []).some(d => d.taskId === card.id);
+}
 /** What a finished run does to the schedule — for an honest message after saving. `state` is the state BEFORE the save. */
-export type SpacedOutcome = "not_spaced" | "not_scheduled" | "back_tomorrow" | "longer_gap";
-export function spacedOutcome(state: Pick<LearnerState, "cards">, s: PracticeSession, card: PracticeCard): SpacedOutcome {
-  if (!isSpacedKind(card)) return "not_spaced";
-  const recalled = practiceRecalled(s, card);
-  if (!recalled) return "back_tomorrow";
-  return card.id in state.cards ? "longer_gap" : "not_scheduled";
+export type SpacedOutcome =
+  | { kind: "not_spaced" } | { kind: "not_scheduled" } | { kind: "not_due" } | { kind: "back_tomorrow" } | { kind: "next_in"; days: number };
+export function spacedOutcome(state: Pick<LearnerState, "cards">, s: PracticeSession, card: PracticeCard, now: Date = new Date()): SpacedOutcome {
+  if (!isSpacedKind(card)) return { kind: "not_spaced" };
+  const known = state.cards[card.id];
+  if (!practiceRecalled(s, card)) return { kind: "back_tomorrow" };
+  if (!known) return { kind: "not_scheduled" };
+  if (known.due > localDate(now)) return { kind: "not_due" };
+  return { kind: "next_in", days: INTERVAL_DAYS[updateCard(known, true, now).stage - 1]! };
 }
 export function completePractice(state: LearnerState, s: PracticeSession, card: PracticeCard, now: Date = new Date()): LearnerState {
   const known = state.cards[card.id];
   let next = state;
-  for (const ev of practiceEvidence(s, card, { review: !!known && isSpacedKind(card) })) next = addDiagnostic(next, ev, now);
+  for (const ev of practiceEvidence(s, card, { review: practiceSeenBefore(state, card) })) next = addDiagnostic(next, ev, now);
   if (!isSpacedKind(card)) return next;
   const recalled = practiceRecalled(s, card);
   if (!known && recalled) return next;
+  if (known && recalled && known.due > localDate(now)) {                     // early recall: the schedule stays as it is
+    return s.cue === undefined || !hasOwnCue(card) ? next : { ...next, cards: { ...next.cards, [card.id]: withOwnCue(known, s.cue) } };
+  }
   const updated = updateCard(known, recalled, now);
   return { ...next, cards: { ...next.cards, [card.id]: s.cue === undefined || !hasOwnCue(card) ? updated : withOwnCue(updated, s.cue) } };
 }

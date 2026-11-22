@@ -59,7 +59,7 @@ test("GL-03 reading: day-7 check on a withheld text; first answers frozen; keys 
   await expect(page.locator(".skill-lines li", { hasText: "Читання" })).toContainText("Виконано: день 7");
   await page.goto("./");
   await page.getByRole("button", { name: "Мій прогрес" }).click();
-  await expect(page.locator(".skill-lines li", { hasText: "Читання" })).toContainText("Відкладено (нове завдання через 7 дн.): 2 з 3 перших відповідей правильні");
+  await expect(page.getByTestId("check-line-reading")).toContainText("День 7, нове завдання (10.11.2026): 2 з 3 перших відповідей правильні");
 });
 
 test("GL-03 writing: withheld prompt, own text saved ungraded; task points appear only afterwards as self-check", async ({ page }) => {
@@ -125,7 +125,7 @@ test("unseen-diagnostics: per-skill line in progress — the start and each new-
   await page.goto("./");
   await page.getByRole("button", { name: "Мій прогрес" }).click();
   const reading = page.getByTestId("check-line-reading");
-  await expect(reading).toContainText("Початкова діагностика (03.11): 1 з 2 перших відповідей правильні");
+  await expect(reading).toContainText("Початкова діагностика (03.11.2026): 1 з 2 перших відповідей правильні");
   await expect(reading).toContainText("День 7, нове завдання: ще попереду");
   await expect(page.getByTestId("check-line-writing")).toContainText("Початкова діагностика: ще не пройдена");
   await expect(page.getByTestId("check-line-listening")).toContainText("Початкова діагностика: для цієї навички її немає");
@@ -145,8 +145,8 @@ test("unseen-diagnostics: per-skill line in progress — the start and each new-
   await expect(page.getByText("Перевірку збережено на цьому пристрої.")).toBeVisible();
   await page.goto("./");
   await page.getByRole("button", { name: "Мій прогрес" }).click();
-  await expect(reading).toContainText("Початкова діагностика (03.11): 1 з 2 перших відповідей правильні");   // the start point is untouched
-  await expect(reading).toContainText("День 7, нове завдання (10.11): 2 з 3 перших відповідей правильні");
+  await expect(reading).toContainText("Початкова діагностика (03.11.2026): 1 з 2 перших відповідей правильні");   // the start point is untouched
+  await expect(reading).toContainText("День 7, нове завдання (10.11.2026): 2 з 3 перших відповідей правильні");
   await expect(reading).toContainText("День 14, нове завдання: ще попереду");
   await expect(page.getByText(/точки не складаються в лінію рівня/)).toBeVisible();
   const panel = await page.getByRole("tabpanel").innerText();

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { delayedTransferQueue, dueCards, independentCheckTimeline, skillRetentionQueue, type LearnerState, type PlaceId, type Skill, type TimelinePoint } from "@hospodar/domain";
+import { delayedTransferQueue, dueCards, independentCheckTimeline, practiceDue, skillRetentionQueue, type LearnerState, type PlaceId, type Skill, type TimelinePoint } from "@hospodar/domain";
 import { baseline, DIAGNOSTIC_PRODUCTION_IDS } from "../content/diagnostic.ts";
 import { skillRetentionBank } from "../content/skillRetention.ts";
 import { exercises } from "../content/cloze.ts";
+import { practiceCards } from "../content/practice.ts";
 import { transferBank } from "../content/transfer.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
 import { ExamHistoryList } from "./ExamScreen.tsx";
@@ -17,7 +18,7 @@ const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [
 const START_IDS: Partial<Record<Skill, readonly string[]>> = {
   reading: baseline.reading.questions.map(q => q.id), writing: [DIAGNOSTIC_PRODUCTION_IDS.writing], speaking: [DIAGNOSTIC_PRODUCTION_IDS.speaking],
 };
-const shortDate = (d?: string) => (d ? ` (${d.slice(8, 10)}.${d.slice(5, 7)})` : "");
+const shortDate = (d?: string) => (d ? ` (${d.slice(8, 10)}.${d.slice(5, 7)}.${d.slice(0, 4)})` : "");
 /** One separate point of the unseen-check line — counts of first answers only, no %, no trend, no level. */
 function pointText(p: TimelinePoint, objective: boolean): string {
   const name = p.point === "start" ? "Початкова діагностика" : `День ${p.point}, нове завдання`;
@@ -26,6 +27,7 @@ function pointText(p: TimelinePoint, objective: boolean): string {
       : p.supported ? "з текстом чи повільніше — без оцінки"
       : `${p.correct ?? 0} з ${p.scored ?? 0} перших відповідей правильні`}`;
     case "not_taken": return `${name}: ще не пройдена`;
+    case "not_kept": return `${name}: запис уже не зберігається на пристрої (історія обмежена 120 записами)`;
     case "no_probe": return `${name}: для цієї навички її немає (у діагностиці немає запису)`;
     case "missed": return `${name}: пропущено — не зараховується заднім числом`;
     case "due": return `${name}: відкрита зараз`;
@@ -35,7 +37,7 @@ function pointText(p: TimelinePoint, objective: boolean): string {
 }
 
 /** UX-05 / UIO-08 / IV-REQ-09: separate signals per skill, actionable next steps, no %, no level. */
-export function ProgressScreen({ state, examRepository, onHome, onLearn, onRetention, onPlace }: { state: LearnerState; examRepository: ExamRepository; onHome: () => void; onLearn: () => void; onRetention: () => void; onPlace?: (id: PlaceId) => void }) {
+export function ProgressScreen({ state, examRepository, onHome, onLearn, onPractice, onRetention, onPlace }: { state: LearnerState; examRepository: ExamRepository; onHome: () => void; onLearn: () => void; onPractice: () => void; onRetention: () => void; onPlace?: (id: PlaceId) => void }) {
   const [tab, setTab] = useState<"learn" | "exam">("learn");
   const [history, setHistory] = useState<ExamHistoryRecord[] | null>(null);
   useEffect(() => { examRepository.history().then(setHistory, () => setHistory([])); }, [examRepository]);
@@ -50,10 +52,12 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onReten
   const delayed = (taskId: string) => /^d(?:7|14|30)-/.test(taskId);
   const timeline = independentCheckTimeline(state, skillQueue, START_IDS);
   const reviews = dueCards(state).filter(c => exercises.some(e => e.id === c.id)).length;
+  const practiceReviews = practiceDue(state, practiceCards).length;
   const actions = [
     ...(reviews ? [{ text: `Повторити ${reviews} заплановане(-их) завдання`, go: onLearn }] : []),
+    ...(practiceReviews ? [{ text: `Повторити практику: ${practiceReviews} (фрази, форми, час)`, go: onPractice }] : []),
     ...(retDue ? [{ text: "Пройти відкладену перевірку (нова ситуація)", go: onRetention }] : []),
-  ].slice(0, 2);
+  ].slice(0, 3);
   return (
     <section className="panel" aria-labelledby="prog-title">
       <p className="eyebrow">Мій прогрес</p>
@@ -88,15 +92,11 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onReten
             {SKILLS.map(s => {
               const xs = state.diagnostics.filter(d => d.skill === s.id && !delayed(d.taskId));
               const scored = xs.filter(d => d.status === "scored");
-              const later = state.diagnostics.filter(d => d.skill === s.id && delayed(d.taskId) && d.status === "scored");
-              const sq = skillQueue.find(q => q.skill === s.id)!;
               return (
                 <li key={s.id}><strong>{s.uk}</strong> <span lang="fi" className="muted">· {s.fi}</span><br />
                   {xs.length === 0 ? "Ще не тренувалося в цій версії." :
                     s.id === "writing" || s.id === "speaking" ? `${xs.length} без оцінки — відповіді збережено; оцінити може лише людина (викладач).` :
                     `${scored.filter(d => d.correct).length} з ${scored.length} перевірених відповідей правильні; ${xs.length - scored.length} без оцінки.`}
-                  {sq.completed.length > 0 && <><br />Відкладено (нове завдання через {sq.completed.join("/")} дн.): {s.id === "reading" || s.id === "listening"
-                    ? `${later.filter(d => d.correct).length} з ${later.length} перших відповідей правильні` : "збережено без оцінки"}</>}
                   <ol className="check-line" aria-label={`${s.uk}: перевірки на нових завданнях`} data-testid={`check-line-${s.id}`}>
                     {timeline.find(t => t.skill === s.id)!.points.map(p => <li key={String(p.point)}>{pointText(p, s.id === "reading" || s.id === "listening")}</li>)}
                   </ol>

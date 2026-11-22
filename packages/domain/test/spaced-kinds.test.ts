@@ -43,15 +43,15 @@ describe("spaced retrieval of grammar practice: tense/clock choices and corpus w
 
   it("tense choice: a right first choice is never scheduled; a wrong one returns the next day, climbs 1→3 on recall and drops back on a miss", () => {
     expect(completePractice(blankState(), choose(time, KEY), time, day(0)).cards[time.id]).toBeUndefined();
-    expect(spacedOutcome(blankState(), choose(time, KEY), time)).toBe("not_scheduled");
+    expect(spacedOutcome(blankState(), choose(time, KEY), time)).toEqual({ kind: "not_scheduled" });
 
-    expect(spacedOutcome(blankState(), choose(time, WRONG), time)).toBe("back_tomorrow");
+    expect(spacedOutcome(blankState(), choose(time, WRONG), time)).toEqual({ kind: "back_tomorrow" });
     let st = completePractice(blankState(), choose(time, WRONG), time, day(0));
     expect(st.cards[time.id]).toMatchObject({ stage: 0, due: "2026-11-11", failures: 1 });
     expect(practiceDue(st, [time], "2026-11-10")).toEqual([]);                      // not massed on the same day
     expect(practiceDue(st, [time], "2026-11-11").map(c => c.id)).toEqual([time.id]);
 
-    expect(spacedOutcome(st, choose(time, KEY), time)).toBe("longer_gap");
+    expect(spacedOutcome(st, choose(time, KEY), time, day(1))).toEqual({ kind: "next_in", days: 1 });
     st = completePractice(st, choose(time, KEY), time, day(1));
     expect(st.cards[time.id]).toMatchObject({ stage: 1, due: "2026-11-12" });
     st = completePractice(st, choose(time, KEY), time, day(2));
@@ -88,6 +88,29 @@ describe("spaced retrieval of grammar practice: tense/clock choices and corpus w
   });
 
   it("non-spaced kinds keep their old behaviour", () => {
-    expect(spacedOutcome(blankState(), judge(chunk, "same"), { ...chunk, kind: "reaction", attemptSkill: "speaking", transferSkill: "speaking" })).toBe("not_spaced");
+    expect(spacedOutcome(blankState(), judge(chunk, "same"), { ...chunk, kind: "reaction", attemptSkill: "speaking", transferSkill: "speaking" })).toEqual({ kind: "not_spaced" });
+  });
+
+  it("a card answered before is never scored as a new first attempt — also when it was right at first sight and never scheduled", () => {
+    let st = completePractice(blankState(), choose(time, KEY), time, day(0));          // right first time: not scheduled
+    st = completePractice(st, choose(time, WRONG), time, day(0));                     // reopened from the list and missed
+    expect(st.diagnostics.filter(d => d.taskId === time.id).map(d => d.status)).toEqual(["scored", "ungraded"]);
+    expect(skillSummary(st).reading).toMatchObject({ scored: 1, correct: 1 });
+    expect(st.cards[time.id]).toMatchObject({ stage: 0, due: "2026-11-11" });         // the miss still schedules it
+  });
+
+  it("opening a scheduled card before it is due: a recall leaves the schedule alone, a miss still resets it", () => {
+    let st = completePractice(blankState(), choose(time, WRONG), time, day(0));       // due 2026-11-11
+    expect(spacedOutcome(st, choose(time, KEY), time, day(0))).toEqual({ kind: "not_due" });
+    const early = completePractice(st, choose(time, KEY), time, day(0));
+    expect(early.cards[time.id]).toEqual(st.cards[time.id]);
+    st = completePractice(st, choose(time, KEY), time, day(1));
+    expect(st.cards[time.id]).toMatchObject({ stage: 1, due: "2026-11-12" });
+    expect(completePractice(st, choose(time, WRONG), time, day(1)).cards[time.id]).toMatchObject({ stage: 0, due: "2026-11-12" });
+  });
+
+  it("the outcome names the real next gap, also at the last stage", () => {
+    const st = { ...blankState(), cards: { [time.id]: { stage: 5, due: "2026-11-10", reviews: 5, failures: 1, lastCorrect: true, lastReviewed: "2026-10-11" } } };
+    expect(spacedOutcome(st, choose(time, KEY), time, day(0))).toEqual({ kind: "next_in", days: 30 });
   });
 });
