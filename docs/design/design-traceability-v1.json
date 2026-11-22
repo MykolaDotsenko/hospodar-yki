@@ -12959,9 +12959,21 @@
         {
           "file": "apps/web/e2e/diagnostic.spec.ts",
           "contains": "UX-06 diagnostic: reading keys only after answers; writing/speaking ungraded self-check; no level; saved per step"
+        },
+        {
+          "file": "packages/domain/test/check-timeline.test.ts",
+          "contains": "each day is a separate point: done with its own counts, due, missed — never merged with the start"
+        },
+        {
+          "file": "packages/domain/test/check-timeline.test.ts",
+          "contains": "returns points only — no total, average, percentage or level field exists"
+        },
+        {
+          "file": "apps/web/e2e/skill-retention.spec.ts",
+          "contains": "unseen-diagnostics: per-skill line in progress — the start and each new-task check are separate points, no %, no level"
         }
       ],
-      "gap": "One starting diagnostic; no separate held-out bank or repeat every 2–4 weeks."
+      "gap": "One starting diagnostic (reading + writing + speaking; listening not probed: its baseline item has no recording). The re-checks on NEW items are the 7/14/30 delayed checks per skill (withheld reading texts and theme tasks, listening lessons the learner has not met). Since 22.11.2026 «Мій прогрес» shows per skill a separate line: the starting diagnostic and each day-7/14/30 check as its own point (first-answer counts for scored reading/listening, «з текстом чи повільніше — без оцінки» for supported listening, «збережено без оцінки» for writing/speaking, missed/due/unavailable said honestly), never summed, averaged, turned into a % or a level, with a note that the items' difficulty is not equated. Not yet: a separate S2-authored held-out diagnostic bank with equated forms, and re-checks beyond day 30 (only 3 withheld items per skill exist) — both need human-authored content."
     },
     {
       "id": "writing-revision",
