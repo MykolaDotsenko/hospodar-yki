@@ -14,7 +14,7 @@
  * This prepares a study; it is not a study. The R01 protocol is a draft that has not been approved, and no learning
  * effect may be claimed from anything recorded here.
  */
-import { localDate, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
+import { HISTORY_LIMIT, localDate, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
 export const RESEARCH_PROTOCOL = "R01-pilot-draft";
 export const STUDY_AREAS = Object.freeze(["grammar", "practice", "reading", "listening", "writing", "dialogue", "pictures",
@@ -22,8 +22,12 @@ export const STUDY_AREAS = Object.freeze(["grammar", "practice", "reading", "lis
 export type StudyArea = typeof STUDY_AREAS[number];
 export const isStudyArea = (v: unknown): v is StudyArea => typeof v === "string" && (STUDY_AREAS as readonly string[]).includes(v);
 
-/** Upper-case letters and digits, 3–12, optionally one dash and a short suffix: «HY24», «R01-A17». */
-const STUDY_CODE = /^[A-Z0-9]{3,12}(?:-[A-Z0-9]{1,8})?$/;
+/**
+ * A researcher's participant code: upper-case letters AND digits (both required), 3–12, optionally one dash and a short
+ * suffix: «HY24», «R01-A17». Requiring both refuses plain names («OLENA») and phone numbers; a pattern cannot rule out
+ * every personal string, so the screen also tells the learner to type only the code they were given.
+ */
+const STUDY_CODE = /^(?=[A-Z0-9-]*[A-Z])(?=[A-Z0-9-]*\d)[A-Z0-9]{3,12}(?:-[A-Z0-9]{1,8})?$/;
 export const CONSENT_ITEMS = Object.freeze([
   { id: "what", text_uk: "Я прочитав(ла), що входить у файл для дослідника: номери завдань, навичка, чи правильна моя перша відповідь, дні від початку участі й хвилини навчання. Моїх текстів, голосу, імені та дат календаря у файлі немає." },
   { id: "local", text_uk: "Облік ведеться лише на цьому пристрої. Нічого не надсилається: файл для дослідника я завантажую й передаю сам(а), коли захочу." },
@@ -73,10 +77,15 @@ export const MAX_STEP_MS = 15_000;
  * Milliseconds to count for one meter tick. Zero unless the screen is visible and (the learner acted within
  * ACTIVE_WINDOW_MS or media is playing); zero for a gap longer than MAX_STEP_MS (the tick did not run: sleep, background).
  */
-export function activeMs(t: { previousTickMs: number; nowMs: number; visible: boolean; lastInputMs: number; mediaPlaying: boolean }): number {
+/**
+ * `visible` must describe the whole interval since the previous tick (the caller passes the state it had, not the state
+ * after a visibility change). `focused`: this window has focus — two windows side by side are both visible, but only
+ * the one the learner works in counts by input; playing media counts in either.
+ */
+export function activeMs(t: { previousTickMs: number; nowMs: number; visible: boolean; focused: boolean; lastInputMs: number; mediaPlaying: boolean }): number {
   const gap = t.nowMs - t.previousTickMs;
   if (!t.visible || !Number.isFinite(gap) || gap <= 0 || gap > MAX_STEP_MS) return 0;
-  return t.mediaPlaying || t.nowMs - t.lastInputMs <= ACTIVE_WINDOW_MS ? gap : 0;
+  return t.mediaPlaying || (t.focused && t.nowMs - t.lastInputMs <= ACTIVE_WINDOW_MS) ? gap : 0;
 }
 
 export function addStudyTime(log: StudyTimeLog, day: LocalDate, area: StudyArea, seconds: number): StudyTimeLog {
@@ -118,6 +127,11 @@ export interface ResearchExport {
   format: "hospodar-research-export"; schema_version: 1; protocol: string; protocol_status: "draft, not approved";
   study_code: string; export_day_index: number;
   time_rule: string; never_includes: string[];
+  /**
+   * The device keeps the newest HISTORY_LIMIT attempts and diagnostics. When a list is full, older records may have been
+   * dropped, so the earliest KEPT answer of a task may be a later review rather than the true first answer.
+   */
+  history: { limit: number; attempts_kept: number; diagnostics_kept: number; may_be_trimmed: boolean };
   first_attempts: Array<{ task_id: string; skill: Skill; scored: boolean; first_correct: boolean | null; day_index: number; before_enrollment: boolean }>;
   grammar_missions: Array<{ task_id: string; grammar_tag: string; first_correct: boolean; guided_repair_correct: boolean | null; day_index: number; before_enrollment: boolean }>;
   delayed_checks: Array<{ task_id: string; check_day: 7 | 14 | 30; actual_age_days: number | null; late_by_days: number | null; day_index: number;
@@ -133,37 +147,47 @@ export function buildResearchExport(state: Pick<LearnerState, "attempts" | "diag
   time: StudyTimeLog, now: Date = new Date()): ResearchExport {
   if (!parseEnrollment(enrollment)) throw new ResearchError("NOT_ENROLLED", "Not enrolled");
   const start = ordinal(enrollment.enrolledDay);
+  const enrolledMs = Date.parse(enrollment.enrolledAt);
   const dayIndex = (iso: string) => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? null : ordinal(localDate(d)) - start; };
+  // Prior exposure is about the moment, not the day: work done earlier on the enrolment day is before enrolment.
+  const before = (iso: string) => Date.parse(iso) < enrolledMs;
+  // Defence in depth: only content-id-shaped task ids and the four skills ever leave the device.
+  const ID = /^[a-z\d_-]{1,100}$/i;
+  const SKILLS: readonly string[] = ["reading", "listening", "writing", "speaking"];
   const byTime = <T,>(xs: readonly T[], at: (x: T) => string) => [...xs].sort((a, b) => Date.parse(at(a)) - Date.parse(at(b)));
 
   const seen = new Set<string>();
   const first_attempts: ResearchExport["first_attempts"] = [];
   for (const d of byTime(state.diagnostics ?? [], x => x.completedAt)) {
-    if (DELAYED.test(d.taskId) || seen.has(d.taskId)) continue;
+    if (!ID.test(d.taskId) || !SKILLS.includes(d.skill) || DELAYED.test(d.taskId) || seen.has(d.taskId)) continue;
     const day = dayIndex(d.completedAt);
     if (day === null) continue;
     seen.add(d.taskId);
     const scored = d.status === "scored";
-    first_attempts.push({ task_id: d.taskId, skill: d.skill, scored, first_correct: scored ? d.correct === true : null, day_index: day, before_enrollment: day < 0 });
+    first_attempts.push({ task_id: d.taskId, skill: d.skill, scored, first_correct: scored ? d.correct === true : null, day_index: day, before_enrollment: before(d.completedAt) });
   }
 
   const seenMission = new Set<string>();
   const grammar_missions: ResearchExport["grammar_missions"] = [];
   for (const a of byTime(state.attempts ?? [], x => x.completedAt)) {
-    if (seenMission.has(a.taskId)) continue;
+    if (!ID.test(a.taskId) || seenMission.has(a.taskId)) continue;
     const day = dayIndex(a.completedAt);
     if (day === null) continue;
     seenMission.add(a.taskId);
-    grammar_missions.push({ task_id: a.taskId, grammar_tag: String(a.grammarTag ?? "").slice(0, 50), first_correct: a.firstCorrect === true,
-      guided_repair_correct: typeof a.repairCorrect === "boolean" ? a.repairCorrect : null, day_index: day, before_enrollment: day < 0 });
+    const tag = String(a.grammarTag ?? "");
+    grammar_missions.push({ task_id: a.taskId, grammar_tag: /^[\p{L}\d_ -]{0,50}$/u.test(tag) ? tag : "", first_correct: a.firstCorrect === true,
+      guided_repair_correct: typeof a.repairCorrect === "boolean" ? a.repairCorrect : null, day_index: day, before_enrollment: before(a.completedAt) });
   }
 
   const delayed_checks: ResearchExport["delayed_checks"] = [];
   for (const r of byTime(state.retention ?? [], x => x.submittedAt)) {
     const day = dayIndex(r.submittedAt);
-    if (day === null || r.independent !== true) continue;
+    if (day === null || r.independent !== true || !ID.test(r.taskId)) continue;
     const skill = /^skill-(reading|listening)$/.exec(r.taskId)?.[1];
-    const answers = skill ? (state.diagnostics ?? []).filter(d => d.skill === skill && d.taskId.startsWith(`d${r.day}-`)) : [];
+    // The first answer per question only (a repeated record never adds to the count).
+    const firstOnce = new Set<string>();
+    const answers = skill ? byTime(state.diagnostics ?? [], x => x.completedAt)
+      .filter(d => d.skill === skill && d.taskId.startsWith(`d${r.day}-`) && !firstOnce.has(d.taskId) && firstOnce.add(d.taskId)) : [];
     const scored = answers.filter(d => d.status === "scored");
     delayed_checks.push({ task_id: r.taskId, check_day: r.day, actual_age_days: typeof r.actualAgeDays === "number" ? r.actualAgeDays : null,
       late_by_days: typeof r.lateByDays === "number" ? r.lateByDays : null, day_index: day,
@@ -178,8 +202,10 @@ export function buildResearchExport(state: Pick<LearnerState, "attempts" | "diag
   return {
     format: "hospodar-research-export", schema_version: 1, protocol: enrollment.protocol, protocol_status: "draft, not approved",
     study_code: enrollment.studyCode, export_day_index: ordinal(localDate(now)) - start,
-    time_rule: `seconds while a LEARN or EXAM screen was visible and the learner acted within ${ACTIVE_WINDOW_MS / 1000} s or media played; gaps over ${MAX_STEP_MS / 1000} s not counted; an approximation, not attention`,
+    time_rule: `seconds while a LEARN or EXAM screen was visible and either media played or the window had focus and the learner acted within ${ACTIVE_WINDOW_MS / 1000} s; gaps over ${MAX_STEP_MS / 1000} s not counted; an approximation, not attention`,
     never_includes: [...NEVER_EXPORTED],
+    history: { limit: HISTORY_LIMIT, attempts_kept: (state.attempts ?? []).length, diagnostics_kept: (state.diagnostics ?? []).length,
+      may_be_trimmed: (state.attempts ?? []).length >= HISTORY_LIMIT || (state.diagnostics ?? []).length >= HISTORY_LIMIT },
     first_attempts, grammar_missions, delayed_checks, study_time,
   };
 }

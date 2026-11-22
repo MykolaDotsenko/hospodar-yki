@@ -35,6 +35,18 @@ test.describe("beta build (today's default)", () => {
 test.describe("release build", () => {
   test.use({ baseURL: "http://127.0.0.1:4174/" });
 
+  test("release build publishes no source maps (docs/RELEASE.md)", async ({ page, request }) => {
+    await home(page);
+    const scripts = await page.locator("script[src]").evaluateAll(xs => xs.map(x => (x as HTMLScriptElement).src));
+    expect(scripts.length).toBeGreaterThan(0);
+    for (const src of scripts) {
+      const js = await request.get(src);
+      expect(await js.text()).not.toContain("sourceMappingURL");
+      const map = await request.get(`${src}.map`);                      // the preview server may answer a missing file with the app shell
+      expect(map.ok() && (await map.text()).trimStart().startsWith('{"version":3'), `${src}.map`).toBe(false);
+    }
+  });
+
   test("release build: a session plan offers no draft — with nothing published it says so instead of planning", async ({ page }) => {
     await home(page);
     await page.getByRole("group", { name: "Або склади план заняття:" }).getByRole("button", { name: "30 хв" }).click();

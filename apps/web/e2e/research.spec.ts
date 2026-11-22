@@ -65,7 +65,10 @@ test("research mode (R01 readiness): opt-in with a study code and consent; activ
   expect(practice).toHaveLength(1);
   expect(practice[0].seconds).toBeGreaterThanOrEqual(55);
   expect(practice[0].seconds).toBeLessThanOrEqual(75);                      // only the active minute, not the whole session
-  expect(data.first_attempts.some((x: { skill: string; scored: boolean; before_enrollment: boolean }) => x.skill === "writing" && !x.scored && x.before_enrollment === false)).toBe(true);
+  // The same card was first answered before enrolment the same morning: that first answer is prior exposure (by time, not day).
+  expect(data.first_attempts.some((x: { skill: string; scored: boolean; before_enrollment: boolean; day_index: number }) =>
+    x.skill === "writing" && !x.scored && x.before_enrollment === true && x.day_index === 0)).toBe(true);
+  expect(data.history).toMatchObject({ may_be_trimmed: false });
   await expect(page.getByTestId("research-made")).toContainText("Передай його досліднику сам(а)");
 
   await panel.getByRole("button", { name: "Вийти з дослідження" }).click();
@@ -110,4 +113,29 @@ test("research mode: an idle screen stops counting 2 minutes after the last inpu
   await page.getByRole("button", { name: "На головну" }).click();
   await openData(page);
   await expect(panel.getByRole("list", { name: "Облічений час за розділами" })).toHaveText(/^Практика без підказки: 2 хв$/);
+});
+
+test("research mode: enrolling in another tab starts counting on a study screen that is already open", async ({ page, context }) => {
+  const T = new Date("2026-11-10T09:00:00+02:00");
+  await page.clock.install({ time: T });
+  await page.goto("./");
+  await page.getByTestId("nav-practice").click();                           // a study screen, not enrolled yet
+
+  const other = await context.newPage();
+  await other.clock.install({ time: T });
+  await other.goto("./");
+  await openData(other);
+  const panel = other.getByTestId("research-panel");
+  await panel.getByLabel("Код учасника від дослідника").fill("HY24");
+  for (const box of await panel.getByRole("checkbox").all()) await box.check();
+  await panel.getByRole("button", { name: "Почати участь" }).click();
+  await expect(panel.getByRole("status")).toContainText("HY24");
+
+  await page.bringToFront();
+  await page.getByRole("button", { name: /Фрази для життя/ }).click();     // input on the already open study screen
+  await page.clock.runFor(60_000);
+  await page.getByRole("button", { name: "Інші види практики" }).click();
+  await page.getByRole("button", { name: "На головну" }).click();
+  await openData(page);
+  await expect(page.getByTestId("research-panel").getByRole("list", { name: "Облічений час за розділами" })).toContainText("Практика без підказки: 1 хв");
 });

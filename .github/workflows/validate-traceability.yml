@@ -16,6 +16,8 @@ on:
       - 'scripts/tests/**'
       - 'scripts/validate_design_traceability.py'
       - 'scripts/validate_material_usage.py'
+      - 'scripts/release_readiness.py'
+      - 'scripts/validate_content_publication.py'
       - 'assets/**'
       - 'learning/**'
       - 'knowledge/**'
@@ -33,6 +35,8 @@ on:
       - 'scripts/tests/**'
       - 'scripts/validate_design_traceability.py'
       - 'scripts/validate_material_usage.py'
+      - 'scripts/release_readiness.py'
+      - 'scripts/validate_content_publication.py'
       - 'assets/**'
       - 'learning/**'
       - 'knowledge/**'
@@ -57,3 +61,7 @@ jobs:
         run: |
           python3 scripts/validate_material_usage.py
           python3 -m unittest discover -s scripts/tests -p 'test_validate_material_usage.py' -v
+      - name: Single pre-release check — report only; never PASS without evidence (docs/29 stage 8, R11-20)
+        run: |
+          python3 scripts/release_readiness.py
+          python3 -m unittest discover -s scripts/tests -p 'test_release_readiness.py' -v
