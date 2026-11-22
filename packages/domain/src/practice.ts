@@ -158,11 +158,11 @@ export function practiceReducer(s: PracticeSession, card: PracticeCard, e: Pract
       return { ...s, plan, phase: "attempt" };
     }
     case "SHOW_CUE": {
-      if (s.phase !== "attempt" || !isSpacedKind(card)) return no();      // before the first answer only, on problem phrases
+      if (s.phase !== "attempt" || !hasOwnCue(card)) return no();         // before the first answer only, on problem phrases
       return s.cueShown ? s : { ...s, cueShown: true };
     }
     case "SET_CUE": {
-      if (s.phase !== "reveal" || !isSpacedKind(card)) return no();       // after seeing the phrase, never before the answer
+      if (s.phase !== "reveal" || !hasOwnCue(card)) return no();          // after seeing the phrase, never before the answer
       return { ...s, cue: String(e.text ?? "").slice(0, OWN_CUE_MAX_CHARS) };
     }
     case "ANSWER": {
@@ -218,11 +218,20 @@ export function practiceView(s: PracticeSession, card: PracticeCard) {
 }
 
 /** Evidence for addDiagnostic: only the paraphrase choice is scored; every Finnish text is ungraded. */
-export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
+/**
+ * `review`: this run is a spaced review of a card the learner has already answered (it is in their schedule). Its choice is
+ * then NOT a new scored first attempt — the item was seen with its key before — so it is kept as ungraded practice with the
+ * match noted in the text; reading counts and first-attempt evidence stay first exposures only (LE-01, IV-REQ-03).
+ */
+export function practiceEvidence(s: PracticeSession, card: PracticeCard, opts: { review?: boolean } = {}) {
   if (s.phase !== "done") throw new PracticeError("NOT_ALLOWED", "Not finished");
-  const first = card.choice
+  const chosen = card.choice ? card.choice.options_fi[Number(s.first)] ?? "" : "";
+  const first = card.choice && opts.review
+    ? { skill: "reading" as const, taskId: card.id, status: "ungraded" as const,
+        response: `[spaced review of an item seen before with its key; choice matched the key: ${Number(s.first) === card.choice.correct_index ? "yes" : "no"}] ${chosen}` }
+    : card.choice
     ? { skill: "reading" as const, taskId: card.id, status: "scored" as const, correct: Number(s.first) === card.choice.correct_index,
-        response: card.choice.options_fi[Number(s.first)] ?? "" }
+        response: chosen }
     : { skill: card.attemptSkill, taskId: card.id, status: "ungraded" as const,
         response: `[own first answer${s.plan ? ", after an own plan (hidden while answering)" : ""}${s.cueShown ? ", after opening own memory cue" : ""}; self-compared ${s.judged ?? "none"}] ${s.first}` };
   return [
@@ -233,25 +242,43 @@ export function practiceEvidence(s: PracticeSession, card: PracticeCard) {
 }
 
 /**
- * Spaced retrieval of CONFIRMED problem phrases (method spaced-retrieval, research #27 PSY-04, and the
+ * Spaced retrieval of CONFIRMED problems (method spaced-retrieval, research #27 PSY-04, and the
  * chunk bank's own usage_rule: "add a chunk to the learner's personal SRS ONLY after explicit failure").
- *  - a chunk/rektio card enters the 1/3/7/14/30 schedule only when the learner judged the first answer
- *    "partly" or "different"; a card that was right at first sight is never scheduled (no bank flooding);
- *  - on a later review "same" moves it one stage up, anything else returns it to day 1;
- *  - the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level;
- *  - an own memory cue typed after seeing the phrase is kept with a SCHEDULED card only (no mnemonic for a phrase the
- *    learner already knew: keyword-mnemonic-retrieval limitation "not for every word"); "" removes it.
+ *  - scheduled kinds: chunk and rektio phrases, «Форма слова в реченні» (form) and «Час дієслова й годинник» (time);
+ *  - a card enters the 1/3/7/14/30 schedule only after a failed retrieval: a free answer the learner judged "partly" or
+ *    "different", or a keyed choice (time) whose first choice was not the key; a card that was right at first sight is
+ *    never scheduled (no bank flooding);
+ *  - on a later review a recall ("same" / the key chosen) moves it one stage up, anything else returns it to day 1;
+ *  - for free answers the signal is the learner's SELF-REPORT: it schedules practice, it is never a score or a level;
+ *    a review of a keyed choice is kept as ungraded practice, not as a new scored first attempt (see practiceEvidence);
+ *  - an own memory cue typed after seeing the phrase is kept with a SCHEDULED phrase card only (chunk/rektio: no mnemonic
+ *    for a phrase the learner already knew — keyword-mnemonic-retrieval limitation "not for every word"); "" removes it.
  */
-export const isSpacedKind = (card: PracticeCard) => card.kind === "chunk" || card.kind === "rektio";
+export const SPACED_KINDS: readonly PracticeKind[] = Object.freeze(["chunk", "rektio", "form", "time"]);
+export const isSpacedKind = (card: PracticeCard) => SPACED_KINDS.includes(card.kind);
+/** Own memory cues belong to phrases (keyword-mnemonic-retrieval), not to every scheduled card. */
+export const hasOwnCue = (card: PracticeCard) => card.kind === "chunk" || card.kind === "rektio";
+/** Did the learner retrieve it on this run? Keyed choice: the first choice was the key; free answer: judged "same". */
+export function practiceRecalled(s: PracticeSession, card: PracticeCard): boolean {
+  return card.choice ? s.first !== "" && Number(s.first) === card.choice.correct_index : s.judged === "same";
+}
+/** What a finished run does to the schedule — for an honest message after saving. `state` is the state BEFORE the save. */
+export type SpacedOutcome = "not_spaced" | "not_scheduled" | "back_tomorrow" | "longer_gap";
+export function spacedOutcome(state: Pick<LearnerState, "cards">, s: PracticeSession, card: PracticeCard): SpacedOutcome {
+  if (!isSpacedKind(card)) return "not_spaced";
+  const recalled = practiceRecalled(s, card);
+  if (!recalled) return "back_tomorrow";
+  return card.id in state.cards ? "longer_gap" : "not_scheduled";
+}
 export function completePractice(state: LearnerState, s: PracticeSession, card: PracticeCard, now: Date = new Date()): LearnerState {
-  let next = state;
-  for (const ev of practiceEvidence(s, card)) next = addDiagnostic(next, ev, now);
-  if (!isSpacedKind(card)) return next;
   const known = state.cards[card.id];
-  const recalled = s.judged === "same";
+  let next = state;
+  for (const ev of practiceEvidence(s, card, { review: !!known && isSpacedKind(card) })) next = addDiagnostic(next, ev, now);
+  if (!isSpacedKind(card)) return next;
+  const recalled = practiceRecalled(s, card);
   if (!known && recalled) return next;
   const updated = updateCard(known, recalled, now);
-  return { ...next, cards: { ...next.cards, [card.id]: s.cue === undefined ? updated : withOwnCue(updated, s.cue) } };
+  return { ...next, cards: { ...next.cards, [card.id]: s.cue === undefined || !hasOwnCue(card) ? updated : withOwnCue(updated, s.cue) } };
 }
 /**
  * Interleaving of confusable forms (method interleaving-grammar; COG/PSY research #27): a rektio card's group is its case
@@ -272,7 +299,8 @@ export function interleaveByGroup<T extends { group: string }>(cards: readonly T
   return out;
 }
 
-/** Scheduled practice cards that are due today, oldest first (rektio interleaved by case); a late return is simply due. */
+/** Scheduled practice cards that are due today, oldest first (rektio interleaved by case); a late return is simply due.
+ * `cards` is the learner pool: a scheduled id that is not in it (e.g. an EXAM item, or a release build without drafts) is never served. */
 export function practiceDue<T extends PracticeCard>(state: LearnerState, cards: T[], today: LocalDate = localDate()): T[] {
   const due = dueCards(state, today).map(c => cards.find(x => x.id === c.id && isSpacedKind(x))).filter((x): x is T => !!x);
   const rektio = interleaveByGroup(due.filter(c => c.kind === "rektio"));

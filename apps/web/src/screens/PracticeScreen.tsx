@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, practiceDraft, restorePracticeDraft, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
+import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, hasOwnCue, spacedOutcome, type SpacedOutcome, practiceDraft, restorePracticeDraft, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import { illustrations } from "../content/media.ts";
@@ -44,7 +44,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
       <p>Спершу твоя власна відповідь. Лише потім — зразок і пояснення. Наостанок — нова ситуація без зразка.</p>
       <TrustNote many>Тексти не оцінюються автоматично.</TrustNote>
       {!meta && due.length > 0 && (
-        <p className="feedback" role="status">Сьогодні на повторення: <strong>{due.length}</strong> — фрази, які ти минулого разу не згадав(ла).{" "}
+        <p className="feedback" role="status">Сьогодні на повторення: <strong>{due.length}</strong> — фрази й завдання, які ти минулого разу не згадав(ла).{" "}
           <button type="button" className="btn" onClick={() => open(due[0]!)}>Повторити</button></p>
       )}
       {!meta ? (
@@ -122,7 +122,8 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
   // keyword-mnemonic-retrieval: the learner's own cue stored with this problem phrase (if any).
   const storedCue = snapshot.state.cards[card.id]?.ownCue ?? null;
   const [cueNote, setCueNote] = useState<"saved" | "removed" | null>(null);
-  const offerCue = isSpacedKind(card) && (review || s.judged === "partly" || s.judged === "different");
+  const offerCue = hasOwnCue(card) && (review || s.judged === "partly" || s.judged === "different");
+  const [outcome, setOutcome] = useState<SpacedOutcome | null>(null);     // what this save did to the 1/3/7/14/30 schedule
   const [map, setMap] = useState<ArgumentMap>({});                       // learner-concept-map: the own plan as an argument map
 
   function step(e: PracticeEvent) {
@@ -143,11 +144,12 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
     busy.current = true; setSaving(true); setError(null);
     try {
       const next = completePractice(snapshot.state, finished, card);
+      const scheduled = spacedOutcome(snapshot.state, finished, card);
       const committed = await repository.commit(next, snapshot.revision);
       const verified = await repository.read();                        // success only after a fresh, exact readback
       if (verified.revision !== committed.revision || JSON.stringify(verified.state) !== JSON.stringify(next))
         throw Object.assign(new Error("Stored progress differs"), { code: "READBACK_MISMATCH" });
-      onSaved(verified); setS(finished); setSaved(true); setValue("");
+      onSaved(verified); setS(finished); setSaved(true); setValue(""); setOutcome(scheduled);
       try { clearPracticeDraft(card.id); } catch { /* the card is saved; a leftover draft is refused on restore (phase check) */ }
       const after = verified.state.cards[card.id]?.ownCue ?? null;
       setCueNote(finished.cue === undefined ? null : after ? "saved" : storedCue ? "removed" : null);
@@ -238,7 +240,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
         <>
           <p><strong>Твоя відповідь:</strong> <span lang="fi">{v.first}</span></p>
           {v.plan && <PlanBack plan={v.plan} />}
-          {v.key_fi !== null && <p className="feedback" role="status"><strong>{v.correct ? "Правильно з першої спроби" : "Ще не так"}</strong> · <span lang="fi">{v.key_fi}</span></p>}
+          {v.key_fi !== null && <p className="feedback" role="status"><strong>{v.correct ? (review ? "Згадано на повторенні" : "Правильно з першої спроби") : "Ще не так"}</strong> · <span lang="fi">{v.key_fi}</span></p>}
           <Lines lines={v.reveal} />
           {illustration && (                                               // shows the answer, so only after the first attempt
             <figure className="practice-figure">
@@ -246,6 +248,8 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
               <figcaption className="muted">{illustration.credit.credit} · {illustration.credit.licence}</figcaption>
             </figure>
           )}
+          {card.choice && isSpacedKind(card) && <p className="muted">{v.correct ? (review ? "Наступне повторення буде через довший проміжок." : "Це завдання не піде на повторення: ти обрав(ла) правильно з першої спроби.")
+            : "Це завдання повернеться на повторення (1, 3, 7, 14, 30 днів), бо вибір не збігся з ключем."}</p>}
           {v.needsJudgement && (
             <div className="actions" role="group" aria-label="Порівняй свою відповідь зі зразком">
               {(Object.keys(JUDGE_UK) as PracticeJudgement[]).map(j => (
@@ -253,7 +257,7 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
               ))}
             </div>
           )}
-          {v.needsJudgement && <p className="muted">Це самооцінка, не автоматична перевірка: правильних варіантів фінською буває кілька.{isSpacedKind(card) && " Якщо «частково» чи «інакше» — фраза повернеться на повторення (1, 3, 7, 14, 30 днів)."}</p>}
+          {v.needsJudgement && <p className="muted">Це самооцінка, не автоматична перевірка: правильних варіантів фінською буває кілька.{isSpacedKind(card) && ` Якщо «частково» чи «інакше» — ${hasOwnCue(card) ? "фраза повернеться" : "завдання повернеться"} на повторення (1, 3, 7, 14, 30 днів).`}</p>}
           {offerCue && (
             <div className="own-cue-step">
               <label className="field" htmlFor="pr-cue">Своя зачіпка для пам'яті (за бажанням)</label>
@@ -293,8 +297,10 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       {saved && hasInterlocutorLadder(card) && s.phase === "done" && card.prompt[0] && <InterlocutorShift card={card} situation={card.prompt[0]} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
 
       {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
-        {isSpacedKind(card) && s.judged !== "same" && " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."}
-        {isSpacedKind(card) && s.judged === "same" && review && " Наступне повторення — через довший проміжок."}
+        {outcome === "back_tomorrow" && (card.choice ? " Це завдання повторимо завтра: перший вибір не збігся з ключем."
+          : hasOwnCue(card) ? " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."
+          : " Це завдання повторимо завтра: ти позначив(ла), що твоя відповідь відрізняється.")}
+        {outcome === "longer_gap" && " Наступне повторення — через довший проміжок."}
         {cueNote === "saved" && " Твою зачіпку збережено разом із фразою."}
         {cueNote === "removed" && " Зачіпку прибрано."}</p>}
       <div className="actions">

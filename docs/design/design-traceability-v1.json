@@ -12705,6 +12705,18 @@
           "contains": "Spaced retrieval: a phrase judged 'partly' returns the next day; a recalled one is never scheduled"
         },
         {
+          "file": "packages/domain/test/spaced-kinds.test.ts",
+          "contains": "tense choice: a right first choice is never scheduled; a wrong one returns the next day, climbs 1→3 on recall and drops back on a miss"
+        },
+        {
+          "file": "packages/domain/test/spaced-kinds.test.ts",
+          "contains": "a review of a seen keyed item is ungraded practice, never a second scored first attempt"
+        },
+        {
+          "file": "apps/web/e2e/practice.spec.ts",
+          "contains": "Spaced retrieval of grammar choices: a wrong tense choice returns the next day; the review is not a new first attempt; a right first choice is never scheduled"
+        },
+        {
           "file": "apps/web/e2e/r06-r08.spec.ts",
           "contains": "R06: an item answered wrongly is not re-served the same day (spacing, not massed repetition)"
         },
@@ -12717,7 +12729,7 @@
           "contains": "GL-03 reading: day-7 check on a withheld text; first answers frozen; keys only after a durable save; not repeatable"
         }
       ],
-      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated). Cloze items and self-reported problem chunks/rektio are scheduled; delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool)."
+      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated; FSRS is the separate fsrs-scheduler-chunks item). Scheduled after a failed retrieval: cloze items, self-reported problem chunks/rektio, and since 22.11.2026 also «Час дієслова й годинник» (a first choice that missed the key) and «Форма слова в реченні» (self-judged partly/different); a review of a seen keyed item is kept as ungraded practice, not a new scored first attempt. Not scheduled: paraphrase, reaction and opinion cards (open production, transfer-oriented). Delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool). All items S2-pending."
     },
     {
       "id": "yki-constructive-alignment",
