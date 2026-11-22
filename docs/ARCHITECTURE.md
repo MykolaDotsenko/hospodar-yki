@@ -19,6 +19,7 @@ apps/web (React 19 + Vite 8 + TS) ── packages/domain (pure TS, parity with a
      └── Dexie DB hospodar-yki:web:v1 (LEARN progress, legacy import and Web JSON LEARN-only restore; v3 separate cloze draft)
      └── S2 reviewer: throwaway Dexie DBs hospodar-yki:review-sandbox:<time>-<id> (deleted after each walk) + localStorage hospodar-yki:review-decisions:v1
      └── private real-life deed marks: localStorage hospodar-yki:web:deeds:v1 (not progress, not exported; erased with LEARN)
+     └── research mode (opt-in): localStorage hospodar-yki:web:research:{enrollment,time}:v1 (not progress; erased with LEARN or on withdrawal)
 app/media-platform.mjs ── browser/native media contract prototype
 packages/contracts/src/{index,media}.mjs ── first-attempt & rights contracts
 native/android/prototype/*.kt ── Kotlin SOURCE ONLY: Room + Media bridge
@@ -873,3 +874,13 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - A video with model answers says the time they start, so the learner answers first. The A1–A2 story videos are left out because they are not exam simulations.
 - `ExamLook` is a `<details>` on the rehearsal set-up screen only, never inside an attempt. It says that examples are not past exam items and that old formats are not the 2027 digital exam.
 - **Tests:** `exam-look.test.ts`, E2E «exam look (CURATED-09)…» in `exam-rules.spec.ts`.
+
+## 2026-11-22 — research mode: consent, study time, de-identified export (docs/29 stage 6, code queue 13; R01)
+
+- **Purpose:** prepares the R01 pilot (equal learning time between arms, day-14/30 outcomes on actual elapsed days). It is not a study: the protocol is a draft, the pilot is NOT RUN, and nothing recorded here is evidence of a learning effect. Plan: [exec-plans/completed/2026-11-22-research-mode.md](exec-plans/completed/2026-11-22-research-mode.md).
+- **Opt-in:** «Участь у дослідженні» on «Мої дані». Needs a study code from the researcher (`A–Z`, digits, one optional dash — an e-mail, a name or spaces are refused) and three consent ticks. Before that nothing is counted and nothing can be exported.
+- **Study time:** `ui/useStudyMeter.ts` runs only while enrolled and on a study screen (grammar missions, practice, reading, listening, writing, dialogues, pictures, masterclasses, external missions, media, diagnostic, delayed checks, exam). A 5-second tick counts time only when the page is visible and the learner acted within 2 minutes or audio/video plays; a missed tick (sleep, background tab) counts nothing (`activeMs`). Flushed every 30 s, on hide, page close and screen change. An approximation of time on task, not attention.
+- **Export:** «Завантажити файл для дослідника» builds `hospodar-research-<code>.json` (`buildResearchExport`): first answers per task (scored or ungraded, correctness only where a key exists), grammar missions (first answer, guided repair), delayed checks with real elapsed days and counts of scored answers, seconds per day and area — all days relative to enrolment. Never: learner text, voice, calendar dates, names, exam answers. Evidence before enrolment is kept and flagged as prior exposure. Nothing is sent; the learner hands the file over.
+- **Storage:** `storage/research.ts`, keys `hospodar-yki:web:research:enrollment:v1` and `…:time:v1`, readback-verified; a late tick after a withdrawal in another tab writes nothing. «Вийти з дослідження» and the LEARN erase remove both, verified. `LearnerState`, the backup and the legacy reader are unchanged.
+- **Tests:** `packages/domain/test/research.test.ts`, `apps/web/src/storage/research.test.ts`, `apps/web/e2e/research.spec.ts`.
+- **Not done (human or later):** consent text review by a privacy owner, arm assignment, questionnaires, the pilot itself.

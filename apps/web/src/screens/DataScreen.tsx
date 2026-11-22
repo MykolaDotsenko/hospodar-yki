@@ -12,6 +12,8 @@ import { clearScenarioChecks, hasScenarioChecks } from "../storage/scenarioCheck
 import { clearStudyPlan, hasStudyPlan } from "../storage/studyPlan.ts";
 import { clearVideoExposure, hasVideoExposure } from "../storage/videoExposure.ts";
 import { clearGoals, hasGoals } from "../storage/goals.ts";
+import { clearResearch, hasResearchData } from "../storage/research.ts";
+import { ResearchPanel } from "./ResearchPanel.tsx";
 
 /**
  * "Мої дані" (LEARN-16, WEB-07): see what is stored on this device, download all of it as one verified JSON file,
@@ -100,7 +102,7 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         // Only after the LEARN erase committed (a conflict keeps everything): private real-life marks and the learner's
         // own goals go with LEARN data. Clear them BEFORE telling App, so App re-reads an empty goal record; App gets the
         // erased snapshot even if a clear is refused (that error is then shown).
-        try { clearDeeds(); clearScenarioChecks(); clearStudyPlan(); clearGoals(); clearPracticeDrafts(); }
+        try { clearDeeds(); clearScenarioChecks(); clearStudyPlan(); clearGoals(); clearPracticeDrafts(); clearResearch(); }
         finally { onErased(next); }
       }
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); clearVideoExposure(); }   // audio first: never orphan a recording
@@ -226,11 +228,13 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
           : restoreStatus.error === "READBACK_MISMATCH" ? "Не вдалося підтвердити запис. Перевір поточний прогрес перед новою спробою."
           : `Відновлення не підтверджено (${restoreStatus.error}). Перевір дані перед новою спробою.`}</p>}
 
+      <ResearchPanel readState={async () => (await repository.read()).state} />
+
       <h2>Видалити</h2>
-      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, практичні картки, майстер-класи, місії із зовнішніми джерелами, твою мету, план «коли …, я …», приватні позначки «зробив(ла) це в житті» і твою самоперевірку кроків «Цілої справи» (вони в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
+      <p>Навчання й пробні іспити видаляються окремо. Видалення LEARN охоплює всі незавершені місії, письмо, читання, аудіювання, діалоги, фото-місії, діагностики, практичні картки, майстер-класи, місії із зовнішніми джерелами, твою мету, план «коли …, я …», приватні позначки «зробив(ла) це в житті» твою самоперевірку кроків «Цілої справи» та участь у дослідженні з обліком часу (вони в копію даних не входять). Видалення остаточне: копії на пристрої не лишається. Спершу краще завершити чернетку та завантажити копію.</p>
       <fieldset className="choices-set">
         <legend>Що видалити</legend>
-        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasScenarioChecks() && !hasStudyPlan() && !hasGoals() && !hasPracticeDrafts())}
+        <label className="radio"><input type="radio" name="erase" checked={scope === "learn"} disabled={!c || (learnCount === 0 && snapshot.revision === 0 && !hasDeeds() && !hasScenarioChecks() && !hasStudyPlan() && !hasGoals() && !hasResearchData() && !hasPracticeDrafts())}
           onChange={() => { setScope("learn"); setErase("idle"); }} /> Увесь прогрес навчання{c && learnCount === 0 ? " (порожньо)" : ""}</label>
         <label className="radio"><input type="radio" name="erase" checked={scope === "exam"} disabled={!c || (examCount === 0 && !hasVideoExposure())}
           onChange={() => { setScope("exam"); setErase("idle"); }} /> Усі пробні іспити, їхню історію, голосові записи й позначки переглянутих зразків відповідей{c && examCount === 0 && !hasVideoExposure() ? " (порожньо)" : ""}</label>

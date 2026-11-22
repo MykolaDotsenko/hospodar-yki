@@ -49,3 +49,4 @@ export * from "./raterPackage.ts";
 export * from "./warmUp.ts";
 export * from "./keyboardCheck.ts";
 export * from "./ykiAudioGuide.ts";
+export * from "./research.ts";

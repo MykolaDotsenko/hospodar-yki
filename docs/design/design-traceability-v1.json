@@ -2443,9 +2443,21 @@
         {
           "file": "apps/web/e2e/retention-progress.spec.ts",
           "contains": "IV-REQ-03: day-7 delayed check appears only after 7 real days, is saved ungraded and not repeatable"
+        },
+        {
+          "file": "packages/domain/test/research.test.ts",
+          "contains": "contains no learner text, no calendar date and no ISO timestamp"
+        },
+        {
+          "file": "packages/domain/test/research.test.ts",
+          "contains": "does not count a hidden screen, an idle learner, a clock going back or a long gap (sleep, background tab)"
+        },
+        {
+          "file": "apps/web/e2e/research.spec.ts",
+          "contains": "research mode (R01 readiness): opt-in with a study code and consent; active time counted only after enrolment; the researcher file has no learner text; withdrawal deletes the log"
         }
       ],
-      "gap": "First independent attempt and delayed checks are recorded; the RCT/pilot is NOT RUN — no uplift claim allowed."
+      "gap": "First independent attempt and delayed checks are recorded. Since 22.11.2026 an opt-in research mode (study code + consent) counts active study time per screen area and lets the learner download a de-identified export (first answers, delayed checks on real elapsed days, seconds per area; no text, voice or dates). Still human: privacy-owner review of the consent text, arm assignment, the RCT/pilot itself — NOT RUN, no uplift claim allowed."
     },
     {
       "id": "R02",
