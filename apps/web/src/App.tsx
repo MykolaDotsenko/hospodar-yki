@@ -43,6 +43,8 @@ import { diagnosticAvailable } from "./content/diagnostic.ts";
 import { examBlueprints } from "./content/exam.ts";
 import { WorkshopScreen } from "./screens/WorkshopScreen.tsx";
 import type { PlaceId } from "@hospodar/domain";
+import type { StudyArea } from "@hospodar/domain";
+import { useStudyMeter } from "./ui/useStudyMeter.ts";
 import { applyAppearance, applyFont, applyGuide, applyTheme, readAppearance, readFont, readGuide, readTheme, type Appearance, type FontChoice, type Theme } from "./appearance.ts";
 
 type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "masterclass" | "external" | "exam" | "data" | "offline";
@@ -54,6 +56,11 @@ const EMPTY_IN_RELEASE: Partial<Record<View, boolean>> = IN_RELEASE ? {
   reading: readingItems.length === 0, writing: clinicItems.length === 0, listening: listeningLessons.length === 0,
   pictures: pictureMissions.length === 0, diagnostic: !diagnosticAvailable, exam: examBlueprints.length === 0,
 } : {};
+/** Research mode: the study-time area of each LEARN/EXAM screen. Home, places, progress, data and the reviewer are not study time. */
+const STUDY_AREA: Partial<Record<View, StudyArea>> = {
+  mission: "grammar", workshop: "grammar", practice: "practice", reading: "reading", listening: "listening", writing: "writing", dialogue: "dialogue",
+  pictures: "pictures", masterclass: "masterclass", external: "external", media: "media", diagnostic: "diagnostic", retention: "checks", exam: "exam",
+};
 /** Release build: how many S2-published learner tasks this build carries (shown on Home, so an empty build says so). */
 const RELEASED_TASKS = exercises.length + practiceCards.length + dialogues.length + readingItems.length + clinicItems.length + listeningLessons.length + pictureMissions.length + masterclasses.length + externalMissions.length;
 
@@ -73,6 +80,8 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
   const goTo = (v: View, id: string | null = null, workshop = false, note: { place: string; text: string } | null = null) => {
     setStartId(id); setFromWorkshop(workshop); setScenarioNote(note); setView(v);
   };
+  // Research mode only (opt-in): active time on study screens, counted on this device (domain research.ts).
+  useStudyMeter(EMPTY_IN_RELEASE[view] ? null : STUDY_AREA[view] ?? null);
   useEffect(() => { const f = () => setView(initialView()); addEventListener("hashchange", f); return () => removeEventListener("hashchange", f); }, []);
   const [snapshot, setSnapshot] = useState<{ state: LearnerState; revision: number } | null>(null);
   // «План заняття»: memory only for this page visit — never written to storage (MOT-11), so a reload forgets it.

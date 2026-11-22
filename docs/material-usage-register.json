@@ -76,8 +76,8 @@
     {
       "path": "sources/audio/recording-sources.json",
       "reason": "TO_CONNECT",
-      "note_uk": "Перелік джерел записів для аудіювання й говоріння рівня B1/B1+.",
-      "plan_uk": "Етап 2: перевірені посилання — у «Медіатеку»; неперевірені — після перевірки прав."
+      "note_uk": "Старий перелік джерел записів (23.10.2026). Стан на 22.11.2026: 14 з 33 відкрито ліцензованих записів уже в застосунку через assets/audio/available.json (медіатека); офіційні сторінки зразків SOLKI вже в «Як виглядає іспит» (sources/official/yki-mock-simulation-sources.json), а прямі MP3 свідомо не посилаються — лише сторінка видавця; платне джерело — лише згадка. Не завантажено 19 коротких записів Wikimedia Commons (CC0 / CC BY / CC BY-SA / PD): з контейнера агента Commons недоступний.",
+      "plan_uk": "Етап 2: завантажити 19 записів Commons у assets/audio/open/ з автором і ліцензією, додати в assets/audio/available.json із SHA-256 і підключити до карток фраз; після цього файл стає NOT_LEARNER_MATERIAL (історичний перелік)."
     },
     {
       "path": "sources/learning/10-yki-resources-machine-index.json",
