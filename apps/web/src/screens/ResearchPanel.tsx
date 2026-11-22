@@ -31,7 +31,7 @@ export function ResearchPanel({ readState }: { readState: () => Promise<LearnerS
     setError(null);
     try { const e = enroll(code, ticked); writeEnrollment(e); setLeft(false); reload(); }
     catch (e) {
-      setError(e instanceof ResearchError ? (e.code === "BAD_CODE" ? "Це не схоже на код учасника. Введи код, який дав дослідник: латинські літери A–Z і цифри, можна один дефіс."
+      setError(e instanceof ResearchError ? (e.code === "BAD_CODE" ? "Це не схоже на код учасника. Введи код, який дав дослідник: латинські літери A–Z і цифри (і ті, й інші), можна один дефіс."
         : "Щоб почати, познач усі три пункти згоди.") : `Браузер не зберіг участь (${String((e as Error)?.message ?? e)}). Облік не ввімкнено.`);
     }
   }
@@ -68,7 +68,7 @@ export function ResearchPanel({ readState }: { readState: () => Promise<LearnerS
           <label className="field" htmlFor="research-code">Код учасника від дослідника</label>
           <input id="research-code" className="answer" autoComplete="off" spellCheck={false} maxLength={21} aria-describedby="research-code-help"
             value={code} onChange={e => setCode(e.target.value)} />
-          <p className="muted" id="research-code-help">Лише код, який дав дослідник: латинські літери A–Z і цифри, можна один дефіс. Не пиши ім'я чи e-mail.</p>
+          <p className="muted" id="research-code-help">Лише код, який дав дослідник: латинські літери A–Z і цифри (обов'язково і ті, й інші), можна один дефіс. Не пиши ім'я, телефон чи e-mail.</p>
           <fieldset className="choices-set">
             <legend>Згода</legend>
             {CONSENT_ITEMS.map(c => (

@@ -102,8 +102,11 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         // Only after the LEARN erase committed (a conflict keeps everything): private real-life marks and the learner's
         // own goals go with LEARN data. Clear them BEFORE telling App, so App re-reads an empty goal record; App gets the
         // erased snapshot even if a clear is refused (that error is then shown).
-        try { clearDeeds(); clearScenarioChecks(); clearStudyPlan(); clearGoals(); clearPracticeDrafts(); clearResearch(); }
-        finally { onErased(next); }
+        // Each store is cleared on its own, research first (privacy), so one refused clear never leaves the others behind.
+        const failed = ([["research", clearResearch], ["deeds", clearDeeds], ["scenario", clearScenarioChecks], ["plan", clearStudyPlan],
+          ["goals", clearGoals], ["drafts", clearPracticeDrafts]] as const).flatMap(([name, clear]) => { try { clear(); return []; } catch { return [name]; } });
+        onErased(next);
+        if (failed.length) throw Object.assign(new Error("LOCAL_CLEAR_FAILED"), { code: `LOCAL_CLEAR_FAILED: ${failed.join(", ")}` });
       }
       else { await voiceStore.eraseAll(); await examRepository.eraseAll(loaded.examRevision); clearVideoExposure(); }   // audio first: never orphan a recording
       setErase({ done: scope }); setScope(null); setTyped("");
@@ -251,7 +254,9 @@ export function DataScreen({ repository, examRepository, voiceStore, snapshot, o
         </>
       )}
       {typeof erase === "object" && ("error" in erase
-        ? <p className="feedback error" role="alert">НЕ видалено ({erase.error === "REVISION_CONFLICT" ? "дані змінилися в іншій вкладці — онови сторінку й спробуй ще раз" : erase.error}). Дані лишилися як були.</p>
+        ? erase.error.startsWith("LOCAL_CLEAR_FAILED")
+          ? <p className="feedback error" role="alert">Прогрес навчання видалено, але браузер не стер частину окремих записів ({erase.error.replace("LOCAL_CLEAR_FAILED: ", "")}). Спробуй видалити ще раз.</p>
+          : <p className="feedback error" role="alert">НЕ видалено ({erase.error === "REVISION_CONFLICT" ? "дані змінилися в іншій вкладці — онови сторінку й спробуй ще раз" : erase.error}). Дані лишилися як були.</p>
         : <p className="feedback" role="status">{erase.done === "learn" ? "Прогрес навчання видалено й перевірено: сховище порожнє." : "Пробні іспити видалено й перевірено: сховище порожнє."}</p>)}
       <p className="muted">Попередня версія застосунку (папка app/) зберігає свій прогрес окремо; тут він не змінюється й не видаляється.</p>
       <div className="actions"><button type="button" className="btn secondary" onClick={onHome}>На головну</button></div>

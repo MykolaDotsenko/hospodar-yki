@@ -28,6 +28,15 @@ describe("research storage (opt-in, verified writes, verified deletion)", () => 
     updateStudyTime(log => addStudyTime(log, "2026-11-10", "reading", 30));
     expect(readStudyTime().days).toEqual({ "2026-11-10": { reading: 90 } });
   });
+  it("time counted under one enrolment is never added to a later one (withdraw and re-enrol in another tab)", () => {
+    const first = enrolment();
+    writeEnrollment(first);
+    clearResearch();
+    writeEnrollment(enroll("HY24", CONSENT_ITEMS.map(c => c.id), new Date("2026-11-11T10:00:00+02:00")));
+    expect(updateStudyTime(log => addStudyTime(log, "2026-11-10", "reading", 60), first.enrolledAt)).toBe(false);
+    expect(readStudyTime().days).toEqual({});
+    expect(updateStudyTime(log => addStudyTime(log, "2026-11-11", "reading", 60), readEnrollment()!.enrolledAt)).toBe(true);
+  });
   it("a refused write is reported, never faked", () => {
     store.refuse = true;
     expect(() => writeEnrollment(enrolment())).toThrow("READBACK_MISMATCH");

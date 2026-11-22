@@ -25,10 +25,12 @@ export function writeEnrollment(e: ResearchEnrollment): void { writeChecked(ENRO
 
 /**
  * Applies one change to the time log stored NOW — only while enrolled, so a withdrawal or an erase in another tab is
- * never undone by a late tick. Returns false (and writes nothing) when not enrolled.
+ * never undone by a late tick. `enrolledAt`: the enrolment the time was counted under; after a withdrawal and a new
+ * enrolment (another tab) old time is dropped, never added to the new participation. Returns false when nothing was written.
  */
-export function updateStudyTime(change: (log: StudyTimeLog) => StudyTimeLog): boolean {
-  if (!readEnrollment()) return false;
+export function updateStudyTime(change: (log: StudyTimeLog) => StudyTimeLog, enrolledAt?: string): boolean {
+  const e = readEnrollment();
+  if (!e || (enrolledAt !== undefined && e.enrolledAt !== enrolledAt)) return false;
   writeChecked(STUDY_TIME_KEY, change(readStudyTime()));
   return true;
 }
