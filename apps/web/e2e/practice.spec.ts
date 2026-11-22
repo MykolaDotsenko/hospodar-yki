@@ -82,6 +82,53 @@ test("Spaced retrieval: a phrase judged 'partly' returns the next day; a recalle
   await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
 });
 
+test("Spaced retrieval of grammar choices: a wrong tense choice returns the next day; the review is not a new first attempt; a right first choice is never scheduled", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-11-11T09:00:00+02:00") });
+  await open(page, /Час дієслова й годинник/);
+  await page.getByLabel("opiskelin", { exact: true }).check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Ще не так")).toBeVisible();
+  await expect(page.getByText(/повернеться на повторення \(1, 3, 7, 14, 30 днів\), бо вибір не збігся з ключем/)).toBeVisible();
+  await expect(page.getByLabel(/Своя зачіпка для пам'яті/)).toHaveCount(0);              // own cues stay with phrases
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Opiskelen suomea joka ilta.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Це завдання повторимо завтра: перший вибір не збігся з ключем/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);                // not massed on the same day
+
+  await page.clock.setFixedTime(new Date("2026-11-12T09:00:00+02:00"));
+  await page.reload();
+  await expect(page.getByTestId("nav-practice").filter({ hasText: "повторити 1" })).toBeVisible();
+  await page.getByTestId("nav-practice").click();
+  await page.getByRole("button", { name: "Повторити" }).click();
+  await expect(page.getByText("Повторення: згадай без зразка.")).toBeVisible();
+  await expect(page.getByText("Ще не так")).toHaveCount(0);                              // the key is hidden again until the choice
+  await page.getByLabel("opiskelen", { exact: true }).check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Згадано на повторенні")).toBeVisible();
+  await expect(page.getByText("Правильно з першої спроби")).toHaveCount(0);              // a review is not a first attempt
+  await axe(page);
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Opiskelen suomea aamulla.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Наступне повторення — через довший проміжок/)).toBeVisible();
+  await page.getByRole("button", { name: "До списку карток" }).click();
+  await expect(page.getByText(/Сьогодні на повторення/)).toHaveCount(0);
+
+  await page.getByRole("button", { name: /Час дієслова й годинник/ }).click();
+  await page.getByRole("button", { name: /^Картка 2 / }).click();
+  await page.getByLabel("menen", { exact: true }).check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Правильно з першої спроби", { exact: true })).toBeVisible();
+  await expect(page.getByText(/не піде на повторення/)).toBeVisible();
+  await page.getByRole("button", { name: "Далі" }).click();
+  await page.getByRole("textbox").fill("Menen kotiin aikaisin.");
+  await page.getByRole("button", { name: "Зберегти й завершити" }).click();
+  await expect(page.getByText(/Картку збережено/)).toBeVisible();
+  await expect(page.getByText(/повторимо завтра/)).toHaveCount(0);
+});
+
 test("own memory cue (keyword-mnemonic-retrieval): offered only for a phrase judged not yet known, kept with it, on the next review shown only on request", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-11-11T09:00:00+02:00") });
   await open(page, /Фрази для життя/);

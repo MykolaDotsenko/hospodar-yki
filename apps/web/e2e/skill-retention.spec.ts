@@ -111,3 +111,46 @@ test("GL-03 listening: audio first, a lesson never met before; text support save
   await expect(page.getByText("З показаним текстом — збережено без оцінки.")).toBeVisible();
   await expect(page.getByText(/Правильно з першої спроби|Ще не так/)).toHaveCount(0);
 });
+
+test("unseen-diagnostics: per-skill line in progress — the start and each new-task check are separate points, no %, no level", async ({ page }) => {
+  await page.clock.install({ time: T0 });
+  await page.goto("./");
+  await page.getByRole("button", { name: "Стартова діагностика" }).click();
+  await page.getByLabel("Tapaamispäivä").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Täydellinen kielitaito").check();                                // wrong on purpose
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByRole("button", { name: "Зберегти й далі: письмо" }).click();
+  await expect(page.getByRole("heading", { name: "Письмо" })).toBeVisible();
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  const reading = page.getByTestId("check-line-reading");
+  await expect(reading).toContainText("Початкова діагностика (03.11): 1 з 2 перших відповідей правильні");
+  await expect(reading).toContainText("День 7, нове завдання: ще попереду");
+  await expect(page.getByTestId("check-line-writing")).toContainText("Початкова діагностика: ще не пройдена");
+  await expect(page.getByTestId("check-line-listening")).toContainText("Початкова діагностика: для цієї навички її немає");
+
+  await page.clock.setFixedTime(DAY7);
+  await openChecks(page);
+  await page.getByRole("button", { name: "Пройти перевірку дня 7" }).first().click();
+  await expect(page.getByText("Korjaustyö ja kulku porraskäytävässä")).toBeVisible();
+  await page.getByLabel("Pääovesta").check();                                             // wrong on purpose
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Väärin").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel(/Mihin mennessä/).fill("Perjantaina.");
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await page.getByLabel("Oikein").check();
+  await page.getByRole("button", { name: "Відповісти" }).click();
+  await expect(page.getByText("Перевірку збережено на цьому пристрої.")).toBeVisible();
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(reading).toContainText("Початкова діагностика (03.11): 1 з 2 перших відповідей правильні");   // the start point is untouched
+  await expect(reading).toContainText("День 7, нове завдання (10.11): 2 з 3 перших відповідей правильні");
+  await expect(reading).toContainText("День 14, нове завдання: ще попереду");
+  await expect(page.getByText(/точки не складаються в лінію рівня/)).toBeVisible();
+  const panel = await page.getByRole("tabpanel").innerText();
+  expect(panel).not.toMatch(/\d\s*%/);
+  expect(panel).not.toMatch(/\b(A1|A2|B1|B2)\b(?! і не прогноз)/);
+  expect(await serious(page)).toEqual([]);
+});

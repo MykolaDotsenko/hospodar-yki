@@ -263,3 +263,70 @@ export function buildSkillRetentionBank(input: {
       questions: l.questions.map(q => ({ id: q.id, type: "single_choice" as const, prompt_fi: q.prompt_fi, options_fi: q.options_fi, correct_index: q.correct_index, why_uk: q.why_uk })) })),
   })) as SkillRetentionBank;
 }
+
+/* ---------- per-skill dynamics on unseen tasks (method unseen-diagnostics, measurement «окрема динаміка») ---------- */
+
+/**
+ * One line per skill: the starting diagnostic, then the independent checks on NEW items at day 7 / 14 / 30, each point
+ * kept separate (never summed, averaged or turned into a %, a slope or a level). Reading/listening points carry counts of
+ * first answers only when the answers were scored; a supported (text/slower) listening check is shown as supported and
+ * ungraded; writing/speaking points are «saved, ungraded» — a human may assess them, the app does not.
+ * Different points use different texts of unknown relative difficulty: the UI must say so and never draw a trend.
+ */
+export type TimelinePointKey = "start" | TransferDay;
+export type TimelineState = "done" | "not_taken" | "no_probe" | "missed" | "due" | "unavailable" | "upcoming";
+export interface TimelinePoint {
+  point: TimelinePointKey; state: TimelineState;
+  /** Local date of the saved attempt (done points only). */
+  date?: string;
+  /** Objective skills, scored answers only. */
+  scored?: number; correct?: number;
+  /** Listening with text or slower speed before answering: saved, ungraded. */
+  supported?: boolean;
+}
+export interface SkillTimeline { skill: Skill; points: TimelinePoint[] }
+
+const firstPer = <T extends { taskId: string }>(xs: readonly T[]) => {
+  const seen = new Set<string>(); return xs.filter(x => (seen.has(x.taskId) ? false : (seen.add(x.taskId), true)));
+};
+
+/**
+ * `startTaskIds`: the task ids of the starting diagnostic per skill (reading question ids, the writing and speaking task id).
+ * A skill without ids (listening: the baseline listening is script-only and not valid for diagnosis) has no start probe.
+ */
+export function independentCheckTimeline(state: Pick<LearnerState, "diagnostics" | "retention">, statuses: readonly SkillRetentionStatus[],
+  startTaskIds: Partial<Record<Skill, readonly string[]>>): SkillTimeline[] {
+  const diagnostics = state.diagnostics || [];
+  const objective = (skill: Skill) => skill === "reading" || skill === "listening";
+  const counts = (skill: Skill, xs: LearnerState["diagnostics"]) => {
+    if (!objective(skill)) return {};
+    const scored = xs.filter(d => d.status === "scored");
+    const supported = xs.some(d => d.status === "ungraded" && d.response.startsWith("[supported"));
+    return { scored: scored.length, correct: scored.filter(d => d.correct === true).length, ...(supported ? { supported: true } : {}) };
+  };
+  const dayOf = (iso: string) => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? undefined : localDay(d); };
+  return RETENTION_SKILLS.map(skill => {
+    const status = statuses.find(s => s.skill === skill);
+    const ids = startTaskIds[skill] ?? [];
+    let start: TimelinePoint;
+    if (!ids.length) start = { point: "start", state: "no_probe" };
+    else {
+      const xs = firstPer(diagnostics.filter(d => d.skill === skill && ids.includes(d.taskId)));
+      const date = xs.length ? dayOf(xs[0]!.completedAt) : undefined;
+      start = xs.length ? { point: "start", state: "done", ...(date ? { date } : {}), ...counts(skill, xs) } : { point: "start", state: "not_taken" };
+    }
+    const days = TRANSFER_DAYS.map((day): TimelinePoint => {
+      if (status?.completed.includes(day)) {
+        const rec = (state.retention || []).find(r => r.taskId === skillRetentionTaskId(skill) && r.day === day && r.independent === true);
+        const xs = firstPer(diagnostics.filter(d => d.skill === skill && d.taskId.startsWith(`d${day}-`)));
+        const date = rec ? dayOf(rec.submittedAt) : undefined;
+        return { point: day, state: "done", ...(date ? { date } : {}), ...counts(skill, xs) };
+      }
+      if (status?.missed.includes(day)) return { point: day, state: "missed" };
+      if (status?.due?.day === day) return { point: day, state: "due" };
+      if (status?.unavailable === day) return { point: day, state: "unavailable" };
+      return { point: day, state: "upcoming" };
+    });
+    return { skill, points: [start, ...days] };
+  });
+}
