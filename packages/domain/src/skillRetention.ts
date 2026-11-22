@@ -18,7 +18,7 @@
  * plus `diagnostics` for each objective answer with taskId `d<day>-<questionId>`.
  */
 import type { LearnerState, RetentionEntry, Skill } from "./learner.ts";
-import { addDiagnostic } from "./learner.ts";
+import { addDiagnostic, HISTORY_LIMIT } from "./learner.ts";
 import { TRANSFER_DAYS, type TransferDay } from "./retention.ts";
 import type { ListeningSupport } from "./listening.ts";
 
@@ -54,6 +54,22 @@ export const skillRetentionTaskId = (skill: Skill) => `skill-${skill}`;
 const p2 = (v: number) => String(v).padStart(2, "0");
 const localDay = (d: Date) => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;
 const ordinal = (v: string) => { const [y, m, d] = v.split("-").map(Number) as [number, number, number]; return Math.floor(Date.UTC(y, m - 1, d) / 86400000); };
+const fromOrdinal = (n: number) => new Date(n * 86400000).toISOString().slice(0, 10);
+/**
+ * The day a skill started, from what survives the device's 120-record history: the earliest kept LEARN answer, and — once
+ * a delayed check was saved — the day that check says it was counted from (its local day minus its real age). Without the
+ * second source, trimming old answers would move the start later and shift every 7/14/30 window.
+ */
+function anchorOf(state: Pick<LearnerState, "diagnostics" | "retention">, skill: Skill): string | null {
+  const days = (state.diagnostics || []).filter(d => d.skill === skill && !DELAYED.test(d.taskId) && typeof d.completedAt === "string")
+    .map(d => new Date(d.completedAt)).filter(d => !Number.isNaN(d.getTime())).map(d => ordinal(localDay(d)));
+  for (const r of state.retention || []) {
+    if (r.taskId !== skillRetentionTaskId(skill) || r.independent !== true || typeof r.actualAgeDays !== "number") continue;
+    const at = new Date(r.submittedAt);
+    if (!Number.isNaN(at.getTime())) days.push(ordinal(localDay(at)) - r.actualAgeDays);
+  }
+  return days.length ? fromOrdinal(Math.min(...days)) : null;
+}
 
 export function validateSkillRetentionBank(b: SkillRetentionBank): boolean {
   const qOk = (q: CheckQuestion) => /^[a-z\d_-]{1,90}$/i.test(q.id) && typeof q.prompt_fi === "string" && q.prompt_fi.trim().length > 0 && (
@@ -78,9 +94,7 @@ function met(state: Pick<LearnerState, "diagnostics" | "retention">, item: Objec
 export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "retention">, bank: SkillRetentionBank, now: Date = new Date()): SkillRetentionStatus[] {
   const today = ordinal(localDay(now));
   return RETENTION_SKILLS.map(skill => {
-    const dates = (state.diagnostics || []).filter(d => d.skill === skill && !DELAYED.test(d.taskId) && typeof d.completedAt === "string")
-      .map(d => new Date(d.completedAt)).filter(d => !Number.isNaN(d.getTime())).map(localDay).sort();
-    const anchorDate = dates[0] ?? null;
+    const anchorDate = anchorOf(state, skill);
     const empty = { skill, anchorDate, ageDays: 0, due: null, unavailable: null, completed: [], missed: [], nextDay: null };
     if (!anchorDate || today < ordinal(anchorDate)) return empty;
     const age = today - ordinal(anchorDate);
@@ -274,7 +288,7 @@ export function buildSkillRetentionBank(input: {
  * Different points use different texts of unknown relative difficulty: the UI must say so and never draw a trend.
  */
 export type TimelinePointKey = "start" | TransferDay;
-export type TimelineState = "done" | "not_taken" | "no_probe" | "missed" | "due" | "unavailable" | "upcoming";
+export type TimelineState = "done" | "not_taken" | "not_kept" | "no_probe" | "missed" | "due" | "unavailable" | "upcoming";
 export interface TimelinePoint {
   point: TimelinePointKey; state: TimelineState;
   /** Local date of the saved attempt (done points only). */
@@ -313,14 +327,20 @@ export function independentCheckTimeline(state: Pick<LearnerState, "diagnostics"
     else {
       const xs = firstPer(diagnostics.filter(d => d.skill === skill && ids.includes(d.taskId)));
       const date = xs.length ? dayOf(xs[0]!.completedAt) : undefined;
-      start = xs.length ? { point: "start", state: "done", ...(date ? { date } : {}), ...counts(skill, xs) } : { point: "start", state: "not_taken" };
+      // A full history may have dropped the start: say "not kept", never "not taken".
+      start = xs.length ? { point: "start", state: "done", ...(date ? { date } : {}), ...counts(skill, xs) }
+        : { point: "start", state: diagnostics.length >= HISTORY_LIMIT ? "not_kept" : "not_taken" };
     }
     const days = TRANSFER_DAYS.map((day): TimelinePoint => {
       if (status?.completed.includes(day)) {
         const rec = (state.retention || []).find(r => r.taskId === skillRetentionTaskId(skill) && r.day === day && r.independent === true);
-        const xs = firstPer(diagnostics.filter(d => d.skill === skill && d.taskId.startsWith(`d${day}-`)));
         const date = rec ? dayOf(rec.submittedAt) : undefined;
-        return { point: day, state: "done", ...(date ? { date } : {}), ...counts(skill, xs) };
+        // The check's own saved summary is frozen at save time and survives a trimmed answer history; the answers are the fallback.
+        const frozen = rec ? /^\[[^\]]+\] (?:(\d+)\/(\d+) first answers correct|supported, ungraded)$/.exec(rec.response) : null;
+        const fromSummary = !objective(skill) ? {} : frozen?.[2] !== undefined ? { scored: Number(frozen[2]), correct: Number(frozen[1]) }
+          : frozen ? { scored: 0, correct: 0, supported: true } : null;
+        const xs = firstPer(diagnostics.filter(d => d.skill === skill && d.taskId.startsWith(`d${day}-`)));
+        return { point: day, state: "done", ...(date ? { date } : {}), ...(fromSummary ?? counts(skill, xs)) };
       }
       if (status?.missed.includes(day)) return { point: day, state: "missed" };
       if (status?.due?.day === day) return { point: day, state: "due" };

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, hasOwnCue, spacedOutcome, type SpacedOutcome, practiceDraft, restorePracticeDraft, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
+import { addDiagnostic, argumentMapPlan, readArgumentMap, ARGUMENT_MAP_SLOTS, ARGUMENT_NODE_MAX_CHARS, type ArgumentMap, fluencyEvidence, fluencySecondsLeft, FLUENCY_ROUNDS_SECONDS, type FluencyFeel, completePractice, hasOwnCue, practiceSeenBefore, spacedOutcome, type SpacedOutcome, practiceDraft, restorePracticeDraft, isSpacedKind, nextPracticeCard, practiceDue, practiceReducer, practiceView, startPractice, stepUpFor, hasInterlocutorLadder, PRACTICE_MAX_CHARS, OWN_CUE_MAX_CHARS,
   type LearnerState, type PracticeCard, type PracticeEvent, type PracticeJudgement, type PracticeKind, type PracticeLine, type PracticeSession } from "@hospodar/domain";
 import { PRACTICE_KINDS, groupLabel, practiceCards } from "../content/practice.ts";
 import { illustrations } from "../content/media.ts";
@@ -32,7 +32,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
   const [runId, setRunId] = useState(0);                                  // a due card may be the same card again
   const open = (c: PracticeCard | null) => { setCard(c); setRunId(n => n + 1); };
 
-  if (card) return <PracticeRun key={`${card.id}-${runId}`} card={card} review={card.id in snapshot.state.cards} repository={repository} snapshot={snapshot} onSaved={onSaved}
+  if (card) return <PracticeRun key={`${card.id}-${runId}`} card={card} review={practiceSeenBefore(snapshot.state, card)} repository={repository} snapshot={snapshot} onSaved={onSaved}
     onNext={() => open(due.find(c => c.id !== card.id) ?? nextPracticeCard(practiceCards, card, id => done.has(`${id}-transfer`)))}   // rektio: next case differs (interleaving-grammar)
     onList={() => open(null)} />;
 
@@ -248,8 +248,14 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
               <figcaption className="muted">{illustration.credit.credit} · {illustration.credit.licence}</figcaption>
             </figure>
           )}
-          {card.choice && isSpacedKind(card) && <p className="muted">{v.correct ? (review ? "Наступне повторення буде через довший проміжок." : "Це завдання не піде на повторення: ти обрав(ла) правильно з першої спроби.")
-            : "Це завдання повернеться на повторення (1, 3, 7, 14, 30 днів), бо вибір не збігся з ключем."}</p>}
+          {card.choice && isSpacedKind(card) && (() => {                     // what saving will do to the schedule, said before it
+            const o = spacedOutcome(snapshot.state, s, card);
+            const text = o.kind === "back_tomorrow" ? "Це завдання повернеться на повторення (1, 3, 7, 14, 30 днів), бо вибір не збігся з ключем."
+              : o.kind === "not_scheduled" ? (review ? null : "Це завдання не піде на повторення: ти обрав(ла) правильно з першої спроби.")
+              : o.kind === "not_due" ? "Це завдання ще не на черзі: розклад повторень не зміниться."
+              : o.kind === "next_in" ? `Наступне повторення — через ${o.days} дн.` : null;
+            return text && <p className="muted">{text}</p>;
+          })()}
           {v.needsJudgement && (
             <div className="actions" role="group" aria-label="Порівняй свою відповідь зі зразком">
               {(Object.keys(JUDGE_UK) as PracticeJudgement[]).map(j => (
@@ -297,10 +303,11 @@ function PracticeRun({ card, review, repository, snapshot, onSaved, onNext, onLi
       {saved && hasInterlocutorLadder(card) && s.phase === "done" && card.prompt[0] && <InterlocutorShift card={card} situation={card.prompt[0]} repository={repository} snapshot={snapshot} onSaved={onSaved} />}
 
       {saved && <p className="feedback" role="status"><Icon name="ok" /> Картку збережено на цьому пристрої. Тексти — без оцінки.
-        {outcome === "back_tomorrow" && (card.choice ? " Це завдання повторимо завтра: перший вибір не збігся з ключем."
+        {outcome?.kind === "back_tomorrow" && (card.choice ? " Це завдання повторимо завтра: вибір не збігся з ключем."
           : hasOwnCue(card) ? " Цю фразу повторимо завтра: ти позначив(ла), що ще не згадуєш її точно."
           : " Це завдання повторимо завтра: ти позначив(ла), що твоя відповідь відрізняється.")}
-        {outcome === "longer_gap" && " Наступне повторення — через довший проміжок."}
+        {outcome?.kind === "next_in" && ` Наступне повторення — через ${outcome.days} дн.`}
+        {outcome?.kind === "not_due" && " Це завдання ще не було на черзі, тож розклад повторень не змінився."}
         {cueNote === "saved" && " Твою зачіпку збережено разом із фразою."}
         {cueNote === "removed" && " Зачіпку прибрано."}</p>}
       <div className="actions">

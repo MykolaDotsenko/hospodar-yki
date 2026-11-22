@@ -5,7 +5,7 @@
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { addDiagnostic, blankState, buildSkillRetentionBank, independentCheckTimeline, recordSkillCheck, skillCheckReducer,
+import { addDiagnostic, blankState, HISTORY_LIMIT, buildSkillRetentionBank, independentCheckTimeline, recordSkillCheck, skillCheckReducer,
   skillRetentionQueue, startSkillCheck, type LearnerState, type Skill, type SkillCheckItem, type SkillRetentionBank } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
@@ -88,5 +88,16 @@ describe("independent check timeline per skill (unseen-diagnostics)", () => {
     const s = check(started(), "reading", at(7));
     const keys = new Set(independentCheckTimeline(s, skillRetentionQueue(s, bank, at(8)), START).flatMap(x => x.points.flatMap(p => Object.keys(p))));
     expect([...keys].sort()).toEqual(["correct", "date", "point", "scored", "state"]);
+  });
+  it("a full 120-record history: the start says «not kept», a done day keeps its own counts, and the 7/14/30 windows do not shift", () => {
+    let s = check(started(), "reading", at(7));
+    const before = line(s, at(8), "reading")[1]!;
+    for (let i = 0; i < HISTORY_LIMIT + 10; i++)                               // a lot of later practice pushes old answers out
+      s = addDiagnostic(s, { skill: "writing", taskId: `card-${i}`, status: "ungraded", response: "x" }, at(9));
+    expect(s.diagnostics.some(d => d.taskId === "d-r1" || d.taskId.startsWith("d7-"))).toBe(false);
+    const after = line(s, at(14), "reading");
+    expect(after[0]).toEqual({ point: "start", state: "not_kept" });
+    expect(after[1]).toEqual(before);                                          // from the check's own saved summary
+    expect(skillRetentionQueue(s, bank, at(14)).find(x => x.skill === "reading")).toMatchObject({ anchorDate: "2026-11-01", due: { day: 14 } });
   });
 });
