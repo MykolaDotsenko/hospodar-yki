@@ -1,0 +1,17 @@
+{
+  "schema": "hospodar-release-readiness-v1",
+  "purpose": "Human rows of the single pre-release check (docs/29 stage 8; R11-20; docs/RELEASE.md go/no-go). scripts/release_readiness.py computes the automated gates itself; a row here may say PASS only with a dated record of a real session or a written sign-off. Green tests never make a release ready on their own.",
+  "scope": "web",
+  "build_budget_bytes": 524288000,
+  "build_budget_source": "docs/23-android-offline-game-and-3gb-media-architecture.md (R05: base ≤500MB); applied to the whole Web release build (app shell and bundled media together)",
+  "rows": [
+    { "id": "A11Y-TALKBACK", "kind": "manual", "scope": "web", "title_uk": "Chrome Android + TalkBack: 320/360/390 px, великий текст 200 %, порядок читання; навчання й аудіювання без витоку ключа", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-17", "TZ-EXAM-18"], "status": "NOT_RUN", "evidence": null },
+    { "id": "A11Y-SWITCH-KEYBOARD", "kind": "manual", "scope": "web", "title_uk": "Chrome Android + Switch Access / зовнішня клавіатура: видимий фокус під екранною клавіатурою, поворот, без подвійного надсилання", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-17"], "status": "NOT_RUN", "evidence": null },
+    { "id": "A11Y-DESKTOP-SR", "kind": "manual", "scope": "web", "title_uk": "Chrome/Firefox на комп'ютері + клавіатура + NVDA/Orca: 200 % тексту, таймер і стан пробного іспиту, помилка сховища", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-02", "R10-18"], "status": "NOT_RUN", "evidence": null },
+    { "id": "A11Y-VOICEOVER", "kind": "manual", "scope": "web", "title_uk": "Safari iOS + VoiceOver: вузький екран, масштаб, аудіювання, текстова альтернатива, відмова від мікрофона", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-02", "R10-17"], "status": "NOT_RUN", "evidence": null },
+    { "id": "A11Y-ZOOM-400", "kind": "manual", "scope": "web", "title_uk": "Справжнє масштабування браузера 400 %: нічого не обрізано, дії досяжні", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-05"], "status": "NOT_RUN", "evidence": null },
+    { "id": "A11Y-ANDROID-NATIVE", "kind": "manual", "scope": "android", "title_uk": "Зібраний Android-застосунок (AAB, пакети PAD) + TalkBack, режим польоту", "source": "research/ux/22-r10-accessibility-mobile-qa-2026-10.md", "requirements": ["R10-17"], "status": "NOT_RUN", "evidence": null },
+    { "id": "SIGNOFF-PRIVACY-LEGAL", "kind": "signoff", "scope": "web", "title_uk": "Письмовий висновок щодо приватності й права: запис голосу, оцінка впливу на захист даних, тексти згоди (зокрема режиму дослідження), права на медіа", "source": "docs/29-tz-development-plan.md#етап-8-випуск", "requirements": ["TZ-EXAM-20", "R10-20"], "status": "NOT_RUN", "evidence": null },
+    { "id": "SIGNOFF-HOSTING", "kind": "signoff", "scope": "web", "title_uk": "Рішення власника про хостинг і публікацію", "source": "docs/29-tz-development-plan.md#етап-8-випуск", "requirements": [], "status": "NOT_RUN", "evidence": null }
+  ]
+}

@@ -4753,8 +4753,19 @@
       "id": "R11-20",
       "source": "research/architecture/r11-offline-integrity-resilience-2026-10.md",
       "summary": "Green research/Node tests are never a Play release gate on their own",
-      "status": "NOT_YET",
-      "plan": "G6 release checklist requires real device QA in addition to green tests."
+      "status": "ENFORCED",
+      "plan": "G6 release checklist requires real device QA in addition to green tests.",
+      "evidence": [
+        {
+          "file": "scripts/tests/test_release_readiness.py",
+          "contains": "def test_green_automated_gates_with_unrun_human_rows_are_not_ready"
+        },
+        {
+          "file": "scripts/tests/test_release_readiness.py",
+          "contains": "def test_pass_needs_a_dated_record_role_and_environment"
+        }
+      ],
+      "note": "Web release: scripts/release_readiness.py gives READY only when content, claims and build gates pass AND every human row (real-device accessibility sessions, privacy/legal and hosting sign-offs) has a dated record. A Play release gate does not exist yet (no Android build)."
     },
     {
       "id": "MOT-01",
@@ -12546,6 +12557,10 @@
         {
           "file": "apps/web/e2e/exam.spec.ts",
           "contains": "EXAM rehearsal (XState): no aids before finish, persisted navigation survives reload, results only after a durable finish"
+        },
+        {
+          "file": "docs/operations/release-readiness-v1.json",
+          "contains": "A11Y-TALKBACK"
         }
       ],
       "gap": "Three desktop engines run in CI with reload/save-failure cases; mobile browser, Android device and screen reader are not run (manual device testing needed)."
