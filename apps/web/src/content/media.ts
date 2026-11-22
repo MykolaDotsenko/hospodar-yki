@@ -3,13 +3,12 @@
  * sources/youtube). Every item passes the domain rights gate AND must exist as a bundled file; anything else is
  * dropped and listed in `refused` (shown to reviewers, never silently used). YouTube is link-only — no embed.
  */
-import { admitExternalLink, admitMedia, admitVideo, type MediaEntry } from "@hospodar/domain";
+import { admitMedia, admitVideo, type MediaEntry } from "@hospodar/domain";
 import audioManifest from "../../../../assets/audio/available.json";
 import videoManifest from "../../../../assets/video/open/available.json";
 import pictureManifest from "../../../../assets/images/pictures/available.json";
 import illustrationManifest from "../../../../assets/images/illustrations/library.json";
 import librivoxManifest from "../../../../learning/exercises/b1/audio-training/librivox-human.json";
-import youtube from "../../../../sources/youtube/youtube-catalog.json";
 import videoExercises from "../../../../learning/exercises/video/exercises.json";
 import { learnerPool } from "./release.ts";
 
@@ -76,14 +75,6 @@ export const pictures = admit((pictureManifest as unknown as { assets: PictureEn
 
 type IllustrationEntry = MediaEntry & { alt_fi: string; alt_uk: string; topic: string; has_visible_solution: boolean; mode: string };
 export const illustrations = admit((illustrationManifest as unknown as { items: IllustrationEntry[] }).items).filter(i => i.mode === "LEARN_only");
-
-type LinkEntry = Parameters<typeof admitExternalLink>[0] & { creator: string; title: string; cefr_estimate?: string; skills?: string[];
-  why_useful?: string; original_question_seeds?: { id: string; prompt_fi: string }[] };
-export const externalLinks = (youtube as unknown as { items: LinkEntry[] }).items.flatMap(l => {
-  const g = admitExternalLink(l);
-  if (!g.ok) { refused.push({ id: l.id, reason: g.reason }); return []; }
-  return [{ ...l, url: g.url, host: g.host }];
-});
 
 /**
  * Questions to the open videos (learning/exercises/video/exercises.json, CURATED-09): gist, detail, opinion — no answer

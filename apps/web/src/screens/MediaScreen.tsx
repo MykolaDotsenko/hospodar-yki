@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { addDiagnostic, type LearnerState, type Skill } from "@hospodar/domain";
-import { externalLinks, illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videoQuestions, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
+import { illustrations, librivoxWorks, openRecordings, pictures, segmentsOf, sourceTitle, videoQuestions, videos, videosWithoutCaptions, type Credit } from "../content/media.ts";
+import { externalLinks } from "../content/externalLinks.ts";
 import { learnMore } from "../content/learnMore.ts";
 import type { LearnerRepository } from "../storage/learnerRepository.ts";
 import { TrustNote } from "../ui/TrustNote.tsx";
