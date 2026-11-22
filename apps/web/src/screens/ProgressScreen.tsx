@@ -6,7 +6,7 @@ import { exercises } from "../content/cloze.ts";
 import { practiceCards } from "../content/practice.ts";
 import { transferBank } from "../content/transfer.ts";
 import type { ExamHistoryRecord, ExamRepository } from "../storage/examRepository.ts";
-import { ExamHistoryList } from "./ExamScreen.tsx";
+import { ExamHistoryList } from "./ExamHistoryList.tsx";
 import { YkiMap } from "./YkiMap.tsx";
 
 const SKILLS: Array<{ id: Skill; uk: string; fi: string }> = [

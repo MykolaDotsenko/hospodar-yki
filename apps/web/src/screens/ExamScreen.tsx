@@ -13,6 +13,7 @@ import { TaskAudio } from "../ui/TaskAudio.tsx";
 import { examProfileFile, examProfiles, pinOf, profileById } from "../content/examProfiles.ts";
 import { endsPart, examProfileHash, isPartClosed, partRemainingSeconds, PART_MINUTES_OPTIONS, playsUsed, profileAvailability, resolveExamRules, ruleValueUk, PRACTICE_PLAY_OPTIONS, type ExamProfile, type ExamRules, type PracticeChoices } from "@hospodar/domain";
 import { ExamLook } from "./ExamLook.tsx";
+import { ExamHistoryList, SKILL_UK } from "./ExamHistoryList.tsx";
 import { ExamCoverage } from "./ExamCoverage.tsx";
 import { RaterPackageButton } from "./RaterPackageButton.tsx";
 import { ExamKeyboardCheck } from "./ExamKeyboardCheck.tsx";
@@ -20,7 +21,6 @@ import { YkiAudioGuide } from "./YkiAudioGuide.tsx";
 
 /** EXAM practice rehearsal UI. Neutral, Finnish instructions, no learning cues, hints or feedback before a durable finish. */
 const SKILL_FI: Record<ExamItem["skill"], string> = { reading: "Tekstin ymmärtäminen", listening: "Puheen ymmärtäminen", writing: "Kirjoittaminen", speaking: "Puhuminen" };
-const SKILL_UK: Record<ExamItem["skill"], string> = { reading: "Читання", listening: "Аудіювання", writing: "Письмо", speaking: "Говоріння" };
 const newId = () => "sess-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 type Machine = ReturnType<typeof createExamMachine>;
 
@@ -369,29 +369,6 @@ function ExamSetup({ error, repository, onStart, onHome }: { error: string | nul
       <h2>Попередні репетиції</h2>
       <ExamHistoryList history={history} />
     </section>
-  );
-}
-
-/** Attempt history (EXAM-09): objective counts per skill, ungraded counted separately; never a grade or pass prediction. */
-export function ExamHistoryList({ history }: { history: ExamHistoryRecord[] | null }) {
-  const repeats = history ? repeatedSkills(history) : new Map<string, ExamSkill[]>();
-  return (
-    <>
-      {history === null ? <p className="muted">Завантаження…</p> : history.length === 0 ? <p className="muted">Ще немає завершених репетицій.</p> : (
-        <ul className="skill-lines exam-history">
-          {history.map(h => (
-            <li key={h.sessionId}>
-              <strong>{new Date(h.finishedAt).toLocaleDateString("uk-UA")}</strong> · {examBlueprints.find(b => b.id === h.blueprintId)?.title_uk ?? h.blueprintId}
-              {h.skills ? ` · ${h.skills.map(k => SKILL_UK[k]).join(", ")}` : " · усі 4 навички"}
-              {(repeats.get(h.sessionId) ?? []).length > 0 && <> · <em>повторення знайомого: {repeats.get(h.sessionId)!.map(k => SKILL_UK[k]).join(", ")}</em></>}<br />
-              {(Object.keys(h.bySkill) as ExamSkill[]).filter(k => h.bySkill[k].objective || h.bySkill[k].ungraded).map(k =>
-                `${SKILL_UK[k]}: ${h.bySkill[k].objective ? `${h.bySkill[k].correct}/${h.bySkill[k].objective} із ключем` : ""}${h.bySkill[k].ungraded ? `${h.bySkill[k].objective ? ", " : ""}${h.bySkill[k].ungraded} без оцінки` : ""}`).join(" · ") || "без відповідей"}
-              <br /><small className="muted">Версія завдань: {h.contentVersion}. Не прогноз складання YKI.</small>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
   );
 }
 

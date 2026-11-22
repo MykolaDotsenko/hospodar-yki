@@ -884,3 +884,10 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - **Storage:** `storage/research.ts`, keys `hospodar-yki:web:research:enrollment:v1` and `…:time:v1`, readback-verified; a late tick after a withdrawal in another tab writes nothing. «Вийти з дослідження» and the LEARN erase remove both, verified; the erase clears research first and each store on its own, and names any store the browser refused to clear. `LearnerState`, the backup and the legacy reader are unchanged.
 - **Tests:** `packages/domain/test/research.test.ts`, `apps/web/src/storage/research.test.ts`, `apps/web/e2e/research.spec.ts`. An independent code review (22.11.2026) found the same-day prior-exposure, repeated-answer, history-trim, erase-order, study-code and meter-edge issues; all fixed with tests.
 - **Not done (human or later):** consent text review by a privacy owner, arm assignment, questionnaires, the pilot itself.
+
+## 2026-11-22 — screens loaded on demand (first-load size)
+
+- The exam engine and screens (XState, `ExamScreen`), the media library (`MediaScreen` + the YouTube link catalog, now `content/externalLinks.ts`) and the S2 reviewer workspace load with `React.lazy` when opened. The rehearsal history list moved to `screens/ExamHistoryList.tsx` so «Мій прогрес» does not pull in the exam engine.
+- Measured on a beta build: the entry script went from 2.05 MB (484 KB gzip) to 1.54 MB (354 KB gzip; about 400 KB gzip with the shared React chunk) before the first screen.
+- The offline shell still precaches every chunk (`offline-manifest.json`), so the exam opens offline after one online visit.
+- **Tests:** `e2e/offline.spec.ts` «the first screen does not load the exam, media or reviewer code; the exam still opens offline». Not measured: real-device load time (R7-14 stays NOT_YET).

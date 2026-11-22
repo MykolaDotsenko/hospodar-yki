@@ -89,3 +89,18 @@ test("WEB-06: the app is installable (Chromium's own installability check is emp
   const { installabilityErrors } = await cdp.send("Page.getInstallabilityErrors") as { installabilityErrors: { errorId: string }[] };
   expect(installabilityErrors.map(e => e.errorId)).toEqual([]);
 });
+
+test("WEB-05: the first screen does not load the exam, media or reviewer code; the exam still opens offline after one online visit", async ({ page, context }) => {
+  const scripts: string[] = [];
+  page.on("request", r => { if (r.resourceType() === "script") scripts.push(new URL(r.url()).pathname); });
+  await page.goto("./");
+  await expect(page.getByRole("heading", { name: "Що сьогодні робимо?" })).toBeVisible();
+  await controlled(page);
+  expect(scripts.filter(s => /(ExamScreen|MediaScreen|ReviewerScreen)-/.test(s))).toEqual([]);  // loaded on demand only
+
+  await context.setOffline(true);
+  await page.reload();
+  await page.getByRole("button", { name: /Симуляція YKI/ }).click();                 // its chunk comes from the offline shell
+  await expect(page.getByRole("button", { name: /Aloita/ })).toBeVisible();
+  await context.setOffline(false);
+});

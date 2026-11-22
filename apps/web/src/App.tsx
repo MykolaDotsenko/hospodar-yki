@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import type { GoalRecord, LearnerState } from "@hospodar/domain";
 import { HomeScreen } from "./screens/HomeScreen.tsx";
 import type { ActiveSession } from "./screens/SessionPlanPanel.tsx";
@@ -6,10 +6,8 @@ import { onGoalsChanged, readGoals } from "./storage/goals.ts";
 import type { LearnerRepository } from "./storage/learnerRepository.ts";
 import type { ExamRepository } from "./storage/examRepository.ts";
 import type { VoiceStore } from "./storage/voiceStore.ts";
-import { ExamScreen } from "./screens/ExamScreen.tsx";
 import { MissionScreen } from "./screens/MissionScreen.tsx";
 import { learnerR08Tasks } from "./content/r08.ts";
-import { ReviewerScreen } from "./screens/ReviewerScreen.tsx";
 import { ImportScreen } from "./screens/ImportScreen.tsx";
 import { RetentionScreen } from "./screens/RetentionScreen.tsx";
 import { ProgressScreen } from "./screens/ProgressScreen.tsx";
@@ -17,7 +15,6 @@ import { ListeningScreen } from "./screens/ListeningScreen.tsx";
 import { DiagnosticScreen } from "./screens/DiagnosticScreen.tsx";
 import { WritingClinicScreen } from "./screens/WritingClinicScreen.tsx";
 import { DialogueScreen } from "./screens/DialogueScreen.tsx";
-import { MediaScreen } from "./screens/MediaScreen.tsx";
 import { PictureMissionScreen } from "./screens/PictureMissionScreen.tsx";
 import { ReadingScreen } from "./screens/ReadingScreen.tsx";
 import { PracticeScreen } from "./screens/PracticeScreen.tsx";
@@ -48,6 +45,16 @@ import { useStudyMeter } from "./ui/useStudyMeter.ts";
 import { applyAppearance, applyFont, applyGuide, applyTheme, readAppearance, readFont, readGuide, readTheme, type Appearance, type FontChoice, type Theme } from "./appearance.ts";
 
 type View = "workshop" | "place" | "home" | "mission" | "review" | "import" | "retention" | "progress" | "listening" | "diagnostic" | "writing" | "dialogue" | "media" | "pictures" | "reading" | "practice" | "masterclass" | "external" | "exam" | "data" | "offline";
+/**
+ * Screens most learners do not open on every visit load on demand, so the first screen starts faster: the exam engine
+ * (XState, exam screens), the media library (with its link catalog) and the S2 reviewer workspace (beta only). The
+ * offline app shell still precaches every chunk, so they open offline too (WEB-05).
+ */
+const ExamScreen = lazy(() => import("./screens/ExamScreen.tsx").then(m => ({ default: m.ExamScreen })));
+const MediaScreen = lazy(() => import("./screens/MediaScreen.tsx").then(m => ({ default: m.MediaScreen })));
+const ReviewerScreen = lazy(() => import("./screens/ReviewerScreen.tsx").then(m => ({ default: m.ReviewerScreen })));
+const loadingScreen = <p className="muted" role="status">Відкриваю…</p>;
+
 /** The S2 reviewer workspace exists only in beta builds: a release build never shows keys or drafts. */
 const initialView = (): View => (location.hash === "#review" && !IN_RELEASE ? "review" : "home");
 /** Release build: a learner screen whose pool has no S2-published item shows «Ще не перевірено» instead. */
@@ -150,14 +157,14 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
             note ? { place: places.find(p => p.id === place)?.title_uk ?? "", text: note } : null)} />}
         {view === "offline" && <OfflineScreen onHome={() => goTo("home")} />}
         {view === "data" && snapshot && <DataScreen repository={repository} examRepository={examRepository} voiceStore={voiceStore} snapshot={snapshot} onErased={s => { setSnapshot(s); setSession(null); setGoals(readGoals()); }} onHome={() => goTo("home")} />}
-        {view === "exam" && !EMPTY_IN_RELEASE.exam && <ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")} onFocus={onExamFocus}
-          onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} />}
+        {view === "exam" && !EMPTY_IN_RELEASE.exam && <Suspense fallback={loadingScreen}><ExamScreen repository={examRepository} voiceStore={voiceStore} onHome={() => goTo("home")} onFocus={onExamFocus}
+          onLearn={skill => goTo(skill === "reading" ? "reading" : skill === "listening" ? "listening" : skill === "writing" ? "writing" : "dialogue")} /></Suspense>}
         {view === "reading" && !EMPTY_IN_RELEASE.reading && snapshot && <ReadingScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "practice" && !EMPTY_IN_RELEASE.practice && snapshot && <PracticeScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialCardId={startId} />}
         {view === "masterclass" && !EMPTY_IN_RELEASE.masterclass && snapshot && <MasterclassScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={id => goTo("listening", id)} />}
         {view === "external" && !EMPTY_IN_RELEASE.external && snapshot && <ExternalMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "pictures" && !EMPTY_IN_RELEASE.pictures && snapshot && <PictureMissionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
-        {view === "media" && snapshot && <MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
+        {view === "media" && snapshot && <Suspense fallback={loadingScreen}><MediaScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} /></Suspense>}
         {view === "dialogue" && !EMPTY_IN_RELEASE.dialogue && snapshot && <DialogueScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "writing" && !EMPTY_IN_RELEASE.writing && snapshot && <WritingClinicScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} initialId={startId} />}
         {view === "diagnostic" && !EMPTY_IN_RELEASE.diagnostic && snapshot && <DiagnosticScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} onListening={() => goTo("listening")} />}
@@ -165,7 +172,7 @@ export function App({ repository, examRepository, voiceStore, markUrl }: { repos
         {view === "retention" && snapshot && <RetentionScreen repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")} />}
         {view === "progress" && snapshot && <ProgressScreen state={snapshot.state} examRepository={examRepository} onHome={() => goTo("home")} onLearn={() => goTo("mission")} onPractice={() => goTo("practice")} onRetention={() => goTo("retention")} onPlace={id => { setPlace(id); goTo("place"); }} />}
         {view === "import" && snapshot && <ImportScreen repository={repository} current={snapshot} onImported={s => { setSnapshot(s); setSession(null); }} onHome={() => goTo("home")} />}
-        {view === "review" && !IN_RELEASE && <ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} />}
+        {view === "review" && !IN_RELEASE && <Suspense fallback={loadingScreen}><ReviewerScreen onHome={() => { history.replaceState(null, "", location.pathname); goTo("home"); }} /></Suspense>}
         {view === "workshop" && !EMPTY_IN_RELEASE.workshop && snapshot && <WorkshopScreen state={snapshot.state} guide={showGuide} onHome={() => goTo("home")} open={id => goTo("mission", id, true)} />}
         {view === "mission" && !EMPTY_IN_RELEASE.mission && snapshot && (
           <MissionScreen key={startId ?? "ranked"} repository={repository} snapshot={snapshot} onSaved={setSnapshot} onHome={() => goTo("home")}
