@@ -5,7 +5,7 @@
  * alone are insufficient for ingestion: typed, lossless validation is mandatory.
  * Never mix EXAM history/recording receipts into LEARN. No browser or storage APIs.
  */
-import { readState, isOwnCue, isArchivedDiagnosticIds, isArchivedSkillStartDates, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
+import { readState, isOwnCue, isArchivedDiagnosticIds, isArchivedSkillStartDates, isArchivedFirstDiagnostics, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
 import { verifyDataExport, type DataExport, type DataExportCounts } from "./dataExport.ts";
 
 export const MAX_WEB_BACKUP_CHARS = 8_000_000;
@@ -44,6 +44,10 @@ function validState(s: LearnerState): boolean {
   if (Object.hasOwn(s, "archivedDiagnosticIds")) {
     if (!isArchivedDiagnosticIds(s.archivedDiagnosticIds)) return false;
     rootKeys.push("archivedDiagnosticIds");
+  }
+  if (Object.hasOwn(s, "archivedFirstDiagnostics")) {
+    if (!isArchivedFirstDiagnostics(s.archivedFirstDiagnostics, s.archivedDiagnosticIds)) return false;
+    rootKeys.push("archivedFirstDiagnostics");
   }
   if (Object.hasOwn(s, "archivedSkillStartDates")) {
     if (!isArchivedSkillStartDates(s.archivedSkillStartDates)) return false;

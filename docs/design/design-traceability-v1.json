@@ -4856,6 +4856,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "known first outcomes preserve earned keys and ungraded practice after eviction and replay"
         }
       ]
     },
@@ -4912,6 +4916,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "known first outcomes preserve earned keys and ungraded practice after eviction and replay"
         }
       ]
     },
@@ -4932,6 +4940,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "ungraded Finnish writing/speaking opens the door and counts as practice, never as a key (MOT-08)"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "known first outcomes preserve earned keys and ungraded practice after eviction and replay"
         }
       ]
     },
@@ -4952,6 +4964,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "legacy archive IDs never gain a fabricated first outcome from a later replay"
         }
       ]
     },

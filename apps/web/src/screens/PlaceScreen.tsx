@@ -77,7 +77,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
         <div><dt>Спроби фінською</dt><dd>{progress.practice} <span className="muted">— твої тексти й відповіді без оцінки; це теж практика</span></dd></div>
       </dl>
 
-      {!!state.archivedDiagnosticIds?.length && <p className="muted">Давні спроби залишають двері відчиненими. Лічильники показують лише перші відповіді, подробиці яких ще збережені; повтор не додає нового ключа.</p>}
+      {!!state.archivedDiagnosticIds?.length && <p className="muted">Давні спроби залишають двері відчиненими. Відомі перші результати зберігаються навіть без тексту відповіді. Невідомі результати не додаються до лічильників; повтор не додає нового ключа.</p>}
 
       {guide && <Hospodar size={80} says={hospodarAtPlace(progress.doorOpen)} />}
 
