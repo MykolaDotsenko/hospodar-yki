@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { blankState, buildPlaceIndex, placeOfTask, placeOfTheme, placeProgress, PLACE_IDS, type LearnerState } from "../src/index.ts";
+import { addDiagnostic, HISTORY_LIMIT, readState, blankState, buildPlaceIndex, placeOfTask, placeOfTheme, placeProgress, PLACE_IDS, type LearnerState } from "../src/index.ts";
 
 const index = buildPlaceIndex([
   { itemId: "ctx-reading-02-housing", place: "housing" },
@@ -53,6 +53,42 @@ describe("places: «Господарство» — nine everyday places, honest 
       scored("ctx-reading-02-housing-q3", true), own("ctx-dialog-02-roleplay")] };
     expect(of(replay, "housing")).toMatchObject({ doorOpen: true, itemsTried: 2, keys: 1, practice: 1 });
     expect(of(replay, "health")).toMatchObject({ doorOpen: true, itemsTried: 1, keys: 0, practice: 0 });
+  });
+  it("known first outcomes preserve earned keys and ungraded practice after eviction and replay", () => {
+    const at = new Date("2026-11-01T10:00:00Z");
+    let s = blankState();
+    const q1 = "ctx-reading-02-housing-q1", q2 = "ctx-reading-02-housing-q2", q3 = "ctx-reading-02-housing-q3";
+    s = addDiagnostic(s, { skill: "reading", taskId: q1, status: "scored", correct: true }, at);
+    s = addDiagnostic(s, { skill: "reading", taskId: q2, status: "scored", correct: false }, at);
+    s = addDiagnostic(s, { skill: "speaking", taskId: "ctx-dialog-02-roleplay", status: "ungraded", response: "Private text" }, at);
+    s = addDiagnostic(s, { skill: "listening", taskId: q3, status: "ungraded", response: "supported:transcript" }, at);
+    const initial = s;
+    const before = of(s, "housing");
+    expect(before).toMatchObject({ keys: 1, practice: 2, doorOpen: true });
+    s = addDiagnostic(s, { skill: "reading", taskId: q1, status: "scored", correct: false }, at);
+    s = addDiagnostic(s, { skill: "reading", taskId: q2, status: "scored", correct: true }, at);
+    s = addDiagnostic(s, { skill: "listening", taskId: q3, status: "scored", correct: true }, at);
+    for (let i = 0; i < HISTORY_LIMIT + 1; i++)
+      s = addDiagnostic(s, { skill: "writing", taskId: `filler-${i}`, status: "ungraded", response: "Oma vastaus" }, at);
+    expect(initial.archivedFirstDiagnostics).toBeUndefined();
+    expect(s.diagnostics).toHaveLength(HISTORY_LIMIT);
+    expect(s.archivedFirstDiagnostics?.filter(e => e.taskId.startsWith("ctx-"))).toEqual([
+      { taskId: q1, skill: "reading", outcome: "correct" },
+      { taskId: q2, skill: "reading", outcome: "incorrect" },
+      { taskId: "ctx-dialog-02-roleplay", skill: "speaking", outcome: "ungraded" },
+      { taskId: q3, skill: "listening", outcome: "ungraded" },
+    ]);
+    expect(JSON.stringify(s.archivedFirstDiagnostics)).not.toContain("Private text");
+    expect(of(readState(JSON.stringify(s)).state, "housing")).toEqual(before);
+  });
+  it("legacy archive IDs never gain a fabricated first outcome from a later replay", () => {
+    const at = new Date("2026-11-01T10:00:00Z"), id = "ctx-reading-02-housing-q1";
+    let s: LearnerState = { ...blankState(), archivedDiagnosticIds: [id] };
+    s = addDiagnostic(s, { skill: "reading", taskId: id, status: "scored", correct: true }, at);
+    for (let i = 0; i < HISTORY_LIMIT; i++)
+      s = addDiagnostic(s, { skill: "writing", taskId: `filler-${i}`, status: "ungraded" }, at);
+    expect(s.archivedFirstDiagnostics?.some(e => e.taskId === id) ?? false).toBe(false);
+    expect(of(s, "housing")).toMatchObject({ keys: 0, practice: 0, doorOpen: true, itemsTried: 1 });
   });
   it("an item cannot belong to two places", () => {
     expect(() => buildPlaceIndex([{ itemId: "x", place: "work" }, { itemId: "x", place: "health" }])).toThrow(/two places/);

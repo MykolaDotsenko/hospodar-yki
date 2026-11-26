@@ -60,9 +60,9 @@ export function placeOfTask(index: PlaceIndex, taskId: string): PlaceItem | null
 
 export interface PlaceProgress {
   place: PlaceId;
-  /** Verified independent successes with retained detail: first answer to a task was scored and correct. */
+  /** Verified independent successes with a known first outcome (recent or archived). */
   keys: number;
-  /** First ungraded attempts with retained detail (Finnish writing/speaking, open answers, supported listening). */
+  /** Known first ungraded attempts (Finnish writing/speaking, open answers, supported listening). */
   practice: number;
   /** Items of this place the learner has started at least once. */
   itemsTried: number;
@@ -88,8 +88,17 @@ export function placeProgress(state: LearnerState, index: PlaceIndex): PlaceProg
     if (!tried.has(item.itemId)) { tried.add(item.itemId); p.itemsTried++; }
     return p;
   };
-  // IDs preserve exposure but cannot prove correctness or support. Never promote a replay to first evidence.
+  // IDs alone preserve exposure, not correctness. Known archived outcomes preserve earned keys and practice.
   for (const taskId of archived) markTried(taskId);
+  const counted = new Set<string>();
+  for (const entry of state.archivedFirstDiagnostics ?? []) {
+    if (!archived.has(entry.taskId) || counted.has(entry.taskId)) continue;
+    counted.add(entry.taskId);
+    const p = markTried(entry.taskId);
+    if (!p) continue;
+    if (entry.outcome === "correct" && ["reading", "listening"].includes(entry.skill)) p.keys++;
+    else if (entry.outcome === "ungraded") p.practice++;
+  }
   for (const [taskId, d] of firstByTask) {
     const p = markTried(taskId);
     if (!p || archived.has(taskId)) continue;

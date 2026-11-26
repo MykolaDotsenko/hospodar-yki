@@ -60,6 +60,8 @@ export interface MissionAttempt {
 }
 export interface ErrorEntry { taskId: string; grammarTag: string; at: string; resolution: "guided_repair" | "not_yet_demonstrated" }
 export interface Diagnostic { skill: Skill; taskId: string; status: "scored" | "ungraded"; correct?: boolean; response: string; completedAt: string }
+/** Compact immutable first outcome, without learner text or timestamps. */
+export interface ArchivedFirstDiagnostic { taskId: string; skill: Skill; outcome: "correct" | "incorrect" | "ungraded" }
 export interface RetentionEntry {
   taskId: string; day: 7 | 14 | 30; status: "ungraded"; independent: true;
   actualAgeDays?: number; lateByDays?: number; promptVersion?: string; response: string; submittedAt: string;
@@ -71,6 +73,8 @@ export interface LearnerState {
   diagnostics: Diagnostic[];
   /** IDs of saved diagnostic evidence evicted from the bounded history. No answers or scores are retained here. */
   archivedDiagnosticIds?: string[];
+  /** Known first outcomes of evicted tasks only; older ID-only archives remain unknown. */
+  archivedFirstDiagnostics?: ArchivedFirstDiagnostic[];
   /** Earliest known ordinary LEARN day per skill among evicted diagnostics (at most four dates). */
   archivedSkillStartDates?: Partial<Record<Skill, LocalDate>>;
   errors: ErrorEntry[];
@@ -88,6 +92,21 @@ const isInt = (v: unknown): v is number => Number.isInteger(v);
 /** Optional Web V1 extension; older profiles and legacy imports have no archive. */
 export function isArchivedDiagnosticIds(value: unknown): value is string[] {
   return Array.isArray(value) && value.every(id => typeof id === "string" && ID.test(id)) && new Set(value).size === value.length;
+}
+/** A compact outcome must belong to an archived task; one entry per ID, no free text or graded productive skill. */
+export function isArchivedFirstDiagnostics(value: unknown, ids: unknown): value is ArchivedFirstDiagnostic[] {
+  if (!Array.isArray(value) || !isArchivedDiagnosticIds(ids)) return false;
+  const archived = new Set(ids), seen = new Set<string>();
+  return value.every(entry => {
+    if (!isObj(entry) || Object.keys(entry).length !== 3 || !Object.hasOwn(entry, "taskId") ||
+        !Object.hasOwn(entry, "skill") || !Object.hasOwn(entry, "outcome") ||
+        typeof entry.taskId !== "string" || !archived.has(entry.taskId) || seen.has(entry.taskId) ||
+        !["reading", "listening", "writing", "speaking"].includes(String(entry.skill)) ||
+        !(entry.outcome === "ungraded" || (["reading", "listening"].includes(String(entry.skill)) &&
+          (entry.outcome === "correct" || entry.outcome === "incorrect")))) return false;
+    seen.add(entry.taskId);
+    return true;
+  });
 }
 /** Shared by the reader and strict Web restore: no arbitrary keys, scores, or invalid calendar dates. */
 export function isArchivedSkillStartDates(value: unknown): value is Partial<Record<Skill, LocalDate>> {
@@ -141,6 +160,7 @@ export function readState(raw: string | null | undefined): { state: LearnerState
         retention: retention.slice(-HISTORY_LIMIT),
         diagnostics: (s.diagnostics as unknown[]).filter((x): x is Diagnostic => isObj(x) && typeof x.skill === "string").slice(-HISTORY_LIMIT),
         ...(isArchivedDiagnosticIds(s.archivedDiagnosticIds) ? { archivedDiagnosticIds: s.archivedDiagnosticIds } : {}),
+        ...(isArchivedFirstDiagnostics(s.archivedFirstDiagnostics, s.archivedDiagnosticIds) ? { archivedFirstDiagnostics: s.archivedFirstDiagnostics } : {}),
         ...(isArchivedSkillStartDates(s.archivedSkillStartDates) ? { archivedSkillStartDates: s.archivedSkillStartDates } : {}),
         errors: (s.errors as unknown[]).filter((x): x is ErrorEntry => isObj(x) && typeof x.taskId === "string").slice(-ERROR_LIMIT),
       },
@@ -249,11 +269,23 @@ export function addDiagnostic(state: LearnerState,
     response: clipped(response),
     completedAt: now.toISOString(),
   }];
-  // Preserve only task identities when detailed evidence leaves the recent-history window.
+  // Preserve identities and known first outcomes when detailed evidence leaves the recent-history window.
   // In particular, a correct unscheduled practice card must never become a fresh scored item again.
   const evicted = history.slice(0, Math.max(0, history.length - HISTORY_LIMIT));
   if (evicted.length) {
-    next.archivedDiagnosticIds = [...new Set([...(next.archivedDiagnosticIds ?? []), ...evicted.map(d => d.taskId)])];
+    const archived = new Set(next.archivedDiagnosticIds ?? []);
+    const first = [...(next.archivedFirstDiagnostics ?? [])];
+    for (const d of evicted) {
+      // An ID already in the archive has an older first attempt (possibly unknown). Never infer it from a replay.
+      if (archived.has(d.taskId) || typeof d.taskId !== "string" || !ID.test(d.taskId)) continue;
+      archived.add(d.taskId);
+      if (!["reading", "listening", "writing", "speaking"].includes(d.skill)) continue;
+      if (d.status === "ungraded" && d.correct === undefined) first.push({ taskId: d.taskId, skill: d.skill, outcome: "ungraded" });
+      else if (d.status === "scored" && ["reading", "listening"].includes(d.skill) && typeof d.correct === "boolean")
+        first.push({ taskId: d.taskId, skill: d.skill, outcome: d.correct ? "correct" : "incorrect" });
+    }
+    next.archivedDiagnosticIds = [...archived];
+    if (first.length) next.archivedFirstDiagnostics = first;
     // Keep the earliest known day, not the evicted responses. Delayed tests must never start a skill clock.
     const starts = { ...next.archivedSkillStartDates };
     for (const d of evicted) {

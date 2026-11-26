@@ -125,7 +125,7 @@ export function HomeScreen({ state, go, openPlace, guide = false, session = null
         {guide && state && <Hospodar says={hospodarHome(hospodarMoment(state, new Date()), new Date())} />}
         <p className="estate-about">Господар — той, хто сам дає раду своїм справам. Обери місце: двері відчиняються після твоєї першої спроби,
           ключ — за кожну правильну першу відповідь без підказки. Нічого не замкнено.</p>
-        {!!state?.archivedDiagnosticIds?.length && <p className="muted">Давні спроби залишають двері відчиненими. Ключі й спроби в лічильниках — лише за першими відповідями, подробиці яких ще збережені.</p>}
+        {!!state?.archivedDiagnosticIds?.length && <p className="muted">Давні спроби залишають двері відчиненими. Ключі й спроби зберігаються за відомими першими результатами. Якщо результат давньої спроби невідомий, він не додається до лічильника.</p>}
         {!welcome && state && <MyGoals record={goals} onSaved={onGoals} />}
         {!welcome && state && <StudyPlanBox onStart={skill => go(SKILL_VIEW[skill])} />}
         <ul className="estate-grid">

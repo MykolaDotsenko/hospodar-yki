@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { addDiagnostic, blankState, buildDataExport, completeMission, inspectWebLearnBackup,
-  recordDelayedTransfer, serialiseDataExport, type TransferBank } from "../src/index.ts";
+  recordDelayedTransfer, serialiseDataExport, type TransferBank, type LearnerState } from "../src/index.ts";
 
 const T = new Date("2026-11-04T10:00:00.000Z");
 const saved = () => completeMission(blankState(), {
@@ -51,6 +51,22 @@ describe("Web v1 LEARN restore inspection (fail closed)", () => {
       raw.learn.state.archivedSkillStartDates = bad;
       expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
     }
+  });
+  it("restores known archived first outcomes and rejects duplicate orphan or graded productive records", () => {
+    const state: LearnerState = { ...saved(), archivedDiagnosticIds: ["r1", "w1", "unknown"],
+      archivedFirstDiagnostics: [{ taskId: "r1", skill: "reading", outcome: "correct" }, { taskId: "w1", skill: "writing", outcome: "ungraded" }] };
+    const r = inspectWebLearnBackup(file(state));
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.state).toEqual(state);
+    const good = state.archivedFirstDiagnostics![0]!;
+    for (const bad of [null, {}, [good, good], [{ ...good, taskId: "orphan" }],
+      [{ ...good, skill: "writing" }], [{ ...good, outcome: "perfect" }], [{ ...good, response: "private" }]]) {
+      const raw = JSON.parse(file(state));
+      raw.learn.state.archivedFirstDiagnostics = bad;
+      expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
+    }
+    const orphan = JSON.parse(file(state)); delete orphan.learn.state.archivedDiagnosticIds;
+    expect(inspectWebLearnBackup(JSON.stringify(orphan))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
   });
   it("accepts an empty history without EXAM data", () => {
     const text = serialiseDataExport(buildDataExport({
