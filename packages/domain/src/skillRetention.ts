@@ -56,13 +56,15 @@ const localDay = (d: Date) => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d
 const ordinal = (v: string) => { const [y, m, d] = v.split("-").map(Number) as [number, number, number]; return Math.floor(Date.UTC(y, m - 1, d) / 86400000); };
 const fromOrdinal = (n: number) => new Date(n * 86400000).toISOString().slice(0, 10);
 /**
- * The day a skill started, from what survives the device's 120-record history: the earliest kept LEARN answer, and — once
- * a delayed check was saved — the day that check says it was counted from (its local day minus its real age). Without the
- * second source, trimming old answers would move the start later and shift every 7/14/30 window.
+ * Earliest known ordinary LEARN day: recent answers, the compact archive of evicted start dates, and the anchor
+ * reconstructed from completed checks (local submission day minus actual age). Old history lost before this archive
+ * existed cannot be recovered. A delayed answer alone never starts the clock.
  */
-function anchorOf(state: Pick<LearnerState, "diagnostics" | "retention">, skill: Skill): string | null {
+function anchorOf(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedSkillStartDates">, skill: Skill): string | null {
   const days = (state.diagnostics || []).filter(d => d.skill === skill && !DELAYED.test(d.taskId) && typeof d.completedAt === "string")
     .map(d => new Date(d.completedAt)).filter(d => !Number.isNaN(d.getTime())).map(d => ordinal(localDay(d)));
+  const archived = state.archivedSkillStartDates?.[skill];
+  if (archived) days.push(ordinal(archived));
   for (const r of state.retention || []) {
     if (r.taskId !== skillRetentionTaskId(skill) || r.independent !== true || typeof r.actualAgeDays !== "number") continue;
     const at = new Date(r.submittedAt);
@@ -92,7 +94,7 @@ function met(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedDi
     (state.retention || []).some(r => r.response.startsWith(`[${item.id}]`));
 }
 
-export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedDiagnosticIds">, bank: SkillRetentionBank, now: Date = new Date()): SkillRetentionStatus[] {
+export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedDiagnosticIds" | "archivedSkillStartDates">, bank: SkillRetentionBank, now: Date = new Date()): SkillRetentionStatus[] {
   const today = ordinal(localDay(now));
   return RETENTION_SKILLS.map(skill => {
     const anchorDate = anchorOf(state, skill);
