@@ -12758,9 +12758,13 @@
         {
           "file": "packages/domain/test/spaced-kinds.test.ts",
           "contains": "a completed unscheduled card remains a review after diagnostic history eviction and reload"
+        },
+        {
+          "file": "packages/domain/test/session-plan.test.ts",
+          "contains": "archived answers never re-enter the new-task plan, including question prefixes"
         }
       ],
-      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated; FSRS is the separate fsrs-scheduler-chunks item). Scheduled after a failed retrieval: cloze items, self-reported problem chunks/rektio, and since 22.11.2026 also «Час дієслова й годинник» (a first choice that missed the key) and «Форма слова в реченні» (self-judged partly/different); a review of a seen keyed item is kept as ungraded practice, not a new scored first attempt. Saved task identities survive the 120-record diagnostic history cap and Web backup/restore; previously discarded legacy history cannot be reconstructed. Not scheduled: paraphrase, reaction and opinion cards (open production, transfer-oriented). Delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool). All items S2-pending."
+      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated; FSRS is the separate fsrs-scheduler-chunks item). Scheduled after a failed retrieval: cloze items, self-reported problem chunks/rektio, and since 22.11.2026 also «Час дієслова й годинник» (a first choice that missed the key) and «Форма слова в реченні» (self-judged partly/different); a review of a seen keyed item is kept as ungraded practice, not a new scored first attempt. Saved task identities survive the 120-record diagnostic history cap and Web backup/restore; previously discarded legacy history cannot be reconstructed. Not scheduled: paraphrase, reaction and opinion cards (open production, transfer-oriented). Delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool). All items S2-pending. The session plan excludes archived task prefixes when offering new tasks; archived IDs alone never count as newly completed plan items."
     },
     {
       "id": "yki-constructive-alignment",
@@ -13002,9 +13006,13 @@
         {
           "file": "apps/web/e2e/skill-retention.spec.ts",
           "contains": "unseen-diagnostics: per-skill line in progress — the start and each new-task check are separate points, no %, no level"
+        },
+        {
+          "file": "packages/domain/test/skill-retention.test.ts",
+          "contains": "previously answered listening lessons remain excluded after history eviction"
         }
       ],
-      "gap": "One starting diagnostic (reading + writing + speaking; listening not probed: its baseline item has no recording). The re-checks on NEW items are the 7/14/30 delayed checks per skill (withheld reading texts and theme tasks, listening lessons the learner has not met). Since 22.11.2026 «Мій прогрес» shows per skill a separate line: the starting diagnostic and each day-7/14/30 check as its own point (first-answer counts for scored reading/listening, «з текстом чи повільніше — без оцінки» for supported listening, «збережено без оцінки» for writing/speaking, missed/due/unavailable said honestly), never summed, averaged, turned into a % or a level, with a note that the items' difficulty is not equated. Not yet: a separate S2-authored held-out diagnostic bank with equated forms, and re-checks beyond day 30 (only 3 withheld items per skill exist) — both need human-authored content."
+      "gap": "One starting diagnostic (reading + writing + speaking; listening not probed: its baseline item has no recording). The re-checks on NEW items are the 7/14/30 delayed checks per skill (withheld reading texts and theme tasks, listening lessons the learner has not met). Since 22.11.2026 «Мій прогрес» shows per skill a separate line: the starting diagnostic and each day-7/14/30 check as its own point (first-answer counts for scored reading/listening, «з текстом чи повільніше — без оцінки» for supported listening, «збережено без оцінки» for writing/speaking, missed/due/unavailable said honestly), never summed, averaged, turned into a % or a level, with a note that the items' difficulty is not equated. Not yet: a separate S2-authored held-out diagnostic bank with equated forms, and re-checks beyond day 30 (only 3 withheld items per skill exist) — both need human-authored content. Saved listening question identities in the diagnostic archive also exclude previously answered lessons after history eviction; old discarded history and pre-save exposure remain unknown."
     },
     {
       "id": "writing-revision",
@@ -13236,9 +13244,13 @@
         {
           "file": "apps/web/e2e/places.spec.ts",
           "contains": "«Перед справою» warm-up (mobile-contextual-micropractice): phrases of this place, each shown only after the own recall; the first line to take along; nothing stored or scored"
+        },
+        {
+          "file": "packages/domain/test/warm-up.test.ts",
+          "contains": "warm-up prefers genuinely fresh phrases over archived ones"
         }
       ],
-      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to. Each place with phrase cards now offers an optional «Перед справою» warm-up next to its real-life deed (about 2 minutes): the learner's own note from the last deed first, then three phrase cards of that place (due reviews first, then phrases not met yet), each phrase shown only after an own recall or an honest «не пригадую» (the try is frozen, no automatic judgement), then the first sentence the learner means to say there, to take along. Nothing is stored, scheduled or scored, and no reminder or notification ever opens it (the method's own limit). Not yet: no measure of delayed productive use per minute of practice (the method's measurement; needs a study), phrases are S2-pending drafts (a release build has none, so it shows no warm-up), and no time-of-day or location prompt — by design."
+      "gap": "Practice cards are 1–3 minute and reachable from the life place they belong to. Each place with phrase cards now offers an optional «Перед справою» warm-up next to its real-life deed (about 2 minutes): the learner's own note from the last deed first, then three phrase cards of that place (due reviews first, then phrases not met yet), each phrase shown only after an own recall or an honest «не пригадую» (the try is frozen, no automatic judgement), then the first sentence the learner means to say there, to take along. Nothing is stored, scheduled or scored, and no reminder or notification ever opens it (the method's own limit). Not yet: no measure of delayed productive use per minute of practice (the method's measurement; needs a study), phrases are S2-pending drafts (a release build has none, so it shows no warm-up), and no time-of-day or location prompt — by design. The warm-up uses archived diagnostic identities when distinguishing previously answered phrases from new ones."
     },
     {
       "id": "structured-input-grammar",

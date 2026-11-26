@@ -16,6 +16,13 @@ describe("«Перед справою» warm-up (mobile-contextual-micropractice
     expect(WARM_UP_SIZE).toBe(3);
   });
 
+  it("warm-up prefers genuinely fresh phrases over archived ones", () => {
+    const s = { ...blankState(), archivedDiagnosticIds: ["a-transfer", "b"] };
+    expect(warmUpCards(bank, "services", s, "2026-11-19").map(x => x.id)).toEqual(["c", "d", "e"]);
+    const scheduled = { ...s, cards: { a: card("2026-11-18") } };
+    expect(warmUpCards(bank, "services", scheduled, "2026-11-19").map(x => x.id)).toEqual(["a", "c", "d"]);
+  });
+
   it("the phrase is shown only after the own try, the try is frozen, an honest 'not recalled' is not a wrong answer; nothing is scored", () => {
     let s = startWarmUp("services", ["a", "b"]);
     expect(warmUpView(s)).toMatchObject({ phase: "try", cardId: "a", revealed: false, ownTry: null, step: 1, of: 2 });

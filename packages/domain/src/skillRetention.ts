@@ -85,13 +85,14 @@ export function validateSkillRetentionBank(b: SkillRetentionBank): boolean {
 }
 
 /** Has this learner already met the lesson (any diagnostic on one of its questions, or an earlier delayed check)? */
-function met(state: Pick<LearnerState, "diagnostics" | "retention">, item: ObjectiveCheckItem): boolean {
+function met(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedDiagnosticIds">, item: ObjectiveCheckItem): boolean {
   const qs = new Set(item.questions.map(q => q.id));
-  return (state.diagnostics || []).some(d => qs.has(d.taskId.replace(DELAYED, ""))) ||
+  return (state.archivedDiagnosticIds ?? []).some(id => qs.has(id.replace(DELAYED, ""))) ||
+    (state.diagnostics || []).some(d => qs.has(d.taskId.replace(DELAYED, ""))) ||
     (state.retention || []).some(r => r.response.startsWith(`[${item.id}]`));
 }
 
-export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "retention">, bank: SkillRetentionBank, now: Date = new Date()): SkillRetentionStatus[] {
+export function skillRetentionQueue(state: Pick<LearnerState, "diagnostics" | "retention" | "archivedDiagnosticIds">, bank: SkillRetentionBank, now: Date = new Date()): SkillRetentionStatus[] {
   const today = ordinal(localDay(now));
   return RETENTION_SKILLS.map(skill => {
     const anchorDate = anchorOf(state, skill);
