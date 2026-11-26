@@ -15,7 +15,7 @@
  * Finnish answers are never string-matched because valid variants exist (R03: never punish valid forms).
  * Every card is an editorial draft pending S2 review and must be shown as such.
  */
-import { addDiagnostic, dueCards, INTERVAL_DAYS, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
+import { addDiagnostic, dueCards, hasDiagnosticEvidence, INTERVAL_DAYS, localDate, updateCard, withOwnCue, OWN_CUE_MAX_CHARS, type LearnerState, type LocalDate, type Skill } from "./learner.ts";
 
 export type PracticeKind = "paraphrase" | "reaction" | "opinion" | "chunk" | "rektio" | "form" | "time";
 export type PracticeJudgement = "same" | "partly" | "different";
@@ -266,8 +266,8 @@ export function practiceRecalled(s: PracticeSession, card: PracticeCard): boolea
   return card.choice ? s.first !== "" && Number(s.first) === card.choice.correct_index : s.judged === "same";
 }
 /** Has the learner answered this card before (it is scheduled, or a saved answer carries its id)? Then a run is a review. */
-export function practiceSeenBefore(state: Pick<LearnerState, "cards" | "diagnostics">, card: PracticeCard): boolean {
-  return card.id in state.cards || (state.diagnostics ?? []).some(d => d.taskId === card.id);
+export function practiceSeenBefore(state: Pick<LearnerState, "cards" | "diagnostics" | "archivedDiagnosticIds">, card: PracticeCard): boolean {
+  return Object.hasOwn(state.cards, card.id) || hasDiagnosticEvidence(state, card.id);
 }
 /** What a finished run does to the schedule — for an honest message after saving. `state` is the state BEFORE the save. */
 export type SpacedOutcome =

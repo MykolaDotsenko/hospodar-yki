@@ -69,6 +69,8 @@ export interface LearnerState {
   attempts: MissionAttempt[];
   cards: Record<string, Card>;
   diagnostics: Diagnostic[];
+  /** IDs of saved diagnostic evidence evicted from the bounded history. No answers or scores are retained here. */
+  archivedDiagnosticIds?: string[];
   errors: ErrorEntry[];
   retention: RetentionEntry[];
 }
@@ -81,6 +83,14 @@ export function blankState(): LearnerState {
 type Loose = Record<string, unknown>;
 const isObj = (v: unknown): v is Loose => typeof v === "object" && v !== null && !Array.isArray(v);
 const isInt = (v: unknown): v is number => Number.isInteger(v);
+/** Optional Web V1 extension; older profiles and legacy imports have no archive. */
+export function isArchivedDiagnosticIds(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every(id => typeof id === "string" && ID.test(id)) && new Set(value).size === value.length;
+}
+/** A saved answer remains known after its response leaves the recent-history window. */
+export function hasDiagnosticEvidence(state: Pick<LearnerState, "diagnostics" | "archivedDiagnosticIds">, taskId: string): boolean {
+  return (state.archivedDiagnosticIds ?? []).includes(taskId) || (state.diagnostics ?? []).some(d => d.taskId === taskId);
+}
 
 /** Same tolerant V1 reader as the legacy app (filters + caps are audited by R11 preflight). */
 export function readState(raw: string | null | undefined): { state: LearnerState; recovered: boolean } {
@@ -120,6 +130,7 @@ export function readState(raw: string | null | undefined): { state: LearnerState
         cards,
         retention: retention.slice(-HISTORY_LIMIT),
         diagnostics: (s.diagnostics as unknown[]).filter((x): x is Diagnostic => isObj(x) && typeof x.skill === "string").slice(-HISTORY_LIMIT),
+        ...(isArchivedDiagnosticIds(s.archivedDiagnosticIds) ? { archivedDiagnosticIds: s.archivedDiagnosticIds } : {}),
         errors: (s.errors as unknown[]).filter((x): x is ErrorEntry => isObj(x) && typeof x.taskId === "string").slice(-ERROR_LIMIT),
       },
       recovered: false,
@@ -221,12 +232,19 @@ export function addDiagnostic(state: LearnerState,
     throw new Error("Only objective answers can be scored");
   }
   const next: LearnerState = JSON.parse(JSON.stringify(state));
-  next.diagnostics = [...next.diagnostics, {
+  const history = [...next.diagnostics, {
     skill, taskId, status,
     ...(status === "scored" ? { correct: correct as boolean } : {}),
     response: clipped(response),
     completedAt: now.toISOString(),
-  }].slice(-HISTORY_LIMIT);
+  }];
+  // Preserve only task identities when detailed evidence leaves the recent-history window.
+  // In particular, a correct unscheduled practice card must never become a fresh scored item again.
+  const evicted = history.slice(0, Math.max(0, history.length - HISTORY_LIMIT));
+  if (evicted.length) {
+    next.archivedDiagnosticIds = [...new Set([...(next.archivedDiagnosticIds ?? []), ...evicted.map(d => d.taskId)])];
+  }
+  next.diagnostics = history.slice(-HISTORY_LIMIT);
   return next;
 }
 export function skillSummary(state: LearnerState) {

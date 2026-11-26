@@ -25,6 +25,19 @@ describe("Web v1 LEARN restore inspection (fail closed)", () => {
     expect(r.counts.examHistory).toBe(1);
     expect(r.hasExamData).toBe(true);
   });
+  it("preserves archived diagnostic identities in Web backup and rejects malformed archives", () => {
+    const state = { ...saved(), archivedDiagnosticIds: ["old-choice", "old-choice-transfer"] };
+    const r = inspectWebLearnBackup(file(state));
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.state).toEqual(state);
+    for (const bad of [["duplicate", "duplicate"], ["bad id!"], [42], "old-choice", null]) {
+      const raw = JSON.parse(file(state));
+      raw.learn.state.archivedDiagnosticIds = bad;
+      expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
+    }
+    expect(inspectWebLearnBackup(file(saved()))).toMatchObject({ ok: true }); // older Web V1 exports remain valid
+  });
   it("accepts an empty history without EXAM data", () => {
     const text = serialiseDataExport(buildDataExport({
       learn: { state: blankState(), revision: 0, imports: [] }, exam: { current: null, history: [] }, exportedAt: T,

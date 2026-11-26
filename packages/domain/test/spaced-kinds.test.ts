@@ -6,7 +6,7 @@
  */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { blankState, chunkCard, completePractice, dueCards, formCard, hasOwnCue, isSpacedKind, practiceDue, practiceEvidence, practiceReducer,
+import { addDiagnostic, blankState, chunkCard, completePractice, dueCards, hasDiagnosticEvidence, HISTORY_LIMIT, practiceSeenBefore, readState, formCard, hasOwnCue, isSpacedKind, practiceDue, practiceEvidence, practiceReducer,
   skillSummary, spacedOutcome, startPractice, tenseCard, validatePracticeCard, PracticeError,
   type FormItem, type PracticeCard, type TenseLesson, type TimeChoiceItem } from "../src/index.ts";
 
@@ -85,6 +85,27 @@ describe("spaced retrieval of grammar practice: tense/clock choices and corpus w
   it("a scheduled id that is not in the learner pool (e.g. an EXAM item) is never served", () => {
     const st = completePractice(blankState(), choose(time, WRONG), time, day(0));
     expect(practiceDue(st, [form, chunk], "2026-11-11")).toEqual([]);
+  });
+
+  it("a completed unscheduled card remains a review after diagnostic history eviction and reload", () => {
+    let st = completePractice(blankState(), choose(time, KEY), time, day(0));
+    expect(st.cards[time.id]).toBeUndefined();
+    const before = st;
+    for (let i = 0; i < HISTORY_LIMIT + 1; i++)
+      st = addDiagnostic(st, { skill: "writing", taskId: `filler-${i}`, status: "ungraded", response: "Oma lause." }, day(1));
+    expect(before.archivedDiagnosticIds).toBeUndefined();  // no mutation of the prior snapshot
+    expect(st.diagnostics).toHaveLength(HISTORY_LIMIT);
+    expect(st.diagnostics.some(d => d.taskId === time.id)).toBe(false);
+    expect(st.archivedDiagnosticIds).toContain(time.id);
+    expect(hasDiagnosticEvidence(st, `${time.id}-transfer`)).toBe(true);
+    const restored = readState(JSON.stringify(st));
+    expect(restored.recovered).toBe(false);
+    expect(restored.state).toEqual(st);
+    expect(practiceSeenBefore(restored.state, time)).toBe(true);
+    const review = completePractice(restored.state, choose(time, KEY), time, day(2));
+    expect(review.diagnostics.find(d => d.taskId === time.id)).toMatchObject({ status: "ungraded" });
+    expect(skillSummary(review).reading.scored).toBe(0);
+    expect(review.cards[time.id]).toBeUndefined();
   });
 
   it("non-spaced kinds keep their old behaviour", () => {
