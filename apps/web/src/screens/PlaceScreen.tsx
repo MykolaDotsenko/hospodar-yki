@@ -77,6 +77,8 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
         <div><dt>Спроби фінською</dt><dd>{progress.practice} <span className="muted">— твої тексти й відповіді без оцінки; це теж практика</span></dd></div>
       </dl>
 
+      {!!state.archivedDiagnosticIds?.length && <p className="muted">Давні спроби залишають двері відчиненими. Лічильники показують лише перші відповіді, подробиці яких ще збережені; повтор не додає нового ключа.</p>}
+
       {guide && <Hospodar size={80} says={hospodarAtPlace(progress.doorOpen)} />}
 
       {scenario && (
@@ -96,7 +98,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
                 <span>{verb[st.skill]} · <span lang="fi">{titleOfStep(st.itemId)}</span></span>
                 <small className="muted"> — {stepStatus[st.status]}{scenario.next === i ? " · наступний крок" : ""}</small>
                 {run && scenario.next === i && <p className="scenario-condition" data-testid="scenario-condition">{run[i]!.condition_uk}</p>}
-                {st.status !== "todo" && <div className="actions"><button type="button" className="btn secondary" onClick={() => openStep(i)} aria-label={`Повторити: ${verb[st.skill]} · ${titleOfStep(st.itemId)}`}>Повторити крок</button></div>}
+                {st.status !== "todo" && <div className="actions"><button type="button" className="btn secondary" onClick={() => openStep(i)} aria-label={`Повторити крок: ${verb[st.skill]} · ${titleOfStep(st.itemId)}`}>Повторити крок</button></div>}
                 {run && st.status !== "todo" && (
                   <StepCheck place={id} step={run[i]!} met={scenarioCheckOf(checks, id, st.skill)}
                     save={met => { try { setChecks(updateScenarioChecks(c => setScenarioCheck(c, id, run[i]!, met))); return true; } catch { setChecks(readScenarioChecks()); return false; } }} />

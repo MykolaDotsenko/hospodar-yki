@@ -95,7 +95,12 @@ test("a completed scenario step can be revisited with its original purpose", asy
   await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
   await page.getByRole("button", { name: "До питань" }).click();
   for (let i = 0; i < 4; i++) {
-    await page.locator('input[name="lq"]').first().check();
+    // The previous answer's IndexedDB checkpoint must finish before selecting the next radio.
+    await expect(page.getByText(`Питання ${i + 1} з 4`)).toBeVisible();
+    const choice = page.locator('input[name="lq"]').first();
+    await expect(choice).toBeEnabled();
+    await choice.check();
+    await expect(choice).toBeChecked();
     await page.getByRole("button", { name: "Відповісти" }).click();
   }
   await page.getByRole("button", { name: "Зберегти результат" }).click();
@@ -103,7 +108,7 @@ test("a completed scenario step can be revisited with its original purpose", asy
   await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
   await expect(scenario(page).locator("li").nth(0)).toHaveAttribute("data-status", "done");
   await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");
-  await scenario(page).getByRole("button", { name: "Повторити: Зрозумій на слух · Kun verkkokaupan tilaus meni pieleen" }).click();
+  await scenario(page).getByRole("button", { name: "Повторити крок: Зрозумій на слух · Kun verkkokaupan tilaus meni pieleen" }).click();
   await expect(page.getByTestId("scenario-banner")).toContainText("Слухай із метою");
   await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
   await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");

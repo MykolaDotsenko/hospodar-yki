@@ -4852,6 +4852,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "no decay, streak or level: the same evidence gives the same result whatever the date (MOT-04/06)"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
         }
       ]
     },
@@ -4904,6 +4908,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
         }
       ]
     },
@@ -4940,6 +4948,10 @@
         {
           "file": "packages/domain/test/places.test.ts",
           "contains": "a key is the FIRST scored answer and it was correct (MOT-07); a later correct retry adds nothing (MOT-09)"
+        },
+        {
+          "file": "packages/domain/test/places.test.ts",
+          "contains": "archived attempts keep doors open without inventing old keys or awarding keys for a replay"
         }
       ]
     },
