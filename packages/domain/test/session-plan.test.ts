@@ -81,6 +81,16 @@ describe("session plan on 10, 20 or 30 minutes (DEC-01; docs/29 stage 3)", () =>
     expect(ids(blankState(), cands(), false)).toEqual([]);                                        // release build: nothing published yet
     expect(ids(blankState(), cands({ tasks: TASKS.map(t => ({ ...t, published: true })) }), false).length).toBeGreaterThan(0);
   });
+  it("archived answers never re-enter the new-task plan, including question prefixes", () => {
+    const state = { ...blankState(), archivedDiagnosticIds: ["b1long-2-q1", "read-a-transfer", "listen-a-other-task"] };
+    const listening = plan(state, cands(), { minutes: 30, skill: "listening" });
+    expect(listening.blocks).toEqual([]);
+    expect(listening.missing).toBe("NO_TASK_FOR_CHOICE");
+    const reading = plan(state, cands(), { minutes: 30, skill: "reading" });
+    expect(reading.blocks.flatMap(b => b.items.map(i => i.id))).toEqual(["read-b"]);
+    // Historical IDs never satisfy the timestamp-based progress check for a current session.
+    expect(blockProgress(reading.blocks[0]!, state, reading.createdAt).complete).toBe(false);
+  });
   it("block progress counts only what was saved after the plan was made; a review block is done when every item is", () => {
     const earlier = new Date("2026-11-15T09:00:00+02:00"), later = new Date("2026-11-16T09:05:00+02:00");
     let s = completeMission(blankState(), { taskId: "g1", firstAnswer: "x", firstCorrect: false, transferText: "Oma lause." }, earlier);

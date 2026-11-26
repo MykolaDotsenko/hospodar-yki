@@ -105,6 +105,16 @@ describe("delayed 7/14/30 checks for all four skills (GL-03)", () => {
     for (const l of bank.listening) s = addDiagnostic(s, { skill: "listening", taskId: l.questions[0]!.id, status: "scored", correct: true }, at(D0));
     expect(due(s, "listening", when)).toMatchObject({ due: null, unavailable: 7 });
   });
+  it("previously answered listening lessons remain excluded after history eviction", () => {
+    const first = bank.listening[0]!;
+    expect(first).toBeDefined();
+    const state = { ...learned(["listening"]), archivedDiagnosticIds: [first.questions[0]!.id] };
+    const when = "2026-11-08T12:00:00+02:00";
+    expect(due(state, "listening", when).due?.check.item.id).not.toBe(first.id);
+    const all = { ...state, archivedDiagnosticIds: bank.listening.map((item, i) => `${i % 2 ? "d7-" : ""}${item.questions[0]!.id}`) };
+    expect(due(all, "listening", when)).toMatchObject({ due: null, unavailable: 7 });
+    expect(due(readState(JSON.stringify(all)).state, "listening", when)).toMatchObject({ due: null, unavailable: 7 });
+  });
   it("delayed checks never anchor a skill and do not disturb the grammar 7/14/30 queue", () => {
     const s = learned(["reading"]), { next } = finish(s, "reading", "2026-11-08T12:00:00+02:00");
     expect(due(next, "reading", "2026-11-08T12:00:00+02:00").anchorDate).toBe("2026-11-01");

@@ -25,7 +25,7 @@ interface Pickable { id: string; kind: string; group: string }
  */
 export function warmUpCards<T extends Pickable>(cards: readonly T[], place: string, state: LearnerState, today: string = localDate()): T[] {
   const pool = cards.filter(c => c.kind === "chunk" && c.group === place);
-  const met = new Set(state.diagnostics.map(d => d.taskId.replace(/-transfer$/, "")));
+  const met = new Set([...(state.archivedDiagnosticIds ?? []), ...state.diagnostics.map(d => d.taskId)].map(id => id.replace(/-transfer$/, "")));
   const due = pool.filter(c => state.cards[c.id] && state.cards[c.id]!.due <= today)
     .sort((a, b) => state.cards[a.id]!.due.localeCompare(state.cards[b.id]!.due));
   const fresh = pool.filter(c => !state.cards[c.id] && !met.has(c.id));

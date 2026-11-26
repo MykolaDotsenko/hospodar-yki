@@ -91,7 +91,8 @@ export function skillExposure(state: Pick<LearnerState, "attempts" | "diagnostic
   return out;
 }
 /** Has the learner ever saved anything for this task? (A first attempt is never re-planned as "new".) */
-export const everTried = (state: Pick<LearnerState, "diagnostics">, prefix: string) => (state.diagnostics ?? []).some(d => matches(d.taskId, prefix));
+export const everTried = (state: Pick<LearnerState, "diagnostics" | "archivedDiagnosticIds">, prefix: string) =>
+  (state.archivedDiagnosticIds ?? []).some(id => matches(id, prefix)) || (state.diagnostics ?? []).some(d => matches(d.taskId, prefix));
 
 export function planSession(state: LearnerState, candidates: SessionCandidates, choice: SessionChoice,
   opts: { now?: Date; allowDrafts: boolean }): SessionPlan {

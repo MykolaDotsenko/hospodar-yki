@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { clearDeedNote, deedDoneOn, deedNote, hospodarAtPlace, localDate, markDeed, placeProgress, scenarioCheckOf, scenarioProgress, scriptedScenario, setDeedNote, setScenarioCheck, unmarkDeed, type ScriptedStep, DEED_NOTE_MAX_CHARS, DEED_WENT, type DeedLog, type DeedWent, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
+import { clearDeedNote, deedDoneOn, deedNote, everTried, hospodarAtPlace, localDate, markDeed, placeProgress, scenarioCheckOf, scenarioProgress, scriptedScenario, setDeedNote, setScenarioCheck, unmarkDeed, type ScriptedStep, DEED_NOTE_MAX_CHARS, DEED_WENT, type DeedLog, type DeedWent, type LearnerState, type PlaceId, type YkiSkill } from "@hospodar/domain";
 import { onDeedsChanged, readDeeds, updateDeeds } from "../storage/deeds.ts";
 import { readScenarioChecks, updateScenarioChecks } from "../storage/scenarioChecks.ts";
 import { scenarioScriptFor } from "../content/scenarioScripts.ts";
@@ -28,7 +28,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
   };
   const lastTime = deedNote(deeds, id);
   const progress = placeProgress(state, placeIndex).find(p => p.place === id)!;
-  const tried = (prefix: string) => state.diagnostics.some(d => d.taskId === prefix || d.taskId.startsWith(`${prefix}-`));
+  const tried = (prefix: string) => everTried(state, prefix);
   const status = (q: Quest) => {
     if (q.view !== "practice") return tried(q.taskPrefix ?? q.itemId) ? "ти вже пробував(ла)" : "ще не пробував(ла)";
     const ids = practiceIdsOf(id, q.practiceKind!);
