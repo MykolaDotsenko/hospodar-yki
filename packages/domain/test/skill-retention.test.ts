@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { addDiagnostic, blankState, buildSkillRetentionBank, recordSkillCheck, skillCheckReducer, skillCheckReveal, skillCheckView,
-  skillRetentionQueue, startSkillCheck, validateSkillRetentionBank, skillSummary, delayedTransferQueue, readState, SkillCheckError,
+  skillRetentionQueue, startSkillCheck, validateSkillRetentionBank, skillSummary, delayedTransferQueue, readState, HISTORY_LIMIT, SkillCheckError,
   type LearnerState, type SkillCheckItem, type SkillRetentionBank } from "../src/index.ts";
 
 const root = new URL("../../../", import.meta.url);
@@ -114,6 +114,37 @@ describe("delayed 7/14/30 checks for all four skills (GL-03)", () => {
     const all = { ...state, archivedDiagnosticIds: bank.listening.map((item, i) => `${i % 2 ? "d7-" : ""}${item.questions[0]!.id}`) };
     expect(due(all, "listening", when)).toMatchObject({ due: null, unavailable: 7 });
     expect(due(readState(JSON.stringify(all)).state, "listening", when)).toMatchObject({ due: null, unavailable: 7 });
+  });
+  it("the first known skill day survives history eviction before any delayed check", () => {
+    let state = learned(["reading", "listening", "writing", "speaking"]);
+    const first = state;
+    const fillDay = at("2026-11-07T12:00:00+02:00");
+    for (let i = 0; i < HISTORY_LIMIT + 1; i++)
+      state = addDiagnostic(state, { skill: "writing", taskId: `filler-${i}`, status: "ungraded", response: "Oma vastaus." }, fillDay);
+    expect(first.archivedSkillStartDates).toBeUndefined();
+    expect(state.retention).toEqual([]);
+    expect(state.archivedSkillStartDates).toEqual({
+      reading: "2026-11-01", listening: "2026-11-01", writing: "2026-11-01", speaking: "2026-11-01",
+    });
+    expect(state.diagnostics).toHaveLength(HISTORY_LIMIT);
+    expect(state.diagnostics.every(d => d.skill === "writing")).toBe(true);
+    const restored = readState(JSON.stringify(state)).state;
+    expect(restored).toEqual(state);
+    for (const skill of ["reading", "listening", "writing", "speaking"]) {
+      expect(due(restored, skill, "2026-11-07T12:00:00+02:00")).toMatchObject({ anchorDate: "2026-11-01", ageDays: 6, due: null });
+      expect(due(restored, skill, "2026-11-08T12:00:00+02:00").due?.day).toBe(7);
+      expect(due(restored, skill, "2026-11-15T12:00:00+02:00")).toMatchObject({ ageDays: 14, missed: [7], due: { day: 14 } });
+      expect(due(restored, skill, "2026-12-01T12:00:00+02:00")).toMatchObject({ ageDays: 30, missed: [7, 14], due: { day: 30 } });
+    }
+  });
+
+  it("evicted delayed answers never establish a skill start date", () => {
+    let state = learned(["listening"], D0, "d7-question");
+    for (let i = 0; i < HISTORY_LIMIT; i++)
+      state = addDiagnostic(state, { skill: "reading", taskId: `other-${i}`, status: "scored", correct: true }, at(D0));
+    expect(state.archivedDiagnosticIds).toContain("d7-question");
+    expect(state.archivedSkillStartDates?.listening).toBeUndefined();
+    expect(due(state, "listening", "2026-11-08T12:00:00+02:00")).toMatchObject({ anchorDate: null, due: null });
   });
   it("delayed checks never anchor a skill and do not disturb the grammar 7/14/30 queue", () => {
     const s = learned(["reading"]), { next } = finish(s, "reading", "2026-11-08T12:00:00+02:00");

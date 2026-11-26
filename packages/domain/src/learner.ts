@@ -71,6 +71,8 @@ export interface LearnerState {
   diagnostics: Diagnostic[];
   /** IDs of saved diagnostic evidence evicted from the bounded history. No answers or scores are retained here. */
   archivedDiagnosticIds?: string[];
+  /** Earliest known ordinary LEARN day per skill among evicted diagnostics (at most four dates). */
+  archivedSkillStartDates?: Partial<Record<Skill, LocalDate>>;
   errors: ErrorEntry[];
   retention: RetentionEntry[];
 }
@@ -86,6 +88,14 @@ const isInt = (v: unknown): v is number => Number.isInteger(v);
 /** Optional Web V1 extension; older profiles and legacy imports have no archive. */
 export function isArchivedDiagnosticIds(value: unknown): value is string[] {
   return Array.isArray(value) && value.every(id => typeof id === "string" && ID.test(id)) && new Set(value).size === value.length;
+}
+/** Shared by the reader and strict Web restore: no arbitrary keys, scores, or invalid calendar dates. */
+export function isArchivedSkillStartDates(value: unknown): value is Partial<Record<Skill, LocalDate>> {
+  return isObj(value) && Object.entries(value).every(([skill, day]) => {
+    if (!["reading", "listening", "writing", "speaking"].includes(skill) || typeof day !== "string" || !DAY.test(day)) return false;
+    const date = new Date(day + "T00:00:00.000Z");
+    return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === day;
+  });
 }
 /** A saved answer remains known after its response leaves the recent-history window. */
 export function hasDiagnosticEvidence(state: Pick<LearnerState, "diagnostics" | "archivedDiagnosticIds">, taskId: string): boolean {
@@ -131,6 +141,7 @@ export function readState(raw: string | null | undefined): { state: LearnerState
         retention: retention.slice(-HISTORY_LIMIT),
         diagnostics: (s.diagnostics as unknown[]).filter((x): x is Diagnostic => isObj(x) && typeof x.skill === "string").slice(-HISTORY_LIMIT),
         ...(isArchivedDiagnosticIds(s.archivedDiagnosticIds) ? { archivedDiagnosticIds: s.archivedDiagnosticIds } : {}),
+        ...(isArchivedSkillStartDates(s.archivedSkillStartDates) ? { archivedSkillStartDates: s.archivedSkillStartDates } : {}),
         errors: (s.errors as unknown[]).filter((x): x is ErrorEntry => isObj(x) && typeof x.taskId === "string").slice(-ERROR_LIMIT),
       },
       recovered: false,
@@ -243,6 +254,16 @@ export function addDiagnostic(state: LearnerState,
   const evicted = history.slice(0, Math.max(0, history.length - HISTORY_LIMIT));
   if (evicted.length) {
     next.archivedDiagnosticIds = [...new Set([...(next.archivedDiagnosticIds ?? []), ...evicted.map(d => d.taskId)])];
+    // Keep the earliest known day, not the evicted responses. Delayed tests must never start a skill clock.
+    const starts = { ...next.archivedSkillStartDates };
+    for (const d of evicted) {
+      if (!["reading", "listening", "writing", "speaking"].includes(d.skill) || /^d(?:7|14|30)-/.test(d.taskId)) continue;
+      const date = new Date(d.completedAt);
+      if (!Number.isFinite(date.getTime())) continue;
+      const day = localDate(date), prior = starts[d.skill];
+      if (!prior || day < prior) starts[d.skill] = day;
+    }
+    if (Object.keys(starts).length) next.archivedSkillStartDates = starts;
   }
   next.diagnostics = history.slice(-HISTORY_LIMIT);
   return next;

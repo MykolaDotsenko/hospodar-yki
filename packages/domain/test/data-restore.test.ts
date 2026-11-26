@@ -38,6 +38,20 @@ describe("Web v1 LEARN restore inspection (fail closed)", () => {
     }
     expect(inspectWebLearnBackup(file(saved()))).toMatchObject({ ok: true }); // older Web V1 exports remain valid
   });
+  it("restores compact skill start dates with or without archived IDs and rejects invalid dates", () => {
+    const state = { ...saved(), archivedSkillStartDates: { reading: "2024-02-29", writing: "2026-11-01" } };
+    for (const candidate of [state, { ...state, archivedDiagnosticIds: ["old-id"] }]) {
+      const r = inspectWebLearnBackup(file(candidate));
+      expect(r.ok).toBe(true);
+      if (r.ok) expect(r.state).toEqual(candidate);
+    }
+    for (const bad of [{ reading: "2026-02-29" }, { reading: "2026-13-01" }, { writing: "2026-11-1" },
+      { grammar: "2026-11-01" }, { speaking: null }, ["2026-11-01"], null]) {
+      const raw = JSON.parse(file(state));
+      raw.learn.state.archivedSkillStartDates = bad;
+      expect(inspectWebLearnBackup(JSON.stringify(raw))).toMatchObject({ ok: false, reason: "UNSAFE_LEARN_DATA" });
+    }
+  });
   it("accepts an empty history without EXAM data", () => {
     const text = serialiseDataExport(buildDataExport({
       learn: { state: blankState(), revision: 0, imports: [] }, exam: { current: null, history: [] }, exportedAt: T,

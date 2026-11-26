@@ -5,7 +5,7 @@
  * alone are insufficient for ingestion: typed, lossless validation is mandatory.
  * Never mix EXAM history/recording receipts into LEARN. No browser or storage APIs.
  */
-import { readState, isOwnCue, isArchivedDiagnosticIds, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
+import { readState, isOwnCue, isArchivedDiagnosticIds, isArchivedSkillStartDates, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
 import { verifyDataExport, type DataExport, type DataExportCounts } from "./dataExport.ts";
 
 export const MAX_WEB_BACKUP_CHARS = 8_000_000;
@@ -40,8 +40,16 @@ const stable = (v: unknown): string => JSON.stringify(v, (_key, item: unknown) =
 
 function validState(s: LearnerState): boolean {
   const rootKeys = ["version", "attempts", "cards", "diagnostics", "errors", "retention"];
-  if (!obj(s) || !(exactKeys(s, rootKeys) ||
-      (exactKeys(s, [...rootKeys, "archivedDiagnosticIds"]) && isArchivedDiagnosticIds(s.archivedDiagnosticIds))) ||
+  if (!obj(s)) return false;
+  if (Object.hasOwn(s, "archivedDiagnosticIds")) {
+    if (!isArchivedDiagnosticIds(s.archivedDiagnosticIds)) return false;
+    rootKeys.push("archivedDiagnosticIds");
+  }
+  if (Object.hasOwn(s, "archivedSkillStartDates")) {
+    if (!isArchivedSkillStartDates(s.archivedSkillStartDates)) return false;
+    rootKeys.push("archivedSkillStartDates");
+  }
+  if (!exactKeys(s, rootKeys) ||
       s.version !== 1 || !Array.isArray(s.attempts) || !Array.isArray(s.diagnostics) ||
       !Array.isArray(s.errors) || !Array.isArray(s.retention) || !obj(s.cards) ||
       s.attempts.length > HISTORY_LIMIT || s.diagnostics.length > HISTORY_LIMIT ||
