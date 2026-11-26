@@ -86,3 +86,26 @@ test("whole task run (task-based): a role and goal; a purpose before understandi
   await expect(page.locator("main")).not.toContainText("самоперевірка");                    // never part of progress
   expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:scenario-checks:v1"))).toContain("services:listening");
 });
+
+
+test("a completed scenario step can be revisited with its original purpose", async ({ page }) => {
+  await openServices(page);
+  await scenario(page).getByRole("button", { name: "Почати справу" }).click();
+  await page.getByRole("button", { name: "Пропустити й слухати" }).click();
+  await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
+  await page.getByRole("button", { name: "До питань" }).click();
+  for (let i = 0; i < 4; i++) {
+    await page.locator('input[name="lq"]').first().check();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+  }
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
+  await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
+  await expect(scenario(page).locator("li").nth(0)).toHaveAttribute("data-status", "done");
+  await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");
+  await scenario(page).getByRole("button", { name: "Повторити: Зрозумій на слух · Kun verkkokaupan tilaus meni pieleen" }).click();
+  await expect(page.getByTestId("scenario-banner")).toContainText("Слухай із метою");
+  await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
+  await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");
+  expect(await serious(page)).toEqual([]);
+});

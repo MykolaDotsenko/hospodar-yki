@@ -47,7 +47,11 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
   const [checks, setChecks] = useState(readScenarioChecks);
   const verb: Record<YkiSkill, string> = { reading: "Зрозумій текст", listening: "Зрозумій на слух", speaking: "Скажи", writing: "Напиши" };
   const titleOfStep = (itemId: string) => place.quests.find(q => q.itemId === itemId)?.title ?? itemId;
-  const stepStatus = { todo: "ще не пробував(ла)", done: "зроблено самостійно", supported: "зроблено з підтримкою тексту" } as const;
+  const stepStatus = { todo: "ще не пробував(ла)", done: "є самостійна спроба", supported: "є спроба з підтримкою", archived: "є попередня спроба — подробиці не збережені" } as const;
+  const openStep = (i: number) => {
+    const step = scenario?.steps[i];
+    if (step) open(viewOfSkill(step.skill), step.itemId, run?.[i]?.condition_uk);
+  };
 
   return (
     <section className="panel place" aria-labelledby="place-title">
@@ -78,7 +82,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
       {scenario && (
         <section className="scenario" aria-labelledby="scenario-title" data-complete={scenario.complete ? "yes" : "no"}>
           <h2 id="scenario-title">Ціла справа: від розуміння до дії</h2>
-          <p>Одна життєва ситуація цього місця по кроках: спершу зрозуміти, потім сказати, потім написати.</p>
+          <p>Одна життєва ситуація цього місця по кроках: спершу зрозуміти, потім сказати, потім написати. Можна повернутися до будь-якого пройденого кроку.</p>
           {run && script && (
             <div className="scenario-role" data-testid="scenario-role">
               <p><strong>Твоя роль:</strong> {script.role_uk}</p>
@@ -92,6 +96,7 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
                 <span>{verb[st.skill]} · <span lang="fi">{titleOfStep(st.itemId)}</span></span>
                 <small className="muted"> — {stepStatus[st.status]}{scenario.next === i ? " · наступний крок" : ""}</small>
                 {run && scenario.next === i && <p className="scenario-condition" data-testid="scenario-condition">{run[i]!.condition_uk}</p>}
+                {st.status !== "todo" && <div className="actions"><button type="button" className="btn secondary" onClick={() => openStep(i)} aria-label={`Повторити: ${verb[st.skill]} · ${titleOfStep(st.itemId)}`}>Повторити крок</button></div>}
                 {run && st.status !== "todo" && (
                   <StepCheck place={id} step={run[i]!} met={scenarioCheckOf(checks, id, st.skill)}
                     save={met => { try { setChecks(updateScenarioChecks(c => setScenarioCheck(c, id, run[i]!, met))); return true; } catch { setChecks(readScenarioChecks()); return false; } }} />
@@ -100,10 +105,12 @@ export function PlaceScreen({ id, state, open, onHome, guide = false }: {
             ))}
           </ol>
           {scenario.next !== null
-            ? <button type="button" className="btn secondary" onClick={() => { const st = scenario.steps[scenario.next!]!; open(viewOfSkill(st.skill), st.itemId, run?.[scenario.next!]?.condition_uk); }}>
+            ? <button type="button" className="btn secondary" onClick={() => openStep(scenario.next!)}>
                 {scenario.next === 0 ? "Почати справу" : `Продовжити: крок ${scenario.next + 1} з ${scenario.steps.length}`}</button>
             : <p className="voice-status" role="status" data-testid="scenario-done">
-                Справу пройдено від початку до кінця{scenario.independent ? "" : " (аудіювання — з підтримкою тексту; спробуй ще раз без неї)"}. Письмо й говоріння не оцінюються автоматично — це твоя самостійна спроба, не оцінка.</p>}
+                Є спроби в усіх кроках справи. {scenario.steps.some(st => st.status === "supported") && "Деякі спроби зроблено з підтримкою. Можеш повторити їх без неї. "}
+                {scenario.steps.some(st => st.status === "archived") && "Подробиці давніх спроб не збережені; їхню самостійність не визначаємо. "}
+                Письмо й говоріння не оцінюються автоматично. Це практика, не оцінка.</p>}
         </section>
       )}
 

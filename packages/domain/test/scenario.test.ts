@@ -23,6 +23,20 @@ describe("«Ціла справа»: whole communicative task in one place (task
     expect(p.steps.map(s => s.status)).toEqual(["done", "todo", "todo"]);              // a wrong answer is still an own attempt
     expect(p.next).toBe(1);
   });
+  it("archived scenario evidence preserves attempted steps without claiming independence", () => {
+    const steps = buildScenario(housing)!;
+    const state = { ...blankState(), archivedDiagnosticIds: ["b1long-1-q1", "dialog-2-roleplay", "clinic-1"] };
+    expect(scenarioProgress(state, steps)).toMatchObject({ next: null, complete: true, independent: false });
+    expect(scenarioProgress(state, steps).steps.map(s => s.status)).toEqual(["archived", "archived", "archived"]);
+    const withSupport = { ...state, diagnostics: [{ skill: "listening" as const, taskId: "b1long-1-q1", status: "ungraded" as const, response: "supported:slow" }] };
+    expect(scenarioProgress(withSupport, steps).steps.map(s => s.status)).toEqual(["supported", "archived", "archived"]);
+    const withIndependent = { ...state, diagnostics: [{ skill: "listening" as const, taskId: "b1long-1-q1", status: "scored" as const, correct: false }] };
+    expect(scenarioProgress(withIndependent, steps).steps.map(s => s.status)).toEqual(["done", "archived", "archived"]);
+  });
+  it("a different skill with a matching prefix cannot complete a scenario step", () => {
+    const state = withDiag({ skill: "reading", taskId: "dialog-2-q1", status: "ungraded", response: "Oma vastaus." });
+    expect(scenarioProgress(state, buildScenario(housing)!).steps.map(s => s.status)).toEqual(["todo", "todo", "todo"]);
+  });
   it("listening only with text support is 'supported', not independent; the task is complete but not independent", () => {
     const p = scenarioProgress(withDiag(
       { skill: "listening", taskId: "b1long-1-q1", status: "ungraded", response: "supported:transcript" },
