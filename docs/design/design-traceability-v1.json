@@ -12754,9 +12754,13 @@
         {
           "file": "apps/web/e2e/skill-retention.spec.ts",
           "contains": "GL-03 reading: day-7 check on a withheld text; first answers frozen; keys only after a durable save; not repeatable"
+        },
+        {
+          "file": "packages/domain/test/spaced-kinds.test.ts",
+          "contains": "a completed unscheduled card remains a review after diagnostic history eviction and reload"
         }
       ],
-      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated; FSRS is the separate fsrs-scheduler-chunks item). Scheduled after a failed retrieval: cloze items, self-reported problem chunks/rektio, and since 22.11.2026 also «Час дієслова й годинник» (a first choice that missed the key) and «Форма слова в реченні» (self-judged partly/different); a review of a seen keyed item is kept as ungraded practice, not a new scored first attempt. Not scheduled: paraphrase, reaction and opinion cards (open production, transfer-oriented). Delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool). All items S2-pending."
+      "gap": "Interim 1/3/7/14/30 heuristic (not learner-calibrated; FSRS is the separate fsrs-scheduler-chunks item). Scheduled after a failed retrieval: cloze items, self-reported problem chunks/rektio, and since 22.11.2026 also «Час дієслова й годинник» (a first choice that missed the key) and «Форма слова в реченні» (self-judged partly/different); a review of a seen keyed item is kept as ungraded practice, not a new scored first attempt. Saved task identities survive the 120-record diagnostic history cap and Web backup/restore; previously discarded legacy history cannot be reconstructed. Not scheduled: paraphrase, reaction and opinion cards (open production, transfer-oriented). Delayed 7/14/30 checks on new items exist for all four skills (speaking as a typed plan; small listening pool). All items S2-pending."
     },
     {
       "id": "yki-constructive-alignment",

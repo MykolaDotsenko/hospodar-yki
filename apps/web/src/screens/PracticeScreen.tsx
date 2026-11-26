@@ -25,7 +25,7 @@ export function PracticeScreen({ repository, snapshot, onSaved, onHome, initialC
   const start = practiceCards.find(c => c.id === initialCardId) ?? null;   // opened from a place in «Моє господарство»
   const [kind, setKind] = useState<PracticeKind | null>(start?.kind ?? null);
   const [card, setCard] = useState<PracticeCard | null>(start);
-  const done = new Set(snapshot.state.diagnostics.map(d => d.taskId));
+  const done = new Set([...(snapshot.state.archivedDiagnosticIds ?? []), ...snapshot.state.diagnostics.map(d => d.taskId)]);
 
   const due = practiceDue(snapshot.state, practiceCards);
   const drafts = readPracticeDrafts();                                     // COG-11: unfinished cards on this device
