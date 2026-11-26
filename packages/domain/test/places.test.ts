@@ -44,6 +44,16 @@ describe("places: «Господарство» — nine everyday places, honest 
     expect(placeProgress(s, index)).toEqual(placeProgress(later, index));
     expect(Object.keys(of(s, "housing")).sort()).toEqual(["doorOpen", "itemsTotal", "itemsTried", "keys", "place", "practice"]);
   });
+  it("archived attempts keep doors open without inventing old keys or awarding keys for a replay", () => {
+    const archived = { ...blankState(), archivedDiagnosticIds: ["ctx-reading-02-housing-q1", "ctx-reading-02-housing-q2", "ctx-dialog-10-roleplay", "unknown-id"] };
+    expect(of(archived, "housing")).toMatchObject({ doorOpen: true, itemsTried: 1, keys: 0, practice: 0 });
+    expect(of(archived, "health")).toMatchObject({ doorOpen: true, itemsTried: 1, keys: 0, practice: 0 });
+    expect(of(archived, "work")).toMatchObject({ doorOpen: false, itemsTried: 0 });
+    const replay = { ...archived, diagnostics: [scored("ctx-reading-02-housing-q1", true), own("ctx-dialog-10-roleplay"),
+      scored("ctx-reading-02-housing-q3", true), own("ctx-dialog-02-roleplay")] };
+    expect(of(replay, "housing")).toMatchObject({ doorOpen: true, itemsTried: 2, keys: 1, practice: 1 });
+    expect(of(replay, "health")).toMatchObject({ doorOpen: true, itemsTried: 1, keys: 0, practice: 0 });
+  });
   it("an item cannot belong to two places", () => {
     expect(() => buildPlaceIndex([{ itemId: "x", place: "work" }, { itemId: "x", place: "health" }])).toThrow(/two places/);
   });

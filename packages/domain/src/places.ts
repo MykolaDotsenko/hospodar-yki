@@ -60,9 +60,9 @@ export function placeOfTask(index: PlaceIndex, taskId: string): PlaceItem | null
 
 export interface PlaceProgress {
   place: PlaceId;
-  /** Verified independent successes: first scored answer to a task, and it was correct. */
+  /** Verified independent successes with retained detail: first answer to a task was scored and correct. */
   keys: number;
-  /** Own attempts that are not scored (Finnish writing/speaking, open answers, supported listening). */
+  /** First ungraded attempts with retained detail (Finnish writing/speaking, open answers, supported listening). */
   practice: number;
   /** Items of this place the learner has started at least once. */
   itemsTried: number;
@@ -79,14 +79,22 @@ export function placeProgress(state: LearnerState, index: PlaceIndex): PlaceProg
   const out = new Map<PlaceId, PlaceProgress>(PLACE_IDS.map(p => [p, { place: p, keys: 0, practice: 0, itemsTried: 0, itemsTotal: 0, doorOpen: false }]));
   for (const i of index.items) out.get(i.place)!.itemsTotal++;
   const tried = new Set<string>();
-  for (const [taskId, d] of firstByTask) {
+  const archived = new Set(state.archivedDiagnosticIds ?? []);
+  const markTried = (taskId: string) => {
     const item = placeOfTask(index, taskId);
-    if (!item) continue;
+    if (!item) return null;
     const p = out.get(item.place)!;
-    if (d.status === "scored") { if (d.correct === true) p.keys++; }
-    else p.practice++;
     p.doorOpen = true;
     if (!tried.has(item.itemId)) { tried.add(item.itemId); p.itemsTried++; }
+    return p;
+  };
+  // IDs preserve exposure but cannot prove correctness or support. Never promote a replay to first evidence.
+  for (const taskId of archived) markTried(taskId);
+  for (const [taskId, d] of firstByTask) {
+    const p = markTried(taskId);
+    if (!p || archived.has(taskId)) continue;
+    if (d.status === "scored") { if (d.correct === true) p.keys++; }
+    else p.practice++;
   }
   return PLACE_IDS.map(p => out.get(p)!);
 }

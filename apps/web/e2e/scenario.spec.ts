@@ -86,3 +86,31 @@ test("whole task run (task-based): a role and goal; a purpose before understandi
   await expect(page.locator("main")).not.toContainText("самоперевірка");                    // never part of progress
   expect(await page.evaluate(() => localStorage.getItem("hospodar-yki:web:scenario-checks:v1"))).toContain("services:listening");
 });
+
+
+test("a completed scenario step can be revisited with its original purpose", async ({ page }) => {
+  await openServices(page);
+  await scenario(page).getByRole("button", { name: "Почати справу" }).click();
+  await page.getByRole("button", { name: "Пропустити й слухати" }).click();
+  await page.locator("audio").evaluate(a => a.dispatchEvent(new Event("play")));
+  await page.getByRole("button", { name: "До питань" }).click();
+  for (let i = 0; i < 4; i++) {
+    // The previous answer's IndexedDB checkpoint must finish before selecting the next radio.
+    await expect(page.getByText(`Питання ${i + 1} з 4`)).toBeVisible();
+    const choice = page.locator('input[name="lq"]').first();
+    await expect(choice).toBeEnabled();
+    await choice.check();
+    await expect(choice).toBeChecked();
+    await page.getByRole("button", { name: "Відповісти" }).click();
+  }
+  await page.getByRole("button", { name: "Зберегти результат" }).click();
+  await expect(page.getByText(/Самостійні відповіді записано окремо/)).toBeVisible();
+  await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
+  await expect(scenario(page).locator("li").nth(0)).toHaveAttribute("data-status", "done");
+  await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");
+  await scenario(page).getByRole("button", { name: "Повторити крок: Зрозумій на слух · Kun verkkokaupan tilaus meni pieleen" }).click();
+  await expect(page.getByTestId("scenario-banner")).toContainText("Слухай із метою");
+  await page.getByTestId("scenario-banner").getByRole("button", { name: "Назад до справи" }).click();
+  await expect(scenario(page).locator("li").nth(1)).toContainText("наступний крок");
+  expect(await serious(page)).toEqual([]);
+});
