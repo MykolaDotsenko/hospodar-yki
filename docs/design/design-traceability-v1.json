@@ -6289,8 +6289,22 @@
       "id": "LE-11",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Optional confidence calibration without shaming",
-      "status": "NOT_YET",
-      "plan": "Optional confidence before feedback; never converted to CEFR."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/confidence.test.ts",
+          "contains": "is optional, taken only with the first answer and frozen with it; an unknown value is ignored"
+        },
+        {
+          "file": "packages/domain/test/confidence.test.ts",
+          "contains": "a right answer marked as a guess comes back the next day without counting a failure; a sure right answer advances"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "LE-11 own confidence mark: optional, frozen with the first answer, survives a reload, one calm note after the key; counts only in progress"
+        }
+      ],
+      "note": "Cloze missions only (keyed first answer); not in EXAM or free production. Effect on delayed outcomes not measured (R01). Evidence and limits: research #27 §7."
     },
     {
       "id": "LE-12",
@@ -8822,8 +8836,17 @@
       "id": "AC-57",
       "source": "docs/15-two-modes-skill-scopes.md",
       "summary": "Optional self-confidence never a YKI score and never punitive",
-      "status": "NOT_YET",
-      "plan": "With LE-11."
+      "status": "ENFORCED",
+      "evidence": [
+        {
+          "file": "packages/domain/test/confidence.test.ts",
+          "contains": "summary counts first answers per mark only; unmarked attempts are left out; no %, level or score field"
+        },
+        {
+          "file": "apps/web/e2e/mission.spec.ts",
+          "contains": "LE-11: without a mark nothing changes — no note, no calibration block"
+        }
+      ]
     },
     {
       "id": "AC-58",

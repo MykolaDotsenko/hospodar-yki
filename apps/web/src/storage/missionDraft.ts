@@ -3,7 +3,7 @@
  * completed first attempt. Reconstruct the mission from its frozen answers:
  * an inconsistent or content-stale draft must never reveal a Finnish answer key.
  */
-import { missionReducer, startMission, type MissionState } from "@hospodar/domain";
+import { isConfidence, missionReducer, startMission, type MissionState } from "@hospodar/domain";
 import type { ClozeExercise } from "../content/cloze.ts";
 
 export interface MissionDraftPayload {
@@ -29,8 +29,11 @@ export function validMissionDraft(data: unknown, task: ClozeExercise): data is M
       typeof d.input !== "string" || d.input.length > MAX_INPUT ||
       !d.mission || typeof d.mission !== "object" || Array.isArray(d.mission)) return false;
   const state = d.mission as MissionState;
-  if (Object.keys(state).sort().join("|") !==
-      "firstAnswer|firstCorrect|phase|repairCorrect|secondAnswer|taskId|transferText" ||
+  const keys = Object.keys(state).sort().join("|");
+  // LE-11: the optional own confidence mark is frozen with the first answer, so it may exist only after it.
+  const withMark = keys === "confidence|firstAnswer|firstCorrect|phase|repairCorrect|secondAnswer|taskId|transferText";
+  if ((keys !== "firstAnswer|firstCorrect|phase|repairCorrect|secondAnswer|taskId|transferText" && !withMark) ||
+      (withMark && (!isConfidence(state.confidence) || state.phase === "answer")) ||
       state.taskId !== task.id || !["answer", "repair", "feedback", "transfer"].includes(state.phase) ||
       typeof state.firstAnswer !== "string" || typeof state.secondAnswer !== "string" ||
       typeof state.transferText !== "string" || state.transferText !== "" ||
@@ -39,7 +42,7 @@ export function validMissionDraft(data: unknown, task: ClozeExercise): data is M
       (state.repairCorrect !== null && typeof state.repairCorrect !== "boolean")) return false;
   try {
     let expected = startMission(task.id);
-    if (state.phase !== "answer") expected = missionReducer(expected, task, { type: "SUBMIT_FIRST", answer: state.firstAnswer });
+    if (state.phase !== "answer") expected = missionReducer(expected, task, { type: "SUBMIT_FIRST", answer: state.firstAnswer, confidence: state.confidence ?? null });
     if (expected.phase === "repair" && state.phase !== "repair")
       expected = missionReducer(expected, task, { type: "SUBMIT_REPAIR", answer: state.secondAnswer });
     if (expected.phase === "feedback" && state.phase === "transfer")

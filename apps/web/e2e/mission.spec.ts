@@ -192,3 +192,49 @@ test("LEARN-07: autonomous answer field autosaves after a pause; discard is deli
   await expect(page.getByText(/Продовжуємо незавершену місію/)).toHaveCount(0);
   await expect(page.getByText(/Виконано місій: 0/)).toHaveCount(0); // mission view, not Home statistics
 });
+
+test("LE-11 own confidence mark: optional, frozen with the first answer, survives a reload, one calm note after the key; counts only in progress", async ({ page }) => {
+  await startMission(page);
+  const marks = page.getByRole("group", { name: /Наскільки ти впевнений\(а\) у своїй відповіді/ });
+  await expect(marks).toBeVisible();
+  expect(await axe(page)).toEqual([]);
+  await marks.getByLabel("Знаю").check();
+  await page.getByLabel("Впиши пропущену форму фінською").fill("kirjasto");                       // sure, but wrong
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();
+  await expect(page.getByRole("group", { name: /Наскільки ти впевнений/ })).toHaveCount(0);       // frozen: no change after the answer
+  await expect(page.getByTestId("confidence-note")).toHaveCount(0);                               // nothing before the key
+  await page.reload();                                                                             // the draft keeps the mark
+  await openLearn(page);
+  await expect(page.getByText(/Продовжуємо незавершену місію/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Спробуй виправити сам(а)" })).toBeVisible();
+  await page.getByLabel("Впиши пропущену форму фінською").fill(KEY);
+  await page.getByRole("button", { name: "Перевірити ще раз" }).click();
+  await expect(page.getByTestId("confidence-note")).toContainText("Ти був(ла) упевнений(а), а форма інша");
+  await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
+  await page.getByLabel(/Твоє власне речення/).fill("Huomenna menen kauppaan.");
+  await page.getByRole("button", { name: "Зберегти місію" }).click();
+  await expect(page.getByText(/Збережено на цьому пристрої/)).toBeVisible();
+
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  const cal = page.getByTestId("calibration");
+  await expect(cal).toContainText("Коли ти позначав(ла) «Знаю»: правильно 0 з 1");
+  await expect(cal).not.toContainText("«Вгадую»");                                                // only marks that were used
+  expect(await cal.innerText()).not.toMatch(/\d\s*%|B1|рівень YKI/);
+});
+
+test("LE-11: without a mark nothing changes — no note, no calibration block", async ({ page }) => {
+  await startMission(page);
+  await page.getByLabel("Впиши пропущену форму фінською").fill(KEY);
+  await page.getByRole("button", { name: "Перевірити" }).click();
+  await expect(page.locator(".learning-cue")).toHaveText(KEY);
+  await expect(page.getByTestId("confidence-note")).toHaveCount(0);
+  await page.getByRole("button", { name: "Далі: нова ситуація" }).click();
+  await page.getByLabel(/Твоє власне речення/).fill("Menen kirjastoon.");
+  await page.getByRole("button", { name: "Зберегти місію" }).click();
+  await expect(page.getByText(/Збережено на цьому пристрої/)).toBeVisible();
+  await page.goto("./");
+  await page.getByRole("button", { name: "Мій прогрес" }).click();
+  await expect(page.getByTestId("calibration")).toHaveCount(0);
+});

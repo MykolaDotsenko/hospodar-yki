@@ -5,7 +5,7 @@
  * alone are insufficient for ingestion: typed, lossless validation is mandatory.
  * Never mix EXAM history/recording receipts into LEARN. No browser or storage APIs.
  */
-import { readState, isOwnCue, isArchivedDiagnosticIds, isArchivedSkillStartDates, isArchivedFirstDiagnostics, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
+import { readState, isOwnCue, isConfidence, isArchivedDiagnosticIds, isArchivedSkillStartDates, isArchivedFirstDiagnostics, HISTORY_LIMIT, ERROR_LIMIT, INTERVAL_DAYS, type LearnerState } from "./learner.ts";
 import { verifyDataExport, type DataExport, type DataExportCounts } from "./dataExport.ts";
 
 export const MAX_WEB_BACKUP_CHARS = 8_000_000;
@@ -58,7 +58,9 @@ function validState(s: LearnerState): boolean {
       !Array.isArray(s.errors) || !Array.isArray(s.retention) || !obj(s.cards) ||
       s.attempts.length > HISTORY_LIMIT || s.diagnostics.length > HISTORY_LIMIT ||
       s.retention.length > HISTORY_LIMIT || s.errors.length > ERROR_LIMIT) return false;
-  const attempts = s.attempts.every(a => obj(a) && exactKeys(a, ["taskId", "grammarTag", "firstAnswer", "firstCorrect", "secondAnswer", "repairCorrect", "transferText", "transferScoring", "skill", "completedAt"]) && id(a.taskId) && str(a.grammarTag, 50) &&
+  const ATTEMPT_KEYS = ["taskId", "grammarTag", "firstAnswer", "firstCorrect", "secondAnswer", "repairCorrect", "transferText", "transferScoring", "skill", "completedAt"];
+  // The optional own confidence mark (27.11.2026, LE-11) is the only extra attempt field admitted, and only a known value.
+  const attempts = s.attempts.every(a => obj(a) && (exactKeys(a, ATTEMPT_KEYS) || (exactKeys(a, [...ATTEMPT_KEYS, "confidence"]) && isConfidence(a.confidence))) && id(a.taskId) && str(a.grammarTag, 50) &&
     nonempty(a.firstAnswer) && typeof a.firstCorrect === "boolean" &&
     str(a.secondAnswer) && (a.repairCorrect === null || typeof a.repairCorrect === "boolean") &&
     nonempty(a.transferText) && a.transferScoring === "ungraded" && a.skill === "grammar" && utc(a.completedAt));

@@ -45,6 +45,13 @@ export function withOwnCue(card: Card, text: unknown): Card {
   const cue = normaliseOwnCue(text);
   return cue ? { ...rest, ownCue: cue } : rest;
 }
+/**
+ * LE-11 / AC-57: the learner's OPTIONAL own judgement of the answer they just wrote, given before feedback and frozen
+ * with it. A metacognitive signal for the learner and the review schedule — never a score, a level or a YKI result.
+ */
+export type Confidence = "sure" | "unsure" | "guess";
+export const CONFIDENCES: readonly Confidence[] = Object.freeze(["sure", "unsure", "guess"]);
+export const isConfidence = (v: unknown): v is Confidence => typeof v === "string" && (CONFIDENCES as readonly string[]).includes(v);
 /** The learner's FIRST independent answer is recorded here and never rewritten (LE-01). */
 export interface MissionAttempt {
   taskId: string;
@@ -57,6 +64,8 @@ export interface MissionAttempt {
   transferScoring: "ungraded";
   skill: "grammar";
   completedAt: string;
+  /** Optional (27.11.2026, web only): present only when the learner marked it; older records have none. */
+  confidence?: Confidence;
 }
 export interface ErrorEntry { taskId: string; grammarTag: string; at: string; resolution: "guided_repair" | "not_yet_demonstrated" }
 export interface Diagnostic { skill: Skill; taskId: string; status: "scored" | "ungraded"; correct?: boolean; response: string; completedAt: string }
@@ -223,10 +232,10 @@ export function dueCards(state: LearnerState, today: LocalDate = localDate()): A
 
 export interface MissionResult {
   taskId: string; grammarTag?: string; firstAnswer: string; firstCorrect: boolean;
-  secondAnswer?: string; repairCorrect?: boolean | null; transferText: string;
+  secondAnswer?: string; repairCorrect?: boolean | null; transferText: string; confidence?: Confidence;
 }
 export function completeMission(state: LearnerState, data: MissionResult, now: Date = new Date()): LearnerState {
-  const { taskId, grammarTag, firstAnswer, firstCorrect, secondAnswer, repairCorrect, transferText } = data ?? ({} as MissionResult);
+  const { taskId, grammarTag, firstAnswer, firstCorrect, secondAnswer, repairCorrect, transferText, confidence } = data ?? ({} as MissionResult);
   if (!ID.test(taskId || "") || !clipped(firstAnswer) || !clipped(transferText)) {
     throw new Error("Mission needs a task ID, first answer and nonempty transfer");
   }
@@ -238,9 +247,15 @@ export function completeMission(state: LearnerState, data: MissionResult, now: D
     secondAnswer: clipped(secondAnswer), repairCorrect: typeof repairCorrect === "boolean" ? repairCorrect : null,
     transferText: clipped(transferText), transferScoring: "ungraded",
     skill: "grammar", completedAt: now.toISOString(),
+    ...(isConfidence(confidence) ? { confidence } : {}),
   };
   next.attempts = [...next.attempts, completion].slice(-HISTORY_LIMIT);
-  next.cards[taskId] = updateCard(next.cards[taskId], firstCorrect, now);
+  // LE-11: a right answer the learner marked as a guess is not a confident recall — it comes back the next day, without
+  // being counted as a failure (the answer was right). Every other case keeps the documented 1/3/7/14/30 rule.
+  const prior = next.cards[taskId];
+  next.cards[taskId] = firstCorrect && confidence === "guess"
+    ? { ...updateCard(prior, false, now), failures: prior?.failures ?? 0, lastCorrect: true }
+    : updateCard(prior, firstCorrect, now);
   if (!firstCorrect) {
     next.errors = [...next.errors, {
       taskId, grammarTag: completion.grammarTag, at: completion.completedAt,
@@ -311,4 +326,30 @@ export function skillSummary(state: LearnerState) {
       ungraded: xs.filter(e => e.status === "ungraded").length,
     }];
   })) as Record<Skill, { completed: number; scored: number; correct: number; ungraded: number }>;
+}
+
+/**
+ * LE-11 calibration, for the learner only: per own mark, how many first answers were right. Counts, never a %, level or
+ * YKI result (AC-57). Attempts without a mark are not counted here.
+ */
+export function calibrationSummary(state: Pick<LearnerState, "attempts">): Record<Confidence, { answers: number; right: number }> {
+  const out = { sure: { answers: 0, right: 0 }, unsure: { answers: 0, right: 0 }, guess: { answers: 0, right: 0 } };
+  for (const a of state.attempts ?? []) {
+    if (!isConfidence(a.confidence)) continue;
+    out[a.confidence].answers += 1;
+    if (a.firstCorrect === true) out[a.confidence].right += 1;
+  }
+  return out;
+}
+
+/**
+ * What the mark and the first answer say together, for one calm sentence after the feedback (never a judgement of the
+ * person). "confident_miss": sure but wrong — the moment to compare carefully (hypercorrection); "lucky": right while
+ * unsure or guessing — worth checking again; "sure_right" and "unsure_miss": the feeling matched the answer.
+ */
+export type ConfidenceNote = "confident_miss" | "lucky" | "sure_right" | "unsure_miss";
+export function confidenceNote(confidence: Confidence | undefined, firstCorrect: boolean): ConfidenceNote | null {
+  if (!isConfidence(confidence)) return null;
+  if (confidence === "sure") return firstCorrect ? "sure_right" : "confident_miss";
+  return firstCorrect ? "lucky" : "unsure_miss";
 }

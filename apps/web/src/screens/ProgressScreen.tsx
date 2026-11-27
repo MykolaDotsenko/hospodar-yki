@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { delayedTransferQueue, dueCards, independentCheckTimeline, practiceDue, skillRetentionQueue, type LearnerState, type PlaceId, type Skill, type TimelinePoint } from "@hospodar/domain";
+import { calibrationSummary, delayedTransferQueue, dueCards, independentCheckTimeline, practiceDue, skillRetentionQueue, type LearnerState, type PlaceId, type Skill, type TimelinePoint } from "@hospodar/domain";
 import { baseline, DIAGNOSTIC_PRODUCTION_IDS } from "../content/diagnostic.ts";
 import { skillRetentionBank } from "../content/skillRetention.ts";
 import { exercises } from "../content/cloze.ts";
@@ -82,6 +82,17 @@ export function ProgressScreen({ state, examRepository, onHome, onLearn, onPract
             <li>Виправлено з підказкою (не рахується як самостійне): <strong>{guided}</strong></li>
             <li>Власні речення в новій ситуації (без оцінки): <strong>{a.filter(x => x.transferText).length}</strong></li>
           </ul>
+          {(() => {                                                              // LE-11 / AC-57: own mark vs first answer, counts only
+            const c = calibrationSummary(state);
+            const rows = ([["sure", "«Знаю»"], ["unsure", "«Не впевнений(а)»"], ["guess", "«Вгадую»"]] as const).filter(([k]) => c[k].answers > 0);
+            return rows.length > 0 && (
+              <div data-testid="calibration">
+                <h3>Твоє відчуття і перші відповіді</h3>
+                <ul>{rows.map(([k, label]) => <li key={k}>Коли ти позначав(ла) {label}: правильно <strong>{c[k].right}</strong> з {c[k].answers}</li>)}</ul>
+                <p className="muted">Це лише для тебе: де відчуття «знаю» розходиться з відповіддю, варто повторити уважніше. Не оцінка й не рівень.</p>
+              </div>
+            );
+          })()}
           <h2>Відкладені перевірки 7 / 14 / 30</h2>
           <ul>
             <li>Виконано (без оцінки): <strong>{retDone}</strong></li>

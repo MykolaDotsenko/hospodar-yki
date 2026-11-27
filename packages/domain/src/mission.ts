@@ -9,7 +9,7 @@
  * - Repair is one guided second attempt; it never changes `firstCorrect`.
  * - Transfer is free production, always ungraded.
  */
-import { checkCloze, type ClozeTask, type MissionResult } from "./learner.ts";
+import { checkCloze, isConfidence, type ClozeTask, type Confidence, type MissionResult } from "./learner.ts";
 
 export type MissionPhase = "answer" | "repair" | "feedback" | "transfer" | "done";
 export interface MissionState {
@@ -20,9 +20,11 @@ export interface MissionState {
   secondAnswer: string;
   repairCorrect: boolean | null;
   transferText: string;
+  /** LE-11: the learner's optional own mark, given with the first answer and frozen with it. */
+  confidence?: Confidence;
 }
 export type MissionEvent =
-  | { type: "SUBMIT_FIRST"; answer: string }
+  | { type: "SUBMIT_FIRST"; answer: string; confidence?: Confidence | null }
   | { type: "SUBMIT_REPAIR"; answer: string }
   | { type: "CONTINUE" }
   | { type: "SUBMIT_TRANSFER"; text: string };
@@ -42,7 +44,8 @@ export function missionReducer(state: MissionState, task: ClozeTask, event: Miss
       if (state.phase !== "answer") return refuse();
       const r = checkCloze(task, event.answer);
       if (!r.valid) throw new MissionError("EMPTY_ANSWER", "Write an answer first");
-      return { ...state, firstAnswer: event.answer.trim(), firstCorrect: r.correct, phase: r.correct ? "feedback" : "repair" };
+      return { ...state, firstAnswer: event.answer.trim(), firstCorrect: r.correct, phase: r.correct ? "feedback" : "repair",
+        ...(isConfidence(event.confidence) ? { confidence: event.confidence } : {}) };
     }
     case "SUBMIT_REPAIR": {
       if (state.phase !== "repair") return refuse();
@@ -80,5 +83,6 @@ export function missionResult(state: MissionState, grammarTag?: string): Mission
     taskId: state.taskId, firstAnswer: state.firstAnswer, firstCorrect: state.firstCorrect,
     secondAnswer: state.secondAnswer, repairCorrect: state.repairCorrect, transferText: state.transferText,
     ...(grammarTag !== undefined ? { grammarTag } : {}),
+    ...(isConfidence(state.confidence) ? { confidence: state.confidence } : {}),
   };
 }
