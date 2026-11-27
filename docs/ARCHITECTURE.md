@@ -891,3 +891,12 @@ Kept after checking: Finlandica for Finnish, because it tells I, l and 1 apart (
 - Measured on a beta build: the entry script went from 2.05 MB (484 KB gzip) to 1.54 MB (354 KB gzip; about 400 KB gzip with the shared React chunk) before the first screen.
 - The offline shell still precaches every chunk (`offline-manifest.json`), so the exam opens offline after one online visit.
 - **Tests:** `e2e/offline.spec.ts` «the first screen does not load the exam, media or reviewer code; the exam still opens offline». Not measured: real-device load time (R7-14 stays NOT_YET).
+
+## 2026-11-27 — own confidence mark before the first answer (LE-11, AC-57)
+
+- **Flow (cloze missions only):** before «Перевірити» the learner may mark «Знаю» / «Не впевнений(а)» / «Вгадую»; skipping changes nothing. The mark travels with `SUBMIT_FIRST`, is frozen with the first answer and survives a reload (the mission draft admits it only after the first answer). After the key one calm sentence relates mark and answer (`confidenceNote`): a confident miss invites a careful comparison (hypercorrection), a right answer while unsure is named as one to check again.
+- **Schedule:** a right answer marked «Вгадую» comes back the next day without counting a failure; everything else keeps the 1/3/7/14/30 rule.
+- **Progress:** «Твоє відчуття і перші відповіді» — per used mark, how many first answers were right (`calibrationSummary`); counts only, never a %, level or YKI result; hidden when no mark was used.
+- **Schema:** optional `confidence` on a `MissionAttempt` (web only; legacy `app/core.mjs` never writes it and keeps such records). Backup restore admits exactly this one extra attempt field with a known value; an older export restores unchanged. Not in the research export.
+- **Evidence and limits:** [research #27 §7](../research/pedagogy/27-cognitive-memory-attention-psychology-2026-10.md); no effect is claimed until the R01 pilot. Not in EXAM or free production.
+- **Tests:** `packages/domain/test/confidence.test.ts`, `e2e/mission.spec.ts` (LE-11 tests).

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-  completeMission, locationSchemeFor, missionReducer, missionResult, missionView, startMission,
+  completeMission, confidenceNote, type Confidence, locationSchemeFor, missionReducer, missionResult, missionView, startMission,
   type LearnerState, type MissionPhase, type MissionState, MissionError,
 } from "@hospodar/domain";
 import { exercises, isDraft, type ClozeExercise } from "../content/cloze.ts";
@@ -23,6 +23,16 @@ const STEPS: Array<{ phase: MissionPhase; label: string }> = [
 ];
 
 /** R06: transparent deterministic ranking; falls back to the first item only if nothing ranks. */
+
+/** LE-11 / AC-57: the learner's own mark and what it says next to the answer — never a score, level or judgement. */
+const CONFIDENCE_UK: Record<Confidence, string> = { sure: "Знаю", unsure: "Не впевнений(а)", guess: "Вгадую" };
+const CONFIDENCE_NOTE_UK: Record<NonNullable<ReturnType<typeof confidenceNote>>, string> = {
+  confident_miss: "Ти був(ла) упевнений(а), а форма інша. Такі несподіванки добре запам'ятовуються, якщо зараз спокійно порівняти обидві форми.",
+  lucky: "Правильно, хоча ти не був(ла) певен(на): наступне повторення покаже, чи знання вже твоє.",
+  sure_right: "Ти був(ла) упевнений(а) — і відповідь правильна.",
+  unsure_miss: "Ти й сам(а) відчував(ла), що тут ще не певно. Повторимо завтра.",
+};
+
 export function selectExercise(state: LearnerState): { exercise: ClozeExercise; options: Recommendation[] } {
   const options = recommend(state);
   return { exercise: options[0]?.exercise ?? exercises[0]!, options };
@@ -50,6 +60,8 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
   const why = options.find(o => o.exercise.id === task.id)?.why ?? [];
   const scheme = locationSchemeFor(task);                            // UIO-06: only for a place relation, only in feedback
   const [mission, setMission] = useState<MissionState>(() => startMission(task.id));
+  // LE-11: the learner's optional own mark for the answer just written — chosen before «Перевірити», frozen with it.
+  const [confidence, setConfidence] = useState<Confidence | null>(null);
   const [input, setInput] = useState("");
   // Updated synchronously in the DOM input event, so rapid Save & Exit cannot use a stale React render.
   const inputRef = useRef("");
@@ -148,7 +160,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
     try {
       const latest = latestFieldText();
       inputRef.current = latest;
-      const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: latest }
+      const event = mission.phase === "answer" ? { type: "SUBMIT_FIRST" as const, answer: latest, confidence }
         : mission.phase === "repair" ? { type: "SUBMIT_REPAIR" as const, answer: latest }
         : mission.phase === "feedback" ? { type: "CONTINUE" as const }
         : { type: "SUBMIT_TRANSFER" as const, text: latest };
@@ -214,7 +226,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
       }
       lastWritten.current = "";
       setBlocked(null); setRecovered(false);
-      setMission(startMission(task.id)); inputRef.current = ""; setInput(""); setDraftStatus("idle");
+      setMission(startMission(task.id)); setConfidence(null); inputRef.current = ""; setInput(""); setDraftStatus("idle");
       setError(null); setChoosing(false);
     } catch (e) {
       setError("Не вдалося відкинути чернетку (" + String((e as { code?: string })?.code ?? "SAVE_FAILED") + ").");
@@ -226,7 +238,7 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
       setError("Для зміни завдання спочатку явно відкинь поточну чернетку."); return;
     }
     editGeneration.current++;
-    setTask(t); setMission(startMission(t.id)); setSave({ kind: "idle" });
+    setTask(t); setMission(startMission(t.id)); setConfidence(null); setSave({ kind: "idle" });
     inputRef.current = ""; setInput(""); setError(null); setChoosing(false); setRecovered(false);
   }
   function nextMission() {
@@ -277,6 +289,10 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
           {task.semantic_relation_uk && <p className="meaning-first"><span className="meaning-label">Значення форми</span><span className="meaning-text">{task.semantic_relation_uk}</span></p>}
           <p lang="fi"><span className="learning-cue">{task.answer_fi}</span></p>
           {task.explanation_uk && <p>{task.explanation_uk}</p>}
+          {mission.firstCorrect !== null && (() => {                          // LE-11: the own mark and the answer, one calm sentence
+            const note = confidenceNote(mission.confidence, mission.firstCorrect);
+            return note && <p className="muted" data-testid="confidence-note">{CONFIDENCE_NOTE_UK[note]}</p>;
+          })()}
           {scheme && <LocationScheme key={task.id} scheme={scheme} />}
         </div>
       )}
@@ -293,6 +309,16 @@ export function MissionScreen({ repository, snapshot, onSaved, onHome, initialTa
                 ? <textarea id="mission-input" className="answer" lang="fi" rows={3} maxLength={1600} disabled={working} value={input} onChange={e => { inputRef.current = e.target.value; editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />
                 : <input id="mission-input" className="answer" lang="fi" autoComplete="off" autoCapitalize="none" spellCheck={false} disabled={working} value={input} onChange={e => { inputRef.current = e.target.value; editGeneration.current++; setInput(e.target.value); setDraftStatus("dirty"); }} aria-describedby={error ? "mission-error" : undefined} />}
             </>
+          )}
+          {mission.phase === "answer" && (
+            <fieldset className="choices-set confidence-set">
+              <legend>Наскільки ти впевнений(а) у своїй відповіді? <span className="muted">(за бажанням)</span></legend>
+              {(Object.keys(CONFIDENCE_UK) as Confidence[]).map(c => (
+                <label key={c} className="radio"><input type="radio" name="mission-confidence" checked={confidence === c} disabled={working}
+                  onChange={() => setConfidence(c)} /> {CONFIDENCE_UK[c]}</label>
+              ))}
+              {confidence && <button type="button" className="link-btn" disabled={working} onClick={() => setConfidence(null)}>Не позначати</button>}
+            </fieldset>
           )}
           {error && <p id="mission-error" className="feedback error" role="alert">{error}</p>}
           <div className="actions">
